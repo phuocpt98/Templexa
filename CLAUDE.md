@@ -11,7 +11,7 @@ Templexa/
 ├── product-detail.html       # Chi tiết sản phẩm
 ├── contact.html              # Dịch vụ / Liên hệ
 ├── assets/
-│   ├── css/style.css         # Stylesheet chính (~2250 dòng, dùng CSS variables)
+│   ├── css/style.css         # Stylesheet chính (~2900 dòng, CSS variables + dark mode overrides)
 │   ├── js/
 │   │   ├── data.js           # Data products, categories, pricing, API config, helper functions
 │   │   ├── main.js           # JS chung (dark mode, hamburger menu, slider, scroll effects)
@@ -31,8 +31,8 @@ Templexa/
 ## Tech Stack
 
 - HTML/CSS/JS thuần (Vanilla) — không dùng framework
-- Font: Inter (Google Fonts)
-- Responsive: dùng clamp() và media queries
+- Font: Inter (Google Fonts) + Averia Serif Libre (logo)
+- Responsive: dùng `clamp()` và media queries (1024px, 768px, 480px)
 - Animations: IntersectionObserver cho scroll animations
 - CSS Variables cho dark mode (`--bg-primary`, `--text-primary`, `--accent`, ...)
 
@@ -45,6 +45,8 @@ Templexa/
 - Giữ code đơn giản, dễ đọc
 - Không thêm dependency/thư viện mới khi không cần thiết
 - Commit message bằng tiếng Việt hoặc tiếng Anh đều được
+- **Không dùng inline styles cho màu sắc** — luôn dùng CSS class để hỗ trợ dark mode
+- **Mặc định light mode** — chỉ chuyển dark khi user click toggle
 
 ## Design System
 
@@ -52,12 +54,12 @@ Templexa/
 
 | Vai trò | Mã màu | Dùng ở đâu |
 |---------|--------|-------------|
-| **Indigo** | `#6366F1` | Buttons, borders active, filter active, badge dot, slider badge |
+| **Indigo** | `#6366F1` | Buttons, borders active, filter active, badge dot, slider badge, pricing highlight |
 | **Indigo Dark** | `#4F46E5` | Button gradient end, hover states |
-| **Purple** | `#7C3AED` | Hero badge icon, showcase icon bg |
+| **Purple** | `#7C3AED` | Hero badge icon, showcase icon bg, contact hero spot |
 | **Purple Deep** | `#5B21B6` | Showcase icon gradient end |
 | **Violet** | `#A855F7` | Hero gradient text mid-point |
-| **Blue** | `#3B82F6` | Hero gradient text end |
+| **Blue** | `#3B82F6` | Hero gradient text end, target card left icon, contact CTA button |
 
 ### Gradient patterns
 
@@ -65,12 +67,12 @@ Templexa/
 |-----|---------|-------------|
 | **Hero text** | `linear-gradient(135deg, #6366F1, #A855F7 50%, #3B82F6)` | `.hero h1 .gradient-text` |
 | **CTA text** | `linear-gradient(135deg, #6366F1, #4F46E5)` | `.cta h2 .gradient-text` |
-| **Button CTA** | `linear-gradient(135deg, #6366F1, #4F46E5)` | `.cta-btn`, `.hero-cta` |
+| **Button primary** | `linear-gradient(135deg, #6366F1, #8B5CF6)` | `.btn-primary`, pricing CTA highlighted |
 | **Showcase bg** | `linear-gradient(155deg, #6366F1 0%, #4F46E5 50%, #6734DA 75%, #7E22CE 100%)` | `.showcase` section |
-| **Showcase icon 1** | `linear-gradient(135deg, #7C3AED, #5B21B6)` | `.icon-purple` |
-| **Showcase icon 2** | `linear-gradient(135deg, #397FED, #0D6C94)` | `.icon-blue` |
-| **Products hero bg** | `radial-gradient(ellipse 60% 70% at 50% 40%, rgba(99,102,241,0.20), #F8FAFC 70%)` | `.products-hero` |
-| **Products hero text** | `linear-gradient(135deg, #6366F1, #A855F7)` | `.products-hero .gradient-text` |
+| **Contact hero bg** | `radial-gradient spots on #4F46E5` | `.contact-hero` (2 spots: bottom-left, top-right) |
+| **Contact CTA bg** | `radial-gradient spots on #4527A0` | `.contact-cta-section > .container` |
+| **Contact hero text** | `linear-gradient(90deg, #93C5FD, #C4B5FD)` | `.contact-hero .gradient-text` |
+| **Pricing price highlighted** | `linear-gradient(135deg, #6366F1, #8B5CF6)` | `.pricing-card.highlighted .pricing-price` |
 
 ### Màu nền & text (CSS Variables)
 
@@ -82,165 +84,220 @@ Templexa/
 | `--text-secondary` | `#355066` | `#94A3B8` |
 | `--text-tertiary` | `#5E7A90` | `#64748B` |
 | `--border-color` | `#D6ECF7` | `#1A3A4D` |
-| `--accent` | `#1D97C2` | (giữ nguyên) |
-
-### Màu hardcoded (không qua CSS variable)
-
-| Mã màu | Vai trò |
-|--------|---------|
-| `#111827` | Heading đậm (benefits, templates section) |
-| `#6B7280` | Text muted (hero desc, footer links) |
-| `#4B5563` | Text body (benefit cards) |
-| `#F9FAFB` | Footer background, benefit cards bg |
-| `#F8FAFC` | Templates section bg |
-| `#F3F4F6` | Footer top border |
-| `#E5E7EB` | Card borders, footer bottom separator |
-| `#94A3B8` | Copyright text |
-| `#9CA3AF` | Disabled button text (filter "Khác") |
+| `--card-bg` | `#FFFFFF` | `#1E293B` |
+| `--card-hover-bg` | `#F4FBFF` | `#334155` |
+| `--input-bg` | `#FFFFFF` | `#1E293B` |
+| `--input-border` | `#D6ECF7` | `#1A3A4D` |
 
 ### Font
 
 - **Family**: Inter (Google Fonts) + Averia Serif Libre (logo)
-- **Weights**: 400 (body), 500 (medium), 600 (semi-bold, headings nhỏ), 700 (bold, headings), 800 (extra-bold, hero)
+- **Weights**: 400 (body), 500 (medium), 600 (semi-bold), 700 (bold), 800 (extra-bold, hero)
 
 ### Border radius & Shadow
 
 - Cards: `12–24px` | Buttons: `30–34px` pill | Icon boxes: `16px`
 - Card shadow: `0 4px 15px rgba(0,0,0,0.05)` | CTA button: `0 10px 30px rgba(99,102,241,0.3)`
 
-### Dark mode
+## Dark Mode
 
-- Toggle icon: moon/sun, lưu `localStorage`, hỗ trợ `prefers-color-scheme`
+### Cơ chế hoạt động
+- Toggle icon: moon/sun, lưu `localStorage`
+- **Mặc định: light mode** — không auto-detect system preference
 - Attribute: `[data-theme="dark"]` trên `<html>`
-- Footer, footer-bottom có rule riêng cho dark mode (fallback về CSS variables)
+- JS: `main.js` → `setTheme(saved || 'light')`
 
-## Thiết kế các trang (từ mockup trong /docs)
+### Quy tắc khi thêm element mới
+1. Nếu dùng CSS variable → tự động hoạt động cả 2 mode
+2. Nếu hardcode màu (hex) → **BẮT BUỘC** thêm `[data-theme="dark"]` override
+3. Pattern dark override cho background nhạt: `rgba(accent, 0.15)` thay vì pastel hex
+4. Pattern dark override cho text đậm: dùng `var(--text-primary)` hoặc `var(--text-secondary)`
+5. Form messages: dùng CSS class `.form-msg-success` / `.form-msg-error` (không inline style)
 
-### 1. Trang chủ — `index.html` ✅ Đã cập nhật theo mockup
+### Cấu trúc dark mode trong CSS
+```
+/* style.css layout: */
+1. CSS Variables (light)
+2. [data-theme="dark"] variables
+3. ... component styles ...
+4. Scattered dark overrides (footer, products-hero, detail-page, pricing, target)
+5. ★ DARK MODE — ALL HARDCODED OVERRIDES (block tập trung trước responsive)
+   - Homepage: hero-badge, h1, services, templates, benefit-card, slider
+   - Products: filter-btn, product-card-image, product-badge
+   - Product detail: price-badge, sidebar-features, modal-icon
+   - Contact: pricing-discount, pricing-card h3, process-grid, target-card svg
+   - Form messages: .form-msg-success, .form-msg-error
+6. ADDITIONAL RESPONSIVE (@media queries)
+```
+
+## Responsive Design
+
+### Breakpoints
+
+| Breakpoint | Áp dụng |
+|------------|---------|
+| `1024px` | Tablet: 2 cột cho products/pricing/process, detail layout 1 cột, contact CTA stack |
+| `768px` | Mobile: 1 cột cho products/pricing/target, pricing min-heights auto, CTA padding giảm |
+| `480px` | Small mobile: process 1 cột + ẩn connecting line, related 1 cột, contact hero buttons stack |
+
+### Grid responsive summary
+
+| Grid | Desktop | 1024px | 768px | 480px |
+|------|---------|--------|-------|-------|
+| `.services-grid` | 4 cols | 2 cols | 1 col | — |
+| `.benefits-grid` | 4 cols | 2 cols | 1 col | — |
+| `.products-grid` | 3 cols | 2 cols | 1 col | — |
+| `.footer-grid` | 4 cols | 2 cols | 2 cols | 1 col |
+| `.pricing-grid` | 4 cols | 2 cols | 1 col | — |
+| `.related-grid` | 4 cols | 2 cols | 2 cols | 1 col |
+| `.process-grid` | 4 cols | 2 cols | — | 1 col |
+| `.contact-cta-grid` | 2 cols | 1 col | — | — |
+| `.target-grid` | 2 cols | — | 1 col | — |
+
+### Responsive notes
+- Dùng `clamp()` cho font-size, padding, gap → fluid giữa các breakpoints
+- Pricing: `min-height` trên features/desc bị reset `auto` ở 768px
+- Contact CTA: `.contact-cta-left` height auto ở mobile, `.contact-direct` dùng `margin-top: 24px` thay `auto`
+
+## Thiết kế các trang
+
+### 1. Trang chủ — `index.html` ✅
 - **Header**: Logo (Averia Serif Libre) + Nav (centered) + Dark mode toggle + Hamburger (mobile)
-- **Hero**: Badge tím `#7C3AED` + Heading gradient (`#6366F1→#A855F7→#3B82F6`) + mô tả + CTA "Bắt Đầu Ngay" (bg `#111827`)
+- **Hero**: Badge tím + Heading gradient + mô tả + CTA "Bắt Đầu Ngay"
 - **Lý Do Chọn Chúng Tôi**: 4 icon cards (img SVG)
-- **Các Mẫu Nổi Bật**: Slider/carousel, card giữa có badge "Most Popular" (bg `#6366F1`)
-- **Lợi ích**: 4 cards với icon SVG (benefits_icon_1–4.svg), bg `#F9FAFB`
-- **Showcase**: Background gradient tím (`#6366F1→#4F46E5→#6734DA→#7E22CE`)
-  - Wave top: `M0 10L1440 43` (fill `--bg-primary`)
-  - Wave bottom: Y range 10%–80% (tím tối thiểu 20%)
-  - Badge "CẬP NHẬT NHANH CHÓNG": nền `rgba(124,58,237,0.08)`, border `rgba(124,58,237,0.5)`
-  - 2 feature items với icon SVG bo tròn gradient (icon-purple, icon-blue) + mô tả nhỏ
-  - Ảnh showcase.svg: `max-width: clamp(280px, 30vw, 460px)`, căn giữa
-- **CTA cuối**: Heading gradient text (`#6366F1→#4F46E5`) + button gradient indigo + icon play triangle
-- **Footer**: 4 cột chia đều (`repeat(4, 1fr)`), bg `#F9FAFB`, border `#F3F4F6`
-  - Dịch Vụ: links → `contact.html?service=xxx#pricing-section`
-  - Sản phẩm: links → `products.html?category=xxx`
-  - Liên Hệ: "Yêu cầu báo giá" → `contact.html#contactForm`
-  - Copyright: căn phải (`justify-content: flex-end`)
+- **Các Mẫu Nổi Bật**: Slider/carousel, card giữa có badge "Most Popular"
+- **Lợi ích**: 4 cards với icon SVG (benefits_icon_1–4.svg)
+- **Showcase**: Background gradient tím, wave dividers, 2 feature items
+- **CTA cuối**: Heading gradient text + button gradient
+- **Footer**: 4 cột, links có URL params
 
-### 2. Danh sách thiết kế — `products.html` (hero + filters ✅)
-- **Hero**: Background `radial-gradient(ellipse 60% 70% at 50% 40%, rgba(99,102,241,0.20), #F8FAFC 70%)`
-  - Heading: `color: #111827`, gradient text `#6366F1→#A855F7`
-  - Mô tả: `color: #6B7280`
-  - Search bar: `border-radius: 10px`, bg `#ffffff`, border `#E5E7EB`, focus border `#6366F1`
-  - Search debounce 300ms, hỗ trợ URL param `?search=keyword`
-- **Filters**: Background `#ffffff`, `border-bottom: 1px solid #E5E7EB`
-  - Layout: flexbox `justify-content: space-between` — category trái, type phải
-  - Buttons: transparent bg, `border-right: 1px solid #E5E7EB` giữa các button, `last-child` không border
-  - Active/hover: `color: #6366F1`, `border-bottom: 2px solid #6366F1`
-  - Button "Khác ▾": disabled, `color: #9CA3AF`, `cursor: default`
-  - Hỗ trợ URL params `?category=xxx` và `?type=xxx`
-- **Grid sản phẩm**: 3 cột (responsive 2→1), card có ảnh + badge (NEW/HOT/FREE) + tên + danh mục
-- **Phân trang**: « Trang đầu ‹ 1 2 3 ... › Trang cuối » (9 items/page)
+### 2. Danh sách thiết kế — `products.html` ✅
+- **Hero**: radial-gradient bg, gradient text, search bar (debounce 300ms)
+- **Filters**: flexbox row, category + type, active indigo, URL params
+- **Grid sản phẩm**: 3 cột, card có ảnh + badge + tên + danh mục
+- **Phân trang**: 9 items/page
 
-### 3. Chi tiết sản phẩm — `product-detail.html`
-- **Breadcrumb**: Danh sách thiết kế > Danh mục > Tên sản phẩm
-- **Layout 2 cột** (responsive → 1 cột):
-  - Trái: Gallery ảnh (main + thumbnails click được)
-  - Phải (sidebar sticky): Badge giá + "Dùng ngay" + "Xem demo" + Tính năng + "Yêu cầu tùy chỉnh"
-- **Action bar**: Save ♡ | Share ↗ | Last updated
-- **Related products**: 4 cards cùng danh mục
-- **Modal "Nhận mẫu"**: Form (Email*, Họ tên, SĐT, checkbox) → submit Google Sheets
-- **Modal thành công**: Icon check + message + "Đóng"
-- URL pattern: `product-detail.html?id=1`
+### 3. Chi tiết sản phẩm — `product-detail.html` ✅
+- **Breadcrumb**: links với URL params category filter
+- **Layout 2 cột**: Gallery (main + thumbs) + Sidebar sticky
+- **Sidebar**: Badge giá, "Dùng ngay" (gradient), "Xem demo", features list, "Yêu cầu tùy chỉnh"
+- **Action bar**: Save (toggle purple, sessionStorage) + Share + Last updated
+- **Related products**: 4 cards cùng danh mục (getRelatedProducts)
+- **Modal "Nhận mẫu"**: Email* + Họ tên + SĐT + checkbox required → Google Sheets
+- **Modal thành công**: Icon check + message
+- Form data: `{ email, name, phone, reference: window.location.href, service: '', note: '', status: 'submit' }`
 
-### 4. Dịch vụ — `contact.html`
-- **Hero**: Background gradient tím + 2 CTA (white + ghost)
-- **Quy Trình Hợp Tác**: 4 bước (icon cards)
-- **Các Gói Dịch Vụ**: 4 pricing cards (render từ PRICING trong data.js)
-  - BASIC: 699.000đ | PRO (highlighted): 2.999.000đ | PREMIUM: 8.000.000đ | CUSTOM: Liên hệ
-  - Click "Chọn Gói Ngay" → scroll to form + auto-select service
-- **CTA "Sẵn sàng để bứt phá?"**: Gradient bg, 2 cột (cam kết + form tư vấn)
-- **Giải Pháp Dành Cho Ai?**: 2 cards (Doanh Nghiệp + Thương Hiệu Cá Nhân)
+### 4. Dịch vụ — `contact.html` ✅
+- **Hero**: `min-height: 100vh`, radial-gradient spots tím trên `#4F46E5`
+  - Gradient text: `linear-gradient(90deg, #93C5FD, #C4B5FD)`
+  - Button: `linear-gradient(90deg, #3B82F6, #7C3AED)`
+- **Quy Trình Hợp Tác**: 4 bước với icon SVG (`contact_icon_1-4.svg`)
+  - Process number badges (01–04) góc phải trên icon
+  - Connecting line solid qua giữa icons (`process-grid::before`)
+- **Các Gói Dịch Vụ**: 4 pricing cards, click to highlight
+  - Mỗi gói có: `name`, `price`, `originalPrice`, `showOriginalPrice`, `discount`, `description`, `features`
+  - BASIC: 699.000đ (gốc 1.500.000đ, -55%) | PRO highlighted: 2.999.000đ (gốc 5.000.000đ, -40%)
+  - PREMIUM: 8.000.000đ | CUSTOM: Liên hệ
+  - Highlighted card cao hơn (extra padding), "PHỔ BIẾN NHẤT" badge
+  - Pricing price highlighted: gradient text
+  - Min-height trên header/desc/original-price/price/features để căn bằng
+  - Click CTA → scroll to form + auto-select service
+- **CTA "Sẵn sàng để bứt phá?"**:
+  - Container có gradient bg + border-radius 20px + box-shadow
+  - 2 cột 50/50: cam kết (showcase icons) + form tư vấn (card shadow)
+  - "Liên hệ trực tiếp:" + email + hr divider, căn sát đáy trái
+- **Giải Pháp Dành Cho Ai?**: 2 cards
+  - Card trái: icons xanh `#3B82F6` | Card phải: icons tím `#6366F1`
+  - Icon trong `<li>` có vòng tròn background
 
 ## Trạng thái tiến độ
 
 | Trang / Tính năng | File | Trạng thái |
 |-------|------|-----------|
-| Trang chủ | `index.html` | Hoàn thành |
-| Danh sách thiết kế | `products.html` + `products.js` | Hoàn thành |
-| Chi tiết sản phẩm | `product-detail.html` + `product-detail.js` | Hoàn thành |
-| Dịch vụ | `contact.html` + `contact.js` | Hoàn thành |
-| Dark mode | CSS variables + `main.js` | Hoàn thành |
-| Mobile menu | Hamburger + slide-in + overlay | Hoàn thành |
-| Modal nhận mẫu | `product-detail.js` | Hoàn thành |
-| Modal thành công | `product-detail.js` | Hoàn thành |
-| Đổi tên thư mục sản phẩm | 152 folders → kebab-case | Hoàn thành |
-| Đổi tên HTML → index.html | Tất cả code.html → index.html | Hoàn thành |
-| Data sản phẩm | `data.js` — 10 sản phẩm mẫu (2/category) | Hoàn thành (cần thêm 142 sản phẩm còn lại) |
+| Trang chủ (light) | `index.html` | ✅ Hoàn thành |
+| Danh sách thiết kế (light) | `products.html` + `products.js` | ✅ Hoàn thành |
+| Chi tiết sản phẩm (light) | `product-detail.html` + `product-detail.js` | ✅ Hoàn thành |
+| Dịch vụ (light) | `contact.html` + `contact.js` | ✅ Hoàn thành |
+| Dark mode | CSS overrides (~40 rules) + `main.js` | ✅ Hoàn thành |
+| Responsive | 3 breakpoints (1024, 768, 480) | ✅ Hoàn thành |
+| Mobile menu | Hamburger + slide-in + overlay | ✅ Hoàn thành |
+| Modal nhận mẫu | `product-detail.js` | ✅ Hoàn thành |
+| Modal thành công | `product-detail.js` | ✅ Hoàn thành |
+| Đổi tên thư mục sản phẩm | 152 folders → kebab-case | ✅ Hoàn thành |
+| Đổi tên HTML → index.html | Tất cả code.html → index.html | ✅ Hoàn thành |
+| Data sản phẩm | `data.js` — 152 sản phẩm (đầy đủ) | ✅ Hoàn thành |
+| Footer đồng bộ | 4 trang giống nhau | ✅ Hoàn thành |
+| SEO meta tags | 4 trang (description, OG, Twitter Card) | ✅ Hoàn thành |
 
 ## Data & API
 
-- **Product data**: `assets/js/data.js` — mảng `PRODUCTS` (10 mẫu), `CATEGORIES`, `TYPES`, `PRICING` + helper functions
-- **Google Sheet API**: `API_CONFIG.GOOGLE_SHEET_API` trong `data.js` — **đã cấu hình** Google Apps Script URL
-- **Forms submit**: `submitToGoogleSheet(formData)` cho form tư vấn + form nhận mẫu
-- **Truyền data giữa trang**: `product-detail.html?id=1` → `URLSearchParams` → `getProductById(id)`
+### PRICING structure (data.js)
 
-### API Input Format
-
-Cả 2 form đều gửi cùng format JSON đến Google Sheets:
-
-```json
+```javascript
 {
-  "email": "test@gmail.com",
-  "phone": "0912345678",
-  "reference": "Facebook Ads",
-  "service": "premium",
-  "note": "Cần tư vấn ngay",
-  "status": "tư vấn"
+    id: 'pro',
+    name: 'PRO',
+    price: '2.999.000đ',          // Giá công khai
+    originalPrice: '5.000.000đ',   // Giá gốc
+    showOriginalPrice: true,        // true = hiển thị gạch ngang, false = ẩn (giữ placeholder)
+    discount: '-40%',               // Badge giảm giá ('' = không hiện)
+    description: '...',
+    features: ['...'],              // Mảng string hoặc { text, disabled }
+    highlighted: true,              // true = card nổi bật + badge "PHỔ BIẾN NHẤT"
 }
 ```
+
+### PRODUCTS structure (data.js)
+
+```javascript
+{
+    id: 1,
+    name: 'Tên sản phẩm',
+    slug: 'ten-san-pham',
+    description: 'Mô tả...',
+    category: 'onepage',           // onepage | e-commerce | invitation | portfolio | education
+    type: 'website',               // website | google-sheet
+    tags: ['tag1', 'tag2'],
+    price: 'free',                 // 'free' hoặc giá
+    images: ['./products/...'],
+    thumbnail: './products/.../screen.png',
+    demoUrl: './products/.../index.html',
+    features: ['Tính năng 1', 'Tính năng 2', 'Tính năng 3'],
+    status: 'new',                 // new | hot | (trống)
+    priority: 1,
+    downloads: 5,                 // random 1–10
+    rating: 4.8,                   // random 4.7–4.9
+    showInSlider: true,            // Hiện trên slider trang chủ
+    updatedAt: '2025-02-17',
+}
+```
+
+### API Input Format
 
 | Field | Form Tư Vấn (`contact.html`) | Form Nhận Mẫu (`product-detail.html`) |
 |-------|------------------------------|---------------------------------------|
 | `email` | Input email (required) | Input email (required) |
+| `name` | — | Input họ tên |
 | `phone` | Input SĐT | Input SĐT |
-| `reference` | Input mẫu tham khảo | Auto: `"{product.name} (ID: {id})"` |
+| `reference` | Input mẫu tham khảo | Auto: `window.location.href` |
 | `service` | Select gói dịch vụ | Để trống `''` |
-| `note` | Textarea ghi chú | Textarea ghi chú |
-| `status` | Auto: `"tư vấn"` | Auto: `"nhận mẫu"` |
+| `note` | Textarea ghi chú | Để trống `''` |
+| `status` | Auto: `"tư vấn"` | Auto: `"submit"` |
 
-### 2 loại sản phẩm (type)
+### Helper functions (data.js)
 
-| Type | Folder chứa | demoUrl | Ảnh |
-|------|-------------|---------|-----|
-| `website` | Project web thuần (HTML/CSS/JS) + ảnh | `./products/{cat}/{slug}/index.html` | Lấy từ folder project |
-| `google-sheet` | Chỉ chứa ảnh sản phẩm | Để trống `''`, điền tay link Google Sheet | Lấy từ folder project |
+| Function | Mô tả |
+|----------|-------|
+| `getSliderProducts()` | Lấy products có `showInSlider: true` |
+| `getProductById(id)` | Tìm product theo ID |
+| `getProductBySlug(slug)` | Tìm product theo slug |
+| `getProductsSorted()` | Sort theo priority |
+| `filterProducts({ category, type, search })` | Lọc products |
+| `paginateProducts(products, page, perPage)` | Phân trang (9/page) |
+| `getRelatedProducts(productId, limit)` | Cùng category, sort priority, limit 4 |
+| `submitToGoogleSheet(formData)` | Gửi form đến Google Sheets API |
 
-### Quy tắc thêm sản phẩm mới
-
-1. Tạo folder trong `products/{category}/{slug-kebab-case}/`
-2. Đặt file HTML nguồn tên `index.html` + ảnh (`screen.png`, `Screenshot_*.jpg`)
-3. Thêm object vào mảng `PRODUCTS` trong `data.js` với đầy đủ fields:
-   - `id`, `name`, `slug`, `description`, `category`, `type`, `tags`, `price`
-   - `images` (mảng paths), `thumbnail`, `demoUrl`
-   - `features` (mảng 3 items), `status`, `priority`, `downloads`, `rating`, `updatedAt`
-
-### Cấu trúc folder sản phẩm (sau khi rename)
-
-Tất cả 152 folders đã được rename về kebab-case:
-- Bỏ prefix: `Done_`, `Bug_`, số thứ tự, `web_desktop_{category}_`
-- Sửa typo: `invitaion` → `invitation`, `birrthday` → `birthday`, `lxxury` → `luxury`, `autum` → `autumn`, `arrt` → `art`
-- HTML source: tất cả đã đổi thành `index.html`
-
-## URL Parameters (đã implement)
+## URL Parameters
 
 | Trang | Param | Tác dụng |
 |-------|-------|----------|
@@ -252,39 +309,119 @@ Tất cả 152 folders đã được rename về kebab-case:
 | `contact.html` | `#contactForm` | Scroll đến form tư vấn |
 | `product-detail.html` | `?id=1` | Load sản phẩm theo ID |
 
-## Ghi chú thêm
+## Quy tắc thêm sản phẩm mới
 
-- Footer giống nhau trên tất cả 4 trang (DRY — copy HTML), links có URL params
+1. Tạo folder trong `products/{category}/{slug-kebab-case}/`
+2. Đặt file HTML nguồn tên `index.html` + ảnh (`screen.png`, `Screenshot_*.jpg`)
+3. Thêm object vào mảng `PRODUCTS` trong `data.js` với đầy đủ fields (xem PRODUCTS structure)
+4. Set `showInSlider: true` nếu muốn hiện trên slider trang chủ
+
+## Quy trình quét sản phẩm vào data.js
+
+Khi cần quét hàng loạt sản phẩm từ thư mục `products/` vào mảng `PRODUCTS` trong `data.js`:
+
+### Nguyên tắc quét
+- **Chỉ quét file HTML** (`index.html`) để lấy nội dung, tiêu đề, mô tả
+- **Không quét nội dung file ảnh** — mặc định lấy đường dẫn (link) các file ảnh trong folder
+- Xác định `type` dựa trên sự tồn tại của `index.html`: có → `website`, không có → `google-sheet`
+
+### Quy trình chi tiết
+
+1. **Liệt kê tất cả folders** trong `products/{category}/`
+   ```bash
+   ls products/{onepage,e-commerce,invitation,portfolio,education}/
+   ```
+
+2. **Xác định type** cho từng folder
+   ```bash
+   # Kiểm tra có index.html không
+   [ -f "products/{cat}/{slug}/index.html" ] && echo "website" || echo "google-sheet"
+   ```
+
+3. **Lấy danh sách ảnh** trong folder (chỉ lấy đường dẫn, KHÔNG đọc nội dung ảnh)
+   ```bash
+   ls products/{cat}/{slug}/ | grep -iE '\.(png|jpg|jpeg|gif|svg|webp)$'
+   ```
+   - Ưu tiên thumbnail: `screen.png` > file `.png` đầu tiên > file ảnh đầu tiên
+   - Sắp xếp: `screen.png` trước, rồi các `.png`, rồi `Screenshot_*.jpg` theo thứ tự
+
+4. **Tạo product entry** với các field:
+   - `id`: tự tăng từ ID cuối cùng + 1
+   - `name`: chuyển slug thành Title Case (`kebab-case` → `Kebab Case`)
+   - `slug`: giữ nguyên tên folder
+   - `description`: sinh từ category + name
+   - `category`: tên folder cha (`onepage`, `e-commerce`, ...)
+   - `type`: `website` hoặc `google-sheet`
+   - `tags`: sinh từ category + keywords trong slug
+   - `price`: `'free'`
+   - `images`: mảng đường dẫn ảnh `./products/{cat}/{slug}/{filename}`
+   - `thumbnail`: ảnh ưu tiên theo quy tắc trên
+   - `demoUrl`: `website` → `./products/{cat}/{slug}/index.html` | `google-sheet` → `''`
+   - `features`: 3 tính năng sinh theo category
+   - `status`: `'new'`
+   - `priority`: tự tăng
+   - `downloads`: random `1–10`
+   - `rating`: random `4.7–4.9`
+   - `showInSlider`: `false` (bật thủ công cho sản phẩm nổi bật)
+   - `updatedAt`: ngày hiện tại
+
+5. **Chèn vào data.js** — thêm trước dấu `];` đóng mảng PRODUCTS
+
+### Lưu ý
+- Nếu cần cập nhật mô tả chính xác hơn: đọc `index.html` lấy `<title>` và `<meta description>`
+- Không cần mở/render ảnh — chỉ cần đường dẫn file
+- File ảnh có thể có khoảng trắng trong tên (VD: `creative agency coming soon.png`) — xử lý bình thường trong JS
+- Dùng script Node.js cho quét hàng loạt, xóa script sau khi xong
+
+## SEO & Meta Tags
+
+Mỗi trang HTML đều có đầy đủ SEO tags trong `<head>`:
+
+```html
+<!-- Cơ bản -->
+<meta name="description" content="Mô tả riêng cho từng trang">
+<meta name="keywords" content="từ khóa SEO">
+<meta name="author" content="Templexa Studio">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#6366F1">
+<link rel="canonical" href="https://templexa.com/{page}">
+
+<!-- Open Graph (Facebook, Zalo, ...) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tiêu đề trang">
+<meta property="og:description" content="Mô tả ngắn">
+<meta property="og:image" content="https://templexa.com/assets/images/og-image.png">
+<meta property="og:url" content="https://templexa.com/{page}">
+<meta property="og:site_name" content="Templexa">
+<meta property="og:locale" content="vi_VN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tiêu đề trang">
+<meta name="twitter:description" content="Mô tả ngắn">
+<meta name="twitter:image" content="https://templexa.com/assets/images/og-image.png">
+```
+
+### Meta description từng trang
+
+| Trang | Title | Description |
+|-------|-------|-------------|
+| `index.html` | Templexa - Mẫu Thiết Kế Tùy Chỉnh Cho Bạn | Kho mẫu thiết kế website đa dạng, hơn 150 mẫu sẵn sàng sử dụng |
+| `products.html` | Danh Sách Thiết Kế - Templexa | Khám phá hơn 150 mẫu, lọc theo danh mục, xem demo trực tiếp |
+| `product-detail.html` | Chi Tiết Sản Phẩm - Templexa | Gallery ảnh, tính năng, demo trực tiếp và yêu cầu tùy chỉnh |
+| `contact.html` | Dịch Vụ Thiết Kế - Templexa | 4 gói từ 699K đến Premium, quy trình chuyên nghiệp, tư vấn miễn phí |
+
+### Lưu ý khi deploy
+- Thay `https://templexa.com/` bằng domain thực
+- Tạo file `assets/images/og-image.png` (1200×630px) cho ảnh share link
+- `theme-color`: `#6366F1` — màu thanh trình duyệt trên mobile
+
+## Ghi chú quan trọng
+
+- Footer giống nhau trên tất cả 4 trang — copy HTML, email: `hello@templexa.com`
 - Header giống nhau trên tất cả 4 trang, chỉ khác class `active` trên nav link
 - Pricing cards render động từ `PRICING` array trong `data.js`
-- Scroll animations áp dụng cho: `.service-card`, `.template-card`, `.benefit-card`, `.process-step`, `.pricing-card`, `.target-card`, `.product-card`
+- Scroll animations: `.service-card`, `.template-card`, `.benefit-card`, `.process-step`, `.pricing-card`, `.target-card`, `.product-card`
 - Hover color cho links: `#6366F1` (indigo) — thống nhất toàn site
-
-## Plan: Cập nhật 3 trang còn lại theo mockup
-
-Sau khi index.html đã hoàn thành, cần cập nhật 3 trang theo mockup tương ứng trong `/docs`:
-
-### products.html (mockup: `docs/product.svg` + `docs/product.png`)
-- [x] Hero: radial-gradient bg, gradient text `#6366F1→#A855F7`, heading `#111827`, search bar rounded 10px ✅
-- [x] Filters: flexbox row (category trái, type phải), white bg, border dividers, active indigo, "Khác ▾" disabled ✅
-- [ ] Product cards: badges, hover, shadow, border
-- [ ] Pagination style
-- [x] Footer: đã cập nhật links ✅
-
-### product-detail.html (mockup: `docs/product-detail.svg` + `docs/product-detail.png`)
-- [ ] Breadcrumb style
-- [ ] Gallery & thumbnails
-- [ ] Sidebar: badge giá, buttons, features list
-- [ ] Action bar (save, share)
-- [ ] Related products grid
-- [ ] Modal nhận mẫu + thành công
-- [ ] Footer: đã cập nhật links ✅
-
-### contact.html (mockup: `docs/contact.png`)
-- [ ] Hero gradient background
-- [ ] Process steps cards
-- [ ] Pricing cards style (highlighted card)
-- [ ] CTA section + form tư vấn
-- [ ] Target audience cards
-- [ ] URL param `?service=xxx` auto-select: đã implement ✅
-- [ ] Footer: đã cập nhật links ✅
+- **Khi thêm CSS mới**: nếu hardcode màu → thêm dark override vào block "DARK MODE — ALL HARDCODED OVERRIDES"
+- **Khi thêm responsive**: thêm vào block "ADDITIONAL RESPONSIVE" theo thứ tự 1024 → 768 → 480
