@@ -69,6 +69,8 @@ Templexa/
 | **Showcase bg** | `linear-gradient(155deg, #6366F1 0%, #4F46E5 50%, #6734DA 75%, #7E22CE 100%)` | `.showcase` section |
 | **Showcase icon 1** | `linear-gradient(135deg, #7C3AED, #5B21B6)` | `.icon-purple` |
 | **Showcase icon 2** | `linear-gradient(135deg, #397FED, #0D6C94)` | `.icon-blue` |
+| **Products hero bg** | `radial-gradient(ellipse 60% 70% at 50% 40%, rgba(99,102,241,0.20), #F8FAFC 70%)` | `.products-hero` |
+| **Products hero text** | `linear-gradient(135deg, #6366F1, #A855F7)` | `.products-hero .gradient-text` |
 
 ### Màu nền & text (CSS Variables)
 
@@ -94,6 +96,7 @@ Templexa/
 | `#F3F4F6` | Footer top border |
 | `#E5E7EB` | Card borders, footer bottom separator |
 | `#94A3B8` | Copyright text |
+| `#9CA3AF` | Disabled button text (filter "Khác") |
 
 ### Font
 
@@ -132,10 +135,18 @@ Templexa/
   - Liên Hệ: "Yêu cầu báo giá" → `contact.html#contactForm`
   - Copyright: căn phải (`justify-content: flex-end`)
 
-### 2. Danh sách thiết kế — `products.html`
-- **Hero**: Heading gradient + mô tả + thanh search (debounce 300ms)
-- **Bộ lọc hàng 1** (danh mục): Tất cả | One page | E-commerce | Thiệp mời | Portfolio | Giáo dục
-- **Bộ lọc hàng 2** (loại): Tất cả mẫu | Website | Google Sheet
+### 2. Danh sách thiết kế — `products.html` (hero + filters ✅)
+- **Hero**: Background `radial-gradient(ellipse 60% 70% at 50% 40%, rgba(99,102,241,0.20), #F8FAFC 70%)`
+  - Heading: `color: #111827`, gradient text `#6366F1→#A855F7`
+  - Mô tả: `color: #6B7280`
+  - Search bar: `border-radius: 10px`, bg `#ffffff`, border `#E5E7EB`, focus border `#6366F1`
+  - Search debounce 300ms, hỗ trợ URL param `?search=keyword`
+- **Filters**: Background `#ffffff`, `border-bottom: 1px solid #E5E7EB`
+  - Layout: flexbox `justify-content: space-between` — category trái, type phải
+  - Buttons: transparent bg, `border-right: 1px solid #E5E7EB` giữa các button, `last-child` không border
+  - Active/hover: `color: #6366F1`, `border-bottom: 2px solid #6366F1`
+  - Button "Khác ▾": disabled, `color: #9CA3AF`, `cursor: default`
+  - Hỗ trợ URL params `?category=xxx` và `?type=xxx`
 - **Grid sản phẩm**: 3 cột (responsive 2→1), card có ảnh + badge (NEW/HOT/FREE) + tên + danh mục
 - **Phân trang**: « Trang đầu ‹ 1 2 3 ... › Trang cuối » (9 items/page)
 
@@ -254,11 +265,11 @@ Tất cả 152 folders đã được rename về kebab-case:
 Sau khi index.html đã hoàn thành, cần cập nhật 3 trang theo mockup tương ứng trong `/docs`:
 
 ### products.html (mockup: `docs/product.svg` + `docs/product.png`)
-- [ ] So sánh hero section với mockup, cập nhật gradient/text/badge
-- [ ] Kiểm tra filter buttons style (active state = `#6366F1`)
+- [x] Hero: radial-gradient bg, gradient text `#6366F1→#A855F7`, heading `#111827`, search bar rounded 10px ✅
+- [x] Filters: flexbox row (category trái, type phải), white bg, border dividers, active indigo, "Khác ▾" disabled ✅
 - [ ] Product cards: badges, hover, shadow, border
 - [ ] Pagination style
-- [ ] Footer: đã cập nhật links ✅
+- [x] Footer: đã cập nhật links ✅
 
 ### product-detail.html (mockup: `docs/product-detail.svg` + `docs/product-detail.png`)
 - [ ] Breadcrumb style
