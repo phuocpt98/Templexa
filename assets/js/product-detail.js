@@ -31,8 +31,50 @@
         return;
     }
 
-    // Update page title
+    // Update page title + meta + JSON-LD
     document.title = `${product.name} - Templexa`;
+
+    const baseUrl = 'https://phuocpt98.github.io/Templexa/';
+    function toAbsUrl(relative) {
+        return baseUrl + relative.replace(/^\.\//, '');
+    }
+
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.content = product.description;
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.content = `${product.name} - Templexa`;
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.content = product.description;
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage && product.thumbnail) ogImage.content = toAbsUrl(product.thumbnail);
+    const twitterImage = document.querySelector('meta[name="twitter:image"]');
+    if (twitterImage && product.thumbnail) twitterImage.content = toAbsUrl(product.thumbnail);
+
+    const schemaEl = document.getElementById('productSchema');
+    if (schemaEl) {
+        schemaEl.textContent = JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: product.name,
+            description: product.description,
+            image: product.images.map(toAbsUrl),
+            url: window.location.href,
+            brand: { '@type': 'Brand', name: 'Templexa' },
+            category: CATEGORIES.find(c => c.id === product.category)?.label || product.category,
+            aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: product.rating,
+                bestRating: 5,
+                ratingCount: product.downloads,
+            },
+            offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'VND',
+                availability: 'https://schema.org/InStock',
+            },
+        });
+    }
 
     // ── Category label ──────────────────────────
     const categoryLabel = CATEGORIES.find(c => c.id === product.category)?.label || product.category;

@@ -384,14 +384,14 @@ Mỗi trang HTML đều có đầy đủ SEO tags trong `<head>`:
 <meta name="author" content="Templexa Studio">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#6366F1">
-<link rel="canonical" href="https://templexa.com/{page}">
+<link rel="canonical" href="https://phuocpt98.github.io/Templexa/{page}">
 
 <!-- Open Graph (Facebook, Zalo, ...) -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tiêu đề trang">
 <meta property="og:description" content="Mô tả ngắn">
-<meta property="og:image" content="https://templexa.com/assets/images/og-image.png">
-<meta property="og:url" content="https://templexa.com/{page}">
+<meta property="og:image" content="https://phuocpt98.github.io/Templexa/assets/images/og-image.png">
+<meta property="og:url" content="https://phuocpt98.github.io/Templexa/{page}">
 <meta property="og:site_name" content="Templexa">
 <meta property="og:locale" content="vi_VN">
 
@@ -399,7 +399,7 @@ Mỗi trang HTML đều có đầy đủ SEO tags trong `<head>`:
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tiêu đề trang">
 <meta name="twitter:description" content="Mô tả ngắn">
-<meta name="twitter:image" content="https://templexa.com/assets/images/og-image.png">
+<meta name="twitter:image" content="https://phuocpt98.github.io/Templexa/assets/images/og-image.png">
 ```
 
 ### Meta description từng trang
@@ -411,8 +411,21 @@ Mỗi trang HTML đều có đầy đủ SEO tags trong `<head>`:
 | `product-detail.html` | Chi Tiết Sản Phẩm - Templexa | Gallery ảnh, tính năng, demo trực tiếp và yêu cầu tùy chỉnh |
 | `contact.html` | Dịch Vụ Thiết Kế - Templexa | 4 gói từ 699K đến Premium, quy trình chuyên nghiệp, tư vấn miễn phí |
 
+### Structured Data (JSON-LD)
+
+Mỗi trang có `<script type="application/ld+json">` phù hợp:
+
+| Trang | Schema Type | Nội dung |
+|-------|-------------|----------|
+| `index.html` | `Organization` + `WebSite` | Thông tin tổ chức, logo, email, SearchAction cho search box |
+| `products.html` | `CollectionPage` + `BreadcrumbList` | Trang danh mục với breadcrumb |
+| `product-detail.html` | `Product` | **Dynamic** — `product-detail.js` cập nhật `#productSchema` với name, description, images, rating, offers |
+| `contact.html` | `Service` + `OfferCatalog` | Dịch vụ với 4 gói giá (BASIC, PRO, PREMIUM, CUSTOM) |
+
+**product-detail.js** cũng cập nhật dynamic: `document.title`, `meta[description]`, `og:title`, `og:description`, `og:image` khi load sản phẩm.
+
 ### Lưu ý khi deploy
-- Thay `https://templexa.com/` bằng domain thực
+- Thay `https://phuocpt98.github.io/Templexa/` bằng domain thực (trong cả meta tags và JSON-LD)
 - Tạo file `assets/images/og-image.png` (1200×630px) cho ảnh share link
 - `theme-color`: `#6366F1` — màu thanh trình duyệt trên mobile
 
