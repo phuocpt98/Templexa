@@ -53,6 +53,16 @@
         });
     }
 
+    // ── Auto-select service from URL param ──────
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceParam = urlParams.get('service');
+    if (serviceParam && consultForm) {
+        const serviceSelect = consultForm.querySelector('select[name="service"]');
+        if (serviceSelect) {
+            serviceSelect.value = serviceParam;
+        }
+    }
+
     // ── Smooth scroll for anchor links ──────────
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {

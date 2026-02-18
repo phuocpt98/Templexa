@@ -12,11 +12,16 @@
 
     if (!grid) return;
 
-    let currentCategory = 'all';
-    let currentType = 'all';
-    let currentSearch = '';
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentCategory = urlParams.get('category') || 'all';
+    let currentType = urlParams.get('type') || 'all';
+    let currentSearch = urlParams.get('search') || '';
     let currentPage = 1;
     const perPage = 9;
+
+    if (currentSearch && searchInput) {
+        searchInput.value = currentSearch;
+    }
 
     // ── Render filters ──────────────────────────
     function renderFilters() {

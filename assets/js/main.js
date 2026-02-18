@@ -65,35 +65,107 @@
 })();
 
 // ============================================
-// TEMPLATE SLIDER (index.html)
+// TEMPLATE SLIDER (index.html) — carousel 3 cards
 // ============================================
 (function () {
     const track = document.getElementById('templatesTrack');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    let currentPosition = 0;
-    const cardWidth = 305;
+    if (!track || typeof getSliderProducts === 'undefined') return;
+
+    const sliderProducts = getSliderProducts();
+    const total = sliderProducts.length;
+    if (total === 0) return;
+
+    let currentIndex = 0;
+    let autoTimer = null;
+    let manualTimeout = null;
+
+    // Render cards — link chỉ hoạt động trên card active
+    track.innerHTML = sliderProducts.map((p, i) => {
+        const catLabel = CATEGORIES.find(c => c.id === p.category)?.label || p.category;
+        return `
+            <div class="template-card" data-index="${i}" data-href="product-detail.html?id=${p.id}">
+                <div class="template-frame">
+                    <span class="template-badge">Most Popular</span>
+                    <div class="template-image">
+                        <img src="${p.thumbnail}" alt="${p.name}" loading="lazy">
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>${p.name}</h3>
+                    <p>${catLabel}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const cards = track.querySelectorAll('.template-card');
 
     function updateSlider() {
-        if (track) track.style.transform = `translateX(${currentPosition}px)`;
-    }
-
-    if (prevBtn && nextBtn && track) {
-        prevBtn.addEventListener('click', () => {
-            if (currentPosition < 0) {
-                currentPosition += cardWidth;
-                updateSlider();
+        const prevIndex = (currentIndex - 1 + total) % total;
+        const nextIndex = (currentIndex + 1) % total;
+        cards.forEach((card, i) => {
+            card.classList.remove('slide-active', 'slide-prev', 'slide-next');
+            card.style.cursor = 'default';
+            if (i === currentIndex) {
+                card.classList.add('slide-active');
+                card.style.cursor = 'pointer';
+            } else if (i === prevIndex) {
+                card.classList.add('slide-prev');
+                card.style.cursor = 'pointer';
+            } else if (i === nextIndex) {
+                card.classList.add('slide-next');
+                card.style.cursor = 'pointer';
             }
         });
+    }
 
-        nextBtn.addEventListener('click', () => {
-            const maxScroll = -(track.children.length - 3) * cardWidth;
-            if (currentPosition > maxScroll) {
-                currentPosition -= cardWidth;
+    // Click card: active → chi tiết, prev/next → chuyển ra giữa
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const idx = Number(card.dataset.index);
+            if (card.classList.contains('slide-active')) {
+                window.location.href = card.dataset.href;
+            } else if (card.classList.contains('slide-prev') || card.classList.contains('slide-next')) {
+                stopAuto();
+                if (manualTimeout) clearTimeout(manualTimeout);
+                currentIndex = idx;
                 updateSlider();
+                manualTimeout = setTimeout(startAuto, 10000);
             }
         });
+    });
+
+    function goNext() {
+        currentIndex = (currentIndex + 1) % total;
+        updateSlider();
     }
+
+    function startAuto() {
+        stopAuto();
+        autoTimer = setInterval(goNext, 5000);
+    }
+
+    function stopAuto() {
+        if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    }
+
+    // Mobile prev/next buttons
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    function handleBtnClick(direction) {
+        stopAuto();
+        if (manualTimeout) clearTimeout(manualTimeout);
+        currentIndex = direction === 'next'
+            ? (currentIndex + 1) % total
+            : (currentIndex - 1 + total) % total;
+        updateSlider();
+        manualTimeout = setTimeout(startAuto, 10000);
+    }
+    if (prevBtn) prevBtn.addEventListener('click', () => handleBtnClick('prev'));
+    if (nextBtn) nextBtn.addEventListener('click', () => handleBtnClick('next'));
+
+    updateSlider();
+    startAuto();
 })();
 
 // ============================================
@@ -142,7 +214,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.service-card, .template-card, .benefit-card, .process-step, .pricing-card, .target-card, .product-card').forEach(el => {
+    document.querySelectorAll('.service-card, .benefit-card, .process-step, .pricing-card, .target-card, .product-card').forEach(el => {
         observer.observe(el);
     });
 })();
