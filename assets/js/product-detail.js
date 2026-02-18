@@ -204,12 +204,11 @@
 
         const formData = {
             email: templateForm.email.value,
-            name: templateForm.name.value,
             phone: templateForm.phone.value,
-            subscribe: templateForm.subscribe.checked,
-            productId: product.id,
-            productName: product.name,
-            timestamp: new Date().toISOString(),
+            reference: `${product.name} (ID: ${product.id})`,
+            service: '',
+            note: templateForm.note.value,
+            status: 'nhận mẫu',
         };
 
         await submitToGoogleSheet(formData);
