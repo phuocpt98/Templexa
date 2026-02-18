@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Physics Pro - Đột Phá Vật Lý</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#39FF14", // Neon Green
+                        "primary-hover": "#32D612",
+                        "background-light": "#F3F4F6", // Fallback, not used heavily due to dark mode enforcement
+                        "background-dark": "#0A0A0A",
+                        "surface-dark": "#171717",
+                        "glass": "rgba(255, 255, 255, 0.05)",
+                    },
+                    fontFamily: {
+                        display: ["Orbitron", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        'xl': "1rem",
+                        '2xl': "1.5rem",
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1f2937 1px, transparent 1px), linear-gradient(to bottom, #1f2937 1px, transparent 1px)",
+                    }
+                },
+            },
+        };
+    </script>
+<style>.glass-card {
+            background: rgba(23, 23, 23, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(57, 255, 20, 0.1);
+        }
+        .neon-text {
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+        }
+        .neon-border {
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+        }
+        .circuit-bg {
+            background-color: #0A0A0A;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(57, 255, 20, 0.05) 0%, transparent 50%),
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+        .orbit {
+            position: absolute;
+            border: 1px dashed rgba(57, 255, 20, 0.3);
+            border-radius: 50%;
+            animation: spin 10s linear infinite;
+        }
+        .electron {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #39FF14;
+            border-radius: 50%;
+            top: 50%;
+            left: -5px;
+            transform: translateY(-50%);
+            box-shadow: 0 0 10px #39FF14;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }@keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 font-body transition-colors duration-300">
+<nav class="fixed w-full z-50 glass-card border-b border-white/10 dark:border-white/10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<div class="flex items-center">
+<div class="flex-shrink-0 flex items-center gap-2">
+<span class="material-icons-outlined text-primary text-3xl">science</span>
+<div class="font-display font-bold text-xl text-white tracking-wider">PHYSICS <span class="text-primary">PRO</span></div>
+</div>
+<div class="hidden md:block">
+<div class="ml-10 flex items-baseline space-x-8">
+<a class="text-white hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#">Trang chủ</a>
+<a class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#">Khóa học</a>
+<a class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#">Tài liệu</a>
+<a class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#">Thi thử</a>
+<a class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#">Liên hệ</a>
+</div>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<div class="relative">
+<input class="bg-surface-dark border border-gray-700 text-gray-300 text-sm rounded-full focus:ring-primary focus:border-primary block w-full pl-4 pr-10 p-2 placeholder-gray-500" placeholder="Tìm kiếm..." type="text"/>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+<span class="material-icons-outlined text-gray-500 text-sm">search</span>
+</div>
+</div>
+<div class="relative cursor-pointer">
+<span class="material-icons-outlined text-white">shopping_cart</span>
+<span class="absolute -top-2 -right-2 bg-primary text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+</div>
+<a class="bg-primary hover:bg-primary-hover text-black font-bold py-2 px-6 rounded-full transition-all shadow-[0_0_15px_rgba(57,255,20,0.3)] hover:shadow-[0_0_20px_rgba(57,255,20,0.5)]" href="#">Đăng nhập</a>
+</div>
+<div class="-mr-2 flex md:hidden">
+<button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none" type="button">
+<span class="material-icons-outlined">menu</span>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<div class="relative pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden circuit-bg min-h-screen flex items-center">
+<div class="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-1/4 w-[800px] h-[800px] opacity-20 pointer-events-none">
+<div class="orbit w-full h-full border-gray-600"></div>
+<div class="orbit w-3/4 h-3/4 top-[12.5%] left-[12.5%] border-primary" style="animation-duration: 15s; animation-direction: reverse;">
+<div class="electron"></div>
+</div>
+<div class="orbit w-1/2 h-1/2 top-[25%] left-[25%] border-gray-500" style="animation-duration: 8s;">
+<div class="electron" style="background-color: white; box-shadow: 0 0 10px white;"></div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
+<div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-7 lg:text-left">
+<div class="inline-flex items-center px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-primary mb-6 animate-float">
+<span class="flex h-2 w-2 relative mr-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-sm font-bold uppercase tracking-wide">Physics Pro Lab 2024</span>
+</div>
+<h1 class="text-4xl tracking-tight font-display font-black text-white sm:text-5xl md:text-6xl lg:text-7xl">
+<span class="block">Vật Lý không còn</span>
+<span class="block text-primary neon-text">là nỗi sợ hãi</span>
+</h1>
+<p class="mt-6 text-lg text-gray-400 sm:text-xl font-light">
+                        Phương pháp giảng dạy tư duy hiện đại, trực quan với thí nghiệm thực tế. Chinh phục điểm 9+ kỳ thi THPT Quốc gia cùng chuyên gia.
+                    </p>
+<div class="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0 flex flex-col sm:flex-row gap-4">
+<a class="flex items-center justify-center px-8 py-4 border border-transparent text-base font-bold rounded-full text-black bg-primary hover:bg-primary-hover md:text-lg md:px-10 shadow-[0_0_20px_rgba(57,255,20,0.4)] transition-all" href="#courses">
+                            Xem khóa học
+                            <span class="material-icons-outlined ml-2">arrow_forward</span>
+</a>
+<a class="flex items-center justify-center px-8 py-4 border border-white/20 text-base font-medium rounded-full text-white bg-white/5 hover:bg-white/10 backdrop-blur-sm md:text-lg md:px-10 transition-all" href="#">
+<span class="material-icons-outlined mr-2 text-primary">play_circle_filled</span>
+                            Học thử miễn phí
+                        </a>
+</div>
+<div class="mt-10 flex items-center gap-6 text-gray-400 text-sm">
+<div class="flex items-center gap-2">
+<span class="material-icons-outlined text-primary">check_circle</span>
+<span>Lộ trình cá nhân hóa</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-icons-outlined text-primary">check_circle</span>
+<span>Hỗ trợ 24/7</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-icons-outlined text-primary">check_circle</span>
+<span>Cam kết đầu ra</span>
+</div>
+</div>
+</div>
+<div class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-5 lg:flex lg:items-center">
+<div class="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-blue-600 rounded-2xl blur opacity-30 animate-pulse"></div>
+<div class="relative block w-full bg-surface-dark rounded-2xl overflow-hidden border border-white/10">
+<img alt="Giảng viên vật lý trong phòng thí nghiệm" class="w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVUPmxhbyEpaeMXSKbH-DGZpidOtbEwvxbG5Bmjl_sHLle7U6bl7vUfmwn3tYEDQuXQCLH_7QQN-CKH9Q3DuIoqK4ATXMZg9H-nFP61tQtOLH2gliHQbMLUTN6VaDbASJ8AVoJDPijEAyi_gfs-7Uk4fib6JrjuyRvV-YAhaEuW3vuQRLGNqS9x_yUIQUSmA5RWys2cS09q82MPoi5rBXTvZMAee4ZaF7ftbLDMKWKxxcpTvPo7c9Kw3NTPnZrgPqA_iaQjylvJng"/>
+<div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-6">
+<p class="text-white font-display font-bold text-xl">Thầy Nguyễn Văn An</p>
+<p class="text-primary text-sm">Thạc sĩ Vật lý Lý thuyết</p>
+</div>
+<div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-primary/30 p-3 rounded-xl">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+<span class="text-xs text-white font-mono">LIVE CLASS</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="py-16 bg-surface-dark relative">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-base text-primary font-bold tracking-wide uppercase">Tại sao chọn Physics Pro?</h2>
+<p class="mt-2 text-3xl leading-8 font-display font-bold tracking-tight text-white sm:text-4xl">
+                    Công nghệ giáo dục <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">tiên phong</span>
+</p>
+<p class="mt-4 max-w-2xl text-xl text-gray-400 mx-auto">
+                    Chúng tôi không chỉ dạy công thức. Chúng tôi dạy bản chất hiện tượng qua lăng kính thực nghiệm và mô phỏng số.
+                </p>
+</div>
+<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+<div class="glass-card p-6 rounded-2xl transition-transform hover:-translate-y-2 duration-300 group">
+<div class="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
+<span class="material-icons-outlined text-primary text-2xl group-hover:text-black">science</span>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Thí nghiệm thực tế</h3>
+<p class="text-gray-400 text-sm">Video thí nghiệm 4K đi kèm mỗi bài giảng giúp hiểu sâu bản chất vật lý.</p>
+</div>
+<div class="glass-card p-6 rounded-2xl transition-transform hover:-translate-y-2 duration-300 group">
+<div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-4 group-hover:bg-blue-500 transition-colors">
+<span class="material-icons-outlined text-blue-400 text-2xl group-hover:text-white">school</span>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Lộ trình 3 giai đoạn</h3>
+<p class="text-gray-400 text-sm">Nền tảng - Vận dụng - Luyện đề chuyên sâu sát với cấu trúc Bộ GD.</p>
+</div>
+<div class="glass-card p-6 rounded-2xl transition-transform hover:-translate-y-2 duration-300 group">
+<div class="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mb-4 group-hover:bg-purple-500 transition-colors">
+<span class="material-icons-outlined text-purple-400 text-2xl group-hover:text-white">psychology</span>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Tư duy Reversed</h3>
+<p class="text-gray-400 text-sm">Học từ bài toán thực tế ngược về lý thuyết để ghi nhớ lâu hơn.</p>
+</div>
+<div class="glass-card p-6 rounded-2xl transition-transform hover:-translate-y-2 duration-300 group">
+<div class="w-12 h-12 rounded-lg bg-pink-500/20 flex items-center justify-center mb-4 group-hover:bg-pink-500 transition-colors">
+<span class="material-icons-outlined text-pink-400 text-2xl group-hover:text-white">savings</span>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Học phí tối ưu</h3>
+<p class="text-gray-400 text-sm">Chất lượng lớp học Offline với chi phí Online tiết kiệm 70%.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="py-20 bg-background-dark relative overflow-hidden" id="courses">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h2 class="text-3xl font-display font-bold text-white">Khóa học <span class="text-primary border-b-2 border-primary">trọng tâm</span></h2>
+<p class="mt-2 text-gray-400">Chương trình luyện thi THPT QG 2025</p>
+</div>
+<a class="hidden md:flex items-center text-primary font-medium hover:text-white transition-colors" href="#">
+                    Xem tất cả
+                    <span class="material-icons-outlined ml-1">arrow_right_alt</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="glass-card rounded-2xl overflow-hidden hover:shadow-[0_0_20px_rgba(57,255,20,0.15)] transition-all duration-300 flex flex-col h-full border-t border-white/20">
+<div class="relative h-48">
+<img alt="Cơ học" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjh80XCuiMieez-UhnUhuSlPBqnvVhb6zL1q2dDF0avz0n7WK_Bvzu0LflVPcdgo3acU_ru-P0wwRhUlZOJ0yVFtwDu2l47e0z2ebXDGdAWAo_k1g0SyKtRpz7QMac3703nnYxOdOJJukJbuYWhBSOXmjgFOQ5sOo2o1JmN8a1GZ0aODcLyagpyXChc9RQCg-uH2zAVMj9eUU-tXE_Zm4TdS0BoRU5fjZXn_c4wJvB8xyQKlsjRrdp_F3vmlvijqJmPThjvQNWCPA"/>
+<div class="absolute top-4 left-4">
+<span class="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded shadow-lg uppercase tracking-wide">Cơ học</span>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent"></div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-white line-clamp-2">Chuyên đề Dao động &amp; Sóng cơ</h3>
+</div>
+<p class="text-gray-400 text-sm mb-4 flex-1">Nắm chắc 3 điểm đầu tiên của đề thi với phương pháp Vòng tròn lượng giác đa trục.</p>
+<div class="flex items-center text-xs text-gray-500 mb-4 space-x-4">
+<div class="flex items-center">
+<span class="material-icons-outlined text-sm mr-1">play_lesson</span>
+                                42 bài giảng
+                            </div>
+<div class="flex items-center">
+<span class="material-icons-outlined text-sm mr-1">group</span>
+                                1.2k học sinh
+                            </div>
+</div>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-700">
+<div>
+<span class="block text-xs text-gray-500 line-through">1.200.000 đ</span>
+<span class="block text-lg font-bold text-primary">899.000 đ</span>
+</div>
+<button class="bg-white/10 hover:bg-primary hover:text-black text-white p-2 rounded-full transition-colors">
+<span class="material-icons-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden hover:shadow-[0_0_20px_rgba(57,255,20,0.15)] transition-all duration-300 flex flex-col h-full border-t border-white/20">
+<div class="relative h-48">
+<img alt="Điện xoay chiều" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnYtAfXYJMZPwKb-O8WqqSdV_Xqnzf5RO6IIMpGACXvdct5DDaIh560fsFDqf7x5WG622IKM6VAGgrx-f7OTw7uK90rmyOlsz3auODcf-r4UPH4JJWdq5E_nvtLoWP_MO_nPwlzezhQ7OGo3zpcMN3yIqAfJiXLE2oKQdX74Nh1uGLTmlz4lOzk5_9VjdIv3uzARCjRHQhUCVEgvuX8WYIXYfiM5KXdOauzSC_gccHESgGPDlVjRy1G5jo6Z1rC2EV6O-OQsHSVqY"/>
+<div class="absolute top-4 left-4">
+<span class="bg-yellow-600 text-white text-xs font-bold px-2 py-1 rounded shadow-lg uppercase tracking-wide">Điện xoay chiều</span>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent"></div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-white line-clamp-2">Làm chủ Điện Xoay Chiều RLC</h3>
+</div>
+<p class="text-gray-400 text-sm mb-4 flex-1">Phá đảo các bài toán cực trị điện xoay chiều, giản đồ vector trượt.</p>
+<div class="flex items-center text-xs text-gray-500 mb-4 space-x-4">
+<div class="flex items-center">
+<span class="material-icons-outlined text-sm mr-1">play_lesson</span>
+                                56 bài giảng
+                            </div>
+<div class="flex items-center">
+<span class="material-icons-outlined text-sm mr-1">group</span>
+                                850 học sinh
+                            </div>
+</div>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-700">
+<div>
+<span class="block text-xs text-gray-500 line-through">1.500.000 đ</span>
+<span class="block text-lg font-bold text-primary">1.199.000 đ</span>
+</div>
+<button class="bg-white/10 hover:bg-primary hover:text-black text-white p-2 rounded-full transition-colors">
+<span class="material-icons-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden hover:shadow-[0_0_20px_rgba(57,255,20,0.15)] transition-all duration-300 flex flex-col h-full border-t border-white/20">
+<div class="relative h-48">
+<img alt="Hạt nhân nguyên tử" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtaWG1N4SyTIV1ZhNtZSL9KcBnnEGM5Ep8dOoXIhWLqgBKw1fjQK5w2zaG5LB0ggqo0HUs8xkLjbjB8vs8OFBKQxt8L4nEMbefTGZ6s3t_uXP2uCXmQRoyii0BRkfG7YVzKh8c97RR582aY5-Z3nneNUlgPggLU083Sf2eXvEyYrZ-Nv6pfKHpNoz684jJMBxjK1x7lL995SkuacF9_aZO31UfiZH-8wezaz4_PI8gIX0D7wNTTl0NziFmwEnT-C-87wdG6vi0EDI"/>
+<div class="absolute top-4 left-4">
+<span class="bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded shadow-lg uppercase tracking-wide">Hạt nhân</span>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent"></div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-xl font-bold text-white line-clamp-2">Sóng ánh sáng &amp; Hạt nhân</h3>
+</div>
+<p class="text-gray-400 text-sm mb-4 flex-1">Tổng ôn lý thuyết và bài tập chương cuối, dễ học dễ lấy điểm.</p>
+<div class="flex items-center text-xs text-gray-500 mb-4 space-x-4">
+<div class="flex items-center">
+<span class="material-icons-outlined text-sm mr-1">play_lesson</span>
+                                30 bài giảng
+                            </div>
+<div class="flex items-center">
+<span class="material-icons-outlined text-sm mr-1">group</span>
+                                2.1k học sinh
+                            </div>
+</div>
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-700">
+<div>
+<span class="block text-xs text-gray-500 line-through">800.000 đ</span>
+<span class="block text-lg font-bold text-primary">599.000 đ</span>
+</div>
+<button class="bg-white/10 hover:bg-primary hover:text-black text-white p-2 rounded-full transition-colors">
+<span class="material-icons-outlined">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 text-center md:hidden">
+<a class="inline-flex items-center text-primary font-medium hover:text-white transition-colors" href="#">
+                    Xem tất cả khóa học
+                    <span class="material-icons-outlined ml-1">arrow_right_alt</span>
+</a>
+</div>
+</div>
+</div>
+<div class="py-16 bg-surface-dark">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-10">
+<p class="text-primary text-sm font-semibold tracking-wide uppercase">FAQs</p>
+<h2 class="text-3xl font-display font-bold text-white">Câu hỏi thường gặp</h2>
+</div>
+<div class="space-y-4">
+<div class="border border-white/10 rounded-lg overflow-hidden bg-background-dark">
+<button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+<span class="font-medium text-white">Khóa học có bao gồm video thí nghiệm không?</span>
+<span class="material-icons-outlined text-primary">expand_more</span>
+</button>
+<div class="px-6 pb-4 text-gray-400 text-sm">
+                        Có. 100% các bài giảng lý thuyết đều đi kèm video quay chậm thí nghiệm thực tế tại Physics Pro Lab để học sinh hình dung rõ hiện tượng.
+                    </div>
+</div>
+<div class="border border-white/10 rounded-lg overflow-hidden bg-background-dark">
+<button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+<span class="font-medium text-white">Mất gốc Lý có học được không?</span>
+<span class="material-icons-outlined text-gray-500">chevron_right</span>
+</button>
+</div>
+<div class="border border-white/10 rounded-lg overflow-hidden bg-background-dark">
+<button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+<span class="font-medium text-white">Hình thức thi thử Online như thế nào?</span>
+<span class="material-icons-outlined text-gray-500">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="py-20 bg-background-dark overflow-hidden">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div>
+<h2 class="text-3xl font-display font-bold text-white mb-6">Bảng vàng thành tích <span class="text-primary">Physics Pro</span></h2>
+<p class="text-gray-400 mb-8">Hơn 500+ điểm 9+ trong kỳ thi THPTQG 2023. Chúng tôi tự hào là bệ phóng cho ước mơ vào Bách Khoa, Y Dược, Ngoại Thương của các bạn.</p>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center text-white hover:border-primary hover:text-primary transition-colors">
+<span class="material-icons-outlined">west</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center text-white hover:border-primary hover:text-primary transition-colors">
+<span class="material-icons-outlined">east</span>
+</button>
+</div>
+</div>
+<div class="relative">
+<div class="glass-card p-6 rounded-2xl relative z-10 mx-4 md:mx-auto md:max-w-md border border-white/10">
+<div class="flex items-center gap-4 mb-4">
+<img alt="Student" class="w-14 h-14 rounded-full object-cover border-2 border-primary" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8DAWahSQgNrka7sr-CtXjEWElbjVCvDoM9bDXaeauAaY-9ya39vdVTKn62pLT0HO1xZZzi8tn6sY2c1bNW7pN7XeNY2xMirbMFYFH0PQwH5srU1u7IO2fORKc95Fa4bjyV8wpmnMkUKO1q3TjdD92GERV8LQ4Dt9x2CcmhFYMcqCR7KLLfoU_1wcohpLJzCAWPBavBpQv3C7d_SaFjCbwH45Ruv6qledJ74Cj-xc9lYVbf21ILzCNQQxtyfrv-g175Ncws9799ZY"/>
+<div>
+<h4 class="text-white font-bold">Lê Minh Anh</h4>
+<p class="text-primary text-xs">THPT Chuyên KHTN - 9.75 Lý</p>
+</div>
+<div class="ml-auto text-yellow-500 text-xs flex">
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+</div>
+</div>
+<p class="text-gray-300 italic text-sm">"Thầy dạy siêu cuốn, nhất là mấy bài điện xoay chiều dùng giản đồ vector. Nhờ khóa học mà em từ một đứa sợ Lý đã tự tin thi vào Bách Khoa."</p>
+<div class="mt-4 flex gap-2">
+<span class="text-[10px] bg-white/10 px-2 py-1 rounded text-gray-400">Đậu ĐH Bách Khoa</span>
+</div>
+</div>
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full md:w-[120%] md:h-[120%] bg-primary/5 rounded-full blur-3xl -z-0"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="py-12 border-t border-white/5 bg-surface-dark">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<p class="text-center text-gray-500 text-sm mb-8 uppercase tracking-widest">Đối tác truyền thông &amp; chuyên môn</p>
+<div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+<div class="text-xl font-bold text-white flex items-center gap-2"><span class="material-icons-outlined text-3xl">school</span> VTV7</div>
+<div class="text-xl font-bold text-white flex items-center gap-2"><span class="material-icons-outlined text-3xl">menu_book</span> BÁO THANH NIÊN</div>
+<div class="text-xl font-bold text-white flex items-center gap-2"><span class="material-icons-outlined text-3xl">science</span> VIỆN VẬT LÝ</div>
+<div class="text-xl font-bold text-white flex items-center gap-2"><span class="material-icons-outlined text-3xl">workspace_premium</span> HOCMAI</div>
+</div>
+</div>
+</div>
+<div class="relative py-24 bg-primary overflow-hidden">
+<div class="absolute inset-0 bg-background-dark opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="max-w-4xl mx-auto text-center px-4 relative z-10">
+<h2 class="text-3xl md:text-5xl font-display font-black text-black mb-6">Sẵn sàng bứt phá điểm số?</h2>
+<p class="text-black/80 text-lg mb-8 max-w-2xl mx-auto font-medium">Đăng ký ngay hôm nay để nhận ưu đãi 40% học phí và bộ sách "Giải mã Vật Lý" độc quyền.</p>
+<button class="bg-black text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl flex items-center mx-auto gap-2">
+                Đăng ký tư vấn
+                <span class="material-icons-outlined">arrow_forward</span>
+</button>
+<div class="mt-8 flex justify-center gap-2">
+<span class="w-16 h-1 bg-black/20 rounded-full"></span>
+<span class="w-16 h-1 bg-black/20 rounded-full"></span>
+<span class="w-16 h-1 bg-black/20 rounded-full"></span>
+</div>
+</div>
+</div>
+<footer class="bg-background-dark border-t border-white/10 pt-16 pb-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-icons-outlined text-primary text-2xl">science</span>
+<div class="font-display font-bold text-lg text-white">PHYSICS <span class="text-primary">PRO</span></div>
+</div>
+<p class="text-gray-400 text-sm mb-4">
+                        Hệ thống luyện thi Vật Lý trực tuyến hàng đầu Việt Nam. Phương pháp hiện đại, tư duy đột phá.
+                    </p>
+<div class="flex space-x-4">
+<a class="text-gray-400 hover:text-white" href="#"><i class="material-icons-outlined">facebook</i></a>
+<a class="text-gray-400 hover:text-white" href="#"><i class="material-icons-outlined">smart_display</i></a> 
+<a class="text-gray-400 hover:text-white" href="#"><i class="material-icons-outlined">alternate_email</i></a>
+</div>
+</div>
+<div>
+<h3 class="text-white font-bold mb-4">Về chúng tôi</h3>
+<ul class="space-y-2 text-gray-400 text-sm">
+<li><a class="hover:text-primary" href="#">Giảng viên</a></li>
+<li><a class="hover:text-primary" href="#">Câu chuyện thành công</a></li>
+<li><a class="hover:text-primary" href="#">Tuyển dụng</a></li>
+<li><a class="hover:text-primary" href="#">Liên hệ</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-white font-bold mb-4">Khóa học</h3>
+<ul class="space-y-2 text-gray-400 text-sm">
+<li><a class="hover:text-primary" href="#">Lớp 10 - Nền tảng</a></li>
+<li><a class="hover:text-primary" href="#">Lớp 11 - Điện &amp; Từ</a></li>
+<li><a class="hover:text-primary" href="#">Lớp 12 - Luyện thi THPTQG</a></li>
+<li><a class="hover:text-primary" href="#">Luyện đề chuyên sâu</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-white font-bold mb-4">Thông tin liên hệ</h3>
+<ul class="space-y-3 text-gray-400 text-sm">
+<li class="flex items-start gap-2">
+<span class="material-icons-outlined text-primary text-sm mt-0.5">location_on</span>
+<span>Số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-icons-outlined text-primary text-sm">phone</span>
+<span>0988.888.888</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="material-icons-outlined text-primary text-sm">email</span>
+<span>contact@physicspro.vn</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-gray-500 text-sm">© 2024 Physics Pro Lab. All rights reserved.</p>
+<div class="flex gap-6 text-sm text-gray-500">
+<a class="hover:text-white" href="#">Điều khoản sử dụng</a>
+<a class="hover:text-white" href="#">Chính sách bảo mật</a>
+</div>
+</div>
+</div>
+</footer>
+<a class="fixed bottom-6 right-6 w-14 h-14 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center shadow-lg z-50 animate-bounce" href="#">
+<span class="font-bold text-white text-xs">CHAT</span>
+</a>
+
+</body></html>

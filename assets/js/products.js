@@ -1,0 +1,159 @@
+// ============================================
+// PRODUCTS PAGE — Search, Filter, Render, Paginate
+// ============================================
+
+(function () {
+    const grid = document.getElementById('productsGrid');
+    const emptyState = document.getElementById('productsEmpty');
+    const paginationEl = document.getElementById('pagination');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFiltersEl = document.getElementById('categoryFilters');
+    const typeFiltersEl = document.getElementById('typeFilters');
+
+    if (!grid) return;
+
+    let currentCategory = 'all';
+    let currentType = 'all';
+    let currentSearch = '';
+    let currentPage = 1;
+    const perPage = 9;
+
+    // ── Render filters ──────────────────────────
+    function renderFilters() {
+        // Category filters
+        categoryFiltersEl.innerHTML = CATEGORIES.map(cat =>
+            `<button class="filter-btn${cat.id === currentCategory ? ' active' : ''}" data-category="${cat.id}">${cat.label}</button>`
+        ).join('');
+
+        // Type filters
+        typeFiltersEl.innerHTML = TYPES.map(t =>
+            `<button class="filter-btn${t.id === currentType ? ' active' : ''}" data-type="${t.id}">${t.label}</button>`
+        ).join('');
+
+        // Event listeners
+        categoryFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentCategory = btn.dataset.category;
+                currentPage = 1;
+                render();
+            });
+        });
+
+        typeFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentType = btn.dataset.type;
+                currentPage = 1;
+                render();
+            });
+        });
+    }
+
+    // ── Render product cards ────────────────────
+    function renderProducts(products) {
+        if (products.length === 0) {
+            grid.style.display = 'none';
+            emptyState.style.display = 'block';
+            return;
+        }
+
+        grid.style.display = '';
+        emptyState.style.display = 'none';
+
+        grid.innerHTML = products.map(p => {
+            const categoryLabel = CATEGORIES.find(c => c.id === p.category)?.label || p.category;
+            let badgeHTML = '';
+            if (p.status === 'new') badgeHTML = '<span class="product-badge new">NEW</span>';
+            else if (p.status === 'hot') badgeHTML = '<span class="product-badge hot">HOT</span>';
+            if (p.price === 'free') badgeHTML += '<span class="product-badge free" style="top:auto;bottom:12px;right:12px;">FREE</span>';
+
+            return `
+                <a href="product-detail.html?id=${p.id}" class="product-card">
+                    <div class="product-card-image">
+                        <img src="${p.thumbnail}" alt="${p.name}" loading="lazy">
+                        ${badgeHTML}
+                    </div>
+                    <div class="product-card-info">
+                        <h3>${p.name}</h3>
+                        <p>${categoryLabel}</p>
+                    </div>
+                </a>
+            `;
+        }).join('');
+    }
+
+    // ── Render pagination ───────────────────────
+    function renderPagination(totalPages) {
+        if (totalPages <= 1) {
+            paginationEl.innerHTML = '';
+            return;
+        }
+
+        let html = '';
+
+        // First page
+        html += `<button ${currentPage === 1 ? 'disabled' : ''} data-page="1">&laquo; Trang đầu</button>`;
+        // Previous
+        html += `<button ${currentPage === 1 ? 'disabled' : ''} data-page="${currentPage - 1}">&lsaquo;</button>`;
+
+        // Page numbers
+        const maxVisible = 5;
+        let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+        let end = Math.min(totalPages, start + maxVisible - 1);
+        if (end - start < maxVisible - 1) start = Math.max(1, end - maxVisible + 1);
+
+        for (let i = start; i <= end; i++) {
+            html += `<button class="${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        }
+
+        if (end < totalPages) {
+            html += `<span style="color:var(--text-tertiary)">...</span>`;
+        }
+
+        // Next
+        html += `<button ${currentPage === totalPages ? 'disabled' : ''} data-page="${currentPage + 1}">&rsaquo;</button>`;
+        // Last page
+        html += `<button ${currentPage === totalPages ? 'disabled' : ''} data-page="${totalPages}">Trang cuối &raquo;</button>`;
+
+        paginationEl.innerHTML = html;
+
+        paginationEl.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const page = Number(btn.dataset.page);
+                if (page && page !== currentPage) {
+                    currentPage = page;
+                    render();
+                    window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
+                }
+            });
+        });
+    }
+
+    // ── Main render ─────────────────────────────
+    function render() {
+        const filtered = filterProducts({
+            category: currentCategory,
+            type: currentType,
+            search: currentSearch,
+        });
+
+        const { items, totalPages } = paginateProducts(filtered, currentPage, perPage);
+
+        renderFilters();
+        renderProducts(items);
+        renderPagination(totalPages);
+    }
+
+    // ── Search debounce ─────────────────────────
+    let searchTimeout;
+    searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            currentSearch = searchInput.value.trim();
+            currentPage = 1;
+            render();
+        }, 300);
+    });
+
+    // Init
+    render();
+})();
