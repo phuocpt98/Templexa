@@ -292,7 +292,7 @@
             return `
                 <a href="product-detail.html?id=${p.id}" class="related-card">
                     <div class="related-card-image">
-                        <img src="${p.thumbnail}" alt="${p.name}" loading="lazy">
+                        <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
                         ${p.price === 'free' ? '<span class="product-badge free">FREE</span>' : ''}
                     </div>
                     <div class="related-card-info">

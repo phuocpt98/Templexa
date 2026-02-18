@@ -19,11 +19,11 @@ Templexa/
 │   │   ├── product-detail.js # Render chi tiết, gallery, modal nhận mẫu, related products
 │   │   └── contact.js        # Render pricing cards, form validation + submit Google Sheet
 │   └── images/               # Logo, icons, hero background, showcase, template previews
-├── products/                 # Các project mẫu sản phẩm (152 sản phẩm)
+├── products/                 # Các project mẫu sản phẩm (156 sản phẩm)
 │   ├── onepage/              # Landing page, coming soon (30 sản phẩm)
 │   ├── e-commerce/           # Makeup, beauty, digital design, sport (37 sản phẩm)
 │   ├── invitation/           # Wedding, birthday, anniversary, holiday (29 sản phẩm)
-│   ├── portfolio/            # Portfolio, personal blog (22 sản phẩm)
+│   ├── portfolio/            # Portfolio, personal blog (26 sản phẩm)
 │   └── education/            # Khóa học, đào tạo, chứng chỉ (34 sản phẩm)
 └── docs/                     # Mockup thiết kế (PNG/SVG)
 ```
@@ -225,7 +225,7 @@ Templexa/
 | Modal thành công | `product-detail.js` | ✅ Hoàn thành |
 | Đổi tên thư mục sản phẩm | 152 folders → kebab-case | ✅ Hoàn thành |
 | Đổi tên HTML → index.html | Tất cả code.html → index.html | ✅ Hoàn thành |
-| Data sản phẩm | `data.js` — 152 sản phẩm (đầy đủ) | ✅ Hoàn thành |
+| Data sản phẩm | `data.js` — 156 sản phẩm (đầy đủ) | ✅ Hoàn thành |
 | Footer đồng bộ | 4 trang giống nhau | ✅ Hoàn thành |
 | SEO meta tags | 4 trang (description, OG, Twitter Card) | ✅ Hoàn thành |
 
@@ -259,7 +259,7 @@ Templexa/
     type: 'website',               // website | google-sheet
     tags: ['tag1', 'tag2'],
     price: 'free',                 // 'free' hoặc giá
-    images: ['./products/...'],
+    images: ['./products/.../screen.png', './products/.../Screenshot_1.jpg', ...],  // screen.png luôn đầu tiên
     thumbnail: './products/.../screen.png',
     demoUrl: './products/.../index.html',
     features: ['Tính năng 1', 'Tính năng 2', 'Tính năng 3'],
@@ -428,6 +428,20 @@ Mỗi trang có `<script type="application/ld+json">` phù hợp:
 - Thay `https://phuocpt98.github.io/Templexa/` bằng domain thực (trong cả meta tags và JSON-LD)
 - Tạo file `assets/images/og-image.png` (1200×630px) cho ảnh share link
 - `theme-color`: `#6366F1` — màu thanh trình duyệt trên mobile
+
+## Hiển thị ảnh sản phẩm
+
+Tất cả nơi hiển thị ảnh đều dùng `images[0]`:
+
+| Vị trí | Code | Ảnh hiển thị |
+|--------|------|--------------|
+| Slider (index.html) | `p.images[0]` | Ảnh đầu tiên trong mảng |
+| Grid (products.html) | `p.images[0]` | Ảnh đầu tiên trong mảng |
+| Detail ảnh chính | `product.images[0]` | Ảnh đầu tiên trong mảng |
+| Related products | `p.images[0]` | Ảnh đầu tiên trong mảng |
+| SEO og:image | `product.thumbnail` | Dùng riêng cho meta tags |
+
+**Thứ tự ảnh trong mảng `images`**: `screen.png` luôn ở vị trí đầu tiên, tiếp theo là `Screenshot_*.jpg`.
 
 ## Ghi chú quan trọng
 

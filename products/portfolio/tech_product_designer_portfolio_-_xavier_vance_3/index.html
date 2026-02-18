@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leo Dang - Data Analyst Portfolio</title>
+<meta content="Portfolio of Leo Dang, a Data Analyst specializing in Data Strategy, Modeling, and Visualization." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#3b82f6","primary-dark": "#1d4ed8",
+              "background-light": "#f8fafc",
+              "background-dark": "#0f172a","surface-light": "#ffffff",
+              "surface-dark": "#1e293b","text-light": "#0f172a",
+              "text-dark": "#f1f5f9",
+              "accent-gray": "#64748b",
+            },
+            fontFamily: {
+              display: ["'Space Grotesk'", "sans-serif"],
+              sans: ["'Outfit'", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "1rem",
+              xl: "1.5rem",
+            },
+            backgroundImage: {
+               'hero-pattern': "url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+               'tech-gradient': "linear-gradient(to right bottom, #0f172a, #1e293b)",
+            }
+          },
+        },
+      };
+    </script>
+<script>
+        // Check local storage or system preference for dark mode
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-sans transition-colors duration-300">
+<nav class="fixed w-full z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<div class="flex-shrink-0 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-display font-bold text-lg">
+                        L
+                    </div>
+<span class="font-display font-bold text-xl tracking-tight">Leo Dang</span>
+</div>
+<div class="hidden md:flex space-x-8">
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#about">About</a>
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#workflow">Process</a>
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#recommendations">Reviews</a>
+<a class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors" href="#contact">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5" id="theme-toggle">
+<svg class="hidden w-5 h-5" fill="currentColor" id="theme-toggle-dark-icon" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5" fill="currentColor" id="theme-toggle-light-icon" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+<a class="hidden sm:block bg-primary hover:bg-primary-dark text-white px-5 py-2 rounded-full font-medium transition-all shadow-lg shadow-primary/30" href="#contact">
+                        Collaborate
+                    </a>
+</div>
+</div>
+</div>
+</nav>
+<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden" id="about">
+<div class="absolute inset-0 bg-background-light dark:bg-background-dark z-0">
+<div class="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-gray-100 to-transparent dark:from-slate-800/30 dark:to-transparent opacity-50"></div>
+</div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="relative h-[500px] w-full lg:h-[600px] flex items-center justify-center order-2 lg:order-1">
+<div class="absolute w-[450px] h-[450px] rounded-full border border-gray-200 dark:border-gray-700 animate-[spin_40s_linear_infinite] border-dashed"></div>
+<div class="absolute w-[520px] h-[520px] rounded-full border border-gray-100 dark:border-gray-800 animate-[spin_50s_linear_infinite_reverse]"></div>
+<div class="relative w-[380px] h-[480px] rounded-2xl overflow-hidden shadow-2xl shadow-primary/20">
+<img alt="Leo Dang Portrait" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYd99HLgB7BKJgRojyyQTsieiZPS7uC8LvYIMEKjnsbgBcMRtu2N5OfdSu_KjF8zY0YvBe4JLQImcfZjUqas21bCUuAQwGA9sjdRxDDyq2puZjL1Gaaij--jMe8-MiEoDVHcMoSUqSeTZqp0vHsYLrU5nWsuEHFkKnXYyeMJR9ZRNEMJhdVVxQIt9jEWIYYIH9EnrFUgG5rU3uDx9s5hEhmeJVH1r0J3EI7sKY7ybw2-jP-fo4xK6DT1svYZsWYZp-5sL_-716LnLy"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 bg-primary/20 backdrop-blur-md rounded text-xs font-mono text-primary-dark dark:text-blue-300 border border-primary/30">BS Mathematics</span>
+</div>
+<p class="text-white/90 text-sm font-light">"Data is the language of business strategy."</p>
+</div>
+</div>
+</div>
+<div class="space-y-8 animate-fade-in-up order-1 lg:order-2">
+<span class="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-primary uppercase bg-primary/10 rounded-full">
+                    About The Analyst
+                </span>
+<h1 class="text-5xl md:text-7xl font-display font-bold leading-none tracking-tighter text-gray-900 dark:text-white">
+                    Leo Dang <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500">Data Strategist.</span>
+</h1>
+<p class="text-xl text-gray-600 dark:text-gray-300 max-w-lg font-light leading-relaxed">
+                    With a rigorous background in Mathematics and over 5 years specializing in data strategy, I translate complex datasets into clear, actionable business intelligence.
+                </p>
+<div class="space-y-4 text-gray-600 dark:text-gray-400 font-light">
+<p>
+                        My approach combines statistical rigor with a narrative-driven analysis style. I don't just find the numbers; I find the story they tell about your user behavior, operational efficiency, and future growth potential.
+                    </p>
+<p>
+                        Currently leveraging Python, SQL, and advanced Tableau visualizations to empower decision-makers in the fintech and SaaS sectors.
+                    </p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<a class="inline-flex justify-center items-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary hover:bg-primary-dark md:py-4 md:text-lg md:px-10 shadow-lg shadow-primary/25 transition-all" href="#workflow">
+                        See My Process
+                    </a>
+<a class="inline-flex justify-center items-center px-8 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-full text-gray-700 dark:text-gray-200 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800 md:py-4 md:text-lg md:px-10 transition-all" href="https://linkedin.com">
+                        LinkedIn Profile
+                    </a>
+</div>
+</div>
+</div>
+</section>
+<div class="w-full bg-surface-light dark:bg-surface-dark border-y border-gray-200 dark:border-gray-800 py-6 overflow-hidden">
+<div class="flex space-x-12 animate-marquee whitespace-nowrap opacity-60 dark:opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">dataset</span> Python</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">database</span> SQL</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">bar_chart</span> Tableau</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">monitoring</span> PowerBI</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">code</span> R Stats</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">cloud</span> Snowflake</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">schema</span> dbt</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">neurology</span> Scikit-Learn</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">dataset</span> Python</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">database</span> SQL</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">bar_chart</span> Tableau</span>
+<span class="text-xl font-display font-bold mx-8 flex items-center gap-2"><span class="material-symbols-outlined">monitoring</span> PowerBI</span>
+</div>
+</div>
+<section class="py-24 bg-gray-50 dark:bg-slate-900 transition-colors duration-300" id="workflow">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-20">
+<span class="text-primary font-mono text-sm tracking-widest uppercase mb-2 block">Methodology</span>
+<h2 class="text-5xl md:text-7xl font-display font-bold text-gray-900 dark:text-white mb-6">The Data Workflow</h2>
+<p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">From raw chaos to refined insight. My structured process ensures data integrity and strategic value at every step.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+<div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent z-0"></div>
+<div class="group relative z-10">
+<div class="bg-surface-light dark:bg-surface-dark p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800 h-full hover:translate-y-[-8px] transition-transform duration-300">
+<div class="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl">download</span>
+</div>
+<h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-4">01. Data Extraction</h3>
+<p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                            Gathering raw data from disparate sources (APIs, SQL databases, flat files). Cleaning and structuring datasets to ensure a reliable foundation for analysis.
+                        </p>
+<ul class="text-sm text-gray-500 dark:text-gray-500 space-y-2 border-t border-gray-100 dark:border-gray-700 pt-4">
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>ETL Pipelines</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Data Cleansing</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Warehousing</li>
+</ul>
+</div>
+</div>
+<div class="group relative z-10">
+<div class="bg-surface-light dark:bg-surface-dark p-8 rounded-2xl shadow-lg border border-primary/20 dark:border-primary/20 h-full hover:translate-y-[-8px] transition-transform duration-300 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-9xl">analytics</span>
+</div>
+<div class="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl">cognition</span>
+</div>
+<h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-4">02. Analysis &amp; Modeling</h3>
+<p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                            Applying statistical models and exploratory data analysis (EDA) to uncover trends. Testing hypotheses and identifying correlations that drive business KPIs.
+                        </p>
+<ul class="text-sm text-gray-500 dark:text-gray-500 space-y-2 border-t border-gray-100 dark:border-gray-700 pt-4">
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Predictive Modeling</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Regression Analysis</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>A/B Testing</li>
+</ul>
+</div>
+</div>
+<div class="group relative z-10">
+<div class="bg-surface-light dark:bg-surface-dark p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800 h-full hover:translate-y-[-8px] transition-transform duration-300">
+<div class="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-3xl">leaderboard</span>
+</div>
+<h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-4">03. Visual Storytelling</h3>
+<p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                            Translating numbers into narratives. Creating intuitive dashboards and reports that empower stakeholders to make data-driven decisions confidently.
+                        </p>
+<ul class="text-sm text-gray-500 dark:text-gray-500 space-y-2 border-t border-gray-100 dark:border-gray-700 pt-4">
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Interactive Dashboards</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Executive Reporting</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Strategic Recommendations</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-surface-light dark:bg-background-dark text-text-light dark:text-text-dark relative overflow-hidden" id="recommendations">
+<div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<h2 class="text-5xl md:text-6xl font-display font-bold mb-16 text-center">Recommendations</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">
+<div class="p-8 md:p-10 border border-gray-200 dark:border-gray-800 rounded-3xl bg-gray-50 dark:bg-slate-800/20 backdrop-blur-sm relative">
+<span class="material-symbols-outlined absolute top-8 left-8 text-6xl text-gray-200 dark:text-gray-700 select-none">format_quote</span>
+<div class="relative z-10 pt-8">
+<p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed italic mb-8">
+                        "Leo has a rare ability to not only build complex data models but to explain them in plain English. His dashboards for our Q3 marketing review revealed insights that saved us 15% in ad spend."
+                    </p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white font-bold text-lg">
+                                SJ
+                            </div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white">Sarah Jenkins</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400">VP of Marketing, FinTech Solutions</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-8 md:p-10 border border-gray-200 dark:border-gray-800 rounded-3xl bg-gray-50 dark:bg-slate-800/20 backdrop-blur-sm relative">
+<span class="material-symbols-outlined absolute top-8 left-8 text-6xl text-gray-200 dark:text-gray-700 select-none">format_quote</span>
+<div class="relative z-10 pt-8">
+<p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed italic mb-8">
+                        "The automated reporting pipeline Leo set up transformed our weekly operations meeting. We went from spending 4 hours manually compiling Excel sheets to real-time data access."
+                    </p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-blue-700 flex items-center justify-center text-white font-bold text-lg">
+                                MC
+                            </div>
+<div>
+<h4 class="font-bold text-gray-900 dark:text-white">Marcus Chen</h4>
+<p class="text-sm text-gray-500 dark:text-gray-400">Operations Director, OmniLogistics</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="relative py-24 min-h-[700px] flex items-center justify-center overflow-hidden" id="contact">
+<div class="absolute inset-0 z-0 bg-background-light dark:bg-background-dark">
+<div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 32px 32px;"></div>
+<div class="absolute right-0 bottom-0 w-1/3 h-full bg-gradient-to-l from-primary/10 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="text-gray-900 dark:text-white">
+<span class="text-primary font-bold tracking-widest uppercase mb-4 block">Let's Connect</span>
+<h2 class="text-5xl md:text-6xl font-display font-bold mb-6">Data-Driven Decisions Start Here.</h2>
+<p class="text-xl text-gray-700 dark:text-gray-300 mb-10 font-light">
+                        Looking for a deep dive into your company data or need a dashboard overhaul? I'm available for freelance projects and consulting.
+                    </p>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-light dark:bg-surface-dark flex items-center justify-center text-primary shadow-lg border border-gray-100 dark:border-gray-800">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<p class="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">Email</p>
+<a class="text-lg font-medium hover:text-primary transition-colors" href="mailto:leo.dang@analytics.com">leo.dang@analytics.com</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-light dark:bg-surface-dark flex items-center justify-center text-primary shadow-lg border border-gray-100 dark:border-gray-800">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<p class="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide">Location</p>
+<p class="text-lg font-medium">New York, NY (Remote Friendly)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl border border-white/40 dark:border-white/10 p-8 rounded-2xl shadow-2xl relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-cyan-400 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+<form action="#" class="space-y-5">
+<div class="grid grid-cols-2 gap-5">
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400" for="first-name">First Name</label>
+<input class="block w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-black/40 focus:ring-2 focus:ring-primary/50 focus:border-primary sm:text-sm text-gray-900 dark:text-white placeholder-gray-400 transition-all" id="first-name" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400" for="last-name">Last Name</label>
+<input class="block w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-black/40 focus:ring-2 focus:ring-primary/50 focus:border-primary sm:text-sm text-gray-900 dark:text-white placeholder-gray-400 transition-all" id="last-name" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400" for="email">Email Address</label>
+<input class="block w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-black/40 focus:ring-2 focus:ring-primary/50 focus:border-primary sm:text-sm text-gray-900 dark:text-white placeholder-gray-400 transition-all" id="email" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400" for="inquiry-type">Inquiry Type</label>
+<select class="block w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-black/40 focus:ring-2 focus:ring-primary/50 focus:border-primary sm:text-sm text-gray-900 dark:text-white transition-all" id="inquiry-type">
+<option>General Analysis</option>
+<option>Dashboard Creation</option>
+<option>Data Engineering</option>
+<option>Consultation</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400" for="message">Project Details</label>
+<textarea class="block w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-black/40 focus:ring-2 focus:ring-primary/50 focus:border-primary sm:text-sm text-gray-900 dark:text-white placeholder-gray-400 transition-all" id="message" rows="3"></textarea>
+</div>
+<button class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg shadow-primary/20 text-sm font-bold uppercase tracking-wider text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all transform active:scale-95" type="button">
+                            Send Inquiry
+                        </button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-surface-light dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 pt-16 pb-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-display font-bold text-lg">
+                            L
+                        </div>
+<span class="font-display font-bold text-xl tracking-tight text-gray-900 dark:text-white">Leo Dang</span>
+</div>
+<p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                        Transforming data into strategy. Precision analytics for modern business.
+                    </p>
+</div>
+<div>
+<h4 class="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-6">Explore</h4>
+<ul class="space-y-4 text-sm text-gray-500 dark:text-gray-400">
+<li><a class="hover:text-primary transition-colors" href="#about">About Me</a></li>
+<li><a class="hover:text-primary transition-colors" href="#workflow">My Process</a></li>
+<li><a class="hover:text-primary transition-colors" href="#recommendations">Testimonials</a></li>
+<li><a class="hover:text-primary transition-colors" href="#contact">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-6">Connect</h4>
+<ul class="space-y-4 text-sm text-gray-500 dark:text-gray-400">
+<li><a class="hover:text-primary transition-colors" href="#">LinkedIn</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">GitHub</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Tableau Public</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Medium</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-sm font-bold uppercase tracking-widest text-gray-900 dark:text-white mb-6">Updates</h4>
+<form class="flex gap-2">
+<input class="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-transparent text-sm focus:ring-primary focus:border-primary dark:text-white" placeholder="Email" type="email"/>
+<button class="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-dark transition-colors" type="submit">→</button>
+</form>
+</div>
+</div>
+<div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 dark:text-gray-500">
+<p>© 2024 Leo Dang Analytics. All rights reserved.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="hover:text-gray-600 dark:hover:text-gray-300" href="#">Privacy Policy</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        // Change the icons inside the button based on previous settings
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            lightIcon.classList.remove('hidden');
+        } else {
+            darkIcon.classList.remove('hidden');
+        }
+        themeToggleBtn.addEventListener('click', function() {
+            // toggle icons inside button
+            darkIcon.classList.toggle('hidden');
+            lightIcon.classList.toggle('hidden');
+            // if set via local storage previously
+            if (localStorage.theme === 'dark') {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+        // Add custom marquee animation config
+        tailwind.config.theme.extend.animation = {
+            ...tailwind.config.theme.extend.animation,
+            'marquee': 'marquee 25s linear infinite',
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+        }
+        tailwind.config.theme.extend.keyframes = {
+            ...tailwind.config.theme.extend.keyframes,
+            marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+            },
+            fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+        }
+    </script>
+</body></html>
