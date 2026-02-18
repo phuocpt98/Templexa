@@ -33,7 +33,7 @@
         // Type filters
         typeFiltersEl.innerHTML = TYPES.map(t =>
             `<button class="filter-btn${t.id === currentType ? ' active' : ''}" data-type="${t.id}">${t.label}</button>`
-        ).join('');
+        ).join('') + '<button class="filter-btn filter-btn-other" disabled>Khác ▾</button>';
 
         // Event listeners
         categoryFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
