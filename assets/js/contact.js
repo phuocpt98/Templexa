@@ -74,13 +74,12 @@
             submitBtn.textContent = 'Đang gửi...';
 
             const formData = {
-                type: 'consultation',
-                reference: consultForm.reference.value,
-                service: consultForm.service.value,
-                pages: consultForm.pages.value,
                 email: consultForm.email.value,
                 phone: consultForm.phone.value,
-                timestamp: new Date().toISOString(),
+                reference: consultForm.reference.value,
+                service: consultForm.service.value,
+                note: consultForm.note.value,
+                status: 'tư vấn',
             };
 
             const result = await submitToGoogleSheet(formData);
@@ -92,13 +91,13 @@
                 consultForm.reset();
                 // Show inline success
                 const successMsg = document.createElement('div');
-                successMsg.style.cssText = 'background:#D1FAE5;color:#059669;padding:12px 16px;border-radius:8px;margin-top:12px;font-size:0.9rem;text-align:center';
+                successMsg.style.cssText = 'background:#DCFCE7;color:#16A34A;padding:12px 16px;border-radius:8px;margin-top:12px;font-size:0.9rem;text-align:center';
                 successMsg.textContent = 'Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ bạn sớm nhất.';
                 consultForm.appendChild(successMsg);
                 setTimeout(() => successMsg.remove(), 5000);
             } else {
                 const errorMsg = document.createElement('div');
-                errorMsg.style.cssText = 'background:#FEE2E2;color:#DC2626;padding:12px 16px;border-radius:8px;margin-top:12px;font-size:0.9rem;text-align:center';
+                errorMsg.style.cssText = 'background:#FEE2E2;color:#EF4444;padding:12px 16px;border-radius:8px;margin-top:12px;font-size:0.9rem;text-align:center';
                 errorMsg.textContent = result.message;
                 consultForm.appendChild(errorMsg);
                 setTimeout(() => errorMsg.remove(), 5000);

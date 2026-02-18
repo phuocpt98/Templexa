@@ -48,12 +48,15 @@ Templexa/
 
 ## Design System
 
-- **Màu chính**: `#6366F1` (indigo) — gradient `#6366F1 → #A855F7 → #3B82F6`
+- **Màu chính**: `#1D97C2` (cyan) — gradient 7 màu `#85C6DE → #6EBBD7 → #55AFD0 → #1D97C2 → #1F88B8 → #2079AF → #2269AA`
+- **Primary**: `#1D97C2` (M4) | Hover: `#1F88B8` (M5) | Active: `#2079AF` (M6) | Deep: `#2269AA` (M7)
+- **Background**: `#FFFFFF` | Subtle: `#F4FBFF` | Card hover: `#EAF7FF` | Border: `#D6ECF7`
+- **Text**: Main `#0B1B2B` | Secondary `#355066` | Muted `#5E7A90`
 - **Font**: Inter (400, 500, 600, 700, 800)
 - **Border radius**: Bo tròn cho cards (`12-16px`), buttons (`30px pill`)
 - **Shadow**: Nhẹ cho cards, header khi scroll
 - **Dark mode**: Toggle icon moon/sun, lưu `localStorage`, hỗ trợ system preference
-  - Light: `--bg-primary: #fff`, `--text-primary: #111827`
+  - Light: `--bg-primary: #fff`, `--text-primary: #0B1B2B`
   - Dark: `--bg-primary: #0F172A`, `--text-primary: #F1F5F9`
 
 ## Thiết kế các trang (từ mockup trong /docs)
@@ -114,9 +117,33 @@ Templexa/
 ## Data & API
 
 - **Product data**: `assets/js/data.js` — mảng `PRODUCTS` (10 mẫu), `CATEGORIES`, `TYPES`, `PRICING` + helper functions
-- **Google Sheet API**: `API_CONFIG.GOOGLE_SHEET_API` trong `data.js` — **chờ cấu hình URL** từ Google Apps Script
-- **Forms submit**: `submitToGoogleSheet(formData)` cho form liên hệ + form nhận mẫu
+- **Google Sheet API**: `API_CONFIG.GOOGLE_SHEET_API` trong `data.js` — **đã cấu hình** Google Apps Script URL
+- **Forms submit**: `submitToGoogleSheet(formData)` cho form tư vấn + form nhận mẫu
 - **Truyền data giữa trang**: `product-detail.html?id=1` → `URLSearchParams` → `getProductById(id)`
+
+### API Input Format
+
+Cả 2 form đều gửi cùng format JSON đến Google Sheets:
+
+```json
+{
+  "email": "test@gmail.com",
+  "phone": "0912345678",
+  "reference": "Facebook Ads",
+  "service": "premium",
+  "note": "Cần tư vấn ngay",
+  "status": "tư vấn"
+}
+```
+
+| Field | Form Tư Vấn (`contact.html`) | Form Nhận Mẫu (`product-detail.html`) |
+|-------|------------------------------|---------------------------------------|
+| `email` | Input email (required) | Input email (required) |
+| `phone` | Input SĐT | Input SĐT |
+| `reference` | Input mẫu tham khảo | Auto: `"{product.name} (ID: {id})"` |
+| `service` | Select gói dịch vụ | Để trống `''` |
+| `note` | Textarea ghi chú | Textarea ghi chú |
+| `status` | Auto: `"tư vấn"` | Auto: `"nhận mẫu"` |
 
 ### 2 loại sản phẩm (type)
 
