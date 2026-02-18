@@ -48,28 +48,89 @@ Templexa/
 
 ## Design System
 
-- **Màu chính**: `#1D97C2` (cyan) — gradient 7 màu `#85C6DE → #6EBBD7 → #55AFD0 → #1D97C2 → #1F88B8 → #2079AF → #2269AA`
-- **Primary**: `#1D97C2` (M4) | Hover: `#1F88B8` (M5) | Active: `#2079AF` (M6) | Deep: `#2269AA` (M7)
-- **Background**: `#FFFFFF` | Subtle: `#F4FBFF` | Card hover: `#EAF7FF` | Border: `#D6ECF7`
-- **Text**: Main `#0B1B2B` | Secondary `#355066` | Muted `#5E7A90`
-- **Font**: Inter (400, 500, 600, 700, 800)
-- **Border radius**: Bo tròn cho cards (`12-16px`), buttons (`30px pill`)
-- **Shadow**: Nhẹ cho cards, header khi scroll
-- **Dark mode**: Toggle icon moon/sun, lưu `localStorage`, hỗ trợ system preference
-  - Light: `--bg-primary: #fff`, `--text-primary: #0B1B2B`
-  - Dark: `--bg-primary: #0F172A`, `--text-primary: #F1F5F9`
+### Bảng màu chính (Indigo/Purple)
+
+| Vai trò | Mã màu | Dùng ở đâu |
+|---------|--------|-------------|
+| **Indigo** | `#6366F1` | Buttons, borders active, filter active, badge dot, slider badge |
+| **Indigo Dark** | `#4F46E5` | Button gradient end, hover states |
+| **Purple** | `#7C3AED` | Hero badge icon, showcase icon bg |
+| **Purple Deep** | `#5B21B6` | Showcase icon gradient end |
+| **Violet** | `#A855F7` | Hero gradient text mid-point |
+| **Blue** | `#3B82F6` | Hero gradient text end |
+
+### Gradient patterns
+
+| Tên | Giá trị | Dùng ở đâu |
+|-----|---------|-------------|
+| **Hero text** | `linear-gradient(135deg, #6366F1, #A855F7 50%, #3B82F6)` | `.hero h1 .gradient-text` |
+| **CTA text** | `linear-gradient(135deg, #6366F1, #4F46E5)` | `.cta h2 .gradient-text` |
+| **Button CTA** | `linear-gradient(135deg, #6366F1, #4F46E5)` | `.cta-btn`, `.hero-cta` |
+| **Showcase bg** | `linear-gradient(155deg, #6366F1 0%, #4F46E5 50%, #6734DA 75%, #7E22CE 100%)` | `.showcase` section |
+| **Showcase icon 1** | `linear-gradient(135deg, #7C3AED, #5B21B6)` | `.icon-purple` |
+| **Showcase icon 2** | `linear-gradient(135deg, #397FED, #0D6C94)` | `.icon-blue` |
+
+### Màu nền & text (CSS Variables)
+
+| Variable | Light | Dark |
+|----------|-------|------|
+| `--bg-primary` | `#FFFFFF` | `#0F172A` |
+| `--bg-secondary` | `#F4FBFF` | `#1E293B` |
+| `--text-primary` | `#0B1B2B` | `#F1F5F9` |
+| `--text-secondary` | `#355066` | `#94A3B8` |
+| `--text-tertiary` | `#5E7A90` | `#64748B` |
+| `--border-color` | `#D6ECF7` | `#1A3A4D` |
+| `--accent` | `#1D97C2` | (giữ nguyên) |
+
+### Màu hardcoded (không qua CSS variable)
+
+| Mã màu | Vai trò |
+|--------|---------|
+| `#111827` | Heading đậm (benefits, templates section) |
+| `#6B7280` | Text muted (hero desc, footer links) |
+| `#4B5563` | Text body (benefit cards) |
+| `#F9FAFB` | Footer background, benefit cards bg |
+| `#F8FAFC` | Templates section bg |
+| `#F3F4F6` | Footer top border |
+| `#E5E7EB` | Card borders, footer bottom separator |
+| `#94A3B8` | Copyright text |
+
+### Font
+
+- **Family**: Inter (Google Fonts) + Averia Serif Libre (logo)
+- **Weights**: 400 (body), 500 (medium), 600 (semi-bold, headings nhỏ), 700 (bold, headings), 800 (extra-bold, hero)
+
+### Border radius & Shadow
+
+- Cards: `12–24px` | Buttons: `30–34px` pill | Icon boxes: `16px`
+- Card shadow: `0 4px 15px rgba(0,0,0,0.05)` | CTA button: `0 10px 30px rgba(99,102,241,0.3)`
+
+### Dark mode
+
+- Toggle icon: moon/sun, lưu `localStorage`, hỗ trợ `prefers-color-scheme`
+- Attribute: `[data-theme="dark"]` trên `<html>`
+- Footer, footer-bottom có rule riêng cho dark mode (fallback về CSS variables)
 
 ## Thiết kế các trang (từ mockup trong /docs)
 
-### 1. Trang chủ — `index.html`
-- **Header**: Logo + Nav (centered) + Dark mode toggle + Hamburger (mobile)
-- **Hero**: Badge + Heading gradient + mô tả + CTA "Bắt Đầu Ngay"
-- **Lý Do Chọn Chúng Tôi**: 4 icon cards
-- **Các Mẫu Nổi Bật**: Slider/carousel 5 cards, card giữa có badge "Most Popular"
-- **Lợi ích**: 4 cards (Đội Ngũ, Tiết Kiệm, Cấu Trúc, Tùy Chỉnh)
-- **Showcase**: Background gradient tím, 2 cột (content + image), wave dividers
-- **CTA cuối**: Heading + mô tả + button gradient
-- **Footer**: 4 cột (Logo, Dịch Vụ, Sản phẩm, Liên Hệ) + copyright
+### 1. Trang chủ — `index.html` ✅ Đã cập nhật theo mockup
+- **Header**: Logo (Averia Serif Libre) + Nav (centered) + Dark mode toggle + Hamburger (mobile)
+- **Hero**: Badge tím `#7C3AED` + Heading gradient (`#6366F1→#A855F7→#3B82F6`) + mô tả + CTA "Bắt Đầu Ngay" (bg `#111827`)
+- **Lý Do Chọn Chúng Tôi**: 4 icon cards (img SVG)
+- **Các Mẫu Nổi Bật**: Slider/carousel, card giữa có badge "Most Popular" (bg `#6366F1`)
+- **Lợi ích**: 4 cards với icon SVG (benefits_icon_1–4.svg), bg `#F9FAFB`
+- **Showcase**: Background gradient tím (`#6366F1→#4F46E5→#6734DA→#7E22CE`)
+  - Wave top: `M0 10L1440 43` (fill `--bg-primary`)
+  - Wave bottom: Y range 10%–80% (tím tối thiểu 20%)
+  - Badge "CẬP NHẬT NHANH CHÓNG": nền `rgba(124,58,237,0.08)`, border `rgba(124,58,237,0.5)`
+  - 2 feature items với icon SVG bo tròn gradient (icon-purple, icon-blue) + mô tả nhỏ
+  - Ảnh showcase.svg: `max-width: clamp(280px, 30vw, 460px)`, căn giữa
+- **CTA cuối**: Heading gradient text (`#6366F1→#4F46E5`) + button gradient indigo + icon play triangle
+- **Footer**: 4 cột chia đều (`repeat(4, 1fr)`), bg `#F9FAFB`, border `#F3F4F6`
+  - Dịch Vụ: links → `contact.html?service=xxx#pricing-section`
+  - Sản phẩm: links → `products.html?category=xxx`
+  - Liên Hệ: "Yêu cầu báo giá" → `contact.html#contactForm`
+  - Copyright: căn phải (`justify-content: flex-end`)
 
 ### 2. Danh sách thiết kế — `products.html`
 - **Hero**: Heading gradient + mô tả + thanh search (debounce 300ms)
@@ -168,9 +229,51 @@ Tất cả 152 folders đã được rename về kebab-case:
 - Sửa typo: `invitaion` → `invitation`, `birrthday` → `birthday`, `lxxury` → `luxury`, `autum` → `autumn`, `arrt` → `art`
 - HTML source: tất cả đã đổi thành `index.html`
 
+## URL Parameters (đã implement)
+
+| Trang | Param | Tác dụng |
+|-------|-------|----------|
+| `products.html` | `?category=onepage` | Auto-filter theo danh mục |
+| `products.html` | `?type=website` | Auto-filter theo loại |
+| `products.html` | `?search=keyword` | Auto-fill search + filter |
+| `contact.html` | `?service=pro` | Auto-select gói dịch vụ trong form |
+| `contact.html` | `#pricing-section` | Scroll đến phần pricing |
+| `contact.html` | `#contactForm` | Scroll đến form tư vấn |
+| `product-detail.html` | `?id=1` | Load sản phẩm theo ID |
+
 ## Ghi chú thêm
 
-- Footer giống nhau trên tất cả 4 trang (DRY — copy HTML)
+- Footer giống nhau trên tất cả 4 trang (DRY — copy HTML), links có URL params
 - Header giống nhau trên tất cả 4 trang, chỉ khác class `active` trên nav link
 - Pricing cards render động từ `PRICING` array trong `data.js`
 - Scroll animations áp dụng cho: `.service-card`, `.template-card`, `.benefit-card`, `.process-step`, `.pricing-card`, `.target-card`, `.product-card`
+- Hover color cho links: `#6366F1` (indigo) — thống nhất toàn site
+
+## Plan: Cập nhật 3 trang còn lại theo mockup
+
+Sau khi index.html đã hoàn thành, cần cập nhật 3 trang theo mockup tương ứng trong `/docs`:
+
+### products.html (mockup: `docs/product.svg` + `docs/product.png`)
+- [ ] So sánh hero section với mockup, cập nhật gradient/text/badge
+- [ ] Kiểm tra filter buttons style (active state = `#6366F1`)
+- [ ] Product cards: badges, hover, shadow, border
+- [ ] Pagination style
+- [ ] Footer: đã cập nhật links ✅
+
+### product-detail.html (mockup: `docs/product-detail.svg` + `docs/product-detail.png`)
+- [ ] Breadcrumb style
+- [ ] Gallery & thumbnails
+- [ ] Sidebar: badge giá, buttons, features list
+- [ ] Action bar (save, share)
+- [ ] Related products grid
+- [ ] Modal nhận mẫu + thành công
+- [ ] Footer: đã cập nhật links ✅
+
+### contact.html (mockup: `docs/contact.png`)
+- [ ] Hero gradient background
+- [ ] Process steps cards
+- [ ] Pricing cards style (highlighted card)
+- [ ] CTA section + form tư vấn
+- [ ] Target audience cards
+- [ ] URL param `?service=xxx` auto-select: đã implement ✅
+- [ ] Footer: đã cập nhật links ✅

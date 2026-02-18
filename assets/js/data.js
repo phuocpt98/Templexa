@@ -45,6 +45,7 @@ const PRODUCTS = [
         priority: 1,
         downloads: 0,
         rating: 0,
+        showInSlider: true,
         updatedAt: '2025-02-17',
     },
     {
@@ -72,6 +73,7 @@ const PRODUCTS = [
         priority: 2,
         downloads: 0,
         rating: 0,
+        showInSlider: true,
         updatedAt: '2025-02-17',
     },
 
@@ -101,6 +103,7 @@ const PRODUCTS = [
         priority: 3,
         downloads: 0,
         rating: 0,
+        showInSlider: true,
         updatedAt: '2025-02-17',
     },
     {
@@ -128,6 +131,7 @@ const PRODUCTS = [
         priority: 4,
         downloads: 0,
         rating: 0,
+        showInSlider: false,
         updatedAt: '2025-02-17',
     },
 
@@ -158,6 +162,7 @@ const PRODUCTS = [
         priority: 5,
         downloads: 0,
         rating: 0,
+        showInSlider: true,
         updatedAt: '2025-02-17',
     },
     {
@@ -185,6 +190,7 @@ const PRODUCTS = [
         priority: 6,
         downloads: 0,
         rating: 0,
+        showInSlider: false,
         updatedAt: '2025-02-17',
     },
 
@@ -214,6 +220,7 @@ const PRODUCTS = [
         priority: 7,
         downloads: 0,
         rating: 0,
+        showInSlider: true,
         updatedAt: '2025-02-17',
     },
     {
@@ -241,6 +248,7 @@ const PRODUCTS = [
         priority: 8,
         downloads: 0,
         rating: 0,
+        showInSlider: false,
         updatedAt: '2025-02-17',
     },
 
@@ -270,6 +278,7 @@ const PRODUCTS = [
         priority: 9,
         downloads: 0,
         rating: 0,
+        showInSlider: true,
         updatedAt: '2025-02-17',
     },
     {
@@ -297,6 +306,7 @@ const PRODUCTS = [
         priority: 10,
         downloads: 0,
         rating: 0,
+        showInSlider: false,
         updatedAt: '2025-02-17',
     },
 ];
@@ -390,6 +400,13 @@ const PRICING = [
 // ============================================
 // HELPER FUNCTIONS
 // ============================================
+
+/**
+ * Lấy danh sách sản phẩm hiển thị trên slider trang chủ
+ */
+function getSliderProducts() {
+    return PRODUCTS.filter(p => p.showInSlider);
+}
 
 /**
  * Lấy product theo id
