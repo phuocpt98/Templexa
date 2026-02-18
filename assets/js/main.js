@@ -17,13 +17,9 @@
         }
     }
 
-    // Init from localStorage or system preference
+    // Init from localStorage — default light
     const saved = localStorage.getItem('theme');
-    if (saved) {
-        setTheme(saved);
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setTheme('dark');
-    }
+    setTheme(saved || 'light');
 
     toggle.addEventListener('click', () => {
         const current = document.documentElement.getAttribute('data-theme');

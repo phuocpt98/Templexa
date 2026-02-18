@@ -67,7 +67,7 @@
         <nav class="breadcrumb">
             <a href="products.html">Danh sách thiết kế</a>
             <span>&rsaquo;</span>
-            <a href="products.html">${categoryLabel}</a>
+            <a href="products.html?category=${product.category}">${categoryLabel}</a>
             <span>&rsaquo;</span>
             <span class="current">${product.name}</span>
         </nav>
@@ -143,6 +143,23 @@
         });
     });
 
+    // ── Save button ──────────────────────────────
+    const btnSave = document.getElementById('btnSave');
+    if (btnSave) {
+        const savedKey = `saved_${product.id}`;
+        if (sessionStorage.getItem(savedKey)) {
+            btnSave.classList.add('saved');
+        }
+        btnSave.addEventListener('click', () => {
+            btnSave.classList.toggle('saved');
+            if (btnSave.classList.contains('saved')) {
+                sessionStorage.setItem(savedKey, '1');
+            } else {
+                sessionStorage.removeItem(savedKey);
+            }
+        });
+    }
+
     // ── Share button ────────────────────────────
     const btnShare = document.getElementById('btnShare');
     if (btnShare) {
@@ -204,11 +221,12 @@
 
         const formData = {
             email: templateForm.email.value,
+            name: templateForm.name.value,
             phone: templateForm.phone.value,
-            reference: `${product.name} (ID: ${product.id})`,
+            reference: window.location.href,
             service: '',
-            note: templateForm.note.value,
-            status: 'nhận mẫu',
+            note: '',
+            status: 'submit',
         };
 
         await submitToGoogleSheet(formData);

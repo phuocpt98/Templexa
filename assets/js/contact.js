@@ -26,8 +26,12 @@
 
             return `
                 <div class="pricing-card${plan.highlighted ? ' highlighted' : ''}">
-                    <h3>${plan.name}</h3>
+                    <div class="pricing-header">
+                        <h3>${plan.name}</h3>
+                        ${plan.discount ? `<span class="pricing-discount">${plan.discount}</span>` : ''}
+                    </div>
                     <p class="pricing-desc">${plan.description}</p>
+                    <div class="pricing-original-price${plan.showOriginalPrice ? '' : ' hidden'}">${plan.showOriginalPrice ? plan.originalPrice : '&nbsp;'}</div>
                     <div class="pricing-price">${plan.price}</div>
                     <button class="pricing-cta" data-plan="${plan.id}">Chọn Gói Ngay</button>
                     <ul class="pricing-features">${featuresHTML}</ul>
@@ -35,12 +39,26 @@
             `;
         }).join('');
 
-        // Pricing CTA → scroll to form
+        // Click card to highlight
+        function highlightCard(card) {
+            pricingGrid.querySelectorAll('.pricing-card').forEach(c => c.classList.remove('highlighted'));
+            card.classList.add('highlighted');
+        }
+
+        pricingGrid.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('click', () => highlightCard(card));
+        });
+
+        // Pricing CTA → highlight + scroll to form
         pricingGrid.querySelectorAll('.pricing-cta').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const planId = btn.dataset.plan;
+                const card = btn.closest('.pricing-card');
                 const formSection = document.getElementById('contactForm');
                 const serviceSelect = consultForm?.querySelector('select[name="service"]');
+
+                highlightCard(card);
 
                 if (serviceSelect) {
                     serviceSelect.value = planId;
