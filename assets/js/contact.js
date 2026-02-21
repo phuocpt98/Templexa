@@ -39,10 +39,17 @@
             `;
         }).join('');
 
+        // Lock min-height to prevent layout shift
+        pricingGrid.style.minHeight = pricingGrid.offsetHeight + 'px';
+
         // Click card to highlight
         function highlightCard(card) {
-            pricingGrid.querySelectorAll('.pricing-card').forEach(c => c.classList.remove('highlighted'));
             card.classList.add('highlighted');
+            setTimeout(() => {
+                pricingGrid.querySelectorAll('.pricing-card').forEach(c => {
+                    if (c !== card) c.classList.remove('highlighted');
+                });
+            }, 100);
         }
 
         pricingGrid.querySelectorAll('.pricing-card').forEach(card => {
