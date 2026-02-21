@@ -194,6 +194,42 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 })();
 
 // ============================================
+// AUTO HOVER — generic for index.html grids
+// ============================================
+function initAutoHover(gridSelector, cardSelector) {
+    const grid = document.querySelector(gridSelector);
+    if (!grid) return;
+
+    const cards = grid.querySelectorAll(cardSelector);
+    if (!cards.length) return;
+
+    let timer;
+    let index = 0;
+
+    function start() {
+        clearInterval(timer);
+        index = 0;
+        timer = setInterval(() => {
+            cards.forEach(c => c.classList.remove('auto-hover'));
+            cards[index % cards.length].classList.add('auto-hover');
+            index++;
+        }, 1500);
+    }
+
+    grid.addEventListener('mouseenter', () => {
+        clearInterval(timer);
+        cards.forEach(c => c.classList.remove('auto-hover'));
+    });
+    grid.addEventListener('mouseleave', () => start());
+
+    start();
+}
+
+initAutoHover('.benefits-grid', '.benefit-card');
+
+initAutoHover('.services-grid', '.service-card');
+
+// ============================================
 // SCROLL ANIMATIONS (IntersectionObserver)
 // ============================================
 (function () {
