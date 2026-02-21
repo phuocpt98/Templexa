@@ -159,6 +159,29 @@
         }, 300);
     });
 
+    // ── Auto hover cycle ────────────────────────
+    let autoHoverTimer;
+    function startAutoHover() {
+        clearInterval(autoHoverTimer);
+        let index = 0;
+        autoHoverTimer = setInterval(() => {
+            const cards = grid.querySelectorAll('.product-card');
+            if (!cards.length) return;
+            cards.forEach(c => c.classList.remove('auto-hover'));
+            index = index % cards.length;
+            cards[index].classList.add('auto-hover');
+            index++;
+        }, 1500);
+    }
+
+    // Pause on real hover
+    grid.addEventListener('mouseenter', () => {
+        clearInterval(autoHoverTimer);
+        grid.querySelectorAll('.product-card').forEach(c => c.classList.remove('auto-hover'));
+    });
+    grid.addEventListener('mouseleave', () => startAutoHover());
+
     // Init
     render();
+    startAutoHover();
 })();
