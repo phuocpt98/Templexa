@@ -74,7 +74,7 @@
             return `
                 <a href="product-detail.html?id=${p.id}" class="product-card">
                     <div class="product-card-image">
-                        <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
+                        <img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">
                         ${badgeHTML}
                     </div>
                     <div class="product-card-info">
