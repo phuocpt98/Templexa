@@ -126,7 +126,7 @@
                 if (manualTimeout) clearTimeout(manualTimeout);
                 currentIndex = idx;
                 updateSlider();
-                manualTimeout = setTimeout(startAuto, 10000);
+                manualTimeout = setTimeout(startAuto, 6000);
             }
         });
     });
@@ -138,7 +138,7 @@
 
     function startAuto() {
         stopAuto();
-        autoTimer = setInterval(goNext, 5000);
+        autoTimer = setInterval(goNext, 3000);
     }
 
     function stopAuto() {
@@ -155,7 +155,7 @@
             ? (currentIndex + 1) % total
             : (currentIndex - 1 + total) % total;
         updateSlider();
-        manualTimeout = setTimeout(startAuto, 10000);
+        manualTimeout = setTimeout(startAuto, 6000);
     }
     if (prevBtn) prevBtn.addEventListener('click', () => handleBtnClick('prev'));
     if (nextBtn) nextBtn.addEventListener('click', () => handleBtnClick('next'));
