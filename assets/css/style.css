@@ -175,6 +175,21 @@ ul {
     overflow: hidden;
 }
 
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+        rgba(99, 102, 241, 0.06) 0%,
+        rgba(168, 85, 247, 0.08) 25%,
+        rgba(59, 130, 246, 0.06) 50%,
+        rgba(99, 102, 241, 0.08) 75%,
+        rgba(168, 85, 247, 0.06) 100%);
+    background-size: 400% 400%;
+    animation: heroGradientShift 10s ease infinite;
+    pointer-events: none;
+}
+
 .hero .container {
     position: relative;
     z-index: 1;
@@ -239,8 +254,13 @@ ul {
 
 .hero-cta:hover {
     background: #6366F1;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.35);
+    transform: scale(1.03);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+}
+
+.hero-cta:active {
+    transform: scale(0.96);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.25);
 }
 
 
@@ -300,8 +320,13 @@ ul {
 
 .service-card:hover,
 .service-card.auto-hover {
-    transform: translateY(-8px) !important;
+    transform: translateY(-6px) !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.service-card:hover .service-icon img,
+.service-card.auto-hover .service-icon img {
+    transform: scale(1.08);
 }
 
 .service-icon {
@@ -322,6 +347,7 @@ ul {
 .service-icon img {
     width: clamp(24px, 3vw, 32px);
     height: clamp(24px, 3vw, 32px);
+    transition: transform 0.3s ease;
 }
 
 .service-card h3 {
@@ -387,25 +413,25 @@ ul {
 /* Card giữa — lớn, rõ */
 .template-card.slide-active {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1.05);
     z-index: 2;
     pointer-events: auto;
     border: 2px solid #6366F1;
-    box-shadow: 0 12px 35px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 12px 35px rgba(99, 102, 241, 0.15), 0 0 20px rgba(99, 102, 241, 0.08);
 }
 
 /* Card trái — nhỏ, mờ */
 .template-card.slide-prev {
-    opacity: 0.5;
-    transform: translate(calc(-50% - 120% - 40px), -50%) scale(0.85);
+    opacity: 0.85;
+    transform: translate(calc(-50% - 120% - 40px), -50%) scale(0.96);
     z-index: 1;
     pointer-events: auto;
 }
 
 /* Card phải — nhỏ, mờ */
 .template-card.slide-next {
-    opacity: 0.5;
-    transform: translate(calc(-50% + 120% + 40px), -50%) scale(0.85);
+    opacity: 0.85;
+    transform: translate(calc(-50% + 120% + 40px), -50%) scale(0.96);
     z-index: 1;
     pointer-events: auto;
 }
@@ -429,6 +455,11 @@ ul {
     object-fit: cover;
     display: block;
     border-radius: clamp(14px, 1.8vw, 20px);
+    transition: transform 0.3s ease;
+}
+
+.template-card:hover .template-image img {
+    transform: scale(1.06);
 }
 
 .template-badge {
@@ -554,8 +585,17 @@ ul {
 
 .benefit-card:hover,
 .benefit-card.auto-hover {
-    transform: translateY(-10px) !important;
+    transform: translateY(-6px) !important;
     box-shadow: 0 12px 35px rgba(99, 102, 241, 0.18);
+}
+
+.benefit-card:hover .benefit-icon img,
+.benefit-card.auto-hover .benefit-icon img {
+    transform: scale(1.08);
+}
+
+.benefit-icon img {
+    transition: transform 0.3s ease;
 }
 
 .benefit-icon {
@@ -741,6 +781,10 @@ ul {
     margin: 0 auto;
 }
 
+.showcase-image-inner.float-active {
+    animation: showcaseFloat 5s ease-in-out infinite;
+}
+
 /* CTA Section */
 .cta {
     display: flex;
@@ -788,8 +832,12 @@ ul {
 }
 
 .cta-btn:hover {
-    transform: translateY(-3px);
+    transform: scale(1.03);
     box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+}
+
+.cta-btn:active {
+    transform: scale(0.96);
 }
 
 /* Footer */
@@ -848,10 +896,27 @@ ul {
     color: var(--text-tertiary);
     font-size: clamp(0.9rem, 1.2vw, 1.05rem);
     transition: color 0.3s;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-col a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: #6366F1;
+    transition: width 0.3s ease;
 }
 
 .footer-col a:hover {
     color: #6366F1;
+}
+
+.footer-col a:hover::after {
+    width: 100%;
 }
 
 .footer-bottom {
@@ -955,6 +1020,61 @@ ul {
 
 .animate-fade-in {
     animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes heroGradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes showcaseFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes ctaGlowPulse {
+    0% { box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); }
+    50% { box-shadow: 0 15px 45px rgba(99, 102, 241, 0.6), 0 0 25px rgba(99, 102, 241, 0.3); }
+    100% { box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); }
+}
+
+/* Hero stagger reveal */
+.hero-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Slide from left/right (showcase) */
+.anim-slide-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.anim-slide-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.anim-slide-left.anim-visible,
+.anim-slide-right.anim-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* CTA glow pulse (one-time) */
+.cta-btn.glow-pulse {
+    animation: ctaGlowPulse 1s ease;
 }
 
 /* ============================================
@@ -1078,6 +1198,35 @@ ul {
 @media (prefers-reduced-motion: reduce) {
     .butterfly-container {
         display: none;
+    }
+
+    .hero::after {
+        animation: none;
+    }
+
+    .hero-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .anim-slide-left,
+    .anim-slide-right {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .showcase-image-inner.float-active {
+        animation: none;
+    }
+
+    .cta-btn.glow-pulse {
+        animation: none;
+    }
+
+    .animate-fade-in {
+        animation-duration: 0.01ms;
     }
 }
 
@@ -2737,6 +2886,26 @@ ul {
     color: var(--text-primary);
 }
 
+[data-theme="dark"] .hero::after {
+    background: linear-gradient(135deg,
+        rgba(99, 102, 241, 0.04) 0%,
+        rgba(168, 85, 247, 0.06) 25%,
+        rgba(59, 130, 246, 0.04) 50%,
+        rgba(99, 102, 241, 0.06) 75%,
+        rgba(168, 85, 247, 0.04) 100%);
+    background-size: 400% 400%;
+}
+
+[data-theme="dark"] .hero-cta {
+    background: #E2E8F0;
+    color: #0F172A;
+}
+
+[data-theme="dark"] .hero-cta:hover {
+    background: #6366F1;
+    color: #fff;
+}
+
 [data-theme="dark"] .hero-description {
     color: var(--text-secondary);
 }
@@ -3063,5 +3232,23 @@ ul {
     .contact-hero-btns {
         flex-direction: column;
         align-items: center;
+    }
+
+    /* Mobile animation reductions */
+    .anim-slide-left:not(.anim-visible) {
+        transform: translateX(-24px);
+    }
+
+    .anim-slide-right:not(.anim-visible) {
+        transform: translateX(24px);
+    }
+
+    .hero-reveal:not(.visible) {
+        transform: translateY(10px);
+    }
+
+    @keyframes showcaseFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
     }
 }

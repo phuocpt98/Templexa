@@ -197,6 +197,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // AUTO HOVER — generic for index.html grids
 // ============================================
 function initAutoHover(gridSelector, cardSelector) {
+    // tam bo hover
+    return;
+
     const grid = document.querySelector(gridSelector);
     if (!grid) return;
 
@@ -230,7 +233,36 @@ initAutoHover('.benefits-grid', '.benefit-card');
 initAutoHover('.services-grid', '.service-card');
 
 // ============================================
-// SCROLL ANIMATIONS (IntersectionObserver)
+// REDUCED MOTION CHECK
+// ============================================
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ============================================
+// HERO STAGGER REVEAL
+// ============================================
+(function () {
+    const heroElements = document.querySelectorAll('.hero-reveal');
+    if (!heroElements.length) return;
+
+    if (prefersReducedMotion) {
+        heroElements.forEach(el => el.classList.add('visible'));
+        return;
+    }
+
+    heroElements.forEach((el, i) => {
+        el.style.transitionDelay = (i * 100) + 'ms';
+    });
+
+    // Trigger after styles are painted
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            heroElements.forEach(el => el.classList.add('visible'));
+        });
+    });
+})();
+
+// ============================================
+// SCROLL ANIMATIONS (IntersectionObserver) — with stagger
 // ============================================
 (function () {
     const observerOptions = {
@@ -241,7 +273,14 @@ initAutoHover('.services-grid', '.service-card');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                if (!prefersReducedMotion) {
+                    const parent = entry.target.parentElement;
+                    const siblings = parent ? Array.from(parent.children) : [];
+                    const index = siblings.indexOf(entry.target);
+                    entry.target.style.animationDelay = (index * 80) + 'ms';
+                }
                 entry.target.classList.add('animate-fade-in');
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -249,6 +288,97 @@ initAutoHover('.services-grid', '.service-card');
     document.querySelectorAll('.service-card, .benefit-card, .process-step, .pricing-card, .target-card, .product-card').forEach(el => {
         observer.observe(el);
     });
+})();
+
+// ============================================
+// SHOWCASE SLIDE-IN ANIMATION
+// ============================================
+(function () {
+    const slideElements = document.querySelectorAll('.anim-slide-left, .anim-slide-right');
+    if (!slideElements.length) return;
+
+    if (prefersReducedMotion) {
+        slideElements.forEach(el => el.classList.add('anim-visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('anim-visible');
+
+                // Start float animation on showcase image after slide-in completes
+                if (entry.target.classList.contains('anim-slide-right')) {
+                    const inner = entry.target.querySelector('.showcase-image-inner');
+                    if (inner) {
+                        setTimeout(() => inner.classList.add('float-active'), 800);
+                    }
+                }
+
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+    slideElements.forEach(el => observer.observe(el));
+})();
+
+// ============================================
+// CTA GLOW PULSE (one-time after 3s in viewport)
+// ============================================
+(function () {
+    if (prefersReducedMotion) return;
+
+    const ctaBtn = document.querySelector('.cta-btn');
+    if (!ctaBtn) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    ctaBtn.classList.add('glow-pulse');
+                    ctaBtn.addEventListener('animationend', () => {
+                        ctaBtn.classList.remove('glow-pulse');
+                    }, { once: true });
+                }, 3000);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    observer.observe(ctaBtn);
+})();
+
+// ============================================
+// WAVE PARALLAX (showcase section)
+// ============================================
+(function () {
+    if (prefersReducedMotion) return;
+
+    const waveTop = document.querySelector('.showcase-wave-top');
+    const waveBottom = document.querySelector('.showcase-wave-bottom');
+    const showcase = document.querySelector('.showcase');
+    if ((!waveTop && !waveBottom) || !showcase) return;
+
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const rect = showcase.getBoundingClientRect();
+                const windowH = window.innerHeight;
+
+                if (rect.bottom > -100 && rect.top < windowH + 100) {
+                    const progress = (rect.top - windowH / 2) * 0.2;
+                    if (waveTop) waveTop.style.transform = 'translateY(' + (progress * 0.15) + 'px)';
+                    if (waveBottom) waveBottom.style.transform = 'translateY(' + (-progress * 0.15) + 'px)';
+                }
+
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 })();
 
 // ============================================
