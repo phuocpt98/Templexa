@@ -277,7 +277,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
                     const parent = entry.target.parentElement;
                     const siblings = parent ? Array.from(parent.children) : [];
                     const index = siblings.indexOf(entry.target);
-                    entry.target.style.animationDelay = (index * 80) + 'ms';
+                    entry.target.style.animationDelay = (index * 120) + 'ms';
                 }
                 entry.target.classList.add('animate-fade-in');
                 observer.unobserve(entry.target);
@@ -311,7 +311,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
                 if (entry.target.classList.contains('anim-slide-right')) {
                     const inner = entry.target.querySelector('.showcase-image-inner');
                     if (inner) {
-                        setTimeout(() => inner.classList.add('float-active'), 800);
+                        setTimeout(() => inner.classList.add('float-active'), 1200);
                     }
                 }
 
