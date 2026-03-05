@@ -106,7 +106,7 @@
     else timeAgo = updatedDate.toLocaleDateString('vi-VN');
 
     contentEl.innerHTML = `
-        <nav class="breadcrumb">
+        <nav class="breadcrumb hero-reveal">
             <a href="products.html">Danh sách thiết kế</a>
             <span>&rsaquo;</span>
             <a href="products.html?category=${product.category}">${categoryLabel}</a>
@@ -114,10 +114,10 @@
             <span class="current">${product.name}</span>
         </nav>
 
-        <h1 class="detail-title">${product.name}</h1>
+        <h1 class="detail-title hero-reveal">${product.name}</h1>
 
         <div class="detail-layout">
-            <div>
+            <div class="anim-slide-left">
                 <div class="detail-gallery">
                     <div class="gallery-main">
                         <img src="${product.images[0]}" alt="${product.name}" id="galleryMainImg">
@@ -146,7 +146,7 @@
                 </div>
             </div>
 
-            <div class="detail-sidebar">
+            <div class="detail-sidebar anim-slide-right">
                 <span class="price-badge ${priceClass}">${priceLabel}</span>
 
                 <button class="btn-primary" id="btnGetTemplate">
@@ -173,6 +173,34 @@
             </div>
         </div>
     `;
+
+    // ── Animations ──────────────────────────────
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Hero reveal (breadcrumb + title)
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            contentEl.querySelectorAll('.hero-reveal').forEach((el, i) => {
+                if (!prefersReduced) el.style.transitionDelay = (i * 100) + 'ms';
+                el.classList.add('visible');
+            });
+        });
+    });
+
+    // Slide-in (gallery + sidebar)
+    if (!prefersReduced) {
+        const slideObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('anim-visible');
+                    slideObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+        contentEl.querySelectorAll('.anim-slide-left, .anim-slide-right').forEach(el => slideObs.observe(el));
+    } else {
+        contentEl.querySelectorAll('.anim-slide-left, .anim-slide-right').forEach(el => el.classList.add('anim-visible'));
+    }
 
     // ── Gallery thumbnails ──────────────────────
     const mainImg = document.getElementById('galleryMainImg');
@@ -306,5 +334,20 @@
                 </a>
             `;
         }).join('');
+
+        // Animate related cards
+        if (!prefersReduced) {
+            const cardObs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const siblings = Array.from(entry.target.parentElement.children);
+                        entry.target.style.animationDelay = (siblings.indexOf(entry.target) * 120) + 'ms';
+                        entry.target.classList.add('animate-fade-in');
+                        cardObs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            relatedGrid.querySelectorAll('.related-card').forEach(el => cardObs.observe(el));
+        }
     }
 })();
