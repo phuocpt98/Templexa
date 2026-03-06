@@ -2302,7 +2302,7 @@ const PRODUCTS = [
     },
     {
         id: 72,
-        name: 'Global English Fullpage',
+        name: 'Khóa học tiếng anh',
         slug: 'global-english-fullpage',
         description: 'Mẫu website giáo dục — Global English Fullpage. Thiết kế hiện đại, chuyên nghiệp, sẵn sàng sử dụng.',
         category: 'education',
@@ -2319,7 +2319,7 @@ const PRODUCTS = [
         ],
         thumbnail: './products/Web/Education/Done_15_web_desktop_ecommerce_course_global english_fullpage/thumbnail.jpg',
         path: './products/Web/Education/Done_15_web_desktop_ecommerce_course_global english_fullpage/',
-        demoUrl: '',
+        demoUrl: './products/Web/Education/Done_15_web_desktop_ecommerce_course_global english_fullpage/Home/code.html',
         features: [
             'Thiết kế website khóa học chuyên nghiệp',
             'Bố cục khóa học rõ ràng, dễ đăng ký',
@@ -4052,7 +4052,7 @@ const PRODUCTS = [
         ],
         thumbnail: './products/Web/Portfolio/Done_7_web_desktop_portfolio_photographer portfolio_fullpage/thumbnail.jpg',
         path: './products/Web/Portfolio/Done_7_web_desktop_portfolio_photographer portfolio_fullpage/',
-        demoUrl: '',
+        demoUrl: './products/Web/Portfolio/Done_7_web_desktop_portfolio_photographer portfolio_fullpage/stitch_templexa_web_ecommerce_part_4_portfolio/photographer_portfolio_-_home_page/code.html',
         features: [
             'Thiết kế portfolio ấn tượng',
             'Bố cục showcase sáng tạo',
@@ -4111,7 +4111,7 @@ const PRODUCTS = [
         ],
         thumbnail: './products/Web/Portfolio/Done_9_web_desktop_portfolio_tech product designer_fullpage/thumbnail.jpg',
         path: './products/Web/Portfolio/Done_9_web_desktop_portfolio_tech product designer_fullpage/',
-        demoUrl: '',
+        demoUrl: './products/Web/Portfolio/Done_9_web_desktop_portfolio_tech product designer_fullpage/stitch_templexa_web_ecommerce_part_4_portfolio/tech_product_designer_portfolio_-_xavier_vance_1/code.html',
         features: [
             'Thiết kế portfolio ấn tượng',
             'Bố cục showcase sáng tạo',
