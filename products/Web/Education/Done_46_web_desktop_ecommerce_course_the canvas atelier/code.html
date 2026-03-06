@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Canvas Atelier - Fine Art School</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#C5A059", // Gold/Bronze accent
+              secondary: "#1B2A41", // Deep Navy
+              "background-light": "#F5F5F0", // Warm cream/canvas color
+              "background-dark": "#0F172A", // Deep Charcoal/Slate
+              "surface-light": "#FFFFFF",
+              "surface-dark": "#1E293B",
+            },
+            fontFamily: {
+              display: ["Playfair Display", "serif"],
+              body: ["Lato", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "4px",
+            },
+            backgroundImage: {
+                'paper-texture': "url('https://www.transparenttextures.com/patterns/cream-paper.png')",
+            }
+          },
+        },
+      };
+    </script>
+<style>html { scroll-behavior: smooth; }::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1B2A41; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A059; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37; 
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 font-body transition-colors duration-300">
+<nav class="fixed w-full z-50 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<div class="flex-shrink-0 flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center text-white font-display font-bold text-xl">C</div>
+<span class="font-display font-bold text-xl tracking-wider uppercase text-secondary dark:text-primary">The Canvas Atelier</span>
+</div>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="text-sm uppercase tracking-widest hover:text-primary dark:hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-sm uppercase tracking-widest hover:text-primary dark:hover:text-primary transition-colors" href="#">Courses</a>
+<a class="text-sm uppercase tracking-widest hover:text-primary dark:hover:text-primary transition-colors" href="#">About</a>
+<a class="text-sm uppercase tracking-widest hover:text-primary dark:hover:text-primary transition-colors" href="#">Gallery</a>
+<a class="text-sm uppercase tracking-widest hover:text-primary dark:hover:text-primary transition-colors" href="#">Contact</a>
+<a class="bg-primary text-white px-6 py-2 rounded-sm text-sm uppercase tracking-widest hover:bg-secondary dark:hover:bg-white dark:hover:text-secondary transition-all duration-300" href="#">Enroll Now</a>
+</div>
+<div class="md:hidden flex items-center">
+<button class="text-gray-800 dark:text-white hover:text-primary">
+<span class="material-icons">menu</span>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<header class="relative h-screen flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Classical art studio with moody lighting" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7pGgcmtDSt2KKgR-aLMVvROEAWsvcrNvPkAUumDQSY1TzXhBkWZsg5rj6_bqPXmPTspUOl8HBr_Eg0WXuvQQSAe4-En72LZtHpsHoWtkKnlo504OiXaamWqYUaYzcVGym4RVKH54570AuVKq4IsgFyL0rvrSSLslknNf54Jipf5vHlOxaW36Pv3zVI9vZ4Zs5kmn5_WRrGr9b0U_tw3fb3ohMii7ZJvMgqEpNlobMIzpe8Hq6y_JwhToDJA-TTwWt7pRl7a7qbMI"/>
+<div class="absolute inset-0 bg-gradient-to-b from-secondary/40 via-secondary/20 to-background-light dark:to-background-dark mix-blend-multiply"></div>
+<div class="absolute inset-0 bg-black/30"></div>
+</div>
+<div class="relative z-10 text-center max-w-4xl px-4 mt-16">
+<span class="block text-white/90 uppercase tracking-[0.3em] text-sm mb-4 animate-fade-in-up">Est. 1924 • Florence, Italy</span>
+<h1 class="font-display text-5xl md:text-7xl lg:text-8xl text-white mb-6 leading-tight text-shadow">
+                Master the <br/> <span class="text-primary italic">Old Masters</span>
+</h1>
+<p class="text-gray-200 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto tracking-wide">
+                Rediscover the lost techniques of 15th-century oil painting. Join our exclusive atelier and create your legacy.
+            </p>
+<div class="flex justify-center gap-4">
+<a class="bg-primary hover:bg-white hover:text-secondary text-white px-8 py-4 rounded-sm uppercase tracking-widest text-sm transition-all duration-300 border border-primary" href="#courses">
+                    View Courses
+                </a>
+<a class="bg-transparent hover:bg-white/10 text-white px-8 py-4 rounded-sm uppercase tracking-widest text-sm transition-all duration-300 border border-white/30 backdrop-blur-sm" href="#about">
+                    Our Philosophy
+                </a>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50">
+<span class="material-icons text-3xl">keyboard_arrow_down</span>
+</div>
+</header>
+<section class="py-20 bg-background-light dark:bg-background-dark relative" id="about">
+<div class="max-w-6xl mx-auto px-4">
+<div class="flex flex-col md:flex-row items-center justify-between gap-12">
+<div class="md:w-5/12 text-center md:text-right">
+<h2 class="font-display text-4xl md:text-5xl text-secondary dark:text-white leading-tight">
+                        The Atelier is <br/>
+<span class="text-primary italic">Now Enrolling</span>
+</h2>
+</div>
+<div class="hidden md:block w-px h-32 bg-primary/40"></div>
+<div class="md:w-5/12">
+<p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm md:text-base mb-4">
+                        Easy online access to masterclasses and live sessions. A fun &amp; productive way to enrich your knowledge and find out more about the history of art and oil painting techniques.
+                    </p>
+<a class="inline-flex items-center text-primary uppercase text-xs tracking-widest font-bold hover:text-secondary dark:hover:text-white transition-colors group" href="#">
+                        Apply for Autumn Term
+                        <span class="material-icons text-sm ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<section class="relative h-[600px] flex items-center justify-center overflow-hidden bg-fixed bg-center bg-cover" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBfWmZkl9pnxT15Az6vUcyyIxLJ-Nu4_IHKVQAAk-hqlcdscZZgTLssXHdyiaWftTGQWpMfNELaIwvhGsdd2B2fu6Haz0l9xbyWBFwyOTjz5zs6gUpzrYGHSCTVZl2VP_h2iHnslgYpY_mVaoXWlq1p6U-fYTA1f6794qWrnflFLtGJDLDtzqJG19vFFVWcHYa7jJm_fSPG2OoE0CFzo0np6HcrPY3168VXqJmomBoalUdcMRxqHasO4QgZHaqvA0JkytiCGXt-UJk');">
+<div class="absolute inset-0 bg-secondary/60 dark:bg-black/70"></div>
+<div class="relative z-10 text-center text-white px-4">
+<h2 class="font-display text-5xl md:text-6xl mb-6">Learn with The Atelier</h2>
+<p class="text-gray-300 mb-8 max-w-xl mx-auto font-light">Watch our instructors demonstrate the "Wet-on-Wet" technique used by Renaissance masters.</p>
+<button class="group flex items-center justify-center mx-auto gap-3 hover:text-primary transition-colors duration-300">
+<div class="w-16 h-16 rounded-full border-2 border-white/50 group-hover:border-primary flex items-center justify-center transition-colors duration-300 backdrop-blur-md">
+<span class="material-icons text-3xl ml-1 text-white group-hover:text-primary">play_arrow</span>
+</div>
+<span class="uppercase tracking-widest text-sm border-b border-transparent group-hover:border-primary pb-1">Play Video</span>
+</button>
+</div>
+</section>
+<section class="py-24 bg-surface-light dark:bg-surface-dark transition-colors duration-300">
+<div class="max-w-4xl mx-auto px-4 text-center">
+<h2 class="font-display text-3xl md:text-4xl lg:text-5xl text-secondary dark:text-white mb-8 leading-snug">
+                A uniquely classical online art history video library.
+                <span class="text-primary">We make it both rigorous and inspiring</span> 
+                for people to enrich their knowledge about art throughout the ages.
+            </h2>
+<div class="w-16 h-1 bg-primary mx-auto mb-8"></div>
+<a class="text-sm uppercase tracking-widest text-secondary dark:text-gray-300 border-b border-primary pb-1 hover:text-primary transition-colors" href="#">Pick a Topic, Watch a Lecture</a>
+</div>
+</section>
+<section class="bg-background-light dark:bg-background-dark py-12 px-4 md:px-0" id="courses">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-8xl mx-auto">
+<div class="group relative overflow-hidden cursor-pointer h-96">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10"></div>
+<img alt="Classical Sculpture" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlwGuBZxNFirGEd19BAbKgLmu6cfvbSqGE38w-E0Q97WQxchlrQ-acHch978ht5G0qorfB2wy9_QRUf59M2lYRYZfVN_iDWBphTTNvCuY51PURuMAlpTo6WGDs8BZyscUP_Mex1Z9hffa6Vji4oHk474S1MvP9wyzGZnLD52Mhi0MWVG4ofpqBaRHsh-EM4o667ghvw6w61sBv7XK5OWcck4Lj4ZRuYuao7LQ6r6knO7eAycKawR9KhWLzrTSX0Nb1DDZa5cBEMS0"/>
+<div class="absolute bottom-0 left-0 right-0 p-6 z-20 text-center translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+<p class="text-primary text-xs uppercase tracking-widest mb-2 font-bold">Technique</p>
+<h3 class="font-display text-white text-2xl">Greco-Roman Anatomy</h3>
+<div class="h-px w-0 bg-primary mx-auto mt-4 group-hover:w-12 transition-all duration-500"></div>
+</div>
+</div>
+<div class="group relative overflow-hidden cursor-pointer h-96">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10"></div>
+<img alt="Renaissance Painting" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4HAgrzYYZJq3lvFdNQHccK9t4Wy7Kvu1PNhH6NwvTTOBd_zE4qdKnfYnzkNv_f_MAP05qdM-ygs1vHlYTXkj0iNHgKpEVi6ps55yYrddje5YrINXHJ5vffhj-uEX1bQZ5Qt98sSB1sK1ZkeSVx0foEq-gL5VEiza6Dj95TGEqzWwVvu6kRqm8kYAkmMRybrqJQ9ByLSDYDEXmUECcnK3QH2K8GLYeqZ-xt6sXFP2yEXSLlhc2Ktw_zInOOjOPowjki9p-I8WeDMs"/>
+<div class="absolute bottom-0 left-0 right-0 p-6 z-20 text-center translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+<p class="text-primary text-xs uppercase tracking-widest mb-2 font-bold">History</p>
+<h3 class="font-display text-white text-2xl">High Renaissance</h3>
+<div class="h-px w-0 bg-primary mx-auto mt-4 group-hover:w-12 transition-all duration-500"></div>
+</div>
+</div>
+<div class="group relative overflow-hidden cursor-pointer h-96">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10"></div>
+<img alt="Baroque Scene" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvSY4jw9uyo1-DNDRAR8XAMz956up8uT2Y6dRijWX3an0amPsxDYmoAQK273lgCoqPeZ5axUq9amHTF8W3tyClY1ffzHxWD5-F3cnlfBUpFBs5m3cipe2nX1ujv2hD83ZB0cCzfTvjIMamMqdvO7Ilf3dWtpt1l39JCtCF2dstu9lrDFENwYEc4RxFv9HiVUuhzbLaYYhTFB18YdxiNqBwumSA6hRIyZosQ1kR3JHZ1pGFe4knsiLkjcd-Tpe8BfEuTyl6h-fZSaM"/>
+<div class="absolute bottom-0 left-0 right-0 p-6 z-20 text-center translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+<p class="text-primary text-xs uppercase tracking-widest mb-2 font-bold">Theory</p>
+<h3 class="font-display text-white text-2xl">Chiaroscuro &amp; Light</h3>
+<div class="h-px w-0 bg-primary mx-auto mt-4 group-hover:w-12 transition-all duration-500"></div>
+</div>
+</div>
+<div class="group relative overflow-hidden cursor-pointer h-96">
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10"></div>
+<img alt="Modern Sculpture" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX1fPY-6o3FMox_OI-eh9sIsZw0XXjnwppuE8g48gs2AHTDILOVEAUfeuh5mO1dcRy60pdiFOrLY4_e_Y3KKLy7bvywv8x9xBHV50m1DucWUwIdRtzHsIh7YLqFzifm03A9HeDNcxnGpxUR1sN2cKPbPCTakQkIjGk1Xdt6So2ecuCw6zrvJd71JvCVbkboFBMPofqDcsjTpObZJMXTX0nlUucCP50Oemn7czxjMk_bnM4rl8MufMht-o7waP47mmfVoU3hs6xISw"/>
+<div class="absolute bottom-0 left-0 right-0 p-6 z-20 text-center translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+<p class="text-primary text-xs uppercase tracking-widest mb-2 font-bold">Critique</p>
+<h3 class="font-display text-white text-2xl">Contemporary Form</h3>
+<div class="h-px w-0 bg-primary mx-auto mt-4 group-hover:w-12 transition-all duration-500"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-secondary dark:bg-[#050914] text-white">
+<div class="max-w-7xl mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+<div class="p-6">
+<h3 class="font-display text-6xl text-primary mb-4 opacity-80">01</h3>
+<h4 class="text-xl font-display mb-2">Pick a Topic</h4>
+<p class="text-sm text-gray-400 font-light">Choose from over 500 classical techniques.</p>
+</div>
+<div class="p-6">
+<h3 class="font-display text-6xl text-primary mb-4 opacity-80">02</h3>
+<h4 class="text-xl font-display mb-2">Watch a Lecture</h4>
+<p class="text-sm text-gray-400 font-light">High definition 4K video streams.</p>
+</div>
+<div class="p-6">
+<h3 class="font-display text-6xl text-primary mb-4 opacity-80">03</h3>
+<h4 class="text-xl font-display mb-2">Practice Study</h4>
+<p class="text-sm text-gray-400 font-light">Submit your work for critique.</p>
+</div>
+<div class="p-6">
+<h3 class="font-display text-6xl text-primary mb-4 opacity-80">04</h3>
+<h4 class="text-xl font-display mb-2">Master Class</h4>
+<p class="text-sm text-gray-400 font-light">Graduate to live mentorship.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-background-light dark:bg-background-dark transition-colors duration-300">
+<div class="max-w-7xl mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="flex flex-col items-center text-center">
+<span class="material-icons text-4xl text-primary mb-6">format_quote</span>
+<p class="text-gray-600 dark:text-gray-300 italic mb-6 font-light leading-relaxed">
+                        "The Canvas Atelier transformed my understanding of light. I never knew that glazing could produce such depth until I took the Baroque masterclass."
+                    </p>
+<div class="mt-auto">
+<p class="text-secondary dark:text-white font-display text-lg">- Gary Lewis</p>
+<p class="text-xs text-gray-500 uppercase tracking-widest mt-1">Oil Painting Student</p>
+</div>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="material-icons text-4xl text-primary mb-6">format_quote</span>
+<p class="text-gray-600 dark:text-gray-300 italic mb-6 font-light leading-relaxed">
+                        "Finally, a school that respects tradition. The curriculum is rigorous, but the results speak for themselves. My portfolio has improved drastically."
+                    </p>
+<div class="mt-auto">
+<p class="text-secondary dark:text-white font-display text-lg">- Stan Rosenberg</p>
+<p class="text-xs text-gray-500 uppercase tracking-widest mt-1">Fine Art Enthusiast</p>
+</div>
+</div>
+<div class="flex flex-col items-center text-center">
+<span class="material-icons text-4xl text-primary mb-6">format_quote</span>
+<p class="text-gray-600 dark:text-gray-300 italic mb-6 font-light leading-relaxed">
+                        "Accessible yet profound. I learned more here in three months about color theory than I did in two years at design school."
+                    </p>
+<div class="mt-auto">
+<p class="text-secondary dark:text-white font-display text-lg">- Sami Jadm</p>
+<p class="text-xs text-gray-500 uppercase tracking-widest mt-1">Professional Illustrator</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-20 bg-surface-light dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-2xl mx-auto px-4 text-center">
+<h2 class="font-display text-3xl md:text-4xl text-secondary dark:text-white mb-4">Don't Miss a Lecture. Subscribe Today.</h2>
+<p class="text-gray-500 dark:text-gray-400 mb-8 font-light">Join 15,000+ artists receiving our weekly digest on art history.</p>
+<form class="space-y-4">
+<div class="relative">
+<label class="sr-only" for="email">Email Address</label>
+<input class="w-full px-4 py-3 bg-background-light dark:bg-background-dark border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary rounded-sm transition-colors" id="email" placeholder="Enter your email address" type="email"/>
+</div>
+<div class="flex items-center justify-center gap-2 mb-6">
+<input class="rounded border-gray-300 text-primary focus:ring-primary bg-transparent" id="consent" type="checkbox"/>
+<label class="text-xs text-gray-500 dark:text-gray-400" for="consent">Yes, subscribe me to the newsletter.</label>
+</div>
+<button class="bg-secondary dark:bg-primary text-white dark:text-secondary px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-primary dark:hover:bg-white transition-colors duration-300 rounded-sm w-full md:w-auto" type="submit">
+                    Subscribe Now
+                </button>
+</form>
+</div>
+</section>
+<footer class="bg-background-light dark:bg-background-dark py-12 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-xs text-gray-500 dark:text-gray-400">
+                © 2035 by The Canvas Atelier. Secured by ArtSafe.
+            </div>
+<div class="flex space-x-6">
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><span class="sr-only">Pinterest</span><i class="material-icons text-sm">share</i></a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><span class="sr-only">Instagram</span><i class="material-icons text-sm">photo_camera</i></a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><span class="sr-only">LinkedIn</span><i class="material-icons text-sm">work</i></a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><span class="sr-only">Facebook</span><i class="material-icons text-sm">facebook</i></a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><span class="sr-only">Twitter</span><i class="material-icons text-sm">flutter_dash</i></a>
+</div>
+</div>
+</footer>
+<div class="hidden lg:flex fixed right-8 top-1/2 transform -translate-y-1/2 flex-col gap-6 z-40">
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><i class="material-icons text-lg">flutter_dash</i></a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><i class="material-icons text-lg">work</i></a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><i class="material-icons text-lg">facebook</i></a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><i class="material-icons text-lg">share</i></a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#"><i class="material-icons text-lg">photo_camera</i></a>
+</div>
+
+</body></html>
