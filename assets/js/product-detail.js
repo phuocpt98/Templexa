@@ -280,8 +280,15 @@
         }
     });
 
-    // ── Form submit ─────────────────────────────
+    // ── Checkbox toggle submit button ──────────
     const templateForm = document.getElementById('templateForm');
+    const subscribeBox = templateForm.querySelector('input[name="subscribe"]');
+    const submitBtn = templateForm.querySelector('.modal-submit');
+    subscribeBox.addEventListener('change', function () {
+        submitBtn.disabled = !this.checked;
+    });
+
+    // ── Form submit ─────────────────────────────
     templateForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -307,6 +314,8 @@
         closeModal(modalForm);
         openModal(modalSuccess);
         templateForm.reset();
+        subscribeBox.checked = true;
+        submitBtn.disabled = false;
     });
 
     // ── Related products ────────────────────────
