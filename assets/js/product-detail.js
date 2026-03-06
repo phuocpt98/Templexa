@@ -109,7 +109,7 @@
         <nav class="breadcrumb hero-reveal">
             <a href="products.html">Danh sách thiết kế</a>
             <span>&rsaquo;</span>
-            <a href="products.html?category=${product.category}">${categoryLabel}</a>
+            <a href="products.html?category=${product.category}&type=${product.type}">${categoryLabel}</a>
             <span>&rsaquo;</span>
             <span class="current">${product.name}</span>
         </nav>
@@ -320,7 +320,7 @@
             return `
                 <a href="product-detail.html?id=${p.id}" class="related-card">
                     <div class="related-card-image">
-                        <img src="${p.images[0]}" alt="${p.name}" loading="lazy">
+                        <img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">
                         ${p.price === 'free' ? '<span class="product-badge free">FREE</span>' : ''}
                     </div>
                     <div class="related-card-info">
