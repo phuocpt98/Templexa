@@ -25,15 +25,18 @@
 
     // ── Render filters ──────────────────────────
     function renderFilters() {
-        // Category filters
-        categoryFiltersEl.innerHTML = CATEGORIES.map(cat =>
+        // Category filters — chỉ hiện categories phù hợp với type đang chọn
+        const allowedCats = TYPE_CATEGORIES[currentType] || TYPE_CATEGORIES['all'];
+        const visibleCategories = CATEGORIES.filter(cat => allowedCats.includes(cat.id));
+
+        categoryFiltersEl.innerHTML = visibleCategories.map(cat =>
             `<button class="filter-btn${cat.id === currentCategory ? ' active' : ''}" data-category="${cat.id}">${cat.label}</button>`
         ).join('');
 
         // Type filters
         typeFiltersEl.innerHTML = TYPES.map(t =>
             `<button class="filter-btn${t.id === currentType ? ' active' : ''}" data-type="${t.id}">${t.label}</button>`
-        ).join('') + '<button class="filter-btn filter-btn-other" disabled>Khác ▾</button>';
+        ).join('');
 
         // Event listeners
         categoryFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
@@ -47,6 +50,11 @@
         typeFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 currentType = btn.dataset.type;
+                // Reset category nếu category hiện tại không có trong type mới
+                const newAllowed = TYPE_CATEGORIES[currentType] || TYPE_CATEGORIES['all'];
+                if (!newAllowed.includes(currentCategory)) {
+                    currentCategory = 'all';
+                }
                 currentPage = 1;
                 render();
             });
