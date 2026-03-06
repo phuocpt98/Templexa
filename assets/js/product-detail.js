@@ -120,6 +120,13 @@
             <div class="anim-slide-left">
                 <div class="detail-gallery">
                     <div class="gallery-main">
+                        ${product.images.length > 1 ? `
+                        <button class="gallery-arrow prev" id="galleryPrev" aria-label="Ảnh trước">
+                            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        </button>
+                        <button class="gallery-arrow next" id="galleryNext" aria-label="Ảnh tiếp">
+                            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+                        </button>` : ''}
                         <img src="${product.images[0]}" alt="${product.name}" id="galleryMainImg">
                     </div>
                     ${product.images.length > 1 ? `<div class="gallery-thumbs">${thumbsHTML}</div>` : ''}
@@ -202,16 +209,26 @@
         contentEl.querySelectorAll('.anim-slide-left, .anim-slide-right').forEach(el => el.classList.add('anim-visible'));
     }
 
-    // ── Gallery thumbnails ──────────────────────
+    // ── Gallery thumbnails + arrows ─────────────
     const mainImg = document.getElementById('galleryMainImg');
+    let currentIndex = 0;
+
+    function goToImage(index) {
+        currentIndex = (index + product.images.length) % product.images.length;
+        mainImg.src = product.images[currentIndex];
+        document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+        const activeThumb = document.querySelector(`.gallery-thumb[data-index="${currentIndex}"]`);
+        if (activeThumb) activeThumb.classList.add('active');
+    }
+
     document.querySelectorAll('.gallery-thumb').forEach(thumb => {
-        thumb.addEventListener('click', () => {
-            const index = Number(thumb.dataset.index);
-            mainImg.src = product.images[index];
-            document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-            thumb.classList.add('active');
-        });
+        thumb.addEventListener('click', () => goToImage(Number(thumb.dataset.index)));
     });
+
+    const btnPrev = document.getElementById('galleryPrev');
+    const btnNext = document.getElementById('galleryNext');
+    if (btnPrev) btnPrev.addEventListener('click', () => goToImage(currentIndex - 1));
+    if (btnNext) btnNext.addEventListener('click', () => goToImage(currentIndex + 1));
 
     // ── Save button ──────────────────────────────
     const btnSave = document.getElementById('btnSave');
