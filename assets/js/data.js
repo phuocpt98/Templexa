@@ -4035,7 +4035,7 @@ const PRODUCTS = [
     },
     {
         id: 126,
-        name: 'Photographer Portfolio Fullpage',
+        name: 'Portfolio cho Nhiếp Ảnh Gia',
         slug: 'photographer-portfolio-fullpage',
         description: 'Mẫu portfolio — Photographer Portfolio Fullpage. Thiết kế hiện đại, chuyên nghiệp, sẵn sàng sử dụng.',
         category: 'portfolio',
@@ -4094,7 +4094,7 @@ const PRODUCTS = [
     },
     {
         id: 128,
-        name: 'Trang portfolio data analyst Leo Dang',
+        name: 'Portfolio cho Designer',
         slug: 'trang-portfolio-data-analyst-leo-dang',
         description: 'Mẫu portfolio — Trang portfolio data analyst Leo Dang. Thiết kế hiện đại, chuyên nghiệp, sẵn sàng sử dụng.',
         category: 'portfolio',
