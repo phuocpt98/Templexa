@@ -4,7 +4,7 @@
 const API_CONFIG = {
     // Google Apps Script Web App URL — gửi form liên hệ / nhận mẫu
     // Thay bằng URL thực khi deploy
-    GOOGLE_SHEET_API: 'https://script.google.com/macros/s/AKfycbziA5xXvh5i2VPPYbA49enU-Ct00PFw02ucn1ngiocW82yWAFwH0pNDM6oHjJu4-ENz/exec',
+    GOOGLE_SHEET_API: 'https://script.google.com/macros/s/AKfycbzsbC-H8MucuK9inoLKi7u1bAPhV7hCJETana8kD0ZM7jh_UwcEuArm08fVfrIWsKpU/exec',
     //{
     //  "email": "test@gmail.com",
     //  "phone": "0912345678",
@@ -4990,7 +4990,7 @@ async function submitToGoogleSheet(formData) {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({ ...formData, sheet_name: 'sale' }),
         });
         return { success: true, message: 'Gửi thành công!' };
     } catch (error) {
