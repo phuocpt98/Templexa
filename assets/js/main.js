@@ -178,19 +178,39 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ============================================
-// HEADER SCROLL EFFECT
+// HEADER SCROLL EFFECT — hide on scroll down, show on scroll up
 // ============================================
 (function () {
     const header = document.querySelector('.header');
-    if (header) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-            } else {
-                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
-            }
-        });
-    }
+    if (!header) return;
+
+    let lastScrollY = 0;
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const currentScrollY = window.scrollY;
+
+                if (currentScrollY > 50) {
+                    header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+                } else {
+                    header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+                }
+
+                // Hide/show based on scroll direction
+                if (currentScrollY > lastScrollY && currentScrollY > 80) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+
+                lastScrollY = currentScrollY;
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 })();
 
 // ============================================
