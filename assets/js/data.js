@@ -4760,6 +4760,36 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-05',
     },
+    {
+        id: 149,
+        name: 'Rồi Ai Sẽ Ngắm Pháo Hoa',
+        slug: 'roi-ai-se-ngam-phao-hoa',
+        description: 'Trang confession lãng mạn với hiệu ứng pháo hoa, trái tim rơi, nhạc nền và lời bài hát cuộn. Phù hợp tỏ tình, kỷ niệm.',
+        category: 'confession',
+        type: 'trending',
+        tags: ['trending', 'confession', 'fireworks', 'love', 'romantic'],
+        price: 'free',
+        images: [
+            './products/Trending/Confession/rồi ai sẽ ngắm pháo hoa/anh_1.png',
+            './products/Trending/Confession/rồi ai sẽ ngắm pháo hoa/thumbnail.png',
+            './products/Trending/Confession/rồi ai sẽ ngắm pháo hoa/anh_2.png',
+            './products/Trending/Confession/rồi ai sẽ ngắm pháo hoa/anh_3.png',
+        ],
+        thumbnail: './products/Trending/Confession/rồi ai sẽ ngắm pháo hoa/thumbnail.png',
+        path: './products/Trending/Confession/rồi ai sẽ ngắm pháo hoa/',
+        demoUrl: './products/Trending/Confession/rồi ai sẽ ngắm pháo hoa/index.html?demo=true',
+        features: [
+            'Hiệu ứng pháo hoa canvas đa dạng hình dạng',
+            'Nhạc nền + lời bài hát cuộn tự động',
+            'Trái tim rơi và bay lên lãng mạn',
+        ],
+        status: 'new',
+        priority: 149,
+        downloads: 3,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-03-06',
+    },
 ];
 
 // ============================================

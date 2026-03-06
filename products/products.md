@@ -30,7 +30,7 @@ products/
 | **Google-sheet** | E-commerce | 5 |
 | **Google-sheet** | Education | 0 |
 | **Google-sheet** | Portfolio | 0 |
-| **Trending** | Confession | 0 |
+| **Trending** | Confession | 1 |
 | **Trending** | Invitation | 0 |
 | **Trending** | OnePage | 0 |
 | **Web** | E-commerce | 35 |
@@ -38,13 +38,25 @@ products/
 | **Web** | Invitation | 29 |
 | **Web** | Onepage | 25 |
 | **Web** | Portfolio | 24 |
-| | **Tong** | **148** |
+| | **Tong** | **149** |
 
 ---
 
-## Quy trinh them/cap nhat san pham (CSV → data.js)
+## Quy trinh them/cap nhat san pham
 
-### Tong quan
+### Cach 1: Quet truc tiep tu folder (nhanh nhat)
+
+User chi can:
+1. Them folder san pham vao dung vi tri
+2. Bao AI: **"quet giup toi `products/{Loai}/{Loai-nho}/{folder_name}` them vao data.js"**
+
+AI se tu dong:
+- Quet folder → lay danh sach anh, kiem tra `index.html`
+- Doc `<title>` trong `index.html` de lay mo ta
+- Sinh product entry day du → chen vao `data.js`
+- Cap nhat `products.md`
+
+### Cach 2: Quet qua data.csv (quet hang loat)
 
 ```
 Member them folder san pham
@@ -56,50 +68,58 @@ Bao AI: "quet lai data.csv vao data.js"
 AI doc data.csv → quet folder → merge → ghi vao data.js
 ```
 
-### Buoc 1: Them folder san pham
+### Cau truc folder san pham
 
-Dat folder theo cau truc:
 ```
 products/{Loai}/{Loai-nho}/{folder_name}/
-├── code.html / index.html  (bat buoc voi type=website)
-├── screen.png              (anh chinh)
-├── thumbnail.jpg           (anh thumbnail)
+├── index.html              (bat buoc voi type=website/trending)
+├── thumbnail.png/jpg       (anh chinh — hien thi tren grid)
+├── anh_1.png               (anh phu — hien thi trong gallery)
 ├── Screenshot_1.jpg        (tuy chon)
-└── ...
+└── ...                     (file khac: music.mp3, video, ...)
 ```
 
-Loai chinh: `Google-sheet`, `Trending`, `Web`
+### Cau truc folder tong
 
-Loai nho:
-- Google-sheet: `E-commerce`, `Education`, `Portfolio`
-- Trending: `Confession`, `Invitation`, `OnePage`
-- Web: `E-commerce`, `Education`, `Invitation`, `Onepage`, `Portfolio`
+| Loai chinh | Loai nho (category) | type trong data.js |
+|------------|--------------------|--------------------|
+| `Web` | `E-commerce`, `Education`, `Invitation`, `Onepage`, `Portfolio` | `website` |
+| `Google-sheet` | `E-commerce`, `Education`, `Portfolio` | `google-sheet` |
+| `Trending` | `Confession`, `Invitation`, `OnePage` | `trending` |
 
-### Buoc 2: Dien thong tin vao data.csv
+### Quy tac xac dinh type va category tu folder
 
-Mo file `products/data.csv` bang Excel/Google Sheets, them dong moi.
+| Duong dan folder | `type` | `category` |
+|-----------------|--------|-----------|
+| `products/Web/{Loai-nho}/...` | `website` | Loai-nho (lowercase): `e-commerce`, `education`, ... |
+| `products/Google-sheet/{Loai-nho}/...` | `google-sheet` | Loai-nho (lowercase) |
+| `products/Trending/{Loai-nho}/...` | `trending` | Loai-nho (lowercase): `confession`, `invitation`, ... |
 
-**Muc do dien toi thieu:**
-| Cot | Bat buoc | Ghi chu |
-|-----|----------|---------|
-| `name` | Co | Ten san pham |
-| `path` | Co | Duong dan folder, vd: `./products/Web/E-commerce/ten-folder/` |
+### Quy tac quet anh
 
-**Cac cot con lai** — neu de trong, AI se tu quet va sinh tu dong:
+1. Quet tat ca file anh trong folder: `*.png`, `*.jpg`, `*.jpeg`, `*.gif`, `*.svg`, `*.webp`
+2. **KHONG doc noi dung anh** — chi lay duong dan (link)
+3. Thu tu uu tien thumbnail: `thumbnail.png` > `thumbnail.jpg` > `screen.png` > file anh dau tien
+4. Mang `images[]`: thumbnail truoc, roi cac anh phu theo thu tu ten file
+5. File khong phai anh (`.html`, `.mp3`, `.css`, `.js`) → bo qua
 
-| Cot | Neu de trong, AI se... |
-|-----|------------------------|
-| `id` | Tu tang tu ID lon nhat + 1 |
+### Cac field tu sinh khi quet
+
+| Field | Cach sinh |
+|-------|----------|
+| `id` | Tu tang tu ID lon nhat trong data.js + 1 |
+| `name` | Lay tu `<title>` trong index.html, hoac chuyen folder name thanh Title Case |
 | `slug` | Sinh tu `name` (kebab-case) |
-| `description` | Sinh tu category + subcategory + name |
-| `category` | Doc tu path (vd: `./products/Web/E-commerce/...` → `e-commerce`) |
-| `type` | Co `code.html`/`index.html` → `website`, khong co → `google-sheet` |
-| `tags` | Sinh tu category + keywords trong name |
+| `description` | Sinh tu category + name, hoac lay tu `<meta description>` |
+| `category` | Loai-nho tu duong dan folder (lowercase) |
+| `type` | Loai chinh tu duong dan folder: `Web`→`website`, `Google-sheet`→`google-sheet`, `Trending`→`trending` |
+| `tags` | Sinh tu type + category + keywords trong name |
 | `price` | Mac dinh `free` |
-| `images` | Quet tat ca file anh trong folder (png, jpg, jpeg, gif, svg, webp) |
-| `thumbnail` | Anh dau tien trong folder |
-| `demoUrl` | `website` → `{path}code.html`, `google-sheet` → de trong |
-| `features` | Sinh 3 tinh nang theo category |
+| `images` | Quet file anh trong folder |
+| `thumbnail` | Anh uu tien theo quy tac tren |
+| `path` | `./products/{Loai}/{Loai-nho}/{folder_name}/` |
+| `demoUrl` | Co `index.html` → `{path}index.html`, khong co → `''` |
+| `features` | 3 tinh nang sinh theo noi dung index.html |
 | `status` | Mac dinh `new` |
 | `priority` | Tu tang |
 | `downloads` | Random 1-10 |
@@ -107,13 +127,7 @@ Mo file `products/data.csv` bang Excel/Google Sheets, them dong moi.
 | `showInSlider` | Mac dinh `false` |
 | `updatedAt` | Ngay hien tai |
 
-### Buoc 3: Bao AI quet
-
-Noi voi AI:
-- **"quet lai data.csv vao data.js"** — dong bo toan bo
-- **"quet san pham moi tu data.csv"** — chi them san pham chua co trong data.js
-
-### Quy tac uu tien khi merge
+### Quy tac uu tien khi merge (CSV)
 
 ```
 DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
@@ -123,23 +137,18 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 2. **CSV de trong** → AI quet folder de sinh gia tri tu dong
 3. **Khong quet duoc** → dung gia tri mac dinh
 
-### Cap nhat san pham da co
+### Cap nhat / Xoa san pham
 
-- Sua bat ky cot nao trong data.csv → bao AI quet lai → data.js duoc cap nhat
-- Doi chieu bang `id` (neu co) hoac `path` (neu id trong)
-- San pham co trong data.js nhung khong co trong data.csv → **giu nguyen** (khong xoa)
-
-### Xoa san pham
-
-- Xoa dong trong data.csv **VA** bao AI quet lai
-- Hoac bao AI xoa truc tiep theo id/name
+- **Cap nhat**: sua data.csv hoac bao AI sua truc tiep trong data.js
+- **Xoa**: bao AI xoa theo id/name, hoac xoa dong trong data.csv roi quet lai
 
 ### Luu y
 
 - Luu data.csv voi **UTF-8 BOM** de hien thi tieng Viet dung trong Excel
 - Cac truong mang (tags, images, features) dung dau `|` de ngan cach trong CSV
 - Dong file data.csv truoc khi bao AI quet (tranh loi EBUSY)
-- Sau khi quet xong, AI se xuat lai data.csv moi tu data.js de dong bo 2 chieu
+- Ten folder/file co the co tieng Viet va khoang trang — xu ly binh thuong trong JS
+- Sau khi quet xong, AI cap nhat lai products.md (so luong, danh sach)
 
 ---
 
@@ -163,9 +172,11 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 
 (trong)
 
-### Trending / Confession (0)
+### Trending / Confession (1)
 
-(trong)
+| # | Folder | Files |
+|---|--------|-------|
+| 1 | `rồi ai sẽ ngắm pháo hoa` | index.html, music.mp3, thumbnail.png, anh_1.png, anh_2.png, anh_3.png |
 
 ### Trending / Invitation (0)
 

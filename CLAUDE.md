@@ -309,69 +309,105 @@ Templexa/
 | `contact.html` | `#contactForm` | Scroll đến form tư vấn |
 | `product-detail.html` | `?id=1` | Load sản phẩm theo ID |
 
+## Cấu trúc folder sản phẩm
+
+```
+products/
+├── Web/                    # type: website
+│   ├── E-commerce/         # category: e-commerce
+│   ├── Education/          # category: education
+│   ├── Invitation/         # category: invitation
+│   ├── Onepage/            # category: onepage
+│   └── Portfolio/          # category: portfolio
+├── Google-sheet/           # type: google-sheet
+│   ├── E-commerce/
+│   ├── Education/
+│   └── Portfolio/
+├── Trending/               # type: trending
+│   ├── Confession/         # category: confession
+│   ├── Invitation/         # category: invitation
+│   └── OnePage/            # category: onepage
+├── images/                 # Ảnh mockup dùng chung
+├── data.csv                # File CSV quản lý sản phẩm
+└── products.md             # Tài liệu chi tiết (danh sách, ghi chú)
+```
+
+### Quy tắc xác định type và category từ đường dẫn
+
+| Đường dẫn folder | `type` | `category` |
+|-------------------|--------|-----------|
+| `products/Web/{Loại-nhỏ}/...` | `website` | loại-nhỏ (lowercase) |
+| `products/Google-sheet/{Loại-nhỏ}/...` | `google-sheet` | loại-nhỏ (lowercase) |
+| `products/Trending/{Loại-nhỏ}/...` | `trending` | loại-nhỏ (lowercase) |
+
 ## Quy tắc thêm sản phẩm mới
 
-1. Tạo folder trong `products/{category}/{slug-kebab-case}/`
-2. Đặt file HTML nguồn tên `index.html` + ảnh (`screen.png`, `Screenshot_*.jpg`)
-3. Thêm object vào mảng `PRODUCTS` trong `data.js` với đầy đủ fields (xem PRODUCTS structure)
-4. Set `showInSlider: true` nếu muốn hiện trên slider trang chủ
+1. Tạo folder trong `products/{Loại}/{Loại-nhỏ}/{tên-folder}/`
+2. Đặt file: `index.html` (bắt buộc với website/trending) + ảnh (`thumbnail.png`, `anh_*.png`, ...)
+3. Bảo AI: **"quét giúp tôi `products/{Loại}/{Loại-nhỏ}/{tên-folder}` thêm vào data.js"**
+4. AI tự quét folder → sinh product entry → chèn vào `data.js` + cập nhật `products.md`
+5. Set `showInSlider: true` nếu muốn hiện trên slider trang chủ
 
 ## Quy trình quét sản phẩm vào data.js
 
-Khi cần quét hàng loạt sản phẩm từ thư mục `products/` vào mảng `PRODUCTS` trong `data.js`:
+### Quét đơn lẻ (từ folder)
 
-### Nguyên tắc quét
-- **Chỉ quét file HTML** (`index.html`) để lấy nội dung, tiêu đề, mô tả
-- **Không quét nội dung file ảnh** — mặc định lấy đường dẫn (link) các file ảnh trong folder
-- Xác định `type` dựa trên sự tồn tại của `index.html`: có → `website`, không có → `google-sheet`
+User bảo: `"quét giúp tôi products/Trending/Confession/tên-folder thêm vào data.js"`
 
-### Quy trình chi tiết
+AI thực hiện:
+1. `ls` folder → lấy danh sách file
+2. Kiểm tra `index.html` → xác định có demo hay không
+3. Đọc `<title>` trong `index.html` → lấy tên/mô tả
+4. Lấy đường dẫn ảnh (KHÔNG đọc nội dung ảnh)
+5. Xác định `type` từ folder cha (`Web`→`website`, `Google-sheet`→`google-sheet`, `Trending`→`trending`)
+6. Xác định `category` từ folder loại-nhỏ (lowercase)
+7. Sinh product entry → chèn vào `data.js` trước `];`
+8. Cập nhật `products.md` (số lượng + danh sách)
 
-1. **Liệt kê tất cả folders** trong `products/{category}/`
-   ```bash
-   ls products/{onepage,e-commerce,invitation,portfolio,education}/
-   ```
+### Quét hàng loạt (từ data.csv)
 
-2. **Xác định type** cho từng folder
-   ```bash
-   # Kiểm tra có index.html không
-   [ -f "products/{cat}/{slug}/index.html" ] && echo "website" || echo "google-sheet"
-   ```
+User bảo: `"quét lại data.csv vào data.js"`
 
-3. **Lấy danh sách ảnh** trong folder (chỉ lấy đường dẫn, KHÔNG đọc nội dung ảnh)
-   ```bash
-   ls products/{cat}/{slug}/ | grep -iE '\.(png|jpg|jpeg|gif|svg|webp)$'
-   ```
-   - Ưu tiên thumbnail: `screen.png` > file `.png` đầu tiên > file ảnh đầu tiên
-   - Sắp xếp: `screen.png` trước, rồi các `.png`, rồi `Screenshot_*.jpg` theo thứ tự
+AI thực hiện:
+1. Đọc `data.csv` → lấy danh sách sản phẩm
+2. Với mỗi dòng: quét folder tương ứng → merge dữ liệu
+3. Ưu tiên: **CSV > quét folder > giá trị mặc định**
+4. Ghi vào `data.js` + cập nhật `products.md`
 
-4. **Tạo product entry** với các field:
-   - `id`: tự tăng từ ID cuối cùng + 1
-   - `name`: chuyển slug thành Title Case (`kebab-case` → `Kebab Case`)
-   - `slug`: giữ nguyên tên folder
-   - `description`: sinh từ category + name
-   - `category`: tên folder cha (`onepage`, `e-commerce`, ...)
-   - `type`: `website` hoặc `google-sheet`
-   - `tags`: sinh từ category + keywords trong slug
-   - `price`: `'free'`
-   - `images`: mảng đường dẫn ảnh `./products/{cat}/{slug}/{filename}`
-   - `thumbnail`: ảnh ưu tiên theo quy tắc trên
-   - `demoUrl`: `website` → `./products/{cat}/{slug}/index.html` | `google-sheet` → `''`
-   - `features`: 3 tính năng sinh theo category
-   - `status`: `'new'`
-   - `priority`: tự tăng
-   - `downloads`: random `1–10`
-   - `rating`: random `4.7–4.9`
-   - `showInSlider`: `false` (bật thủ công cho sản phẩm nổi bật)
-   - `updatedAt`: ngày hiện tại
+### Nguyên tắc quét ảnh
+- **KHÔNG đọc nội dung file ảnh** — chỉ lấy đường dẫn
+- Ưu tiên thumbnail: `thumbnail.png` > `thumbnail.jpg` > `screen.png` > file ảnh đầu tiên
+- Mảng `images[]`: thumbnail trước, rồi các ảnh phụ theo thứ tự tên file
+- Bỏ qua file không phải ảnh (`.html`, `.mp3`, `.css`, `.js`)
 
-5. **Chèn vào data.js** — thêm trước dấu `];` đóng mảng PRODUCTS
+### Fields tự sinh khi quét
+
+| Field | Cách sinh |
+|-------|----------|
+| `id` | Tự tăng từ ID cuối cùng + 1 |
+| `name` | Lấy từ `<title>` trong `index.html`, hoặc chuyển tên folder thành Title Case |
+| `slug` | Sinh từ `name` (kebab-case) |
+| `description` | Sinh từ nội dung `index.html`, hoặc từ category + name |
+| `category` | Loại-nhỏ từ đường dẫn folder (lowercase) |
+| `type` | Loại chính: `Web`→`website`, `Google-sheet`→`google-sheet`, `Trending`→`trending` |
+| `tags` | Sinh từ type + category + keywords trong name |
+| `price` | Mặc định `'free'` |
+| `images` | Quét file ảnh trong folder |
+| `thumbnail` | Ảnh ưu tiên theo quy tắc trên |
+| `path` | `./products/{Loại}/{Loại-nhỏ}/{folder}/` |
+| `demoUrl` | Có `index.html` → `{path}index.html`, không có → `''` |
+| `features` | 3 tính năng sinh theo nội dung index.html hoặc category |
+| `status` | Mặc định `'new'` |
+| `priority` | Tự tăng |
+| `downloads` | Random `1–10` |
+| `rating` | Random `4.7–4.9` |
+| `showInSlider` | Mặc định `false` |
+| `updatedAt` | Ngày hiện tại |
 
 ### Lưu ý
-- Nếu cần cập nhật mô tả chính xác hơn: đọc `index.html` lấy `<title>` và `<meta description>`
-- Không cần mở/render ảnh — chỉ cần đường dẫn file
-- File ảnh có thể có khoảng trắng trong tên (VD: `creative agency coming soon.png`) — xử lý bình thường trong JS
-- Dùng script Node.js cho quét hàng loạt, xóa script sau khi xong
+- Tên folder/file có thể có tiếng Việt và khoảng trắng — xử lý bình thường trong JS
+- Nếu cần mô tả chính xác hơn: đọc `index.html` lấy `<title>` và `<meta description>`
+- Chi tiết danh sách sản phẩm xem trong `products/products.md`
 
 ## SEO & Meta Tags
 
@@ -390,7 +426,7 @@ Mỗi trang HTML đều có đầy đủ SEO tags trong `<head>`:
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tiêu đề trang">
 <meta property="og:description" content="Mô tả ngắn">
-<meta property="og:image" content="https://phuocpt98.github.io/Templexa/assets/images/og-image.png">
+<meta property="og:image" content="https://phuocpt98.github.io/Templexa/assets/images/lgo-v2.png">
 <meta property="og:url" content="https://phuocpt98.github.io/Templexa/{page}">
 <meta property="og:site_name" content="Templexa">
 <meta property="og:locale" content="vi_VN">
@@ -399,7 +435,7 @@ Mỗi trang HTML đều có đầy đủ SEO tags trong `<head>`:
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tiêu đề trang">
 <meta name="twitter:description" content="Mô tả ngắn">
-<meta name="twitter:image" content="https://phuocpt98.github.io/Templexa/assets/images/og-image.png">
+<meta name="twitter:image" content="https://phuocpt98.github.io/Templexa/assets/images/lgo-v2.png">
 ```
 
 ### Meta description từng trang
@@ -426,7 +462,7 @@ Mỗi trang có `<script type="application/ld+json">` phù hợp:
 
 ### Lưu ý khi deploy
 - Thay `https://phuocpt98.github.io/Templexa/` bằng domain thực (trong cả meta tags và JSON-LD)
-- Tạo file `assets/images/og-image.png` (1200×630px) cho ảnh share link
+- Tạo file `assets/images/lgo-v2.png` (1200×630px) cho ảnh share link
 - `theme-color`: `#6366F1` — màu thanh trình duyệt trên mobile
 
 ## Hiển thị ảnh sản phẩm
