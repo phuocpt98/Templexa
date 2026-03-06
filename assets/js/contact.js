@@ -25,7 +25,7 @@
             }).join('');
 
             return `
-                <div class="pricing-card${plan.highlighted ? ' highlighted' : ''}">
+                <div class="pricing-card${plan.highlighted ? ' highlighted popular' : ''}">
                     <div class="pricing-header">
                         <h3>${plan.name}</h3>
                         ${plan.discount ? `<span class="pricing-discount">${plan.discount}</span>` : ''}
