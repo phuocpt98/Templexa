@@ -39,9 +39,6 @@
             `;
         }).join('');
 
-        // Lock min-height to prevent layout shift
-        pricingGrid.style.minHeight = pricingGrid.offsetHeight + 'px';
-
         // Click card to highlight
         function highlightCard(card) {
             card.classList.add('highlighted');
