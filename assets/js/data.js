@@ -51,7 +51,7 @@ const PRODUCTS = [
         priority: 1,
         downloads: 8,
         rating: 4.8,
-        showInSlider: true,
+        showInSlider: false,
         updatedAt: '2026-03-05',
     },
     {
@@ -135,7 +135,7 @@ const PRODUCTS = [
             './products/Web/Onepage/Done_16_web_desktop_onepage_coming soon_artisan coffee roastery coming soon/16_web_desktop_onepage_coming soon_artisan coffee roastery coming soon (5).png',
             './products/Web/Onepage/Done_16_web_desktop_onepage_coming soon_artisan coffee roastery coming soon/16_web_desktop_onepage_coming soon_artisan coffee roastery coming soon (6).png',
         ],
-        thumbnail: './products/Web/Onepage/Done_16_web_desktop_onepage_coming soon_artisan coffee roastery coming soon/thumbnail.jpg',
+        thumbnail: './products/Web/Onepage/Done_16_web_desktop_onepage_coming soon_artisan coffee roastery coming soon/thumbnail.png',
         path: './products/Web/Onepage/Done_16_web_desktop_onepage_coming soon_artisan coffee roastery coming soon/',
         demoUrl: './products/Web/Onepage/Done_16_web_desktop_onepage_coming soon_artisan coffee roastery coming soon/code.html',
         features: [
@@ -295,7 +295,7 @@ const PRODUCTS = [
             './products/Web/Onepage/Done_21_web_desktop_onepage_coming soon_gourmet restaurant launch page/Done_21_web_desktop_onepage_coming soon_gourmet restaurant launch page (5).png',
             './products/Web/Onepage/Done_21_web_desktop_onepage_coming soon_gourmet restaurant launch page/Done_21_web_desktop_onepage_coming soon_gourmet restaurant launch page (6).png',
         ],
-        thumbnail: './products/Web/Onepage/Done_21_web_desktop_onepage_coming soon_gourmet restaurant launch page/thumbnail.jpg',
+        thumbnail: './products/Web/Onepage/Done_21_web_desktop_onepage_coming soon_gourmet restaurant launch page/thumbnail.png',
         path: './products/Web/Onepage/Done_21_web_desktop_onepage_coming soon_gourmet restaurant launch page/',
         demoUrl: './products/Web/Onepage/Done_21_web_desktop_onepage_coming soon_gourmet restaurant launch page/code.html',
         features: [
@@ -487,7 +487,7 @@ const PRODUCTS = [
             './products/Web/Onepage/DONE_27_web_desktop_onepage_coming soon_gaming center launch teaser/27_web_desktop_onepage_coming soon_gaming center launch teaser (5).png',
             './products/Web/Onepage/DONE_27_web_desktop_onepage_coming soon_gaming center launch teaser/27_web_desktop_onepage_coming soon_gaming center launch teaser (6).png',
         ],
-        thumbnail: './products/Web/Onepage/DONE_27_web_desktop_onepage_coming soon_gaming center launch teaser/thumbnail.jpg',
+        thumbnail: './products/Web/Onepage/DONE_27_web_desktop_onepage_coming soon_gaming center launch teaser/thumbnail.png',
         path: './products/Web/Onepage/DONE_27_web_desktop_onepage_coming soon_gaming center launch teaser/',
         demoUrl: './products/Web/Onepage/DONE_27_web_desktop_onepage_coming soon_gaming center launch teaser/code.html',
         features: [
@@ -853,7 +853,7 @@ const PRODUCTS = [
         priority: 26,
         downloads: 9,
         rating: 4.9,
-        showInSlider: true,
+        showInSlider: false,
         updatedAt: '2026-03-05',
     },
     {
@@ -2329,7 +2329,7 @@ const PRODUCTS = [
         priority: 72,
         downloads: 3,
         rating: 4.7,
-        showInSlider: false,
+        showInSlider: true,
         updatedAt: '2026-03-05',
     },
     {
@@ -3870,7 +3870,7 @@ const PRODUCTS = [
         priority: 120,
         downloads: 10,
         rating: 4.8,
-        showInSlider: true,
+        showInSlider: false,
         updatedAt: '2026-03-05',
     },
     {
@@ -4062,7 +4062,7 @@ const PRODUCTS = [
         priority: 126,
         downloads: 1,
         rating: 4.7,
-        showInSlider: false,
+        showInSlider: true,
         updatedAt: '2026-03-05',
     },
     {
@@ -4121,7 +4121,7 @@ const PRODUCTS = [
         priority: 128,
         downloads: 10,
         rating: 4.7,
-        showInSlider: false,
+        showInSlider: true,
         updatedAt: '2026-03-05',
     },
     {
@@ -4153,7 +4153,7 @@ const PRODUCTS = [
         priority: 129,
         downloads: 4,
         rating: 4.9,
-        showInSlider: false,
+        showInSlider: true,
         updatedAt: '2026-03-05',
     },
     {
@@ -4935,7 +4935,23 @@ function getProductBySlug(slug) {
  * Lấy danh sách products đã sort theo priority
  */
 function getProductsSorted() {
-    return [...PRODUCTS].sort((a, b) => a.priority - b.priority);
+    const isFullpage = (p) =>
+        (p.path && p.path.toLowerCase().includes('fullpage')) ||
+        (p.demoUrl && p.demoUrl.toLowerCase().includes('/home/code'));
+
+    const typeOrder = { 'website': 0, 'trending': 1, 'google-sheet': 2 };
+
+    return [...PRODUCTS].sort((a, b) => {
+        const aFull = isFullpage(a) ? 1 : 0;
+        const bFull = isFullpage(b) ? 1 : 0;
+        if (aFull !== bFull) return bFull - aFull;
+
+        const aType = typeOrder[a.type] ?? 3;
+        const bType = typeOrder[b.type] ?? 3;
+        if (aType !== bType) return aType - bType;
+
+        return b.id - a.id;
+    });
 }
 
 /**
