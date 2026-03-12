@@ -174,13 +174,48 @@ Chọn ảnh **phù hợp chủ đề** từng section. Gợi ý theo ngành:
 
 Khi được yêu cầu:
 
-1. **User tự cung cấp file MP3** → đặt trong folder sản phẩm cùng `code.html`
-2. **Nếu user không có file** → hướng dẫn tải nhạc miễn phí bản quyền từ:
-   - Pixabay Music (pixabay.com/music)
-   - Mixkit (mixkit.co/free-stock-music)
-   - Bensound (bensound.com)
+#### Chọn file nhạc — theo thứ tự ưu tiên:
 
-3. **Thêm vào HTML** — nút toggle nhạc fixed góc phải dưới:
+1. **User chỉ định file cụ thể** → dùng file đó
+2. **User chỉ định thể loại** (ví dụ "nhạc jazz", "nhạc buồn") → quét folder tương ứng trong `products/shared/music/{thể-loại}/` → chọn random 1 file
+3. **User chỉ nói "có nhạc"** mà không chỉ định → **tự chọn thể loại phù hợp chủ đề** rồi random 1 file
+
+#### Bảng gợi ý thể loại theo chủ đề landing page:
+
+| Chủ đề landing page | Thể loại nhạc | Folder |
+|---------------------|---------------|--------|
+| Quán cà phê, nhà hàng | Jazz / Café | `jazz-cafe/` |
+| Spa, yoga, wellness | Ambient / Thư giãn | `ambient-relax/` |
+| Gym, sport, fitness | Sôi động | `upbeat-energy/` |
+| Wedding planner, thiệp cưới | Đám cưới | `wedding/` |
+| Studio ảnh cưới | Lãng mạn / Đám cưới | `romantic/` hoặc `wedding/` |
+| Portfolio, blog cá nhân | Lo-fi / Chill | `lofi-chill/` |
+| Công ty, startup, agency | Doanh nghiệp | `corporate-professional/` |
+| Khóa học, education | Lo-fi / Chill | `lofi-chill/` |
+| Shop thời trang, beauty | Lãng mạn / Lo-fi | `romantic/` hoặc `lofi-chill/` |
+| Sự kiện, sinh nhật, Tết | Lễ hội | `festive-holiday/` |
+| Bất động sản, luxury | Cổ điển | `classical-elegant/` |
+| Trang thơ, tâm sự, confession | Tình buồn | `sad-ballad/` |
+
+#### Quy trình chọn nhạc:
+
+```bash
+# 1. Xác định folder thể loại phù hợp
+# 2. Liệt kê file MP3 trong folder đó
+ls products/shared/music/{thể-loại}/*.mp3
+
+# 3. Nếu folder trống → thử folder thay thế (romantic là fallback phổ biến nhất)
+# 4. Nếu tất cả trống → báo user tải nhạc vào kho
+
+# 5. Chọn random 1 file → dùng đường dẫn tương đối trong code.html
+```
+
+Đường dẫn trong `code.html` dùng relative path từ folder sản phẩm:
+```
+../../shared/music/{thể-loại}/{tên-file}.mp3
+```
+
+#### Thêm vào HTML — nút toggle nhạc fixed góc phải dưới:
 
 ```html
 <!-- Music Toggle Button -->
@@ -189,7 +224,7 @@ Khi được yêu cầu:
     <i data-lucide="volume-x" class="music-icon-off"></i>
 </button>
 <audio id="bgMusic" loop preload="auto">
-    <source src="background.mp3" type="audio/mpeg">
+    <source src="../../shared/music/{thể-loại}/{tên-file}.mp3" type="audio/mpeg">
 </audio>
 ```
 
