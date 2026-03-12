@@ -175,7 +175,79 @@ Chọn ảnh **phù hợp chủ đề** từng section. Gợi ý theo ngành:
 - Smooth scroll: `html { scroll-behavior: smooth; }`
 - Bảng màu hài hòa, phù hợp chủ đề (warm tones cho F&B, bold cho gym, pastel cho spa, v.v.)
 
-### Bước 5: Thêm entry vào `data.js`
+### Bước 5: Chụp ảnh tự động bằng Puppeteer
+
+Dùng Puppeteer (headless Chrome) để chụp screenshot tự động cho `code.html` vừa tạo.
+
+**Số lượng ảnh: 2–5 tuỳ độ dài trang**, theo quy tắc:
+
+| Chiều cao full page | Số ảnh | Cách chụp |
+|---------------------|--------|-----------|
+| < 3000px (ngắn) | 2 | `screen.png` (viewport) + `anh_1.png` (full page) |
+| 3000–6000px (trung bình) | 3 | + `anh_2.png` (mobile full page) |
+| 6000–10000px (dài) | 4 | + `anh_3.png` (scroll đến giữa trang, viewport) |
+| > 10000px (rất dài) | 5 | + `anh_4.png` (scroll đến 75% trang, viewport) |
+
+**Script mẫu:**
+
+```javascript
+node -e "
+const puppeteer = require('puppeteer');
+(async () => {
+  const browser = await puppeteer.launch({ headless: 'new' });
+  const page = await browser.newPage();
+  const folder = '<đường dẫn folder sản phẩm>';
+  const filePath = 'file://' + process.cwd() + '/' + folder + '/code.html';
+
+  // 1. screen.png - desktop viewport (luôn chụp)
+  await page.setViewport({ width: 1280, height: 800 });
+  await page.goto(filePath, { waitUntil: 'networkidle0', timeout: 30000 });
+  await new Promise(r => setTimeout(r, 2000)); // chờ animation
+  await page.screenshot({ path: folder + '/screen.png', type: 'png' });
+
+  // 2. anh_1.png - full page desktop (luôn chụp)
+  await page.screenshot({ path: folder + '/anh_1.png', type: 'png', fullPage: true });
+
+  // Đo chiều cao trang để quyết định số ảnh
+  const pageHeight = await page.evaluate(() => document.body.scrollHeight);
+
+  // 3. anh_2.png - mobile full page (nếu pageHeight >= 3000)
+  if (pageHeight >= 3000) {
+    await page.setViewport({ width: 390, height: 844 });
+    await page.reload({ waitUntil: 'networkidle0' });
+    await new Promise(r => setTimeout(r, 1500));
+    await page.screenshot({ path: folder + '/anh_2.png', type: 'png', fullPage: true });
+  }
+
+  // 4. anh_3.png - scroll 50% desktop viewport (nếu pageHeight >= 6000)
+  if (pageHeight >= 6000) {
+    await page.setViewport({ width: 1280, height: 800 });
+    await page.reload({ waitUntil: 'networkidle0' });
+    await new Promise(r => setTimeout(r, 1500));
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.5));
+    await new Promise(r => setTimeout(r, 800));
+    await page.screenshot({ path: folder + '/anh_3.png', type: 'png' });
+  }
+
+  // 5. anh_4.png - scroll 75% desktop viewport (nếu pageHeight >= 10000)
+  if (pageHeight >= 10000) {
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.75));
+    await new Promise(r => setTimeout(r, 800));
+    await page.screenshot({ path: folder + '/anh_4.png', type: 'png' });
+  }
+
+  await browser.close();
+  console.log('Done! pageHeight=' + pageHeight + 'px, captured screenshots.');
+})();
+"
+```
+
+**Lưu ý:**
+- Chờ 2s sau khi load để hero animations hoàn thành
+- Chờ 800ms sau mỗi lần scroll để scroll-reveal animations trigger
+- `screen.png` luôn là ảnh đầu tiên trong mảng `images` và dùng làm `thumbnail`
+
+### Bước 6: Thêm entry vào `data.js`
 
 Chèn product entry **trước dòng `];`** đóng mảng PRODUCTS. Format chính xác:
 
@@ -189,10 +261,14 @@ Chèn product entry **trước dòng `];`** đóng mảng PRODUCTS. Format chín
         type: 'website',
         tags: ['<type>', '<category>', '<keyword1>', '<keyword2>', ...],
         price: '',
-        images: [],
-        thumbnail: '',
-        path: './products/Web/<Category>/<folder-name>/',
-        demoUrl: './products/Web/<Category>/<folder-name>/code.html',
+        images: [
+            './<folder>/screen.png',
+            './<folder>/anh_1.png',
+            // ... thêm anh_2, anh_3, anh_4 tuỳ số ảnh đã chụp
+        ],
+        thumbnail: './<folder>/screen.png',
+        path: './<folder>/',
+        demoUrl: './<folder>/code.html',
         features: [
             '<tính năng 1 sinh từ nội dung>',
             '<tính năng 2>',
@@ -211,21 +287,21 @@ Chèn product entry **trước dòng `];`** đóng mảng PRODUCTS. Format chín
 - Dùng single quotes cho strings
 - Entry cuối cùng vẫn có dấu `,` ở cuối (trailing comma)
 - Indent 4 spaces cho object, 8 spaces cho properties
-- Mảng `images` và `thumbnail` để trống — sẽ cập nhật bằng `/scan-images`
+- Mảng `images` và `thumbnail` điền đầy đủ từ ảnh đã chụp ở Bước 5
 
-### Bước 6: Cập nhật `products/products.md`
+### Bước 7: Cập nhật `products/products.md`
 
 - Cập nhật bảng tổng hợp số lượng sản phẩm (cột "So san pham" tương ứng)
 - Cập nhật dòng **Tong**
 
-### Bước 7: Cập nhật thư viện animation (nếu có animation mới)
+### Bước 8: Cập nhật thư viện animation (nếu có animation mới)
 
 Nếu trong code.html tạo ra animation/keyframe/hover effect **chưa có** trong `products/shared/animations.css`:
 - Thêm vào file `products/shared/animations.css` ở đúng section (scroll, hover, keyframe, decorative)
 - Comment rõ ràng mô tả animation
 - Đặt tên class theo convention: `animate-{name}` (scroll), `hover-{name}` (hover), `@keyframes {name}` (keyframe)
 
-### Bước 8: Báo cáo
+### Bước 9: Báo cáo
 
 In ra:
 
@@ -234,12 +310,11 @@ In ra:
 
 | # | ID | Tên | Path | Demo |
 |---|-----|-----|------|------|
-| 1 | 150 | Tên mẫu | products/Web/Onepage/gen_150_... | [Xem demo](demoUrl) |
+| 1 | 151 | Tên mẫu | products/Web/Onepage/gen_151_... | [Xem demo](demoUrl) |
 
+📸 Screenshots: <số ảnh> ảnh/mẫu (screen.png, anh_1..N) — tự động chụp bằng Puppeteer
 🎬 Animations: <liệt kê animations đã dùng>
 🆕 Animations mới thêm vào thư viện: <nếu có>
-
-⚠️ Ảnh chưa có — chụp screenshot rồi chạy `/scan-images <ID>` để cập nhật.
 ```
 
 ---
