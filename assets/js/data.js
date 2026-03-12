@@ -5034,6 +5034,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-12',
     },
+    {
+        id: 158,
+        name: 'Gửi Em — Vũ Đức Mạnh',
+        slug: 'gui-em-vu-duc-manh',
+        description: 'Lời yêu thương và cảm ơn từ Vũ Đức Mạnh gửi đến Em nhân ngày White Day 14/3 — ấm cúng, lãng mạn với nhạc nền.',
+        category: 'confession',
+        type: 'trending',
+        tags: ['trending', 'confession', 'white-day', 'love', 'valentine', '14-3', 'romantic'],
+        price: '',
+        images: [
+            './products/Trending/Confession/gen_158_white-day-love-manh/screen.webp',
+            './products/Trending/Confession/gen_158_white-day-love-manh/anh_1.webp',
+            './products/Trending/Confession/gen_158_white-day-love-manh/anh_2.webp',
+            './products/Trending/Confession/gen_158_white-day-love-manh/anh_3.webp',
+            './products/Trending/Confession/gen_158_white-day-love-manh/anh_4.webp',
+        ],
+        thumbnail: './products/Trending/Confession/gen_158_white-day-love-manh/screen.webp',
+        path: './products/Trending/Confession/gen_158_white-day-love-manh/',
+        demoUrl: './products/Trending/Confession/gen_158_white-day-love-manh/code.html',
+        features: [
+            'Thiết kế ấm cúng tông rose + gold, cánh hoa rơi lãng mạn',
+            'Lá thư tay + lý do yêu em + lời hứa trọn đời',
+            'Nút nhạc nền toggle — click để nghe nhạc romantic',
+        ],
+        status: 'new',
+        priority: 158,
+        downloads: 3,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-03-12',
+    },
 ];
 
 // ============================================
