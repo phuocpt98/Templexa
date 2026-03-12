@@ -16,9 +16,78 @@ Ví dụ:
 Từ `$ARGUMENTS`, xác định:
 - **Số lượng mẫu** cần gen (mặc định 1 nếu không nói rõ)
 - **Chủ đề** và **phong cách** cho từng mẫu
-- **Category**: mặc định `onepage`, trừ khi user chỉ định khác (e-commerce, invitation, portfolio, education)
+- **Category**: mặc định `onepage`, trừ khi user chỉ định khác (e-commerce, invitation, portfolio, education, confession...)
 - **Type**: mặc định `website`
 - Nếu có ảnh đính kèm → phân tích layout, màu sắc, phong cách từ ảnh
+
+### Bước 1b: Chiến lược song song (khi ≥ 2 mẫu)
+
+**Nếu chỉ 1 mẫu** → chạy tuần tự như bình thường (Bước 2 → 9).
+
+**Nếu 2–5 mẫu** → chạy **song song bằng Agent tool**, mỗi mẫu 1 agent:
+
+#### Chuẩn bị chung (trước khi spawn agents):
+1. Đọc `products/shared/animations.css` — lấy nội dung animations có sẵn
+2. Đọc `assets/js/data.js` → tìm ID lớn nhất → phân ID cho từng mẫu (max+1, max+2, ...)
+3. Liệt kê file nhạc nếu user yêu cầu nhạc nền
+
+#### Spawn agents song song:
+- Dùng **Agent tool** với `subagent_type: "general-purpose"` — spawn tất cả agents **trong cùng 1 message** để chạy đồng thời
+- Tối đa **5 agents** trên 1 yêu cầu — nếu user yêu cầu > 5 mẫu thì chia batch (5 + phần dư)
+- Mỗi agent nhận đầy đủ context:
+  - ID đã phân sẵn
+  - Chủ đề + phong cách + category + type
+  - Nội dung animations.css (để tham khảo, không cần đọc lại)
+  - Đường dẫn nhạc (nếu có)
+  - **Toàn bộ hướng dẫn tạo HTML** (cấu trúc sections, icons, animations, ảnh Unsplash...)
+  - **Hướng dẫn screenshot + WebP** (Puppeteer script + sharp convert)
+
+#### Nhiệm vụ của mỗi agent (tự hoàn thành độc lập):
+1. Tạo folder `products/{Type}/{Category}/gen_{id}_{keywords}/`
+2. Tạo file `code.html` (self-contained, đầy đủ sections + animations)
+3. Chạy Puppeteer chụp screenshot (2–5 ảnh viewport 1280x800)
+4. Chuyển PNG → WebP bằng sharp + xoá PNG gốc
+5. Trả về kết quả: `{ id, name, slug, description, category, type, tags, folder, images[], features[], demoUrl }`
+
+#### Sau khi tất cả agents hoàn thành:
+1. **Merge vào `data.js`** — chèn tất cả entries trước `];` (theo thứ tự ID tăng dần)
+2. **Cập nhật `products/products.md`** — cập nhật bảng tổng hợp + danh sách chi tiết
+3. **Cập nhật `products/shared/animations.css`** — nếu agents tạo animation mới
+4. **Báo cáo tổng hợp** — bảng tất cả mẫu đã tạo
+
+#### Prompt template cho mỗi agent:
+
+```
+Tạo landing page HTML cho Templexa project.
+
+**Thông tin sản phẩm:**
+- ID: {id}
+- Chủ đề: {chủ đề + phong cách}
+- Category: {category}
+- Type: {type}
+- Folder: products/{Type}/{Category}/gen_{id}_{keywords}/
+- Nhạc nền: {đường dẫn nhạc hoặc "không"}
+
+**Hướng dẫn tạo HTML:**
+{copy toàn bộ Bước 4 — cấu trúc HTML, sections, icons, animations, ảnh}
+
+**Animations có sẵn (tham khảo):**
+{nội dung animations.css}
+
+**Sau khi tạo HTML xong:**
+1. Chạy Puppeteer chụp screenshot:
+{copy Bước 5 — script Puppeteer}
+
+2. Chuyển PNG → WebP:
+{copy Bước 5b — script sharp}
+
+**Trả về khi xong:**
+- Tên sản phẩm (từ <title>)
+- Mô tả (từ meta description)
+- Danh sách file ảnh webp đã tạo
+- 3 features mô tả tính năng
+- Tags phù hợp
+```
 
 ### Bước 2: Đọc thư viện animation
 
@@ -473,3 +542,13 @@ In ra:
 - Animations phải smooth, chuyên nghiệp — KHÔNG nhấp nháy, giật lag
 - Prefer `cubic-bezier(0.16, 1, 0.3, 1)` cho easing (smooth deceleration)
 - Prefer `transition` cho scroll reveal, `animation` cho auto-play/infinite
+
+## Song song — Quy tắc
+
+- **1 mẫu** → chạy tuần tự bình thường, KHÔNG spawn agent
+- **2–5 mẫu** → spawn song song, mỗi mẫu 1 agent (tất cả trong cùng 1 message)
+- **> 5 mẫu** → chia batch: 5 agents chạy trước, chờ xong rồi 5 tiếp theo
+- Tối đa **5 agents đồng thời** trên 1 yêu cầu
+- Mỗi agent **tự hoàn thành toàn bộ**: tạo HTML + chụp ảnh + convert WebP
+- Chỉ **data.js, products.md, animations.css** được cập nhật tập trung sau khi tất cả agents xong
+- Phân ID **trước** khi spawn để tránh conflict (ID max+1, max+2, ...)
