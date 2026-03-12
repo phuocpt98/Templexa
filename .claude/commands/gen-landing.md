@@ -210,10 +210,12 @@ ls products/shared/music/{thể-loại}/*.mp3
 # 5. Chọn random 1 file → dùng đường dẫn tương đối trong code.html
 ```
 
-Đường dẫn trong `code.html` dùng relative path từ folder sản phẩm:
+**KHÔNG copy file nhạc vào folder sản phẩm** — link trực tiếp đến file gốc trong kho nhạc dùng relative path:
 ```
-../../shared/music/{thể-loại}/{tên-file}.mp3
+products/Web/{Cat}/{folder}/code.html      → ../../../../shared/music/{loại}/{file}.mp3
+products/Trending/{Cat}/{folder}/code.html  → ../../../shared/music/{loại}/{file}.mp3
 ```
+Đếm số bậc `../` từ vị trí `code.html` lên đến `products/` rồi thêm `shared/music/...`.
 
 #### Thêm vào HTML — nút toggle nhạc fixed góc phải dưới:
 
@@ -224,7 +226,7 @@ ls products/shared/music/{thể-loại}/*.mp3
     <i data-lucide="volume-x" class="music-icon-off"></i>
 </button>
 <audio id="bgMusic" loop preload="auto">
-    <source src="../../shared/music/{thể-loại}/{tên-file}.mp3" type="audio/mpeg">
+    <source src="../../../shared/music/{thể-loại}/{tên-file}.mp3" type="audio/mpeg">
 </audio>
 ```
 

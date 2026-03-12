@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Anh — Nguyễn Minh Huyền</title>
+    <meta name="description" content="Tâm tư từ Nguyễn Minh Huyền gửi đến Anh nhân ngày White Day 14/3 — câu chuyện tình yêu giản dị và sâu lắng">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --lavender: #8B7EC8;
+            --lavender-light: #F0EDFA;
+            --lavender-dark: #6B5EAE;
+            --mauve: #C084A0;
+            --mauve-light: #F8EDF3;
+            --cream: #FDFBF9;
+            --warm-bg: #F9F6F3;
+            --gold: #C9A96E;
+            --text-dark: #2D2B3A;
+            --text-mid: #5A5670;
+            --text-light: #8B869E;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .serif { font-family: 'Lora', serif; }
+
+        /* ===================== STARS BACKGROUND ===================== */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .star {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: var(--lavender);
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.5); }
+        }
+
+        /* ===================== HERO ===================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(180deg, #1E1A3A 0%, #2D2550 30%, #4A3B6B 60%, #8B7EC8 100%);
+            padding: 60px 24px;
+            overflow: hidden;
+            color: white;
+        }
+
+        .hero-moon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #FFF8E7, #F5E6B8);
+            box-shadow: 0 0 60px rgba(245,230,184,0.4), 0 0 120px rgba(245,230,184,0.2);
+            margin-bottom: 40px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 32px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+            backdrop-filter: blur(10px);
+        }
+        .hero-badge i { width: 16px; height: 16px; }
+
+        .hero h1 {
+            font-family: 'Lora', serif;
+            font-size: clamp(36px, 7vw, 68px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s both;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #C9A96E, #F5E6B8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: rgba(255,255,255,0.75);
+            max-width: 580px;
+            margin-bottom: 40px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.6s both;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: bounce-gentle 2s infinite;
+        }
+        @keyframes bounce-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* ===================== TRANSITION ===================== */
+        .transition-wave {
+            height: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+        .transition-wave.dark-to-light {
+            background: var(--cream);
+        }
+        .transition-wave.dark-to-light::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -5%; right: -5%;
+            height: 100%;
+            background: linear-gradient(180deg, #8B7EC8, var(--cream));
+            border-radius: 0 0 50% 50%;
+        }
+
+        /* ===================== SCENES ===================== */
+        .scene {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scene-content {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .scene-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+            z-index: 0;
+        }
+        .scene-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .scene-1 { background: linear-gradient(135deg, #F0EDFA, #F9F6F3); }
+        .scene-1 .scene-bg { background-image: url('https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=1920&q=80'); }
+        .scene-1 .scene-overlay { background: linear-gradient(135deg, rgba(240,237,250,0.9), rgba(249,246,243,0.9)); }
+
+        .scene-2 { background: linear-gradient(135deg, #F8EDF3, #F0EDFA); }
+        .scene-2 .scene-bg { background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80'); }
+        .scene-2 .scene-overlay { background: linear-gradient(135deg, rgba(248,237,243,0.9), rgba(240,237,250,0.9)); }
+
+        .scene-3 { background: linear-gradient(135deg, #F9F6F3, #F8EDF3); }
+        .scene-3 .scene-bg { background-image: url('https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=1920&q=80'); }
+        .scene-3 .scene-overlay { background: linear-gradient(135deg, rgba(249,246,243,0.9), rgba(248,237,243,0.9)); }
+
+        .scene-icon {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            background: rgba(139,126,200,0.1);
+            color: var(--lavender);
+        }
+        .scene-icon i { width: 28px; height: 28px; }
+
+        .scene-chapter {
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            color: var(--lavender);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .scene h2 {
+            font-family: 'Lora', serif;
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: 32px;
+            line-height: 1.3;
+        }
+        .scene h2 .highlight, h2 .highlight {
+            background: linear-gradient(135deg, var(--lavender), var(--mauve));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .scene p {
+            font-size: clamp(16px, 2vw, 18px);
+            color: var(--text-mid);
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+        .scene p em { color: var(--lavender); font-style: italic; }
+
+        .scene-divider {
+            width: 60px; height: 2px;
+            background: linear-gradient(90deg, var(--lavender), var(--mauve));
+            margin: 32px auto;
+            border-radius: 2px;
+        }
+
+        .scene-quote {
+            font-family: 'Lora', serif;
+            font-size: clamp(20px, 3vw, 26px);
+            font-style: italic;
+            color: var(--lavender-dark);
+            padding: 24px 32px;
+            border-left: 3px solid var(--lavender);
+            text-align: left;
+            margin: 32px auto;
+            max-width: 600px;
+            background: rgba(139,126,200,0.05);
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* ===================== TIMELINE ===================== */
+        .timeline-section {
+            padding: 80px 24px;
+            background: var(--warm-bg);
+        }
+        .timeline-section .scene-content { max-width: 700px; margin: 0 auto; }
+
+        .timeline {
+            position: relative;
+            margin-top: 48px;
+            padding-left: 40px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--lavender), var(--mauve));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 48px;
+            text-align: left;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--lavender);
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 3px rgba(139,126,200,0.2);
+        }
+
+        .timeline-time {
+            font-family: 'Lora', serif;
+            font-size: 14px;
+            color: var(--lavender);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .timeline-title {
+            font-family: 'Lora', serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .timeline-desc {
+            font-size: 15px;
+            color: var(--text-mid);
+            line-height: 1.7;
+        }
+
+        /* ===================== LETTER ===================== */
+        .letter-section {
+            padding: 100px 24px;
+            background: linear-gradient(180deg, var(--cream), var(--lavender-light));
+            display: flex;
+            justify-content: center;
+        }
+
+        .letter-card {
+            max-width: 650px;
+            background: var(--white);
+            border-radius: 24px;
+            padding: clamp(32px, 6vw, 64px);
+            box-shadow: 0 20px 60px rgba(139,126,200,0.15);
+            position: relative;
+        }
+        .letter-card::before {
+            content: '✉';
+            position: absolute;
+            top: -16px;
+            right: 32px;
+            font-size: 40px;
+            opacity: 0.3;
+        }
+
+        .letter-greeting {
+            font-family: 'Lora', serif;
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 600;
+            color: var(--lavender);
+            margin-bottom: 24px;
+        }
+        .letter-body p {
+            font-size: 16px;
+            color: var(--text-mid);
+            margin-bottom: 16px;
+            line-height: 2;
+        }
+        .letter-body p em { color: var(--lavender); }
+
+        .letter-sign {
+            margin-top: 40px;
+            text-align: right;
+        }
+        .letter-sign .name {
+            font-family: 'Lora', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--lavender);
+        }
+        .letter-sign .date {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* ===================== FINAL ===================== */
+        .final-section {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px;
+            background: linear-gradient(180deg, #4A3B6B, #1E1A3A);
+            color: white;
+            position: relative;
+        }
+        .final-section h2 {
+            font-family: 'Lora', serif;
+            font-size: clamp(32px, 6vw, 56px);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .final-section h2 .gold {
+            background: linear-gradient(135deg, #C9A96E, #F5E6B8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .final-section p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            max-width: 500px;
+        }
+        .final-heart {
+            margin-top: 32px;
+            font-size: 48px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+
+        /* ===================== MUSIC ===================== */
+        .music-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--lavender), var(--mauve));
+            color: white;
+            cursor: pointer;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(139,126,200,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(139,126,200,0.5);
+        }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* ===================== ANIMATIONS ===================== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes slide-up-hero {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+        }
+        .animate-fade-up.is-visible { opacity: 1; transform: translateY(0); }
+
+        .animate-fade-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+        }
+        .animate-fade-left.is-visible { opacity: 1; transform: translateX(0); }
+
+        .animate-scale-up {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .animate-scale-up.is-visible { opacity: 1; transform: scale(1); }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 768px) {
+            .hero-moon { width: 80px; height: 80px; }
+            .scene-quote { padding: 16px 20px; }
+            .timeline { padding-left: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Stars -->
+<div class="stars-container" id="stars"></div>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-moon"></div>
+
+    <div class="hero-badge">
+        <i data-lucide="heart"></i>
+        White Day — 14.03
+    </div>
+
+    <h1>
+        Gửi <span class="highlight">Anh</span><br>
+        Từ Minh Huyền
+    </h1>
+
+    <p class="hero-subtitle">
+        Đêm nay trăng sáng lắm, và em muốn kể anh nghe câu chuyện của trái tim em…
+    </p>
+
+    <div class="scroll-hint">
+        <span>Lắng nghe câu chuyện</span>
+        <i data-lucide="chevron-down"></i>
+    </div>
+</section>
+
+<div class="transition-wave dark-to-light"></div>
+
+<!-- Scene 1 -->
+<section class="scene scene-1">
+    <div class="scene-bg"></div>
+    <div class="scene-overlay"></div>
+    <div class="scene-content">
+        <div class="scene-icon animate-fade-up">
+            <i data-lucide="sparkles"></i>
+        </div>
+        <p class="scene-chapter animate-fade-up delay-1">Chương 1</p>
+        <h2 class="animate-fade-up delay-2">Ngày Em <span class="highlight">Gặp Anh</span></h2>
+        <div class="scene-divider animate-fade-up delay-3"></div>
+        <p class="animate-fade-up delay-3">
+            Em không nhớ chính xác khoảnh khắc nào em bắt đầu để ý anh. Có lẽ là cái ngày ấy — khi anh tình cờ mỉm cười, và em bất giác nghĩ: "Người này có gì đó thật khác biệt."
+        </p>
+        <p class="animate-fade-up delay-4">
+            Từ lúc đó, mỗi lần gặp anh, <em>trái tim em lại đập nhanh hơn một chút.</em>
+        </p>
+    </div>
+</section>
+
+<!-- Scene 2 -->
+<section class="scene scene-2">
+    <div class="scene-bg"></div>
+    <div class="scene-overlay"></div>
+    <div class="scene-content">
+        <div class="scene-icon animate-fade-up">
+            <i data-lucide="moon"></i>
+        </div>
+        <p class="scene-chapter animate-fade-up delay-1">Chương 2</p>
+        <h2 class="animate-fade-up delay-2">Những Đêm Em <span class="highlight">Thao Thức</span></h2>
+        <div class="scene-divider animate-fade-up delay-3"></div>
+        <p class="animate-fade-up delay-3">
+            Có bao nhiêu đêm em nằm nhìn trần nhà, tự hỏi anh đang nghĩ gì, anh có đang ổn không. Em thường viết nhật ký về những ngày có anh, dù chỉ là những điều nhỏ nhặt.
+        </p>
+        <div class="scene-quote animate-fade-up delay-4">
+            "Em không giỏi bày tỏ cảm xúc, nhưng mỗi dòng em viết đều là về anh."
+        </div>
+    </div>
+</section>
+
+<!-- Timeline -->
+<section class="timeline-section">
+    <div class="scene-content">
+        <p class="scene-chapter animate-fade-up">Dòng thời gian</p>
+        <h2 class="animate-fade-up delay-1" style="font-family: 'Lora', serif; font-size: clamp(28px, 5vw, 42px); font-weight: 700;">Câu Chuyện Của <span class="highlight">Chúng Mình</span></h2>
+        <div class="timeline">
+            <div class="timeline-item animate-fade-left delay-1">
+                <div class="timeline-time">Ngày đầu tiên</div>
+                <div class="timeline-title">Lần đầu nói chuyện</div>
+                <div class="timeline-desc">Em còn nhớ cảm giác bối rối khi anh bắt chuyện. Tim đập nhanh mà cố tỏ ra bình thường.</div>
+            </div>
+            <div class="timeline-item animate-fade-left delay-2">
+                <div class="timeline-time">Những ngày sau</div>
+                <div class="timeline-title">Tin nhắn đêm khuya</div>
+                <div class="timeline-desc">Những cuộc trò chuyện kéo dài đến 2-3 giờ sáng. Em không muốn ngủ vì sợ miss tin nhắn anh.</div>
+            </div>
+            <div class="timeline-item animate-fade-left delay-3">
+                <div class="timeline-time">Rồi một ngày</div>
+                <div class="timeline-title">Em nhận ra mình đã yêu</div>
+                <div class="timeline-desc">Không có khoảnh khắc dramatic nào cả. Em chỉ đơn giản nhận ra — anh đã trở thành người quan trọng nhất.</div>
+            </div>
+            <div class="timeline-item animate-fade-left delay-4">
+                <div class="timeline-time">Hôm nay — 14/3</div>
+                <div class="timeline-title">Em viết cho anh</div>
+                <div class="timeline-desc">Vì có những lời em không thể nói trực tiếp, em gửi chúng qua trang này.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scene 3 -->
+<section class="scene scene-3">
+    <div class="scene-bg"></div>
+    <div class="scene-overlay"></div>
+    <div class="scene-content">
+        <div class="scene-icon animate-fade-up">
+            <i data-lucide="heart-handshake"></i>
+        </div>
+        <p class="scene-chapter animate-fade-up delay-1">Chương 3</p>
+        <h2 class="animate-fade-up delay-2">Điều Em Muốn <span class="highlight">Anh Biết</span></h2>
+        <div class="scene-divider animate-fade-up delay-3"></div>
+        <p class="animate-fade-up delay-3">
+            Anh không cần phải hoàn hảo. Em yêu anh với tất cả những gì anh có — cả những lúc anh mạnh mẽ lẫn những lúc anh mệt mỏi.
+        </p>
+        <p class="animate-fade-up delay-4">
+            Em chỉ mong anh biết rằng, <em>luôn có một người đang âm thầm cổ vũ cho anh mỗi ngày.</em>
+        </p>
+    </div>
+</section>
+
+<!-- Letter -->
+<section class="letter-section">
+    <div class="letter-card animate-scale-up">
+        <p class="letter-greeting">Anh ơi,</p>
+        <div class="letter-body">
+            <p>
+                White Day này, em không tặng anh quà gì đắt tiền hay cầu kỳ. Em chỉ muốn gửi đến anh những lời thật lòng nhất.
+            </p>
+            <p>
+                Cảm ơn anh đã vô tình bước vào cuộc đời em và thay đổi mọi thứ. Từ khi có anh, em bắt đầu tin rằng mình xứng đáng được yêu thương.
+            </p>
+            <p>
+                Dù tương lai thế nào, em vẫn sẽ trân trọng khoảng thời gian này — khoảng thời gian em dành trọn trái tim cho anh.
+            </p>
+            <p>
+                <em>Happy White Day! Mong anh luôn vui và hạnh phúc nhé.</em>
+            </p>
+        </div>
+        <div class="letter-sign">
+            <div class="name">Minh Huyền</div>
+            <div class="date">14 tháng 3, 2026</div>
+        </div>
+    </div>
+</section>
+
+<!-- Final -->
+<section class="final-section">
+    <h2 class="animate-fade-up">
+        Yêu Anh Thật Nhiều <span class="gold">💛</span>
+    </h2>
+    <p class="animate-fade-up delay-2">
+        Từ Nguyễn Minh Huyền, dưới ánh trăng đêm nay
+    </p>
+    <div class="final-heart animate-fade-up delay-3">💜</div>
+</section>
+
+<!-- Music -->
+<button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+    <i data-lucide="volume-2" class="music-icon-on"></i>
+    <i data-lucide="volume-x" class="music-icon-off"></i>
+</button>
+<audio id="bgMusic" loop preload="auto">
+    <source src="../../../shared/music/romantic/Everyday I Love You.mp3" type="audio/mpeg">
+</audio>
+
+<script>lucide.createIcons();</script>
+<script>
+// Stars
+function createStars() {
+    const container = document.getElementById('stars');
+    for (let i = 0; i < 60; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.animationDuration = (2 + Math.random() * 3) + 's';
+        container.appendChild(star);
+    }
+}
+createStars();
+
+// IntersectionObserver
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('[class*="animate-"]').forEach(el => observer.observe(el));
+});
+
+// Music
+const musicBtn = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
+if (musicBtn && bgMusic) {
+    bgMusic.volume = 0.3;
+    let musicStarted = false;
+    musicBtn.addEventListener('click', () => {
+        if (!musicStarted) { bgMusic.play(); musicStarted = true; }
+        else if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('muted'); }
+        else { bgMusic.pause(); musicBtn.classList.add('muted'); }
+    });
+}
+</script>
+</body>
+</html>

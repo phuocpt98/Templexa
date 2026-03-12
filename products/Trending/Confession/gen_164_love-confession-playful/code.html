@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Em Ơi... Anh Có Điều Muốn Nói 💕</title>
+    <meta name="description" content="Một lời tỏ tình tinh nghịch dành riêng cho em - câu chuyện tình yêu của anh và em">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+
+        :root {
+            --pink: #FF6B9D;
+            --pink-dark: #E84B7A;
+            --pink-light: #FFB3CC;
+            --purple: #9B59B6;
+            --bg: #FFF5F8;
+            --text: #4A2040;
+            --text-light: #7A5070;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* ===== FLOATING HEARTS BACKGROUND ===== */
+        .floating-hearts {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-hearts span {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.12;
+            animation: floatHeart linear infinite;
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.12; }
+            90% { opacity: 0.12; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ===== CHAPTER SYSTEM ===== */
+        .chapter {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+            z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .chapter.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Content inside chapters — animate in */
+        .chapter .chapter-content {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s,
+                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+        }
+
+        .chapter.active .chapter-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chapter .chapter-content.delay-1 { transition-delay: 0.3s; }
+        .chapter .chapter-content.delay-2 { transition-delay: 0.45s; }
+        .chapter .chapter-content.delay-3 { transition-delay: 0.6s; }
+        .chapter .chapter-content.delay-4 { transition-delay: 0.75s; }
+        .chapter .chapter-content.delay-5 { transition-delay: 0.9s; }
+
+        /* ===== PROGRESS DOTS ===== */
+        .progress-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--pink-light);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 0;
+        }
+
+        .progress-dot.active {
+            background: var(--pink-dark);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(232, 75, 122, 0.4);
+        }
+
+        .progress-dot:hover {
+            background: var(--pink);
+            transform: scale(1.2);
+        }
+
+        /* ===== NEXT BUTTON ===== */
+        .btn-next {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--pink);
+            background: transparent;
+            border: 2px solid var(--pink);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 32px;
+        }
+
+        .btn-next:hover {
+            background: var(--pink);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.3);
+        }
+
+        .btn-next .arrow-icon {
+            transition: transform 0.3s;
+        }
+
+        .btn-next:hover .arrow-icon {
+            transform: translateX(4px);
+        }
+
+        /* ===== HERO ===== */
+        .hero-emoji {
+            font-size: 80px;
+            animation: bounce-heart 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes bounce-heart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .chapter h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--pink-dark);
+            margin-bottom: 16px;
+        }
+
+        .chapter h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--pink-dark);
+            margin-bottom: 24px;
+        }
+
+        .chapter p {
+            font-size: clamp(1rem, 2.2vw, 1.15rem);
+            line-height: 1.9;
+            color: var(--text-light);
+            max-width: 600px;
+            margin-bottom: 12px;
+        }
+
+        .chapter-label {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.95rem;
+            color: var(--pink-light);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .emoji-divider {
+            font-size: 28px;
+            margin: 24px 0;
+            opacity: 0.6;
+        }
+
+        /* ===== WHISPER CARDS ===== */
+        .whisper-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .whisper-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 24px;
+            box-shadow: 0 4px 20px rgba(255, 107, 157, 0.1);
+            max-width: 340px;
+            flex: 1;
+            min-width: 240px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .whisper-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(255, 107, 157, 0.2);
+        }
+
+        .whisper-card .whisper-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .whisper-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 0;
+        }
+
+        /* ===== QUESTION BUTTONS ===== */
+        .buttons-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            min-height: 80px;
+            position: relative;
+        }
+
+        .btn-yes {
+            padding: 16px 48px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s;
+            animation: pulse-glow-pink 2s ease-in-out infinite;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.5);
+        }
+
+        @keyframes pulse-glow-pink {
+            0%, 100% { box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4); }
+            50% { box-shadow: 0 8px 40px rgba(255, 107, 157, 0.6); }
+        }
+
+        .btn-no {
+            padding: 14px 36px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Quicksand', sans-serif;
+            background: white;
+            color: var(--text-light);
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.15s;
+            user-select: none;
+        }
+
+        .btn-no:hover {
+            border-color: var(--pink-light);
+        }
+
+        #noMessage {
+            max-width: 500px;
+        }
+
+        /* ===== CELEBRATION OVERLAY ===== */
+        .celebration-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255, 245, 248, 0.97);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .celebration-overlay.active {
+            display: flex;
+        }
+
+        .celebration-overlay .big-heart {
+            font-size: 100px;
+            animation: bounce-heart 0.6s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        .celebration-overlay h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--pink-dark);
+            margin-bottom: 16px;
+            animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+
+        .celebration-overlay p {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--text-light);
+            animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+        }
+
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== CONFETTI ===== */
+        .confetti-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: confetti-fall linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* ===== MUSIC TOGGLE ===== */
+        .music-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+            color: white;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.5);
+        }
+
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* ===== FOOTER (inside last chapter) ===== */
+        .footer-text {
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--pink-light);
+            font-size: 0.85rem;
+            z-index: 1;
+            white-space: nowrap;
+        }
+
+        .footer-text span {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1rem;
+            color: var(--pink);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero-emoji { font-size: 60px; }
+            .chapter { padding: 30px 20px; }
+            .buttons-container { gap: 20px; }
+            .btn-yes { padding: 14px 40px; font-size: 1.1rem; }
+            .btn-no { padding: 12px 28px; }
+            .whisper-cards { flex-direction: column; align-items: center; }
+            .whisper-card { min-width: 200px; }
+            .progress-dots { right: 10px; gap: 10px; }
+            .progress-dot { width: 8px; height: 8px; }
+        }
+
+        @media (max-width: 480px) {
+            .chapter { padding: 24px 16px; }
+            .btn-next { padding: 12px 24px; font-size: 0.9rem; }
+            .whisper-card { padding: 16px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- Progress Dots -->
+    <nav class="progress-dots" id="progressDots"></nav>
+
+    <!-- ===== CHAPTER 0: HERO ===== -->
+    <section class="chapter active" data-chapter="0">
+        <div class="hero-emoji chapter-content">💗</div>
+        <h1 class="chapter-content delay-1">Em ơi... Anh có điều muốn nói</h1>
+        <p class="chapter-content delay-2">Đây không phải spam, không phải quảng cáo, đây là... trái tim anh đang run rẩy viết cho em 🥺</p>
+        <button class="btn-next chapter-content delay-3" onclick="goNext()">
+            Nghe anh kể nhé
+            <i data-lucide="arrow-right" class="arrow-icon" style="width:18px;height:18px"></i>
+        </button>
+    </section>
+
+    <!-- ===== CHAPTER 1: Lần đầu gặp ===== -->
+    <section class="chapter" data-chapter="1">
+        <div class="chapter-label chapter-content">Chương 1</div>
+        <h2 class="chapter-content delay-1">Lần đầu tiên gặp em...</h2>
+        <p class="chapter-content delay-2">
+            Anh không nhớ hôm đó trời nắng hay mưa, chỉ nhớ lúc em xuất hiện...
+            mọi thứ xung quanh đều mờ đi hết. Tim anh lúc đó như quên cách đập bình thường,
+            nó đập kiểu... "thùm thùm thùm" 😳
+        </p>
+        <div class="emoji-divider chapter-content delay-3">🌸 · · · 🌸</div>
+        <p class="chapter-content delay-4">
+            Anh tự hỏi: "Trời ơi, sao có người cute vậy trời?" Rồi từ đó... anh lén nhìn em hoài.
+            Đừng nói cho ai biết nha! 🤫
+        </p>
+        <button class="btn-next chapter-content delay-5" onclick="goNext()">
+            Chương tiếp theo
+            <i data-lucide="arrow-right" class="arrow-icon" style="width:18px;height:18px"></i>
+        </button>
+    </section>
+
+    <!-- ===== CHAPTER 2: Những ngày sau đó ===== -->
+    <section class="chapter" data-chapter="2">
+        <div class="chapter-label chapter-content">Chương 2</div>
+        <h2 class="chapter-content delay-1">Rồi anh bắt đầu để ý...</h2>
+        <p class="chapter-content delay-2">
+            Anh để ý em cười. Anh để ý em buồn. Anh để ý cả lúc em vô tình nhìn về phía anh
+            (mặc dù chắc em nhìn cái gì khác, nhưng kệ, anh cứ tự sướng 😆).
+        </p>
+        <div class="emoji-divider chapter-content delay-3">☁️ · · · ☁️</div>
+        <p class="chapter-content delay-4">
+            Mỗi lần được nói chuyện với em, anh vui cả ngày. Mỗi lần em không rep tin nhắn,
+            anh check điện thoại 147 lần 📱. Và mỗi lần em gửi emoji cười...
+            anh cười ngoài đời thật luôn 😊
+        </p>
+        <button class="btn-next chapter-content delay-5" onclick="goNext()">
+            Chương tiếp theo
+            <i data-lucide="arrow-right" class="arrow-icon" style="width:18px;height:18px"></i>
+        </button>
+    </section>
+
+    <!-- ===== CHAPTER 3: Lời thủ thỉ ===== -->
+    <section class="chapter" data-chapter="3">
+        <h2 class="chapter-content">Những lời anh muốn thủ thỉ bên tai em...</h2>
+        <div class="whisper-cards">
+            <div class="whisper-card chapter-content delay-1">
+                <div class="whisper-icon">🌙</div>
+                <p>"Em biết không, mỗi đêm trước khi ngủ, người cuối cùng anh nghĩ đến... là em"</p>
+            </div>
+            <div class="whisper-card chapter-content delay-2">
+                <div class="whisper-icon">☀️</div>
+                <p>"Và sáng ra, người đầu tiên anh muốn chào... cũng là em"</p>
+            </div>
+            <div class="whisper-card chapter-content delay-3">
+                <div class="whisper-icon">🧸</div>
+                <p>"Anh không giỏi nói lời hay, nhưng anh giỏi... nhớ em"</p>
+            </div>
+            <div class="whisper-card chapter-content delay-4">
+                <div class="whisper-icon">💌</div>
+                <p>"Nếu nhớ đo được bằng tin nhắn, thì anh đã gõ một quyển tiểu thuyết rồi"</p>
+            </div>
+        </div>
+        <button class="btn-next chapter-content delay-5" onclick="goNext()">
+            Chương tiếp theo
+            <i data-lucide="arrow-right" class="arrow-icon" style="width:18px;height:18px"></i>
+        </button>
+    </section>
+
+    <!-- ===== CHAPTER 4: Suy nghĩ ===== -->
+    <section class="chapter" data-chapter="4">
+        <div class="chapter-label chapter-content">Chương 3</div>
+        <h2 class="chapter-content delay-1">Anh suy nghĩ mãi...</h2>
+        <p class="chapter-content delay-2">
+            Anh viết rồi xoá, xoá rồi viết. Anh diễn tập trước gương cả trăm lần
+            (anh thề là ngoài đời anh đẹp trai hơn trong gương 😤).
+        </p>
+        <div class="emoji-divider chapter-content delay-3">✨ · · · ✨</div>
+        <p class="chapter-content delay-4">
+            Cuối cùng anh quyết định... thôi kệ, sợ gì, đời có mấy lần được yêu.
+            Nếu không nói bây giờ, thì biết bao giờ mới dám? Nên là...
+        </p>
+        <button class="btn-next chapter-content delay-5" onclick="goNext()">
+            Đến phần quan trọng nhất 💕
+            <i data-lucide="arrow-right" class="arrow-icon" style="width:18px;height:18px"></i>
+        </button>
+    </section>
+
+    <!-- ===== CHAPTER 5: THE QUESTION ===== -->
+    <section class="chapter" data-chapter="5">
+        <h2 class="chapter-content" style="font-size:clamp(2.5rem, 6vw, 4rem)">Em ơi, em có muốn làm người yêu anh không? 💕</h2>
+        <p class="chapter-content delay-1">Hít thở sâu nào... rồi chọn đi em 🥹</p>
+        <div class="buttons-container chapter-content delay-2" id="buttonsContainer">
+            <button class="btn-yes" id="btnYes" onclick="sayYes()">
+                💖 Đồng Ý!
+            </button>
+            <button class="btn-no" id="btnNo" onmouseover="runAway()" onclick="runAway()">
+                😢 Từ chối
+            </button>
+        </div>
+        <p id="noMessage" class="chapter-content" style="display:none; margin-top:20px; color:var(--pink); font-weight:600; font-size:1.1rem;"></p>
+    </section>
+
+    <!-- ===== CELEBRATION OVERLAY ===== -->
+    <div class="celebration-overlay" id="celebration">
+        <div class="big-heart">💖</div>
+        <h2>YAAAAY! Em đồng ý rồiii! 🎉</h2>
+        <p>Anh hứa sẽ làm em cười mỗi ngày, sẽ luôn ở bên em,<br>và sẽ yêu em nhiều hơn cả... wifi miễn phí! 😆💕</p>
+    </div>
+
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- Footer -->
+    <div class="footer-text">
+        Được viết bằng 100% trái tim 💗 bởi <span>một người đang yêu em</span>
+    </div>
+
+    <!-- ===== MUSIC ===== -->
+    <button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+        <i data-lucide="volume-2" class="music-icon-on"></i>
+        <i data-lucide="volume-x" class="music-icon-off"></i>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/romantic/Everyday I Love You.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>lucide.createIcons();</script>
+
+    <script>
+        // ===== CHAPTER NAVIGATION =====
+        const chapters = document.querySelectorAll('.chapter');
+        const totalChapters = chapters.length;
+        let currentChapter = 0;
+        let isTransitioning = false;
+
+        // Build progress dots
+        const dotsContainer = document.getElementById('progressDots');
+        for (let i = 0; i < totalChapters; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Chương ' + (i + 1));
+            dot.addEventListener('click', () => goTo(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        function goTo(index) {
+            if (isTransitioning || index === currentChapter || index < 0 || index >= totalChapters) return;
+            isTransitioning = true;
+
+            // Deactivate current
+            chapters[currentChapter].classList.remove('active');
+
+            // Activate new
+            currentChapter = index;
+            chapters[currentChapter].classList.add('active');
+
+            // Update dots
+            document.querySelectorAll('.progress-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === currentChapter);
+            });
+
+            setTimeout(() => { isTransitioning = false; }, 700);
+        }
+
+        function goNext() {
+            if (currentChapter < totalChapters - 1) {
+                goTo(currentChapter + 1);
+            }
+        }
+
+        function goPrev() {
+            if (currentChapter > 0) {
+                goTo(currentChapter - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                goNext();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                goPrev();
+            }
+        });
+
+        // Touch swipe support
+        let touchStartY = 0;
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            const dy = touchStartY - e.changedTouches[0].clientY;
+            const dx = touchStartX - e.changedTouches[0].clientX;
+            const absDy = Math.abs(dy);
+            const absDx = Math.abs(dx);
+
+            if (Math.max(absDy, absDx) < 50) return; // too short
+
+            if (absDy > absDx) {
+                // Vertical swipe
+                dy > 0 ? goNext() : goPrev();
+            } else {
+                // Horizontal swipe
+                dx > 0 ? goNext() : goPrev();
+            }
+        }, { passive: true });
+
+        // ===== FLOATING HEARTS =====
+        const heartsContainer = document.getElementById('floatingHearts');
+        const heartEmojis = ['💗', '💕', '💖', '❤️', '🩷', '💘', '✨'];
+
+        for (let i = 0; i < 20; i++) {
+            const span = document.createElement('span');
+            span.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            span.style.left = Math.random() * 100 + '%';
+            span.style.fontSize = (12 + Math.random() * 18) + 'px';
+            span.style.animationDuration = (8 + Math.random() * 12) + 's';
+            span.style.animationDelay = Math.random() * 10 + 's';
+            heartsContainer.appendChild(span);
+        }
+
+        // ===== NAUGHTY "NO" BUTTON =====
+        const noMessages = [
+            "Hehe, em bấm nhầm rồi đúng không? 😏",
+            "Nút này hư rồi, bấm nút kia đi em! 🤭",
+            "Em chắc chưa? Nghĩ lại đi nha! 🥺",
+            "Nút từ chối đã rời khỏi cuộc trò chuyện 🏃💨",
+            "Anh biết em không muốn bấm nút đó mà! 😆",
+            "Ơ, nút chạy mất rồi kìa! 😂",
+            "Error 404: Nút từ chối not found 🤷",
+        ];
+        let noCount = 0;
+
+        function runAway() {
+            const btn = document.getElementById('btnNo');
+            const msgEl = document.getElementById('noMessage');
+
+            const maxX = window.innerWidth - btn.offsetWidth - 20;
+            const maxY = window.innerHeight - btn.offsetHeight - 20;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            btn.style.position = 'fixed';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.style.zIndex = '999';
+            btn.style.transition = 'left 0.15s, top 0.15s';
+
+            msgEl.style.display = 'block';
+            msgEl.textContent = noMessages[noCount % noMessages.length];
+            noCount++;
+
+            if (noCount >= 5) {
+                btn.style.transform = 'scale(0.5)';
+            }
+            if (noCount >= 7) {
+                btn.style.transform = 'scale(0)';
+                setTimeout(() => { btn.style.display = 'none'; }, 200);
+                msgEl.textContent = "Nút từ chối đã biến mất! Chỉ còn một lựa chọn thôi nè~ 💖";
+            }
+
+            const yesBtn = document.getElementById('btnYes');
+            const currentScale = 1 + noCount * 0.05;
+            yesBtn.style.transform = `scale(${Math.min(currentScale, 1.4)})`;
+        }
+
+        // ===== SAY YES! =====
+        function sayYes() {
+            const overlay = document.getElementById('celebration');
+            overlay.classList.add('active');
+            launchConfetti();
+            setTimeout(launchConfetti, 700);
+            setTimeout(launchConfetti, 1400);
+        }
+
+        // ===== CONFETTI =====
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#FF6B9D', '#FFB3CC', '#FF85A2', '#E84B7A', '#FFD700', '#FF69B4', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE'];
+            const shapes = ['circle', 'square', 'heart'];
+
+            for (let i = 0; i < 80; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = color;
+                confetti.style.animationDuration = (2 + Math.random() * 3) + 's';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+
+                if (shape === 'circle') {
+                    confetti.style.borderRadius = '50%';
+                } else if (shape === 'heart') {
+                    confetti.style.background = 'none';
+                    confetti.textContent = '💗';
+                    confetti.style.fontSize = '14px';
+                    confetti.style.width = 'auto';
+                    confetti.style.height = 'auto';
+                }
+
+                const size = 6 + Math.random() * 10;
+                if (shape !== 'heart') {
+                    confetti.style.width = size + 'px';
+                    confetti.style.height = size + 'px';
+                }
+
+                container.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // ===== MUSIC TOGGLE =====
+        const musicBtn = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        if (musicBtn && bgMusic) {
+            bgMusic.volume = 0.3;
+            let musicStarted = false;
+
+            musicBtn.addEventListener('click', () => {
+                if (!musicStarted) {
+                    bgMusic.play();
+                    musicStarted = true;
+                } else if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicBtn.classList.remove('muted');
+                } else {
+                    bgMusic.pause();
+                    musicBtn.classList.add('muted');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
