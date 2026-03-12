@@ -1,0 +1,430 @@
+/*
+ * ============================================
+ * TEMPLEXA — Shared Animation Library
+ * ============================================
+ * Catalog animation dùng chung cho landing pages.
+ * Mỗi code.html tự chứa (self-contained) — copy animation cần dùng vào <style>.
+ * Khi tạo animation mới hay ho → thêm vào file này để dùng lại.
+ *
+ * Cách dùng trong code.html:
+ *   1. Copy @keyframes + class cần dùng vào <style>
+ *   2. Thêm class vào HTML element
+ *   3. Dùng JS IntersectionObserver để trigger .is-visible
+ * ============================================
+ */
+
+/* ============================================
+   SCROLL REVEAL ANIMATIONS
+   Dùng với IntersectionObserver — thêm class .is-visible khi element vào viewport
+   ============================================ */
+
+/* --- Fade In (cơ bản) --- */
+.animate-fade-in {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+.animate-fade-in.is-visible {
+    opacity: 1;
+}
+
+/* --- Fade In Up (phổ biến nhất) --- */
+.animate-fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate-fade-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Fade In Down --- */
+.animate-fade-down {
+    opacity: 0;
+    transform: translateY(-40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate-fade-down.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Fade In Left --- */
+.animate-fade-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate-fade-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- Fade In Right --- */
+.animate-fade-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate-fade-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- Scale Up (zoom in) --- */
+.animate-scale-up {
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate-scale-up.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- Scale Down (zoom out) --- */
+.animate-scale-down {
+    opacity: 0;
+    transform: scale(1.15);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate-scale-down.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- Rotate In --- */
+.animate-rotate-in {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate-rotate-in.is-visible {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+/* --- Flip In (3D) --- */
+.animate-flip-up {
+    opacity: 0;
+    transform: perspective(800px) rotateX(30deg);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.animate-flip-up.is-visible {
+    opacity: 1;
+    transform: perspective(800px) rotateX(0);
+}
+
+/* --- Blur In --- */
+.animate-blur-in {
+    opacity: 0;
+    filter: blur(10px);
+    transition: opacity 0.8s ease, filter 0.8s ease;
+}
+.animate-blur-in.is-visible {
+    opacity: 1;
+    filter: blur(0);
+}
+
+/* --- Slide In + Fade (kết hợp) --- */
+.animate-slide-fade-up {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-slide-fade-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* ============================================
+   STAGGER DELAYS
+   Dùng cho nhóm cards/items — mỗi item delay tăng dần
+   ============================================ */
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+.delay-6 { transition-delay: 0.6s; }
+.delay-7 { transition-delay: 0.7s; }
+.delay-8 { transition-delay: 0.8s; }
+
+
+/* ============================================
+   HOVER ANIMATIONS
+   Dùng cho cards, buttons, images
+   ============================================ */
+
+/* --- Card Lift (hover lên + shadow) --- */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* --- Card Lift nhẹ --- */
+.hover-lift-sm {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift-sm:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Button Scale --- */
+.hover-scale {
+    transition: transform 0.2s ease;
+}
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* --- Image Zoom (trong container overflow:hidden) --- */
+.hover-zoom {
+    transition: transform 0.5s ease;
+}
+.hover-zoom:hover {
+    transform: scale(1.08);
+}
+
+/* --- Glow border --- */
+.hover-glow {
+    transition: box-shadow 0.3s ease;
+}
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+/* --- Icon bounce on hover --- */
+.hover-bounce:hover {
+    animation: bounce 0.5s ease;
+}
+
+/* --- Underline expand (cho links/nav) --- */
+.hover-underline {
+    position: relative;
+}
+.hover-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: currentColor;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+.hover-underline:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   Dùng cho hero, decorations, loading
+   ============================================ */
+
+/* --- Float (lên xuống nhẹ — hero images/icons) --- */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* --- Float chậm --- */
+.animate-float-slow {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* --- Pulse (nhấp nháy scale — badges, dots) --- */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.08); opacity: 0.8; }
+}
+.animate-pulse {
+    animation: pulse 2.5s ease-in-out infinite;
+}
+
+/* --- Pulse glow (glow ring quanh button) --- */
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.5); }
+    50% { box-shadow: 0 0 0 15px rgba(99, 102, 241, 0); }
+}
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* --- Bounce --- */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-10px); }
+    50% { transform: translateY(0); }
+    70% { transform: translateY(-5px); }
+}
+.animate-bounce {
+    animation: bounce 1s ease;
+}
+
+/* --- Spin (loading, decorative) --- */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.animate-spin {
+    animation: spin 8s linear infinite;
+}
+.animate-spin-slow {
+    animation: spin 20s linear infinite;
+}
+
+/* --- Shimmer (skeleton loading / decorative) --- */
+@keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+.animate-shimmer {
+    background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.3) 50%, transparent 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* --- Gradient shift (hero backgrounds) --- */
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+}
+
+/* --- Typing cursor blink --- */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+.animate-blink {
+    animation: blink 1s step-end infinite;
+}
+
+/* --- Draw line (SVG stroke) --- */
+@keyframes draw {
+    to { stroke-dashoffset: 0; }
+}
+
+/* --- Counter / number roll up (dùng với JS animateCounters) --- */
+@keyframes count-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/*
+   JS Counter Animation snippet — dùng với [data-count]:
+
+   function animateCounters() {
+       document.querySelectorAll('[data-count]').forEach(el => {
+           const target = parseInt(el.getAttribute('data-count'));
+           const duration = 2000;
+           const start = performance.now();
+           function update(now) {
+               const elapsed = now - start;
+               const progress = Math.min(elapsed / duration, 1);
+               const ease = 1 - Math.pow(1 - progress, 3);
+               el.textContent = Math.floor(target * ease) + '+';
+               if (progress < 1) requestAnimationFrame(update);
+           }
+           requestAnimationFrame(update);
+       });
+   }
+   // Trigger khi section visible bằng IntersectionObserver
+*/
+
+/* --- Reveal line (vạch ngang xuất hiện dần) --- */
+@keyframes reveal-line {
+    from { width: 0; }
+    to { width: 40px; }
+}
+
+/* --- Slide in from bottom (hero elements) --- */
+@keyframes slide-up-hero {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-hero-title {
+    animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+.animate-hero-subtitle {
+    animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+.animate-hero-cta {
+    animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+}
+
+
+/* ============================================
+   PARALLAX & DECORATIVE
+   ============================================ */
+
+/* --- Parallax container --- */
+.parallax-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+/* --- Decorative blob / circle --- */
+.deco-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* --- Decorative grid dots --- */
+.deco-dots {
+    background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.08;
+}
+
+
+/* ============================================
+   INTERSECTION OBSERVER — JS snippet
+   ============================================
+   Copy đoạn JS này vào cuối <body> trong code.html:
+
+   <script>
+   document.addEventListener('DOMContentLoaded', () => {
+       const observer = new IntersectionObserver((entries) => {
+           entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                   entry.target.classList.add('is-visible');
+               }
+           });
+       }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+       document.querySelectorAll('[class*="animate-"]').forEach(el => {
+           observer.observe(el);
+       });
+   });
+   </script>
+
+   ============================================ */

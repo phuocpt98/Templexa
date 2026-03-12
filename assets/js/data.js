@@ -4790,6 +4790,31 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-06',
     },
+    {
+        id: 150,
+        name: 'Elaine — Makeup Artist & Hair Stylist',
+        slug: 'elaine-makeup-artist-hair-stylist',
+        description: 'Trang portfolio chuyên nghiệp dành cho Makeup Artist & Hair Stylist. Phong cách luxury, tông màu ấm, thiết kế tối giản sang trọng.',
+        category: 'onepage',
+        type: 'website',
+        tags: ['website', 'onepage', 'makeup', 'portfolio', 'luxury', 'beauty'],
+        price: '',
+        images: [],
+        thumbnail: '',
+        path: './products/Web/Onepage/gen_150_makeup-artist-portfolio/',
+        demoUrl: './products/Web/Onepage/gen_150_makeup-artist-portfolio/code.html',
+        features: [
+            'Thiết kế luxury dark tone sang trọng',
+            'Animation scroll reveal + counter chuyên nghiệp',
+            'Gallery portfolio với hover overlay tinh tế',
+        ],
+        status: 'new',
+        priority: 150,
+        downloads: 7,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-12',
+    },
 ];
 
 // ============================================
