@@ -168,6 +168,88 @@ Chọn ảnh **phù hợp chủ đề** từng section. Gợi ý theo ngành:
 - Cards/Features: liên quan tới nội dung feature, `w=400`
 - Mỗi ảnh trong cùng page phải **khác nhau** (khác photo ID)
 
+#### Nhạc nền (CHỈ khi user yêu cầu):
+
+**Mặc định: KHÔNG có nhạc.** Chỉ thêm khi user nói "có nhạc nền", "thêm music", "có audio", v.v.
+
+Khi được yêu cầu:
+
+1. **User tự cung cấp file MP3** → đặt trong folder sản phẩm cùng `code.html`
+2. **Nếu user không có file** → hướng dẫn tải nhạc miễn phí bản quyền từ:
+   - Pixabay Music (pixabay.com/music)
+   - Mixkit (mixkit.co/free-stock-music)
+   - Bensound (bensound.com)
+
+3. **Thêm vào HTML** — nút toggle nhạc fixed góc phải dưới:
+
+```html
+<!-- Music Toggle Button -->
+<button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+    <i data-lucide="volume-2" class="music-icon-on"></i>
+    <i data-lucide="volume-x" class="music-icon-off"></i>
+</button>
+<audio id="bgMusic" loop preload="auto">
+    <source src="background.mp3" type="audio/mpeg">
+</audio>
+```
+
+```css
+.music-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--accent, #6366F1);
+    color: white;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+.music-toggle .music-icon-off { display: none; }
+.music-toggle.muted .music-icon-on { display: none; }
+.music-toggle.muted .music-icon-off { display: block; }
+```
+
+```javascript
+// Background Music Toggle
+const musicBtn = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
+if (musicBtn && bgMusic) {
+    bgMusic.volume = 0.3;
+    let musicStarted = false;
+
+    musicBtn.addEventListener('click', () => {
+        if (!musicStarted) {
+            bgMusic.play();
+            musicStarted = true;
+        } else if (bgMusic.paused) {
+            bgMusic.play();
+            musicBtn.classList.remove('muted');
+        } else {
+            bgMusic.pause();
+            musicBtn.classList.add('muted');
+        }
+    });
+}
+```
+
+**Lưu ý nhạc nền:**
+- Nhạc KHÔNG tự phát — user phải click nút để bật (UX tốt + tránh autoplay bị browser chặn)
+- Volume mặc định 0.3 (30%)
+- Icon dùng Lucide: `volume-2` (on) / `volume-x` (off)
+- Nút có animation hover scale + shadow
+
 #### Thêm nữa:
 
 - Font: Google Fonts phù hợp phong cách
@@ -179,14 +261,16 @@ Chọn ảnh **phù hợp chủ đề** từng section. Gợi ý theo ngành:
 
 Dùng Puppeteer (headless Chrome) để chụp screenshot tự động cho `code.html` vừa tạo.
 
-**Số lượng ảnh: 2–5 tuỳ độ dài trang**, theo quy tắc:
+**QUAN TRỌNG: Mỗi ảnh chỉ chụp 1 viewport (1280x800)** — KHÔNG dùng `fullPage: true` (ảnh sẽ quá dài, vỡ khung hiển thị).
 
-| Chiều cao full page | Số ảnh | Cách chụp |
-|---------------------|--------|-----------|
-| < 3000px (ngắn) | 2 | `screen.png` (viewport) + `anh_1.png` (full page) |
-| 3000–6000px (trung bình) | 3 | + `anh_2.png` (mobile full page) |
-| 6000–10000px (dài) | 4 | + `anh_3.png` (scroll đến giữa trang, viewport) |
-| > 10000px (rất dài) | 5 | + `anh_4.png` (scroll đến 75% trang, viewport) |
+**Số lượng ảnh: 2–5 tuỳ độ dài trang**, scroll đều từ trên xuống dưới:
+
+| Chiều cao trang | Số ảnh | Vị trí scroll |
+|-----------------|--------|---------------|
+| < 2400px | 2 | top + bottom |
+| 2400–4000px | 3 | top, 50%, bottom |
+| 4000–6400px | 4 | top, 33%, 66%, bottom |
+| > 6400px | 5 | top, 25%, 50%, 75%, bottom |
 
 **Script mẫu:**
 
@@ -199,53 +283,75 @@ const puppeteer = require('puppeteer');
   const folder = '<đường dẫn folder sản phẩm>';
   const filePath = 'file://' + process.cwd() + '/' + folder + '/code.html';
 
-  // 1. screen.png - desktop viewport (luôn chụp)
   await page.setViewport({ width: 1280, height: 800 });
   await page.goto(filePath, { waitUntil: 'networkidle0', timeout: 30000 });
   await new Promise(r => setTimeout(r, 2000)); // chờ animation
-  await page.screenshot({ path: folder + '/screen.png', type: 'png' });
 
-  // 2. anh_1.png - full page desktop (luôn chụp)
-  await page.screenshot({ path: folder + '/anh_1.png', type: 'png', fullPage: true });
-
-  // Đo chiều cao trang để quyết định số ảnh
   const pageHeight = await page.evaluate(() => document.body.scrollHeight);
+  const viewportH = 800;
 
-  // 3. anh_2.png - mobile full page (nếu pageHeight >= 3000)
-  if (pageHeight >= 3000) {
-    await page.setViewport({ width: 390, height: 844 });
-    await page.reload({ waitUntil: 'networkidle0' });
-    await new Promise(r => setTimeout(r, 1500));
-    await page.screenshot({ path: folder + '/anh_2.png', type: 'png', fullPage: true });
-  }
+  // Tính số ảnh: 2-5 tuỳ độ dài
+  let numShots = Math.min(5, Math.max(2, Math.ceil(pageHeight / viewportH)));
 
-  // 4. anh_3.png - scroll 50% desktop viewport (nếu pageHeight >= 6000)
-  if (pageHeight >= 6000) {
-    await page.setViewport({ width: 1280, height: 800 });
-    await page.reload({ waitUntil: 'networkidle0' });
-    await new Promise(r => setTimeout(r, 1500));
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.5));
-    await new Promise(r => setTimeout(r, 800));
-    await page.screenshot({ path: folder + '/anh_3.png', type: 'png' });
-  }
+  const names = ['screen.png', 'anh_1.png', 'anh_2.png', 'anh_3.png', 'anh_4.png'];
 
-  // 5. anh_4.png - scroll 75% desktop viewport (nếu pageHeight >= 10000)
-  if (pageHeight >= 10000) {
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight * 0.75));
-    await new Promise(r => setTimeout(r, 800));
-    await page.screenshot({ path: folder + '/anh_4.png', type: 'png' });
+  for (let i = 0; i < numShots; i++) {
+    // Scroll đều từ top → bottom
+    const scrollY = i === 0 ? 0 : Math.floor((pageHeight - viewportH) * (i / (numShots - 1)));
+    await page.evaluate((y) => window.scrollTo(0, y), scrollY);
+    await new Promise(r => setTimeout(r, 800)); // chờ scroll-reveal trigger
+    await page.screenshot({ path: folder + '/' + names[i], type: 'png' });
   }
 
   await browser.close();
-  console.log('Done! pageHeight=' + pageHeight + 'px, captured screenshots.');
+  console.log('Done! ' + pageHeight + 'px, ' + numShots + ' viewport screenshots');
 })();
 "
 ```
 
 **Lưu ý:**
+- **KHÔNG dùng `fullPage: true`** — mỗi ảnh chỉ 1 viewport (1280x800)
 - Chờ 2s sau khi load để hero animations hoàn thành
 - Chờ 800ms sau mỗi lần scroll để scroll-reveal animations trigger
 - `screen.png` luôn là ảnh đầu tiên trong mảng `images` và dùng làm `thumbnail`
+
+### Bước 5b: Chuyển PNG → WebP + Xoá PNG gốc
+
+Ngay sau khi chụp xong, chuyển tất cả ảnh PNG sang WebP để giảm dung lượng, rồi xoá file PNG gốc.
+
+**Dùng `cwebp` (có sẵn trên macOS qua Homebrew) hoặc `sharp` (Node.js):**
+
+```bash
+# Cách 1: dùng cwebp (nếu đã cài)
+for f in <folder>/*.png; do
+  cwebp -q 80 "$f" -o "${f%.png}.webp" && rm "$f"
+done
+
+# Cách 2: dùng sharp (Node.js — luôn khả dụng)
+node -e "
+const sharp = require('sharp');
+const fs = require('fs');
+const path = require('path');
+const folder = '<folder>';
+const pngs = fs.readdirSync(folder).filter(f => f.endsWith('.png'));
+(async () => {
+  for (const file of pngs) {
+    const input = path.join(folder, file);
+    const output = path.join(folder, file.replace('.png', '.webp'));
+    await sharp(input).webp({ quality: 80 }).toFile(output);
+    fs.unlinkSync(input); // xoá PNG gốc
+    console.log(file + ' → ' + file.replace('.png', '.webp'));
+  }
+  console.log('Done! Converted ' + pngs.length + ' files.');
+})();
+"
+```
+
+**Ưu tiên dùng `sharp`** vì đã có sẵn trong node_modules (cài cùng puppeteer). Nếu chưa có thì `npm install sharp`.
+
+**Kết quả sau bước này:**
+- Folder chỉ còn: `code.html` + `screen.webp` + `anh_1.webp` + `anh_2.webp` + ...
+- Không còn file `.png` nào
 
 ### Bước 6: Thêm entry vào `data.js`
 
@@ -262,11 +368,11 @@ Chèn product entry **trước dòng `];`** đóng mảng PRODUCTS. Format chín
         tags: ['<type>', '<category>', '<keyword1>', '<keyword2>', ...],
         price: '',
         images: [
-            './<folder>/screen.png',
-            './<folder>/anh_1.png',
+            './<folder>/screen.webp',
+            './<folder>/anh_1.webp',
             // ... thêm anh_2, anh_3, anh_4 tuỳ số ảnh đã chụp
         ],
-        thumbnail: './<folder>/screen.png',
+        thumbnail: './<folder>/screen.webp',
         path: './<folder>/',
         demoUrl: './<folder>/code.html',
         features: [
@@ -287,7 +393,8 @@ Chèn product entry **trước dòng `];`** đóng mảng PRODUCTS. Format chín
 - Dùng single quotes cho strings
 - Entry cuối cùng vẫn có dấu `,` ở cuối (trailing comma)
 - Indent 4 spaces cho object, 8 spaces cho properties
-- Mảng `images` và `thumbnail` điền đầy đủ từ ảnh đã chụp ở Bước 5
+- Mảng `images` và `thumbnail` dùng **`.webp`** (không phải `.png`)
+- Điền đầy đủ từ ảnh đã chuyển ở Bước 5b
 
 ### Bước 7: Cập nhật `products/products.md`
 
@@ -312,7 +419,7 @@ In ra:
 |---|-----|-----|------|------|
 | 1 | 151 | Tên mẫu | products/Web/Onepage/gen_151_... | [Xem demo](demoUrl) |
 
-📸 Screenshots: <số ảnh> ảnh/mẫu (screen.png, anh_1..N) — tự động chụp bằng Puppeteer
+📸 Screenshots: <số ảnh> ảnh/mẫu (screen.webp, anh_1..N.webp) — Puppeteer → WebP, PNG đã xoá
 🎬 Animations: <liệt kê animations đã dùng>
 🆕 Animations mới thêm vào thư viện: <nếu có>
 ```

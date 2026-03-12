@@ -30,15 +30,15 @@ products/
 | **Google-sheet** | E-commerce | 5 |
 | **Google-sheet** | Education | 0 |
 | **Google-sheet** | Portfolio | 0 |
-| **Trending** | Confession | 2 |
+| **Trending** | Confession | 3 |
 | **Trending** | Invitation | 0 |
 | **Trending** | OnePage | 0 |
 | **Web** | E-commerce | 35 |
 | **Web** | Education | 30 |
-| **Web** | Invitation | 29 |
+| **Web** | Invitation | 34 |
 | **Web** | Onepage | 26 |
 | **Web** | Portfolio | 24 |
-| | **Tong** | **151** |
+| | **Tong** | **157** |
 
 ---
 
