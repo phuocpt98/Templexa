@@ -16,7 +16,7 @@
     let currentCategory = urlParams.get('category') || 'all';
     let currentType = urlParams.get('type') || 'all';
     let currentSearch = urlParams.get('search') || '';
-    let currentPage = 1;
+    let currentPage = parseInt(urlParams.get('page')) || 1;
     const perPage = 9;
 
     if (currentSearch && searchInput) {
@@ -141,6 +141,17 @@
         });
     }
 
+    // ── Update URL params ──────────────────────
+    function updateURL() {
+        const params = new URLSearchParams();
+        if (currentCategory !== 'all') params.set('category', currentCategory);
+        if (currentType !== 'all') params.set('type', currentType);
+        if (currentSearch) params.set('search', currentSearch);
+        if (currentPage > 1) params.set('page', currentPage);
+        const qs = params.toString();
+        history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
+    }
+
     // ── Main render ─────────────────────────────
     function render() {
         const filtered = filterProducts({
@@ -151,6 +162,7 @@
 
         const { items, totalPages } = paginateProducts(filtered, currentPage, perPage);
 
+        updateURL();
         renderFilters();
         renderProducts(items);
         renderPagination(totalPages);
