@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới - Hoàng Nam & Ngọc Mai</title>
+    <meta name="description" content="Thiệp mời đám cưới tương tác Hoàng Nam & Ngọc Mai. Mở thiệp, khám phá từng trang với hiệu ứng chuyển cảnh độc đáo.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --gold: #C9A96E;
+            --gold-light: #E8D5A8;
+            --gold-dark: #A8854A;
+            --cream: #FDF8F0;
+            --cream-dark: #F5EBD8;
+            --blush: #F0DADA;
+            --rose: #D4A0A0;
+            --sage: #A8B5A0;
+            --text: #2C1810;
+            --text-light: #6B5B4E;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            background: #1a1a1a;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* ======================== PARTICLES BG ======================== */
+        #particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat linear infinite;
+        }
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { opacity: 0; transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        /* ======================== ENVELOPE COVER ======================== */
+        .envelope-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2C1810 0%, #1a1a1a 50%, #2C1810 100%);
+            transition: opacity 0.8s ease;
+        }
+        .envelope-screen.hidden { opacity: 0; pointer-events: none; }
+
+        .envelope {
+            position: relative;
+            width: min(420px, 85vw);
+            cursor: pointer;
+        }
+        .envelope-body {
+            background: linear-gradient(145deg, var(--cream), var(--cream-dark));
+            border-radius: 8px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 2;
+        }
+        .envelope-flap {
+            position: absolute;
+            top: -1px;
+            left: 0;
+            right: 0;
+            height: 140px;
+            background: linear-gradient(145deg, var(--gold-light), var(--gold));
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            z-index: 3;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: top center;
+        }
+        .envelope.opening .envelope-flap {
+            transform: rotateX(180deg);
+        }
+        .envelope-seal {
+            width: 70px;
+            height: 70px;
+            background: var(--gold);
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(201,169,110,0.4);
+            animation: sealPulse 2s ease-in-out infinite;
+        }
+        .envelope-seal svg { color: var(--white); width: 30px; height: 30px; }
+        @keyframes sealPulse {
+            0%, 100% { box-shadow: 0 4px 15px rgba(201,169,110,0.4); }
+            50% { box-shadow: 0 4px 30px rgba(201,169,110,0.7); }
+        }
+        .envelope-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--gold-dark);
+            margin-bottom: 8px;
+        }
+        .envelope-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+        .envelope-cta {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: ctaBlink 1.5s ease-in-out infinite;
+        }
+        @keyframes ctaBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ======================== PAGES CONTAINER ======================== */
+        .pages-container {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: none;
+        }
+        .pages-container.active { display: block; }
+
+        .page {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: none;
+        }
+        .page.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+        }
+        .page-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Page backgrounds */
+        .page-bg-cover {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+        }
+        .page-bg-cover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+        }
+
+        /* ======================== PAGE TRANSITIONS ======================== */
+        /* 1. Fade zoom */
+        .fx-fade-zoom .page-content { animation: fxFadeZoom 1s cubic-bezier(0.16,1,0.3,1) both; }
+        @keyframes fxFadeZoom {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        /* 2. Slide up with bounce */
+        .fx-slide-bounce .page-content { animation: fxSlideBounce 1s cubic-bezier(0.34,1.56,0.64,1) both; }
+        @keyframes fxSlideBounce {
+            from { opacity: 0; transform: translateY(100%); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* 3. Rotate in */
+        .fx-rotate-in .page-content { animation: fxRotateIn 1.2s cubic-bezier(0.16,1,0.3,1) both; }
+        @keyframes fxRotateIn {
+            from { opacity: 0; transform: rotate(-10deg) scale(0.8); }
+            to { opacity: 1; transform: rotate(0deg) scale(1); }
+        }
+        /* 4. Curtain open */
+        .fx-curtain::before, .fx-curtain::after {
+            content: '';
+            position: absolute;
+            top: 0; width: 50%; height: 100%;
+            background: var(--gold);
+            z-index: 20;
+            animation: curtainOpen 1.2s cubic-bezier(0.77,0,0.175,1) 0.1s both;
+        }
+        .fx-curtain::before { left: 0; animation-name: curtainLeft; }
+        .fx-curtain::after { right: 0; animation-name: curtainRight; }
+        @keyframes curtainLeft { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+        @keyframes curtainRight { from { transform: translateX(0); } to { transform: translateX(100%); } }
+        .fx-curtain .page-content { animation: fxFadeZoom 0.8s ease 0.6s both; }
+        /* 5. Flip card */
+        .fx-flip .page-content { animation: fxFlip 1s cubic-bezier(0.16,1,0.3,1) both; perspective: 1000px; }
+        @keyframes fxFlip {
+            from { opacity: 0; transform: perspective(1000px) rotateY(-90deg); }
+            to { opacity: 1; transform: perspective(1000px) rotateY(0); }
+        }
+        /* 6. Scatter in */
+        .fx-scatter .page-content { animation: fxScatter 1s cubic-bezier(0.16,1,0.3,1) both; }
+        @keyframes fxScatter {
+            from { opacity: 0; transform: scale(1.3); filter: blur(15px); }
+            to { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+        /* 7. Unfold */
+        .fx-unfold .page-content { animation: fxUnfold 1.2s cubic-bezier(0.16,1,0.3,1) both; }
+        @keyframes fxUnfold {
+            from { opacity: 0; transform: perspective(800px) rotateX(-30deg); transform-origin: top; }
+            to { opacity: 1; transform: perspective(800px) rotateX(0); }
+        }
+        /* 8. Spiral */
+        .fx-spiral .page-content { animation: fxSpiral 1.2s cubic-bezier(0.16,1,0.3,1) both; }
+        @keyframes fxSpiral {
+            from { opacity: 0; transform: rotate(180deg) scale(0); }
+            to { opacity: 1; transform: rotate(0deg) scale(1); }
+        }
+
+        /* ======================== NAVIGATION BUTTON ======================== */
+        .nav-next {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            animation: navFloat 2s ease-in-out infinite;
+        }
+        .nav-next span {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+        .nav-next-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(201,169,110,0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(201,169,110,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .nav-next:hover .nav-next-icon {
+            transform: scale(1.15);
+            box-shadow: 0 6px 30px rgba(201,169,110,0.6);
+        }
+        .nav-next-icon svg { width: 22px; height: 22px; }
+        @keyframes navFloat {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+        .nav-next.dark-text { color: var(--text); }
+        .nav-next.dark-text .nav-next-icon { background: rgba(201,169,110,0.9); }
+
+        /* Page indicator */
+        .page-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 60;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .page-dots.active { display: flex; }
+        .page-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .page-dot.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            transform: scale(1.3);
+        }
+
+        /* ======================== PAGE CONTENT STYLES ======================== */
+        .page-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        /* --- Cover page --- */
+        .cover-page .page-bg-cover {
+            background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80');
+        }
+        .cover-page .page-bg-cover::after {
+            background: linear-gradient(180deg, rgba(44,24,16,0.2), rgba(44,24,16,0.6));
+        }
+        .cover-ornament {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.3rem;
+            color: var(--gold-light);
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+        }
+        .cover-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.2;
+        }
+        .cover-names .amp {
+            font-family: 'Great Vibes', cursive;
+            font-size: 0.5em;
+            color: var(--gold-light);
+            display: block;
+            margin: 4px 0;
+        }
+        .cover-date {
+            font-size: 1rem;
+            color: var(--gold-light);
+            letter-spacing: 6px;
+            margin-top: 20px;
+        }
+
+        /* --- Couple page --- */
+        .couple-page .page-inner { background: var(--cream); }
+        .couple-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .couple-card { text-align: center; }
+        .couple-photo {
+            width: clamp(140px, 20vw, 200px);
+            height: clamp(140px, 20vw, 200px);
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold-light);
+            box-shadow: 0 8px 30px rgba(201,169,110,0.2);
+            margin: 0 auto 16px;
+        }
+        .couple-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .couple-role {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .couple-parents {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 8px;
+            font-style: italic;
+        }
+        .couple-heart {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, var(--blush), var(--gold-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: heartBeat 2s ease-in-out infinite;
+        }
+        .couple-heart svg { color: var(--rose); width: 28px; height: 28px; }
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+        .page-title-sm {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .page-title-lg {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 300;
+            margin-bottom: 24px;
+        }
+        .gold-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 16px auto;
+        }
+
+        /* --- Story page --- */
+        .story-page .page-bg-cover {
+            background-image: url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1920&q=80');
+        }
+        .story-page .page-bg-cover::after {
+            background: rgba(44,24,16,0.7);
+        }
+        .story-timeline {
+            display: flex;
+            gap: clamp(20px, 3vw, 40px);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+        .story-item {
+            text-align: center;
+            max-width: 200px;
+        }
+        .story-img {
+            width: clamp(100px, 14vw, 140px);
+            height: clamp(100px, 14vw, 140px);
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--gold-light);
+            margin: 0 auto 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .story-year {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.2rem;
+            color: var(--gold-light);
+        }
+        .story-label {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 4px;
+        }
+
+        /* --- Events page --- */
+        .events-page .page-inner { background: var(--white); }
+        .events-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+        }
+        .event-card {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: clamp(24px, 3vw, 40px) clamp(20px, 3vw, 32px);
+            border: 1px solid var(--gold-light);
+        }
+        .event-icon {
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            margin: 0 auto 16px;
+        }
+        .event-icon svg { width: 24px; height: 24px; }
+        .event-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .event-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 6px;
+        }
+        .event-info svg { width: 14px; height: 14px; color: var(--gold); }
+
+        /* --- Countdown page --- */
+        .countdown-page .page-bg-cover {
+            background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1920&q=80');
+        }
+        .countdown-page .page-bg-cover::after {
+            background: rgba(44,24,16,0.65);
+        }
+        .countdown-row {
+            display: flex;
+            justify-content: center;
+            gap: clamp(12px, 3vw, 32px);
+            margin-top: 40px;
+        }
+        .cd-box {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: clamp(16px, 2vw, 24px) clamp(20px, 3vw, 32px);
+            text-align: center;
+            min-width: clamp(65px, 10vw, 90px);
+        }
+        .cd-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1;
+        }
+        .cd-label {
+            font-size: 0.7rem;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 6px;
+        }
+
+        /* --- Album page --- */
+        .album-page .page-inner { background: var(--cream); }
+        .album-mosaic {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: clamp(100px, 12vw, 160px);
+            gap: 8px;
+            margin-top: 28px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .album-mosaic .a-item {
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+        .album-mosaic .a-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .album-mosaic .a-item:hover img { transform: scale(1.1); }
+        .a-span-2c { grid-column: span 2; }
+        .a-span-2r { grid-row: span 2; }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 90vh; border-radius: 8px; object-fit: contain; }
+        .lb-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+        }
+        .lb-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            padding: 14px;
+            border-radius: 50%;
+        }
+        .lb-prev { left: 16px; }
+        .lb-next { right: 16px; }
+
+        /* --- QR page --- */
+        .qr-page .page-bg-cover {
+            background-image: url('https://images.unsplash.com/photo-1606216794079-73f85bbd57d5?w=1920&q=80');
+        }
+        .qr-page .page-bg-cover::after {
+            background: rgba(44,24,16,0.75);
+        }
+        .qr-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+            max-width: 600px;
+            width: 100%;
+        }
+        .qr-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 28px 20px;
+            text-align: center;
+            color: var(--white);
+        }
+        .qr-card h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+        .qr-box {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 16px;
+            background: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qr-box svg { color: var(--gold); width: 40px; height: 40px; }
+        .qr-info {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        /* --- Wishes page --- */
+        .wishes-page .page-inner { background: var(--cream); }
+        .wish-form-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: clamp(24px, 3vw, 40px);
+            border: 1px solid var(--gold-light);
+            box-shadow: 0 8px 30px rgba(201,169,110,0.08);
+            max-width: 500px;
+            width: 100%;
+            margin-top: 24px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--gold-light);
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            background: var(--cream);
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--gold);
+        }
+        .form-group textarea { resize: none; height: 80px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .radio-row {
+            display: flex;
+            gap: 16px;
+            margin-top: 4px;
+        }
+        .radio-row label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .radio-row input { width: 16px; height: 16px; accent-color: var(--gold); }
+        .btn-send {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            letter-spacing: 1px;
+        }
+        .btn-send:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201,169,110,0.35);
+        }
+
+        /* --- Thank you page --- */
+        .thanks-page .page-bg-cover {
+            background-image: url('https://images.unsplash.com/photo-1549417229-7686ac5595fd?w=1920&q=80');
+        }
+        .thanks-page .page-bg-cover::after {
+            background: rgba(44,24,16,0.6);
+        }
+        .thanks-heart {
+            width: 80px; height: 80px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            animation: heartBeat 2s ease-in-out infinite;
+        }
+        .thanks-heart svg { color: var(--gold-light); width: 36px; height: 36px; }
+        .thanks-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 300;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .thanks-names .amp {
+            font-family: 'Great Vibes', cursive;
+            font-size: 0.6em;
+            color: var(--gold-light);
+        }
+        .thanks-msg {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            color: var(--gold-light);
+        }
+        .thanks-date {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 4px;
+            margin-top: 24px;
+        }
+
+        /* ======================== MUSIC TOGGLE ======================== */
+        .music-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gold);
+            color: var(--white);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(201,169,110,0.4);
+            transition: transform 0.2s;
+        }
+        .music-toggle:hover { transform: scale(1.1); }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-120%);
+            background: var(--white);
+            border: 1px solid var(--gold-light);
+            border-radius: 14px;
+            padding: 14px 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+            font-size: 0.85rem;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+        .toast-icon {
+            width: 32px; height: 32px;
+            background: var(--sage);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+        .toast-icon svg { width: 16px; height: 16px; }
+
+        /* ======================== RESPONSIVE ======================== */
+        @media (max-width: 768px) {
+            .couple-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .couple-heart { margin: 0 auto; }
+            .events-row { grid-template-columns: 1fr; }
+            .qr-row { grid-template-columns: 1fr; max-width: 300px; }
+            .album-mosaic {
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-rows: clamp(80px, 15vw, 120px);
+            }
+            .album-mosaic .a-span-2c { grid-column: span 1; }
+            .story-timeline { gap: 12px; }
+            .story-img { width: 80px !important; height: 80px !important; }
+            .form-row { grid-template-columns: 1fr; }
+            .page-dots { right: 10px; }
+        }
+        @media (max-width: 480px) {
+            .album-mosaic {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 100px;
+            }
+            .album-mosaic .a-span-2r { grid-row: span 1; }
+            .cd-box { min-width: 58px; padding: 12px 14px; }
+            .envelope-body { padding: 36px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Particles -->
+    <div id="particles"></div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-icon"><i data-lucide="check" style="width:16px;height:16px"></i></div>
+        <span id="toastText">Gửi lời chúc thành công!</span>
+    </div>
+
+    <!-- ======================== ENVELOPE SCREEN ======================== -->
+    <div class="envelope-screen" id="envelopeScreen">
+        <div class="envelope" id="envelope" onclick="openEnvelope()">
+            <div class="envelope-flap"></div>
+            <div class="envelope-body">
+                <div class="envelope-seal"><i data-lucide="heart"></i></div>
+                <p class="envelope-title">Thiệp Mời</p>
+                <p class="envelope-names">Hoàng Nam & Ngọc Mai</p>
+                <p class="envelope-cta">Nhấn để mở thiệp</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================== PAGES ======================== -->
+    <div class="pages-container" id="pagesContainer">
+
+        <!-- Page 0: Cover -->
+        <div class="page cover-page" data-fx="fx-fade-zoom">
+            <div class="page-inner">
+                <div class="page-bg-cover"></div>
+                <div class="page-content">
+                    <p class="cover-ornament">~ We're Getting Married ~</p>
+                    <h1 class="cover-names">
+                        Hoàng Nam
+                        <span class="amp">&</span>
+                        Ngọc Mai
+                    </h1>
+                    <p class="cover-date">20 &bull; 09 &bull; 2026</p>
+                </div>
+                <button class="nav-next" onclick="goNext()">
+                    <span>Khám Phá</span>
+                    <div class="nav-next-icon"><i data-lucide="chevron-down"></i></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 1: Couple -->
+        <div class="page couple-page" data-fx="fx-slide-bounce">
+            <div class="page-inner">
+                <div class="page-content">
+                    <p class="page-title-sm">Cô Dâu & Chú Rể</p>
+                    <h2 class="page-title-lg">Chúng Tôi</h2>
+                    <div class="gold-line"></div>
+                    <div class="couple-grid">
+                        <div class="couple-card">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80" alt="Cô dâu" class="couple-photo">
+                            <h3 class="couple-name">Ngọc Mai</h3>
+                            <p class="couple-role">Cô dâu</p>
+                            <p class="couple-parents">Con gái ông Trần Quốc Bảo<br>& bà Lê Thị Hương</p>
+                        </div>
+                        <div class="couple-heart"><i data-lucide="heart"></i></div>
+                        <div class="couple-card">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80" alt="Chú rể" class="couple-photo">
+                            <h3 class="couple-name">Hoàng Nam</h3>
+                            <p class="couple-role">Chú rể</p>
+                            <p class="couple-parents">Con trai ông Nguyễn Hoàng Sơn<br>& bà Phạm Minh Thư</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-next dark-text" onclick="goNext()">
+                    <span>Tiếp Theo</span>
+                    <div class="nav-next-icon"><i data-lucide="arrow-right"></i></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 2: Story -->
+        <div class="page story-page" data-fx="fx-curtain">
+            <div class="page-inner">
+                <div class="page-bg-cover"></div>
+                <div class="page-content">
+                    <p class="page-title-sm" style="color:var(--gold-light)">Chuyện Tình Yêu</p>
+                    <h2 class="page-title-lg" style="color:var(--white)">Câu Chuyện Của Chúng Tôi</h2>
+                    <div class="gold-line"></div>
+                    <div class="story-timeline">
+                        <div class="story-item">
+                            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=300&q=80" alt="Gặp gỡ" class="story-img">
+                            <p class="story-year">2020</p>
+                            <p class="story-label">Lần Đầu Gặp Gỡ</p>
+                        </div>
+                        <div class="story-item">
+                            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=300&q=80" alt="Hẹn hò" class="story-img">
+                            <p class="story-year">2021</p>
+                            <p class="story-label">Bắt Đầu Yêu</p>
+                        </div>
+                        <div class="story-item">
+                            <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=300&q=80" alt="Cầu hôn" class="story-img">
+                            <p class="story-year">2025</p>
+                            <p class="story-label">Lời Cầu Hôn</p>
+                        </div>
+                        <div class="story-item">
+                            <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=300&q=80" alt="Đám cưới" class="story-img">
+                            <p class="story-year">2026</p>
+                            <p class="story-label">Ngày Trọng Đại</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-next" onclick="goNext()">
+                    <span>Tiếp Theo</span>
+                    <div class="nav-next-icon"><i data-lucide="sparkles"></i></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 3: Events -->
+        <div class="page events-page" data-fx="fx-rotate-in">
+            <div class="page-inner">
+                <div class="page-content">
+                    <p class="page-title-sm">Sự Kiện</p>
+                    <h2 class="page-title-lg">Lễ Cưới</h2>
+                    <div class="gold-line"></div>
+                    <div class="events-row">
+                        <div class="event-card">
+                            <div class="event-icon"><i data-lucide="church"></i></div>
+                            <h3 class="event-name">Lễ Vu Quy</h3>
+                            <div class="event-info"><i data-lucide="calendar"></i><span>20.09.2026</span></div>
+                            <div class="event-info"><i data-lucide="clock"></i><span>08:00 - 10:00</span></div>
+                            <div class="event-info"><i data-lucide="map-pin"></i><span>Tư gia nhà gái</span></div>
+                            <p style="font-size:0.75rem;color:var(--text-light);margin-top:8px">45 Đường Hoa Sữa, Q.Phú Nhuận, HCM</p>
+                        </div>
+                        <div class="event-card">
+                            <div class="event-icon"><i data-lucide="utensils"></i></div>
+                            <h3 class="event-name">Tiệc Cưới</h3>
+                            <div class="event-info"><i data-lucide="calendar"></i><span>20.09.2026</span></div>
+                            <div class="event-info"><i data-lucide="clock"></i><span>17:30 - 21:00</span></div>
+                            <div class="event-info"><i data-lucide="map-pin"></i><span>Nhà hàng Diamond Palace</span></div>
+                            <p style="font-size:0.75rem;color:var(--text-light);margin-top:8px">789 Nguyễn Văn Linh, Q.7, HCM</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-next dark-text" onclick="goNext()">
+                    <span>Tiếp Theo</span>
+                    <div class="nav-next-icon"><i data-lucide="clock"></i></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 4: Countdown -->
+        <div class="page countdown-page" data-fx="fx-flip">
+            <div class="page-inner">
+                <div class="page-bg-cover"></div>
+                <div class="page-content">
+                    <p class="page-title-sm" style="color:var(--gold-light)">Đếm Ngược</p>
+                    <h2 class="page-title-lg" style="color:var(--white)">Đến Ngày Hạnh Phúc</h2>
+                    <div class="gold-line"></div>
+                    <div class="countdown-row">
+                        <div class="cd-box"><span class="cd-num" id="cdDays">00</span><span class="cd-label">Ngày</span></div>
+                        <div class="cd-box"><span class="cd-num" id="cdHours">00</span><span class="cd-label">Giờ</span></div>
+                        <div class="cd-box"><span class="cd-num" id="cdMins">00</span><span class="cd-label">Phút</span></div>
+                        <div class="cd-box"><span class="cd-num" id="cdSecs">00</span><span class="cd-label">Giây</span></div>
+                    </div>
+                </div>
+                <button class="nav-next" onclick="goNext()">
+                    <span>Xem Album</span>
+                    <div class="nav-next-icon"><i data-lucide="images"></i></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 5: Album -->
+        <div class="page album-page" data-fx="fx-scatter">
+            <div class="page-inner">
+                <div class="page-content" style="display:flex;flex-direction:column;align-items:center">
+                    <p class="page-title-sm">Khoảnh Khắc</p>
+                    <h2 class="page-title-lg">Album Ảnh</h2>
+                    <div class="gold-line"></div>
+                    <div class="album-mosaic">
+                        <div class="a-item a-span-2c" onclick="openLB(0)"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80" alt="Album 1" loading="lazy"></div>
+                        <div class="a-item a-span-2r" onclick="openLB(1)"><img src="https://images.unsplash.com/photo-1606216794079-73f85bbd57d5?w=400&q=80" alt="Album 2" loading="lazy"></div>
+                        <div class="a-item" onclick="openLB(2)"><img src="https://images.unsplash.com/photo-1460978812857-470ed1c77af0?w=400&q=80" alt="Album 3" loading="lazy"></div>
+                        <div class="a-item" onclick="openLB(3)"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&q=80" alt="Album 4" loading="lazy"></div>
+                        <div class="a-item" onclick="openLB(4)"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&q=80" alt="Album 5" loading="lazy"></div>
+                        <div class="a-item a-span-2c" onclick="openLB(5)"><img src="https://images.unsplash.com/photo-1549417229-7686ac5595fd?w=600&q=80" alt="Album 6" loading="lazy"></div>
+                        <div class="a-item" onclick="openLB(6)"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&q=80" alt="Album 7" loading="lazy"></div>
+                        <div class="a-item" onclick="openLB(7)"><img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=400&q=80" alt="Album 8" loading="lazy"></div>
+                    </div>
+                </div>
+                <button class="nav-next dark-text" onclick="goNext()">
+                    <span>Mừng Cưới</span>
+                    <div class="nav-next-icon"><i data-lucide="gift"></i></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 6: QR -->
+        <div class="page qr-page" data-fx="fx-unfold">
+            <div class="page-inner">
+                <div class="page-bg-cover"></div>
+                <div class="page-content" style="display:flex;flex-direction:column;align-items:center">
+                    <p class="page-title-sm" style="color:var(--gold-light)">Mừng Cưới</p>
+                    <h2 class="page-title-lg" style="color:var(--white)">Hộp Mừng Cưới</h2>
+                    <div class="gold-line"></div>
+                    <div class="qr-row">
+                        <div class="qr-card">
+                            <h4>Nhà Trai</h4>
+                            <div class="qr-box"><i data-lucide="qr-code"></i></div>
+                            <p class="qr-info"><strong>Nguyễn Hoàng Nam</strong><br>Vietcombank<br>0123 456 789</p>
+                        </div>
+                        <div class="qr-card">
+                            <h4>Nhà Gái</h4>
+                            <div class="qr-box"><i data-lucide="qr-code"></i></div>
+                            <p class="qr-info"><strong>Trần Ngọc Mai</strong><br>Techcombank<br>9876 543 210</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-next" onclick="goNext()">
+                    <span>Gửi Lời Chúc</span>
+                    <div class="nav-next-icon"><i data-lucide="message-circle-heart"></i></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 7: Wishes / RSVP -->
+        <div class="page wishes-page" data-fx="fx-spiral">
+            <div class="page-inner">
+                <div class="page-content" style="display:flex;flex-direction:column;align-items:center">
+                    <p class="page-title-sm">Lời Chúc</p>
+                    <h2 class="page-title-lg">Gửi Lời Chúc & Xác Nhận</h2>
+                    <div class="gold-line"></div>
+                    <div class="wish-form-card">
+                        <form id="wishForm">
+                            <div class="form-group">
+                                <label>Họ và tên *</label>
+                                <input type="text" id="wName" placeholder="Nhập họ và tên" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Số điện thoại</label>
+                                    <input type="tel" id="wPhone" placeholder="0xxx xxx xxx">
+                                </div>
+                                <div class="form-group">
+                                    <label>Số khách</label>
+                                    <select id="wGuests">
+                                        <option value="1">1 người</option>
+                                        <option value="2" selected>2 người</option>
+                                        <option value="3">3 người</option>
+                                        <option value="4+">4+ người</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Bạn sẽ tham dự?</label>
+                                <div class="radio-row">
+                                    <label><input type="radio" name="attend" value="yes" checked> Có</label>
+                                    <label><input type="radio" name="attend" value="no"> Không thể</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Lời chúc</label>
+                                <textarea id="wMsg" placeholder="Gửi lời chúc tốt đẹp..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-send">Gửi Lời Chúc</button>
+                        </form>
+                    </div>
+                </div>
+                <button class="nav-next dark-text" onclick="goNext()">
+                    <span>Lời Cảm Ơn</span>
+                    <div class="nav-next-icon"><i data-lucide="heart"></i></div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 8: Thank You -->
+        <div class="page thanks-page" data-fx="fx-fade-zoom">
+            <div class="page-inner">
+                <div class="page-bg-cover"></div>
+                <div class="page-content">
+                    <div class="thanks-heart"><i data-lucide="heart"></i></div>
+                    <p class="page-title-sm" style="color:var(--gold-light)">Cảm Ơn</p>
+                    <h2 class="thanks-names">Hoàng Nam <span class="amp">&</span> Ngọc Mai</h2>
+                    <p class="thanks-msg">Cảm ơn bạn đã dành thời gian<br>chung vui cùng chúng tôi</p>
+                    <p class="thanks-date">20 &bull; 09 &bull; 2026</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Dots -->
+    <div class="page-dots" id="pageDots"></div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lb-close" onclick="closeLB()"><i data-lucide="x" style="width:28px;height:28px"></i></button>
+        <button class="lb-nav lb-prev" onclick="prevLB()"><i data-lucide="chevron-left" style="width:28px;height:28px"></i></button>
+        <img id="lbImg" src="" alt="Album">
+        <button class="lb-nav lb-next" onclick="nextLB()"><i data-lucide="chevron-right" style="width:28px;height:28px"></i></button>
+    </div>
+
+    <!-- Music -->
+    <button id="musicToggle" class="music-toggle" aria-label="Nhạc nền">
+        <i data-lucide="volume-2" class="music-icon-on" style="width:20px;height:20px"></i>
+        <i data-lucide="volume-x" class="music-icon-off" style="width:20px;height:20px"></i>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/wedding/A Thousand Years.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>lucide.createIcons();</script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // ======================== PARTICLES ========================
+        const particlesEl = document.getElementById('particles');
+        const pColors = ['#E8D5A8', '#F0DADA', '#D4A0A0', '#C9A96E', '#A8B5A0'];
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const size = 4 + Math.random() * 8;
+            p.style.cssText = `
+                left:${Math.random()*100}%;
+                width:${size}px;height:${size}px;
+                background:${pColors[Math.floor(Math.random()*pColors.length)]};
+                animation-duration:${8+Math.random()*12}s;
+                animation-delay:${Math.random()*10}s;
+            `;
+            particlesEl.appendChild(p);
+        }
+
+        // ======================== ENVELOPE ========================
+        const pages = document.querySelectorAll('.page');
+        const totalPages = pages.length;
+        let currentPage = -1; // -1 = envelope
+        let isTransitioning = false;
+
+        // Create dots
+        const dotsEl = document.getElementById('pageDots');
+        for (let i = 0; i < totalPages; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'page-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToPage(i);
+            dotsEl.appendChild(dot);
+        }
+
+        window.openEnvelope = function() {
+            const env = document.getElementById('envelope');
+            env.classList.add('opening');
+
+            setTimeout(() => {
+                document.getElementById('envelopeScreen').classList.add('hidden');
+                document.getElementById('pagesContainer').classList.add('active');
+                document.getElementById('pageDots').classList.add('active');
+                goToPage(0);
+
+                // Auto-play music
+                const bgm = document.getElementById('bgMusic');
+                if (bgm) {
+                    bgm.volume = 0.3;
+                    bgm.play().catch(() => {});
+                }
+            }, 800);
+        };
+
+        function goToPage(index) {
+            if (index < 0 || index >= totalPages || isTransitioning || index === currentPage) return;
+            isTransitioning = true;
+
+            // Hide current
+            if (currentPage >= 0) {
+                pages[currentPage].classList.remove('active');
+                pages[currentPage].querySelector('.page-inner').className = 'page-inner';
+            }
+
+            currentPage = index;
+            const page = pages[currentPage];
+            const fx = page.dataset.fx;
+
+            // Show new page
+            page.classList.add('active');
+            page.querySelector('.page-inner').classList.add(fx);
+
+            // Update dots
+            document.querySelectorAll('.page-dot').forEach((d, i) => {
+                d.classList.toggle('active', i === currentPage);
+            });
+
+            setTimeout(() => { isTransitioning = false; }, 1200);
+        }
+
+        window.goNext = function() {
+            if (currentPage < totalPages - 1) goToPage(currentPage + 1);
+        };
+
+        // ======================== COUNTDOWN ========================
+        const wedding = new Date('2026-09-20T08:00:00').getTime();
+        function updateCD() {
+            const diff = wedding - Date.now();
+            if (diff <= 0) return;
+            document.getElementById('cdDays').textContent = String(Math.floor(diff / 864e5)).padStart(2, '0');
+            document.getElementById('cdHours').textContent = String(Math.floor((diff % 864e5) / 36e5)).padStart(2, '0');
+            document.getElementById('cdMins').textContent = String(Math.floor((diff % 36e5) / 6e4)).padStart(2, '0');
+            document.getElementById('cdSecs').textContent = String(Math.floor((diff % 6e4) / 1e3)).padStart(2, '0');
+        }
+        updateCD();
+        setInterval(updateCD, 1000);
+
+        // ======================== LIGHTBOX ========================
+        const lbPhotos = [
+            'https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=85',
+            'https://images.unsplash.com/photo-1606216794079-73f85bbd57d5?w=1200&q=85',
+            'https://images.unsplash.com/photo-1460978812857-470ed1c77af0?w=1200&q=85',
+            'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&q=85',
+            'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1200&q=85',
+            'https://images.unsplash.com/photo-1549417229-7686ac5595fd?w=1200&q=85',
+            'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=85',
+            'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1200&q=85',
+        ];
+        let lbIdx = 0;
+        window.openLB = function(i) {
+            lbIdx = i;
+            document.getElementById('lbImg').src = lbPhotos[i];
+            document.getElementById('lightbox').classList.add('active');
+        };
+        window.closeLB = function() { document.getElementById('lightbox').classList.remove('active'); };
+        window.prevLB = function() { lbIdx = (lbIdx - 1 + lbPhotos.length) % lbPhotos.length; document.getElementById('lbImg').src = lbPhotos[lbIdx]; };
+        window.nextLB = function() { lbIdx = (lbIdx + 1) % lbPhotos.length; document.getElementById('lbImg').src = lbPhotos[lbIdx]; };
+        document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLB(); });
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'Escape') closeLB();
+            if (e.key === 'ArrowLeft') prevLB();
+            if (e.key === 'ArrowRight') nextLB();
+        });
+
+        // ======================== FORM ========================
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toastText').textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3500);
+        }
+
+        document.getElementById('wishForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('wName').value.trim();
+            if (!name) return showToast('Vui lòng nhập họ và tên!');
+            const attend = document.querySelector('input[name="attend"]:checked').value;
+            showToast(attend === 'yes' ? 'Cảm ơn bạn xác nhận tham dự!' : 'Cảm ơn bạn đã phản hồi!');
+            this.reset();
+        });
+
+        // ======================== MUSIC ========================
+        const musicBtn = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        if (musicBtn && bgMusic) {
+            bgMusic.volume = 0.3;
+            let musicOn = false;
+            musicBtn.addEventListener('click', () => {
+                if (!musicOn) { bgMusic.play().catch(() => {}); musicOn = true; }
+                else if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('muted'); }
+                else { bgMusic.pause(); musicBtn.classList.add('muted'); }
+            });
+        }
+    })();
+    </script>
+</body>
+</html>
