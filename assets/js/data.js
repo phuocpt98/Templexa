@@ -5438,6 +5438,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-12',
     },
+    {
+        id: 171,
+        name: 'Thiệp Mời Cưới - Minh Anh & Thùy Linh',
+        slug: 'thiep-moi-cuoi-minh-anh-thuy-linh',
+        description: 'Thiệp mời đám cưới sang trọng với hiệu ứng chuyển cảnh độc đáo, album ảnh cưới, đếm ngược, mã QR mừng cưới và form xác nhận tham dự',
+        category: 'invitation',
+        type: 'website',
+        tags: ['website', 'invitation', 'wedding', 'thiep-cuoi', 'dam-cuoi', 'countdown', 'rsvp', 'qr-code', 'album'],
+        price: '',
+        images: [
+            './products/Web/Invitation/gen_171_wedding-invitation-elegant/screen.webp',
+            './products/Web/Invitation/gen_171_wedding-invitation-elegant/anh_1.webp',
+            './products/Web/Invitation/gen_171_wedding-invitation-elegant/anh_2.webp',
+            './products/Web/Invitation/gen_171_wedding-invitation-elegant/anh_3.webp',
+            './products/Web/Invitation/gen_171_wedding-invitation-elegant/anh_4.webp',
+        ],
+        thumbnail: './products/Web/Invitation/gen_171_wedding-invitation-elegant/screen.webp',
+        path: './products/Web/Invitation/gen_171_wedding-invitation-elegant/',
+        demoUrl: './products/Web/Invitation/gen_171_wedding-invitation-elegant/code.html',
+        features: [
+            'Hiệu ứng chuyển cảnh đa dạng: kéo rèm, bay, rơi tự do, xoáy, mở gập',
+            'Album ảnh cưới 8 ảnh với lightbox, đếm ngược realtime, mã QR mừng cưới',
+            'Form xác nhận tham dự & sổ lời chúc, nhạc nền Beautiful In White',
+        ],
+        status: 'new',
+        priority: 171,
+        downloads: 7,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-13',
+    },
 ];
 
 // ============================================
