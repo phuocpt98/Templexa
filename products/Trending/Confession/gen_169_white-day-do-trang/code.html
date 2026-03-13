@@ -662,6 +662,42 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[class*="animate-"]').forEach(el => observer.observe(el));
 });
 
+// Auto-scroll xuống dưới khi mở trang
+(function autoScroll() {
+    const totalHeight = document.body.scrollHeight - window.innerHeight;
+    if (totalHeight <= 0) return;
+    const duration = 25000; // 25 giây cuộn hết trang — chậm, mượt
+    let startTime = null;
+    let stopped = false;
+
+    function stopAutoScroll() {
+        stopped = true;
+        document.documentElement.style.scrollBehavior = 'smooth';
+        window.removeEventListener('wheel', stopAutoScroll);
+        window.removeEventListener('touchstart', stopAutoScroll);
+        window.removeEventListener('keydown', stopAutoScroll);
+    }
+
+    window.addEventListener('wheel', stopAutoScroll, { once: true, passive: true });
+    window.addEventListener('touchstart', stopAutoScroll, { once: true, passive: true });
+    window.addEventListener('keydown', stopAutoScroll, { once: true });
+
+    function step(currentTime) {
+        if (stopped) return;
+        if (!startTime) startTime = currentTime;
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        window.scrollTo(0, progress * totalHeight);
+        if (progress < 1) requestAnimationFrame(step);
+    }
+
+    setTimeout(() => {
+        if (!stopped) {
+            document.documentElement.style.scrollBehavior = 'auto';
+            requestAnimationFrame(step);
+        }
+    }, 1500);
+})();
+
 // Music
 const musicBtn = document.getElementById('musicToggle');
 const bgMusic = document.getElementById('bgMusic');

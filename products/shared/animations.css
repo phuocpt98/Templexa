@@ -501,6 +501,61 @@
 
 
 /* ============================================
+   AUTO-SCROLL — JS snippet
+   ============================================
+   Tự động cuộn trang từ trên xuống dưới khi mở web.
+   Cuộn đều (linear), mượt, dừng khi user tương tác.
+   Dùng khi user yêu cầu "auto-scroll", "tự cuộn", "hiệu ứng cuộn xuống".
+
+   Cách dùng: copy đoạn JS sau vào cuối <body>, TRƯỚC </body>:
+
+   <script>
+   (function autoScroll() {
+       const totalHeight = document.body.scrollHeight - window.innerHeight;
+       if (totalHeight <= 0) return;
+       const duration = 25000; // 25s — điều chỉnh tốc độ tại đây
+       let startTime = null;
+       let stopped = false;
+
+       function stopAutoScroll() {
+           stopped = true;
+           document.documentElement.style.scrollBehavior = 'smooth';
+           window.removeEventListener('wheel', stopAutoScroll);
+           window.removeEventListener('touchstart', stopAutoScroll);
+           window.removeEventListener('keydown', stopAutoScroll);
+       }
+
+       window.addEventListener('wheel', stopAutoScroll, { once: true, passive: true });
+       window.addEventListener('touchstart', stopAutoScroll, { once: true, passive: true });
+       window.addEventListener('keydown', stopAutoScroll, { once: true });
+
+       function step(currentTime) {
+           if (stopped) return;
+           if (!startTime) startTime = currentTime;
+           const progress = Math.min((currentTime - startTime) / duration, 1);
+           window.scrollTo(0, progress * totalHeight);
+           if (progress < 1) requestAnimationFrame(step);
+           else document.documentElement.style.scrollBehavior = 'smooth';
+       }
+
+       setTimeout(() => {
+           if (!stopped) {
+               document.documentElement.style.scrollBehavior = 'auto';
+               requestAnimationFrame(step);
+           }
+       }, 1500);
+   })();
+   </script>
+
+   LƯU Ý:
+   - Phải tắt scroll-behavior: auto khi auto-scroll để tránh giật
+   - Khi dừng hoặc cuộn xong → bật lại scroll-behavior: smooth
+   - duration: 25000 (25s) phù hợp trang confession/letter dài
+     Trang ngắn hơn có thể giảm xuống 15000-20000
+   ============================================ */
+
+
+/* ============================================
    INTERSECTION OBSERVER — JS snippet
    ============================================
    Copy đoạn JS này vào cuối <body> trong code.html:
