@@ -2934,7 +2934,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 91,
@@ -2966,7 +2966,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 92,
@@ -2998,7 +2998,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 93,
@@ -3030,7 +3030,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 94,
@@ -3062,7 +3062,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 95,
@@ -3094,7 +3094,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 96,
@@ -3126,7 +3126,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 97,
@@ -3158,7 +3158,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 98,
@@ -3190,7 +3190,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 99,
@@ -3222,7 +3222,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 100,
@@ -3254,7 +3254,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 101,
@@ -3286,7 +3286,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 102,
@@ -3318,7 +3318,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 103,
@@ -3350,7 +3350,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 104,
@@ -3382,7 +3382,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 105,
@@ -3414,7 +3414,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 106,
@@ -3446,7 +3446,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 107,
@@ -3478,7 +3478,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 108,
@@ -3510,7 +3510,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 109,
@@ -3542,7 +3542,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 110,
@@ -3574,7 +3574,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 111,
@@ -3606,7 +3606,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 112,
@@ -3638,7 +3638,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 113,
@@ -3670,7 +3670,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 114,
@@ -3702,7 +3702,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: '',
         priority: 115,
@@ -3734,7 +3734,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 116,
@@ -3766,7 +3766,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 117,
@@ -3798,7 +3798,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 118,
@@ -3830,7 +3830,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế thiệp mời tinh tế',
             'Hiệu ứng animation mượt mà',
-            'Responsive hoàn hảo desktop và mobile',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 119,
@@ -4781,7 +4781,7 @@ const PRODUCTS = [
         features: [
             'Hiệu ứng pháo hoa canvas đa dạng hình dạng',
             'Nhạc nền + lời bài hát cuộn tự động',
-            'Trái tim rơi và bay lên lãng mạn',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 149,
@@ -4839,7 +4839,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế lãng mạn tông hồng rose gradient',
             'Animation scroll reveal + counter + floating hearts',
-            'Gallery khoảnh khắc + confession cards chuyên nghiệp',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 151,
@@ -4870,7 +4870,7 @@ const PRODUCTS = [
         features: [
             'Phong cách cổ điển sang trọng tông vàng gold',
             'Timeline chuyện tình yêu + gallery ảnh cưới',
-            'Form RSVP xác nhận tham dự trực tuyến',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 152,
@@ -4901,7 +4901,7 @@ const PRODUCTS = [
         features: [
             'Phong cách vườn mộc mạc tông xanh lá tự nhiên',
             'Câu chuyện tình yêu kể theo ẩn dụ khu vườn',
-            'Countdown đếm ngược + gửi lời chúc trực tuyến',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 153,
@@ -4932,7 +4932,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế tối giản đen trắng sang trọng',
             'Timeline ngang với các mốc quan trọng',
-            'Gallery grid + form RSVP tinh tế',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 154,
@@ -4963,7 +4963,7 @@ const PRODUCTS = [
         features: [
             'Phong cách lãng mạn tông hồng pastel mơ màng',
             'Hiệu ứng cánh hoa rơi + pulse glow CTA',
-            'Love quotes + gallery ảnh cưới soft light',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 155,
@@ -4994,7 +4994,7 @@ const PRODUCTS = [
         features: [
             'Phong cách nhiệt đới sang trọng tông teal + gold',
             'Destination wedding bờ biển Đà Nẵng',
-            'Timeline tình yêu + form RSVP viền gold',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 156,
@@ -5025,7 +5025,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế ấm cúng tông nâu warm + rose nhẹ nhàng',
             'Lá thư tay + timeline kỷ niệm + gallery ảnh đẹp',
-            'Nút nhạc nền toggle — click để nghe nhạc',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 157,
@@ -5056,7 +5056,7 @@ const PRODUCTS = [
         features: [
             'Thiết kế ấm cúng tông rose + gold, cánh hoa rơi lãng mạn',
             'Lá thư tay + lý do yêu em + lời hứa trọn đời',
-            'Nút nhạc nền toggle — click để nghe nhạc romantic',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 158,
@@ -5087,7 +5087,7 @@ const PRODUCTS = [
         features: [
             'Câu chuyện tình yêu theo chương, ảnh chuyển cảnh parallax',
             'Trái tim bay animation, nhạc nền lãng mạn',
-            'Responsive, hiệu ứng scroll reveal chuyên nghiệp',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 159,
@@ -5118,7 +5118,7 @@ const PRODUCTS = [
         features: [
             'Phong cách nhật ký viết tay, ảnh polaroid có băng keo',
             'Nhạc nền lãng mạn, hiệu ứng wiggle và tape-appear',
-            'Responsive, chuyển cảnh ảnh toàn màn hình',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 160,
@@ -5149,7 +5149,7 @@ const PRODUCTS = [
         features: [
             'Thư tình sang trọng với gold accent, gallery ảnh viền vàng',
             'Nhạc nền, hiệu ứng glow-pulse và sparkle particles',
-            'Responsive, tông dark wine - gold thanh lịch',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 161,
@@ -5180,7 +5180,7 @@ const PRODUCTS = [
         features: [
             'Album ảnh polaroid xoay nghiêng, collage sáng tạo',
             'Timeline cột mốc kỷ niệm, nhạc nền lãng mạn',
-            'Responsive, tông terracotta - dusty rose ấm áp',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 162,
@@ -5211,7 +5211,7 @@ const PRODUCTS = [
         features: [
             'Hành trình yêu thương với milestone markers gradient',
             'Nhạc nền, sparkle particles và floating hearts',
-            'Responsive, tông pastel hồng - lavender mơ mộng',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 163,
@@ -5243,7 +5243,7 @@ const PRODUCTS = [
         features: [
             'Câu chuyện tình yêu tinh nghịch với nhiều chương hấp dẫn',
             'Nút từ chối chạy mất + tung hoa confetti khi đồng ý',
-            'Nhạc nền lãng mạn, trái tim bay và lời thủ thỉ ngọt ngào',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 164,
@@ -5274,7 +5274,7 @@ const PRODUCTS = [
         features: [
             'Tông peach-coral ấm áp, cánh hoa rơi lãng mạn',
             'Câu chuyện 3 chương + gallery ảnh + lá thư tay',
-            'Nhạc nền romantic, hiệu ứng scroll reveal chuyên nghiệp',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 165,
@@ -5305,7 +5305,7 @@ const PRODUCTS = [
         features: [
             'Phong cách đêm trăng lavender, hero dark gradient đẹp mắt',
             'Timeline dòng thời gian + sao nhấp nháy atmospheric',
-            'Nhạc nền lãng mạn, scroll reveal + fade animations',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 166,
@@ -5336,7 +5336,7 @@ const PRODUCTS = [
         features: [
             'Phong cách mùa thu amber-terracotta, lá rơi animation',
             'Ảnh parallax chuyển cảnh + cards lý do yêu anh',
-            'Nhạc nền Endless Love, responsive đẹp trên mobile',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 167,
@@ -5367,7 +5367,7 @@ const PRODUCTS = [
         features: [
             'Phong cách nhật ký sage-green, trang viết chân thực',
             'Đom đóm bay fireflies, ảnh trong diary card',
-            'Nhạc nền One In A Million, wishes cards ấm áp',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 168,
@@ -5398,7 +5398,7 @@ const PRODUCTS = [
         features: [
             'Phong cách khu vườn hoa pink-fuchsia, sparkle particles',
             'Layout split ảnh + text, ngôn ngữ hoa cards',
-            'Nhạc nền romantic, frame deco decorative borders',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 169,
@@ -5429,7 +5429,7 @@ const PRODUCTS = [
         features: [
             'Phong cách nam tính navy-blue-gold, hero bầu trời sao',
             'Đèn lồng bay lanterns, 3 lời hứa cards ấn tượng',
-            'Nhạc nền Until You, chuyển cảnh wave transition đẹp',
+            '50K/mẫu',
         ],
         status: 'new',
         priority: 170,
@@ -5460,7 +5460,7 @@ const PRODUCTS = [
         features: [
             'Hiệu ứng chuyển cảnh đa dạng: kéo rèm, bay, rơi tự do, xoáy, mở gập',
             'Album ảnh cưới 8 ảnh với lightbox, đếm ngược realtime, mã QR mừng cưới',
-            'Form xác nhận tham dự & sổ lời chúc, nhạc nền Beautiful In White',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 171,
@@ -5522,7 +5522,7 @@ const PRODUCTS = [
         features: [
             'Dạng no-scroll: mở phong bì rồi click khám phá 9 trang, mỗi trang hiệu ứng riêng',
             'Album 8 ảnh lightbox, đếm ngược, QR mừng cưới, form gửi lời chúc & xác nhận',
-            '8 hiệu ứng chuyển cảnh: fade-zoom, slide-bounce, curtain, rotate, flip, scatter, unfold, spiral',
+            'Giá chỉ 168K',
         ],
         status: 'new',
         priority: 173,
