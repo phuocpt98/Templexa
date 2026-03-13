@@ -5469,6 +5469,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-13',
     },
+    {
+        id: 172,
+        name: 'GlowHair - Sản Phẩm Chăm Sóc Tóc Cao Cấp',
+        slug: 'glowhair-san-pham-cham-soc-toc-cao-cap',
+        description: 'Landing page e-commerce bán sản phẩm chăm sóc tóc phong cách vzone.vn. Marquee sale -50%, product grid, flash sale countdown, testimonials.',
+        category: 'e-commerce',
+        type: 'website',
+        tags: ['website', 'e-commerce', 'haircare', 'beauty', 'shop', 'sale', 'vzone'],
+        price: '',
+        images: [
+            './products/Web/E-commerce/gen_172_haircare-shop-vzone/screen.webp',
+            './products/Web/E-commerce/gen_172_haircare-shop-vzone/anh_1.webp',
+            './products/Web/E-commerce/gen_172_haircare-shop-vzone/anh_2.webp',
+            './products/Web/E-commerce/gen_172_haircare-shop-vzone/anh_3.webp',
+            './products/Web/E-commerce/gen_172_haircare-shop-vzone/anh_4.webp',
+        ],
+        thumbnail: './products/Web/E-commerce/gen_172_haircare-shop-vzone/screen.webp',
+        path: './products/Web/E-commerce/gen_172_haircare-shop-vzone/',
+        demoUrl: './products/Web/E-commerce/gen_172_haircare-shop-vzone/code.html',
+        features: [
+            'Marquee chạy ngang thông tin sale -50% theo phong cách vzone.vn',
+            'Grid 8 sản phẩm với badge, hover actions, flash sale countdown',
+            'Sticky header, product tabs, testimonials, responsive đầy đủ',
+        ],
+        status: 'new',
+        priority: 172,
+        downloads: 5,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-03-13',
+    },
 ];
 
 // ============================================
