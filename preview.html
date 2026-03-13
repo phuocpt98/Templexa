@@ -49,20 +49,6 @@
             z-index: 10;
         }
 
-        .preview-back {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: color 0.2s;
-            white-space: nowrap;
-        }
-        .preview-back:hover { color: #6366F1; }
-        .preview-back svg { flex-shrink: 0; }
-
         .preview-name {
             flex: 1;
             font-weight: 600;
@@ -186,7 +172,6 @@
         /* ── Responsive ── */
         @media (max-width: 768px) {
             .preview-toolbar { gap: 10px; padding: 0 12px; }
-            .preview-back .btn-text,
             .preview-newtab .btn-text { display: none; }
             .preview-toggle-btn { padding: 7px 12px; }
             .preview-toggle-btn .btn-text { display: none; }
@@ -215,13 +200,6 @@
 </head>
 <body>
     <div class="preview-toolbar">
-        <a class="preview-back" id="backBtn" href="javascript:void(0)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-            <span class="btn-text">Quay lại</span>
-        </a>
-
         <span class="preview-name" id="previewName">Đang tải...</span>
 
         <div class="preview-toggle">
@@ -275,18 +253,6 @@
             document.getElementById('previewName').textContent = name || 'Xem trước';
             document.getElementById('previewIframe').src = url;
             document.getElementById('newtabBtn').href = url;
-
-            // ── Back button ──
-            document.getElementById('backBtn').addEventListener('click', function (e) {
-                e.preventDefault();
-                if (document.referrer && document.referrer.includes(location.origin)) {
-                    history.back();
-                } else if (id) {
-                    location.href = 'product-detail.html?id=' + id;
-                } else {
-                    location.href = 'products.html';
-                }
-            });
 
             // ── Toggle Desktop / Mobile ──
             const toggleBtns = document.querySelectorAll('.preview-toggle-btn');
