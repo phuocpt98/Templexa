@@ -35,10 +35,10 @@ products/
 | **Trending** | OnePage | 0 |
 | **Web** | E-commerce | 37 |
 | **Web** | Education | 30 |
-| **Web** | Invitation | 36 |
+| **Web** | Invitation | 38 |
 | **Web** | Onepage | 26 |
 | **Web** | Portfolio | 24 |
-| | **Tong** | **174** |
+| | **Tong** | **176** |
 
 ---
 
@@ -221,12 +221,12 @@ Tat ca folder deu co `thumbnail.jpg`. Ngoai le:
 Cac folder binh thuong (code.html + thumbnail.jpg):
 `Done_1_...hoc vien nhiep anh visionary`, `Done_2_...trung tam tarot huyen bi`, `Done_3_...hoc vien data expert`, `Done_4_...softskill master`, `Done_5_...hoc vien thu khoa`, `Done_7_...van chuong tam hon`, `Done_10_...su viec academy`, `done_11_...designup academy`, `Done_12_...hoc thiet ke cung chuyen gia`, `Done_13_...hoc thiet ke cung creativedge`, `Done_14_...trang chu dao tao chung chi educert`, `Done_37_...hoc vien luyen thi khoa hoc tu nhien`, `Done_39_...trung tam dao tao chung chi quoc te`, `Done_40_...trang chu khoa hoc chuyen nghiep`, `dONE_41_...but vang academy`, `Done_42_...growth hub`, `done_43_...global elite`, `done_44_...datamind`, `Done_45_...tam the academy`, `Done_46_...the canvas atelier`, `Done_47_...sculpt & form`, `done_48_...art heritage studio`, `Done_49_...hoa sac viet`, `Done_50_...artTech academy`, `Done_51_...tinh hoa hoi hoa`, `Done_52_...dai hoc thang tien`, `done_53_...certimaster`, `done_54_...salepro`, `Done_55_...FluentFlow`
 
-### Web / Invitation (29)
+### Web / Invitation (31)
 
 Tat ca folder deu co: `code.html` + `thumbnail.jpg`. Khong co ngoai le.
 
 Danh sach:
-`Done_1_...classic floral wedding invitaion`, `Done_2_...boho chic wedding invite`, `Done_3_...luxury dark orchid invite`, `Done_4_...minimalist editorial wedding invation`, `Done_5_...lxxury dark mode celebration landing page`, `Done_6_...soft romantic floral wedding landing page`, `Done_7_...elegant wedding invitation`, `Done_8_...modern neon birrthday invite`, `Done_9_...whimsical first birthday invite`, `Done_10_...modern vibrant 30th birthday`, `Done_11_...whimsical illustrated kids birthday`, `done_12_...vibrant 21st birthday`, `Done_13_...silver anniversary`, `Done_14_...corporate 10th anniversary`, `Done_15_...golden anniversary`, `Done_16_...arrt gallery opening invite`, `Done_17_...high school reunion`, `Done_18_...charity gala invitation`, `Done_19_...modern minimalist christmas gala`, `Done_20_...retro 50s christmas party invite`, `Done_21_...luxury gold & charcoal`, `Done_22_...rustic cozy cabin christmas`, `Done_23_...interactive kids christmas workshop`, `Done_24_...festive christmas party`, `Done_25_...lunar new year celebration`, `Done_26_...summer beach bash`, `Done_27_...winter wonderland retreat`, `Done_28_...autum harvest festival`, `Done_29_...tropical spring break`
+`Done_1_...classic floral wedding invitaion`, `Done_2_...boho chic wedding invite`, `Done_3_...luxury dark orchid invite`, `Done_4_...minimalist editorial wedding invation`, `Done_5_...lxxury dark mode celebration landing page`, `Done_6_...soft romantic floral wedding landing page`, `Done_7_...elegant wedding invitation`, `Done_8_...modern neon birrthday invite`, `Done_9_...whimsical first birthday invite`, `Done_10_...modern vibrant 30th birthday`, `Done_11_...whimsical illustrated kids birthday`, `done_12_...vibrant 21st birthday`, `Done_13_...silver anniversary`, `Done_14_...corporate 10th anniversary`, `Done_15_...golden anniversary`, `Done_16_...arrt gallery opening invite`, `Done_17_...high school reunion`, `Done_18_...charity gala invitation`, `Done_19_...modern minimalist christmas gala`, `Done_20_...retro 50s christmas party invite`, `Done_21_...luxury gold & charcoal`, `Done_22_...rustic cozy cabin christmas`, `Done_23_...interactive kids christmas workshop`, `Done_24_...festive christmas party`, `Done_25_...lunar new year celebration`, `Done_26_...summer beach bash`, `Done_27_...winter wonderland retreat`, `Done_28_...autum harvest festival`, `Done_29_...tropical spring break`, `gen_175_cuon-phim-ky-uc-wedding`, `gen_176_fresh-bright-wedding`
 
 ### Web / Onepage (25)
 
