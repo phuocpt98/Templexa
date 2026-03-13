@@ -5531,6 +5531,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-13',
     },
+    {
+        id: 174,
+        name: 'GlowHair - Chăm Sóc Tóc & Thuốc Nhuộm Cao Cấp',
+        slug: 'glowhair-cham-soc-toc-thuoc-nhuom-cao-cap',
+        description: 'Website e-commerce bán sản phẩm chăm sóc tóc, thuốc nhuộm tóc cao cấp. Thiết kế theo phong cách VZone với slider hero, marquee danh mục, giỏ hàng sidebar, search overlay.',
+        category: 'e-commerce',
+        type: 'website',
+        tags: ['website', 'e-commerce', 'haircare', 'thuốc nhuộm', 'chăm sóc tóc', 'giỏ hàng', 'vzone-style'],
+        price: '',
+        images: [
+            './products/Web/E-commerce/gen_174_haircare-vzone-style/screen.webp',
+            './products/Web/E-commerce/gen_174_haircare-vzone-style/anh_1.webp',
+            './products/Web/E-commerce/gen_174_haircare-vzone-style/anh_2.webp',
+            './products/Web/E-commerce/gen_174_haircare-vzone-style/anh_3.webp',
+            './products/Web/E-commerce/gen_174_haircare-vzone-style/anh_4.webp',
+        ],
+        thumbnail: './products/Web/E-commerce/gen_174_haircare-vzone-style/screen.webp',
+        path: './products/Web/E-commerce/gen_174_haircare-vzone-style/',
+        demoUrl: './products/Web/E-commerce/gen_174_haircare-vzone-style/code.html',
+        features: [
+            'Hero slider 3 slide với auto-play và navigation dots',
+            'Giỏ hàng sidebar slide-in với quản lý số lượng sản phẩm',
+            'Search overlay toàn trang, marquee danh mục cuộn vô hạn',
+        ],
+        status: 'new',
+        priority: 174,
+        downloads: 7,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-03-13',
+    },
 ];
 
 // ============================================

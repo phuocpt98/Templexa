@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowHair - Chăm Sóc Tóc & Thuốc Nhuộm Cao Cấp</title>
+    <meta name="description" content="GlowHair - Cửa hàng chuyên cung cấp sản phẩm chăm sóc tóc, thuốc nhuộm tóc cao cấp từ các thương hiệu hàng đầu. Giao hàng toàn quốc.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 92%; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #443b3b;
+            background: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; transition: color 0.2s; }
+        img { max-width: 100%; height: auto; display: block; }
+        ul { list-style: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* ===== HEADER ===== */
+        .header-top {
+            background: #f2f2f2;
+            padding: 6px 0;
+            font-size: 12px;
+            color: #666;
+        }
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-top a { color: #215cda; font-weight: 500; }
+        .header-top a:hover { color: #d23667; }
+
+        .header-main {
+            background: rgba(255,255,255,0.95);
+            height: 90px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .header-main.scrolled {
+            height: 70px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        .header-main .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-menu { display: flex; gap: 28px; align-items: center; }
+        .nav-menu a {
+            font-weight: 700;
+            color: #0c89f7;
+            font-size: 14px;
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            transition: width 0.3s;
+        }
+        .nav-menu a:hover::after { width: 100%; }
+        .nav-menu a:hover { color: #d23667; }
+
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+        .header-icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #e8ecf2;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            color: #443b3b;
+        }
+        .header-icon-btn:hover {
+            background: #247CF5;
+            color: #fff;
+            border-color: #247CF5;
+        }
+        .header-icon-btn .badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #d23667;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: #443b3b;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* ===== HEADER BOTTOM NAV ===== */
+        .header-bottom {
+            background: #1e73be;
+            padding: 0;
+        }
+        .header-bottom .container {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+        .cat-menu-btn {
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            color: #fff;
+            padding: 12px 20px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            white-space: nowrap;
+        }
+        .header-bottom-links {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            overflow: hidden;
+        }
+        .header-bottom-links a {
+            color: rgba(255,255,255,0.9);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 12px 16px;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+        .header-bottom-links a:hover {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+
+        /* ===== HERO SLIDER ===== */
+        .hero-slider {
+            position: relative;
+            overflow: hidden;
+            height: 480px;
+        }
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            display: flex;
+            align-items: center;
+        }
+        .hero-slide.active { opacity: 1; }
+        .hero-slide-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.5);
+        }
+        .hero-slide-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            max-width: 600px;
+            padding: 0 60px;
+        }
+        .hero-slide-content .hero-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .hero-slide-content h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 42px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .hero-slide-content p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+        .hero-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        .hero-btn-primary {
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(36, 124, 245, 0.4);
+        }
+        .hero-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(36, 124, 245, 0.5);
+        }
+        .hero-btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.5);
+            margin-left: 12px;
+        }
+        .hero-btn-outline:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #fff;
+        }
+        .slider-dots {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .slider-dot.active {
+            width: 28px;
+            border-radius: 4px;
+            background: #fff;
+        }
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        .slider-arrow:hover { background: rgba(255,255,255,0.4); }
+        .slider-arrow.prev { left: 20px; }
+        .slider-arrow.next { right: 20px; }
+
+        /* ===== MARQUEE ===== */
+        .marquee-section {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            overflow: hidden;
+            padding: 0;
+        }
+        .marquee-track {
+            display: flex;
+            animation: marqueeScroll 40s linear infinite;
+            width: max-content;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        .marquee-item {
+            padding: 14px 26px;
+            color: rgba(255,255,255,0.88);
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            border-right: 1px solid rgba(255,255,255,0.15);
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .marquee-item:hover { background: rgba(255,255,255,0.15); }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== SECTION COMMON ===== */
+        .section { padding: 60px 0; }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: #262121;
+        }
+        .section-title .gradient-text {
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .see-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border: 1px solid #247CF5;
+            border-radius: 50px;
+            color: #247CF5;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .see-all-btn:hover {
+            background: #247CF5;
+            color: #fff;
+        }
+
+        /* ===== PRODUCT CARDS ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .product-card {
+            border: 1px solid #e8ecf2;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(36, 124, 245, 0.08);
+        }
+        .product-card-img {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            background: #f8f8f8;
+        }
+        .product-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .product-card:hover .product-card-img img { transform: scale(1.05); }
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            z-index: 2;
+        }
+        .product-badge.sale { background: #d23667; }
+        .product-badge.new { background: #627D47; }
+        .product-badge.hot { background: #ff6b35; }
+        .product-quick-actions {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.3));
+            transition: bottom 0.3s;
+        }
+        .product-card:hover .product-quick-actions { bottom: 0; }
+        .quick-action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #fff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #443b3b;
+        }
+        .quick-action-btn:hover {
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            color: #fff;
+        }
+        .product-card-body { padding: 16px; }
+        .product-category {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .product-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #262121;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .product-name:hover { color: #247CF5; }
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        .product-rating .stars { color: #f5a623; font-size: 12px; }
+        .product-rating .count { font-size: 11px; color: #999; }
+        .product-price-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .product-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #d23667;
+        }
+        .product-price-old {
+            font-size: 13px;
+            color: #999;
+            text-decoration: line-through;
+        }
+        .product-discount {
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            background: #d23667;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        /* ===== FEATURED CATEGORIES ===== */
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+        }
+        .cat-card {
+            text-align: center;
+            padding: 24px 16px;
+            border: 1px solid #e8ecf2;
+            border-radius: 12px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .cat-card:hover {
+            border-color: #247CF5;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(36, 124, 245, 0.08);
+        }
+        .cat-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(36, 124, 245, 0.1), rgba(207, 50, 104, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            color: #247CF5;
+        }
+        .cat-card:hover .cat-card-icon {
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            color: #fff;
+        }
+        .cat-card h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #262121;
+        }
+        .cat-card p {
+            font-size: 11px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        /* ===== BANNER PROMO ===== */
+        .banner-section {
+            padding: 40px 0;
+        }
+        .banner-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .banner-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 220px;
+            cursor: pointer;
+        }
+        .banner-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .banner-card:hover img { transform: scale(1.05); }
+        .banner-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(36, 124, 245, 0.85), rgba(207, 50, 104, 0.7));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 32px;
+            color: #fff;
+        }
+        .banner-card-overlay h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .banner-card-overlay p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        .banner-card-overlay .banner-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 24px;
+            background: #fff;
+            color: #247CF5;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s;
+            width: fit-content;
+        }
+        .banner-card-overlay .banner-btn:hover { background: #f8f8f8; transform: translateX(4px); }
+
+        /* ===== STATS ===== */
+        .stats-section {
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            padding: 48px 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            text-align: center;
+            color: #fff;
+        }
+        .stat-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+        .stat-item p { font-size: 14px; opacity: 0.9; }
+
+        /* ===== BRANDS ===== */
+        .brands-section { padding: 48px 0; background: #f8f8f8; }
+        .brands-grid {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .brand-item {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #ccc;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        .brand-item:hover { color: #247CF5; }
+
+        /* ===== FEATURES ===== */
+        .features-section {
+            padding: 48px 0;
+            border-top: 1px solid #e8ecf2;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(36, 124, 245, 0.1), rgba(207, 50, 104, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #247CF5;
+        }
+        .feature-item h4 { font-size: 14px; font-weight: 700; color: #262121; margin-bottom: 4px; }
+        .feature-item p { font-size: 12px; color: #999; line-height: 1.5; }
+
+        /* ===== BLOG/TIPS ===== */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .blog-card {
+            border: 1px solid #e8ecf2;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(36, 124, 245, 0.08);
+        }
+        .blog-card-img {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+        }
+        .blog-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .blog-card:hover .blog-card-img img { transform: scale(1.05); }
+        .blog-card-body { padding: 20px; }
+        .blog-card-body .blog-tag {
+            display: inline-block;
+            background: rgba(36, 124, 245, 0.1);
+            color: #247CF5;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 50px;
+            margin-bottom: 10px;
+        }
+        .blog-card-body h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #262121;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .blog-card-body h3:hover { color: #247CF5; }
+        .blog-card-body p {
+            font-size: 13px;
+            color: #999;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .blog-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #999;
+        }
+        .blog-card-meta span { display: flex; align-items: center; gap: 4px; }
+
+        /* ===== NEWSLETTER ===== */
+        .newsletter-section {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 60px 0;
+            text-align: center;
+            color: #fff;
+        }
+        .newsletter-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .newsletter-section p {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 28px;
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 14px;
+            outline: none;
+        }
+        .newsletter-form button {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            color: #fff;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .newsletter-form button:hover { opacity: 0.9; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #0f0f1a;
+            color: rgba(255,255,255,0.7);
+            padding: 60px 0 0;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-col h4 {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .footer-about .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+        .footer-about p { font-size: 13px; line-height: 1.7; margin-bottom: 20px; }
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: rgba(255,255,255,0.7);
+        }
+        .footer-social a:hover {
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            border-color: transparent;
+            color: #fff;
+        }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul a {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .footer-col ul a:hover { color: #247CF5; padding-left: 4px; }
+        .footer-contact li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 14px;
+            font-size: 13px;
+        }
+        .footer-contact li i { margin-top: 3px; color: #247CF5; min-width: 16px; }
+        .footer-bottom {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+        .footer-bottom-links { display: flex; gap: 20px; }
+        .footer-bottom-links a:hover { color: #247CF5; }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .animate-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .animate-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+        .delay-6 { transition-delay: 0.6s; }
+
+        /* ===== SEARCH OVERLAY ===== */
+        .search-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 120px;
+        }
+        .search-overlay.active { display: flex; }
+        .search-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        .search-box-input {
+            display: flex;
+            gap: 0;
+            border: 2px solid #e8ecf2;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+        .search-box-input input {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            font-size: 15px;
+            outline: none;
+        }
+        .search-box-input button {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        /* ===== CART SIDEBAR ===== */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100%;
+            background: #fff;
+            z-index: 3000;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .cart-sidebar.active { right: 0; }
+        .cart-sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2999;
+            display: none;
+        }
+        .cart-sidebar-overlay.active { display: block; }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e8ecf2;
+        }
+        .cart-header h3 { font-size: 18px; font-weight: 700; color: #262121; }
+        .cart-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: #f2f2f2;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #443b3b;
+        }
+        .cart-body { flex: 1; overflow-y: auto; padding: 20px 24px; }
+        .cart-empty {
+            text-align: center;
+            padding: 40px 0;
+            color: #999;
+        }
+        .cart-empty i { margin-bottom: 16px; color: #ccc; }
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            padding: 16px 0;
+            border-bottom: 1px solid #f2f2f2;
+        }
+        .cart-item-img {
+            width: 72px;
+            height: 72px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
+        .cart-item-info { flex: 1; }
+        .cart-item-info h4 { font-size: 13px; font-weight: 600; color: #262121; margin-bottom: 4px; }
+        .cart-item-info .cart-item-price { font-size: 14px; font-weight: 700; color: #d23667; }
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .cart-item-qty button {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: 1px solid #e8ecf2;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #443b3b;
+        }
+        .cart-item-qty span { font-size: 14px; font-weight: 600; min-width: 20px; text-align: center; }
+        .cart-item-remove {
+            align-self: flex-start;
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .cart-item-remove:hover { color: #d23667; }
+        .cart-footer {
+            padding: 20px 24px;
+            border-top: 1px solid #e8ecf2;
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 700;
+            color: #262121;
+            margin-bottom: 16px;
+        }
+        .cart-total .total-price { color: #d23667; }
+        .cart-checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            text-align: center;
+            transition: opacity 0.3s;
+        }
+        .cart-checkout-btn:hover { opacity: 0.9; }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #247CF5, #CF3268);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(36, 124, 245, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .back-to-top:hover { transform: translateY(-2px); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .products-grid { grid-template-columns: repeat(3, 1fr); }
+            .cat-grid { grid-template-columns: repeat(4, 1fr); }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            html { font-size: 100%; }
+            .nav-menu { display: none; }
+            .hamburger { display: flex; }
+            .header-main { height: 70px; }
+            .header-bottom-links { display: none; }
+            .hero-slider { height: 360px; }
+            .hero-slide-content { padding: 0 24px; }
+            .hero-slide-content h1 { font-size: 28px; }
+            .slider-arrow { display: none; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .cat-grid { grid-template-columns: repeat(3, 1fr); }
+            .banner-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .blog-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+            .section { padding: 40px 0; }
+            .section-title { font-size: 22px; }
+            .cart-sidebar { width: 100%; right: -100%; }
+
+            /* Mobile menu */
+            .nav-menu.active {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                z-index: 999;
+                gap: 0;
+            }
+            .nav-menu.active a {
+                padding: 14px 0;
+                border-bottom: 1px solid #f2f2f2;
+                width: 100%;
+            }
+        }
+        @media (max-width: 480px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .cat-grid { grid-template-columns: repeat(2, 1fr); }
+            .product-card-body { padding: 10px; }
+            .product-name { font-size: 13px; }
+            .hero-slide-content h1 { font-size: 24px; }
+            .hero-btn { padding: 10px 20px; font-size: 13px; }
+            .hero-btn-outline { display: none; }
+            .stat-item h3 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER TOP ===== -->
+    <div class="header-top">
+        <div class="container">
+            <span>Chào mừng bạn đến với GlowHair - Chuyên gia chăm sóc tóc!</span>
+            <div style="display:flex;gap:16px;">
+                <a href="#">Theo dõi đơn hàng</a>
+                <a href="#">Hỗ trợ</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HEADER MAIN ===== -->
+    <header class="header-main" id="headerMain">
+        <div class="container">
+            <a href="#" class="logo">GlowHair</a>
+            <nav class="nav-menu" id="navMenu">
+                <a href="#">Trang chủ</a>
+                <a href="#products-section">Sản phẩm</a>
+                <a href="#categories-section">Danh mục</a>
+                <a href="#blog-section">Mẹo chăm tóc</a>
+                <a href="#newsletter-section">Liên hệ</a>
+            </nav>
+            <div class="header-actions">
+                <button class="header-icon-btn" id="searchBtn" aria-label="Tìm kiếm">
+                    <i data-lucide="search" style="width:18px;height:18px;"></i>
+                </button>
+                <button class="header-icon-btn" id="cartBtn" aria-label="Giỏ hàng">
+                    <i data-lucide="shopping-cart" style="width:18px;height:18px;"></i>
+                    <span class="badge" id="cartCount">3</span>
+                </button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HEADER BOTTOM ===== -->
+    <div class="header-bottom">
+        <div class="container">
+            <button class="cat-menu-btn">
+                <i data-lucide="layout-grid" style="width:16px;height:16px;"></i>
+                Danh mục
+            </button>
+            <div class="header-bottom-links">
+                <a href="#">Dầu gội</a>
+                <a href="#">Dầu xả</a>
+                <a href="#">Thuốc nhuộm</a>
+                <a href="#">Dưỡng tóc</a>
+                <a href="#">Ủ tóc</a>
+                <a href="#">Phụ kiện</a>
+                <a href="#">Combo tiết kiệm</a>
+                <a href="#">Flash Sale</a>
+                <a href="#">Thương hiệu</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO SLIDER ===== -->
+    <section class="hero-slider" id="heroSlider">
+        <div class="hero-slide active" data-slide="0">
+            <div class="hero-slide-bg" style="background-image:url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1920&q=80');"></div>
+            <div class="hero-slide-content">
+                <span class="hero-tag">New Arrivals 2025</span>
+                <h1>Thuốc Nhuộm Tóc Cao Cấp - Màu Bền Rực Rỡ</h1>
+                <p>Công nghệ nhuộm mới nhất từ Nhật Bản, bảo vệ tóc và da đầu. Hơn 50 sắc màu thời thượng cho bạn lựa chọn.</p>
+                <div>
+                    <a href="#products-section" class="hero-btn hero-btn-primary">Mua ngay</a>
+                    <a href="#categories-section" class="hero-btn hero-btn-outline">Khám phá</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-slide" data-slide="1">
+            <div class="hero-slide-bg" style="background-image:url('https://images.unsplash.com/photo-1560869713-da86a9ec0744?w=1920&q=80');"></div>
+            <div class="hero-slide-content">
+                <span class="hero-tag">Best Seller</span>
+                <h1>Bộ Sưu Tập Chăm Sóc Tóc Chuyên Sâu</h1>
+                <p>Dầu gội, dầu xả, serum dưỡng tóc từ các thương hiệu hàng đầu thế giới. Phục hồi tóc hư tổn chỉ sau 7 ngày.</p>
+                <div>
+                    <a href="#products-section" class="hero-btn hero-btn-primary">Xem bộ sưu tập</a>
+                    <a href="#" class="hero-btn hero-btn-outline">Tư vấn</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-slide" data-slide="2">
+            <div class="hero-slide-bg" style="background-image:url('https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=1920&q=80');"></div>
+            <div class="hero-slide-content">
+                <span class="hero-tag">Flash Sale 50%</span>
+                <h1>Ưu Đãi Cuối Năm - Giảm Đến 50%</h1>
+                <p>Cơ hội sở hữu sản phẩm chăm sóc tóc cao cấp với giá ưu đãi chưa từng có. Số lượng có hạn!</p>
+                <div>
+                    <a href="#products-section" class="hero-btn hero-btn-primary">Xem ưu đãi</a>
+                </div>
+            </div>
+        </div>
+        <button class="slider-arrow prev" id="sliderPrev"><i data-lucide="chevron-left" style="width:20px;height:20px;"></i></button>
+        <button class="slider-arrow next" id="sliderNext"><i data-lucide="chevron-right" style="width:20px;height:20px;"></i></button>
+        <div class="slider-dots" id="sliderDots">
+            <div class="slider-dot active" data-dot="0"></div>
+            <div class="slider-dot" data-dot="1"></div>
+            <div class="slider-dot" data-dot="2"></div>
+        </div>
+    </section>
+
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <span class="marquee-item"><i data-lucide="scissors" style="width:14px;height:14px;"></i> Thuốc nhuộm tóc</span>
+            <span class="marquee-item"><i data-lucide="droplets" style="width:14px;height:14px;"></i> Dầu gội thảo mộc</span>
+            <span class="marquee-item"><i data-lucide="sparkles" style="width:14px;height:14px;"></i> Serum dưỡng tóc</span>
+            <span class="marquee-item"><i data-lucide="flower-2" style="width:14px;height:14px;"></i> Dầu xả phục hồi</span>
+            <span class="marquee-item"><i data-lucide="zap" style="width:14px;height:14px;"></i> Kem ủ tóc</span>
+            <span class="marquee-item"><i data-lucide="heart" style="width:14px;height:14px;"></i> Tinh dầu dưỡng</span>
+            <span class="marquee-item"><i data-lucide="sun" style="width:14px;height:14px;"></i> Xịt dưỡng tóc</span>
+            <span class="marquee-item"><i data-lucide="palette" style="width:14px;height:14px;"></i> Tẩy tóc</span>
+            <span class="marquee-item"><i data-lucide="wind" style="width:14px;height:14px;"></i> Máy sấy tóc</span>
+            <span class="marquee-item"><i data-lucide="crown" style="width:14px;height:14px;"></i> Phụ kiện tóc</span>
+            <!-- Duplicate for seamless loop -->
+            <span class="marquee-item"><i data-lucide="scissors" style="width:14px;height:14px;"></i> Thuốc nhuộm tóc</span>
+            <span class="marquee-item"><i data-lucide="droplets" style="width:14px;height:14px;"></i> Dầu gội thảo mộc</span>
+            <span class="marquee-item"><i data-lucide="sparkles" style="width:14px;height:14px;"></i> Serum dưỡng tóc</span>
+            <span class="marquee-item"><i data-lucide="flower-2" style="width:14px;height:14px;"></i> Dầu xả phục hồi</span>
+            <span class="marquee-item"><i data-lucide="zap" style="width:14px;height:14px;"></i> Kem ủ tóc</span>
+            <span class="marquee-item"><i data-lucide="heart" style="width:14px;height:14px;"></i> Tinh dầu dưỡng</span>
+            <span class="marquee-item"><i data-lucide="sun" style="width:14px;height:14px;"></i> Xịt dưỡng tóc</span>
+            <span class="marquee-item"><i data-lucide="palette" style="width:14px;height:14px;"></i> Tẩy tóc</span>
+            <span class="marquee-item"><i data-lucide="wind" style="width:14px;height:14px;"></i> Máy sấy tóc</span>
+            <span class="marquee-item"><i data-lucide="crown" style="width:14px;height:14px;"></i> Phụ kiện tóc</span>
+        </div>
+    </div>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="section" id="categories-section">
+        <div class="container">
+            <div class="section-header animate-up">
+                <h2 class="section-title">Danh mục <span class="gradient-text">nổi bật</span></h2>
+                <a href="#" class="see-all-btn">Xem tất cả <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+            </div>
+            <div class="cat-grid">
+                <div class="cat-card animate-up delay-1">
+                    <div class="cat-card-icon"><i data-lucide="droplets" style="width:24px;height:24px;"></i></div>
+                    <h3>Dầu gội</h3>
+                    <p>32 sản phẩm</p>
+                </div>
+                <div class="cat-card animate-up delay-2">
+                    <div class="cat-card-icon"><i data-lucide="flower-2" style="width:24px;height:24px;"></i></div>
+                    <h3>Dầu xả</h3>
+                    <p>28 sản phẩm</p>
+                </div>
+                <div class="cat-card animate-up delay-3">
+                    <div class="cat-card-icon"><i data-lucide="palette" style="width:24px;height:24px;"></i></div>
+                    <h3>Thuốc nhuộm</h3>
+                    <p>56 sản phẩm</p>
+                </div>
+                <div class="cat-card animate-up delay-4">
+                    <div class="cat-card-icon"><i data-lucide="sparkles" style="width:24px;height:24px;"></i></div>
+                    <h3>Serum & Dưỡng</h3>
+                    <p>24 sản phẩm</p>
+                </div>
+                <div class="cat-card animate-up delay-5">
+                    <div class="cat-card-icon"><i data-lucide="zap" style="width:24px;height:24px;"></i></div>
+                    <h3>Ủ tóc</h3>
+                    <p>18 sản phẩm</p>
+                </div>
+                <div class="cat-card animate-up delay-6">
+                    <div class="cat-card-icon"><i data-lucide="crown" style="width:24px;height:24px;"></i></div>
+                    <h3>Phụ kiện</h3>
+                    <p>45 sản phẩm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BANNER PROMO ===== -->
+    <div class="banner-section">
+        <div class="container">
+            <div class="banner-grid">
+                <div class="banner-card animate-up">
+                    <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&q=80" alt="Thuốc nhuộm">
+                    <div class="banner-card-overlay">
+                        <h3>Bộ Nhuộm Tóc Mới</h3>
+                        <p>50+ sắc màu thời thượng, công nghệ bảo vệ tóc</p>
+                        <a href="#" class="banner-btn">Khám phá <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+                    </div>
+                </div>
+                <div class="banner-card animate-up delay-2">
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80" alt="Combo chăm sóc">
+                    <div class="banner-card-overlay" style="background:linear-gradient(135deg, rgba(98,125,71,0.85), rgba(36,124,245,0.7));">
+                        <h3>Combo Tiết Kiệm 30%</h3>
+                        <p>Dầu gội + Dầu xả + Serum - Trọn bộ chăm sóc</p>
+                        <a href="#" class="banner-btn">Mua combo <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PRODUCTS: THUỐC NHUỘM ===== -->
+    <section class="section" id="products-section">
+        <div class="container">
+            <div class="section-header animate-up">
+                <h2 class="section-title">Thuốc nhuộm <span class="gradient-text">bán chạy</span></h2>
+                <a href="#" class="see-all-btn">Xem tất cả <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+            </div>
+            <div class="products-grid">
+                <div class="product-card animate-up delay-1">
+                    <div class="product-card-img">
+                        <span class="product-badge hot">HOT</span>
+                        <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=500&q=80" alt="Thuốc nhuộm Revlon">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" title="Yêu thích"><i data-lucide="heart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn" title="Thêm giỏ hàng"><i data-lucide="shopping-cart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn" title="Xem nhanh"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-category">Thuốc nhuộm</div>
+                        <h3 class="product-name">Thuốc Nhuộm Tóc Revlon ColorSilk - Nâu Sô-cô-la</h3>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="count">(248)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">189.000đ</span>
+                            <span class="product-price-old">320.000đ</span>
+                            <span class="product-discount">-41%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card animate-up delay-2">
+                    <div class="product-card-img">
+                        <span class="product-badge sale">-35%</span>
+                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&q=80" alt="Thuốc nhuộm L'Oréal">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" title="Yêu thích"><i data-lucide="heart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn" title="Thêm giỏ hàng"><i data-lucide="shopping-cart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn" title="Xem nhanh"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-category">Thuốc nhuộm</div>
+                        <h3 class="product-name">L'Oréal Excellence Crème - Đỏ Rượu Vang</h3>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                            <span class="count">(186)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">259.000đ</span>
+                            <span class="product-price-old">399.000đ</span>
+                            <span class="product-discount">-35%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card animate-up delay-3">
+                    <div class="product-card-img">
+                        <span class="product-badge new">NEW</span>
+                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500&q=80" alt="Thuốc nhuộm Garnier">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" title="Yêu thích"><i data-lucide="heart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn" title="Thêm giỏ hàng"><i data-lucide="shopping-cart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn" title="Xem nhanh"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-category">Thuốc nhuộm</div>
+                        <h3 class="product-name">Garnier Color Naturals - Nâu Vàng Ánh Kim</h3>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="count">(312)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">145.000đ</span>
+                            <span class="product-price-old">220.000đ</span>
+                            <span class="product-discount">-34%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card animate-up delay-4">
+                    <div class="product-card-img">
+                        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&q=80" alt="Thuốc nhuộm Mise en Scène">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn" title="Yêu thích"><i data-lucide="heart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn" title="Thêm giỏ hàng"><i data-lucide="shopping-cart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn" title="Xem nhanh"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-category">Thuốc nhuộm</div>
+                        <h3 class="product-name">Mise en Scène Hello Bubble - Tím Lavender</h3>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                            <span class="count">(154)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">175.000đ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRODUCTS: CHĂM SÓC TÓC ===== -->
+    <section class="section" style="background:#f8f8f8;">
+        <div class="container">
+            <div class="section-header animate-up">
+                <h2 class="section-title">Chăm sóc tóc <span class="gradient-text">chuyên sâu</span></h2>
+                <a href="#" class="see-all-btn">Xem tất cả <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+            </div>
+            <div class="products-grid">
+                <div class="product-card animate-up delay-1">
+                    <div class="product-card-img">
+                        <span class="product-badge hot">HOT</span>
+                        <img src="https://images.unsplash.com/photo-1585751119414-ef2636f8aede?w=500&q=80" alt="Dầu gội Moroccanoil">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn"><i data-lucide="heart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn"><i data-lucide="shopping-cart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-category">Dầu gội</div>
+                        <h3 class="product-name">Moroccanoil Moisture Repair Shampoo 500ml</h3>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="count">(89)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">549.000đ</span>
+                            <span class="product-price-old">690.000đ</span>
+                            <span class="product-discount">-20%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card animate-up delay-2">
+                    <div class="product-card-img">
+                        <span class="product-badge sale">-25%</span>
+                        <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500&q=80" alt="Dầu xả Olaplex">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn"><i data-lucide="heart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn"><i data-lucide="shopping-cart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-category">Dầu xả</div>
+                        <h3 class="product-name">Olaplex No.5 Bond Maintenance Conditioner</h3>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="count">(203)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">699.000đ</span>
+                            <span class="product-price-old">930.000đ</span>
+                            <span class="product-discount">-25%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card animate-up delay-3">
+                    <div class="product-card-img">
+                        <span class="product-badge new">NEW</span>
+                        <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=500&q=80" alt="Serum Kerastase">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn"><i data-lucide="heart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn"><i data-lucide="shopping-cart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-category">Serum dưỡng</div>
+                        <h3 class="product-name">Kérastase Elixir Ultime Serum - Tinh Dầu Phục Hồi</h3>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                            <span class="count">(167)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">890.000đ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card animate-up delay-4">
+                    <div class="product-card-img">
+                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80" alt="Kem ủ tóc">
+                        <div class="product-quick-actions">
+                            <button class="quick-action-btn"><i data-lucide="heart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn"><i data-lucide="shopping-cart" style="width:16px;height:16px;"></i></button>
+                            <button class="quick-action-btn"><i data-lucide="eye" style="width:16px;height:16px;"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-category">Ủ tóc</div>
+                        <h3 class="product-name">Kem Ủ Tóc Fino Premium Touch 230g - Shiseido</h3>
+                        <div class="product-rating">
+                            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="count">(456)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">225.000đ</span>
+                            <span class="product-price-old">350.000đ</span>
+                            <span class="product-discount">-36%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATS ===== -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item animate-up delay-1">
+                    <h3>200+</h3>
+                    <p>Sản phẩm chính hãng</p>
+                </div>
+                <div class="stat-item animate-up delay-2">
+                    <h3>50K+</h3>
+                    <p>Khách hàng tin dùng</p>
+                </div>
+                <div class="stat-item animate-up delay-3">
+                    <h3>30+</h3>
+                    <p>Thương hiệu đối tác</p>
+                </div>
+                <div class="stat-item animate-up delay-4">
+                    <h3>99%</h3>
+                    <p>Khách hàng hài lòng</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BRANDS ===== -->
+    <section class="brands-section">
+        <div class="container">
+            <h2 class="section-title animate-up" style="text-align:center;margin-bottom:32px;">Thương hiệu <span class="gradient-text">đối tác</span></h2>
+            <div class="brands-grid animate-up">
+                <span class="brand-item">L'Oréal</span>
+                <span class="brand-item">Olaplex</span>
+                <span class="brand-item">Kérastase</span>
+                <span class="brand-item">Moroccanoil</span>
+                <span class="brand-item">Revlon</span>
+                <span class="brand-item">Garnier</span>
+                <span class="brand-item">Shiseido</span>
+                <span class="brand-item">Schwarzkopf</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOG / TIPS ===== -->
+    <section class="section" id="blog-section">
+        <div class="container">
+            <div class="section-header animate-up">
+                <h2 class="section-title">Mẹo <span class="gradient-text">chăm sóc tóc</span></h2>
+                <a href="#" class="see-all-btn">Xem tất cả <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></a>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card animate-up delay-1">
+                    <div class="blog-card-img">
+                        <img src="https://images.unsplash.com/photo-1560869713-da86a9ec0744?w=600&q=80" alt="Cách nhuộm tóc tại nhà">
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-tag">Hướng dẫn</span>
+                        <h3>Cách Nhuộm Tóc Tại Nhà Đúng Cách - Bí Quyết Từ Chuyên Gia</h3>
+                        <p>Hướng dẫn chi tiết từ A-Z cách tự nhuộm tóc tại nhà, giúp bạn có mái tóc đẹp như ra salon.</p>
+                        <div class="blog-card-meta">
+                            <span><i data-lucide="calendar" style="width:12px;height:12px;"></i> 15/03/2025</span>
+                            <span><i data-lucide="eye" style="width:12px;height:12px;"></i> 2.4K lượt xem</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-card animate-up delay-2">
+                    <div class="blog-card-img">
+                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Phục hồi tóc hư tổn">
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-tag">Chăm sóc</span>
+                        <h3>7 Bước Phục Hồi Tóc Hư Tổn Nặng Chỉ Trong 2 Tuần</h3>
+                        <p>Tóc khô xơ, gãy rụng? Đừng lo, quy trình 7 bước này sẽ giúp tóc bạn mềm mượt trở lại.</p>
+                        <div class="blog-card-meta">
+                            <span><i data-lucide="calendar" style="width:12px;height:12px;"></i> 08/03/2025</span>
+                            <span><i data-lucide="eye" style="width:12px;height:12px;"></i> 3.1K lượt xem</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-card animate-up delay-3">
+                    <div class="blog-card-img">
+                        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&q=80" alt="Xu hướng màu tóc">
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-tag">Xu hướng</span>
+                        <h3>Top 10 Xu Hướng Màu Tóc Hot Nhất 2025 Bạn Nên Thử</h3>
+                        <p>Cập nhật ngay những xu hướng màu tóc đang làm mưa làm gió từ các sàn diễn thời trang quốc tế.</p>
+                        <div class="blog-card-meta">
+                            <span><i data-lucide="calendar" style="width:12px;height:12px;"></i> 01/03/2025</span>
+                            <span><i data-lucide="eye" style="width:12px;height:12px;"></i> 5.7K lượt xem</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="features-section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-item animate-up delay-1">
+                    <div class="feature-icon"><i data-lucide="truck" style="width:22px;height:22px;"></i></div>
+                    <div>
+                        <h4>Miễn phí vận chuyển</h4>
+                        <p>Đơn hàng từ 500.000đ được giao hàng miễn phí toàn quốc</p>
+                    </div>
+                </div>
+                <div class="feature-item animate-up delay-2">
+                    <div class="feature-icon"><i data-lucide="shield-check" style="width:22px;height:22px;"></i></div>
+                    <div>
+                        <h4>Cam kết chính hãng</h4>
+                        <p>100% sản phẩm chính hãng, hoàn tiền 200% nếu phát hiện hàng giả</p>
+                    </div>
+                </div>
+                <div class="feature-item animate-up delay-3">
+                    <div class="feature-icon"><i data-lucide="refresh-cw" style="width:22px;height:22px;"></i></div>
+                    <div>
+                        <h4>Đổi trả dễ dàng</h4>
+                        <p>Đổi trả trong 30 ngày nếu sản phẩm có lỗi từ nhà sản xuất</p>
+                    </div>
+                </div>
+                <div class="feature-item animate-up delay-4">
+                    <div class="feature-icon"><i data-lucide="headphones" style="width:22px;height:22px;"></i></div>
+                    <div>
+                        <h4>Tư vấn 24/7</h4>
+                        <p>Đội ngũ chuyên gia tư vấn sẵn sàng hỗ trợ bạn mọi lúc</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NEWSLETTER ===== -->
+    <section class="newsletter-section" id="newsletter-section">
+        <div class="container">
+            <h2 class="animate-up">Đăng ký nhận <span style="background:linear-gradient(135deg,#247CF5,#CF3268);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ưu đãi độc quyền</span></h2>
+            <p class="animate-up delay-1">Nhận ngay voucher giảm 15% cho đơn hàng đầu tiên và cập nhật xu hướng chăm sóc tóc mới nhất!</p>
+            <form class="newsletter-form animate-up delay-2" onsubmit="event.preventDefault();">
+                <input type="email" placeholder="Nhập email của bạn...">
+                <button type="submit">Đăng ký</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col footer-about">
+                    <span class="footer-logo">GlowHair</span>
+                    <p>GlowHair - Cửa hàng chuyên cung cấp sản phẩm chăm sóc tóc và thuốc nhuộm tóc cao cấp từ các thương hiệu hàng đầu thế giới. Cam kết 100% chính hãng.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i data-lucide="facebook" style="width:16px;height:16px;"></i></a>
+                        <a href="#" aria-label="Instagram"><i data-lucide="instagram" style="width:16px;height:16px;"></i></a>
+                        <a href="#" aria-label="Youtube"><i data-lucide="youtube" style="width:16px;height:16px;"></i></a>
+                        <a href="#" aria-label="Tiktok"><i data-lucide="music-2" style="width:16px;height:16px;"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Sản phẩm</h4>
+                    <ul>
+                        <li><a href="#">Thuốc nhuộm tóc</a></li>
+                        <li><a href="#">Dầu gội</a></li>
+                        <li><a href="#">Dầu xả</a></li>
+                        <li><a href="#">Serum dưỡng</a></li>
+                        <li><a href="#">Kem ủ tóc</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hỗ trợ</h4>
+                    <ul>
+                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#">Theo dõi đơn hàng</a></li>
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Liên hệ</h4>
+                    <ul class="footer-contact">
+                        <li><i data-lucide="map-pin" style="width:16px;height:16px;"></i> 123 Nguyễn Huệ, Q.1, TP.HCM</li>
+                        <li><i data-lucide="phone" style="width:16px;height:16px;"></i> 0901 234 567</li>
+                        <li><i data-lucide="mail" style="width:16px;height:16px;"></i> hello@glowhair.vn</li>
+                        <li><i data-lucide="clock" style="width:16px;height:16px;"></i> 8:00 - 22:00 hàng ngày</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2025 GlowHair. All rights reserved.</span>
+                <div class="footer-bottom-links">
+                    <a href="#">Điều khoản</a>
+                    <a href="#">Bảo mật</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SEARCH OVERLAY ===== -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-box">
+            <div class="search-box-input">
+                <input type="text" placeholder="Tìm kiếm sản phẩm..." autofocus>
+                <button><i data-lucide="search" style="width:18px;height:18px;"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CART SIDEBAR ===== -->
+    <div class="cart-sidebar-overlay" id="cartOverlay"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Giỏ hàng <span style="color:#999;font-weight:400;">(3)</span></h3>
+            <button class="cart-close" id="cartClose"><i data-lucide="x" style="width:16px;height:16px;"></i></button>
+        </div>
+        <div class="cart-body">
+            <div class="cart-item">
+                <div class="cart-item-img"><img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=150&q=80" alt=""></div>
+                <div class="cart-item-info">
+                    <h4>Thuốc Nhuộm Revlon ColorSilk - Nâu Sô-cô-la</h4>
+                    <div class="cart-item-price">189.000đ</div>
+                    <div class="cart-item-qty">
+                        <button>-</button>
+                        <span>2</span>
+                        <button>+</button>
+                    </div>
+                </div>
+                <button class="cart-item-remove"><i data-lucide="trash-2" style="width:16px;height:16px;"></i></button>
+            </div>
+            <div class="cart-item">
+                <div class="cart-item-img"><img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=150&q=80" alt=""></div>
+                <div class="cart-item-info">
+                    <h4>Kérastase Elixir Ultime Serum</h4>
+                    <div class="cart-item-price">890.000đ</div>
+                    <div class="cart-item-qty">
+                        <button>-</button>
+                        <span>1</span>
+                        <button>+</button>
+                    </div>
+                </div>
+                <button class="cart-item-remove"><i data-lucide="trash-2" style="width:16px;height:16px;"></i></button>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Tổng cộng:</span>
+                <span class="total-price">1.268.000đ</span>
+            </div>
+            <button class="cart-checkout-btn">Thanh toán ngay</button>
+        </div>
+    </aside>
+
+    <!-- ===== BACK TO TOP ===== -->
+    <button class="back-to-top" id="backToTop"><i data-lucide="chevron-up" style="width:20px;height:20px;"></i></button>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>lucide.createIcons();</script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // === Hero Slider ===
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        let current = 0;
+        let interval;
+
+        function goToSlide(n) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = (n + slides.length) % slides.length;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+        function startAutoSlide() {
+            interval = setInterval(() => goToSlide(current + 1), 5000);
+        }
+        function stopAutoSlide() { clearInterval(interval); }
+
+        document.getElementById('sliderPrev').addEventListener('click', () => { stopAutoSlide(); goToSlide(current - 1); startAutoSlide(); });
+        document.getElementById('sliderNext').addEventListener('click', () => { stopAutoSlide(); goToSlide(current + 1); startAutoSlide(); });
+        dots.forEach(dot => dot.addEventListener('click', () => { stopAutoSlide(); goToSlide(+dot.dataset.dot); startAutoSlide(); }));
+        startAutoSlide();
+
+        // === Sticky Header ===
+        const header = document.getElementById('headerMain');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // === Mobile Menu ===
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // === Search Overlay ===
+        const searchBtn = document.getElementById('searchBtn');
+        const searchOverlay = document.getElementById('searchOverlay');
+        searchBtn.addEventListener('click', () => searchOverlay.classList.add('active'));
+        searchOverlay.addEventListener('click', (e) => {
+            if (e.target === searchOverlay) searchOverlay.classList.remove('active');
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') searchOverlay.classList.remove('active');
+        });
+
+        // === Cart Sidebar ===
+        const cartBtn = document.getElementById('cartBtn');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartClose = document.getElementById('cartClose');
+        function openCart() { cartSidebar.classList.add('active'); cartOverlay.classList.add('active'); document.body.style.overflow='hidden'; }
+        function closeCart() { cartSidebar.classList.remove('active'); cartOverlay.classList.remove('active'); document.body.style.overflow=''; }
+        cartBtn.addEventListener('click', openCart);
+        cartClose.addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+
+        // === Back to Top ===
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('visible', window.scrollY > 400);
+        });
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // === Scroll Reveal ===
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.animate-up').forEach(el => observer.observe(el));
+    });
+    </script>
+</body>
+</html>
