@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem trước - Templexa</title>
+    <link rel="icon" type="image/png" href="./assets/images/lgo-v2.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F4FBFF;
+            --text-primary: #0B1B2B;
+            --text-secondary: #355066;
+            --border-color: #D6ECF7;
+            --card-bg: #FFFFFF;
+        }
+        [data-theme="dark"] {
+            --bg-primary: #0F172A;
+            --bg-secondary: #1E293B;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --border-color: #1A3A4D;
+            --card-bg: #1E293B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* ── Toolbar ── */
+        .preview-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0 20px;
+            height: 56px;
+            min-height: 56px;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+        }
+
+        .preview-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+        .preview-back:hover { color: #6366F1; }
+        .preview-back svg { flex-shrink: 0; }
+
+        .preview-name {
+            flex: 1;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        /* ── Toggle buttons ── */
+        .preview-toggle {
+            display: flex;
+            background: var(--bg-secondary);
+            border-radius: 30px;
+            padding: 3px;
+            gap: 2px;
+        }
+
+        .preview-toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+            background: transparent;
+            padding: 7px 18px;
+            border-radius: 28px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+        .preview-toggle-btn:hover { color: var(--text-primary); }
+        .preview-toggle-btn.active {
+            background: #6366F1;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+        }
+        .preview-toggle-btn svg { flex-shrink: 0; }
+
+        .preview-newtab {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+        .preview-newtab:hover { color: #6366F1; }
+        .preview-newtab svg { flex-shrink: 0; }
+
+        /* ── Preview container ── */
+        .preview-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            overflow: hidden;
+            padding: 0;
+            transition: padding 0.4s ease;
+        }
+        .preview-container.mobile-mode {
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* ── Frame ── */
+        .preview-frame {
+            width: 100%;
+            height: 100%;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+        .preview-frame.mobile {
+            width: 375px;
+            max-width: 375px;
+            height: calc(100vh - 56px - 40px);
+            border-radius: 40px;
+            border: 6px solid #1F2937;
+            box-shadow:
+                0 0 0 2px #374151,
+                0 20px 60px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .preview-frame.mobile::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: #374151;
+            border-radius: 10px;
+            z-index: 2;
+        }
+
+        [data-theme="dark"] .preview-frame.mobile {
+            border-color: #475569;
+            box-shadow:
+                0 0 0 2px #64748B,
+                0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        [data-theme="dark"] .preview-frame.mobile::before {
+            background: #64748B;
+        }
+
+        .preview-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .preview-toolbar { gap: 10px; padding: 0 12px; }
+            .preview-back .btn-text,
+            .preview-newtab .btn-text { display: none; }
+            .preview-toggle-btn { padding: 7px 12px; }
+            .preview-toggle-btn .btn-text { display: none; }
+            .preview-name { font-size: 0.85rem; }
+
+            .preview-frame.mobile {
+                width: 320px;
+                max-width: 100%;
+                border-radius: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .preview-toolbar { gap: 8px; padding: 0 10px; }
+            .preview-name { display: none; }
+            .preview-toggle-btn { padding: 7px 10px; }
+
+            .preview-container.mobile-mode { padding: 12px; }
+            .preview-frame.mobile {
+                width: 280px;
+                border-radius: 28px;
+                border-width: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-toolbar">
+        <a class="preview-back" id="backBtn" href="javascript:void(0)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <span class="btn-text">Quay lại</span>
+        </a>
+
+        <span class="preview-name" id="previewName">Đang tải...</span>
+
+        <div class="preview-toggle">
+            <button class="preview-toggle-btn active" data-mode="desktop">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                <span class="btn-text">Desktop</span>
+            </button>
+            <button class="preview-toggle-btn" data-mode="mobile">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+                <span class="btn-text">Mobile</span>
+            </button>
+        </div>
+
+        <a class="preview-newtab" id="newtabBtn" href="#" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            <span class="btn-text">Mở tab mới</span>
+        </a>
+    </div>
+
+    <div class="preview-container" id="previewContainer">
+        <div class="preview-frame" id="previewFrame">
+            <iframe id="previewIframe" title="Preview"></iframe>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // ── Dark mode ──
+            const saved = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+
+            // ── URL params ──
+            const params = new URLSearchParams(location.search);
+            const url = params.get('url') || '';
+            const name = params.get('name') || '';
+            const id = params.get('id') || '';
+
+            // ── Populate ──
+            document.title = (name || 'Xem trước') + ' - Templexa';
+            document.getElementById('previewName').textContent = name || 'Xem trước';
+            document.getElementById('previewIframe').src = url;
+            document.getElementById('newtabBtn').href = url;
+
+            // ── Back button ──
+            document.getElementById('backBtn').addEventListener('click', function (e) {
+                e.preventDefault();
+                if (document.referrer && document.referrer.includes(location.origin)) {
+                    history.back();
+                } else if (id) {
+                    location.href = 'product-detail.html?id=' + id;
+                } else {
+                    location.href = 'products.html';
+                }
+            });
+
+            // ── Toggle Desktop / Mobile ──
+            const toggleBtns = document.querySelectorAll('.preview-toggle-btn');
+            const frame = document.getElementById('previewFrame');
+            const container = document.getElementById('previewContainer');
+
+            toggleBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    toggleBtns.forEach(function (b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+
+                    var mode = btn.dataset.mode;
+                    if (mode === 'mobile') {
+                        frame.classList.add('mobile');
+                        container.classList.add('mobile-mode');
+                    } else {
+                        frame.classList.remove('mobile');
+                        container.classList.remove('mobile-mode');
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
