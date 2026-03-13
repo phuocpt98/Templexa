@@ -5500,6 +5500,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-13',
     },
+    {
+        id: 173,
+        name: 'Thiệp Cưới Tương Tác - Hoàng Nam & Ngọc Mai',
+        slug: 'thiep-cuoi-tuong-tac-hoang-nam-ngoc-mai',
+        description: 'Thiệp cưới tương tác dạng no-scroll, mở phong bì click khám phá từng trang. 8 hiệu ứng chuyển cảnh, album ảnh, QR code, đếm ngược, gửi lời chúc, nhạc nền.',
+        category: 'invitation',
+        type: 'website',
+        tags: ['website', 'invitation', 'wedding', 'thiep-cuoi', 'interactive', 'no-scroll', 'envelope', 'album', 'countdown', 'rsvp', 'qr-code'],
+        price: '',
+        images: [
+            './products/Web/Invitation/gen_173_wedding-card-interactive/screen.webp',
+            './products/Web/Invitation/gen_173_wedding-card-interactive/anh_1.webp',
+            './products/Web/Invitation/gen_173_wedding-card-interactive/anh_2.webp',
+            './products/Web/Invitation/gen_173_wedding-card-interactive/anh_3.webp',
+            './products/Web/Invitation/gen_173_wedding-card-interactive/anh_4.webp',
+        ],
+        thumbnail: './products/Web/Invitation/gen_173_wedding-card-interactive/screen.webp',
+        path: './products/Web/Invitation/gen_173_wedding-card-interactive/',
+        demoUrl: './products/Web/Invitation/gen_173_wedding-card-interactive/code.html',
+        features: [
+            'Dạng no-scroll: mở phong bì rồi click khám phá 9 trang, mỗi trang hiệu ứng riêng',
+            'Album 8 ảnh lightbox, đếm ngược, QR mừng cưới, form gửi lời chúc & xác nhận',
+            '8 hiệu ứng chuyển cảnh: fade-zoom, slide-bounce, curtain, rotate, flip, scatter, unfold, spiral',
+        ],
+        status: 'new',
+        priority: 173,
+        downloads: 9,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-13',
+    },
 ];
 
 // ============================================
