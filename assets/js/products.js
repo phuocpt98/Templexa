@@ -9,8 +9,27 @@
     const searchInput = document.getElementById('searchInput');
     const categoryFiltersEl = document.getElementById('categoryFilters');
     const typeFiltersEl = document.getElementById('typeFilters');
+    const filtersToggle = document.getElementById('filtersToggle');
+    const filtersWrapper = document.getElementById('filtersWrapper');
 
     if (!grid) return;
+
+    // ── Mobile dropdown toggle ───────────────────
+    if (filtersToggle && filtersWrapper) {
+        filtersToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            filtersToggle.classList.toggle('open');
+            filtersWrapper.classList.toggle('open');
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!filtersWrapper.classList.contains('open')) return;
+            if (!filtersWrapper.contains(e.target) && !filtersToggle.contains(e.target)) {
+                filtersToggle.classList.remove('open');
+                filtersWrapper.classList.remove('open');
+            }
+        });
+    }
 
     const urlParams = new URLSearchParams(window.location.search);
     let currentCategory = urlParams.get('category') || 'all';
