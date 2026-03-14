@@ -83,7 +83,10 @@
                 <div class="template-frame">
                     <span class="template-badge">Most Popular</span>
                     <div class="template-image">
-                        <img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">
+                        ${p.demoUrl
+                            ? `<iframe src="${p.demoUrl}" title="${p.name}" loading="lazy" sandbox="allow-scripts allow-same-origin" scrolling="no"></iframe>`
+                            : `<img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">`
+                        }
                     </div>
                 </div>
                 <div class="template-info">

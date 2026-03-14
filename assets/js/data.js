@@ -5624,6 +5624,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-13',
     },
+    {
+        id: 177,
+        name: 'HairZone - Chăm Sóc Tóc Chuyên Nghiệp',
+        slug: 'hairzone-cham-soc-toc-chuyen-nghiep',
+        description: 'Website bán hàng chăm sóc tóc phong cách vzone.vn — slider, danh mục marquee, sản phẩm nổi bật, bài viết theo chuyên mục, giỏ hàng, share Facebook.',
+        category: 'e-commerce',
+        type: 'website',
+        tags: ['website', 'e-commerce', 'hair-care', 'shop', 'vzone-style', 'blog'],
+        price: '',
+        images: [
+            './products/Web/E-commerce/gen_177_hair-care-shop-vzone/screen.webp',
+            './products/Web/E-commerce/gen_177_hair-care-shop-vzone/anh_1.webp',
+            './products/Web/E-commerce/gen_177_hair-care-shop-vzone/anh_2.webp',
+            './products/Web/E-commerce/gen_177_hair-care-shop-vzone/anh_3.webp',
+            './products/Web/E-commerce/gen_177_hair-care-shop-vzone/anh_4.webp',
+        ],
+        thumbnail: './products/Web/E-commerce/gen_177_hair-care-shop-vzone/screen.webp',
+        path: './products/Web/E-commerce/gen_177_hair-care-shop-vzone/',
+        demoUrl: './products/Web/E-commerce/gen_177_hair-care-shop-vzone/code.html',
+        features: [
+            'Slider hero 3 ảnh, danh mục marquee cuộn ngang',
+            'Sản phẩm nổi bật + giỏ hàng + share Facebook',
+            'Trang bài viết với sidebar, banner Shopee',
+        ],
+        status: 'new',
+        priority: 999,
+        downloads: 7,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-03-14',
+    },
 ];
 
 // ============================================
