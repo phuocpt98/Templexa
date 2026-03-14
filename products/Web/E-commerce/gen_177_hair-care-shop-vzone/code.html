@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HairZone - Chăm Sóc Tóc Chuyên Nghiệp</title>
+    <meta name="description" content="HairZone - Cửa hàng chuyên các sản phẩm chăm sóc tóc cao cấp. Dầu gội, dầu xả, serum, mặt nạ tóc từ các thương hiệu hàng đầu.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Roboto', sans-serif; font-size: 15px; color: #262121; background: #fff; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+
+        /* ========== HEADER ========== */
+        .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #e8ecf2; transition: all 0.3s; }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+        .logo { font-size: 28px; font-weight: 900; color: #215cda; letter-spacing: -0.5px; }
+        .logo span { color: #d23667; }
+        .nav { display: flex; align-items: center; gap: 0; }
+        .nav a { padding: 10px 20px; font-weight: 700; font-size: 15px; color: #262121; transition: color 0.2s; position: relative; }
+        .nav a:hover, .nav a.active { color: #215cda; }
+        .nav a.active::after { content: ''; position: absolute; bottom: 0; left: 20px; right: 20px; height: 3px; background: #215cda; border-radius: 2px; }
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+        .search-box { display: flex; align-items: center; background: #f2f2f2; border-radius: 50px; padding: 8px 16px; gap: 8px; }
+        .search-box input { border: none; background: none; outline: none; font-size: 14px; width: 180px; font-family: inherit; }
+        .search-box button { border: none; background: none; cursor: pointer; color: #666; display: flex; }
+        .cart-btn { position: relative; width: 40px; height: 40px; border-radius: 50%; background: #f2f2f2; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #262121; transition: all 0.2s; }
+        .cart-btn:hover { background: #215cda; color: #fff; }
+        .cart-badge { position: absolute; top: -2px; right: -2px; width: 18px; height: 18px; background: #d23667; color: #fff; font-size: 11px; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* ========== HERO SLIDER ========== */
+        .hero-slider { position: relative; overflow: hidden; background: #f8f8f8; }
+        .slides-wrapper { display: flex; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .slide { min-width: 100%; position: relative; height: 480px; display: flex; align-items: center; }
+        .slide-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+        .slide-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%); }
+        .slide-content { position: relative; z-index: 2; color: #fff; padding: 0 60px; max-width: 600px; }
+        .slide-badge { display: inline-block; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); padding: 6px 16px; border-radius: 50px; font-size: 13px; margin-bottom: 16px; }
+        .slide-content h1 { font-size: 42px; font-weight: 900; line-height: 1.2; margin-bottom: 16px; }
+        .slide-content p { font-size: 16px; opacity: 0.9; margin-bottom: 24px; line-height: 1.6; }
+        .slide-btn { display: inline-block; padding: 14px 36px; background: linear-gradient(135deg, #247CF5, #CF3268); color: #fff; font-weight: 700; border-radius: 50px; font-size: 15px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(36,124,245,0.3); }
+        .slide-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(36,124,245,0.4); }
+        .slider-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 5; }
+        .slider-dots button { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; background: transparent; cursor: pointer; transition: all 0.3s; }
+        .slider-dots button.active { background: #fff; width: 32px; border-radius: 6px; }
+        .slider-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 5; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: all 0.2s; }
+        .slider-nav:hover { background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .slider-prev { left: 16px; }
+        .slider-next { right: 16px; }
+
+        /* ========== STATS BAR ========== */
+        .stats-bar { background: #f2f2f2; border-bottom: 1px solid #e8ecf2; }
+        .stats-inner { display: flex; justify-content: center; gap: 60px; padding: 16px 0; }
+        .stat-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: #215cda; }
+        .stat-item svg { width: 18px; height: 18px; }
+
+        /* ========== CATEGORY MARQUEE ========== */
+        .cat-marquee { overflow: hidden; background: #fff; border-bottom: 1px solid #e8ecf2; padding: 12px 0; }
+        .marquee-track { display: flex; animation: marquee-scroll 30s linear infinite; width: max-content; }
+        .marquee-track:hover { animation-play-state: paused; }
+        .marquee-item { padding: 10px 24px; font-size: 14px; font-weight: 500; white-space: nowrap; border-right: 1px solid #e8ecf2; color: #555; cursor: pointer; transition: color 0.2s; }
+        .marquee-item:hover { color: #215cda; }
+        @keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* ========== SECTION COMMON ========== */
+        .section { padding: 50px 0; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+        .section-title { font-size: 24px; font-weight: 900; color: #262121; display: flex; align-items: center; gap: 10px; }
+        .section-title .emoji { font-size: 28px; }
+        .see-all { display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; border: 2px solid #215cda; color: #215cda; border-radius: 50px; font-size: 13px; font-weight: 700; transition: all 0.2s; }
+        .see-all:hover { background: #215cda; color: #fff; }
+
+        /* ========== SHOPEE BANNER ========== */
+        .shopee-banner { display: block; margin: 0 auto 30px; border-radius: 14px; overflow: hidden; position: relative; background: linear-gradient(135deg, #EE4D2D, #FF6633); padding: 28px 36px; color: #fff; transition: transform 0.3s, box-shadow 0.3s; }
+        .shopee-banner:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(238,77,45,0.3); }
+        .shopee-banner-inner { display: flex; align-items: center; justify-content: space-between; }
+        .shopee-banner-text h3 { font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+        .shopee-banner-text p { font-size: 15px; opacity: 0.9; }
+        .shopee-banner-btn { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: #EE4D2D; font-weight: 700; padding: 12px 28px; border-radius: 50px; font-size: 14px; flex-shrink: 0; }
+        .shopee-banner-icon { font-size: 40px; margin-right: 20px; flex-shrink: 0; }
+
+        /* ========== FEATURED PRODUCTS ========== */
+        .products-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+        .product-card { background: #fff; border: 1px solid #e8ecf2; border-radius: 12px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+        .product-card:hover { transform: translateY(-6px); box-shadow: 0 12px 35px rgba(0,0,0,0.1); }
+        .product-card-img { position: relative; padding-top: 100%; overflow: hidden; background: #f8f8f8; }
+        .product-card-img img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .product-card:hover .product-card-img img { transform: scale(1.08); }
+        .product-badge { position: absolute; top: 10px; left: 10px; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; color: #fff; z-index: 2; }
+        .badge-hot { background: #d23667; }
+        .badge-new { background: #215cda; }
+        .badge-sale { background: #627D47; }
+        .product-card-body { padding: 14px; }
+        .product-card-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-price { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .price-current { font-size: 16px; font-weight: 900; color: #d23667; }
+        .price-old { font-size: 13px; color: #999; text-decoration: line-through; }
+        .product-rating { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #f5a623; }
+        .product-actions { display: flex; align-items: center; justify-content: space-between; padding: 0 14px 14px; }
+        .add-cart-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #215cda; color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: background 0.2s; font-family: inherit; }
+        .add-cart-btn:hover { background: #1a4cb8; }
+        .share-fb { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: #1877F2; color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; transition: opacity 0.2s; font-family: inherit; }
+        .share-fb:hover { opacity: 0.85; }
+
+        /* ========== ARTICLE CARDS ========== */
+        .articles-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+        .article-card { background: #fff; border: 1px solid #e8ecf2; border-radius: 12px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+        .article-card:hover { transform: translateY(-6px); box-shadow: 0 8px 30px rgba(36,124,245,0.08); }
+        .article-card-img { position: relative; padding-top: 60%; overflow: hidden; }
+        .article-card-img img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .article-card:hover .article-card-img img { transform: scale(1.05); }
+        .article-card-body { padding: 14px; }
+        .article-card-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .article-card-body p { font-size: 13px; color: #666; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 10px; }
+        .article-meta { display: flex; align-items: center; justify-content: space-between; }
+        .article-date { font-size: 12px; color: #999; display: flex; align-items: center; gap: 4px; }
+        .article-share { display: inline-flex; align-items: center; gap: 4px; padding: 5px 10px; background: #1877F2; color: #fff; border: none; border-radius: 5px; font-size: 11px; cursor: pointer; transition: opacity 0.2s; font-family: inherit; }
+        .article-share:hover { opacity: 0.85; }
+
+        /* ========== CATEGORY SECTIONS ========== */
+        .cat-section { padding: 40px 0; border-top: 1px solid #e8ecf2; }
+        .cat-section:nth-child(even) { background: #fafbfc; }
+
+        /* ========== PR BANNER ========== */
+        .pr-banner { background: linear-gradient(135deg, #215cda, #7B2FF7); padding: 50px 0; color: #fff; text-align: center; }
+        .pr-banner h2 { font-size: 32px; font-weight: 900; margin-bottom: 12px; }
+        .pr-banner p { font-size: 16px; opacity: 0.9; margin-bottom: 24px; }
+        .pr-banner-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 36px; background: #fff; color: #215cda; font-weight: 700; border-radius: 50px; font-size: 15px; transition: transform 0.2s; }
+        .pr-banner-btn:hover { transform: translateY(-2px); }
+
+        /* ========== FOOTER ========== */
+        .footer { background: #1a1a2e; color: #ccc; padding: 50px 0 0; }
+        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .footer-col h4 { color: #fff; font-size: 18px; font-weight: 900; margin-bottom: 20px; }
+        .footer-col p { font-size: 14px; line-height: 1.8; color: #aaa; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a { font-size: 14px; color: #aaa; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: #fff; }
+        .footer-contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 14px; color: #aaa; }
+        .footer-contact-item svg { width: 16px; height: 16px; color: #215cda; flex-shrink: 0; }
+        .footer-social { display: flex; gap: 12px; margin-top: 20px; }
+        .footer-social a { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #aaa; transition: all 0.2s; }
+        .footer-social a:hover { background: #215cda; color: #fff; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 40px; padding: 20px 0; text-align: center; font-size: 13px; color: #777; }
+
+        /* ========== HAMBURGER MOBILE ========== */
+        .hamburger { display: none; width: 40px; height: 40px; border: none; background: none; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: #262121; border-radius: 2px; transition: all 0.3s; }
+        .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; }
+        .mobile-menu { position: fixed; top: 0; right: -280px; width: 280px; height: 100vh; background: #fff; z-index: 201; padding: 24px; transition: right 0.3s; overflow-y: auto; }
+        .mobile-menu.open { right: 0; }
+        .mobile-menu-close { width: 36px; height: 36px; border: none; background: #f2f2f2; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; margin-left: auto; }
+        .mobile-menu a { display: block; padding: 14px 0; font-weight: 700; font-size: 16px; border-bottom: 1px solid #f2f2f2; color: #262121; }
+        .mobile-menu a:hover { color: #215cda; }
+
+        /* ========== BLOG PAGE ========== */
+        .page-header { background: linear-gradient(135deg, #215cda, #1e73be); padding: 60px 0 40px; color: #fff; text-align: center; }
+        .page-header h1 { font-size: 36px; font-weight: 900; margin-bottom: 10px; }
+        .page-header p { font-size: 16px; opacity: 0.85; }
+        .blog-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; padding: 40px 0; }
+        .blog-main .article-card { margin-bottom: 24px; }
+        .blog-main .article-card .article-card-img { padding-top: 50%; }
+        .sidebar-widget { background: #fff; border: 1px solid #e8ecf2; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .sidebar-widget h4 { font-size: 16px; font-weight: 900; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #215cda; }
+        .sidebar-popular li { padding: 10px 0; border-bottom: 1px solid #f2f2f2; }
+        .sidebar-popular li:last-child { border: none; }
+        .sidebar-popular li a { font-size: 14px; font-weight: 500; display: flex; gap: 10px; align-items: center; }
+        .sidebar-popular li a .num { width: 24px; height: 24px; background: #215cda; color: #fff; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+        .sidebar-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .sidebar-tags a { padding: 6px 14px; background: #f2f2f2; border-radius: 50px; font-size: 13px; transition: all 0.2s; }
+        .sidebar-tags a:hover { background: #215cda; color: #fff; }
+
+        /* ========== ANIMATIONS ========== */
+        .animate-fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .animate-fade-up.is-visible { opacity: 1; transform: translateY(0); }
+        .animate-fade-in { opacity: 0; transition: opacity 0.8s ease; }
+        .animate-fade-in.is-visible { opacity: 1; }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+
+        @keyframes slide-up-hero {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-anim-1 { animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
+        .hero-anim-2 { animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+        .hero-anim-3 { animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both; }
+        .hero-anim-4 { animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .products-grid, .articles-grid { grid-template-columns: repeat(3, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .blog-layout { grid-template-columns: 1fr; }
+            .slide-content h1 { font-size: 32px; }
+            .stats-inner { gap: 30px; }
+        }
+        @media (max-width: 768px) {
+            .products-grid, .articles-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav { display: none; }
+            .hamburger { display: flex; }
+            .slide { height: 360px; }
+            .slide-content h1 { font-size: 26px; }
+            .slide-content { padding: 0 24px; }
+            .search-box input { width: 120px; }
+            .shopee-banner-inner { flex-direction: column; text-align: center; gap: 16px; }
+            .shopee-banner-icon { margin: 0; }
+            .pr-banner h2 { font-size: 24px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .stats-inner { gap: 16px; flex-wrap: wrap; }
+        }
+        @media (max-width: 480px) {
+            .products-grid, .articles-grid { grid-template-columns: 1fr; }
+            .slide { height: 300px; }
+            .slide-content h1 { font-size: 22px; }
+            .header-inner { height: 60px; }
+            .logo { font-size: 22px; }
+            .search-box { padding: 6px 12px; }
+            .search-box input { width: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="container">
+        <div class="header-inner">
+            <a href="#" class="logo">Hair<span>Zone</span></a>
+            <nav class="nav">
+                <a href="#" class="active" data-page="home">Trang chủ</a>
+                <a href="#" data-page="blog">Trang bài viết</a>
+                <a href="#" data-page="about">Giới thiệu</a>
+                <a href="#" data-page="contact">Liên hệ</a>
+            </nav>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                    <button><i data-lucide="search" style="width:18px;height:18px"></i></button>
+                </div>
+                <button class="cart-btn" aria-label="Giỏ hàng">
+                    <i data-lucide="shopping-cart" style="width:20px;height:20px"></i>
+                    <span class="cart-badge">3</span>
+                </button>
+                <button class="hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ========== HOME PAGE ========== -->
+<div id="homePage">
+
+<!-- Hero Slider -->
+<section class="hero-slider">
+    <div class="slides-wrapper" id="slidesWrapper">
+        <div class="slide">
+            <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1920&q=80')"></div>
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <span class="slide-badge hero-anim-1">💆 Chăm Sóc Tóc</span>
+                <h1 class="hero-anim-2">Mái Tóc Khỏe Đẹp Bắt Đầu Từ Đây</h1>
+                <p class="hero-anim-3">Khám phá bộ sưu tập sản phẩm chăm sóc tóc cao cấp, từ dầu gội organic đến serum phục hồi chuyên sâu.</p>
+                <a href="#featured" class="slide-btn hero-anim-4">Khám Phá Ngay</a>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1920&q=80')"></div>
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <span class="slide-badge hero-anim-1">🌿 100% Thiên Nhiên</span>
+                <h1 class="hero-anim-2">Sản Phẩm Organic Cho Tóc</h1>
+                <p class="hero-anim-3">Dầu gội, dầu xả chiết xuất từ thiên nhiên. An toàn cho mọi loại tóc, kể cả da đầu nhạy cảm.</p>
+                <a href="#featured" class="slide-btn hero-anim-4">Mua Sắm Ngay</a>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=1920&q=80')"></div>
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <span class="slide-badge hero-anim-1">✨ Sale Tháng 3</span>
+                <h1 class="hero-anim-2">Giảm Đến 50% Toàn Bộ</h1>
+                <p class="hero-anim-3">Ưu đãi cực khủng cho bộ sưu tập chăm sóc tóc mùa xuân. Số lượng có hạn!</p>
+                <a href="#featured" class="slide-btn hero-anim-4">Xem Ưu Đãi</a>
+            </div>
+        </div>
+    </div>
+    <button class="slider-nav slider-prev" aria-label="Previous"><i data-lucide="chevron-left" style="width:20px;height:20px"></i></button>
+    <button class="slider-nav slider-next" aria-label="Next"><i data-lucide="chevron-right" style="width:20px;height:20px"></i></button>
+    <div class="slider-dots" id="sliderDots"></div>
+</section>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+    <div class="container">
+        <div class="stats-inner">
+            <div class="stat-item"><i data-lucide="package" style="width:18px;height:18px"></i> 500+ Sản phẩm</div>
+            <div class="stat-item"><i data-lucide="tags" style="width:18px;height:18px"></i> 20 Thương hiệu</div>
+            <div class="stat-item"><i data-lucide="truck" style="width:18px;height:18px"></i> Giao hàng toàn quốc</div>
+            <div class="stat-item"><i data-lucide="shield-check" style="width:18px;height:18px"></i> Hàng chính hãng</div>
+        </div>
+    </div>
+</div>
+
+<!-- Category Marquee -->
+<div class="cat-marquee">
+    <div class="marquee-track" id="marqueeTrack">
+        <span class="marquee-item">Dầu gội</span>
+        <span class="marquee-item">Dầu xả</span>
+        <span class="marquee-item">Serum tóc</span>
+        <span class="marquee-item">Mặt nạ tóc</span>
+        <span class="marquee-item">Tinh dầu dưỡng</span>
+        <span class="marquee-item">Thuốc nhuộm</span>
+        <span class="marquee-item">Phụ kiện tóc</span>
+        <span class="marquee-item">Máy sấy tóc</span>
+        <span class="marquee-item">Máy ép tóc</span>
+        <span class="marquee-item">Lược & Kẹp</span>
+        <span class="marquee-item">Combo tiết kiệm</span>
+        <span class="marquee-item">Hàng sale</span>
+        <span class="marquee-item">Tóc khô xơ</span>
+        <span class="marquee-item">Tóc nhuộm</span>
+        <span class="marquee-item">Da đầu nhạy cảm</span>
+        <span class="marquee-item">Keratin</span>
+        <!-- Clone for seamless loop -->
+        <span class="marquee-item">Dầu gội</span>
+        <span class="marquee-item">Dầu xả</span>
+        <span class="marquee-item">Serum tóc</span>
+        <span class="marquee-item">Mặt nạ tóc</span>
+        <span class="marquee-item">Tinh dầu dưỡng</span>
+        <span class="marquee-item">Thuốc nhuộm</span>
+        <span class="marquee-item">Phụ kiện tóc</span>
+        <span class="marquee-item">Máy sấy tóc</span>
+        <span class="marquee-item">Máy ép tóc</span>
+        <span class="marquee-item">Lược & Kẹp</span>
+        <span class="marquee-item">Combo tiết kiệm</span>
+        <span class="marquee-item">Hàng sale</span>
+        <span class="marquee-item">Tóc khô xơ</span>
+        <span class="marquee-item">Tóc nhuộm</span>
+        <span class="marquee-item">Da đầu nhạy cảm</span>
+        <span class="marquee-item">Keratin</span>
+    </div>
+</div>
+
+<!-- ========== SẢN PHẨM NỔI BẬT ========== -->
+<section class="section" id="featured">
+    <div class="container">
+        <div class="section-header animate-fade-up">
+            <h2 class="section-title"><span class="emoji">⭐</span> Sản Phẩm Nổi Bật</h2>
+            <a href="#" class="see-all">Xem tất cả <i data-lucide="arrow-right" style="width:14px;height:14px"></i></a>
+        </div>
+        <div class="products-grid">
+            <div class="product-card animate-fade-up delay-1">
+                <div class="product-card-img">
+                    <img src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=400&q=80" alt="Dầu gội Keratin">
+                    <span class="product-badge badge-hot">HOT</span>
+                </div>
+                <div class="product-card-body">
+                    <h4>Dầu Gội Keratin Phục Hồi Tóc Hư Tổn 500ml</h4>
+                    <div class="product-price">
+                        <span class="price-current">289.000đ</span>
+                        <span class="price-old">450.000đ</span>
+                    </div>
+                    <div class="product-rating">★★★★★ <span style="color:#999">4.8 (234)</span></div>
+                </div>
+                <div class="product-actions">
+                    <button class="add-cart-btn"><i data-lucide="shopping-cart" style="width:14px;height:14px"></i> Thêm giỏ</button>
+                    <button class="share-fb" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                </div>
+            </div>
+            <div class="product-card animate-fade-up delay-2">
+                <div class="product-card-img">
+                    <img src="https://images.unsplash.com/photo-1585751119414-ef2636f8aede?w=400&q=80" alt="Serum dưỡng tóc">
+                    <span class="product-badge badge-sale">-35%</span>
+                </div>
+                <div class="product-card-body">
+                    <h4>Serum Dưỡng Tóc Argan Oil Cao Cấp 100ml</h4>
+                    <div class="product-price">
+                        <span class="price-current">199.000đ</span>
+                        <span class="price-old">320.000đ</span>
+                    </div>
+                    <div class="product-rating">★★★★★ <span style="color:#999">4.9 (189)</span></div>
+                </div>
+                <div class="product-actions">
+                    <button class="add-cart-btn"><i data-lucide="shopping-cart" style="width:14px;height:14px"></i> Thêm giỏ</button>
+                    <button class="share-fb" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                </div>
+            </div>
+            <div class="product-card animate-fade-up delay-3">
+                <div class="product-card-img">
+                    <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=400&q=80" alt="Mặt nạ tóc">
+                    <span class="product-badge badge-new">NEW</span>
+                </div>
+                <div class="product-card-body">
+                    <h4>Mặt Nạ Tóc Collagen Siêu Mượt 250ml</h4>
+                    <div class="product-price">
+                        <span class="price-current">349.000đ</span>
+                        <span class="price-old">500.000đ</span>
+                    </div>
+                    <div class="product-rating">★★★★☆ <span style="color:#999">4.7 (156)</span></div>
+                </div>
+                <div class="product-actions">
+                    <button class="add-cart-btn"><i data-lucide="shopping-cart" style="width:14px;height:14px"></i> Thêm giỏ</button>
+                    <button class="share-fb" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                </div>
+            </div>
+            <div class="product-card animate-fade-up delay-4">
+                <div class="product-card-img">
+                    <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&q=80" alt="Dầu xả organic">
+                </div>
+                <div class="product-card-body">
+                    <h4>Dầu Xả Organic Hương Hoa Hồng 400ml</h4>
+                    <div class="product-price">
+                        <span class="price-current">259.000đ</span>
+                    </div>
+                    <div class="product-rating">★★★★★ <span style="color:#999">4.8 (98)</span></div>
+                </div>
+                <div class="product-actions">
+                    <button class="add-cart-btn"><i data-lucide="shopping-cart" style="width:14px;height:14px"></i> Thêm giỏ</button>
+                    <button class="share-fb" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                </div>
+            </div>
+            <div class="product-card animate-fade-up delay-5">
+                <div class="product-card-img">
+                    <img src="https://images.unsplash.com/photo-1599847987474-c5e2cba1fa4c?w=400&q=80" alt="Tinh dầu bưởi">
+                    <span class="product-badge badge-hot">HOT</span>
+                </div>
+                <div class="product-card-body">
+                    <h4>Tinh Dầu Bưởi Kích Thích Mọc Tóc 100ml</h4>
+                    <div class="product-price">
+                        <span class="price-current">179.000đ</span>
+                        <span class="price-old">280.000đ</span>
+                    </div>
+                    <div class="product-rating">★★★★★ <span style="color:#999">4.9 (312)</span></div>
+                </div>
+                <div class="product-actions">
+                    <button class="add-cart-btn"><i data-lucide="shopping-cart" style="width:14px;height:14px"></i> Thêm giỏ</button>
+                    <button class="share-fb" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SHOPEE BANNER ========== -->
+<section class="section" style="padding-top:0">
+    <div class="container">
+        <a href="https://shopee.vn" target="_blank" rel="noopener" class="shopee-banner animate-fade-up">
+            <div class="shopee-banner-inner">
+                <span class="shopee-banner-icon">🛒</span>
+                <div class="shopee-banner-text">
+                    <h3>Ghé Shop HairZone Trên Shopee</h3>
+                    <p>Mua sắm dễ dàng, freeship đơn từ 0đ, voucher giảm thêm 15%</p>
+                </div>
+                <span class="shopee-banner-btn"><i data-lucide="external-link" style="width:16px;height:16px"></i> Mua Trên Shopee</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- ========== BÀI VIẾT MỚI NHẤT ========== -->
+<section class="section" style="padding-top:0">
+    <div class="container">
+        <div class="section-header animate-fade-up">
+            <h2 class="section-title"><span class="emoji">📝</span> Bài Viết Mới Nhất</h2>
+            <a href="#" class="see-all" data-page="blog">Xem tất cả <i data-lucide="arrow-right" style="width:14px;height:14px"></i></a>
+        </div>
+        <div class="articles-grid">
+            <div class="article-card animate-fade-up delay-1">
+                <div class="article-card-img">
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&q=80" alt="Bài viết 1">
+                </div>
+                <div class="article-card-body">
+                    <h4>10 Bước Chăm Sóc Tóc Đúng Cách Tại Nhà Hiệu Quả</h4>
+                    <p>Hướng dẫn chi tiết quy trình chăm sóc tóc từ A-Z, giúp tóc mượt mà, khỏe đẹp chỉ với những bước đơn giản...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 12 Th3 2026</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-2">
+                <div class="article-card-img">
+                    <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=500&q=80" alt="Bài viết 2">
+                </div>
+                <div class="article-card-body">
+                    <h4>Top 5 Serum Dưỡng Tóc Được Yêu Thích Nhất 2026</h4>
+                    <p>Review chi tiết các loại serum dưỡng tóc hot nhất hiện nay, so sánh ưu nhược điểm từng sản phẩm...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 10 Th3 2026</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-3">
+                <div class="article-card-img">
+                    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=500&q=80" alt="Bài viết 3">
+                </div>
+                <div class="article-card-body">
+                    <h4>Cách Phục Hồi Tóc Hư Tổn Do Nhuộm Uốn Nhiều Lần</h4>
+                    <p>Bí quyết giúp tóc nhuộm uốn trở nên mềm mượt và bóng khỏe trở lại chỉ trong 2 tuần...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 08 Th3 2026</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-4">
+                <div class="article-card-img">
+                    <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=500&q=80" alt="Bài viết 4">
+                </div>
+                <div class="article-card-body">
+                    <h4>Dầu Gội Nào Phù Hợp Với Da Đầu Nhạy Cảm?</h4>
+                    <p>Tổng hợp các loại dầu gội dịu nhẹ, không sulfate phù hợp cho da đầu dễ kích ứng, gàu và ngứa...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 06 Th3 2026</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-5">
+                <div class="article-card-img">
+                    <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&q=80" alt="Bài viết 5">
+                </div>
+                <div class="article-card-body">
+                    <h4>Xu Hướng Tóc 2026: Từ Nâu Lạnh Đến Bạch Kim</h4>
+                    <p>Những màu tóc thịnh hành nhất năm 2026 và cách chăm sóc tóc nhuộm luôn bền màu...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 05 Th3 2026</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CATEGORY: Dầu gội & Dầu xả ========== -->
+<section class="cat-section">
+    <div class="container">
+        <div class="section-header animate-fade-up">
+            <h2 class="section-title"><span class="emoji">🧴</span> Dầu Gội & Dầu Xả</h2>
+            <a href="#" class="see-all">Xem tất cả <i data-lucide="arrow-right" style="width:14px;height:14px"></i></a>
+        </div>
+        <div class="articles-grid">
+            <div class="article-card animate-fade-up delay-1">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>So Sánh 3 Dòng Dầu Gội Organic Bán Chạy Nhất</h4>
+                    <p>Phân tích thành phần, công dụng và giá cả để bạn chọn đúng sản phẩm phù hợp...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 04 Th3</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-2">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Dầu Xả Có Thật Sự Cần Thiết? Sự Thật Bạn Cần Biết</h4>
+                    <p>Nhiều người bỏ qua bước dùng dầu xả. Liệu đó có phải sai lầm?...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 02 Th3</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-3">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1600428877878-1a0ff561f01d?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Cách Gội Đầu Đúng Cách: 8 Sai Lầm Thường Gặp</h4>
+                    <p>Bạn có chắc mình đang gội đầu đúng cách? Xem ngay 8 lỗi phổ biến mà nhiều người mắc phải...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 28 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-4">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Review Dầu Gội Ngăn Rụng Tóc Top 1 Shopee</h4>
+                    <p>Dùng thử dầu gội best seller trên Shopee suốt 30 ngày, kết quả bất ngờ...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 25 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-5">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Tóc Dầu Nên Dùng Dầu Gội Gì? Bí Quyết Tóc Sạch Cả Ngày</h4>
+                    <p>Giải pháp cho tóc bết dầu nhanh, giúp tóc bồng bềnh và thơm suốt ngày dài...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 22 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CATEGORY: Serum & Tinh dầu ========== -->
+<section class="cat-section">
+    <div class="container">
+        <div class="section-header animate-fade-up">
+            <h2 class="section-title"><span class="emoji">💧</span> Serum & Tinh Dầu Dưỡng</h2>
+            <a href="#" class="see-all">Xem tất cả <i data-lucide="arrow-right" style="width:14px;height:14px"></i></a>
+        </div>
+        <div class="articles-grid">
+            <div class="article-card animate-fade-up delay-1">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Serum Tóc Là Gì? Cách Dùng Serum Đúng Cách</h4>
+                    <p>Giải đáp mọi thắc mắc về serum tóc và hướng dẫn sử dụng hiệu quả nhất...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 20 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-2">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Tinh Dầu Bưởi Có Thật Sự Giúp Mọc Tóc?</h4>
+                    <p>Tìm hiểu khoa học đằng sau tác dụng kích thích mọc tóc của tinh dầu bưởi...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 18 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-3">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Argan Oil vs Coconut Oil: Loại Nào Tốt Hơn Cho Tóc?</h4>
+                    <p>So sánh chi tiết 2 loại dầu dưỡng tóc phổ biến nhất hiện nay...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 15 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-4">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>5 Loại Tinh Dầu Thiên Nhiên Tốt Nhất Cho Tóc</h4>
+                    <p>Từ tea tree đến rosemary, khám phá tinh dầu nào phù hợp với loại tóc của bạn...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 12 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-5">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Cách Ủ Tóc Bằng Dầu Nóng Tại Nhà Đơn Giản</h4>
+                    <p>Hướng dẫn spa tóc tại nhà chỉ trong 30 phút, tiết kiệm mà hiệu quả bất ngờ...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 10 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CATEGORY: Làm đẹp ========== -->
+<section class="cat-section">
+    <div class="container">
+        <div class="section-header animate-fade-up">
+            <h2 class="section-title"><span class="emoji">💄</span> Mẹo Làm Đẹp</h2>
+            <a href="#" class="see-all">Xem tất cả <i data-lucide="arrow-right" style="width:14px;height:14px"></i></a>
+        </div>
+        <div class="articles-grid">
+            <div class="article-card animate-fade-up delay-1">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>7 Kiểu Tóc Đẹp Cho Mùa Hè 2026 Cực Trendy</h4>
+                    <p>Cập nhật ngay những kiểu tóc hot trend giúp bạn tỏa sáng mùa hè này...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 08 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-2">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Tóc Layer Hay Tóc Bob: Kiểu Nào Hợp Với Bạn?</h4>
+                    <p>Phân tích ưu nhược điểm 2 kiểu tóc thịnh hành theo hình dáng khuôn mặt...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 05 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-3">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Nhuộm Tóc Tại Nhà: Hướng Dẫn Chi Tiết Từ A-Z</h4>
+                    <p>Tự nhuộm tóc đẹp như salon chỉ với vài bước đơn giản, tiết kiệm chi phí...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 02 Th2</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-4">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Bí Quyết Giữ Tóc Xoăn Bồng Bềnh Cả Ngày</h4>
+                    <p>Mẹo giữ nếp tóc xoăn tự nhiên không cần xịt keo, vẫn đẹp từ sáng đến tối...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 30 Th1</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="article-card animate-fade-up delay-5">
+                <div class="article-card-img"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=500&q=80" alt=""></div>
+                <div class="article-card-body">
+                    <h4>Hair Spa Tại Nhà: Quy Trình Chăm Sóc Tóc Chuyên Sâu</h4>
+                    <p>Tự tạo trải nghiệm spa tóc cao cấp ngay tại nhà với chi phí chỉ 50K...</p>
+                    <div class="article-meta">
+                        <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 28 Th1</span>
+                        <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== PR BANNER ========== -->
+<section class="pr-banner animate-fade-up">
+    <div class="container">
+        <h2>📢 Quảng Cáo & Hợp Tác</h2>
+        <p>Bạn là thương hiệu chăm sóc tóc? Liên hệ hợp tác PR, review sản phẩm cùng HairZone!</p>
+        <a href="#" class="pr-banner-btn"><i data-lucide="mail" style="width:18px;height:18px"></i> Liên Hệ Ngay</a>
+    </div>
+</section>
+
+</div><!-- end #homePage -->
+
+<!-- ========== BLOG PAGE (ẩn mặc định) ========== -->
+<div id="blogPage" style="display:none">
+    <div class="page-header">
+        <div class="container">
+            <h1>Trang Bài Viết</h1>
+            <p>Kiến thức chăm sóc tóc, review sản phẩm và xu hướng làm đẹp</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="blog-layout">
+            <div class="blog-main">
+                <div class="article-card animate-fade-up">
+                    <div class="article-card-img"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80" alt=""></div>
+                    <div class="article-card-body">
+                        <h4>10 Bước Chăm Sóc Tóc Đúng Cách Tại Nhà Hiệu Quả</h4>
+                        <p>Hướng dẫn chi tiết quy trình chăm sóc tóc từ A-Z, giúp tóc mượt mà, khỏe đẹp chỉ với những bước đơn giản tại nhà mà không cần đến salon.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 12 Th3 2026</span>
+                            <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="article-card animate-fade-up">
+                    <div class="article-card-img"><img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&q=80" alt=""></div>
+                    <div class="article-card-body">
+                        <h4>Top 5 Serum Dưỡng Tóc Được Yêu Thích Nhất 2026</h4>
+                        <p>Review chi tiết các loại serum dưỡng tóc hot nhất hiện nay, so sánh thành phần, công dụng, ưu nhược điểm từng sản phẩm để bạn chọn đúng.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 10 Th3 2026</span>
+                            <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="article-card animate-fade-up">
+                    <div class="article-card-img"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&q=80" alt=""></div>
+                    <div class="article-card-body">
+                        <h4>Cách Phục Hồi Tóc Hư Tổn Do Nhuộm Uốn Nhiều Lần</h4>
+                        <p>Bí quyết giúp tóc nhuộm uốn trở nên mềm mượt và bóng khỏe trở lại chỉ trong 2 tuần với những sản phẩm dễ tìm.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 08 Th3 2026</span>
+                            <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="article-card animate-fade-up">
+                    <div class="article-card-img"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=800&q=80" alt=""></div>
+                    <div class="article-card-body">
+                        <h4>Dầu Gội Nào Phù Hợp Với Da Đầu Nhạy Cảm?</h4>
+                        <p>Tổng hợp các loại dầu gội dịu nhẹ, không sulfate phù hợp cho da đầu dễ kích ứng, gàu và ngứa ngày.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 06 Th3 2026</span>
+                            <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="article-card animate-fade-up">
+                    <div class="article-card-img"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&q=80" alt=""></div>
+                    <div class="article-card-body">
+                        <h4>Nhuộm Tóc Tại Nhà: Hướng Dẫn Chi Tiết Từ A-Z</h4>
+                        <p>Tự nhuộm tóc đẹp như salon chỉ với vài bước đơn giản, tiết kiệm chi phí mà vẫn đạt hiệu quả tuyệt vời.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i data-lucide="calendar" style="width:12px;height:12px"></i> 02 Th2 2026</span>
+                            <button class="article-share" onclick="shareFB(this)"><i data-lucide="share-2" style="width:12px;height:12px"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aside>
+                <div class="sidebar-widget">
+                    <h4>Bài Viết Phổ Biến</h4>
+                    <ul class="sidebar-popular">
+                        <li><a href="#"><span class="num">1</span> 10 Bước Chăm Sóc Tóc Đúng Cách</a></li>
+                        <li><a href="#"><span class="num">2</span> Top 5 Serum Dưỡng Tóc 2026</a></li>
+                        <li><a href="#"><span class="num">3</span> Tinh Dầu Bưởi Mọc Tóc</a></li>
+                        <li><a href="#"><span class="num">4</span> Phục Hồi Tóc Hư Tổn</a></li>
+                        <li><a href="#"><span class="num">5</span> Xu Hướng Tóc 2026</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-widget">
+                    <h4>Tags</h4>
+                    <div class="sidebar-tags">
+                        <a href="#">Dầu gội</a>
+                        <a href="#">Serum</a>
+                        <a href="#">Organic</a>
+                        <a href="#">Keratin</a>
+                        <a href="#">Tóc nhuộm</a>
+                        <a href="#">Rụng tóc</a>
+                        <a href="#">Hair spa</a>
+                        <a href="#">Review</a>
+                        <a href="#">Mẹo hay</a>
+                        <a href="#">Tinh dầu</a>
+                    </div>
+                </div>
+                <div class="sidebar-widget">
+                    <h4>Mua Sắm Trên Shopee</h4>
+                    <a href="https://shopee.vn" target="_blank" rel="noopener" style="display:block;background:linear-gradient(135deg,#EE4D2D,#FF6633);color:#fff;padding:16px;border-radius:10px;text-align:center;font-weight:700;transition:opacity 0.2s">
+                        🛒 Ghé Shop HairZone
+                    </a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Về HairZone</h4>
+                <p>HairZone là cửa hàng chuyên cung cấp các sản phẩm chăm sóc tóc chính hãng từ những thương hiệu uy tín hàng đầu. Chúng tôi cam kết mang đến cho bạn mái tóc khỏe đẹp nhất.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><i data-lucide="facebook" style="width:16px;height:16px"></i></a>
+                    <a href="#" aria-label="TikTok"><i data-lucide="music-2" style="width:16px;height:16px"></i></a>
+                    <a href="#" aria-label="Instagram"><i data-lucide="instagram" style="width:16px;height:16px"></i></a>
+                    <a href="#" aria-label="YouTube"><i data-lucide="youtube" style="width:16px;height:16px"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Trang Chính</h4>
+                <ul>
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="#">Trang bài viết</a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Điều khoản sử dụng</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Thông Tin Liên Hệ</h4>
+                <div class="footer-contact-item"><i data-lucide="mail"></i> contact@hairzone.vn</div>
+                <div class="footer-contact-item"><i data-lucide="phone"></i> 0123 456 789</div>
+                <div class="footer-contact-item"><i data-lucide="map-pin"></i> 123 Nguyễn Huệ, Q1, TP.HCM</div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 HairZone. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+<!-- ========== MOBILE MENU ========== -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileClose"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+    <a href="#" data-page="home">Trang chủ</a>
+    <a href="#" data-page="blog">Trang bài viết</a>
+    <a href="#" data-page="about">Giới thiệu</a>
+    <a href="#" data-page="contact">Liên hệ</a>
+</div>
+
+<!-- ========== SCRIPTS ========== -->
+<script>lucide.createIcons();</script>
+<script>
+// ===== SLIDER =====
+(function() {
+    const wrapper = document.getElementById('slidesWrapper');
+    const slides = wrapper.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('sliderDots');
+    let current = 0;
+    const total = slides.length;
+
+    // Create dots
+    slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+        current = index;
+        wrapper.style.transform = 'translateX(-' + (current * 100) + '%)';
+        dotsContainer.querySelectorAll('button').forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    document.querySelector('.slider-prev').addEventListener('click', () => goTo((current - 1 + total) % total));
+    document.querySelector('.slider-next').addEventListener('click', () => goTo((current + 1) % total));
+
+    setInterval(() => goTo((current + 1) % total), 5000);
+})();
+
+// ===== SCROLL REVEAL =====
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('[class*="animate-"]').forEach(el => observer.observe(el));
+});
+
+// ===== PAGE NAVIGATION =====
+(function() {
+    const pages = { home: 'homePage', blog: 'blogPage' };
+    document.querySelectorAll('[data-page]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const page = link.dataset.page;
+            document.getElementById('homePage').style.display = page === 'home' ? 'block' : 'none';
+            document.getElementById('blogPage').style.display = page === 'blog' ? 'block' : 'none';
+            document.querySelectorAll('.nav a').forEach(a => a.classList.toggle('active', a.dataset.page === page));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Close mobile menu
+            document.getElementById('mobileMenu').classList.remove('open');
+            document.getElementById('mobileOverlay').style.display = 'none';
+            // Re-init Lucide icons for newly visible page
+            setTimeout(() => lucide.createIcons(), 100);
+        });
+    });
+})();
+
+// ===== MOBILE MENU =====
+(function() {
+    const hamburger = document.querySelector('.hamburger');
+    const menu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('mobileOverlay');
+    const close = document.getElementById('mobileClose');
+
+    hamburger.addEventListener('click', () => {
+        menu.classList.add('open');
+        overlay.style.display = 'block';
+    });
+    [close, overlay].forEach(el => el.addEventListener('click', () => {
+        menu.classList.remove('open');
+        overlay.style.display = 'none';
+    }));
+})();
+
+// ===== SHARE FACEBOOK =====
+function shareFB(btn) {
+    const url = encodeURIComponent(window.location.href);
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank', 'width=600,height=400');
+}
+
+// ===== STICKY HEADER =====
+(function() {
+    const header = document.querySelector('.header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.boxShadow = '0 2px 15px rgba(0,0,0,0.08)';
+        } else {
+            header.style.boxShadow = 'none';
+        }
+    });
+})();
+</script>
+</body>
+</html>

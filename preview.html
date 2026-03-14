@@ -129,10 +129,11 @@
             overflow: hidden;
         }
         .preview-frame.mobile {
-            width: 375px;
-            max-width: 375px;
-            height: calc(100vh - 56px - 40px);
-            border-radius: 40px;
+            width: 430px;
+            max-width: 430px;
+            height: 932px;
+            max-height: calc(100vh - 56px - 40px);
+            border-radius: 50px;
             border: 6px solid #1F2937;
             box-shadow:
                 0 0 0 2px #374151,
@@ -253,6 +254,29 @@
             document.getElementById('previewName').textContent = name || 'Xem trước';
             document.getElementById('previewIframe').src = url;
             document.getElementById('newtabBtn').href = url;
+
+            // ── Hide scrollbar in iframe (mobile mode) ──
+            var iframe = document.getElementById('previewIframe');
+            var scrollbarHidden = false;
+
+            function hideIframeScrollbar() {
+                if (scrollbarHidden) return;
+                try {
+                    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    var style = iframeDoc.createElement('style');
+                    style.id = 'templexa-hide-scrollbar';
+                    style.textContent =
+                        'html::-webkit-scrollbar { display: none !important; }' +
+                        'html { scrollbar-width: none !important; -ms-overflow-style: none !important; }';
+                    iframeDoc.head.appendChild(style);
+                    scrollbarHidden = true;
+                } catch (e) { /* cross-origin — ignore */ }
+            }
+
+            iframe.addEventListener('load', function () {
+                scrollbarHidden = false;
+                hideIframeScrollbar();
+            });
 
             // ── Toggle Desktop / Mobile ──
             const toggleBtns = document.querySelectorAll('.preview-toggle-btn');

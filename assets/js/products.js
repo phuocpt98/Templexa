@@ -82,7 +82,10 @@
             return `
                 <a href="product-detail.html?id=${p.id}" class="product-card">
                     <div class="product-card-image">
-                        <img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">
+                        ${p.demoUrl
+                            ? `<iframe src="${p.demoUrl}" title="${p.name}" loading="lazy" sandbox="allow-scripts allow-same-origin" scrolling="no"></iframe>`
+                            : `<img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">`
+                        }
                         ${badgeHTML}
                     </div>
                     <div class="product-card-info">
