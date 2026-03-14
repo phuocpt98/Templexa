@@ -732,3 +732,84 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
         follower.y = Math.min(follower.y, h - 50);
     });
 })();
+
+// ============================================
+// IFRAME AUTO-SCROLL (IntersectionObserver)
+// ============================================
+(function () {
+    var SCROLL_SPEED = 50;
+    var PAUSE_TOP = 1000;
+    var PAUSE_BOTTOM = 2000;
+    var selectors = '.template-image, .product-card-image, .related-card-image';
+    var activeIframes = new Map();
+
+    function startScroll(iframe) {
+        if (activeIframes.has(iframe)) return;
+        var state = { running: true, pauseTimer: null };
+        activeIframes.set(iframe, state);
+
+        function step() {
+            if (!state.running) return;
+            try {
+                var win = iframe.contentWindow;
+                var doc = win.document;
+                var maxScroll = doc.documentElement.scrollHeight - win.innerHeight;
+                if (maxScroll <= 0) { requestAnimationFrame(step); return; }
+
+                var current = win.scrollY || win.pageYOffset;
+
+                if (current >= maxScroll - 2) {
+                    win.scrollTo(0, maxScroll);
+                    state.pauseTimer = setTimeout(function () {
+                        if (!state.running) return;
+                        win.scrollTo(0, 0);
+                        state.pauseTimer = setTimeout(function () {
+                            if (state.running) requestAnimationFrame(step);
+                        }, PAUSE_TOP);
+                    }, PAUSE_BOTTOM);
+                    return;
+                }
+
+                win.scrollTo(0, current + SCROLL_SPEED / 60);
+            } catch (e) { return; }
+            requestAnimationFrame(step);
+        }
+
+        if (iframe.contentDocument && iframe.contentDocument.readyState === 'complete') {
+            requestAnimationFrame(step);
+        } else {
+            iframe.addEventListener('load', function () { requestAnimationFrame(step); }, { once: true });
+        }
+    }
+
+    function stopScroll(iframe) {
+        var state = activeIframes.get(iframe);
+        if (!state) return;
+        state.running = false;
+        if (state.pauseTimer) clearTimeout(state.pauseTimer);
+        activeIframes.delete(iframe);
+        try { iframe.contentWindow.scrollTo(0, 0); } catch (e) {}
+    }
+
+    function observe() {
+        var containers = document.querySelectorAll(selectors);
+        if (!containers.length) return;
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                var iframe = entry.target.querySelector('iframe');
+                if (!iframe) return;
+                if (entry.isIntersecting) {
+                    startScroll(iframe);
+                } else {
+                    stopScroll(iframe);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        containers.forEach(function (el) { observer.observe(el); });
+    }
+
+    observe();
+    new MutationObserver(observe).observe(document.body, { childList: true, subtree: true });
+})();
