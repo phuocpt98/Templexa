@@ -176,6 +176,9 @@
 
     // ── Main render ─────────────────────────────
     function render() {
+        // Giữ trạng thái dropdown mobile trước khi rebuild
+        const wasOpen = filtersWrapper && filtersWrapper.classList.contains('open');
+
         const filtered = filterProducts({
             category: currentCategory,
             type: currentType,
@@ -188,6 +191,12 @@
         renderFilters();
         renderProducts(items);
         renderPagination(totalPages);
+
+        // Khôi phục trạng thái dropdown sau render
+        if (wasOpen && filtersWrapper && filtersToggle) {
+            filtersWrapper.classList.add('open');
+            filtersToggle.classList.add('open');
+        }
     }
 
     // ── Search debounce ─────────────────────────
