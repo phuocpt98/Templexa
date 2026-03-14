@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>White Day 14/3 — Tiến Phước gửi Thuý Nga</title>
+    <meta name="description" content="Lời tỏ tình nhân ngày White Day 14/3 — Từ tin nhắn đầu tiên đến nụ hôn đầu, hành trình yêu thương của Tiến Phước và Thuý Nga.">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow: hidden; height: 100%; }
+
+        :root {
+            --pink: #E8456B;
+            --pink-light: #FFF0F3;
+            --pink-dark: #C23558;
+            --rose: #F472B6;
+            --purple: #A855F7;
+            --violet: #7C3AED;
+            --blue: #3B82F6;
+            --teal: #14B8A6;
+            --gold: #F59E0B;
+            --text: #2D2D2D;
+            --text-light: #6B7280;
+            --bg: #FFFBFC;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: #0a0a0a;
+            line-height: 1.7;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* ===== FLOATING HEARTS GLOBAL ===== */
+        .hearts-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            font-size: 18px;
+            opacity: 0;
+            animation: heart-rise linear infinite;
+        }
+        @keyframes heart-rise {
+            0% { opacity: 0; transform: translateY(100vh) translateX(0) scale(0.5) rotate(0deg); }
+            10% { opacity: 0.6; }
+            50% { opacity: 0.4; transform: translateY(50vh) translateX(30px) scale(0.8) rotate(15deg); }
+            90% { opacity: 0.15; }
+            100% { opacity: 0; transform: translateY(-10vh) translateX(-20px) scale(1) rotate(-10deg); }
+        }
+
+        /* ===== SCENES ===== */
+        .scene {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0s 0.8s;
+            z-index: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+        .scene.active {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0s 0s;
+            z-index: 2;
+        }
+
+        /* Transition effects */
+        .scene.t-fade { transform: scale(0.95); }
+        .scene.t-fade.active { transform: scale(1); }
+
+        .scene.t-slide-up { transform: translateY(80px); }
+        .scene.t-slide-up.active { transform: translateY(0); }
+
+        .scene.t-slide-down { transform: translateY(-80px); }
+        .scene.t-slide-down.active { transform: translateY(0); }
+
+        .scene.t-zoom { transform: scale(0.3); }
+        .scene.t-zoom.active { transform: scale(1); }
+
+        .scene.t-blur { transform: scale(1.05); filter: blur(15px); }
+        .scene.t-blur.active { transform: scale(1); filter: blur(0); }
+
+        .scene.t-rotate { transform: rotate(5deg) scale(0.9); }
+        .scene.t-rotate.active { transform: rotate(0) scale(1); }
+
+        .scene.t-flip { transform: perspective(800px) rotateY(30deg); }
+        .scene.t-flip.active { transform: perspective(800px) rotateY(0); }
+
+        .scene-inner {
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== SCENE 1: HERO ===== */
+        .scene-hero {
+            background: linear-gradient(135deg, #FFF0F3 0%, #FDE8EF 30%, #F5E6FF 70%, #EBF0FF 100%);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(232,69,107,0.1);
+            border: 1px solid rgba(232,69,107,0.2);
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-size: 14px;
+            color: var(--pink);
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        .hero-badge i { width: 16px; height: 16px; }
+
+        .scene-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+        .hero-date {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--pink);
+            font-style: italic;
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+        .hero-photos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .hero-photos img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            box-shadow: 0 10px 40px rgba(232,69,107,0.2);
+        }
+        .hero-photos .hero-heart-between {
+            font-size: 1.5rem;
+            margin: 0 -8px;
+            z-index: 3;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .hero-photos img:last-child {
+            margin-left: -20px;
+        }
+
+        /* ===== SCENE 2: LETTER ===== */
+        .scene-letter {
+            background: var(--white);
+        }
+        .letter-card {
+            background: var(--pink-light);
+            border-radius: 20px;
+            padding: clamp(28px, 5vw, 44px);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        .letter-card::before {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 120px; height: 120px;
+            background: radial-gradient(circle, rgba(232,69,107,0.1), transparent 70%);
+            border-radius: 50%;
+        }
+        .letter-icon {
+            width: 52px; height: 52px;
+            background: linear-gradient(135deg, var(--pink), var(--rose));
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .letter-icon i { width: 26px; height: 26px; }
+        .letter-content {
+            font-size: clamp(0.92rem, 2.5vw, 1.05rem);
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+        }
+        .letter-content p { margin-bottom: 14px; }
+        .highlight { color: var(--pink); font-weight: 600; }
+        .letter-sign {
+            margin-top: 28px;
+            text-align: right;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--pink);
+        }
+
+        /* ===== SCENE 3: TIMELINE ===== */
+        .scene-timeline {
+            background: linear-gradient(180deg, var(--bg) 0%, var(--white) 100%);
+        }
+        .scene-timeline .scene-inner { max-width: 650px; }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            margin-bottom: 36px;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 36px;
+            text-align: left;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 13px; top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--pink), var(--purple), var(--rose));
+        }
+        .timeline-item { position: relative; margin-bottom: 36px; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -30px; top: 4px;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--pink);
+            z-index: 2;
+        }
+        .timeline-dot::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            background: var(--pink);
+        }
+        .timeline-date {
+            font-size: 12px;
+            color: var(--pink);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 3vw, 1.35rem);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        .timeline-text {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .timeline-emoji {
+            font-size: 1.3rem;
+            margin-top: 6px;
+            display: inline-block;
+        }
+
+        /* ===== SCENE 4: GALLERY ===== */
+        .scene-gallery {
+            background: var(--white);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .gallery-item {
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 4/3;
+        }
+        .gallery-item.featured {
+            grid-column: 1 / -1;
+            aspect-ratio: 16/9;
+        }
+        .gallery-item.featured img { object-position: center 70%; }
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 14px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover .gallery-caption { transform: translateY(0); }
+
+        /* ===== SCENE 5: PROMISES ===== */
+        .scene-promises {
+            background: linear-gradient(135deg, #FFF0F3 0%, #F5E6FF 100%);
+        }
+        .promises-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .promise-card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .promise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(232,69,107,0.12);
+        }
+        .promise-icon {
+            width: 44px; height: 44px;
+            background: var(--pink-light);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 14px;
+            color: var(--pink);
+        }
+        .promise-icon i { width: 22px; height: 22px; }
+        .promise-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+        .promise-card p {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        /* ===== SCENE 6: CTA ===== */
+        .scene-cta {
+            background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 100%);
+            color: white;
+        }
+        .scene-cta::before {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+            top: -100px; right: -100px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .scene-cta .section-title { color: white; }
+        .cta-message {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+        .cta-heart {
+            font-size: 3rem;
+            display: inline-block;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .cta-from {
+            margin-top: 20px;
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+        .cta-from strong {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+        }
+
+        /* ===== NAVIGATION BUTTONS ===== */
+        .scene-nav {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            z-index: 100;
+        }
+
+        /* --- Button base --- */
+        .nav-btn {
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                        box-shadow 0.4s ease,
+                        background 0.3s ease,
+                        color 0.3s ease,
+                        border-color 0.3s ease;
+        }
+        .nav-btn i { width: 18px; height: 18px; transition: transform 0.3s ease; }
+
+        /* Ripple effect on click */
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: 50%;
+            left: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 60%);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            border-radius: 50%;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+        .nav-btn:active::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            transition: transform 0s, opacity 0s;
+        }
+
+        /* --- Type 1: Shimmer pill (gradient slides) --- */
+        .btn-shimmer {
+            padding: 13px 28px;
+            border-radius: 50px;
+            background: linear-gradient(90deg, var(--pink), var(--purple), var(--rose), var(--pink));
+            background-size: 300% 100%;
+            color: white;
+            box-shadow: 0 4px 20px rgba(232,69,107,0.3);
+            animation: btn-shimmer-slide 4s ease infinite;
+        }
+        @keyframes btn-shimmer-slide {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .btn-shimmer:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 35px rgba(232,69,107,0.45);
+            animation-duration: 1.5s;
+        }
+        .btn-shimmer:hover i { transform: translateX(4px); }
+
+        /* --- Type 2: Pulse ring (glow ring loop) --- */
+        .btn-pulse-ring {
+            padding: 13px 28px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--purple), var(--blue));
+            color: white;
+            box-shadow: 0 0 0 0 rgba(124,58,237,0.4);
+            animation: btn-pulse-glow 2.5s ease-in-out infinite;
+        }
+        @keyframes btn-pulse-glow {
+            0%, 100% { box-shadow: 0 4px 15px rgba(124,58,237,0.3), 0 0 0 0 rgba(124,58,237,0.3); }
+            50% { box-shadow: 0 4px 15px rgba(124,58,237,0.3), 0 0 0 10px rgba(124,58,237,0); }
+        }
+        .btn-pulse-ring:hover {
+            transform: translateY(-3px) scale(1.05);
+            animation: none;
+            box-shadow: 0 10px 35px rgba(124,58,237,0.5);
+        }
+        .btn-pulse-ring:hover i { transform: translateX(-4px); }
+
+        /* --- Type 3: Bounce float (gentle floating) --- */
+        .btn-bounce {
+            padding: 13px 28px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--teal), #06B6D4);
+            color: white;
+            box-shadow: 0 4px 20px rgba(20,184,166,0.3);
+            animation: btn-float 3s ease-in-out infinite;
+        }
+        @keyframes btn-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .btn-bounce:hover {
+            animation: none;
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 12px 35px rgba(20,184,166,0.45);
+        }
+        .btn-bounce:hover i { transform: translateX(4px); }
+
+        /* --- Type 4: Neon breathe (border glow breathing) --- */
+        .btn-neon-breathe {
+            padding: 12px 26px;
+            border-radius: 50px;
+            background: rgba(245,158,11,0.08);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            animation: btn-neon-glow 2s ease-in-out infinite;
+        }
+        @keyframes btn-neon-glow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(245,158,11,0.2), 0 0 15px rgba(245,158,11,0.1);
+                text-shadow: 0 0 5px rgba(245,158,11,0.3);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(245,158,11,0.4), 0 0 40px rgba(245,158,11,0.2), 0 0 80px rgba(245,158,11,0.08);
+                text-shadow: 0 0 12px rgba(245,158,11,0.6);
+            }
+        }
+        .btn-neon-breathe:hover {
+            background: var(--gold);
+            color: #1a1a1a;
+            text-shadow: none;
+            animation: none;
+            transform: scale(1.06);
+            box-shadow: 0 0 25px rgba(245,158,11,0.5), 0 0 60px rgba(245,158,11,0.2);
+        }
+        .btn-neon-breathe:hover i { transform: translateX(-4px); }
+
+        /* --- Type 5: Magnetic morph (shape morphs on hover) --- */
+        .btn-morph {
+            padding: 13px 28px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #EC4899, #F43F5E);
+            color: white;
+            box-shadow: 0 4px 20px rgba(236,72,153,0.3);
+            animation: btn-morph-idle 4s ease-in-out infinite;
+        }
+        @keyframes btn-morph-idle {
+            0%, 100% { border-radius: 50px; }
+            25% { border-radius: 20px 50px 50px 20px; }
+            50% { border-radius: 50px 20px 20px 50px; }
+            75% { border-radius: 30px 50px 30px 50px; }
+        }
+        .btn-morph:hover {
+            animation: none;
+            border-radius: 16px;
+            transform: scale(1.08);
+            box-shadow: 0 12px 40px rgba(236,72,153,0.45);
+        }
+        .btn-morph:hover i { transform: translateX(4px); }
+
+        /* --- Type 6: Glass sparkle (glass + shimmer line) --- */
+        .btn-glass-sparkle {
+            padding: 13px 26px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .btn-glass-sparkle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: btn-sparkle-sweep 3s ease-in-out infinite;
+        }
+        @keyframes btn-sparkle-sweep {
+            0% { left: -100%; }
+            50%, 100% { left: 150%; }
+        }
+        .btn-glass-sparkle:hover {
+            background: rgba(255,255,255,0.22);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+            border-color: rgba(255,255,255,0.4);
+        }
+        .btn-glass-sparkle:hover i { transform: translateX(-4px); }
+
+        /* --- Type 7: Heartbeat (scales like heartbeat) --- */
+        .btn-heartbeat {
+            padding: 13px 28px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--pink-dark), var(--pink));
+            color: white;
+            box-shadow: 0 4px 20px rgba(194,53,88,0.3);
+            animation: btn-heartbeat 1.8s ease-in-out infinite;
+        }
+        @keyframes btn-heartbeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.06); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.04); }
+            56% { transform: scale(1); }
+        }
+        .btn-heartbeat:hover {
+            animation: none;
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(194,53,88,0.5);
+        }
+        .btn-heartbeat:hover i { transform: translateX(4px); }
+
+        /* --- Type 8: Orbit (icon orbits around) --- */
+        .btn-orbit {
+            padding: 13px 28px 13px 38px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #8B5CF6, #6366F1);
+            color: white;
+            box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+        }
+        .btn-orbit .orbit-dot {
+            position: absolute;
+            width: 6px; height: 6px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            animation: btn-orbit-move 3s linear infinite;
+            box-shadow: 0 0 6px rgba(255,255,255,0.5);
+        }
+        @keyframes btn-orbit-move {
+            0% { top: 50%; left: -3px; transform: translate(0, -50%); }
+            25% { top: -3px; left: 50%; transform: translate(-50%, 0); }
+            50% { top: 50%; right: -3px; left: auto; transform: translate(0, -50%); }
+            75% { top: calc(100% - 3px); left: 50%; right: auto; transform: translate(-50%, 0); }
+            100% { top: 50%; left: -3px; right: auto; transform: translate(0, -50%); }
+        }
+        .btn-orbit:hover {
+            transform: translateY(-3px) scale(1.06);
+            box-shadow: 0 12px 35px rgba(99,102,241,0.5);
+        }
+        .btn-orbit:hover i { transform: translateX(-4px); }
+
+        /* --- Dots indicator --- */
+        .scene-dots {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.15);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            border: none;
+            position: relative;
+        }
+        .dot.active {
+            width: 28px;
+            border-radius: 4px;
+            background: var(--pink);
+            animation: dot-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes dot-pop {
+            0% { transform: scale(0.5); }
+            60% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Scene-specific dot colors */
+        .nav-style-1 .dot.active { background: var(--pink); }
+        .nav-style-2 .dot.active { background: var(--purple); }
+        .nav-style-3 .dot.active { background: var(--teal); }
+        .nav-style-4 .dot.active { background: var(--blue); }
+        .nav-style-5 .dot.active { background: var(--violet); }
+        .nav-style-6 .dot { background: rgba(255,255,255,0.3); }
+        .nav-style-6 .dot.active { background: white; }
+
+        /* ===== CHAPTER LABEL ===== */
+        .chapter-label {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 100;
+            padding: 6px 16px;
+            border-radius: 20px;
+            transition: all 0.5s ease;
+        }
+        .chapter-on-light {
+            color: var(--text-light);
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(8px);
+        }
+        .chapter-on-dark {
+            color: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+        }
+
+        /* ===== MUSIC TOGGLE ===== */
+        .music-toggle {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--pink), var(--rose));
+            color: white;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 20px rgba(232,69,107,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(232,69,107,0.4);
+        }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* Scene content entrance */
+        .scene.active .anim-enter {
+            animation: scene-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .anim-enter { opacity: 0; }
+        .anim-d1 { animation-delay: 0.1s !important; }
+        .anim-d2 { animation-delay: 0.2s !important; }
+        .anim-d3 { animation-delay: 0.3s !important; }
+        .anim-d4 { animation-delay: 0.4s !important; }
+        .anim-d5 { animation-delay: 0.5s !important; }
+        .anim-d6 { animation-delay: 0.6s !important; }
+        .anim-d7 { animation-delay: 0.7s !important; }
+
+        @keyframes scene-enter {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+            .promises-grid { grid-template-columns: 1fr; }
+            .hero-photos img { width: 110px; height: 110px; }
+            .scene-nav { bottom: 16px; gap: 10px; }
+            .nav-btn { font-size: 12px; padding: 10px 20px; }
+            .scene { padding: 20px 16px; }
+            .chapter-label { font-size: 11px; top: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .letter-card { padding: 20px; }
+            .scene-hero h1 { font-size: 1.7rem; }
+            .nav-btn { font-size: 11px; padding: 9px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FLOATING HEARTS -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- CHAPTER LABEL -->
+    <div class="chapter-label chapter-on-light" id="chapterLabel">Chương 1 / 6</div>
+
+    <!-- ===== SCENE 1: HERO ===== -->
+    <section class="scene scene-hero t-fade active" data-scene="0" data-chapter="Mở đầu">
+        <div class="scene-inner">
+            <div class="hero-badge anim-enter anim-d1">
+                <i data-lucide="heart"></i>
+                Happy White Day
+            </div>
+            <h1 class="anim-enter anim-d2">Gửi <span class="gradient-text">Thuý Nga</span><br>người anh yêu</h1>
+            <p class="hero-subtitle anim-enter anim-d3">Từ một tin nhắn bất chợt đến một tình yêu trọn vẹn</p>
+            <p class="hero-date anim-enter anim-d4">14 tháng 3, 2026</p>
+            <div class="hero-photos anim-enter anim-d5">
+                <img src="anh_nam.webp" alt="Tiến Phước">
+                <span class="hero-heart-between">❤️</span>
+                <img src="anh_nu.webp" alt="Thuý Nga">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCENE 2: LETTER ===== -->
+    <section class="scene scene-letter t-slide-up" data-scene="1" data-chapter="Lá thư">
+        <div class="scene-inner">
+            <div class="letter-card anim-enter anim-d1">
+                <div class="letter-icon">
+                    <i data-lucide="pen-line"></i>
+                </div>
+                <div class="letter-content">
+                    <p>Nga ơi,</p>
+                    <p>Anh không biết bắt đầu từ đâu, chỉ biết rằng kể từ ngày <span class="highlight">8 tháng 1</span> năm ấy — ngày anh gửi cho em dòng tin nhắn đầu tiên: <em>"Xin chào! Anh cũng muốn tìm một mối quan hệ nghiêm túc"</em> — cuộc sống anh đã thay đổi hoàn toàn.</p>
+                    <p>Anh nhớ cảm giác hồi hộp khi chờ em trả lời, nhớ từng dòng tin nhắn em gửi làm anh cười một mình giữa đêm. Anh nhớ lần đầu gặp em, bẽn lẽn đến nỗi chẳng dám nhìn thẳng vào mắt em.</p>
+                    <p>Rồi anh nhớ ngày được dẫn em đi xem phim, được tặng em món quà nhỏ mà trong lòng thấy vui như trúng xổ số. Nhớ khoảnh khắc anh nắm tay em lần đầu — trái tim anh đập nhanh đến mức anh sợ em nghe thấy.</p>
+                    <p>Và rồi chúng mình yêu nhau. Nụ hôn đầu tiên ngọt ngào đến nỗi anh vẫn nhớ mãi...</p>
+                    <p>Mỗi lần anh uống rượu đều rất mệt. Nhưng khi thấy em đến đón, bao mệt mỏi bỗng tan biến hết. Em chính là <span class="highlight">liều thuốc</span> tốt nhất của anh. <strong>Cảm ơn em.</strong></p>
+                    <p>Gần đây, nếu anh có làm em buồn thì <span class="highlight">anh xin lỗi</span>. Anh biết đôi khi anh chưa đủ tốt, chưa đủ tinh tế. Nhưng em ơi, <strong>chúng ta sẽ vượt qua thôi</strong> — vì anh tin vào tình yêu của mình, tin vào chúng ta.</p>
+                    <p>Nhân ngày <span class="highlight">White Day</span>, anh muốn nói với em rằng: <strong>Anh yêu em — yêu nhiều lắm!</strong></p>
+                </div>
+                <div class="letter-sign">Yêu em, Tiến Phước ♥</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCENE 3: TIMELINE ===== -->
+    <section class="scene scene-timeline t-blur" data-scene="2" data-chapter="Hành trình">
+        <div class="scene-inner">
+            <h2 class="section-title anim-enter anim-d1">Hành Trình Của Chúng Mình</h2>
+            <p class="section-subtitle anim-enter anim-d2">Từng khoảnh khắc nhỏ làm nên câu chuyện lớn</p>
+            <div class="timeline">
+                <div class="timeline-item anim-enter anim-d3">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">08 / 01 / 2026</div>
+                    <h3 class="timeline-title">Tin Nhắn Đầu Tiên</h3>
+                    <p class="timeline-text"><em>"Xin chào! Anh cũng muốn tìm một mối quan hệ nghiêm túc"</em> — dòng tin nhắn đầu tiên anh gửi em. Từ đó, những đêm nhắn tin đến khuya, những emoji dễ thương em gửi — tất cả đều khiến anh chìm đắm.</p>
+                    <span class="timeline-emoji">💬</span>
+                </div>
+                <div class="timeline-item anim-enter anim-d4">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Lần Gặp Đầu</div>
+                    <h3 class="timeline-title">Bẽn Lẽn Bên Nhau</h3>
+                    <p class="timeline-text">Gặp nhau ngoài đời, anh run đến nỗi quên hết mọi lời đã chuẩn bị. Em cười — nụ cười ấy đẹp hơn mọi hình ảnh anh từng tưởng tượng.</p>
+                    <span class="timeline-emoji">🥰</span>
+                </div>
+                <div class="timeline-item anim-enter anim-d5">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Hẹn Hò</div>
+                    <h3 class="timeline-title">Quà & Xem Phim</h3>
+                    <p class="timeline-text">Được tặng em một món quà nhỏ, rồi cùng nhau xem phim. Trong rạp tối, anh lén nhìn em cười — khoảnh khắc ấy, anh biết mình đã yêu rồi.</p>
+                    <span class="timeline-emoji">🎬</span>
+                </div>
+                <div class="timeline-item anim-enter anim-d6">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Yêu Nhau</div>
+                    <h3 class="timeline-title">Chính Thức Bên Nhau</h3>
+                    <p class="timeline-text">Từ hai người xa lạ thành đôi người yêu nhau. Từng ngày bên em là từng ngày anh thấy cuộc sống ý nghĩa hơn biết bao.</p>
+                    <span class="timeline-emoji">❤️</span>
+                </div>
+                <div class="timeline-item anim-enter anim-d7">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Khoảnh Khắc</div>
+                    <h3 class="timeline-title">Nụ Hôn Đầu Tiên</h3>
+                    <p class="timeline-text">Ngọt ngào, bất ngờ và đáng nhớ. Nụ hôn đầu tiên khắc sâu trong trái tim anh — dấu mốc của tình yêu chúng mình.</p>
+                    <span class="timeline-emoji">💋</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCENE 4: GALLERY ===== -->
+    <section class="scene scene-gallery t-flip" data-scene="3" data-chapter="Khoảnh khắc">
+        <div class="scene-inner">
+            <h2 class="section-title anim-enter anim-d1">Khoảnh Khắc Đáng Nhớ</h2>
+            <p class="section-subtitle anim-enter anim-d2">Những bức ảnh kể câu chuyện của chúng mình</p>
+            <div class="gallery-grid">
+                <div class="gallery-item featured anim-enter anim-d3">
+                    <img src="anh_2_nguoi.webp" alt="Hai đứa mình bên nhau">
+                    <div class="gallery-caption">Bên nhau thật hạnh phúc ❤️</div>
+                </div>
+                <div class="gallery-item anim-enter anim-d4">
+                    <img src="anh_nam_tay.webp" alt="Nắm tay nhau">
+                    <div class="gallery-caption">Nắm tay em, anh không muốn buông</div>
+                </div>
+                <div class="gallery-item anim-enter anim-d5">
+                    <img src="anh_nam_tay_2.webp" alt="Tay trong tay">
+                    <div class="gallery-caption">Tay trong tay, đi hết cuộc đời</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCENE 5: PROMISES ===== -->
+    <section class="scene scene-promises t-rotate" data-scene="4" data-chapter="Lời hứa">
+        <div class="scene-inner">
+            <h2 class="section-title anim-enter anim-d1">Lời Hứa Của Anh</h2>
+            <p class="section-subtitle anim-enter anim-d2">Những điều anh muốn dành cho em</p>
+            <div class="promises-grid">
+                <div class="promise-card anim-enter anim-d3">
+                    <div class="promise-icon"><i data-lucide="shield-check"></i></div>
+                    <h3>Luôn Bảo Vệ Em</h3>
+                    <p>Dù bất cứ điều gì xảy ra, anh sẽ luôn đứng bên cạnh và che chở cho em.</p>
+                </div>
+                <div class="promise-card anim-enter anim-d4">
+                    <div class="promise-icon"><i data-lucide="smile"></i></div>
+                    <h3>Làm Em Cười Mỗi Ngày</h3>
+                    <p>Nụ cười em là động lực lớn nhất của anh, anh sẽ cố gắng giữ nụ cười ấy mãi mãi.</p>
+                </div>
+                <div class="promise-card anim-enter anim-d5">
+                    <div class="promise-icon"><i data-lucide="ear"></i></div>
+                    <h3>Lắng Nghe Em</h3>
+                    <p>Mọi tâm sự, mọi lo lắng — anh luôn ở đây để lắng nghe và chia sẻ cùng em.</p>
+                </div>
+                <div class="promise-card anim-enter anim-d6">
+                    <div class="promise-icon"><i data-lucide="infinity"></i></div>
+                    <h3>Yêu Em Mãi Mãi</h3>
+                    <p>Không phải một ngày, một tháng, hay một năm — mà là mãi mãi, Nga ơi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCENE 6: CTA ===== -->
+    <section class="scene scene-cta t-zoom" data-scene="5" data-chapter="Kết">
+        <div class="scene-inner">
+            <h2 class="section-title anim-enter anim-d1">Happy White Day</h2>
+            <p class="cta-message anim-enter anim-d2">"Em là điều tuyệt vời nhất<br>đã đến trong cuộc đời anh"</p>
+            <div class="cta-heart anim-enter anim-d3">❤️</div>
+            <p class="cta-from anim-enter anim-d4">Với tất cả tình yêu,<br><strong>Tiến Phước</strong></p>
+        </div>
+    </section>
+
+    <!-- NAVIGATION -->
+    <nav class="scene-nav nav-style-1" id="sceneNav">
+        <button class="nav-btn btn-pulse-ring" id="prevBtn" style="display:none">
+            <i data-lucide="arrow-left"></i> Quay lại
+        </button>
+        <div class="scene-dots" id="sceneDots"></div>
+        <button class="nav-btn btn-shimmer" id="nextBtn">
+            Đọc thư <i data-lucide="arrow-right"></i>
+        </button>
+    </nav>
+
+    <!-- MUSIC -->
+    <button id="musicToggle" class="music-toggle" aria-label="Bật/tắt nhạc">
+        <i data-lucide="volume-2" class="music-icon-on"></i>
+        <i data-lucide="volume-x" class="music-icon-off"></i>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/romantic/Only Love.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPTS -->
+    <script>lucide.createIcons();</script>
+
+    <script>
+    (function() {
+        // ===== FLOATING HEARTS =====
+        const heartsContainer = document.getElementById('heartsContainer');
+        const heartChars = ['❤️', '💕', '💗', '💖', '💘', '💝', '♥', '🤍', '💜', '💛'];
+
+        function createHeart() {
+            const heart = document.createElement('span');
+            heart.className = 'heart';
+            heart.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (12 + Math.random() * 18) + 'px';
+            const duration = 6 + Math.random() * 10;
+            heart.style.animationDuration = duration + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), (duration + 2) * 1000);
+        }
+
+        // Spawn hearts continuously
+        setInterval(createHeart, 400);
+        // Initial burst
+        for (let i = 0; i < 15; i++) setTimeout(createHeart, i * 200);
+
+        // ===== SCENE NAVIGATION =====
+        const scenes = document.querySelectorAll('.scene');
+        const totalScenes = scenes.length;
+        let currentScene = 0;
+        let isTransitioning = false;
+
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('sceneDots');
+        const chapterLabel = document.getElementById('chapterLabel');
+        const sceneNav = document.getElementById('sceneNav');
+
+        // Button styles per scene: [prevClass, nextClass, prevLabel, nextLabel]
+        const btnStyles = [
+            [null, 'btn-shimmer', '', 'Đọc thư'],                    // Scene 1: shimmer gradient slide
+            ['btn-glass-sparkle', 'btn-bounce', 'Về đầu', 'Hành trình'],  // Scene 2: glass sparkle + bounce float
+            ['btn-neon-breathe', 'btn-morph', 'Lá thư', 'Kỷ niệm'],       // Scene 3: neon breathe + morph
+            ['btn-orbit', 'btn-pulse-ring', 'Hành trình', 'Lời hứa'],     // Scene 4: orbit + pulse ring
+            ['btn-bounce', 'btn-heartbeat', 'Kỷ niệm', 'Kết thúc'],       // Scene 5: bounce + heartbeat
+            ['btn-shimmer', null, 'Lời hứa', ''],                         // Scene 6: shimmer
+        ];
+
+        // Create dots
+        for (let i = 0; i < totalScenes; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => goToScene(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        function resetAnimations(sceneEl) {
+            sceneEl.querySelectorAll('.anim-enter').forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; // reflow
+                el.style.animation = '';
+            });
+        }
+
+        function goToScene(index) {
+            if (index === currentScene || isTransitioning || index < 0 || index >= totalScenes) return;
+            isTransitioning = true;
+
+            scenes[currentScene].classList.remove('active');
+            currentScene = index;
+
+            resetAnimations(scenes[currentScene]);
+            scenes[currentScene].classList.add('active');
+            // Reset scroll position for scrollable scenes (like letter)
+            scenes[currentScene].scrollTop = 0;
+
+            updateNav();
+
+            setTimeout(() => { isTransitioning = false; }, 900);
+        }
+
+        function updateNav() {
+            // Dots
+            dotsContainer.querySelectorAll('.dot').forEach((d, i) => {
+                d.classList.toggle('active', i === currentScene);
+            });
+
+            // Nav style class
+            sceneNav.className = 'scene-nav nav-style-' + (currentScene + 1);
+
+            const [prevClass, nextClass, prevLabel, nextLabel] = btnStyles[currentScene];
+
+            // Prev button
+            if (currentScene === 0) {
+                prevBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'inline-flex';
+                prevBtn.className = 'nav-btn ' + (prevClass || 'btn-pulse-ring');
+                const orbitHtml = prevClass === 'btn-orbit' ? '<span class="orbit-dot"></span>' : '';
+                prevBtn.innerHTML = '<i data-lucide="arrow-left"></i> ' + (prevLabel || 'Quay lại') + orbitHtml;
+                lucide.createIcons({ nodes: [prevBtn] });
+            }
+
+            // Next button
+            if (currentScene === totalScenes - 1) {
+                nextBtn.style.display = 'none';
+            } else {
+                nextBtn.style.display = 'inline-flex';
+                nextBtn.className = 'nav-btn ' + (nextClass || 'btn-shimmer');
+                const orbitHtml = nextClass === 'btn-orbit' ? '<span class="orbit-dot"></span>' : '';
+                nextBtn.innerHTML = (nextLabel || 'Tiếp theo') + ' <i data-lucide="arrow-right"></i>' + orbitHtml;
+                lucide.createIcons({ nodes: [nextBtn] });
+            }
+
+            // Chapter label
+            const chapter = scenes[currentScene].dataset.chapter;
+            chapterLabel.textContent = chapter + ' — ' + (currentScene + 1) + ' / ' + totalScenes;
+
+            // Chapter label color based on scene bg
+            const darkScenes = [5]; // CTA scene
+            if (darkScenes.includes(currentScene)) {
+                chapterLabel.className = 'chapter-label chapter-on-dark';
+            } else {
+                chapterLabel.className = 'chapter-label chapter-on-light';
+            }
+        }
+
+        prevBtn.addEventListener('click', () => goToScene(currentScene - 1));
+        nextBtn.addEventListener('click', () => goToScene(currentScene + 1));
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goToScene(currentScene + 1);
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goToScene(currentScene - 1);
+        });
+
+        // Swipe support
+        let touchStartY = 0;
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const dy = touchStartY - e.changedTouches[0].clientY;
+            const dx = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(dy) > 60 && Math.abs(dy) > Math.abs(dx)) {
+                if (dy > 0) goToScene(currentScene + 1);
+                else goToScene(currentScene - 1);
+            } else if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
+                if (dx > 0) goToScene(currentScene + 1);
+                else goToScene(currentScene - 1);
+            }
+        }, { passive: true });
+
+        // Mouse wheel
+        let wheelTimeout;
+        document.addEventListener('wheel', (e) => {
+            // Allow scrolling inside scenes that overflow
+            const activeScene = scenes[currentScene];
+            const isScrollable = activeScene.scrollHeight > activeScene.clientHeight;
+            if (isScrollable) {
+                const atTop = activeScene.scrollTop <= 0;
+                const atBottom = activeScene.scrollTop + activeScene.clientHeight >= activeScene.scrollHeight - 5;
+                if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
+                    // Allow scene change
+                } else {
+                    return; // Let the scene scroll
+                }
+            }
+
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                if (e.deltaY > 30) goToScene(currentScene + 1);
+                else if (e.deltaY < -30) goToScene(currentScene - 1);
+            }, 50);
+        }, { passive: true });
+
+        // Init
+        updateNav();
+        scenes[0].classList.add('active');
+
+        // ===== MUSIC =====
+        const musicBtn = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        if (musicBtn && bgMusic) {
+            bgMusic.volume = 0.3;
+            let musicStarted = false;
+            musicBtn.addEventListener('click', () => {
+                if (!musicStarted) {
+                    bgMusic.play();
+                    musicStarted = true;
+                } else if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicBtn.classList.remove('muted');
+                } else {
+                    bgMusic.pause();
+                    musicBtn.classList.add('muted');
+                }
+            });
+        }
+    })();
+    </script>
+
+</body>
+</html>
