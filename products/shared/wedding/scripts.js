@@ -980,7 +980,7 @@ function initGuestPersonalization(options) {
         // Hiện tên khách
         for (var k = 0; k < nameEls.length; k++) {
             nameEls[k].textContent = guest.name;
-            nameEls[k].style.display = '';
+            nameEls[k].style.display = 'block';
         }
     } else {
         // ID không hợp lệ → hiện text mặc định, ẩn tên
