@@ -982,7 +982,7 @@ var GUEST_LIST = [
         }
         for (var k = 0; k < nameEls.length; k++) {
             nameEls[k].textContent = guest.name;
-            nameEls[k].style.display = '';
+            nameEls[k].style.display = 'block';
         }
     } else {
         for (var m = 0; m < inviteEls.length; m++) inviteEls[m].textContent = 'Trân trọng kính mời quý khách';
@@ -1095,7 +1095,7 @@ Chèn trước `];` đóng mảng PRODUCTS:
             'Hiệu ứng hoa rơi / sparkles',
         ],
         status: 'new',
-        priority: <auto_increment>,
+        priority: 0,
         downloads: <random 1-10>,
         rating: <random 4.7-4.9>,
         showInSlider: false,
@@ -1268,7 +1268,7 @@ Thêm entry mới (KHÔNG thay thế mẫu gốc):
         demoUrl: './<folder-khách>/code.html',
         features: [...],   // copy từ mẫu gốc
         status: 'new',
-        priority: <auto_increment>,
+        priority: 0,
         downloads: <random 1-10>,
         rating: <random 4.7-4.9>,
         showInSlider: false,
