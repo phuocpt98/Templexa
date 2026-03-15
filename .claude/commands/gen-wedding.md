@@ -1118,6 +1118,46 @@ Cập nhật bảng tổng hợp + danh sách chi tiết.
 - Thêm JS function mới vào `products/shared/wedding/scripts.js`
 - Thêm HTML snippet mới vào `products/shared/wedding/README.md`
 
+### Bước 9b: Gen mã QR (nếu user cung cấp base URL)
+
+Sau khi gen thiệp xong, nếu user cung cấp base URL (domain deploy):
+
+1. Tạo folder `qr/` trong folder sản phẩm
+2. Gen QR chung: `qr_chung.png` → link không có `?id`
+3. Nếu có `guests.js` → gen QR riêng cho từng khách: `qr_{id}_{slug_tên}.png`
+4. Tạo `qr-preview.html` — bảng preview QR (grid 3 cột, để in)
+
+```bash
+# Gen QR dùng npm qrcode (đã cài sẵn)
+node -e "
+const QRCode = require('qrcode');
+const fs = require('fs');
+const path = require('path');
+const baseUrl = '<BASE_URL>';
+const folder = '<FOLDER>/qr';
+
+// QR chung
+QRCode.toFile(path.join(folder, 'qr_chung.png'), baseUrl, { width: 400, margin: 2 });
+
+// Nếu có guests.js → QR từng khách
+eval(fs.readFileSync('<FOLDER>/guests.js', 'utf8'));
+for (const g of GUEST_LIST) {
+    const url = baseUrl + '?id=' + g.id;
+    const slug = g.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+    QRCode.toFile(path.join(folder, 'qr_' + g.id + '_' + slug + '.png'), url, { width: 400, margin: 2 });
+}
+"
+```
+
+**Quy tắc:**
+- Chỉ gen khi user cung cấp base URL (hỏi nếu chưa có)
+- Basic: chỉ `qr_chung.png` (1 QR)
+- Premium/Custom + guests.js: QR riêng cho từng khách
+- Output trong folder `qr/` của sản phẩm
+- `qr-preview.html` để mở trên browser và in (Ctrl+P)
+
+Chi tiết: xem skill `/gen-qr`
+
 ### Bước 10: Báo cáo
 
 ```
