@@ -23,6 +23,7 @@
  *  15. VIDEO YOUTUBE — Lazy load embed
  *  16. CALENDAR MONTH — Tờ lịch tháng đánh dấu ngày cưới
  *  17. LETTER ENVELOPE — Phong bì mở thư (4 styles, toggle, particles)
+ *  18. DECORATIVE ANIMATIONS — Hiệu ứng trang trí vùng trống (CSS-only, styles.css mục 21)
  * ============================================
  */
 

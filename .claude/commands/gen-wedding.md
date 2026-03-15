@@ -242,6 +242,25 @@ products/Web/Invitation/{folder}/code.html → ../../../shared/music/{loại}/{f
 | **Letter / Thư Ngỏ** | Phong bì toggle: mở → thư trượt ra + hearts bay. Đóng → thư trượt xuống chậm 1.8s biến mất sau thân. Thân phủ kín (top→bottom, z2) che thư (z1). 4 style. CSS mục 20 + JS mục 17 |
 | **Bridesmaids & Groomsmen** | User yêu cầu |
 
+#### Decorative Animations — Trang trí vùng trống (BẮT BUỘC):
+
+**LUÔN thêm 4-8 hiệu ứng trang trí** vào các vùng trống trong thiệp.
+CSS-only từ `styles.css` mục 21 — chỉ cần `<span class="deco ...">` trong parent `position:relative`.
+
+```html
+<span class="deco deco-front deco-heart-beat deco-md deco-rose-color" style="top:10%;right:-20px;"></span>
+```
+
+**Vị trí bắt buộc đặt deco:**
+- Bên cạnh tên cặp đôi (hero) → `deco-heart-beat` hoặc `deco-hearts-double`
+- Giữa 2 ảnh bay vào → `deco-heart-float`
+- Cạnh info card lễ cưới → `deco-rings` hoặc `deco-rose`
+- Background thư tay → `deco-petals deco-back deco-faint`
+
+**Modifiers:** `deco-front/back` (z-index), `deco-xs/sm/md/lg/xl` (size), `deco-rose-color/gold-color/...` (màu), `deco-faint/subtle/soft` (opacity)
+
+Chi tiết: `README.md` mục 18.
+
 #### Countdown JS — BẮT BUỘC:
 
 ```javascript
@@ -458,24 +477,50 @@ camera, image, music, gift, glass-water, cake-slice,
 users, user-check, message-circle, send, check-circle
 ```
 
-#### Ảnh Unsplash cho thiệp cưới:
+#### Ảnh mẫu cho thiệp cưới:
 
-**MẶC ĐỊNH dùng ảnh cặp đôi Hàn Quốc hoặc Trung Quốc** — người châu Á đẹp, phù hợp thị trường Việt Nam.
-Keywords ưu tiên: `korean wedding`, `asian couple wedding`, `chinese wedding`, `korean couple`, `asian bride groom`.
+**ƯU TIÊN dùng ảnh từ thư viện local** `products/shared/images/wedding/` — ảnh cặp đôi châu Á chất lượng cao.
 **KHÔNG dùng ảnh cặp đôi phương Tây** trừ khi user yêu cầu.
 
-| Section | Keywords ưu tiên | Gợi ý photo ID (Asian) | Size |
-|---------|-----------------|------------------------|------|
-| Hero / Ảnh lớn | korean wedding couple, asian bride groom | `photo-1591604466107-ec97de577aff`, `photo-1583939003579-730e3918a45a`, `photo-1606216794074-735e91aa2c92`, `photo-1606216794079-73f85bbd57d5` | `w=1920` |
-| Avatar chú rể | asian man portrait | `photo-1545232979-8bf68ee9b1af`, `photo-1544005313-94ddf0286df2` | `w=300` |
-| Avatar cô dâu | asian woman portrait | `photo-1529634597503-139d3726fed5`, `photo-1549417229-7686ac5595fd` | `w=300` |
-| Love Story / Couple | asian couple dating, korean couple | `photo-1474552226712-ac0f0961a954`, `photo-1515934751635-c81c6bc9a2d8` | `w=600` |
-| Gallery — wedding | asian wedding ceremony, flowers, rings | `photo-1606800052052-a08af7148866`, `photo-1518199266791-5375a83190b7`, `photo-1529456837632-7db76c3f3b2e` | `w=500` |
-| Event / Venue | wedding venue, ballroom | `photo-1519167758481-83f550bb49b3` | `w=800` |
-| Thư cảm ơn | wedding couple back | `photo-1606216794074-735e91aa2c92` | `w=1200` |
+#### Bước chọn ảnh:
 
-**Mỗi ảnh phải khác photo ID** — không dùng trùng ảnh.
-**Ưu tiên ảnh có người châu Á** cho hero, avatar, gallery, love story.
+1. **Đọc** `products/shared/images/wedding/README.md` → xem danh sách bộ ảnh có sẵn
+2. **Chọn bộ ảnh** phù hợp tông màu/phong cách thiệp:
+
+| Palette thiệp | Bộ ảnh gợi ý | Folder |
+|---------------|-------------|--------|
+| Classic Gold, Blush Pink, Dusty Rose, Lavender | Hàn Quốc studio trắng kem | `korean-studio-white/` |
+| Sage Green, Rustic | Vườn, ngoài trời | `korean-outdoor-nature/` (nếu có) |
+| Traditional Red | Truyền thống đỏ | `chinese-traditional-red/` (nếu có) |
+| Dark Luxury, Navy & Gold | Studio tối | `dark-luxury-studio/` (nếu có) |
+| Tropical | Biển, nhiệt đới | `beach-tropical/` (nếu có) |
+
+3. **Dùng relative path** từ code.html đến thư viện:
+```
+products/Web/Invitation/{folder}/code.html → ../../../shared/images/wedding/{bộ-ảnh}/{file}.jpg
+```
+
+Hoặc **copy ảnh vào folder sản phẩm** rồi dùng `./cinelove_1.jpg` (đơn giản hơn).
+
+4. **Nếu không có bộ ảnh phù hợp** → fallback dùng Unsplash với keyword: `korean wedding couple`, `asian bride groom`
+
+#### Bộ ảnh hiện có:
+
+**`korean-studio-white/`** — 6 ảnh cặp đôi Hàn Quốc, studio trắng kem:
+
+| File | Mô tả | Dùng cho |
+|------|--------|----------|
+| `cinelove_1.jpg` | Chính diện, nền kem, hoa | Hero, big photo |
+| `cinelove_2.jpg` | Close-up lãng mạn | Letter, love story |
+| `cinelove_3.jpg` | Close-up (variant 2) | Gallery |
+| `cinelove_4.jpg` | Toàn thân, vui tươi | Avatar đôi, gallery |
+| `cinelove_5.jpg` | Cận mặt, cười | Gallery, thank you |
+| `cinelove_6.jpg` | Cận mặt, dịu dàng | Gallery, thank you bg |
+
+**Quy tắc ảnh:**
+- Ảnh phải có **MẪU NGƯỜI** — không dùng ảnh phong cảnh/hoa/venue làm ảnh chính
+- Ưu tiên cặp đôi châu Á (Hàn/Trung/Việt)
+- Khi gen cho khách thật → thay bằng ảnh khách (quy trình B)
 
 #### Nhạc nền — Code HTML (BẮT BUỘC):
 
@@ -1392,6 +1437,135 @@ document.querySelectorAll('[class*="group-"]').forEach(function(el) {
     groupObserver.observe(el);
 });
 ```
+
+## Phong cách thiết kế — Quy tắc bắt buộc
+
+Thiệp cưới phải có cảm giác **organic, mềm mại, đa tầng** — KHÔNG được cứng, grid đều, khô khan.
+
+### Layout — So le, đa tầng (BẮT BUỘC)
+
+| Quy tắc | Cách làm |
+|---------|---------|
+| **Ảnh overlap** | 2 ảnh cạnh nhau phải chồng nhẹ (margin âm -20px~-30px), xoay nhẹ (-2deg/1.5deg) |
+| **Cards so le** | Nếu có 2+ cards, card thứ 2 offset (translateX 8px hoặc margin-top 20-30px), xoay nhẹ |
+| **Padding không đều** | Section quote/story: padding LỚN (5-7rem). Section info: padding NHỎ (2-3.5rem). Tạo rhythm |
+| **Decorative dividers** | Giữa sections: ornament line + icon (❦, ✿, ♡). KHÔNG để sections sát nhau trống trơn |
+| **Background texture** | Body có subtle radial-gradient spots (blush/rose, opacity cực thấp 0.03-0.05) |
+| **Ảnh fade edge** | Ảnh lớn (hero/big photo) có gradient fade ở bottom (::after overlay) |
+| **Curved dividers** | Ít nhất 1-2 section dùng clip-path ellipse/wave thay vì cắt thẳng |
+| **Gift cards xoay** | Card 1: rotate(-1deg), card 2: rotate(0.5deg) + margin-top offset |
+| **Ảnh peek dưới phong bì** | 2 ảnh nhỏ (110x80px) lấp ló dưới envelope, xoay -8deg/+6deg, viền trắng, shadow |
+| **Sử dụng ảnh nhiều hơn** | Không chỉ hero + gallery — rải ảnh ở letter, love story, between sections |
+| **Ảnh nền mờ sections** | Dùng ảnh couple làm bg mờ cho story/quote + lịch (opacity 6-8%, blur 2-3px, overlay 85-88%). Lịch: ảnh phía trên + mask fade xuống. Story: ảnh full + overlay |
+
+### Font — Mềm mại, phân cấp rõ (BẮT BUỘC)
+
+| Element | Font | Weight | Style |
+|---------|------|--------|-------|
+| Tên cặp đôi | **Script** (Great Vibes, Dancing Script, Alex Brush) | 400 | Size lớn clamp(3rem, 10vw, 5rem) |
+| Section title | **Serif italic** (Cormorant Garamond italic, Playfair italic) | 500-600 | Thanh lịch |
+| Body text | **Sans light** (Quicksand 300, Nunito 300, Be Vietnam Pro 300) | 300-400 | Nhẹ nhàng |
+| Label/subtitle | Sans | 300-400 | Size NHỎ (0.6rem), letter-spacing RỘNG (0.3-0.4em), uppercase |
+| Quote/thư tay | Serif italic | 400i | Mềm mại, cảm xúc |
+
+**KHÔNG** dùng font-weight 600-700 cho body text. **KHÔNG** dùng font-size đều nhau — phải có contrast lớn/nhỏ rõ ràng.
+
+### Decorative — Thêm chiều sâu (BẮT BUỘC)
+
+- **Ornament dividers** giữa sections: thin line + floral symbol (❦ ✿ ♡ ❊)
+- **Quote block**: border-radius lớn (20-24px), shadow mềm, có dấu ngoặc kép `"` decorative (::before/::after)
+- **Cards**: KHÔNG border cứng — dùng soft shadow + optional gradient line phía trên (::before)
+- **Hero**: subtle radial-gradient glow (::before pseudo, opacity 0.1-0.2)
+- **Scroll reveal**: translateY NHỎ (15-20px), duration DÀI (0.8-1s), easing mềm
+
+### Sử dụng ảnh — rải khắp thiệp, không chỉ hero + gallery
+
+Ảnh phải xuất hiện ở NHIỀU chỗ, tạo cảm giác phong phú, sống động:
+
+| Vị trí | Cách dùng |
+|--------|-----------|
+| Hero / Big photo | Ảnh lớn full-width, gradient fade bottom |
+| **Dưới phong bì (peek)** | 2 ảnh nhỏ xoay nghiêng lấp ló dưới envelope — polaroid style |
+| **Love story** | Mỗi mốc kèm 1 ảnh nhỏ (tùy chọn) hoặc ảnh minh họa |
+| **Giữa sections** | Ảnh strip/banner giữa 2 sections (full-width, height 200px, object-fit cover) |
+| **Fly-in / Avatar đôi** | 2 ảnh chú rể + cô dâu overlap nhau, xoay nhẹ |
+| Gallery slider | 6 ảnh slider hoặc grid |
+| **Thank you / Footer** | Ảnh nền full-width + overlay text |
+| **Quote block** | Ảnh nhỏ tròn kèm quote (optional) |
+
+**Pattern: Ảnh peek dưới phong bì:**
+```html
+<div class="letter-peek-photos">
+    <div class="letter-peek-photo"><img src="./couple_5.webp" alt=""></div>
+    <div class="letter-peek-photo"><img src="./couple_3.webp" alt=""></div>
+</div>
+```
+```css
+.letter-peek-photos {
+    position: absolute; bottom: -45px; left: 50%;
+    transform: translateX(-50%);
+    width: 280px; height: 90px; z-index: 0;
+    pointer-events: none;
+}
+.letter-peek-photo {
+    position: absolute; width: 110px; height: 80px;
+    border-radius: 6px; overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    border: 3px solid white;
+}
+.letter-peek-photo:nth-child(1) { left: 15px; bottom: 0; transform: rotate(-8deg); }
+.letter-peek-photo:nth-child(2) { right: 15px; bottom: 5px; transform: rotate(6deg); }
+```
+
+### Ví dụ CSS pattern:
+
+```css
+/* Ảnh overlap + xoay */
+.fly-img:first-child { margin-right: -25px; transform: rotate(-2deg); }
+.fly-img:last-child { margin-left: -25px; margin-top: 30px; transform: rotate(1.5deg); }
+
+/* Cards so le */
+.info-card:nth-child(2) { transform: translateX(8px); }
+.gift-card:first-child { transform: rotate(-1deg); }
+.gift-card:last-child { transform: rotate(0.5deg); margin-top: 10px; }
+
+/* Background texture */
+body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(circle at 20% 30%, rgba(232,180,162,0.04), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(212,135,143,0.03), transparent 50%);
+}
+
+/* Ornament divider */
+.section-ornament {
+    text-align: center; padding: 1.5rem 0;
+    color: var(--blush); font-size: 0.8rem; letter-spacing: 0.5em;
+}
+.section-ornament::before, .section-ornament::after {
+    content: ''; display: inline-block;
+    width: 40px; height: 1px; background: var(--blush);
+    vertical-align: middle; margin: 0 12px;
+}
+
+/* Section padding rhythm */
+.section--breathe { padding: clamp(5rem, 12vw, 7rem) 1.5rem; }
+.section--compact { padding: clamp(2rem, 5vw, 3.5rem) 1.5rem; }
+
+/* Curved section divider */
+.section-curved::before {
+    content: ''; position: absolute; top: -30px; left: 0; right: 0;
+    height: 60px; background: inherit;
+    clip-path: ellipse(55% 100% at 50% 100%);
+}
+```
+
+### Tham khảo mẫu 179 (`gen_179_blue-romantic-wedding`)
+
+Mẫu 179 là reference design cho phong cách organic. Khi gen mẫu mới, đọc code.html của 179 để tham khảo:
+- CSS patterns: overlap, rotation, ornament, rhythm
+- HTML structure: section-ornament dividers, wrapper classes
+- Font combination: Great Vibes + Cormorant Garamond italic + Quicksand light
 
 ## Ràng buộc
 
