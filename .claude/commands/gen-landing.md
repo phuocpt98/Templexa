@@ -487,13 +487,15 @@ Chèn product entry **trước dòng `];`** đóng mảng PRODUCTS. Format chín
             '<tính năng 3>',
         ],
         status: 'new',
-        priority: <auto_increment>,
+        priority: 0,
         downloads: <random 1-10>,
         rating: <random từ 4.7, 4.8, hoặc 4.9>,
         showInSlider: false,
         updatedAt: '<ngày hiện tại YYYY-MM-DD>',
     },
 ```
+
+**Priority**: luôn `0` khi gen mới. Sort: priority nhỏ lên trước, cùng priority thì ID lớn (mới) lên trước. Chỉ tăng priority (1, 2...) khi user báo sản phẩm fail/kém chất lượng.
 
 **Lưu ý format**:
 - Dùng single quotes cho strings
