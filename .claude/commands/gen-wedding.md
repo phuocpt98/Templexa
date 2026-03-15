@@ -1105,6 +1105,8 @@ Chèn trước `];` đóng mảng PRODUCTS:
 
 **Tags luôn bao gồm**: `'wedding'`, `'invitation'`
 
+**Priority**: luôn `0` khi gen mới. Sort: priority nhỏ lên trước, cùng priority thì ID lớn (mới) lên trước. Chỉ tăng priority (1, 2...) khi user báo sản phẩm fail/kém chất lượng.
+
 ### Bước 8: Cập nhật `products/products.md`
 
 Cập nhật bảng tổng hợp + danh sách chi tiết.
