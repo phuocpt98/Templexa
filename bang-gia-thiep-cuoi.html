@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Giá Thiệp Cưới Online — Templexa</title>
+    <meta name="description" content="Thiệp cưới online từ 150.000đ — đầy đủ tính năng: countdown, nhạc nền, gallery, RSVP, lời chúc realtime, QR mừng cưới. Giao thiệp trong 24h.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Be Vietnam Pro', sans-serif;
+            --gold: #D4AF37;
+            --gold-dark: #B8860B;
+            --gold-light: #F5E6B8;
+            --rose: #C77DA3;
+            --red: #C41E3A;
+            --red-dark: #8B0000;
+            --bg: #FFFEF5;
+            --bg-dark: #1A0A00;
+            --text: #2C1810;
+            --text-secondary: #6B4D3A;
+            --text-muted: #9A7E6F;
+            --border: rgba(212, 175, 55, 0.2);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #8B0000 0%, #5C0000 40%, #3D0000 100%);
+            position: relative; overflow: hidden;
+            padding: 2rem;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(circle at 15% 85%, rgba(255,215,0,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 15%, rgba(255,215,0,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255,215,0,0.03) 0%, transparent 70%);
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 700px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 20px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 50px;
+            font-size: 0.8rem; color: var(--gold-light);
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+        }
+        .hero-badge svg { width: 14px; height: 14px; }
+        .hero-ornament {
+            font-size: 2rem; color: var(--gold);
+            margin-bottom: 1rem;
+            animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--gold);
+            font-weight: 700; line-height: 1.2;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 30px rgba(212, 175, 55, 0.2);
+            animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+        }
+        .hero p {
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            color: rgba(245, 213, 160, 0.8);
+            max-width: 550px; margin: 0 auto 2rem;
+            animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+        }
+        .hero-price-highlight {
+            display: inline-flex; align-items: baseline; gap: 12px;
+            margin-bottom: 2rem;
+            animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+        }
+        .hero-price-old {
+            font-size: 1.1rem; color: rgba(245, 213, 160, 0.4);
+            text-decoration: line-through;
+        }
+        .hero-price-new {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700; color: var(--gold);
+        }
+        .hero-price-unit {
+            font-size: 0.9rem; color: rgba(245, 213, 160, 0.6);
+        }
+        .hero-cta {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 40px;
+            font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--red-dark); text-decoration: none;
+            background: linear-gradient(135deg, #FFD700, #D4AF37);
+            border: none; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 4px 25px rgba(212, 175, 55, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(212, 175, 55, 0.5);
+        }
+        .hero-cta svg { width: 16px; height: 16px; }
+        .hero-stats {
+            display: flex; justify-content: center; gap: clamp(2rem, 5vw, 4rem);
+            margin-top: 3rem;
+            animation: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat-number {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700; color: var(--gold);
+        }
+        .hero-stat-label {
+            font-size: 0.75rem; color: rgba(245, 213, 160, 0.5);
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== COMMON ===== */
+        .section { padding: clamp(4rem, 10vw, 7rem) clamp(1rem, 5vw, 2rem); }
+        .section-heading { text-align: center; margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+        .section-subtitle {
+            font-size: 0.75rem; color: var(--red);
+            letter-spacing: 0.25em; text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 4vw, 2.5rem); color: var(--text);
+        }
+        .section-desc {
+            font-size: 0.95rem; color: var(--text-secondary);
+            max-width: 550px; margin: 0.75rem auto 0;
+        }
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        /* ===== FEATURES ===== */
+        .features-section { background: var(--bg); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+        .feature-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+        }
+        .feature-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: rgba(196, 30, 58, 0.06);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .feature-icon svg { width: 22px; height: 22px; color: var(--red); }
+        .feature-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem; color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        .feature-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ===== PRICING ===== */
+        .pricing-section {
+            background: linear-gradient(180deg, #FFF8F0 0%, var(--bg) 100%);
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            align-items: stretch;
+        }
+        .pricing-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            display: flex; flex-direction: column;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.06);
+        }
+        .pricing-card.popular {
+            border: 2px solid var(--red);
+            box-shadow: 0 8px 40px rgba(196, 30, 58, 0.1);
+        }
+        .pricing-card.custom-card {
+            background: linear-gradient(135deg, #1A0A00 0%, #2C1810 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .pricing-badge {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            padding: 4px 20px;
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: white;
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+        .pricing-name {
+            font-size: 0.75rem; color: var(--text-muted);
+            letter-spacing: 0.2em; text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .pricing-card.custom-card .pricing-name { color: var(--gold); }
+        .pricing-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem; color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        .pricing-card.custom-card .pricing-title { color: var(--gold-light); }
+        .pricing-desc {
+            font-size: 0.85rem; color: var(--text-secondary);
+            margin-bottom: 1.5rem; min-height: 42px;
+        }
+        .pricing-card.custom-card .pricing-desc { color: rgba(245, 213, 160, 0.6); }
+        .pricing-price-row {
+            display: flex; align-items: baseline; gap: 10px;
+            margin-bottom: 0.25rem;
+        }
+        .pricing-price {
+            font-family: var(--font-heading);
+            font-size: 2rem; font-weight: 700; color: var(--text);
+        }
+        .pricing-card.popular .pricing-price { color: var(--red); }
+        .pricing-card.custom-card .pricing-price { color: var(--gold); }
+        .pricing-original {
+            font-size: 0.9rem; color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        .pricing-discount {
+            display: inline-block;
+            padding: 2px 8px; border-radius: 4px;
+            font-size: 0.7rem; font-weight: 600;
+            color: white; background: var(--red);
+        }
+        .pricing-unit {
+            font-size: 0.8rem; color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        .pricing-card.custom-card .pricing-unit { color: rgba(245, 213, 160, 0.5); }
+        .pricing-divider {
+            height: 1px; background: var(--border);
+            margin-bottom: 1.5rem;
+        }
+        .pricing-card.custom-card .pricing-divider { background: rgba(212, 175, 55, 0.2); }
+        .pricing-features {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 0.6rem;
+            margin-bottom: 2rem; flex-grow: 1;
+        }
+        .pricing-features li {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 0.85rem; color: var(--text-secondary);
+        }
+        .pricing-card.custom-card .pricing-features li { color: rgba(245, 213, 160, 0.7); }
+        .pricing-features li svg {
+            width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;
+        }
+        .pricing-features li .check { color: #22C55E; }
+        .pricing-features li .star { color: var(--gold); }
+        .pricing-features li.disabled {
+            color: var(--text-muted); opacity: 0.5;
+        }
+        .pricing-features li.disabled svg { color: var(--text-muted); }
+        .pricing-cta {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 14px;
+            font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+            border-radius: 50px; cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .pricing-cta svg { width: 16px; height: 16px; }
+        .pricing-cta-outline {
+            color: var(--red); background: transparent;
+            border: 1px solid var(--red);
+        }
+        .pricing-cta-outline:hover { background: var(--red); color: white; }
+        .pricing-cta-primary {
+            color: white; background: linear-gradient(135deg, var(--red), var(--red-dark));
+            border: none; box-shadow: 0 4px 20px rgba(196, 30, 58, 0.25);
+        }
+        .pricing-cta-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px rgba(196, 30, 58, 0.35);
+        }
+        .pricing-cta-gold {
+            color: var(--bg-dark);
+            background: linear-gradient(135deg, #FFD700, #D4AF37);
+            border: none; box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+        .pricing-cta-gold:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ===== SAMPLES ===== */
+        .samples-section { background: var(--bg); }
+        .samples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.25rem;
+        }
+        .sample-card {
+            border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--border);
+            background: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .sample-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+        .sample-img {
+            width: 100%; aspect-ratio: 16/10; object-fit: cover;
+            display: block;
+        }
+        .sample-info { padding: 1rem 1.25rem; }
+        .sample-name {
+            font-family: var(--font-heading);
+            font-size: 1rem; color: var(--text); margin-bottom: 0.25rem;
+        }
+        .sample-style {
+            font-size: 0.75rem; color: var(--text-muted);
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+
+        /* ===== PROCESS ===== */
+        .process-section {
+            background: linear-gradient(135deg, #8B0000 0%, #3D0000 100%);
+        }
+        .process-section .section-subtitle { color: rgba(255,215,0,0.5); }
+        .process-section .section-title { color: var(--gold); }
+        .process-section .section-desc { color: rgba(245,213,160,0.6); }
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px; margin: 0 auto;
+        }
+        .process-step {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        .process-number {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 1.2rem; font-weight: 700;
+            color: var(--gold);
+            margin: 0 auto 1rem;
+        }
+        .process-step h3 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem; color: var(--gold-light);
+            margin-bottom: 0.5rem;
+        }
+        .process-step p {
+            font-size: 0.85rem; color: rgba(245,213,160,0.6);
+            line-height: 1.6;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-section { background: var(--bg); }
+        .faq-list {
+            max-width: 700px; margin: 0 auto;
+            display: flex; flex-direction: column; gap: 0.75rem;
+        }
+        .faq-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px; overflow: hidden;
+        }
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+            font-family: var(--font-body);
+            font-size: 0.95rem; font-weight: 500;
+            color: var(--text);
+            background: none; border: none; cursor: pointer;
+            text-align: left;
+        }
+        .faq-question svg {
+            width: 18px; height: 18px; color: var(--text-muted);
+            transition: transform 0.3s; flex-shrink: 0; margin-left: 1rem;
+        }
+        .faq-item.open .faq-question svg { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        .faq-item.open .faq-answer { max-height: 300px; }
+        .faq-answer-inner {
+            padding: 0 1.5rem 1.25rem;
+            font-size: 0.9rem; color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== CTA ===== */
+        .cta-section {
+            background: linear-gradient(135deg, #8B0000, #5C0000);
+            text-align: center;
+            padding: clamp(4rem, 10vw, 6rem) 2rem;
+        }
+        .cta-section h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--gold); margin-bottom: 1rem;
+        }
+        .cta-section p {
+            font-size: 0.95rem; color: rgba(245,213,160,0.7);
+            max-width: 500px; margin: 0 auto 2rem;
+        }
+        .cta-buttons {
+            display: flex; align-items: center; justify-content: center;
+            gap: 1rem; flex-wrap: wrap;
+        }
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 36px;
+            font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+            border-radius: 50px; text-decoration: none;
+            transition: all 0.3s; cursor: pointer;
+        }
+        .cta-btn svg { width: 16px; height: 16px; }
+        .cta-btn-primary {
+            color: var(--red-dark);
+            background: linear-gradient(135deg, #FFD700, #D4AF37);
+            border: none;
+            box-shadow: 0 4px 25px rgba(212, 175, 55, 0.4);
+        }
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 35px rgba(212, 175, 55, 0.5);
+        }
+        .cta-btn-outline {
+            color: var(--gold);
+            background: transparent;
+            border: 1px solid var(--gold);
+        }
+        .cta-btn-outline:hover { background: rgba(212,175,55,0.1); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-dark);
+            text-align: center;
+            padding: 2rem;
+        }
+        .footer p {
+            font-size: 0.8rem; color: rgba(245,213,160,0.3);
+        }
+        .footer a { color: var(--gold); text-decoration: none; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero-stats { gap: 1.5rem; }
+            .pricing-grid { grid-template-columns: 1fr !important; max-width: 420px !important; }
+            .process-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .process-grid { grid-template-columns: 1fr; }
+            .cta-buttons { flex-direction: column; }
+            .cta-btn { width: 100%; justify-content: center; }
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i data-lucide="sparkles"></i>
+                <span>Sale mùa cưới 2026</span>
+            </div>
+            <div class="hero-ornament">囍</div>
+            <h1>Thiệp Cưới Online<br>Chỉ Từ 150.000đ</h1>
+            <p>Thiệp cưới điện tử đầy đủ tính năng — countdown, nhạc nền, gallery ảnh, RSVP, lời chúc realtime, QR mừng cưới. Giao thiệp trong 24h.</p>
+            <div class="hero-price-highlight">
+                <span class="hero-price-old">168.000đ</span>
+                <span class="hero-price-new">150.000đ</span>
+                <span class="hero-price-unit">/ thiệp</span>
+            </div>
+            <a href="#pricing" class="hero-cta">
+                <i data-lucide="heart"></i>
+                Xem Bảng Giá
+            </a>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number">150+</div>
+                    <div class="hero-stat-label">Mẫu thiệp</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">24h</div>
+                    <div class="hero-stat-label">Giao thiệp</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">100%</div>
+                    <div class="hero-stat-label">Responsive</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES ===== -->
+    <section class="section features-section" id="features">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-subtitle">Tính Năng</p>
+                <h2 class="section-title">Mỗi Thiệp Cưới Đều Có</h2>
+                <p class="section-desc">Không chỉ đẹp — thiệp cưới online của chúng tôi đầy đủ tính năng như một ứng dụng thực thụ</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="mail-open"></i></div>
+                    <h3>Phong Bì Mở Thiệp</h3>
+                    <p>Hiệu ứng mở phong bì ấn tượng — click để reveal thiệp, tự động bật nhạc nền lãng mạn.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="timer"></i></div>
+                    <h3>Countdown Realtime</h3>
+                    <p>Đếm ngược chính xác đến ngày cưới — ngày, giờ, phút, giây cập nhật liên tục.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="heart"></i></div>
+                    <h3>Love Story Timeline</h3>
+                    <p>Kể câu chuyện tình yêu qua các mốc quan trọng — gặp nhau, hẹn hò, cầu hôn.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="image"></i></div>
+                    <h3>Gallery + Lightbox</h3>
+                    <p>Album ảnh cưới đẹp, click phóng to, vuốt chuyển ảnh. Responsive trên mọi thiết bị.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="music"></i></div>
+                    <h3>Nhạc Nền</h3>
+                    <p>Kho nhạc cưới & lãng mạn — A Thousand Years, Beautiful In White, và nhiều hơn nữa.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="sparkles"></i></div>
+                    <h3>Hiệu Ứng Đặc Biệt</h3>
+                    <p>Hoa rơi, sparkles lấp lánh, confetti, hearts bay — chọn theo phong cách thiệp.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="user-check"></i></div>
+                    <h3>RSVP Xác Nhận</h3>
+                    <p>Khách xác nhận tham dự trực tiếp trên thiệp — tên, SĐT, số khách, lời nhắn.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="message-circle"></i></div>
+                    <h3>Lời Chúc Realtime</h3>
+                    <p>Khách gửi lời chúc trực tiếp — hiển thị realtime, lưu vĩnh viễn qua Google Sheets.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="map-pin"></i></div>
+                    <h3>Google Maps</h3>
+                    <p>Nhúng bản đồ địa điểm tiệc — nút mở Google Maps & chỉ đường trong tab mới.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="qr-code"></i></div>
+                    <h3>QR Mừng Cưới</h3>
+                    <p>Mã QR chuyển khoản ngân hàng — copy số tài khoản 1 chạm.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="calendar-plus"></i></div>
+                    <h3>Thêm Vào Lịch</h3>
+                    <p>Download file .ics — khách thêm lịch cưới vào Google Calendar / Apple Calendar.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="user-round"></i></div>
+                    <h3>Cá Nhân Hoá Khách Mời</h3>
+                    <p>Mỗi khách nhận link riêng với tên mình — "Trân trọng kính mời Anh Nguyễn Văn A".</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i data-lucide="smartphone"></i></div>
+                    <h3>Responsive Mobile</h3>
+                    <p>Hiển thị hoàn hảo trên mọi thiết bị — điện thoại, tablet, máy tính.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRICING ===== -->
+    <section class="section pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-subtitle">Bảng Giá</p>
+                <h2 class="section-title">Chọn Gói Phù Hợp</h2>
+                <p class="section-desc">Đầy đủ tính năng ngay từ gói phổ thông — hoặc thiết kế riêng để lưu giữ kỷ niệm trọn vẹn</p>
+            </div>
+            <div class="pricing-grid" style="max-width: 800px; margin: 0 auto;">
+
+                <!-- GÓI PHỔ THÔNG -->
+                <div class="pricing-card popular reveal">
+                    <div class="pricing-badge">Đầy đủ tính năng</div>
+                    <p class="pricing-name">Gói Phổ Thông</p>
+                    <h3 class="pricing-title">Thiệp Cưới Online</h3>
+                    <p class="pricing-desc">Chọn mẫu có sẵn, thay thông tin — đầy đủ mọi tính năng. Giao thiệp trong 24h.</p>
+                    <div class="pricing-price-row">
+                        <span class="pricing-price">150.000đ</span>
+                        <span class="pricing-original">168.000đ</span>
+                        <span class="pricing-discount">-11%</span>
+                    </div>
+                    <p class="pricing-unit">/ 1 thiệp cưới</p>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check" class="check"></i> Chọn 1 trong 20+ mẫu thiệp đẹp</li>
+                        <li><i data-lucide="check" class="check"></i> Thay tên, ngày, địa điểm, ảnh</li>
+                        <li><i data-lucide="check" class="check"></i> Phong bì mở thiệp + nhạc nền lãng mạn</li>
+                        <li><i data-lucide="check" class="check"></i> Countdown đếm ngược ngày cưới</li>
+                        <li><i data-lucide="check" class="check"></i> Love Story — câu chuyện tình yêu</li>
+                        <li><i data-lucide="check" class="check"></i> Gallery ảnh + lightbox phóng to</li>
+                        <li><i data-lucide="check" class="check"></i> Hiệu ứng hoa rơi / sparkles</li>
+                        <li><i data-lucide="check" class="check"></i> RSVP xác nhận tham dự</li>
+                        <li><i data-lucide="check" class="check"></i> Lời chúc realtime (Google Sheets)</li>
+                        <li><i data-lucide="check" class="check"></i> Google Maps nhúng + chỉ đường</li>
+                        <li><i data-lucide="check" class="check"></i> QR mừng cưới (2 tài khoản)</li>
+                        <li><i data-lucide="check" class="check"></i> Thêm vào lịch (.ics)</li>
+                        <li><i data-lucide="check" class="check"></i> Cá nhân hoá theo khách mời (?id=)</li>
+                        <li><i data-lucide="check" class="check"></i> Lời chúc bay realtime (floating wishes)</li>
+                        <li><i data-lucide="check" class="check"></i> Responsive mọi thiết bị</li>
+                        <li><i data-lucide="check" class="check"></i> Giao thiệp trong 24h</li>
+                    </ul>
+                    <a href="#contact" class="pricing-cta pricing-cta-primary">
+                        <i data-lucide="heart"></i> Đặt Thiệp Ngay
+                    </a>
+                </div>
+
+                <!-- GÓI CAO CẤP -->
+                <div class="pricing-card custom-card reveal">
+                    <p class="pricing-name">Gói Cao Cấp</p>
+                    <h3 class="pricing-title">Thiết Kế Riêng</h3>
+                    <p class="pricing-desc">Câu chuyện của bạn là duy nhất — thiệp cưới cũng nên như vậy. Hãy lưu giữ kỷ niệm đẹp nhất đời bằng một tác phẩm được thiết kế riêng cho riêng bạn.</p>
+                    <div class="pricing-price-row">
+                        <span class="pricing-price">Liên Hệ</span>
+                    </div>
+                    <p class="pricing-unit">Báo giá theo yêu cầu</p>
+                    <div class="pricing-divider"></div>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="star" class="star"></i> Tất cả tính năng Gói Phổ Thông</li>
+                        <li><i data-lucide="star" class="star"></i> Thiết kế giao diện RIÊNG 100%</li>
+                        <li><i data-lucide="star" class="star"></i> Câu chuyện tình yêu thiết kế riêng</li>
+                        <li><i data-lucide="star" class="star"></i> Hiệu ứng & animation ĐỘC QUYỀN</li>
+                        <li><i data-lucide="star" class="star"></i> Bảng màu, font chữ, layout tuỳ ý</li>
+                        <li><i data-lucide="star" class="star"></i> Mẫu thiệp không trùng ai khác</li>
+                        <li><i data-lucide="star" class="star"></i> Video YouTube / nhạc riêng</li>
+                        <li><i data-lucide="star" class="star"></i> Chỉnh sửa KHÔNG GIỚI HẠN</li>
+                        <li><i data-lucide="star" class="star"></i> Tư vấn phong cách 1:1</li>
+                        <li><i data-lucide="star" class="star"></i> Hỗ trợ đến ngày cưới</li>
+                    </ul>
+                    <p style="font-size: 0.8rem; color: rgba(245,213,160,0.5); font-style: italic; text-align: center; margin-bottom: 1.5rem; line-height: 1.6;">
+                        "Một đám cưới chỉ diễn ra một lần —<br>hãy để thiệp mời kể câu chuyện của riêng bạn."
+                    </p>
+                    <a href="#contact" class="pricing-cta pricing-cta-gold">
+                        <i data-lucide="crown"></i> Liên Hệ Tư Vấn
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section class="section process-section">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-subtitle">Quy Trình</p>
+                <h2 class="section-title">4 Bước Đơn Giản</h2>
+                <p class="section-desc">Từ lúc đặt đến khi nhận thiệp — nhanh chóng, dễ dàng</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step reveal">
+                    <div class="process-number">01</div>
+                    <h3>Chọn Mẫu</h3>
+                    <p>Duyệt 20+ mẫu thiệp cưới. Chọn phong cách yêu thích: classic, romantic, modern, rustic...</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="process-number">02</div>
+                    <h3>Điền Thông Tin</h3>
+                    <p>Điền form prompt.txt — tên, ngày cưới, địa điểm, ảnh. Gửi lại cho chúng tôi.</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="process-number">03</div>
+                    <h3>Nhận Thiệp</h3>
+                    <p>Trong 24h, bạn nhận thiệp hoàn chỉnh — link demo để xem trước và duyệt.</p>
+                </div>
+                <div class="process-step reveal">
+                    <div class="process-number">04</div>
+                    <h3>Chia Sẻ</h3>
+                    <p>Gửi link thiệp cho khách mời qua Zalo, Messenger, SMS. Thiệp đẹp trên mọi thiết bị.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="section faq-section" id="faq">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-subtitle">Câu Hỏi</p>
+                <h2 class="section-title">Thắc Mắc Thường Gặp</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Thiệp cưới online hoạt động thế nào?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">
+                        Thiệp cưới là một trang web hoàn chỉnh với link riêng. Bạn gửi link cho khách mời qua Zalo, Messenger, SMS — khách click vào xem trên điện thoại hoặc máy tính, không cần cài app.
+                    </div></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Thiệp đơn và thiệp đôi khác gì?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">
+                        <strong>Thiệp đơn</strong>: chỉ 1 bên (nhà trai hoặc nhà gái) — hiển thị 1 địa điểm tiệc. <strong>Thiệp đôi</strong>: đầy đủ thông tin cả 2 nhà — 2 cards lễ cưới (Vu Quy + Thành Hôn). Giá như nhau, chỉ khác nội dung.
+                    </div></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Tôi cần chuẩn bị gì?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">
+                        Chỉ cần: tên cặp đôi, ngày cưới, địa điểm, ảnh cưới (nếu có). Chúng tôi sẽ gửi form điền thông tin chi tiết sau khi bạn chọn mẫu. Nếu chưa có ảnh — chúng tôi dùng ảnh mẫu đẹp sẵn.
+                    </div></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Có thể chỉnh sửa sau khi nhận thiệp không?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">
+                        Gói Tiết Kiệm: chỉnh sửa 1 lần miễn phí. Gói Đầy Đủ: 2 lần. Gói Custom: không giới hạn. Mỗi lần chỉnh miễn phí bao gồm thay đổi text, ảnh, thông tin. Thay đổi layout tính phí thêm.
+                    </div></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Lời chúc realtime hoạt động thế nào?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">
+                        Khách mời gửi lời chúc trực tiếp trên thiệp — dữ liệu lưu vào Google Sheets của bạn. Bạn có thể xem tất cả lời chúc trong spreadsheet. Tính năng này có trong Gói Đầy Đủ và Custom.
+                    </div></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question">
+                        Thiệp có thời hạn sử dụng không?
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer"><div class="faq-answer-inner">
+                        Không giới hạn thời gian. Thiệp hoạt động vĩnh viễn — bạn có thể giữ làm kỷ niệm sau đám cưới.
+                    </div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta-section" id="contact">
+        <h2>Sẵn Sàng Tạo Thiệp Cưới?</h2>
+        <p>Liên hệ ngay để được tư vấn miễn phí và nhận thiệp trong 24h</p>
+        <div class="cta-buttons">
+            <a href="https://zalo.me/0123456789" target="_blank" class="cta-btn cta-btn-primary">
+                <i data-lucide="message-circle"></i> Chat Zalo
+            </a>
+            <a href="mailto:hello@templexa.com" class="cta-btn cta-btn-outline">
+                <i data-lucide="mail"></i> hello@templexa.com
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <p>&copy; 2026 <a href="https://phuocpt98.github.io/Templexa/">Templexa</a> — Thiệp Cưới Online</p>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>lucide.createIcons();</script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const t = document.querySelector(link.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    });
+    </script>
+</body>
+</html>

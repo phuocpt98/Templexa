@@ -273,9 +273,63 @@
                 } catch (e) { /* cross-origin — ignore */ }
             }
 
+            // ── Auto-scroll ──
+            var autoScrollId = null;
+            var autoScrollStopped = false;
+            var SCROLL_SPEED = 1.2; // px per frame
+
+            function startAutoScroll() {
+                autoScrollStopped = false;
+                if (autoScrollId) cancelAnimationFrame(autoScrollId);
+
+                try {
+                    var iframeWin = iframe.contentWindow;
+                    var iframeDoc = iframeWin.document;
+
+                    // Stop on user interaction
+                    function stopAutoScroll() {
+                        autoScrollStopped = true;
+                        if (autoScrollId) {
+                            cancelAnimationFrame(autoScrollId);
+                            autoScrollId = null;
+                        }
+                    }
+
+                    iframeWin.addEventListener('wheel', stopAutoScroll, { once: true, passive: true });
+                    iframeWin.addEventListener('touchstart', stopAutoScroll, { once: true, passive: true });
+                    iframeWin.addEventListener('mousedown', stopAutoScroll, { once: true });
+                    iframeWin.addEventListener('keydown', function (e) {
+                        if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].indexOf(e.key) !== -1) {
+                            stopAutoScroll();
+                        }
+                    }, { once: true });
+
+                    // Scroll loop
+                    function scrollStep() {
+                        if (autoScrollStopped) return;
+                        var maxScroll = iframeDoc.documentElement.scrollHeight - iframeWin.innerHeight;
+                        if (iframeWin.scrollY >= maxScroll - 1) {
+                            autoScrollId = null;
+                            return;
+                        }
+                        iframeWin.scrollBy(0, SCROLL_SPEED);
+                        autoScrollId = requestAnimationFrame(scrollStep);
+                    }
+
+                    // Delay 1.5s before starting
+                    setTimeout(function () {
+                        if (!autoScrollStopped) {
+                            autoScrollId = requestAnimationFrame(scrollStep);
+                        }
+                    }, 1500);
+
+                } catch (e) { /* cross-origin — ignore */ }
+            }
+
             iframe.addEventListener('load', function () {
                 scrollbarHidden = false;
                 hideIframeScrollbar();
+                startAutoScroll();
             });
 
             // ── Toggle Desktop / Mobile ──
@@ -296,6 +350,9 @@
                         frame.classList.remove('mobile');
                         container.classList.remove('mobile-mode');
                     }
+
+                    // Restart auto-scroll on mode switch
+                    startAutoScroll();
                 });
             });
         })();

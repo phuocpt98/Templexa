@@ -281,7 +281,7 @@ ls products/shared/music/{thể-loại}/*.mp3
 
 **KHÔNG copy file nhạc vào folder sản phẩm** — link trực tiếp đến file gốc trong kho nhạc dùng relative path:
 ```
-products/Web/{Cat}/{folder}/code.html      → ../../../../shared/music/{loại}/{file}.mp3
+products/Web/{Cat}/{folder}/code.html      → ../../../shared/music/{loại}/{file}.mp3
 products/Trending/{Cat}/{folder}/code.html  → ../../../shared/music/{loại}/{file}.mp3
 ```
 Đếm số bậc `../` từ vị trí `code.html` lên đến `products/` rồi thêm `shared/music/...`.

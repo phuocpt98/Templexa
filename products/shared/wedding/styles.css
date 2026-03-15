@@ -1,0 +1,2019 @@
+/*
+ * ============================================
+ * TEMPLEXA — Wedding Component Library (CSS)
+ * ============================================
+ * Thư viện CSS components dùng chung cho thiệp cưới.
+ * Mỗi code.html tự chứa (self-contained) — copy component cần dùng vào <style>.
+ * Khi tạo component mới hay ho → thêm vào file này để dùng lại.
+ *
+ * Cách dùng:
+ *   1. Copy CSS component cần dùng vào <style> trong code.html
+ *   2. Copy HTML structure tương ứng (xem README.md)
+ *   3. Copy JS nếu component cần tương tác (xem scripts.js)
+ *
+ * Mục lục:
+ *   1. ENVELOPE — Phong bì mở thiệp
+ *   2. COUNTDOWN — Đếm ngược ngày cưới
+ *   3. TIMELINE — Love story timeline
+ *   4. EVENT CARDS — Thông tin lễ cưới (đơn/đôi)
+ *   5. GALLERY — Album ảnh + lightbox
+ *   6. RSVP — Form xác nhận tham dự
+ *   7. GUESTBOOK — Sổ lưu bút
+ *   8. GIFT BOX — Hộp mừng cưới + QR
+ *   9. MUSIC TOGGLE — Nút nhạc nền
+ *  10. CALENDAR BUTTON — Thêm vào lịch
+ *  11. MAP — Bản đồ Google Maps
+ *  12. FAMILY — Gia đình hai bên
+ *  13. FALLING EFFECTS — Hoa rơi, confetti, sparkles, hearts
+ *  14. DECORATIVE — Ornaments, dividers, monogram
+ *  15. COLOR PALETTES — Bảng màu cưới
+ *  16. FONT COMBOS — Cặp font chữ
+ *  17. FLOATING WISHES — Bong bóng lời chúc bay lên
+ * ============================================
+ */
+
+
+/* ============================================
+   1. ENVELOPE — Phong bì mở thiệp
+   Hiệu ứng "mở thư" ấn tượng, ẩn nội dung → click reveal
+   ============================================ */
+
+/* --- Variant A: Full-screen overlay envelope --- */
+.envelope {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--envelope-bg, linear-gradient(135deg, #FFFEF5 0%, #FFF8E7 100%));
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.envelope.opened {
+    opacity: 0;
+    transform: scale(1.1);
+    pointer-events: none;
+}
+.envelope-ornament {
+    font-size: 2rem;
+    color: var(--envelope-accent, #D4AF37);
+    margin-bottom: 1rem;
+    animation: pulse-gentle 2s ease-in-out infinite;
+}
+.envelope-couple-name {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--envelope-text, #2C1810);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+.envelope-date {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--envelope-text-secondary, #8B7355);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+.envelope-invite-text {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 1.1rem;
+    color: var(--envelope-text-secondary, #8B7355);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+}
+.envelope-open-btn {
+    padding: 14px 48px;
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--envelope-btn-text, #FFFFFF);
+    background: var(--envelope-btn-bg, linear-gradient(135deg, #D4AF37, #B8860B));
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+}
+.envelope-open-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
+}
+
+/* --- Variant B: Card-style envelope (nhỏ hơn, có viền) --- */
+.envelope-card {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    transition: opacity 0.6s ease;
+}
+.envelope-card.opened {
+    opacity: 0;
+    pointer-events: none;
+}
+.envelope-card-inner {
+    background: var(--card-bg, #FFFFFF);
+    border: 2px solid var(--envelope-accent, #D4AF37);
+    border-radius: 16px;
+    padding: clamp(2rem, 5vw, 4rem);
+    text-align: center;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: envelope-float-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes envelope-float-in {
+    from { opacity: 0; transform: translateY(40px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- Variant C: Phong bì truyền thống (có nắp gập) --- */
+.envelope-traditional {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--envelope-bg, #8B0000);
+    perspective: 1000px;
+    transition: opacity 0.8s ease;
+}
+.envelope-traditional.opened { opacity: 0; pointer-events: none; }
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    background: var(--envelope-flap-bg, #A52A2A);
+    transform-origin: top center;
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+.envelope-traditional.opening .envelope-flap {
+    transform: rotateX(-180deg);
+}
+
+@keyframes pulse-gentle {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+
+/* ============================================
+   2. COUNTDOWN — Đếm ngược ngày cưới
+   Realtime JS, cập nhật mỗi giây
+   ============================================ */
+
+/* --- Variant A: Elegant boxes --- */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: clamp(12px, 3vw, 24px);
+    padding: clamp(2rem, 5vw, 4rem) 0;
+}
+.countdown-item {
+    text-align: center;
+    min-width: clamp(60px, 15vw, 100px);
+}
+.countdown-number {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 700;
+    color: var(--countdown-number, #2C1810);
+    line-height: 1;
+    display: block;
+}
+.countdown-label {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    color: var(--countdown-label, #8B7355);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-top: 8px;
+}
+
+/* --- Variant B: Cards with border --- */
+.countdown-cards {
+    display: flex;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 16px);
+    padding: clamp(2rem, 5vw, 4rem) 0;
+}
+.countdown-card {
+    background: var(--countdown-card-bg, rgba(255, 255, 255, 0.8));
+    border: 1px solid var(--countdown-card-border, rgba(212, 175, 55, 0.3));
+    border-radius: 12px;
+    padding: clamp(12px, 3vw, 24px) clamp(16px, 4vw, 32px);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    min-width: clamp(60px, 15vw, 90px);
+}
+.countdown-card .countdown-number {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
+/* --- Variant C: Circular --- */
+.countdown-circles {
+    display: flex;
+    justify-content: center;
+    gap: clamp(12px, 3vw, 20px);
+    padding: clamp(2rem, 5vw, 4rem) 0;
+}
+.countdown-circle {
+    width: clamp(70px, 18vw, 110px);
+    height: clamp(70px, 18vw, 110px);
+    border-radius: 50%;
+    border: 2px solid var(--countdown-circle-border, #D4AF37);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.countdown-circle .countdown-number {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+.countdown-circle .countdown-label {
+    font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+    margin-top: 2px;
+}
+
+/* --- Countdown separator --- */
+.countdown-separator {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--countdown-number, #D4AF37);
+    align-self: center;
+    margin-top: -12px;
+    animation: blink 1s ease-in-out infinite;
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Countdown done state */
+.countdown-done {
+    text-align: center;
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--accent, #D4AF37);
+    padding: 2rem;
+}
+
+
+/* ============================================
+   3. TIMELINE — Love story timeline
+   3–5 mốc quan trọng, layout dọc
+   ============================================ */
+
+/* --- Variant A: Center line (desktop alternating) --- */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--timeline-line, linear-gradient(to bottom, transparent, #D4AF37, transparent));
+    transform: translateX(-50%);
+}
+.timeline-item {
+    position: relative;
+    width: 50%;
+    padding: 1rem 2rem;
+}
+.timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+    padding-right: 3rem;
+}
+.timeline-item:nth-child(even) {
+    left: 50%;
+    text-align: left;
+    padding-left: 3rem;
+}
+.timeline-dot {
+    position: absolute;
+    top: 1.5rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--timeline-dot, #D4AF37);
+    border: 3px solid var(--timeline-dot-border, #FFFEF5);
+    box-shadow: 0 0 0 3px var(--timeline-dot, #D4AF37);
+    z-index: 1;
+}
+.timeline-item:nth-child(odd) .timeline-dot {
+    right: -7px;
+}
+.timeline-item:nth-child(even) .timeline-dot {
+    left: -7px;
+}
+.timeline-date {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.85rem;
+    color: var(--accent, #D4AF37);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+.timeline-title {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--text-primary, #2C1810);
+    margin-bottom: 0.5rem;
+}
+.timeline-desc {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.95rem;
+    color: var(--text-secondary, #8B7355);
+    line-height: 1.6;
+}
+.timeline-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Timeline responsive — chuyển thành 1 cột bên trái */
+@media (max-width: 768px) {
+    .timeline::before { left: 20px; }
+    .timeline-item,
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        width: 100%;
+        left: 0;
+        text-align: left;
+        padding-left: 50px;
+        padding-right: 1rem;
+    }
+    .timeline-item:nth-child(odd) .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot {
+        left: 13px;
+        right: auto;
+    }
+}
+
+/* --- Variant B: Left line (simple) --- */
+.timeline-left {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 0 2rem 40px;
+}
+.timeline-left::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--timeline-line, #D4AF37);
+}
+.timeline-left .timeline-item {
+    position: relative;
+    width: 100%;
+    left: 0;
+    text-align: left;
+    padding: 0 0 2rem 1.5rem;
+}
+.timeline-left .timeline-dot {
+    left: -33px;
+    top: 0.25rem;
+}
+
+/* --- Variant C: Horizontal timeline (desktop only) --- */
+.timeline-horizontal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding: 3rem 0;
+    overflow-x: auto;
+}
+.timeline-horizontal::before {
+    content: '';
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--timeline-line, #D4AF37);
+}
+.timeline-horizontal .timeline-item {
+    flex: 1;
+    text-align: center;
+    padding: 0 1rem;
+    min-width: 160px;
+    position: relative;
+    width: auto;
+    left: auto;
+}
+.timeline-horizontal .timeline-dot {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin: 0 auto 1rem;
+}
+
+@media (max-width: 768px) {
+    .timeline-horizontal {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 40px;
+    }
+    .timeline-horizontal::before {
+        top: 0;
+        bottom: 0;
+        left: 15px;
+        right: auto;
+        width: 2px;
+        height: auto;
+    }
+    .timeline-horizontal .timeline-item {
+        text-align: left;
+        padding: 0 0 2rem 1.5rem;
+        min-width: auto;
+    }
+    .timeline-horizontal .timeline-dot {
+        position: absolute;
+        left: -33px;
+        top: 0.25rem;
+        margin: 0;
+    }
+}
+
+
+/* ============================================
+   4. EVENT CARDS — Thông tin lễ cưới
+   Hỗ trợ thiệp đơn (1 card) và thiệp đôi (2 cards)
+   ============================================ */
+
+.event-section {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 2rem);
+}
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    max-width: 900px;
+    margin: 0 auto;
+}
+/* Thiệp đơn: 1 card căn giữa */
+.event-grid.single {
+    max-width: 480px;
+}
+.event-card {
+    background: var(--event-card-bg, rgba(255, 255, 255, 0.6));
+    border: 1px solid var(--event-card-border, rgba(212, 175, 55, 0.3));
+    border-radius: 16px;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+.event-card-icon {
+    font-size: 2rem;
+    color: var(--accent, #D4AF37);
+    margin-bottom: 1rem;
+}
+.event-card-type {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.8rem;
+    color: var(--accent, #D4AF37);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+.event-card-name {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    color: var(--text-primary, #2C1810);
+    margin-bottom: 1rem;
+}
+.event-card-detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 1rem;
+    color: var(--text-secondary, #8B7355);
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+.event-card-detail i,
+.event-card-detail svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--accent, #D4AF37);
+}
+.event-card-address {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--text-tertiary, #A89070);
+    margin-top: 0.5rem;
+    line-height: 1.5;
+}
+.event-card-parents {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--event-card-border, rgba(212, 175, 55, 0.2));
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.9rem;
+    color: var(--text-secondary, #8B7355);
+    line-height: 1.8;
+}
+.event-card-parents strong {
+    color: var(--text-primary, #2C1810);
+}
+
+
+/* ============================================
+   5. GALLERY — Album ảnh cưới + Lightbox
+   Grid responsive 3→2→1 cột, hover overlay, lightbox modal
+   ============================================ */
+
+/* --- Gallery Grid --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(8px, 2vw, 16px);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+@media (max-width: 768px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+}
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+    aspect-ratio: 4/5;
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.gallery-item:hover img {
+    transform: scale(1.08);
+}
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+.gallery-item:hover .gallery-overlay {
+    background: rgba(0, 0, 0, 0.25);
+}
+.gallery-overlay-icon {
+    color: white;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.gallery-item:hover .gallery-overlay-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- Masonry variant --- */
+.gallery-masonry {
+    columns: 3;
+    column-gap: clamp(8px, 2vw, 16px);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+@media (max-width: 768px) { .gallery-masonry { columns: 2; } }
+@media (max-width: 480px) { .gallery-masonry { columns: 1; } }
+.gallery-masonry .gallery-item {
+    break-inside: avoid;
+    margin-bottom: clamp(8px, 2vw, 16px);
+    aspect-ratio: auto;
+}
+
+/* --- Lightbox Modal --- */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+}
+.lightbox img {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    animation: lightbox-zoom-in 0.3s ease;
+}
+@keyframes lightbox-zoom-in {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+.lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+.lightbox-nav:hover { background: rgba(255, 255, 255, 0.3); }
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+.lightbox-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+
+/* ============================================
+   6. RSVP — Form xác nhận tham dự
+   Họ tên, SĐT, số khách, lời nhắn
+   ============================================ */
+
+.rsvp-section {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 2rem);
+    text-align: center;
+}
+.rsvp-form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.rsvp-input,
+.rsvp-select,
+.rsvp-textarea {
+    width: 100%;
+    padding: 14px 20px;
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 1rem;
+    color: var(--text-primary, #2C1810);
+    background: var(--input-bg, rgba(255, 255, 255, 0.8));
+    border: 1px solid var(--input-border, rgba(212, 175, 55, 0.3));
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.rsvp-input:focus,
+.rsvp-select:focus,
+.rsvp-textarea:focus {
+    border-color: var(--accent, #D4AF37);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+.rsvp-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+.rsvp-input::placeholder,
+.rsvp-textarea::placeholder {
+    color: var(--text-tertiary, #A89070);
+}
+.rsvp-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+@media (max-width: 480px) {
+    .rsvp-row { grid-template-columns: 1fr; }
+}
+.rsvp-submit {
+    padding: 14px 48px;
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--btn-text, #FFFFFF);
+    background: var(--btn-bg, linear-gradient(135deg, #D4AF37, #B8860B));
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    margin-top: 0.5rem;
+}
+.rsvp-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.4);
+}
+.rsvp-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* RSVP extra questions */
+.rsvp-extras {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: left;
+    padding: 1rem 0;
+}
+.rsvp-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.95rem;
+    color: var(--text-secondary, #8B7355);
+    cursor: pointer;
+}
+.rsvp-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent, #D4AF37);
+}
+
+/* RSVP success message */
+.rsvp-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    animation: fade-up 0.5s ease;
+}
+.rsvp-success.show { display: block; }
+.rsvp-success-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.rsvp-success-text {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: 1.3rem;
+    color: var(--text-primary, #2C1810);
+}
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ============================================
+   7. GUESTBOOK — Sổ lưu bút
+   Form gửi lời chúc + hiển thị lời chúc
+   ============================================ */
+
+.guestbook-section {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 2rem);
+}
+.guestbook-form {
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+/* Form inputs dùng chung class .rsvp-input, .rsvp-textarea */
+
+.guestbook-messages {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.guestbook-message {
+    background: var(--guestbook-msg-bg, rgba(255, 255, 255, 0.6));
+    border: 1px solid var(--guestbook-msg-border, rgba(212, 175, 55, 0.15));
+    border-radius: 12px;
+    padding: 1.25rem;
+    animation: fade-up 0.4s ease;
+}
+.guestbook-message-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.5rem;
+}
+.guestbook-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--accent, #D4AF37);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+.guestbook-name {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: 1rem;
+    color: var(--text-primary, #2C1810);
+    font-weight: 600;
+}
+.guestbook-time {
+    font-size: 0.75rem;
+    color: var(--text-tertiary, #A89070);
+    margin-left: auto;
+}
+.guestbook-text {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.95rem;
+    color: var(--text-secondary, #8B7355);
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* Preset wishes — lời chúc mẫu */
+.guestbook-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.guestbook-preset-btn {
+    padding: 6px 14px;
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.85rem;
+    color: var(--accent, #D4AF37);
+    background: var(--guestbook-preset-bg, rgba(212, 175, 55, 0.08));
+    border: 1px solid var(--guestbook-preset-border, rgba(212, 175, 55, 0.25));
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.guestbook-preset-btn:hover {
+    background: var(--accent, #D4AF37);
+    color: white;
+}
+
+
+/* ============================================
+   8. GIFT BOX — Hộp mừng cưới + QR
+   QR code ngân hàng, thông tin tài khoản
+   ============================================ */
+
+.giftbox-section {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 2rem);
+    text-align: center;
+}
+.giftbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    max-width: 700px;
+    margin: 0 auto;
+}
+/* Nếu chỉ 1 tài khoản */
+.giftbox-grid.single { max-width: 380px; }
+.giftbox-card {
+    background: var(--giftbox-card-bg, rgba(255, 255, 255, 0.8));
+    border: 1px solid var(--giftbox-card-border, rgba(212, 175, 55, 0.2));
+    border-radius: 16px;
+    padding: clamp(1.5rem, 4vw, 2rem);
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+.giftbox-label {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.8rem;
+    color: var(--accent, #D4AF37);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+.giftbox-qr {
+    width: clamp(140px, 35vw, 180px);
+    height: clamp(140px, 35vw, 180px);
+    margin: 0 auto 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--giftbox-qr-border, rgba(212, 175, 55, 0.2));
+}
+.giftbox-qr img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.giftbox-bank {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.9rem;
+    color: var(--text-secondary, #8B7355);
+    line-height: 1.8;
+}
+.giftbox-bank strong {
+    color: var(--text-primary, #2C1810);
+    display: block;
+}
+.giftbox-copy-btn {
+    margin-top: 0.75rem;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    color: var(--accent, #D4AF37);
+    background: transparent;
+    border: 1px solid var(--accent, #D4AF37);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.giftbox-copy-btn:hover {
+    background: var(--accent, #D4AF37);
+    color: white;
+}
+
+
+/* ============================================
+   9. MUSIC TOGGLE — Nút nhạc nền
+   Fixed bottom-right, always present on wedding
+   ============================================ */
+
+.music-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--music-btn-bg, #D4AF37);
+    color: var(--music-btn-color, white);
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+.music-toggle .music-icon-off { display: none; }
+.music-toggle.muted .music-icon-on { display: none; }
+.music-toggle.muted .music-icon-off { display: block; }
+
+/* --- Nút tắt/bật hiển thị lời chúc (bên trên nút nhạc) --- */
+.wishes-toggle {
+    position: fixed;
+    bottom: 80px;       /* 24px (music) + 48px (music size) + 8px gap */
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--music-btn-bg, #D4AF37);
+    color: var(--music-btn-color, white);
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    opacity: 0.85;
+}
+.wishes-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+    opacity: 1;
+}
+.wishes-toggle svg,
+.wishes-toggle i {
+    width: 18px;
+    height: 18px;
+}
+.wishes-toggle .wishes-icon-off { display: none; }
+.wishes-toggle.hidden .wishes-icon-on { display: none; }
+.wishes-toggle.hidden .wishes-icon-off { display: block; }
+
+/* Ẩn floating wishes khi toggle off */
+.floating-wishes-box.hidden-wishes {
+    display: none;
+}
+
+/* Variant: spinning disc */
+.music-toggle-disc {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--accent, #D4AF37);
+    background: var(--music-disc-bg, radial-gradient(circle, #2C1810 30%, #1a0f08 100%));
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: spin-disc 3s linear infinite;
+    animation-play-state: paused;
+}
+.music-toggle-disc.playing {
+    animation-play-state: running;
+}
+.music-toggle-disc::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent, #D4AF37);
+}
+@keyframes spin-disc {
+    to { transform: rotate(360deg); }
+}
+
+
+/* ============================================
+   10. CALENDAR BUTTON — Thêm vào lịch
+   Download file .ics
+   ============================================ */
+
+.calendar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--accent, #D4AF37);
+    background: transparent;
+    border: 1px solid var(--accent, #D4AF37);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.calendar-btn:hover {
+    background: var(--accent, #D4AF37);
+    color: white;
+}
+.calendar-btn i,
+.calendar-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+
+/* ============================================
+   11. MAP — Bản đồ Google Maps
+   Embed iframe + nút Mở Maps (tab mới) + nút Chỉ đường
+   Hỗ trợ 1 hoặc nhiều địa điểm (thiệp đôi)
+   ============================================ */
+
+.map-section {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 2rem);
+    text-align: center;
+}
+
+/* --- Single map --- */
+.map-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--map-border, rgba(212, 175, 55, 0.2));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+.map-wrapper iframe {
+    width: 100%;
+    height: 350px;
+    border: none;
+}
+@media (max-width: 480px) {
+    .map-wrapper iframe { height: 250px; }
+}
+
+/* --- Multiple maps (thiệp đôi) --- */
+.map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    max-width: 900px;
+    margin: 0 auto;
+}
+.map-card {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--map-border, rgba(212, 175, 55, 0.2));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    background: var(--event-card-bg, rgba(255, 255, 255, 0.6));
+}
+.map-card iframe {
+    width: 100%;
+    height: 250px;
+    border: none;
+}
+.map-card-info {
+    padding: 1rem 1.25rem 1.25rem;
+    text-align: center;
+}
+.map-card-label {
+    font-size: 0.7rem;
+    color: var(--accent, #D4AF37);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+.map-card-name {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: 1.1rem;
+    color: var(--text-primary, #2C1810);
+    margin-bottom: 0.25rem;
+}
+
+/* --- Address & action buttons --- */
+.map-address {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 0.75rem;
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.9rem;
+    color: var(--text-secondary, #8B7355);
+    line-height: 1.5;
+}
+.map-address svg,
+.map-address i {
+    width: 16px;
+    height: 16px;
+    color: var(--accent, #D4AF37);
+    flex-shrink: 0;
+}
+.map-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* Nút chung cho map actions */
+.map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.85rem;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.map-btn svg,
+.map-btn i {
+    width: 14px;
+    height: 14px;
+}
+
+/* Nút Mở Google Maps (primary) — mở tab mới */
+.map-open-btn {
+    color: white;
+    background: var(--accent, #D4AF37);
+    border: 1px solid var(--accent, #D4AF37);
+}
+.map-open-btn:hover {
+    background: var(--accent-dark, #B8860B);
+    border-color: var(--accent-dark, #B8860B);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Nút Chỉ đường (outline) */
+.map-direction-btn {
+    color: var(--accent, #D4AF37);
+    background: transparent;
+    border: 1px solid var(--accent, #D4AF37);
+}
+.map-direction-btn:hover {
+    background: var(--accent, #D4AF37);
+    color: white;
+}
+
+
+/* ============================================
+   12. FAMILY — Gia đình hai bên
+   Thiệp đôi: hiển thị bố mẹ + ảnh cô dâu chú rể
+   ============================================ */
+
+.family-section {
+    padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 2rem);
+    text-align: center;
+}
+.family-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+@media (max-width: 768px) {
+    .family-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+.family-side {
+    text-align: center;
+}
+.family-photo {
+    width: clamp(120px, 30vw, 180px);
+    height: clamp(120px, 30vw, 180px);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent, #D4AF37);
+    margin: 0 auto 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.family-role {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.8rem;
+    color: var(--accent, #D4AF37);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+.family-name {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--text-primary, #2C1810);
+    margin-bottom: 0.75rem;
+}
+.family-parents {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.9rem;
+    color: var(--text-secondary, #8B7355);
+    line-height: 1.8;
+}
+.family-parents span {
+    display: block;
+}
+.family-divider {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--accent, #D4AF37);
+    font-family: var(--font-heading, 'Playfair Display', serif);
+}
+@media (max-width: 768px) {
+    .family-divider { order: 1; }
+    .family-side:first-child { order: 0; }
+    .family-side:last-child { order: 2; }
+}
+
+
+/* ============================================
+   13. FALLING EFFECTS — Hoa rơi, confetti, sparkles, hearts
+   Dùng JS tạo element, CSS animate
+   ============================================ */
+
+/* --- Hoa rơi (Petals) --- */
+.petal {
+    position: fixed;
+    top: -30px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: petal-fall linear forwards;
+}
+@keyframes petal-fall {
+    0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+    25% { transform: translateY(27vh) rotate(180deg) translateX(30px); }
+    50% { transform: translateY(55vh) rotate(360deg) translateX(-20px); }
+    75% { transform: translateY(82vh) rotate(540deg) translateX(25px); }
+    100% { transform: translateY(110vh) rotate(720deg) translateX(-10px); opacity: 0; }
+}
+
+/* --- Confetti --- */
+.confetti {
+    position: fixed;
+    top: -10px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: confetti-fall linear forwards;
+}
+@keyframes confetti-fall {
+    0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(1080deg) scale(0.5); opacity: 0; }
+}
+
+/* --- Sparkles --- */
+.sparkle {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    animation: sparkle-fade 2s ease-out forwards;
+}
+@keyframes sparkle-fade {
+    0% { opacity: 0; transform: scale(0) rotate(0deg); }
+    30% { opacity: 1; transform: scale(1) rotate(90deg); }
+    100% { opacity: 0; transform: scale(0.3) rotate(180deg); }
+}
+
+/* --- Hearts floating --- */
+.floating-heart {
+    position: fixed;
+    bottom: -30px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: heart-float ease-out forwards;
+}
+@keyframes heart-float {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    50% { transform: translateY(-50vh) scale(1.2); opacity: 0.8; }
+    100% { transform: translateY(-110vh) scale(0.8); opacity: 0; }
+}
+
+/* --- Lá rơi (Leaves) --- */
+.falling-leaf {
+    position: fixed;
+    top: -30px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: leaf-fall linear forwards;
+}
+@keyframes leaf-fall {
+    0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.8; }
+    33% { transform: translateY(36vh) rotate(120deg) translateX(40px); }
+    66% { transform: translateY(73vh) rotate(240deg) translateX(-30px); }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(15px); opacity: 0; }
+}
+
+/* --- Snow (cho winter wedding) --- */
+.snowflake {
+    position: fixed;
+    top: -10px;
+    z-index: 9999;
+    pointer-events: none;
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    animation: snow-fall linear forwards;
+}
+@keyframes snow-fall {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+    50% { transform: translateY(55vh) translateX(30px) rotate(180deg); opacity: 0.8; }
+    100% { transform: translateY(110vh) translateX(-20px) rotate(360deg); opacity: 0; }
+}
+
+
+/* ============================================
+   14. DECORATIVE — Ornaments, dividers, monogram
+   ============================================ */
+
+/* --- Section divider ornament --- */
+.divider-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: clamp(1.5rem, 4vw, 3rem) 0;
+}
+.divider-ornament::before,
+.divider-ornament::after {
+    content: '';
+    height: 1px;
+    width: clamp(40px, 15vw, 100px);
+    background: var(--divider-color, rgba(212, 175, 55, 0.4));
+}
+.divider-ornament-icon {
+    color: var(--accent, #D4AF37);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* --- Section heading --- */
+.section-heading {
+    text-align: center;
+    margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+.section-subtitle {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.8rem;
+    color: var(--accent, #D4AF37);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+.section-title {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--text-primary, #2C1810);
+    margin-bottom: 0.75rem;
+}
+.section-desc {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 1rem;
+    color: var(--text-secondary, #8B7355);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* --- Monogram / Initials --- */
+.monogram {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading, 'Playfair Display', serif);
+}
+.monogram-letter {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--accent, #D4AF37);
+    font-weight: 700;
+}
+.monogram-ampersand {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--text-tertiary, #A89070);
+    font-style: italic;
+}
+
+/* --- Circular frame for couple photo --- */
+.couple-frame {
+    position: relative;
+    width: clamp(200px, 50vw, 300px);
+    height: clamp(200px, 50vw, 300px);
+    margin: 0 auto;
+}
+.couple-frame img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.couple-frame::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px solid var(--accent, #D4AF37);
+}
+.couple-frame::after {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    border-radius: 50%;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* --- Quote / Blessing --- */
+.blessing-quote {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 5vw, 2rem);
+}
+.blessing-quote blockquote {
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-style: italic;
+    color: var(--text-secondary, #8B7355);
+    line-height: 1.8;
+    position: relative;
+    padding: 0 2rem;
+}
+.blessing-quote blockquote::before {
+    content: '\201C';
+    position: absolute;
+    top: -0.5rem;
+    left: 0;
+    font-size: 3rem;
+    color: var(--accent, #D4AF37);
+    font-style: normal;
+    line-height: 1;
+}
+.blessing-quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-family: var(--font-body, 'Cormorant Garamond', serif);
+    font-size: 0.9rem;
+    font-style: normal;
+    color: var(--accent, #D4AF37);
+    letter-spacing: 0.1em;
+}
+
+/* --- Footer hearts --- */
+.footer-hearts {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 1rem 0;
+}
+.footer-heart {
+    font-size: 0.8rem;
+    color: var(--accent, #D4AF37);
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+.footer-heart:nth-child(2) { animation-delay: 0.15s; }
+.footer-heart:nth-child(3) { animation-delay: 0.3s; }
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+}
+
+/* --- Scroll indicator (hero bottom) --- */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-tertiary, rgba(255, 255, 255, 0.6));
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: scroll-bounce 2s ease-in-out infinite;
+}
+@keyframes scroll-bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+}
+
+
+/* ============================================
+   15. COLOR PALETTES — CSS Variables theo theme
+   Copy 1 palette vào :root {} trong code.html
+   ============================================ */
+
+/* --- Classic Gold --- */
+/*
+:root {
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Cormorant Garamond', serif;
+    --accent: #D4AF37;
+    --accent-dark: #B8860B;
+    --accent-light: #F5E6B8;
+    --bg-primary: #FFFEF5;
+    --bg-secondary: #FFF8E7;
+    --text-primary: #2C1810;
+    --text-secondary: #8B7355;
+    --text-tertiary: #A89070;
+    --btn-bg: linear-gradient(135deg, #D4AF37, #B8860B);
+    --btn-text: #FFFFFF;
+    --envelope-bg: linear-gradient(135deg, #FFFEF5, #FFF8E7);
+    --divider-color: rgba(212, 175, 55, 0.4);
+}
+*/
+
+/* --- Blush Pink --- */
+/*
+:root {
+    --font-heading: 'Great Vibes', cursive;
+    --font-body: 'Lora', serif;
+    --accent: #C77DA3;
+    --accent-dark: #A85C84;
+    --accent-light: #F5D5E3;
+    --bg-primary: #FFF5F7;
+    --bg-secondary: #FFEDF2;
+    --text-primary: #4A2040;
+    --text-secondary: #8B6075;
+    --text-tertiary: #B08A9A;
+    --btn-bg: linear-gradient(135deg, #E8A0BF, #C77DA3);
+    --btn-text: #FFFFFF;
+    --envelope-bg: linear-gradient(135deg, #FFF5F7, #FFEDF2);
+    --divider-color: rgba(199, 125, 163, 0.3);
+}
+*/
+
+/* --- Sage Green --- */
+/*
+:root {
+    --font-heading: 'Cormorant SC', serif;
+    --font-body: 'Raleway', sans-serif;
+    --accent: #6B8F5B;
+    --accent-dark: #4A6B3A;
+    --accent-light: #D4E4CC;
+    --bg-primary: #F5F7F2;
+    --bg-secondary: #EDF2E8;
+    --text-primary: #2D3B25;
+    --text-secondary: #5A7050;
+    --text-tertiary: #8A9E80;
+    --btn-bg: linear-gradient(135deg, #9CAF88, #6B8F5B);
+    --btn-text: #FFFFFF;
+    --envelope-bg: linear-gradient(135deg, #F5F7F2, #EDF2E8);
+    --divider-color: rgba(107, 143, 91, 0.3);
+}
+*/
+
+/* --- Navy & Gold --- */
+/*
+:root {
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'EB Garamond', serif;
+    --accent: #D4AF37;
+    --accent-dark: #B8860B;
+    --accent-light: #F5E6B8;
+    --bg-primary: #F8F9FA;
+    --bg-secondary: #1B2A4A;
+    --text-primary: #1B2A4A;
+    --text-secondary: #4A5568;
+    --text-tertiary: #8B95A5;
+    --btn-bg: linear-gradient(135deg, #D4AF37, #B8860B);
+    --btn-text: #1B2A4A;
+    --envelope-bg: linear-gradient(135deg, #1B2A4A, #2D3E5C);
+    --envelope-text: #F5E6B8;
+    --envelope-text-secondary: #D4AF37;
+    --divider-color: rgba(212, 175, 55, 0.4);
+}
+*/
+
+/* --- Dusty Rose --- */
+/*
+:root {
+    --font-heading: 'Dancing Script', cursive;
+    --font-body: 'Nunito', sans-serif;
+    --accent: #B07575;
+    --accent-dark: #8B5555;
+    --accent-light: #E8C4C4;
+    --bg-primary: #FDF6F6;
+    --bg-secondary: #F5EAEA;
+    --text-primary: #5C3D3D;
+    --text-secondary: #8B6B6B;
+    --text-tertiary: #B09090;
+    --btn-bg: linear-gradient(135deg, #D4A5A5, #B07575);
+    --btn-text: #FFFFFF;
+    --envelope-bg: linear-gradient(135deg, #FDF6F6, #F5EAEA);
+    --divider-color: rgba(176, 117, 117, 0.3);
+}
+*/
+
+/* --- Terracotta --- */
+/*
+:root {
+    --font-heading: 'Amatic SC', cursive;
+    --font-body: 'Josefin Sans', sans-serif;
+    --accent: #A0522D;
+    --accent-dark: #8B4513;
+    --accent-light: #E8CDB8;
+    --bg-primary: #FFF8F0;
+    --bg-secondary: #F5EDE4;
+    --text-primary: #3D2B1F;
+    --text-secondary: #7A5C4A;
+    --text-tertiary: #A89080;
+    --btn-bg: linear-gradient(135deg, #C67B5C, #A0522D);
+    --btn-text: #FFFFFF;
+    --envelope-bg: linear-gradient(135deg, #FFF8F0, #F5EDE4);
+    --divider-color: rgba(160, 82, 45, 0.3);
+}
+*/
+
+/* --- Lavender --- */
+/*
+:root {
+    --font-heading: 'Italiana', serif;
+    --font-body: 'Montserrat', sans-serif;
+    --accent: #7B68AE;
+    --accent-dark: #5B4A8C;
+    --accent-light: #D4CCE8;
+    --bg-primary: #F8F5FF;
+    --bg-secondary: #EFEBF8;
+    --text-primary: #3D2D5C;
+    --text-secondary: #6B5A8A;
+    --text-tertiary: #9A8BB5;
+    --btn-bg: linear-gradient(135deg, #9B8EC4, #7B68AE);
+    --btn-text: #FFFFFF;
+    --envelope-bg: linear-gradient(135deg, #F8F5FF, #EFEBF8);
+    --divider-color: rgba(123, 104, 174, 0.3);
+}
+*/
+
+/* --- Burgundy --- */
+/*
+:root {
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Cormorant Garamond', serif;
+    --accent: #A4343A;
+    --accent-dark: #722F37;
+    --accent-light: #E8B8BA;
+    --bg-primary: #FFF9F5;
+    --bg-secondary: #F5EDEA;
+    --text-primary: #2C1015;
+    --text-secondary: #6B3A40;
+    --text-tertiary: #9A7075;
+    --btn-bg: linear-gradient(135deg, #A4343A, #722F37);
+    --btn-text: #FFFFFF;
+    --envelope-bg: linear-gradient(135deg, #FFF9F5, #F5EDEA);
+    --divider-color: rgba(164, 52, 58, 0.3);
+}
+*/
+
+/* --- Dark Luxury --- */
+/*
+:root {
+    --font-heading: 'Cormorant SC', serif;
+    --font-body: 'Raleway', sans-serif;
+    --accent: #D4AF37;
+    --accent-dark: #B8860B;
+    --accent-light: rgba(212, 175, 55, 0.2);
+    --bg-primary: #0D0D0D;
+    --bg-secondary: #1A1A2E;
+    --text-primary: #F5F0E8;
+    --text-secondary: #C0B8A8;
+    --text-tertiary: #8A8070;
+    --btn-bg: linear-gradient(135deg, #D4AF37, #B8860B);
+    --btn-text: #0D0D0D;
+    --envelope-bg: linear-gradient(135deg, #0D0D0D, #1A1A2E);
+    --envelope-text: #D4AF37;
+    --envelope-text-secondary: #C0B8A8;
+    --divider-color: rgba(212, 175, 55, 0.3);
+}
+*/
+
+/* --- Tropical --- */
+/*
+:root {
+    --font-heading: 'Dancing Script', cursive;
+    --font-body: 'Nunito', sans-serif;
+    --accent: #2D8B6F;
+    --accent-dark: #1A6B50;
+    --accent-light: #C4E8D8;
+    --bg-primary: #FFFEF8;
+    --bg-secondary: #F0F8F4;
+    --text-primary: #1A3C34;
+    --text-secondary: #4A6B5A;
+    --text-tertiary: #7A9A88;
+    --btn-bg: linear-gradient(135deg, #2D8B6F, #F4A460);
+    --btn-text: #FFFFFF;
+    --envelope-bg: linear-gradient(135deg, #FFFEF8, #F0F8F4);
+    --divider-color: rgba(45, 139, 111, 0.3);
+}
+*/
+
+/* --- Traditional Red (Song Long Đỏ style) --- */
+/*
+:root {
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Be Vietnam Pro', sans-serif;
+    --accent: #C41E3A;
+    --accent-dark: #8B0000;
+    --accent-light: #FFD700;
+    --bg-primary: #FFF8F0;
+    --bg-secondary: #8B0000;
+    --text-primary: #2C1810;
+    --text-secondary: #6B3A20;
+    --text-tertiary: #9A7055;
+    --btn-bg: linear-gradient(135deg, #C41E3A, #8B0000);
+    --btn-text: #FFD700;
+    --envelope-bg: linear-gradient(135deg, #8B0000, #5C0000);
+    --envelope-text: #FFD700;
+    --envelope-text-secondary: #F5D5A0;
+    --divider-color: rgba(255, 215, 0, 0.4);
+}
+*/
+
+
+/* ============================================
+   16. FONT COMBOS — Import snippets
+   Copy @import vào <head> trong code.html
+   ============================================ */
+
+/* --- Classic (Playfair + Cormorant) --- */
+/* @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;600;700&display=swap'); */
+
+/* --- Romantic (Great Vibes + Lora) --- */
+/* @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lora:ital,wght@0,400;0,600;1,400&display=swap'); */
+
+/* --- Elegant (Cinzel + EB Garamond) --- */
+/* @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap'); */
+
+/* --- Modern (Italiana + Montserrat) --- */
+/* @import url('https://fonts.googleapis.com/css2?family=Italiana&family=Montserrat:wght@300;400;500;600&display=swap'); */
+
+/* --- Rustic (Amatic SC + Josefin Sans) --- */
+/* @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Josefin+Sans:wght@300;400;500;600&display=swap'); */
+
+/* --- Luxury (Cormorant SC + Raleway) --- */
+/* @import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap'); */
+
+/* --- Whimsical (Dancing Script + Nunito) --- */
+/* @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Nunito:wght@300;400;500;600&display=swap'); */
+
+/* --- Vietnamese (Great Vibes + Be Vietnam Pro) --- */
+/* @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap'); */
+
+
+/* ============================================
+   16b. GUEST PERSONALIZATION — Tên khách mời cá nhân hoá
+   Hiện khi URL có ?id=X, ẩn mặc định.
+   ============================================ */
+
+.guest-name-display {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: clamp(1.1rem, 3.5vw, 1.6rem);
+    font-weight: 600;
+    color: var(--accent-light, var(--gold, #D4AF37));
+    margin-top: 0.5rem;
+    display: none; /* ẩn mặc định — JS hiện khi có guest */
+    animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+/* Trong envelope — chữ sáng */
+.envelope .guest-name-display {
+    color: var(--envelope-text, #FFD700);
+    text-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);
+    font-size: clamp(1rem, 3vw, 1.4rem);
+}
+/* Trong hero — chữ accent */
+.hero .guest-name-display {
+    color: var(--accent-light, #FFD700);
+    font-size: clamp(0.95rem, 2.5vw, 1.3rem);
+    text-shadow: 0 2px 15px rgba(212, 175, 55, 0.2);
+}
+/* Class cho lời mời (thay thế bằng JS) */
+.guest-invite-text {
+    transition: opacity 0.3s ease;
+}
+
+
+/* ============================================
+   17. FLOATING WISHES — Bong bóng lời chúc bay lên
+   Mỗi bong bóng position: absolute, bay lên đều bằng
+   translateY + linear timing. Mờ dần tự nhiên, không bị cắt.
+   ============================================ */
+
+.floating-wishes-box {
+    position: fixed;
+    bottom: 80px;      /* trên nút nhạc */
+    left: 16px;
+    width: 300px;
+    height: 0;         /* container không chiếm không gian — bong bóng bay tự do */
+    z-index: 999;
+    pointer-events: none;
+}
+
+.floating-wish {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: var(--fw-bg, rgba(255, 182, 193, 0.3));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px var(--fw-shadow, rgba(255, 182, 193, 0.15));
+    color: var(--fw-text, #fff);
+    font-size: 0.8rem;
+    line-height: 1.3;
+    max-width: 100%;
+    width: fit-content;
+    animation: wish-float-up 12s linear forwards;
+    pointer-events: auto;
+    will-change: transform, opacity;
+}
+
+/*
+ * Bảng màu bong bóng — JS random class .fw-c1 → .fw-c5
+ * 5 màu: đỏ, xanh, tím, trắng, nâu — rõ trên mọi nền.
+ * Dùng: el.classList.add('fw-c' + (Math.random()*5+1|0));
+ */
+
+/* --- Default palette (5 màu) --- */
+.fw-c1 { --fw-bg: rgba(180, 30, 50, 0.78); --fw-avatar: #E84057; --fw-shadow: rgba(180,30,50,0.25); }       /* đỏ */
+.fw-c2 { --fw-bg: rgba(30, 80, 160, 0.78); --fw-avatar: #60A5FA; --fw-shadow: rgba(30,80,160,0.25); }        /* xanh dương */
+.fw-c3 { --fw-bg: rgba(90, 40, 140, 0.78); --fw-avatar: #A78BFA; --fw-shadow: rgba(90,40,140,0.25); }        /* tím */
+.fw-c4 { --fw-bg: rgba(255, 255, 255, 0.85); --fw-text: #2C1810; --fw-avatar: #8B7355; --fw-shadow: rgba(0,0,0,0.1); } /* trắng — chữ tối */
+.fw-c5 { --fw-bg: rgba(100, 55, 25, 0.80); --fw-avatar: #C08050; --fw-shadow: rgba(100,55,25,0.25); }        /* nâu */
+
+/* --- Rose/Pink palette --- */
+.fw-rose .fw-c1 { --fw-bg: rgba(180, 50, 80, 0.78); --fw-avatar: #E8668A; }
+.fw-rose .fw-c2 { --fw-bg: rgba(50, 70, 130, 0.78); --fw-avatar: #7B93DB; }
+.fw-rose .fw-c3 { --fw-bg: rgba(110, 50, 120, 0.78); --fw-avatar: #C084D8; }
+.fw-rose .fw-c4 { --fw-bg: rgba(255, 255, 255, 0.85); --fw-text: #4A2040; --fw-avatar: #C77DA3; --fw-shadow: rgba(0,0,0,0.08); }
+.fw-rose .fw-c5 { --fw-bg: rgba(90, 50, 40, 0.78); --fw-avatar: #B08060; }
+
+/* --- Dark/Luxury palette (nền tối → bong bóng trong suốt hơn) --- */
+.fw-dark .fw-c1 { --fw-bg: rgba(196, 30, 58, 0.3); --fw-avatar: #E84057; --fw-shadow: rgba(196,30,58,0.15); }
+.fw-dark .fw-c2 { --fw-bg: rgba(60, 100, 200, 0.3); --fw-avatar: #60A5FA; --fw-shadow: rgba(60,100,200,0.15); }
+.fw-dark .fw-c3 { --fw-bg: rgba(120, 70, 180, 0.3); --fw-avatar: #A78BFA; --fw-shadow: rgba(120,70,180,0.15); }
+.fw-dark .fw-c4 { --fw-bg: rgba(255, 255, 255, 0.12); --fw-text: #F1F5F9; --fw-avatar: #94A3B8; --fw-shadow: rgba(255,255,255,0.08); }
+.fw-dark .fw-c5 { --fw-bg: rgba(160, 100, 50, 0.25); --fw-avatar: #C08050; --fw-shadow: rgba(160,100,50,0.15); }
+
+.floating-wish-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--fw-avatar, var(--accent, #D4AF37));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.floating-wish-name {
+    font-weight: 600;
+    margin-right: 2px;
+    white-space: nowrap;
+}
+
+.floating-wish-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 190px;
+}
+
+@keyframes wish-float-up {
+    0%   { opacity: 0; transform: translateY(0); }
+    3%   { opacity: 1; }
+    70%  { opacity: 0.7; }
+    90%  { opacity: 0.2; }
+    100% { opacity: 0; transform: translateY(-280px); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+    .floating-wishes-box { width: 260px; bottom: 72px; left: 10px; }
+    .floating-wish { font-size: 0.74rem; padding: 5px 12px; }
+    .floating-wish-avatar { width: 20px; height: 20px; font-size: 0.6rem; }
+    .floating-wish-text { max-width: 150px; }
+}

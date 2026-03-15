@@ -5655,6 +5655,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-14',
     },
+    {
+        id: 178,
+        name: 'Thiệp Cưới Truyền Thống - Song Long Đỏ',
+        slug: 'thiep-cuoi-truyen-thong-song-long-do',
+        description: 'Thiệp cưới phong cách truyền thống Việt Nam với tông đỏ vàng sang trọng, đầy đủ tính năng: phong bì mở thiệp, đếm ngược, love story, gallery lightbox, sổ lưu bút, RSVP, hộp mừng cưới',
+        category: 'invitation',
+        type: 'website',
+        tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'traditional', 'red-gold', 'song-long'],
+        price: '',
+        images: [
+            './products/Web/Invitation/gen_178_traditional-red-wedding/screen.webp',
+            './products/Web/Invitation/gen_178_traditional-red-wedding/anh_1.webp',
+            './products/Web/Invitation/gen_178_traditional-red-wedding/anh_2.webp',
+            './products/Web/Invitation/gen_178_traditional-red-wedding/anh_3.webp',
+            './products/Web/Invitation/gen_178_traditional-red-wedding/anh_4.webp',
+        ],
+        thumbnail: './products/Web/Invitation/gen_178_traditional-red-wedding/screen.webp',
+        path: './products/Web/Invitation/gen_178_traditional-red-wedding/',
+        demoUrl: './products/Web/Invitation/gen_178_traditional-red-wedding/code.html',
+        features: [
+            'Phong bì mở thiệp + nhạc nền tự động',
+            'Đếm ngược ngày cưới realtime',
+            'Gallery lightbox + sổ lưu bút + RSVP + hộp mừng cưới QR',
+        ],
+        status: 'new',
+        priority: 178,
+        downloads: 3,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-14',
+    },
 ];
 
 // ============================================
@@ -5668,7 +5699,7 @@ const CATEGORIES = [
     { id: 'portfolio', label: 'Portfolio' },
     { id: 'education', label: 'Giáo dục' },
     { id: 'confession', label: 'Confession' },
-];
+]
 
 // TYPES — phân loại sản phẩm
 // website:      folder chứa project web thuần (HTML/CSS/JS) + ảnh, demoUrl trỏ đến file .html trong folder
