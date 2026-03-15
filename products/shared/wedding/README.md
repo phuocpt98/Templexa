@@ -1005,3 +1005,79 @@ initLetterEnvelope({
 
 #### CSS: copy từ `styles.css` mục 20
 #### JS: copy `initLetterEnvelope()` từ `scripts.js` mục 17
+
+### 18. Decorative Animations — Hiệu ứng trang trí vùng trống
+
+CSS-only animations đặt vào vùng trống: bên cạnh text, giữa 2 ảnh, đè lên/bị đè bởi ảnh.
+Không cần JS — chỉ thêm class `.deco` + variant vào `<span>` trong parent `position: relative`.
+
+#### Cách dùng:
+
+```html
+<!-- Parent phải có position: relative -->
+<div style="position: relative;">
+    <!-- Deco bên phải, đè lên nội dung -->
+    <span class="deco deco-front deco-heart-beat deco-md deco-rose-color" style="top: 10%; right: -25px;"></span>
+    <!-- Deco bên trái, bị nội dung đè -->
+    <span class="deco deco-back deco-rose-bloom deco-lg deco-faint" style="bottom: 20%; left: -15px;"></span>
+    <p>Nội dung text...</p>
+</div>
+
+<!-- Giữa 2 ảnh -->
+<div style="position: relative; display: flex; gap: 1rem;">
+    <img src="a.jpg">
+    <span class="deco deco-hearts-double deco-sm" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></span>
+    <img src="b.jpg">
+</div>
+```
+
+#### Danh sách hiệu ứng:
+
+| Class | Emoji | Animation | Phù hợp |
+|-------|-------|-----------|---------|
+| `deco-heart-beat` | ♥ | Đập nhịp tim | Mọi thiệp |
+| `deco-heart-float` | ♡ | Lơ lửng nhẹ | Romantic, dreamy |
+| `deco-heart-spin` | 💕 | Xoay chậm | Vui tươi |
+| `deco-hearts-double` | ♥♥ | 2 tim lệch, đập so le | Cạnh text |
+| `deco-heart-outline` | ♡ | Viền mỏng, lơ lửng | Subtle, elegant |
+| `deco-rose` | 🌹 | Lắc nhẹ | Classic, romantic |
+| `deco-rose-bloom` | 🌸 | Nở ra, co lại | Garden, rustic |
+| `deco-petals` | 🌸💮 | 2 cánh hoa trôi | Background |
+| `deco-gift` | 🎁 | Nảy + nghiêng | Gift section |
+| `deco-gift-sparkle` | 🎁✨ | Nảy + lấp lánh | Gift + festive |
+| `deco-arrow` | 💘 | Bay nhẹ | Love story |
+| `deco-arrow-trail` | ➳ | Bay + fade | Subtle, elegant |
+| `deco-angel` | 👼 | Bay vòng | Dreamy |
+| `deco-angel-wing` | 🕊️ | Bay lên xuống | Peace, elegant |
+| `deco-rings` | 💍 | Xoay + sáng | Event cards |
+| `deco-rings-double` | 💍💍 | 2 nhẫn, sáng so le | Wedding info |
+| `deco-star` | ⭐ | Nhấp nháy | Luxury |
+| `deco-sparkle` | ✨ | Nhấp nháy nhanh | Mọi thiệp |
+| `deco-stars-cluster` | ✦✧ | Cụm sao nhấp nháy | Background |
+| `deco-butterfly` | 🦋 | Bay vòng | Garden, spring |
+| `deco-cluster-romantic` | ♥🌸 | Heart + hoa | Romantic sections |
+| `deco-cluster-festive` | 🎁✨ | Gift + sparkle | Gift/celebration |
+
+#### Modifiers:
+
+| Class | Tác dụng |
+|-------|---------|
+| `deco-front` | z-index: 3 — đè lên nội dung |
+| `deco-back` | z-index: -1 — bị nội dung đè |
+| `deco-xs` / `deco-sm` / `deco-md` / `deco-lg` / `deco-xl` | Kích thước 0.7–2.5rem |
+| `deco-rose-color` / `deco-blush-color` / `deco-gold-color` / `deco-red-color` / `deco-pink-color` | Màu |
+| `deco-faint` / `deco-subtle` / `deco-soft` / `deco-visible` | Opacity 0.2–0.7 |
+
+#### Vị trí gợi ý trong thiệp:
+
+| Vị trí | Deco gợi ý |
+|--------|-----------|
+| Bên cạnh tên cặp đôi | `deco-heart-beat` hoặc `deco-hearts-double` |
+| Giữa 2 ảnh bay vào | `deco-heart-float` hoặc `deco-butterfly` |
+| Bên cạnh info card lễ cưới | `deco-rings` hoặc `deco-rose` |
+| Background section thư tay | `deco-petals deco-back deco-faint` |
+| Cạnh album slider | `deco-sparkle` hoặc `deco-stars-cluster` |
+| Gift section | `deco-gift-sparkle` hoặc `deco-cluster-festive` |
+| Góc section thankyou | `deco-angel-wing deco-subtle` |
+
+#### CSS: copy từ `styles.css` mục 21 (CSS-only, không cần JS)
