@@ -813,3 +813,30 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     observe();
     new MutationObserver(observe).observe(document.body, { childList: true, subtree: true });
 })();
+
+
+// ============================================
+// FLOATING SALE BUTTON — Thiệp cưới
+// products.html: xử lý trong products.js (toggle theo category)
+// ============================================
+
+// Hàm tạo/hiện/ẩn sale button — dùng chung
+window._saleBtn = null;
+window._showWeddingSaleBtn = function () {
+    if (!window._saleBtn) {
+        var btn = document.createElement('a');
+        btn.href = 'bang-gia-thiep-cuoi.html';
+        btn.className = 'floating-sale-btn';
+        btn.target = '_blank';
+        btn.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>' +
+            'Thiệp Cưới Từ 150K' +
+            '<span class="floating-sale-badge">SALE</span>';
+        document.body.appendChild(btn);
+        window._saleBtn = btn;
+    }
+    window._saleBtn.style.display = 'flex';
+};
+window._hideWeddingSaleBtn = function () {
+    if (window._saleBtn) window._saleBtn.style.display = 'none';
+};

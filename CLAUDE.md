@@ -481,7 +481,7 @@ Tất cả nơi hiển thị ảnh đều dùng `images[0]`:
 
 ## Ghi chú quan trọng
 
-- Footer giống nhau trên tất cả 4 trang — copy HTML, email: `hello@templexa.com`
+- Footer giống nhau trên tất cả 4 trang — copy HTML, email: `templexa.contact@gmail.com`
 - Header giống nhau trên tất cả 4 trang, chỉ khác class `active` trên nav link
 - Pricing cards render động từ `PRICING` array trong `data.js`
 - Scroll animations: `.service-card`, `.template-card`, `.benefit-card`, `.process-step`, `.pricing-card`, `.target-card`, `.product-card`

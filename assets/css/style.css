@@ -3537,3 +3537,85 @@ ul {
         50% { transform: translateY(-6px); }
     }
 }
+
+/* ============================================
+   FLOATING SALE BUTTON — Thiệp cưới
+   Hiện trên products.html (category=invitation),
+   product-detail.html (sản phẩm invitation),
+   preview.html (sản phẩm invitation)
+   ============================================ */
+.floating-sale-btn {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: linear-gradient(135deg, #C41E3A, #8B0000);
+    color: #FFD700;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 0 6px 25px rgba(196, 30, 58, 0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: sale-pulse 2s ease-in-out infinite;
+}
+.floating-sale-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 35px rgba(196, 30, 58, 0.5);
+}
+.floating-sale-btn svg {
+    width: 18px;
+    height: 18px;
+}
+.floating-sale-badge {
+    position: absolute;
+    top: -8px;
+    right: -6px;
+    padding: 2px 8px;
+    background: #FFD700;
+    color: #8B0000;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+@keyframes sale-pulse {
+    0%, 100% { box-shadow: 0 6px 25px rgba(196, 30, 58, 0.4); }
+    50% { box-shadow: 0 6px 30px rgba(196, 30, 58, 0.6), 0 0 15px rgba(255, 215, 0, 0.3); }
+}
+@media (max-width: 480px) {
+    .floating-sale-btn { right: 16px; bottom: 16px; padding: 10px 18px; font-size: 0.8rem; }
+}
+
+[data-theme="dark"] .floating-sale-btn {
+    box-shadow: 0 6px 25px rgba(196, 30, 58, 0.3);
+}
+
+/* ============================================
+   INVITATION THEME — Tông hồng cho thiệp mời
+   Thêm class .invitation-theme vào <body>
+   ============================================ */
+.invitation-theme .products-hero {
+    background: radial-gradient(ellipse 60% 70% at 50% 40%, rgba(232, 160, 191, 0.2), #FFFFFF 70%);
+}
+.invitation-theme .products-hero .gradient-text {
+    background: linear-gradient(135deg, #E8365A, #FF6B8A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.invitation-theme .detail-page {
+    background: linear-gradient(180deg, #FFF5F7 0%, #FFFFFF 100%);
+}
+[data-theme="dark"] .invitation-theme .products-hero {
+    background: var(--bg-primary);
+}
+[data-theme="dark"] .invitation-theme .detail-page {
+    background: var(--bg-primary);
+}

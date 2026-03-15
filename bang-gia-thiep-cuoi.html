@@ -448,6 +448,46 @@
             font-size: 0.95rem; color: rgba(245,213,160,0.7);
             max-width: 500px; margin: 0 auto 2rem;
         }
+        /* ===== CHAT BUBBLES ===== */
+        .chat-bubbles {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+        .chat-bubble {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .chat-bubble:hover {
+            transform: scale(1.12);
+            box-shadow: 0 6px 28px rgba(0, 0, 0, 0.35);
+        }
+        .chat-bubble svg { width: 26px; height: 26px; }
+        .chat-bubble-zalo {
+            background: #0068FF;
+            color: #fff;
+        }
+        .chat-bubble-messenger {
+            background: linear-gradient(135deg, #FF6968, #A855F7, #0095F6);
+            color: #fff;
+        }
+        @media (max-width: 480px) {
+            .chat-bubbles { bottom: 16px; right: 16px; gap: 10px; }
+            .chat-bubble { width: 46px; height: 46px; }
+            .chat-bubble svg { width: 22px; height: 22px; }
+        }
         .cta-buttons {
             display: flex; align-items: center; justify-content: center;
             gap: 1rem; flex-wrap: wrap;
@@ -848,14 +888,21 @@
         <h2>Sẵn Sàng Tạo Thiệp Cưới?</h2>
         <p>Liên hệ ngay để được tư vấn miễn phí và nhận thiệp trong 24h</p>
         <div class="cta-buttons">
-            <a href="https://zalo.me/0123456789" target="_blank" class="cta-btn cta-btn-primary">
-                <i data-lucide="message-circle"></i> Chat Zalo
-            </a>
-            <a href="mailto:hello@templexa.com" class="cta-btn cta-btn-outline">
-                <i data-lucide="mail"></i> hello@templexa.com
+            <a href="mailto:templexa.contact@gmail.com" class="cta-btn cta-btn-outline">
+                <i data-lucide="mail"></i> templexa.contact@gmail.com
             </a>
         </div>
     </section>
+
+    <!-- ===== CHAT BUBBLES ===== -->
+    <div class="chat-bubbles">
+        <a href="https://zalo.me/0334884895" target="_blank" rel="noopener" class="chat-bubble chat-bubble-zalo" aria-label="Chat Zalo">
+            <img src="./assets/images/zalo-icon.ico" alt="Zalo" style="width:28px;height:28px;">
+        </a>
+        <a href="https://www.facebook.com/messages/t/linh.pi.359" target="_blank" rel="noopener" class="chat-bubble chat-bubble-messenger" aria-label="Chat Messenger">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.2 5.49 3.12 7.36V22l2.83-1.55c.8.22 1.65.35 2.55.35h.5C17.64 20.8 22 16.67 22 11.7S17.64 2 12 2zm1.13 12.2l-2.79-2.98-5.44 2.98 5.98-6.35 2.86 2.98 5.37-2.98-5.98 6.35z"/></svg>
+        </a>
+    </div>
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
