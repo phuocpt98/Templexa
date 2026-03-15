@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới - Minh & Ngọc</title>
+    <meta name="description" content="Nhà trai trân trọng kính mời quý khách tới dự lễ thành hôn của Minh & Ngọc — 20/12/2026">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Quicksand:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-script: 'Great Vibes', cursive;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Quicksand', sans-serif;
+            --bg: #F5F5F5;
+            --bg-white: #FFFFFF;
+            --bg-warm: #FAFAF8;
+            --text: #2D2D2D;
+            --text-light: #6B6B6B;
+            --text-faint: #999999;
+            --accent: #4A90D9;
+            --accent-dark: #3672B5;
+            --accent-light: #7BB3E8;
+            --gold: #C4A265;
+            --rose: #D4878F;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-weight: 300;
+            background-image:
+                radial-gradient(circle at 15% 30%, rgba(74,144,217,0.04) 0%, transparent 50%),
+                radial-gradient(circle at 85% 70%, rgba(196,162,101,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 50% 90%, rgba(74,144,217,0.03) 0%, transparent 40%);
+        }
+        .wrapper { max-width: 520px; margin: 0 auto; overflow: hidden; }
+
+        /* ===== DECORATIVE ITEMS ===== */
+        .deco { position: fixed; pointer-events: none; z-index: 9999; opacity: 0.12; font-size: 22px; }
+        .deco-heart-beat { top: 12%; left: 6%; animation: decoFloat 4s ease-in-out infinite; }
+        .deco-rose { top: 35%; right: 4%; animation: decoFloat 5s ease-in-out infinite 1s; font-size: 18px; }
+        .deco-sparkle { top: 58%; left: 3%; animation: decoFloat 3.5s ease-in-out infinite 0.5s; font-size: 16px; }
+        .deco-rings { top: 78%; right: 6%; animation: decoFloat 4.5s ease-in-out infinite 2s; }
+        .deco-star { top: 22%; right: 8%; animation: decoFloat 6s ease-in-out infinite 1.5s; font-size: 14px; }
+        .deco-leaf { top: 92%; left: 8%; animation: decoFloat 5.5s ease-in-out infinite 0.8s; font-size: 20px; }
+        @keyframes decoFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(8deg); }
+        }
+
+        /* ===== MUSIC BUTTON ===== */
+        .music-btn {
+            position: fixed; top: 16px; right: 16px; z-index: 10000;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(255,255,255,0.9); border: 1.5px solid rgba(74,144,217,0.2);
+            backdrop-filter: blur(10px); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
+        }
+        .music-btn:hover { transform: scale(1.1); }
+        .music-btn.playing { animation: musicPulse 1.5s ease-in-out infinite; }
+        @keyframes musicPulse { 0%,100%{ box-shadow: 0 2px 12px rgba(74,144,217,0.15); } 50%{ box-shadow: 0 2px 20px rgba(74,144,217,0.35); } }
+        .music-bars { display: flex; gap: 2px; align-items: flex-end; height: 16px; }
+        .music-bars span { width: 3px; background: var(--accent); border-radius: 2px; transition: height 0.3s; }
+        .music-btn:not(.playing) .music-bars span { height: 3px !important; }
+        .music-btn.playing .music-bars span:nth-child(1) { animation: bar1 0.8s ease-in-out infinite; }
+        .music-btn.playing .music-bars span:nth-child(2) { animation: bar2 0.7s ease-in-out infinite 0.1s; }
+        .music-btn.playing .music-bars span:nth-child(3) { animation: bar3 0.9s ease-in-out infinite 0.2s; }
+        .music-btn.playing .music-bars span:nth-child(4) { animation: bar4 0.6s ease-in-out infinite 0.15s; }
+        @keyframes bar1 { 0%,100%{height:4px} 50%{height:14px} }
+        @keyframes bar2 { 0%,100%{height:8px} 50%{height:4px} }
+        @keyframes bar3 { 0%,100%{height:6px} 50%{height:16px} }
+        @keyframes bar4 { 0%,100%{height:10px} 50%{height:5px} }
+
+        /* ===== FALLING PETALS ===== */
+        .petal {
+            position: fixed; top: -30px; z-index: 9998; pointer-events: none;
+            animation: petalFall linear forwards;
+        }
+        @keyframes petalFall {
+            0% { transform: translateX(0) rotate(0deg); opacity: 0.3; }
+            25% { transform: translateX(30px) rotate(90deg); }
+            50% { transform: translateX(-20px) rotate(180deg); }
+            75% { transform: translateX(25px) rotate(270deg); }
+            100% { transform: translateX(-10px) rotate(360deg); top: 105vh; opacity: 0; }
+        }
+
+        /* ===== DIVIDERS ===== */
+        .divider {
+            text-align: center; padding: 20px 0; font-size: 16px;
+            color: var(--accent-light); letter-spacing: 12px; opacity: 0.5;
+        }
+        .divider-gold { color: var(--gold); }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+        .reveal.vis { opacity: 1; transform: translateY(0); }
+
+        /* ===== 1. HERO ===== */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 60px 24px 40px;
+            background: linear-gradient(180deg, #EDF4FB 0%, var(--bg) 100%);
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+            width: 400px; height: 400px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(74,144,217,0.08) 0%, transparent 70%);
+        }
+        .hero-badge {
+            font-family: var(--font-body); font-weight: 500; font-size: 11px;
+            letter-spacing: 4px; text-transform: uppercase; color: var(--accent);
+            margin-bottom: 20px; position: relative; z-index: 1;
+        }
+        .hero-names {
+            font-family: var(--font-script); font-size: clamp(52px, 14vw, 80px);
+            color: var(--accent-dark); line-height: 1.1; margin-bottom: 8px;
+            position: relative; z-index: 1;
+        }
+        .hero-and {
+            font-family: var(--font-heading); font-style: italic; font-size: 22px;
+            color: var(--gold); margin: 4px 0; position: relative; z-index: 1;
+        }
+        .hero-date {
+            font-family: var(--font-heading); font-size: 16px; letter-spacing: 3px;
+            color: var(--text-light); margin-top: 16px; position: relative; z-index: 1;
+        }
+        .hero-invite {
+            font-size: 13px; color: var(--text-faint); margin-top: 24px;
+            font-weight: 400; letter-spacing: 1px; position: relative; z-index: 1;
+        }
+        .hero-scroll {
+            margin-top: 40px; font-size: 13px; color: var(--accent-light);
+            animation: heroScroll 2s ease-in-out infinite; cursor: pointer;
+            position: relative; z-index: 1;
+        }
+        @keyframes heroScroll { 0%,100%{ transform: translateY(0); opacity:0.6; } 50%{ transform: translateY(8px); opacity:1; } }
+        .hero-ornament {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            font-size: 24px; color: var(--accent-light); opacity: 0.2;
+        }
+
+        /* ===== 2. BIG PHOTO ===== */
+        .big-photo {
+            position: relative; width: 100%; aspect-ratio: 3/4;
+            overflow: hidden; margin: 0;
+        }
+        .big-photo img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .big-photo::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+            background: linear-gradient(to top, var(--bg), transparent);
+        }
+
+        /* ===== 3. LETTER / THƯ NGỎ ===== */
+        .letter-section { padding: 40px 24px 20px; text-align: center; }
+        .letter-title {
+            font-family: var(--font-heading); font-style: italic; font-size: 26px;
+            color: var(--text); margin-bottom: 6px;
+        }
+        .letter-sub { font-size: 12px; color: var(--text-faint); letter-spacing: 2px; margin-bottom: 28px; }
+
+        .letter-envelope {
+            position: relative; width: 88%; max-width: 360px; margin: 0 auto;
+            cursor: pointer; user-select: none;
+        }
+        /* Peek photos behind envelope */
+        .letter-peek {
+            position: absolute; width: 100px; height: 130px; object-fit: cover;
+            border-radius: 10px; z-index: -1; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: transform 0.6s cubic-bezier(0.22,1,0.36,1), opacity 0.6s;
+        }
+        .letter-peek-left {
+            top: -20px; left: -18px; transform: rotate(-6deg);
+        }
+        .letter-peek-right {
+            top: -16px; right: -18px; transform: rotate(5deg);
+        }
+
+        .letter-box {
+            position: relative; z-index: 1;
+            background: var(--bg-white); border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+            padding: 0; overflow: hidden;
+            min-height: 120px;
+        }
+        .letter-flap {
+            height: 70px; background: linear-gradient(135deg, var(--accent-light), var(--accent));
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+            transform-origin: top center; position: relative; z-index: 2;
+        }
+        .letter-box.open .letter-flap { transform: rotateX(180deg); opacity: 0.3; }
+
+        .letter-body {
+            padding: 24px 20px 28px; text-align: center;
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.7s cubic-bezier(0.22,1,0.36,1), padding 0.5s;
+        }
+        .letter-box.open .letter-body { max-height: 500px; padding: 24px 20px 28px; }
+        .letter-body p {
+            font-size: 14px; color: var(--text-light); line-height: 1.9;
+            font-weight: 300; margin-bottom: 12px;
+        }
+        .letter-body .letter-sign {
+            font-family: var(--font-script); font-size: 28px; color: var(--accent);
+            margin-top: 12px;
+        }
+
+        /* Hearts burst */
+        .letter-hearts { position: absolute; top: 50%; left: 50%; z-index: 5; pointer-events: none; }
+        .letter-heart {
+            position: absolute; font-size: 16px; opacity: 0;
+            --lx: 0px; --ly: -60px; --lr: 0deg;
+        }
+        .letter-box.open .letter-heart {
+            animation: heartBurst 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
+        }
+        @keyframes heartBurst {
+            0% { transform: translate(0,0) rotate(0deg) scale(0); opacity: 1; }
+            100% { transform: translate(var(--lx), var(--ly)) rotate(var(--lr)) scale(1); opacity: 0; }
+        }
+
+        .letter-hint {
+            font-size: 12px; color: var(--text-faint); margin-top: 16px;
+            font-style: italic;
+        }
+
+        /* ===== 4. THÔNG TIN LỄ CƯỚI ===== */
+        .events-section { padding: 40px 24px; }
+        .section-ornament { text-align: center; font-size: 14px; color: var(--accent-light); opacity: 0.4; margin-bottom: 8px; }
+        .section-title {
+            font-family: var(--font-heading); font-style: italic; font-size: 26px;
+            text-align: center; color: var(--text); margin-bottom: 6px;
+        }
+        .section-sub {
+            font-size: 12px; color: var(--text-faint); text-align: center;
+            letter-spacing: 2px; margin-bottom: 32px;
+        }
+
+        .event-card {
+            background: var(--bg-white); border-radius: 18px;
+            padding: 28px 24px; margin-bottom: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .event-card:hover { transform: translateY(-2px); }
+        .event-card:nth-child(2) { margin-left: 24px; margin-right: -8px; }
+        .event-card-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            background: linear-gradient(135deg, rgba(74,144,217,0.1), rgba(74,144,217,0.05));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; margin-bottom: 14px;
+        }
+        .event-card h3 {
+            font-family: var(--font-heading); font-size: 20px; font-weight: 600;
+            color: var(--text); margin-bottom: 10px;
+        }
+        .event-card-detail {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 13px; color: var(--text-light); margin-bottom: 6px;
+        }
+        .event-card-detail svg { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; }
+        .event-card-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 14px; padding: 8px 18px; border-radius: 20px;
+            background: rgba(74,144,217,0.08); color: var(--accent-dark);
+            font-size: 12px; font-weight: 500; text-decoration: none;
+            border: 1px solid rgba(74,144,217,0.15); cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .event-card-btn:hover { background: rgba(74,144,217,0.15); transform: translateY(-1px); }
+
+        /* ===== 5. TIMELINE ===== */
+        .timeline-section { padding: 30px 24px 40px; }
+        .timeline {
+            position: relative; padding-left: 36px;
+        }
+        .timeline::before {
+            content: ''; position: absolute; left: 14px; top: 8px; bottom: 8px;
+            width: 2px; background: linear-gradient(180deg, var(--accent-light), var(--accent), var(--accent-light));
+            border-radius: 2px; opacity: 0.3;
+        }
+        .timeline-item { position: relative; margin-bottom: 28px; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot {
+            position: absolute; left: -29px; top: 6px;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--accent); border: 3px solid var(--bg);
+            box-shadow: 0 0 0 2px rgba(74,144,217,0.2);
+        }
+        .timeline-time {
+            font-family: var(--font-heading); font-size: 14px; font-weight: 600;
+            color: var(--accent); margin-bottom: 2px;
+        }
+        .timeline-label {
+            font-size: 14px; color: var(--text); font-weight: 400;
+        }
+        .timeline-desc { font-size: 12px; color: var(--text-faint); margin-top: 2px; }
+
+        /* ===== 6. DRESSCODE ===== */
+        .dresscode-section { padding: 30px 24px; text-align: center; }
+        .dresscode-swatches {
+            display: flex; justify-content: center; gap: 14px;
+            margin-top: 20px; flex-wrap: wrap;
+        }
+        .swatch {
+            width: 42px; height: 42px; border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border: 3px solid var(--bg-white);
+            transition: transform 0.3s;
+            position: relative;
+        }
+        .swatch:hover { transform: scale(1.15); }
+        .swatch-label {
+            font-size: 10px; color: var(--text-faint); margin-top: 6px;
+            text-align: center;
+        }
+        .swatch-item { display: flex; flex-direction: column; align-items: center; }
+
+        /* ===== 7. FLY-IN PHOTOS ===== */
+        .fly-section {
+            padding: 40px 24px; display: flex; justify-content: center;
+            position: relative;
+        }
+        .fly-photo {
+            width: 55%; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: transform 1s cubic-bezier(0.22,1,0.36,1), opacity 1s;
+        }
+        .fly-photo img { width: 100%; display: block; }
+        .fly-photo:first-child {
+            transform: translateX(-40px) rotate(-2deg); opacity: 0;
+            z-index: 1; margin-right: -25px;
+        }
+        .fly-photo:last-child {
+            transform: translateX(40px) rotate(1.5deg); opacity: 0;
+            z-index: 2; margin-left: -25px;
+        }
+        .fly-section.vis .fly-photo:first-child { transform: translateX(0) rotate(-2deg); opacity: 1; }
+        .fly-section.vis .fly-photo:last-child { transform: translateX(0) rotate(1.5deg); opacity: 1; }
+
+        /* ===== 8. LOVE STORY / BỨC THƯ TÌNH ===== */
+        .story-section {
+            padding: 50px 24px; text-align: center; position: relative;
+            overflow: hidden;
+        }
+        .story-bg {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url('./couple_4.webp') center/cover no-repeat;
+            opacity: 0.06; z-index: 0;
+        }
+        .story-content { position: relative; z-index: 1; }
+        .story-quote {
+            font-family: var(--font-heading); font-style: italic;
+            font-size: 18px; line-height: 1.9; color: var(--text);
+            max-width: 380px; margin: 0 auto 20px;
+        }
+        .story-sign {
+            font-family: var(--font-script); font-size: 32px; color: var(--accent);
+        }
+
+        /* ===== 9. CALENDAR ===== */
+        .calendar-section {
+            padding: 40px 24px; position: relative; overflow: hidden;
+        }
+        .calendar-bg {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url('./couple_2.webp') center/cover no-repeat;
+            opacity: 0.07; z-index: 0;
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+        }
+        .calendar-wrap {
+            position: relative; z-index: 1;
+            background: rgba(255,255,255,0.85); border-radius: 20px;
+            padding: 28px 20px; box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            backdrop-filter: blur(6px);
+        }
+        .cal-header {
+            text-align: center; margin-bottom: 16px;
+        }
+        .cal-month-name {
+            font-family: var(--font-heading); font-size: 22px; font-weight: 600;
+            color: var(--text); margin-right: 8px;
+        }
+        .cal-year { font-family: var(--font-heading); font-size: 22px; color: var(--text-light); }
+        .cal-grid {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            gap: 4px; text-align: center;
+        }
+        .cal-dow {
+            font-size: 11px; font-weight: 600; color: var(--text-faint);
+            padding: 4px 0; text-transform: uppercase;
+        }
+        .cal-day {
+            font-size: 13px; padding: 7px 0; border-radius: 8px;
+            color: var(--text-light); font-weight: 400;
+            transition: background 0.3s;
+        }
+        .cal-day.marked {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff; font-weight: 700; border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(74,144,217,0.3);
+            animation: calPulse 2s ease-in-out infinite;
+        }
+        @keyframes calPulse { 0%,100%{box-shadow:0 2px 10px rgba(74,144,217,0.3)} 50%{box-shadow:0 2px 18px rgba(74,144,217,0.5)} }
+        .cal-events { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+        .cal-event {
+            display: flex; align-items: center; gap: 8px; font-size: 12px;
+            color: var(--text-light);
+        }
+        .cal-event-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+        /* ===== 10. COUNTDOWN ===== */
+        .countdown-section {
+            padding: 40px 24px; text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(74,144,217,0.04), transparent);
+        }
+        .countdown-grid {
+            display: flex; justify-content: center; gap: 12px; margin-top: 24px;
+        }
+        .countdown-box {
+            background: var(--bg-white); border-radius: 14px;
+            padding: 16px 12px; min-width: 68px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            border: 1px solid rgba(74,144,217,0.08);
+        }
+        .countdown-num {
+            font-family: var(--font-heading); font-size: 32px; font-weight: 700;
+            color: var(--accent-dark); line-height: 1;
+        }
+        .countdown-label {
+            font-size: 10px; color: var(--text-faint); margin-top: 4px;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* ===== 11. GALLERY SLIDER ===== */
+        .gallery-section { padding: 40px 24px; }
+        .slider-container {
+            position: relative; overflow: hidden; border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        }
+        .slider-track {
+            display: flex; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+        }
+        .slider-slide {
+            min-width: 100%; aspect-ratio: 3/4;
+        }
+        .slider-slide img { width: 100%; height: 100%; object-fit: cover; }
+        .slider-controls {
+            display: flex; justify-content: center; align-items: center;
+            gap: 16px; margin-top: 16px;
+        }
+        .slider-btn {
+            width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(74,144,217,0.2);
+            background: var(--bg-white); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; color: var(--accent); transition: all 0.3s;
+        }
+        .slider-btn:hover { background: var(--accent); color: #fff; }
+        .slider-dots { display: flex; gap: 6px; }
+        .slider-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: rgba(74,144,217,0.2); border: none; cursor: pointer;
+            transition: all 0.3s;
+        }
+        .slider-dot.active { background: var(--accent); width: 24px; border-radius: 4px; }
+
+        /* ===== 12. RSVP ===== */
+        .rsvp-section { padding: 40px 24px; }
+        .rsvp-card {
+            background: var(--bg-white); border-radius: 20px; padding: 32px 24px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        }
+        .rsvp-card label {
+            display: block; font-size: 13px; font-weight: 500;
+            color: var(--text); margin-bottom: 6px; margin-top: 14px;
+        }
+        .rsvp-card label:first-of-type { margin-top: 0; }
+        .rsvp-card input[type="text"],
+        .rsvp-card input[type="number"] {
+            width: 100%; padding: 10px 14px; border-radius: 10px;
+            border: 1.5px solid rgba(74,144,217,0.15); font-family: var(--font-body);
+            font-size: 14px; background: var(--bg-warm); color: var(--text);
+            outline: none; transition: border-color 0.3s;
+        }
+        .rsvp-card input:focus { border-color: var(--accent); }
+        .rsvp-radio-group { display: flex; gap: 10px; margin-top: 6px; }
+        .rsvp-radio {
+            flex: 1; padding: 10px; border-radius: 10px; border: 1.5px solid rgba(74,144,217,0.15);
+            background: var(--bg-warm); cursor: pointer; text-align: center;
+            font-size: 13px; transition: all 0.3s; position: relative;
+        }
+        .rsvp-radio input { position: absolute; opacity: 0; }
+        .rsvp-radio.selected {
+            border-color: var(--accent); background: rgba(74,144,217,0.08);
+            color: var(--accent-dark); font-weight: 600;
+        }
+        .rsvp-submit {
+            width: 100%; padding: 12px; border-radius: 12px; border: none;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff; font-family: var(--font-body); font-size: 14px; font-weight: 600;
+            cursor: pointer; margin-top: 20px; transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 16px rgba(74,144,217,0.25);
+        }
+        .rsvp-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(74,144,217,0.35); }
+        .rsvp-success {
+            display: none; text-align: center; padding: 32px 20px;
+        }
+        .rsvp-success.show { display: block; }
+        .rsvp-success-icon { font-size: 48px; margin-bottom: 12px; }
+        .rsvp-success h3 {
+            font-family: var(--font-heading); font-size: 22px; color: var(--text);
+            margin-bottom: 6px;
+        }
+        .rsvp-success p { font-size: 14px; color: var(--text-light); }
+
+        /* ===== 13. WISHES / LỜI CHÚC ===== */
+        .wishes-section { padding: 40px 24px; }
+        .wishes-card {
+            background: var(--bg-white); border-radius: 20px; padding: 28px 24px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        }
+        .wishes-preset { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .wishes-preset-btn {
+            padding: 6px 14px; border-radius: 16px; border: 1px solid rgba(74,144,217,0.15);
+            background: var(--bg-warm); font-size: 12px; color: var(--text-light);
+            cursor: pointer; font-family: var(--font-body); transition: all 0.3s;
+        }
+        .wishes-preset-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .wishes-textarea {
+            width: 100%; min-height: 80px; padding: 12px 14px; border-radius: 12px;
+            border: 1.5px solid rgba(74,144,217,0.15); background: var(--bg-warm);
+            font-family: var(--font-body); font-size: 14px; color: var(--text);
+            resize: vertical; outline: none; transition: border-color 0.3s;
+        }
+        .wishes-textarea:focus { border-color: var(--accent); }
+        .wishes-name-input {
+            width: 100%; padding: 10px 14px; border-radius: 10px;
+            border: 1.5px solid rgba(74,144,217,0.15); background: var(--bg-warm);
+            font-family: var(--font-body); font-size: 14px; color: var(--text);
+            outline: none; margin-bottom: 10px; transition: border-color 0.3s;
+        }
+        .wishes-name-input:focus { border-color: var(--accent); }
+        .wishes-submit {
+            margin-top: 12px; padding: 10px 24px; border-radius: 10px;
+            border: 1.5px solid var(--accent); background: transparent;
+            color: var(--accent); font-family: var(--font-body); font-size: 13px;
+            font-weight: 600; cursor: pointer; transition: all 0.3s;
+        }
+        .wishes-submit:hover { background: var(--accent); color: #fff; }
+        .wishes-success {
+            display: none; font-size: 13px; color: var(--accent);
+            margin-top: 10px; font-weight: 500;
+        }
+        .wishes-success.show { display: block; }
+        .wishes-list { margin-top: 20px; }
+        .wish-item {
+            padding: 14px 16px; background: var(--bg-warm); border-radius: 12px;
+            margin-bottom: 8px; animation: wishIn 0.4s ease;
+        }
+        @keyframes wishIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+        .wish-item-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+        .wish-item-msg { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+        .wish-item-time { font-size: 10px; color: var(--text-faint); margin-top: 4px; }
+
+        /* ===== 14. GIFT / MỪNG CƯỚI ===== */
+        .gift-section { padding: 40px 24px; }
+        .gift-cards { display: flex; flex-direction: column; gap: 16px; }
+        .gift-card {
+            background: var(--bg-white); border-radius: 16px; padding: 24px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04); cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s; position: relative;
+        }
+        .gift-card:first-child { transform: rotate(-1deg); }
+        .gift-card:last-child { transform: rotate(0.8deg); margin-left: 12px; }
+        .gift-card:hover { transform: rotate(0deg) translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.08); }
+        .gift-bank {
+            font-family: var(--font-heading); font-size: 18px; font-weight: 600;
+            color: var(--accent-dark); margin-bottom: 6px;
+        }
+        .gift-name { font-size: 14px; color: var(--text); font-weight: 500; margin-bottom: 4px; }
+        .gift-stk { font-size: 13px; color: var(--text-light); font-family: monospace; }
+        .gift-hint {
+            font-size: 11px; color: var(--text-faint); margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* QR Modal */
+        .qr-modal {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+            z-index: 20000; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .qr-modal.active { opacity: 1; pointer-events: auto; }
+        .qr-modal-card {
+            background: var(--bg-white); border-radius: 20px; padding: 32px 28px;
+            text-align: center; max-width: 320px; width: 90%;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+            transform: scale(0.9); transition: transform 0.3s;
+        }
+        .qr-modal.active .qr-modal-card { transform: scale(1); }
+        .qr-modal-close {
+            position: absolute; top: 12px; right: 16px; background: none;
+            border: none; font-size: 22px; color: var(--text-faint); cursor: pointer;
+        }
+        .qr-placeholder {
+            width: 160px; height: 160px; margin: 16px auto;
+            background: linear-gradient(135deg, rgba(74,144,217,0.08), rgba(74,144,217,0.04));
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 48px; color: var(--accent-light);
+        }
+        .qr-bank-name {
+            font-family: var(--font-heading); font-size: 20px; font-weight: 600;
+            color: var(--text); margin-bottom: 4px;
+        }
+        .qr-account-name { font-size: 14px; color: var(--text-light); margin-bottom: 4px; }
+        .qr-stk-display { font-size: 16px; font-family: monospace; color: var(--accent-dark); font-weight: 600; margin-bottom: 16px; }
+        .qr-copy-btn {
+            padding: 10px 28px; border-radius: 10px; border: 1.5px solid var(--accent);
+            background: transparent; color: var(--accent); font-family: var(--font-body);
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s;
+        }
+        .qr-copy-btn:hover { background: var(--accent); color: #fff; }
+
+        /* ===== 15. THANK YOU ===== */
+        .thankyou-section {
+            position: relative; width: 100%; aspect-ratio: 4/5;
+            overflow: hidden; margin-top: 20px;
+        }
+        .thankyou-section img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .thankyou-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: flex-end; padding: 40px 24px 50px;
+        }
+        .thankyou-text {
+            font-family: var(--font-script); font-size: clamp(36px, 10vw, 52px);
+            color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            margin-bottom: 8px;
+        }
+        .thankyou-sub {
+            font-size: 13px; color: rgba(255,255,255,0.8); letter-spacing: 2px;
+        }
+
+        /* ===== 16. FOOTER ===== */
+        .footer {
+            text-align: center; padding: 32px 24px 24px; position: relative;
+        }
+        .footer-names {
+            font-family: var(--font-script); font-size: 28px; color: var(--accent);
+        }
+        .footer-date { font-size: 12px; color: var(--text-faint); margin-top: 4px; letter-spacing: 2px; }
+        .footer-hearts {
+            margin-top: 16px; display: flex; justify-content: center; gap: 8px;
+        }
+        .footer-heart {
+            font-size: 12px; color: var(--accent-light); opacity: 0.4;
+            animation: footerHeart 2s ease-in-out infinite;
+        }
+        .footer-heart:nth-child(2) { animation-delay: 0.3s; font-size: 16px; opacity: 0.6; color: var(--accent); }
+        .footer-heart:nth-child(3) { animation-delay: 0.6s; }
+        @keyframes footerHeart { 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.3); } }
+        .footer-credit { font-size: 10px; color: var(--text-faint); margin-top: 12px; opacity: 0.5; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .wrapper { max-width: 100%; }
+            .event-card:nth-child(2) { margin-left: 12px; margin-right: 0; }
+            .countdown-box { min-width: 60px; padding: 14px 10px; }
+            .countdown-num { font-size: 26px; }
+            .letter-peek { width: 80px; height: 105px; }
+            .fly-photo { width: 52%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- DECORATIVE FLOATING ITEMS -->
+    <div class="deco deco-heart-beat">💙</div>
+    <div class="deco deco-rose">🤍</div>
+    <div class="deco deco-sparkle">✦</div>
+    <div class="deco deco-rings">💍</div>
+    <div class="deco deco-star">⭐</div>
+    <div class="deco deco-leaf">🍃</div>
+
+    <!-- MUSIC BUTTON -->
+    <button class="music-btn" id="musicBtn" aria-label="Bật/tắt nhạc">
+        <div class="music-bars"><span></span><span></span><span></span><span></span></div>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/romantic/Only Love.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="wrapper">
+
+        <!-- 1. HERO -->
+        <section class="hero">
+            <p class="hero-badge">Nhà Trai Trân Trọng Kính Mời</p>
+            <h1 class="hero-names">Minh</h1>
+            <p class="hero-and">&amp;</p>
+            <h1 class="hero-names">Ngọc</h1>
+            <p class="hero-date">20 · 12 · 2026</p>
+            <p class="hero-invite">Trân trọng kính mời quý khách đến chung vui</p>
+            <div class="hero-scroll" onclick="document.querySelector('.big-photo').scrollIntoView({behavior:'smooth'})">↓ Cuộn xuống</div>
+            <div class="hero-ornament">❦</div>
+        </section>
+
+        <!-- 2. BIG PHOTO -->
+        <div class="big-photo reveal">
+            <img src="./couple_1.webp" alt="Minh & Ngọc" loading="lazy">
+        </div>
+
+        <div class="divider reveal">❦ ✿ ❦</div>
+
+        <!-- 3. LETTER / THƯ NGỎ -->
+        <section class="letter-section reveal">
+            <h2 class="letter-title">Thư Ngỏ</h2>
+            <p class="letter-sub">LỜI TỪ TRÁI TIM</p>
+
+            <div class="letter-envelope">
+                <img class="letter-peek letter-peek-left" src="./couple_3.webp" alt="">
+                <img class="letter-peek letter-peek-right" src="./couple_4.webp" alt="">
+
+                <div class="letter-box" id="letterBox">
+                    <div class="letter-flap"></div>
+                    <div class="letter-body">
+                        <p>Kính gửi quý khách,</p>
+                        <p>Chúng tôi vô cùng hạnh phúc và vinh dự được đón tiếp quý khách trong ngày trọng đại của đời mình. Sự hiện diện của quý khách sẽ là niềm vui lớn lao, là món quà ý nghĩa nhất mà chúng tôi nhận được.</p>
+                        <p>Xin trân trọng kính mời quý khách đến chung vui cùng gia đình chúng tôi.</p>
+                        <p class="letter-sign">Minh & Ngọc</p>
+                    </div>
+                    <div class="letter-hearts">
+                        <span class="letter-heart">💙</span>
+                        <span class="letter-heart">🤍</span>
+                        <span class="letter-heart">💙</span>
+                        <span class="letter-heart">🤍</span>
+                        <span class="letter-heart">💙</span>
+                        <span class="letter-heart">🤍</span>
+                    </div>
+                </div>
+            </div>
+            <p class="letter-hint" id="letterHint">Nhấn để mở thư</p>
+        </section>
+
+        <div class="divider divider-gold reveal">♡ ♡ ♡</div>
+
+        <!-- 4. THÔNG TIN LỄ CƯỚI -->
+        <section class="events-section reveal">
+            <p class="section-ornament">✿</p>
+            <h2 class="section-title">Thông Tin Lễ Cưới</h2>
+            <p class="section-sub">SAVE THE DATE</p>
+
+            <div class="event-card reveal">
+                <div class="event-card-icon">🏠</div>
+                <h3>Lễ Vu Quy</h3>
+                <div class="event-card-detail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>08:00 — Chủ Nhật, 20/12/2026</span>
+                </div>
+                <div class="event-card-detail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>Tư gia nhà trai, TP. Hồ Chí Minh</span>
+                </div>
+                <a class="event-card-btn" href="https://maps.google.com" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                    Chỉ đường
+                </a>
+            </div>
+
+            <div class="event-card reveal">
+                <div class="event-card-icon">🥂</div>
+                <h3>Tiệc Thân Mật</h3>
+                <div class="event-card-detail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>17:30 — Chủ Nhật, 20/12/2026</span>
+                </div>
+                <div class="event-card-detail">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>Nhà hàng Riverside Palace, Quận 4</span>
+                </div>
+                <a class="event-card-btn" href="https://maps.google.com" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                    Chỉ đường
+                </a>
+            </div>
+        </section>
+
+        <div class="divider reveal">❦</div>
+
+        <!-- 5. TIMELINE -->
+        <section class="timeline-section reveal">
+            <p class="section-ornament">✿</p>
+            <h2 class="section-title">Chương Trình</h2>
+            <p class="section-sub">SỰ KIỆN TRONG NGÀY</p>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-time">08:00</div>
+                    <div class="timeline-label">Lễ Thành Hôn</div>
+                    <div class="timeline-desc">Nghi thức truyền thống tại tư gia</div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-time">10:30</div>
+                    <div class="timeline-label">Check-in & Đón khách</div>
+                    <div class="timeline-desc">Chụp ảnh lưu niệm cùng cô dâu chú rể</div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-time">11:00</div>
+                    <div class="timeline-label">Khai Tiệc</div>
+                    <div class="timeline-desc">Thưởng thức tiệc mừng và chương trình văn nghệ</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider divider-gold reveal">♡ ♡ ♡</div>
+
+        <!-- 6. DRESSCODE -->
+        <section class="dresscode-section reveal">
+            <p class="section-ornament">✿</p>
+            <h2 class="section-title">Dress Code</h2>
+            <p class="section-sub">TRANG PHỤC GỢI Ý</p>
+
+            <div class="dresscode-swatches">
+                <div class="swatch-item">
+                    <div class="swatch" style="background: #7B8A8E;"></div>
+                    <span class="swatch-label">Xám</span>
+                </div>
+                <div class="swatch-item">
+                    <div class="swatch" style="background: #2C3E6B;"></div>
+                    <span class="swatch-label">Navy</span>
+                </div>
+                <div class="swatch-item">
+                    <div class="swatch" style="background: #F5F5F5;"></div>
+                    <span class="swatch-label">Trắng</span>
+                </div>
+                <div class="swatch-item">
+                    <div class="swatch" style="background: #A8C8E8;"></div>
+                    <span class="swatch-label">Xanh nhạt</span>
+                </div>
+                <div class="swatch-item">
+                    <div class="swatch" style="background: #D4C5A9;"></div>
+                    <span class="swatch-label">Beige</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider reveal">❦ ✿ ❦</div>
+
+        <!-- 7. FLY-IN PHOTOS -->
+        <section class="fly-section" id="flySection">
+            <div class="fly-photo">
+                <img src="./couple_2.webp" alt="Minh & Ngọc" loading="lazy">
+            </div>
+            <div class="fly-photo">
+                <img src="./couple_3.webp" alt="Minh & Ngọc" loading="lazy">
+            </div>
+        </section>
+
+        <div class="divider divider-gold reveal">♡</div>
+
+        <!-- 8. LOVE STORY / BỨC THƯ TÌNH -->
+        <section class="story-section reveal">
+            <div class="story-bg"></div>
+            <div class="story-content">
+                <p class="section-ornament">✿</p>
+                <h2 class="section-title">Câu Chuyện Tình Yêu</h2>
+                <p class="section-sub">OUR LOVE STORY</p>
+                <blockquote class="story-quote">
+                    "Trong hàng triệu người trên thế giới này, bằng cách nào đó, hai trái tim đã tìm thấy nhau. Và từ khoảnh khắc ấy, mọi thứ đều trở nên đúng đắn hơn bao giờ hết."
+                </blockquote>
+                <p class="story-sign">Minh & Ngọc</p>
+            </div>
+        </section>
+
+        <div class="divider reveal">❦</div>
+
+        <!-- 9. CALENDAR -->
+        <section class="calendar-section reveal">
+            <div class="calendar-bg"></div>
+            <p class="section-ornament" style="position:relative;z-index:1;">✿</p>
+            <h2 class="section-title" style="position:relative;z-index:1;">Tháng 12, 2026</h2>
+            <p class="section-sub" style="position:relative;z-index:1;">ĐÁNH DẤU NGÀY ĐẶC BIỆT</p>
+            <div class="calendar-wrap" id="weddingCal"></div>
+        </section>
+
+        <div class="divider divider-gold reveal">♡ ♡ ♡</div>
+
+        <!-- 10. COUNTDOWN -->
+        <section class="countdown-section reveal">
+            <p class="section-ornament">✿</p>
+            <h2 class="section-title">Đếm Ngược</h2>
+            <p class="section-sub">KHOẢNH KHẮC HẠNH PHÚC</p>
+
+            <div class="countdown-grid">
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cdDays">--</div>
+                    <div class="countdown-label">Ngày</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cdHours">--</div>
+                    <div class="countdown-label">Giờ</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cdMins">--</div>
+                    <div class="countdown-label">Phút</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-num" id="cdSecs">--</div>
+                    <div class="countdown-label">Giây</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider reveal">❦ ✿ ❦</div>
+
+        <!-- 11. GALLERY SLIDER -->
+        <section class="gallery-section reveal">
+            <p class="section-ornament">✿</p>
+            <h2 class="section-title">Khoảnh Khắc</h2>
+            <p class="section-sub">GALLERY</p>
+
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slider-slide"><img src="./couple_1.webp" alt="Gallery 1" loading="lazy"></div>
+                    <div class="slider-slide"><img src="./couple_2.webp" alt="Gallery 2" loading="lazy"></div>
+                    <div class="slider-slide"><img src="./couple_3.webp" alt="Gallery 3" loading="lazy"></div>
+                    <div class="slider-slide"><img src="./couple_4.webp" alt="Gallery 4" loading="lazy"></div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="slider-btn" id="sliderPrev">‹</button>
+                <div class="slider-dots" id="sliderDots"></div>
+                <button class="slider-btn" id="sliderNext">›</button>
+            </div>
+        </section>
+
+        <div class="divider divider-gold reveal">♡</div>
+
+        <!-- 12. RSVP -->
+        <section class="rsvp-section reveal">
+            <p class="section-ornament">✿</p>
+            <h2 class="section-title">Xác Nhận Tham Dự</h2>
+            <p class="section-sub">RSVP</p>
+
+            <div class="rsvp-card">
+                <form id="rsvpForm">
+                    <label>Họ và tên</label>
+                    <input type="text" id="rsvpName" placeholder="Nhập họ tên..." required>
+
+                    <label>Bạn có tham dự không?</label>
+                    <div class="rsvp-radio-group">
+                        <label class="rsvp-radio selected">
+                            <input type="radio" name="attend" value="yes" checked> Có, tôi sẽ đến 🎉
+                        </label>
+                        <label class="rsvp-radio">
+                            <input type="radio" name="attend" value="no"> Rất tiếc 😢
+                        </label>
+                    </div>
+
+                    <label>Số khách đi cùng</label>
+                    <input type="number" id="rsvpGuests" value="1" min="1" max="10">
+
+                    <button type="submit" class="rsvp-submit">Xác Nhận</button>
+                </form>
+                <div class="rsvp-success" id="rsvpSuccess">
+                    <div class="rsvp-success-icon">💙</div>
+                    <h3>Cảm ơn bạn!</h3>
+                    <p>Chúng tôi rất vui vì bạn đã phản hồi. Hẹn gặp bạn trong ngày đặc biệt nhé!</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider reveal">❦</div>
+
+        <!-- 13. WISHES / LỜI CHÚC -->
+        <section class="wishes-section reveal">
+            <p class="section-ornament">✿</p>
+            <h2 class="section-title">Lời Chúc</h2>
+            <p class="section-sub">GỬI LỜI YÊU THƯƠNG</p>
+
+            <div class="wishes-card">
+                <div class="wishes-preset">
+                    <button type="button" class="wishes-preset-btn">Chúc mừng hạnh phúc! 🎉</button>
+                    <button type="button" class="wishes-preset-btn">Trăm năm hạnh phúc! 💙</button>
+                    <button type="button" class="wishes-preset-btn">Mãi bên nhau nhé! 🤍</button>
+                    <button type="button" class="wishes-preset-btn">Hạnh phúc viên mãn! ✨</button>
+                </div>
+                <form id="wishesForm">
+                    <input type="text" class="wishes-name-input" id="wishName" placeholder="Tên của bạn..." required>
+                    <textarea class="wishes-textarea" id="wishMessage" placeholder="Viết lời chúc..." required></textarea>
+                    <button type="submit" class="wishes-submit">Gửi Lời Chúc 💌</button>
+                </form>
+                <div class="wishes-success" id="wishesSuccess">Đã gửi lời chúc! Cảm ơn bạn 💙</div>
+                <div class="wishes-list" id="wishesList"></div>
+            </div>
+        </section>
+
+        <div class="divider divider-gold reveal">♡ ♡ ♡</div>
+
+        <!-- 14. GIFT / MỪNG CƯỚI -->
+        <section class="gift-section reveal">
+            <p class="section-ornament">✿</p>
+            <h2 class="section-title">Mừng Cưới</h2>
+            <p class="section-sub">HỘP MỪNG HẠNH PHÚC</p>
+
+            <div class="gift-cards">
+                <div class="gift-card" data-bank="Vietcombank" data-name="PHAN TIEN MINH" data-stk="0123456789">
+                    <div class="gift-bank">Vietcombank</div>
+                    <div class="gift-name">PHAN TIEN MINH</div>
+                    <div class="gift-stk">STK: 0123456789</div>
+                    <div class="gift-hint">Nhấn để xem mã QR</div>
+                </div>
+                <div class="gift-card" data-bank="TPBank" data-name="PHAN TIEN MINH" data-stk="9876543210">
+                    <div class="gift-bank">TPBank</div>
+                    <div class="gift-name">PHAN TIEN MINH</div>
+                    <div class="gift-stk">STK: 9876543210</div>
+                    <div class="gift-hint">Nhấn để xem mã QR</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider reveal">❦</div>
+
+        <!-- 15. THANK YOU -->
+        <section class="thankyou-section reveal">
+            <img src="./couple_4.webp" alt="Thank you" loading="lazy">
+            <div class="thankyou-overlay">
+                <div class="thankyou-text">Thank You</div>
+                <p class="thankyou-sub">MINH & NGỌC · 20.12.2026</p>
+            </div>
+        </section>
+
+        <!-- 16. FOOTER -->
+        <footer class="footer">
+            <div class="footer-names">Minh & Ngọc</div>
+            <div class="footer-date">20 · 12 · 2026</div>
+            <div class="footer-hearts">
+                <span class="footer-heart">♡</span>
+                <span class="footer-heart">♡</span>
+                <span class="footer-heart">♡</span>
+            </div>
+            <div class="footer-credit">Made with 💙</div>
+        </footer>
+
+    </div><!-- .wrapper -->
+
+    <!-- QR MODAL -->
+    <div class="qr-modal" id="qrModal">
+        <div class="qr-modal-card" style="position:relative;">
+            <button class="qr-modal-close" id="qrClose">✕</button>
+            <div class="qr-bank-name" id="qrBank"></div>
+            <div class="qr-account-name" id="qrName"></div>
+            <div class="qr-placeholder">📱</div>
+            <div class="qr-stk-display" id="qrStk"></div>
+            <button class="qr-copy-btn" id="qrCopy">Copy STK</button>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // === MUSIC ===
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        let musicStarted = false;
+        musicBtn.addEventListener('click', function() {
+            if (!musicStarted) {
+                bgMusic.play().then(() => { musicBtn.classList.add('playing'); musicStarted = true; }).catch(() => {});
+            } else if (bgMusic.paused) {
+                bgMusic.play(); musicBtn.classList.add('playing');
+            } else {
+                bgMusic.pause(); musicBtn.classList.remove('playing');
+            }
+        });
+        // Auto-play attempt on first interaction
+        document.addEventListener('click', function autoPlay() {
+            if (!musicStarted) {
+                bgMusic.play().then(() => { musicBtn.classList.add('playing'); musicStarted = true; }).catch(() => {});
+            }
+            document.removeEventListener('click', autoPlay);
+        }, { once: true });
+
+        // === LETTER TOGGLE ===
+        const letterBox = document.getElementById('letterBox');
+        const letterHint = document.getElementById('letterHint');
+        if (letterBox) {
+            letterBox.addEventListener('click', function() {
+                const isOpen = letterBox.classList.toggle('open');
+                if (letterHint) letterHint.textContent = isOpen ? 'Nhấn để đóng thư' : 'Nhấn để mở thư';
+                if (isOpen) {
+                    letterBox.querySelectorAll('.letter-heart').forEach(function(h) {
+                        h.style.setProperty('--lx', (Math.random()*120-60).toFixed(0)+'px');
+                        h.style.setProperty('--ly', (-60-Math.random()*100).toFixed(0)+'px');
+                        h.style.setProperty('--lr', (Math.random()*60-30).toFixed(0)+'deg');
+                    });
+                    letterBox.classList.remove('open');
+                    void letterBox.offsetWidth;
+                    letterBox.classList.add('open');
+                }
+            });
+        }
+
+        // === COUNTDOWN ===
+        var weddingDate = new Date('2026-12-20T17:30:00+07:00').getTime();
+        function updateCountdown() {
+            var now = Date.now();
+            var diff = weddingDate - now;
+            if (diff <= 0) {
+                document.getElementById('cdDays').textContent = '0';
+                document.getElementById('cdHours').textContent = '0';
+                document.getElementById('cdMins').textContent = '0';
+                document.getElementById('cdSecs').textContent = '0';
+                return;
+            }
+            var d = Math.floor(diff / 86400000);
+            var h = Math.floor((diff % 86400000) / 3600000);
+            var m = Math.floor((diff % 3600000) / 60000);
+            var s = Math.floor((diff % 60000) / 1000);
+            document.getElementById('cdDays').textContent = d;
+            document.getElementById('cdHours').textContent = h < 10 ? '0'+h : h;
+            document.getElementById('cdMins').textContent = m < 10 ? '0'+m : m;
+            document.getElementById('cdSecs').textContent = s < 10 ? '0'+s : s;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // === CALENDAR ===
+        (function() {
+            var c = document.getElementById('weddingCal');
+            if (!c) return;
+            var m = 12, y = 2026;
+            var events = [
+                { day: 20, color: '#4A90D9', label: '08:00 — Lễ Vu Quy' },
+                { day: 20, color: '#C4A265', label: '17:30 — Tiệc Thân Mật' }
+            ];
+            var MN = ['','Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
+            var DW = ['CN','T2','T3','T4','T5','T6','T7'];
+            var fd = new Date(y, m-1, 1).getDay(), dim = new Date(y, m, 0).getDate();
+            var em = {}; events.forEach(function(e) { if (!em[e.day]) em[e.day] = []; em[e.day].push(e); });
+            var h = '<div class="cal-header"><span class="cal-month-name">'+MN[m]+'</span> <span class="cal-year">'+y+'</span></div>';
+            h += '<div class="cal-grid">';
+            for (var d = 0; d < 7; d++) h += '<div class="cal-dow">'+DW[d]+'</div>';
+            for (var e = 0; e < fd; e++) h += '<div></div>';
+            for (var day = 1; day <= dim; day++) {
+                var mk = !!em[day];
+                h += '<div class="cal-day'+(mk?' marked':'')+'">'+day+'</div>';
+            }
+            h += '</div><div class="cal-events">';
+            events.forEach(function(ev) {
+                h += '<div class="cal-event"><span class="cal-event-dot" style="background:'+ev.color+'"></span><span style="font-weight:600;">Ngày '+ev.day+'</span> <span style="opacity:0.75;">'+ev.label+'</span></div>';
+            });
+            h += '</div>';
+            c.innerHTML = h;
+        })();
+
+        // === SLIDER ===
+        var track = document.getElementById('sliderTrack');
+        var slides = track ? track.children : [];
+        var dotsC = document.getElementById('sliderDots');
+        var cur = 0;
+        function goTo(i) {
+            cur = i;
+            track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+            dotsC.querySelectorAll('.slider-dot').forEach(function(d, j) { d.classList.toggle('active', j === cur); });
+        }
+        for (var i = 0; i < slides.length; i++) {
+            var dot = document.createElement('button');
+            dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+            dot.dataset.idx = i;
+            dot.addEventListener('click', function() { goTo(parseInt(this.dataset.idx)); });
+            dotsC.appendChild(dot);
+        }
+        document.getElementById('sliderPrev').addEventListener('click', function() { goTo((cur - 1 + slides.length) % slides.length); });
+        document.getElementById('sliderNext').addEventListener('click', function() { goTo((cur + 1) % slides.length); });
+        setInterval(function() { goTo((cur + 1) % slides.length); }, 4000);
+        // Swipe
+        var tx = 0;
+        track.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend', function(e) {
+            var d = e.changedTouches[0].clientX - tx;
+            if (Math.abs(d) > 50) d > 0 ? goTo((cur - 1 + slides.length) % slides.length) : goTo((cur + 1) % slides.length);
+        }, { passive: true });
+
+        // === FLY SECTION (IntersectionObserver) ===
+        var flyObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('vis'); });
+        }, { threshold: 0.3 });
+        var flyEl = document.getElementById('flySection');
+        if (flyEl) flyObs.observe(flyEl);
+
+        // === RSVP (UI-only, localStorage) ===
+        var rsvpForm = document.getElementById('rsvpForm');
+        // Radio toggle styling
+        document.querySelectorAll('.rsvp-radio').forEach(function(label) {
+            label.querySelector('input').addEventListener('change', function() {
+                document.querySelectorAll('.rsvp-radio').forEach(function(l) { l.classList.remove('selected'); });
+                label.classList.add('selected');
+            });
+        });
+        if (rsvpForm) {
+            // Restore from localStorage
+            var savedRsvp = localStorage.getItem('rsvp_180');
+            if (savedRsvp) {
+                rsvpForm.style.display = 'none';
+                document.getElementById('rsvpSuccess').classList.add('show');
+            }
+            rsvpForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var data = {
+                    name: document.getElementById('rsvpName').value,
+                    attend: rsvpForm.querySelector('input[name="attend"]:checked').value,
+                    guests: document.getElementById('rsvpGuests').value
+                };
+                localStorage.setItem('rsvp_180', JSON.stringify(data));
+                rsvpForm.style.display = 'none';
+                document.getElementById('rsvpSuccess').classList.add('show');
+            });
+        }
+
+        // === WISHES (UI-only, localStorage) ===
+        var wishesKey = 'wishes_180';
+        var wishesList = JSON.parse(localStorage.getItem(wishesKey) || '[]');
+        function renderWishes() {
+            var container = document.getElementById('wishesList');
+            container.innerHTML = '';
+            wishesList.slice().reverse().forEach(function(w) {
+                var div = document.createElement('div');
+                div.className = 'wish-item';
+                div.innerHTML = '<div class="wish-item-name">' + w.name + '</div><div class="wish-item-msg">' + w.message + '</div><div class="wish-item-time">' + w.time + '</div>';
+                container.appendChild(div);
+            });
+        }
+        renderWishes();
+
+        var wishesForm = document.getElementById('wishesForm');
+        if (wishesForm) {
+            wishesForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var name = document.getElementById('wishName').value.trim();
+                var msg = document.getElementById('wishMessage').value.trim();
+                if (!name || !msg) return;
+                var now = new Date();
+                wishesList.push({
+                    name: name,
+                    message: msg,
+                    time: now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
+                });
+                localStorage.setItem(wishesKey, JSON.stringify(wishesList));
+                renderWishes();
+                wishesForm.reset();
+                var s = document.getElementById('wishesSuccess');
+                if (s) { s.classList.add('show'); setTimeout(function() { s.classList.remove('show'); }, 3000); }
+            });
+        }
+        document.querySelectorAll('.wishes-preset-btn').forEach(function(b) {
+            b.addEventListener('click', function() {
+                document.getElementById('wishMessage').value = b.textContent;
+                document.getElementById('wishMessage').focus();
+            });
+        });
+
+        // === QR MODAL ===
+        var qrModal = document.getElementById('qrModal');
+        var curStk = '';
+        document.querySelectorAll('.gift-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                document.getElementById('qrBank').textContent = card.dataset.bank;
+                document.getElementById('qrName').textContent = card.dataset.name;
+                document.getElementById('qrStk').textContent = 'STK: ' + card.dataset.stk;
+                curStk = card.dataset.stk;
+                qrModal.classList.add('active');
+            });
+        });
+        document.getElementById('qrClose').addEventListener('click', function() { qrModal.classList.remove('active'); });
+        qrModal.addEventListener('click', function(e) { if (e.target === qrModal) qrModal.classList.remove('active'); });
+        document.getElementById('qrCopy').addEventListener('click', function() {
+            navigator.clipboard.writeText(curStk).then(function() {
+                var btn = document.getElementById('qrCopy');
+                btn.textContent = 'Đã copy! ✓';
+                btn.style.background = 'var(--accent)';
+                btn.style.color = 'white';
+                setTimeout(function() { btn.textContent = 'Copy STK'; btn.style.background = ''; btn.style.color = ''; }, 2000);
+            });
+        });
+
+        // === FALLING PETALS ===
+        function createPetal() {
+            var el = document.createElement('div');
+            el.classList.add('petal');
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.animationDuration = (5 + Math.random() * 4) + 's';
+            el.style.opacity = 0.12 + Math.random() * 0.25;
+            el.style.fontSize = (10 + Math.random() * 10) + 'px';
+            var petals = ['🌸', '🤍', '💙'];
+            el.innerHTML = petals[Math.floor(Math.random() * petals.length)];
+            document.body.appendChild(el);
+            setTimeout(function() { el.remove(); }, 9000);
+        }
+        setInterval(createPetal, 1800);
+
+        // === SCROLL REVEAL ===
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('vis'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+    });
+    </script>
+</body>
+</html>

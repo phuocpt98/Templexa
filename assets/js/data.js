@@ -5717,6 +5717,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-15',
     },
+    {
+        id: 180,
+        name: 'Thiệp Cưới Modern Blue Romantic',
+        slug: 'thiep-cuoi-modern-blue-romantic',
+        description: 'Thiệp cưới phong cách hiện đại, tông xanh dương - xám nhạt, cặp đôi Hàn Quốc studio. Đầy đủ: phong bì, countdown, lịch tháng, gallery slider, RSVP, lời chúc, mừng cưới QR, dresscode.',
+        category: 'invitation',
+        type: 'website',
+        tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'modern', 'blue', 'romantic'],
+        price: '',
+        images: [
+            './products/Web/Invitation/gen_180_modern-blue-romantic/screen.webp',
+            './products/Web/Invitation/gen_180_modern-blue-romantic/anh_1.webp',
+            './products/Web/Invitation/gen_180_modern-blue-romantic/anh_2.webp',
+            './products/Web/Invitation/gen_180_modern-blue-romantic/anh_3.webp',
+            './products/Web/Invitation/gen_180_modern-blue-romantic/anh_4.webp',
+        ],
+        thumbnail: './products/Web/Invitation/gen_180_modern-blue-romantic/screen.webp',
+        path: './products/Web/Invitation/gen_180_modern-blue-romantic/',
+        demoUrl: './products/Web/Invitation/gen_180_modern-blue-romantic/code.html',
+        features: [
+            'Phong bì mở thiệp + nhạc nền',
+            'Gallery slider + lịch tháng + countdown',
+            'RSVP + lời chúc + mừng cưới QR modal',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 5,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-03-16',
+    },
 ];
 
 // ============================================
