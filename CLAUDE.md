@@ -148,7 +148,7 @@ Templexa/
 | `.benefits-grid` | 4 cols | 2 cols | 1 col | — |
 | `.products-grid` | 3 cols | 2 cols | 1 col | — |
 | `.footer-grid` | 4 cols | 2 cols | 2 cols | 1 col |
-| `.pricing-grid` | 5 cols | 3 cols | 1 col | — |
+| `.pricing-grid` | 4 cols | 2 cols | 1 col | — |
 | `.related-grid` | 4 cols | 2 cols | 2 cols | 1 col |
 | `.process-grid` | 4 cols | 2 cols | — | 1 col |
 | `.contact-cta-grid` | 2 cols | 1 col | — | — |
@@ -196,11 +196,8 @@ Templexa/
   - Connecting line solid qua giữa icons (`process-grid::before`)
 - **Các Gói Dịch Vụ**: 4 pricing cards, click to highlight
   - Mỗi gói có: `name`, `price`, `originalPrice`, `showOriginalPrice`, `discount`, `description`, `features`
-  - CUSTOM LITE: 199k (gốc 250k, -20%) — chỉnh nhẹ mẫu có sẵn, sửa 1 lần
-  - BASIC: 699k (gốc 1.500k, -55%) — sửa 1 lần
-  - PRO highlighted: 2.999k (gốc 5.000k, -40%) — sửa 2 lần
-  - PREMIUM: 8.000k — sửa 3 lần, có hiển thị lời chúc bong bóng + cá nhân hoá khách mời
-  - CUSTOM: Liên hệ — sửa không giới hạn
+  - BASIC: 699.000đ (gốc 1.500.000đ, -55%) | PRO highlighted: 2.999.000đ (gốc 5.000.000đ, -40%)
+  - PREMIUM: 8.000.000đ | CUSTOM: Liên hệ
   - Highlighted card cao hơn (extra padding), "PHỔ BIẾN NHẤT" badge
   - Pricing price highlighted: gradient text
   - Min-height trên header/desc/original-price/price/features để căn bằng
