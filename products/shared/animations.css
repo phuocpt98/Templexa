@@ -577,3 +577,180 @@
    </script>
 
    ============================================ */
+
+
+/* ============================================
+   GROUP ANIMATIONS — Hiệu ứng cho nhóm items (grid/list)
+   Dùng cho cards, features, gallery, timeline items...
+
+   "All" = tất cả items cùng hiệu ứng, stagger delay
+   "Mix" = mỗi item random hiệu ứng khác nhau (dùng JS gán class)
+
+   Cách dùng:
+   1. Thêm class vào parent container: class="group-fade-in-all"
+   2. Mỗi child item thêm class: class="group-item"
+   3. Dùng IntersectionObserver trên parent → thêm .is-visible
+   4. Stagger tự động qua CSS --i (index) hoặc JS set --delay
+
+   JS gán stagger index (copy vào <script>):
+   document.querySelectorAll('[class*="group-"] .group-item').forEach((el, i) => {
+       el.style.setProperty('--i', i);
+   });
+
+   Hoặc JS cho Mix (random class):
+   const mixClasses = ['mix-fade-up', 'mix-slide-left', 'mix-slide-right', 'mix-scale', 'mix-flip', 'mix-blur'];
+   document.querySelectorAll('.group-fade-in-mix .group-item, .group-slide-up-mix .group-item').forEach(el => {
+       el.classList.add(mixClasses[Math.floor(Math.random() * mixClasses.length)]);
+   });
+   ============================================ */
+
+/* --- Stagger delay dựa trên --i (0-based index) --- */
+.group-item {
+    --i: 0;
+    --stagger: 0.12s;
+}
+
+/* ============================================
+   1. FADE IN ALL — Tất cả items fade in với stagger
+   ============================================ */
+.group-fade-in-all .group-item {
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    transition-delay: calc(var(--i) * var(--stagger));
+}
+.group-fade-in-all.is-visible .group-item {
+    opacity: 1;
+}
+
+/* ============================================
+   2. SLIDE UP ALL — Tất cả items slide lên với stagger
+   ============================================ */
+.group-slide-up-all .group-item {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i) * var(--stagger));
+}
+.group-slide-up-all.is-visible .group-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   3. SCALE IN ALL — Tất cả items scale từ nhỏ → lớn
+   ============================================ */
+.group-scale-in-all .group-item {
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i) * var(--stagger));
+}
+.group-scale-in-all.is-visible .group-item {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ============================================
+   4. FLIP IN ALL — Tất cả items flip vào (rotateX)
+   ============================================ */
+.group-flip-in-all .group-item {
+    opacity: 0;
+    transform: perspective(800px) rotateX(-60deg);
+    transform-origin: top center;
+    transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i) * var(--stagger));
+}
+.group-flip-in-all.is-visible .group-item {
+    opacity: 1;
+    transform: perspective(800px) rotateX(0);
+}
+
+/* ============================================
+   5. SLIDE UP MIX — Mỗi item slide từ hướng random
+   Dùng JS gán 1 trong các class: mix-fade-up, mix-slide-left, mix-slide-right, mix-scale, mix-flip
+   ============================================ */
+.group-slide-up-mix .group-item {
+    opacity: 0;
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i) * var(--stagger));
+}
+.group-slide-up-mix .group-item.mix-fade-up {
+    transform: translateY(50px);
+}
+.group-slide-up-mix .group-item.mix-slide-left {
+    transform: translateX(-60px);
+}
+.group-slide-up-mix .group-item.mix-slide-right {
+    transform: translateX(60px);
+}
+.group-slide-up-mix .group-item.mix-scale {
+    transform: scale(0.7);
+}
+.group-slide-up-mix .group-item.mix-flip {
+    transform: perspective(800px) rotateY(-40deg);
+}
+.group-slide-up-mix .group-item.mix-blur {
+    transform: translateY(30px);
+    filter: blur(8px);
+}
+.group-slide-up-mix.is-visible .group-item {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+/* ============================================
+   6. FADE IN MIX — Mỗi item random giữa fade/slide/scale/flip/blur
+   Giống Slide Up Mix nhưng dùng class parent khác cho semantic
+   ============================================ */
+.group-fade-in-mix .group-item {
+    opacity: 0;
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+    transition-delay: calc(var(--i) * var(--stagger));
+}
+.group-fade-in-mix .group-item.mix-fade-up {
+    transform: translateY(40px);
+}
+.group-fade-in-mix .group-item.mix-slide-left {
+    transform: translateX(-50px);
+}
+.group-fade-in-mix .group-item.mix-slide-right {
+    transform: translateX(50px);
+}
+.group-fade-in-mix .group-item.mix-scale {
+    transform: scale(0.6);
+}
+.group-fade-in-mix .group-item.mix-flip {
+    transform: perspective(800px) rotateX(-50deg);
+    transform-origin: top center;
+}
+.group-fade-in-mix .group-item.mix-blur {
+    transform: translateY(20px);
+    filter: blur(10px);
+}
+.group-fade-in-mix.is-visible .group-item {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+/* --- Mix classes cho JS random --- */
+/*
+   Danh sách class để JS random gán:
+   'mix-fade-up'     — bay lên
+   'mix-slide-left'  — trượt từ trái
+   'mix-slide-right' — trượt từ phải
+   'mix-scale'       — phóng to từ nhỏ
+   'mix-flip'        — lật từ trên
+   'mix-blur'        — mờ → rõ + bay lên
+
+   JS snippet (copy vào <script>):
+
+   (function() {
+       var mixClasses = ['mix-fade-up', 'mix-slide-left', 'mix-slide-right', 'mix-scale', 'mix-flip', 'mix-blur'];
+       document.querySelectorAll('.group-fade-in-mix .group-item, .group-slide-up-mix .group-item').forEach(function(el, i) {
+           el.style.setProperty('--i', i);
+           el.classList.add(mixClasses[Math.floor(Math.random() * mixClasses.length)]);
+       });
+   })();
+*/

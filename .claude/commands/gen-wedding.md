@@ -57,10 +57,12 @@ Xác định thêm:
 - **Phong cách/theme** (classic gold, rustic, modern, blush pink, dark luxury, tropical...)
 - **Category**: mặc định `invitation`
 - **Type**: mặc định `website`
-- **Google Sheets API**: kiểm tra user có cung cấp `sheet_id` không
-  - Nếu có → thêm `<script src="../../../shared/wedding/wishes-api.js">` + logic gửi/đọc trong code.html
-  - Nếu không → **HỎI USER**: "Thiệp này có mấy form cần gửi dữ liệu? (lời chúc, RSVP, ...) Cho mình sheet_id cho mỗi form."
-  - User nói không / bỏ qua → form UI-only (không gửi dữ liệu)
+- **Google Sheets API**:
+  - **Gen mẫu** (KHÔNG phải gen từ prompt.txt/folder khách) → **MẶC ĐỊNH UI-ONLY**: KHÔNG load `wishes-api.js`, KHÔNG gọi API, các form (lời chúc, RSVP) chỉ hiển thị UI, dùng localStorage hoặc hiệu ứng tĩnh. KHÔNG hỏi sheet_id.
+  - **Gen theo khách** (Quy trình B, từ prompt.txt): kiểm tra prompt.txt có `sheet_id` không
+    - Nếu có → thêm `<script src="../../../shared/wedding/wishes-api.js">` + logic gửi/đọc
+    - Nếu không có → giữ UI-only
+  - User chủ động cung cấp `sheet_id` trong yêu cầu (dù là gen mẫu) → vẫn thêm API
   - Mỗi form có thể dùng **cùng hoặc khác sheet_id** — tuỳ user quyết định
 - **Google Maps**: kiểm tra user có cung cấp địa chỉ / link maps không
   - Nếu có **link Google Maps** (embed hoặc URL) → thêm section bản đồ (iframe + nút Mở Maps + Chỉ đường)
@@ -194,8 +196,9 @@ products/Web/Invitation/{folder}/code.html → ../../../shared/music/{loại}/{f
 | 6 | **Gallery ảnh** | ✅ | Grid 3–2–1 cột responsive, 6–9 ảnh Unsplash wedding, hover overlay effect, (optional: lightbox click zoom) |
 | 7 | **RSVP** | ✅ | Form xác nhận: Họ tên, SĐT, Số khách (dropdown 1–5), Lời nhắn (textarea), Nút gửi. Form KHÔNG cần backend — chỉ UI |
 | 8 | **Lời chúc / Wishes** | ✅ | Nếu có `sheet_id`: form gửi + danh sách + **floating bubbles** bay lên. Nếu không: lời chúc tĩnh |
-| 9 | **Bản đồ / Google Maps** | Có nếu có địa chỉ/link | Embed iframe + nút "Mở Google Maps" (tab mới) + nút "Chỉ đường". Thiệp đôi: 2 map cards. Xem phần "Section Bản đồ" bên dưới |
-| 10 | **Footer** | ✅ | Tên cặp đôi + ngày cưới + hearts animation + "Made with ♥" |
+| 9 | **Tờ lịch tháng** | ✅ | Lịch tháng đánh dấu ngày cưới + chú thích sự kiện. 3 variant: classic/elegant/minimal |
+| 10 | **Bản đồ / Google Maps** | Có nếu có địa chỉ/link | Embed iframe + nút "Mở Google Maps" + "Chỉ đường". Thiệp đôi: 2 map cards |
+| 11 | **Footer** | ✅ | Tên cặp đôi + ngày cưới + hearts animation + "Made with ♥" |
 
 #### Section "Thông tin lễ cưới" — Phân biệt theo loại thiệp:
 
@@ -236,6 +239,7 @@ products/Web/Invitation/{folder}/code.html → ../../../shared/music/{loại}/{f
 | **Registry / Mừng cưới** | User yêu cầu |
 | **Bản đồ** | User cung cấp địa chỉ cụ thể |
 | **Video** | User cung cấp link YouTube |
+| **Letter / Thư Ngỏ** | Phong bì toggle: mở → thư trượt ra + hearts bay. Đóng → thư trượt xuống chậm 1.8s biến mất sau thân. Thân phủ kín (top→bottom, z2) che thư (z1). 4 style. CSS mục 20 + JS mục 17 |
 | **Bridesmaids & Groomsmen** | User yêu cầu |
 
 #### Countdown JS — BẮT BUỘC:
@@ -400,18 +404,50 @@ setInterval(createHeart, 1000);
 
 #### Font combos cho thiệp cưới:
 
-| Combo | Heading (script/serif) | Body (serif/sans) | Vibe |
-|-------|----------------------|-------------------|------|
-| **Classic** | `Playfair Display` | `Cormorant Garamond` | Trang trọng, sang |
-| **Romantic** | `Great Vibes` | `Lora` | Lãng mạn, mềm mại |
-| **Elegant** | `Cinzel` | `EB Garamond` | Quý phái, cổ điển |
-| **Modern** | `Italiana` | `Montserrat` | Hiện đại, sạch |
-| **Rustic** | `Amatic SC` | `Josefin Sans` | Mộc mạc, tự nhiên |
-| **Luxury** | `Cormorant SC` | `Raleway` | Cao cấp, tinh tế |
-| **Whimsical** | `Dancing Script` | `Nunito` | Vui tươi, nhẹ nhàng |
-| **Vietnamese** | `Great Vibes` | `Be Vietnam Pro` | Lãng mạn + đọc tốt tiếng Việt |
+**ƯU TIÊN font mềm mại, thanh lịch** — tạo cảm giác lãng mạn, nhẹ nhàng cho thiệp cưới.
+**Kết hợp nhiều font** trong 1 thiệp: heading script/serif + body sans + accent italic.
+**TRÁNH font cứng, nặng** (Impact, Arial Black, Roboto Condensed...).
 
-**Lưu ý font tiếng Việt**: Ưu tiên font hỗ trợ dấu tiếng Việt tốt. `Be Vietnam Pro`, `Montserrat`, `Nunito`, `Lora` đều hỗ trợ tốt. Font script như `Great Vibes`, `Dancing Script` hỗ trợ cơ bản — dùng cho tên cặp đôi (thường không dấu). Nếu heading có dấu → dùng `Playfair Display` hoặc `Cormorant Garamond`.
+| Combo | Heading (script/serif) | Body (sans) | Accent (italic/light) | Vibe |
+|-------|----------------------|-------------|----------------------|------|
+| **Soft Romantic** | `Cormorant Garamond` | `Quicksand` | `Cormorant Garamond italic` | Mềm mại, lãng mạn |
+| **Dreamy** | `Great Vibes` | `Nunito` | `Lora italic` | Mộng mơ, bay bổng |
+| **Elegant Serif** | `Playfair Display` | `Lora` | `Playfair Display italic` | Sang trọng, tinh tế |
+| **Modern Soft** | `Italiana` | `Quicksand` | `Cormorant Garamond italic` | Hiện đại, mềm |
+| **Classic Grace** | `Cinzel` | `EB Garamond` | `Cormorant Garamond italic` | Cổ điển, quý phái |
+| **Gentle** | `Dancing Script` | `Be Vietnam Pro` | `Be Vietnam Pro italic` | Nhẹ nhàng, tươi |
+| **Luxury Silk** | `Cormorant SC` | `Raleway` | `Cormorant Garamond italic` | Cao cấp, mượt mà |
+| **Warm** | `Sacramento` | `Nunito` | `Lora italic` | Ấm áp, thân mật |
+| **Airy** | `Alex Brush` | `Quicksand` | `EB Garamond italic` | Thoáng, nhẹ |
+| **Vietnamese** | `Great Vibes` | `Be Vietnam Pro` | `Be Vietnam Pro italic` | Lãng mạn + đọc tốt tiếng Việt |
+
+**Font gợi ý theo vị trí:**
+
+| Vị trí | Font gợi ý | Weight | Lý do |
+|--------|-----------|--------|-------|
+| Tên cặp đôi | Script: `Great Vibes`, `Sacramento`, `Alex Brush`, `Dancing Script` | 400 | Mềm mại, nổi bật |
+| Tiêu đề section | Serif: `Cormorant Garamond`, `Playfair Display`, `Cinzel` | 500-600 | Thanh lịch, dễ đọc |
+| Body text | Sans: `Quicksand`, `Nunito`, `Be Vietnam Pro` | 400-500 | Tròn trịa, thân thiện |
+| Quote / thư tay | Serif italic: `Cormorant Garamond italic`, `Lora italic` | 400i | Mềm mại, cảm xúc |
+| Label nhỏ | Sans light: `Quicksand 300`, `Raleway 300` | 300 | Nhẹ, tinh tế |
+| Ngày tháng | Serif: `Cormorant Garamond`, `EB Garamond` | 400 | Trang trọng |
+
+**Quy tắc font:**
+- **Tối thiểu 2 font, khuyến khích 3**: heading script + body sans + accent serif italic
+- **Ưu tiên font có nhiều weight** (300, 400, 500, 600, 700) — linh hoạt hơn
+- **Dùng `font-display: swap`** trong Google Fonts URL để load nhanh
+- **Font-size dùng `clamp()`** — responsive tự nhiên giữa mobile và desktop
+- **Tránh font quá nặng** (>100KB) — ảnh hưởng tốc độ load trên mobile
+
+**Font hỗ trợ tiếng Việt tốt nhất:**
+- Body: `Be Vietnam Pro`, `Quicksand`, `Nunito`, `Montserrat`, `Lora`
+- Heading serif: `Cormorant Garamond`, `Playfair Display`, `EB Garamond`
+- Script (chỉ cho tên không dấu): `Great Vibes`, `Dancing Script`, `Sacramento`, `Alex Brush`
+
+**Google Fonts URL mẫu (3 font):**
+```html
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Quicksand:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+```
 
 #### Icons Lucide phù hợp thiệp cưới:
 
@@ -424,15 +460,22 @@ users, user-check, message-circle, send, check-circle
 
 #### Ảnh Unsplash cho thiệp cưới:
 
-| Section | Keywords | Gợi ý photo ID | Size |
-|---------|----------|-----------------|------|
-| Hero | wedding couple, bride groom | `photo-1519741497674-611481863552`, `photo-1529636798458-92182e662485` | `w=1920` |
-| Love Story | couple dating, proposal | `photo-1522673607200-164d1b6ce486`, `photo-1516589178581-6cd7833ae3b2` | `w=600` |
-| Gallery | wedding ceremony, wedding flowers, wedding ring, wedding cake | `photo-1465495976277-4387d4b0b4c6`, `photo-1519225421980-715cb0215aed` | `w=500` |
-| Event | wedding venue, ballroom, garden party | `photo-1519167758481-83f550bb49b3`, `photo-1464366400600-7168b8af9bc3` | `w=800` |
-| RSVP | wedding invitation, love letter | `photo-1513623935135-c896b59073c1` | `w=600` |
+**MẶC ĐỊNH dùng ảnh cặp đôi Hàn Quốc hoặc Trung Quốc** — người châu Á đẹp, phù hợp thị trường Việt Nam.
+Keywords ưu tiên: `korean wedding`, `asian couple wedding`, `chinese wedding`, `korean couple`, `asian bride groom`.
+**KHÔNG dùng ảnh cặp đôi phương Tây** trừ khi user yêu cầu.
+
+| Section | Keywords ưu tiên | Gợi ý photo ID (Asian) | Size |
+|---------|-----------------|------------------------|------|
+| Hero / Ảnh lớn | korean wedding couple, asian bride groom | `photo-1591604466107-ec97de577aff`, `photo-1583939003579-730e3918a45a`, `photo-1606216794074-735e91aa2c92`, `photo-1606216794079-73f85bbd57d5` | `w=1920` |
+| Avatar chú rể | asian man portrait | `photo-1545232979-8bf68ee9b1af`, `photo-1544005313-94ddf0286df2` | `w=300` |
+| Avatar cô dâu | asian woman portrait | `photo-1529634597503-139d3726fed5`, `photo-1549417229-7686ac5595fd` | `w=300` |
+| Love Story / Couple | asian couple dating, korean couple | `photo-1474552226712-ac0f0961a954`, `photo-1515934751635-c81c6bc9a2d8` | `w=600` |
+| Gallery — wedding | asian wedding ceremony, flowers, rings | `photo-1606800052052-a08af7148866`, `photo-1518199266791-5375a83190b7`, `photo-1529456837632-7db76c3f3b2e` | `w=500` |
+| Event / Venue | wedding venue, ballroom | `photo-1519167758481-83f550bb49b3` | `w=800` |
+| Thư cảm ơn | wedding couple back | `photo-1606216794074-735e91aa2c92` | `w=1200` |
 
 **Mỗi ảnh phải khác photo ID** — không dùng trùng ảnh.
+**Ưu tiên ảnh có người châu Á** cho hero, avatar, gallery, love story.
 
 #### Nhạc nền — Code HTML (BẮT BUỘC):
 
@@ -595,6 +638,82 @@ if (wishesBtn && wishesBox) {
 ```
 
 CSS + JS chi tiết: xem `products/shared/wedding/styles.css` mục 17 + `scripts.js` mục 14 + `README.md`
+
+#### Section Tờ Lịch Tháng (BẮT BUỘC):
+
+Luôn thêm tờ lịch tháng đánh dấu ngày cưới. Đặt sau Countdown hoặc sau Event Cards.
+
+```html
+<section class="cal-section" id="calendar-month">
+    <div class="section-heading">
+        <p class="section-subtitle">Save The Date</p>
+        <h2 class="section-title">Ngày Trọng Đại</h2>
+    </div>
+    <div id="weddingCalendar"></div>
+</section>
+```
+
+```javascript
+initCalendarMonth({
+    containerId: 'weddingCalendar',
+    month: <THÁNG_CƯỚI>,
+    year: <NĂM_CƯỚI>,
+    variant: '<classic|elegant|minimal>',
+    accentColor: '<MÀU_ACCENT>',
+    events: [
+        { day: <NGÀY>, color: '<MÀU>', label: '<GIỜ> — <SỰ KIỆN>' },
+    ]
+});
+```
+
+**Chọn variant theo phong cách:**
+- Traditional/Red → `classic` + `#C41E3A`
+- Classic/Gold/Luxury → `elegant` + `#D4AF37`
+- Modern/Minimal/Pastel → `minimal` + accent color
+
+**Events tự sinh từ thông tin lễ cưới:**
+- Thiệp đơn: 1 event (Lễ Thành Hôn hoặc Vu Quy)
+- Thiệp đôi: 2 events (Vu Quy + Thành Hôn), có thể khác ngày
+
+CSS: `styles.css` mục 19 | JS: `scripts.js` mục 16 | Snippets: `README.md` mục 16
+
+#### Section Video YouTube (nếu user cung cấp link):
+
+Khi user cung cấp link YouTube → thêm section video **lazy load** (thumbnail + click play):
+
+```html
+<section class="video-section" id="video">
+    <div class="section-heading">
+        <p class="section-subtitle">Video</p>
+        <h2 class="section-title">Kỷ Niệm Của Chúng Tôi</h2>
+    </div>
+    <div class="video-wrapper" data-video-id="VIDEO_ID">
+        <img src="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg" alt="Video">
+        <div class="video-play-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+    </div>
+</section>
+```
+
+**Parse VIDEO_ID** từ link user:
+- `youtube.com/watch?v=XXX` → `XXX`
+- `youtu.be/XXX` → `XXX`
+
+**JS lazy load** (copy vào code.html):
+```javascript
+document.querySelectorAll('.video-wrapper[data-video-id]').forEach(function (w) {
+    w.addEventListener('click', function () {
+        var id = w.dataset.videoId;
+        w.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>';
+        w.style.cursor = 'default';
+    }, { once: true });
+});
+```
+
+**Vị trí**: sau Love Story hoặc sau Gallery.
+**Tất cả gói** đều có tính năng này.
+CSS: xem `styles.css` mục 18 + `README.md` mục 15.
 
 #### Section Bản đồ — Google Maps (nếu có địa chỉ/link):
 
@@ -1177,6 +1296,102 @@ Chi tiết: xem skill `/gen-qr`
 ```
 
 ---
+
+## Bảng giá — Phân biệt tính năng theo gói
+
+Khi gen thiệp, xác định gói dịch vụ từ yêu cầu user → bật/tắt tính năng tương ứng.
+Nếu user không nói rõ → mặc định **Premium** (đầy đủ nhất, phổ biến nhất).
+
+| Tính năng | Basic (150k) | Premium (199k) | Custom (liên hệ) |
+|-----------|:---:|:---:|:---:|
+| Chọn mẫu có sẵn | ✅ | ✅ | ✅ |
+| Thay tên, ngày, địa điểm, ảnh | ✅ | ✅ | ✅ |
+| Phong bì mở thiệp + nhạc nền | ✅ | ✅ | ✅ |
+| Countdown đếm ngược | ✅ | ✅ | ✅ |
+| Love Story, Gallery + Lightbox | ✅ | ✅ | ✅ |
+| Hiệu ứng hoa rơi / sparkles | ✅ | ✅ | ✅ |
+| RSVP xác nhận tham dự | ✅ | ✅ | ✅ |
+| Gửi lời chúc (Google Sheets) | ✅ | ✅ | ✅ |
+| Google Maps + QR mừng cưới | ✅ | ✅ | ✅ |
+| Thêm vào lịch (.ics) | ✅ | ✅ | ✅ |
+| Responsive mobile | ✅ | ✅ | ✅ |
+| Mã QR chia sẻ thiệp (1 mã chung) | ✅ | ✅ | ✅ |
+| Video YouTube (lazy load) | ✅ | ✅ | ✅ |
+| Group Animations (fade/slide/scale/flip/mix) | ✅ | ✅ | ✅ |
+| Chỉnh sửa | 1 lần | 3 lần | Không giới hạn |
+| **Lời chúc bay (floating bubbles)** | ❌ | ✅ | ✅ |
+| **Cá nhân hoá khách mời (?id=)** | ❌ | ✅ | ✅ |
+| **Mã QR riêng từng khách** | ❌ | ✅ | ✅ |
+| **Custom nhẹ trên mẫu có sẵn** | ❌ | ✅ | ✅ |
+| **Thiết kế giao diện RIÊNG 100%** | ❌ | ❌ | ✅ |
+| **Hiệu ứng & animation độc quyền** | ❌ | ❌ | ✅ |
+| **Bảng màu, font, layout tuỳ ý** | ❌ | ❌ | ✅ |
+| **Video/nhạc riêng** | ❌ | ❌ | ✅ |
+| **Chỉnh sửa không giới hạn** | ❌ | ❌ | ✅ |
+| **Tư vấn 1:1 + hỗ trợ đến ngày cưới** | ❌ | ❌ | ✅ |
+
+**Quy tắc áp dụng khi gen:**
+- User nói "basic" / "gói cơ bản" / "150k" → bỏ floating wishes, bỏ guests.js, QR chỉ 1 mã chung
+- User nói "premium" / "đầy đủ" / "199k" hoặc không nói gì → thêm tất cả: floating wishes, guests.js (nếu có CSV), QR riêng, custom nhẹ
+- User nói "custom" / "thiết kế riêng" → toàn bộ + thiết kế từ đầu
+
+## Group Animations — Hiệu ứng nhóm items
+
+Khi gen sections có grid/cards (gallery, features, timeline, pricing...), dùng **group animations** từ `products/shared/animations.css`:
+
+| Class parent | Tên | Mô tả |
+|-------------|-----|-------|
+| `group-fade-in-all` | Fade In All | Tất cả items fade in, stagger delay |
+| `group-slide-up-all` | Slide Up All | Tất cả items slide lên, stagger |
+| `group-scale-in-all` | Scale In All | Tất cả items scale nhỏ → lớn, stagger |
+| `group-flip-in-all` | Flip In All | Tất cả items flip rotateX vào, stagger |
+| `group-slide-up-mix` | Slide Up Mix | Mỗi item random hướng (trái/phải/scale/flip/blur) |
+| `group-fade-in-mix` | Fade In Mix | Mỗi item random hiệu ứng khác nhau |
+
+**Cách dùng trong code.html:**
+```html
+<!-- Parent container có class group-* -->
+<div class="group-slide-up-all">
+    <div class="group-item">Card 1</div>
+    <div class="group-item">Card 2</div>
+    <div class="group-item">Card 3</div>
+</div>
+```
+
+**JS bắt buộc** (gán stagger index + random mix):
+```javascript
+// Stagger index cho All variants
+document.querySelectorAll('[class*="group-"] .group-item').forEach(function(el, i) {
+    el.style.setProperty('--i', i);
+});
+
+// Random class cho Mix variants
+var mixClasses = ['mix-fade-up', 'mix-slide-left', 'mix-slide-right', 'mix-scale', 'mix-flip', 'mix-blur'];
+document.querySelectorAll('.group-fade-in-mix .group-item, .group-slide-up-mix .group-item').forEach(function(el) {
+    el.classList.add(mixClasses[Math.floor(Math.random() * mixClasses.length)]);
+});
+```
+
+**Gợi ý dùng cho thiệp cưới:**
+| Section | Group animation gợi ý |
+|---------|----------------------|
+| Gallery | `group-fade-in-mix` hoặc `group-scale-in-all` |
+| Love Story Timeline | `group-slide-up-all` |
+| Event Cards | `group-fade-in-all` |
+| Guestbook wishes | `group-slide-up-all` |
+| Gift Box cards | `group-scale-in-all` |
+
+**IntersectionObserver cho group** (observe parent, không observe từng item):
+```javascript
+var groupObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('[class*="group-"]').forEach(function(el) {
+    groupObserver.observe(el);
+});
+```
 
 ## Ràng buộc
 

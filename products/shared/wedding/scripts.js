@@ -20,6 +20,9 @@
  *  12. NAVBAR — Sticky + active on scroll
  *  13. GOOGLE SHEETS API — Transport layer gửi/đọc dữ liệu (file riêng: wishes-api.js)
  *  14. FLOATING WISHES — Bong bóng lời chúc bay lên (dùng với sheetsAPI)
+ *  15. VIDEO YOUTUBE — Lazy load embed
+ *  16. CALENDAR MONTH — Tờ lịch tháng đánh dấu ngày cưới
+ *  17. LETTER ENVELOPE — Phong bì mở thư (4 styles, toggle, particles)
  * ============================================
  */
 
@@ -1152,3 +1155,265 @@ function initFloatingWishes(config) {
         getPool: function () { return wishPool; },
     };
 }
+
+
+/* ============================================
+   15. VIDEO YOUTUBE — Lazy load embed
+   Hiện thumbnail YouTube, click mới load iframe.
+
+   Cách dùng trong code.html:
+   1. Copy CSS từ styles.css mục 18
+   2. Copy HTML snippet (xem README.md mục 15)
+   3. Copy JS initVideoLazy() bên dưới
+   4. Gọi: initVideoLazy();
+
+   Hoặc tự parse link trong code.html:
+   var videoId = parseYouTubeId('https://www.youtube.com/watch?v=xxx');
+   ============================================ */
+
+// Parse YouTube video ID từ nhiều dạng URL
+function parseYouTubeId(url) {
+    if (!url) return null;
+    var match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?\s]+)/);
+    return match ? match[1] : null;
+}
+
+// Lazy load — click thumbnail mới load iframe
+function initVideoLazy() {
+    document.querySelectorAll('.video-wrapper[data-video-id]').forEach(function (wrapper) {
+        var videoId = wrapper.dataset.videoId;
+        if (!videoId) return;
+
+        // Set thumbnail nếu chưa có
+        var img = wrapper.querySelector('img');
+        if (img && !img.src) {
+            img.src = 'https://img.youtube.com/vi/' + videoId + '/maxresdefault.jpg';
+            // Fallback nếu maxres không có
+            img.onerror = function () { img.src = 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg'; };
+        }
+
+        wrapper.addEventListener('click', function () {
+            var iframe = document.createElement('iframe');
+            iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+            wrapper.innerHTML = '';
+            wrapper.appendChild(iframe);
+            wrapper.style.cursor = 'default';
+        }, { once: true });
+    });
+}
+
+
+/* ============================================
+   16. CALENDAR MONTH — Tờ lịch tháng đánh dấu ngày cưới
+   Render tờ lịch 1 tháng, đánh dấu ngày + chú thích.
+
+   Cách dùng:
+     initCalendarMonth({
+         containerId: 'weddingCalendar',
+         month: 8,          // 1–12
+         year: 2026,
+         variant: 'classic', // 'classic' | 'elegant' | 'minimal'
+         accentColor: '#C41E3A',  // tuỳ chọn
+         events: [
+             { day: 1, color: '#C41E3A', label: '10:00 — Lễ Vu Quy' },
+             { day: 1, color: '#D4AF37', label: '17:00 — Lễ Thành Hôn' },
+             { day: 15, color: '#6366F1', label: 'Hạn RSVP' },
+         ]
+     });
+   ============================================ */
+
+function initCalendarMonth(config) {
+    if (!config) return;
+    var container = document.getElementById(config.containerId || 'weddingCalendar');
+    if (!container) return;
+
+    var month = config.month || 1;
+    var year = config.year || 2026;
+    var events = config.events || [];
+    var variant = config.variant || 'classic';
+    var accent = config.accentColor || '';
+
+    var MONTH_NAMES = [
+        'Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư', 'Tháng Năm', 'Tháng Sáu',
+        'Tháng Bảy', 'Tháng Tám', 'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai'
+    ];
+    var DOW = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+
+    // Tính ngày
+    var firstDay = new Date(year, month - 1, 1).getDay(); // 0=CN
+    var daysInMonth = new Date(year, month, 0).getDate();
+    var today = new Date();
+    var isCurrentMonth = (today.getFullYear() === year && today.getMonth() === month - 1);
+
+    // Map ngày → events
+    var eventMap = {};
+    events.forEach(function (ev) {
+        if (!eventMap[ev.day]) eventMap[ev.day] = [];
+        eventMap[ev.day].push(ev);
+    });
+
+    // Build HTML
+    var html = '<div class="cal-month cal-' + variant + '"' +
+        (accent ? ' style="--cal-accent:' + accent + '"' : '') + '>';
+
+    // Header
+    html += '<div class="cal-header">';
+    html += '<span class="cal-month-name">' + MONTH_NAMES[month - 1] + '</span>';
+    html += '<span class="cal-year">' + year + '</span>';
+    html += '</div>';
+
+    // Grid
+    html += '<div class="cal-grid">';
+
+    // Day of week headers
+    for (var d = 0; d < 7; d++) {
+        html += '<div class="cal-dow">' + DOW[d] + '</div>';
+    }
+
+    // Empty cells before first day
+    for (var e = 0; e < firstDay; e++) {
+        html += '<div class="cal-day empty"></div>';
+    }
+
+    // Days
+    for (var day = 1; day <= daysInMonth; day++) {
+        var isMarked = !!eventMap[day];
+        var isToday = isCurrentMonth && day === today.getDate();
+        var classes = 'cal-day';
+        if (isMarked) classes += ' marked';
+        if (isToday) classes += ' today';
+
+        var style = '';
+        if (isMarked && variant === 'minimal') {
+            style = ' style="background:' + (eventMap[day][0].color || accent || '#C41E3A') + '"';
+        }
+        if (isMarked && variant === 'classic') {
+            style = ' style="--cal-accent:' + (eventMap[day][0].color || accent || '#C41E3A') + '"';
+        }
+        if (isMarked && variant === 'elegant') {
+            style = ' style="--cal-accent:' + (eventMap[day][0].color || accent || '#D4AF37') + ';color:' + (eventMap[day][0].color || accent || '#D4AF37') + '"';
+        }
+
+        html += '<div class="' + classes + '"' + style + '>' + day + '</div>';
+    }
+
+    html += '</div>';
+
+    // Events legend
+    if (events.length > 0) {
+        html += '<div class="cal-events">';
+        events.forEach(function (ev) {
+            var color = ev.color || accent || '#C41E3A';
+            html += '<div class="cal-event">';
+            html += '<span class="cal-event-dot" style="background:' + color + '"></span>';
+            html += '<span class="cal-event-date">Ngày ' + ev.day + '</span>';
+            html += '<span class="cal-event-text">' + (ev.label || '') + '</span>';
+            html += '</div>';
+        });
+        html += '</div>';
+    }
+
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+
+/* ============================================
+   17. LETTER ENVELOPE — Phong bì mở thư
+   Click toggle mở/đóng. Particles bay ra khi mở.
+
+   Cách dùng:
+     initLetterEnvelope({
+         wrapperId: 'myLetter',
+         style: 'classic',      // 'classic' | 'luxury' | 'dreamy' | 'youthful'
+         seal: '❤',             // emoji/icon trên seal
+         particles: '🌸💕✨🩷', // emoji particles bay ra khi mở
+         particleCount: 12,     // số particles (mặc định 12)
+     });
+   ============================================ */
+
+function initLetterEnvelope(config) {
+    if (!config) return;
+    var wrapper = document.getElementById(config.wrapperId || 'myLetter');
+    if (!wrapper) return;
+
+    var style = config.style || 'classic';
+    var seal = config.seal || '❤';
+    var particleEmojis = (config.particles || '🌸💕✨🩷').match(/./gu) || ['🌸','💕','✨'];
+    var particleCount = config.particleCount || 12;
+
+    // Add style class
+    wrapper.classList.add('letter-' + style);
+
+    // Build particles HTML
+    var particlesHTML = '';
+    for (var i = 0; i < particleCount; i++) {
+        var emoji = particleEmojis[i % particleEmojis.length];
+        // Random direction
+        var angle = (Math.random() * 360) * Math.PI / 180;
+        var dist = 60 + Math.random() * 80;
+        var dx = Math.cos(angle) * dist;
+        var dy = -Math.abs(Math.sin(angle) * dist) - 20; // always go up-ish
+        var rot = (Math.random() - 0.5) * 720;
+        var delay = Math.random() * 0.3;
+        var size = 12 + Math.random() * 10;
+
+        particlesHTML += '<span class="letter-particle" style="' +
+            '--dx:' + dx.toFixed(0) + 'px;' +
+            '--dy:' + dy.toFixed(0) + 'px;' +
+            '--rot:' + rot.toFixed(0) + 'deg;' +
+            'animation-delay:' + delay.toFixed(2) + 's;' +
+            'font-size:' + size.toFixed(0) + 'px;' +
+            'left:calc(50% + ' + (Math.random() * 40 - 20).toFixed(0) + 'px)' +
+            '">' + emoji + '</span>';
+    }
+
+    // Set seal
+    var sealEl = wrapper.querySelector('.letter-seal');
+    if (sealEl) sealEl.textContent = seal;
+
+    // Set particles
+    var particlesEl = wrapper.querySelector('.letter-particles');
+    if (particlesEl) particlesEl.innerHTML = particlesHTML;
+
+    // Toggle click
+    wrapper.addEventListener('click', function () {
+        var isOpen = wrapper.classList.toggle('open');
+
+        // Re-randomize particles on every open
+        if (isOpen && particlesEl) {
+            var newHTML = '';
+            for (var j = 0; j < particleCount; j++) {
+                var em = particleEmojis[j % particleEmojis.length];
+                var ag = (Math.random() * 360) * Math.PI / 180;
+                var di = 60 + Math.random() * 80;
+                var ddx = Math.cos(ag) * di;
+                var ddy = -Math.abs(Math.sin(ag) * di) - 20;
+                var rr = (Math.random() - 0.5) * 720;
+                var dl = Math.random() * 0.3;
+                var sz = 12 + Math.random() * 10;
+
+                newHTML += '<span class="letter-particle" style="' +
+                    '--dx:' + ddx.toFixed(0) + 'px;' +
+                    '--dy:' + ddy.toFixed(0) + 'px;' +
+                    '--rot:' + rr.toFixed(0) + 'deg;' +
+                    'animation-delay:' + dl.toFixed(2) + 's;' +
+                    'font-size:' + sz.toFixed(0) + 'px;' +
+                    'left:calc(50% + ' + (Math.random() * 40 - 20).toFixed(0) + 'px)' +
+                    '">' + em + '</span>';
+            }
+            particlesEl.innerHTML = newHTML;
+        }
+    });
+}
+
+/*
+ * Bảng particles gợi ý theo style:
+ *   classic:  '🌸💕❤🩷'     (hoa + tim)
+ *   luxury:   '✨⭐💫🌟'     (sao + lấp lánh)
+ *   dreamy:   '🦋💜🌸✨💕'  (bướm + hoa + tim)
+ *   youthful: '🎉🎈🎊🌈⭐'  (confetti + bóng bay)
+ */
+

@@ -802,3 +802,206 @@ floatingWishes.add(name, message);
 - **Max visible**: 3 bong bóng cùng lúc
 - **Optimistic**: khi user gửi, hiện bong bóng ngay (không đợi API)
 - **Load ngầm**: API chậm → bong bóng chỉ xuất hiện khi data sẵn sàng
+
+### 15. Video YouTube — Lazy load embed
+
+Nhúng video YouTube vào thiệp. Hiện thumbnail, click mới load iframe (tiết kiệm bandwidth).
+
+#### HTML snippet:
+
+```html
+<!-- Section Video -->
+<section class="video-section" id="video">
+    <div class="section-heading">
+        <p class="section-subtitle">Video</p>
+        <h2 class="section-title">Kỷ Niệm Của Chúng Tôi</h2>
+    </div>
+    <div class="video-wrapper" data-video-id="VIDEO_ID_HERE">
+        <img src="https://img.youtube.com/vi/VIDEO_ID_HERE/maxresdefault.jpg" alt="Video">
+        <div class="video-play-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+    </div>
+    <p class="video-caption">Pre-wedding — Minh & Ngọc</p>
+</section>
+```
+
+**Thay `VIDEO_ID_HERE`** bằng ID video YouTube.
+
+Parse ID từ link:
+- `https://www.youtube.com/watch?v=dQw4w9WgXcQ` → `dQw4w9WgXcQ`
+- `https://youtu.be/dQw4w9WgXcQ` → `dQw4w9WgXcQ`
+
+#### CSS: copy từ `styles.css` mục 18
+
+#### JS (copy vào code.html):
+```javascript
+// Lazy load video — click thumbnail mới load iframe
+document.querySelectorAll('.video-wrapper[data-video-id]').forEach(function (w) {
+    w.addEventListener('click', function () {
+        var id = w.dataset.videoId;
+        w.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>';
+        w.style.cursor = 'default';
+    }, { once: true });
+});
+```
+
+#### Vị trí gợi ý trong thiệp:
+- Sau **Love Story** — kể tiếp câu chuyện
+- Sau **Gallery** — video pre-wedding
+- Trước **RSVP** — tạo cảm xúc trước khi xác nhận
+
+#### Lưu ý:
+- Không autoplay có tiếng — tránh conflict với nhạc nền
+- Thumbnail tự lấy từ YouTube (`maxresdefault.jpg`, fallback `hqdefault.jpg`)
+- Responsive 16:9 tự động qua `aspect-ratio`
+- Tất cả gói đều có tính năng này
+
+### 16. Calendar Month — Tờ lịch tháng đánh dấu ngày cưới
+
+Hiển thị tờ lịch 1 tháng, đánh dấu ngày cưới + các sự kiện khác. 3 variant.
+
+#### HTML snippet:
+
+```html
+<section class="cal-section" id="calendar-month">
+    <div class="section-heading">
+        <p class="section-subtitle">Save The Date</p>
+        <h2 class="section-title">Ngày Trọng Đại</h2>
+    </div>
+    <div id="weddingCalendar"></div>
+</section>
+```
+
+#### JS (copy vào code.html):
+
+```javascript
+initCalendarMonth({
+    containerId: 'weddingCalendar',
+    month: 8,
+    year: 2026,
+    variant: 'classic',   // 'classic' | 'elegant' | 'minimal'
+    accentColor: '#C41E3A',
+    events: [
+        { day: 1, color: '#C41E3A', label: '10:00 — Lễ Vu Quy' },
+        { day: 1, color: '#D4AF37', label: '17:00 — Lễ Thành Hôn' },
+        { day: 15, color: '#6366F1', label: 'Hạn RSVP' },
+    ]
+});
+```
+
+#### 3 Variant:
+
+| Variant | Style | Ngày đánh dấu | Phù hợp |
+|---------|-------|---------------|---------|
+| **classic** | Viền ô, ngày tròn đỏ | Vòng tròn đỏ đặc | Traditional, Red/Gold |
+| **elegant** | Không viền, font serif | Viền tròn vàng | Classic, Elegant, Luxury |
+| **minimal** | Sạch, nhỏ gọn | Nền tròn đặc | Modern, Minimalist |
+
+#### Bảng gợi ý variant theo phong cách thiệp:
+
+| Phong cách thiệp | Variant | accentColor |
+|-------------------|---------|-------------|
+| Traditional Red | `classic` | `#C41E3A` |
+| Classic Gold | `elegant` | `#D4AF37` |
+| Blush Pink | `minimal` | `#E8A0BF` |
+| Sage Green | `minimal` | `#6B8F5B` |
+| Dark Luxury | `elegant` | `#D4AF37` |
+| Modern | `minimal` | `#6366F1` |
+
+#### Events config:
+
+```javascript
+events: [
+    { day: 1, color: '#C41E3A', label: '10:00 — Lễ Vu Quy, nhà gái' },
+    { day: 1, color: '#D4AF37', label: '17:00 — Lễ Thành Hôn, nhà hàng ABC' },
+    { day: 15, color: '#6366F1', label: 'Hạn xác nhận tham dự' },
+]
+```
+- `day`: ngày trong tháng (1–31)
+- `color`: màu đánh dấu (tuỳ chọn, mặc định dùng accentColor)
+- `label`: chú thích hiển thị bên dưới lịch
+- Cùng 1 ngày có thể có nhiều events (nhiều màu)
+
+#### Vị trí gợi ý:
+- Sau **Countdown** — nhấn mạnh ngày cưới
+- Sau **Event Cards** — bổ sung trực quan
+- Trước **RSVP** — nhắc khách ngày hạn xác nhận
+
+#### CSS: copy từ `styles.css` mục 19
+#### JS: copy `initCalendarMonth()` từ `scripts.js` mục 16
+
+### 17. Letter Envelope — Phong bì mở thư
+
+Click mở → nắp gập, thư trượt ra, particles bay.
+Click đóng → thư trượt xuống chậm (1.8s), biến mất sau thân phong bì.
+Toggle vô hạn. 4 style.
+
+**Cấu trúc z-index:** seal(6) > flap(5) > body(2, phủ kín top→bottom) > card(1).
+Mở: card→z3 (trên body). Đóng: card→z1 (dưới body) → trượt xuống bị đè.
+Container `overflow: hidden` khi đóng, `visible` khi mở.
+
+#### HTML snippet:
+
+```html
+<div class="letter-wrap" id="myLetter">
+    <div class="letter-env">
+        <!-- Particles bay ra khi mở -->
+        <div class="letter-particles"></div>
+        <!-- Nắp phong bì -->
+        <div class="letter-flap"></div>
+        <!-- Seal ở giữa -->
+        <div class="letter-seal">❤</div>
+        <!-- Thân phong bì -->
+        <div class="letter-body"></div>
+        <!-- Tờ thư bên trong -->
+        <div class="letter-card">
+            <!-- Variant A: Ảnh -->
+            <img src="couple.jpg" alt="Ảnh cặp đôi">
+            <!-- Variant B: Text -->
+            <div class="letter-card-text">
+                <strong>Minh & Ngọc</strong>
+                Trân trọng kính mời bạn đến dự lễ cưới của chúng tôi.<br>
+                01 . 08 . 2026
+            </div>
+        </div>
+    </div>
+    <p class="letter-hint">Nhấn để mở thư</p>
+</div>
+```
+
+#### JS:
+
+```javascript
+initLetterEnvelope({
+    wrapperId: 'myLetter',
+    style: 'classic',          // 'classic' | 'luxury' | 'dreamy' | 'youthful'
+    seal: '❤',                // emoji trên seal
+    particles: '🌸💕✨🩷',    // emoji bay ra khi mở
+    particleCount: 12,
+});
+```
+
+#### 4 Style:
+
+| Style | Màu phong bì | Seal | Particles gợi ý | Phù hợp |
+|-------|-------------|------|-----------------|---------|
+| **classic** | Đỏ truyền thống | Vàng gold | `🌸💕❤🩷` hoa + tim | Traditional Red |
+| **luxury** | Đen + vàng gold | Vàng gold | `✨⭐💫🌟` sao lấp lánh | Dark Luxury, Elegant |
+| **dreamy** | Hồng tím pastel gradient | Trắng | `🦋💜🌸✨💕` bướm + hoa | Romantic, Blush |
+| **youthful** | Xanh cam gradient | Vàng tươi | `🎉🎈🎊🌈⭐` confetti | Modern, Tropical, Fun |
+
+#### Tính năng:
+- **Toggle vô hạn**: click 1 mở, click 2 đóng, click 3 mở...
+- **Particles random**: mỗi lần mở, vị trí bay khác nhau
+- **Nội dung linh hoạt**: ảnh hoặc text (hoặc cả hai)
+- **Responsive**: co nhỏ trên mobile
+- **Seal**: emoji/icon tuỳ chỉnh, ẩn khi mở
+
+#### Vị trí gợi ý:
+- Đầu trang (thay hoặc bên cạnh section Envelope)
+- Trong section Love Story (mốc đặc biệt)
+- Section riêng "Thư Ngỏ" / "Lời Nhắn"
+
+#### CSS: copy từ `styles.css` mục 20
+#### JS: copy `initLetterEnvelope()` từ `scripts.js` mục 17
