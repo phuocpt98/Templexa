@@ -5686,6 +5686,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-14',
     },
+    {
+        id: 179,
+        name: 'Thiệp Cưới - Blue Romantic',
+        slug: 'thiep-cuoi-blue-romantic',
+        description: 'Thiệp cưới xanh dương lãng mạn — phong bì 3D mở thư, hearts bay, countdown, love story timeline, gallery lightbox, RSVP, lời chúc, QR mừng cưới, lịch tháng, nút chỉ đường.',
+        category: 'invitation',
+        type: 'website',
+        tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'blue-romantic', 'classic'],
+        price: '',
+        images: [
+            './products/Web/Invitation/gen_179_blue-romantic-wedding/screen.webp',
+            './products/Web/Invitation/gen_179_blue-romantic-wedding/anh_1.webp',
+            './products/Web/Invitation/gen_179_blue-romantic-wedding/anh_2.webp',
+            './products/Web/Invitation/gen_179_blue-romantic-wedding/anh_3.webp',
+            './products/Web/Invitation/gen_179_blue-romantic-wedding/anh_4.webp',
+        ],
+        thumbnail: './products/Web/Invitation/gen_179_blue-romantic-wedding/screen.webp',
+        path: './products/Web/Invitation/gen_179_blue-romantic-wedding/',
+        demoUrl: './products/Web/Invitation/gen_179_blue-romantic-wedding/code.html',
+        features: [
+            'Phong bì 3D mở thư + hearts bay',
+            'Đếm ngược + tờ lịch tháng đánh dấu ngày cưới',
+            'Gallery lightbox + QR mừng cưới + nút chỉ đường',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 7,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-03-15',
+    },
 ];
 
 // ============================================

@@ -29,6 +29,9 @@
  *  15. COLOR PALETTES — Bảng màu cưới
  *  16. FONT COMBOS — Cặp font chữ
  *  17. FLOATING WISHES — Bong bóng lời chúc bay lên
+ *  18. VIDEO YOUTUBE — Nhúng video lazy load
+ *  19. CALENDAR MONTH — Tờ lịch tháng đánh dấu ngày cưới
+ *  20. LETTER ENVELOPE — Phong bì mở thư (4 styles)
  * ============================================
  */
 
@@ -2016,4 +2019,482 @@
     .floating-wish { font-size: 0.74rem; padding: 5px 12px; }
     .floating-wish-avatar { width: 20px; height: 20px; font-size: 0.6rem; }
     .floating-wish-text { max-width: 150px; }
+}
+
+
+/* ============================================
+   18. VIDEO YOUTUBE — Nhúng video lazy load
+   Hiện thumbnail, click mới load iframe.
+   Trang load nhanh, tiết kiệm data cho khách mời.
+   ============================================ */
+
+.video-section {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 2rem);
+    text-align: center;
+}
+
+.video-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
+.video-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s;
+}
+
+.video-wrapper:hover img {
+    opacity: 0.85;
+}
+
+.video-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    pointer-events: none;
+}
+
+.video-wrapper:hover .video-play-btn {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+}
+
+.video-play-btn svg {
+    width: 28px;
+    height: 28px;
+    color: #C41E3A;
+    margin-left: 3px;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-caption {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary, #6B4D3A);
+    font-style: italic;
+}
+
+@media (max-width: 480px) {
+    .video-play-btn { width: 56px; height: 56px; }
+    .video-play-btn svg { width: 22px; height: 22px; }
+}
+
+
+/* ============================================
+   19. CALENDAR MONTH — Tờ lịch tháng đánh dấu ngày cưới
+   3 variant: Classic, Elegant, Minimal.
+   JS gen tự động từ config { month, year, events[] }.
+   ============================================ */
+
+/* ── Chung cho tất cả variant ── */
+.cal-section {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 2rem);
+    text-align: center;
+}
+
+.cal-month {
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+}
+
+.cal-month-name {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.cal-year {
+    font-size: 0.85rem;
+    opacity: 0.5;
+    font-weight: 400;
+}
+
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+}
+
+.cal-dow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 0;
+    opacity: 0.5;
+}
+
+.cal-day {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    cursor: default;
+    transition: background 0.2s;
+}
+
+.cal-day.empty { pointer-events: none; }
+.cal-day.today { font-weight: 700; }
+
+.cal-day.marked {
+    color: #fff;
+    font-weight: 700;
+    z-index: 1;
+}
+
+.cal-events {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cal-event {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.cal-event-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.cal-event-date {
+    font-weight: 600;
+    white-space: nowrap;
+    min-width: 40px;
+}
+
+.cal-event-text {
+    opacity: 0.75;
+}
+
+/* ── Variant A: Classic — viền ô, ngày đánh dấu tròn đỏ ── */
+.cal-classic .cal-grid { gap: 2px; }
+
+.cal-classic .cal-day {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.cal-classic .cal-day.marked::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: var(--cal-accent, #C41E3A);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.cal-classic .cal-day.marked {
+    color: #fff;
+}
+
+.cal-classic .cal-event-dot { background: var(--cal-accent, #C41E3A); }
+
+/* ── Variant B: Elegant — không viền, ngày đánh dấu có vòng tròn viền ── */
+.cal-elegant .cal-day {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: 0.95rem;
+}
+
+.cal-elegant .cal-day.marked::before {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--cal-accent, #D4AF37);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.cal-elegant .cal-day.marked {
+    color: var(--cal-accent, #D4AF37);
+    font-weight: 700;
+}
+
+.cal-elegant .cal-month-name {
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+}
+
+.cal-elegant .cal-dow {
+    font-family: var(--font-heading, 'Playfair Display', serif);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+}
+
+.cal-elegant .cal-event-dot {
+    background: transparent;
+    border: 2px solid var(--cal-accent, #D4AF37);
+}
+
+/* ── Variant C: Minimal — sạch, ngày đánh dấu nền nhẹ bo tròn ── */
+.cal-minimal .cal-day {
+    font-size: 0.85rem;
+    border-radius: 50%;
+}
+
+.cal-minimal .cal-day.marked {
+    background: var(--cal-accent, #C41E3A);
+    color: #fff;
+    border-radius: 50%;
+}
+
+.cal-minimal .cal-month-name {
+    font-family: var(--font-body, 'Be Vietnam Pro', sans-serif);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+}
+
+.cal-minimal .cal-dow {
+    font-size: 0.65rem;
+    opacity: 0.4;
+}
+
+.cal-minimal .cal-event-dot { background: var(--cal-accent, #C41E3A); }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .cal-month { max-width: 340px; }
+    .cal-day { font-size: 0.8rem; }
+    .cal-classic .cal-day { font-size: 0.75rem; }
+    .cal-elegant .cal-day { font-size: 0.85rem; }
+    .cal-elegant .cal-day.marked::before { width: 30px; height: 30px; }
+}
+
+
+/* ============================================
+   20. LETTER ENVELOPE — Phong bì mở thư
+   Click mở → nắp gập, thư trượt ra + particles bay.
+   Click đóng → thư trượt xuống chậm, bị thân phong bì đè.
+   Toggle vô hạn. 4 styles.
+
+   Cấu trúc z-index:
+     seal (6) > flap (5) > body (2, phủ kín) > card (1)
+     Mở: flap→0, card→3 (trên body)
+     Đóng: card→1 (dưới body) → trượt xuống biến mất sau thân
+   ============================================ */
+
+.letter-wrap {
+    perspective: 800px;
+    width: 300px;
+    margin: 0 auto;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.letter-env {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.letter-wrap.open .letter-env {
+    overflow: visible;
+}
+
+/* Nắp phong bì (tam giác gập) */
+.letter-flap {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 100px;
+    transform-origin: top center;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 5;
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+.letter-wrap.open .letter-flap {
+    transform: rotateX(-180deg);
+    z-index: 0;
+}
+
+/* Thân phong bì — phủ kín từ trên xuống dưới, che thư bên trong */
+.letter-body {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 0 0 12px 12px;
+    z-index: 2;
+}
+
+/* Tờ thư / nội dung — ẩn dưới thân khi đóng */
+.letter-card {
+    position: absolute;
+    left: 8%; right: 8%;
+    bottom: 15px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+    transition: transform 1.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateY(0);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.letter-wrap.open .letter-card {
+    transform: translateY(-160px);
+    z-index: 3;
+}
+
+.letter-card img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+}
+
+.letter-card-text {
+    padding: 1.25rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.letter-card-text strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Seal / stamp ở giữa nắp */
+.letter-seal {
+    position: absolute;
+    top: 58px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    z-index: 6;
+    transition: opacity 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.letter-wrap.open .letter-seal { opacity: 0; }
+
+/* Particles container */
+.letter-particles {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+    overflow: visible;
+}
+
+.letter-particle {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    opacity: 0;
+    pointer-events: none;
+    font-size: 14px;
+    animation: none;
+}
+
+.letter-wrap.open .letter-particle {
+    animation: letter-burst 1.5s ease-out forwards;
+}
+
+@keyframes letter-burst {
+    0% { opacity: 1; transform: translate(0, 0) scale(0.5) rotate(0deg); }
+    70% { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.1) rotate(var(--rot)); }
+}
+
+/* Hint text */
+.letter-hint {
+    text-align: center;
+    font-size: 0.75rem;
+    opacity: 0.5;
+    margin-top: 0.75rem;
+    transition: opacity 0.3s;
+}
+
+.letter-wrap.open .letter-hint { opacity: 0; }
+
+/* ── Style A: Classic — đỏ truyền thống ── */
+.letter-classic .letter-flap { background: #B22222; }
+.letter-classic .letter-body { background: linear-gradient(180deg, #D44A4A, #C41E3A); }
+.letter-classic .letter-seal { background: #D4AF37; color: #8B0000; }
+
+/* ── Style B: Luxury — đen vàng sang trọng ── */
+.letter-luxury .letter-flap { background: #1A1A2E; }
+.letter-luxury .letter-body { background: linear-gradient(180deg, #2A2A3E, #0D0D1A); }
+.letter-luxury .letter-seal { background: #D4AF37; color: #0D0D1A; }
+.letter-luxury .letter-card { background: #F5F0E8; }
+
+/* ── Style C: Dreamy — hồng tím pastel mộng mơ ── */
+.letter-dreamy .letter-flap { background: linear-gradient(135deg, #E8A0BF, #C4B5FD); }
+.letter-dreamy .letter-body { background: linear-gradient(180deg, #F5C6D0, #DDD6FE); }
+.letter-dreamy .letter-seal { background: #fff; color: #C77DA3; }
+.letter-dreamy .letter-card { background: #FFFBFE; }
+
+/* ── Style D: Youthful — xanh cam tươi trẻ ── */
+.letter-youthful .letter-flap { background: linear-gradient(135deg, #3B82F6, #06B6D4); }
+.letter-youthful .letter-body { background: linear-gradient(180deg, #3B82F6, #2563EB); }
+.letter-youthful .letter-seal { background: #FCD34D; color: #1E3A5F; }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .letter-wrap { width: 260px; }
+    .letter-env { height: 170px; }
+    .letter-flap { height: 85px; }
+    .letter-seal { top: 50px; width: 30px; height: 30px; font-size: 0.85rem; }
+    .letter-card-text { font-size: 0.8rem; padding: 1rem 0.75rem; }
+    .letter-wrap.open .letter-card { transform: translateY(-135px); }
 }
