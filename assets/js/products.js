@@ -63,6 +63,14 @@
                 currentCategory = btn.dataset.category;
                 currentPage = 1;
                 render();
+                // Toggle floating sale button + invitation theme
+                if (currentCategory === 'invitation') {
+                    document.body.classList.add('invitation-theme');
+                    if (typeof _showWeddingSaleBtn === 'function') _showWeddingSaleBtn();
+                } else {
+                    document.body.classList.remove('invitation-theme');
+                    if (typeof _hideWeddingSaleBtn === 'function') _hideWeddingSaleBtn();
+                }
             });
         });
 
@@ -76,6 +84,14 @@
                 }
                 currentPage = 1;
                 render();
+                // Toggle sale button + theme after type change may reset category
+                if (currentCategory === 'invitation') {
+                    document.body.classList.add('invitation-theme');
+                    if (typeof _showWeddingSaleBtn === 'function') _showWeddingSaleBtn();
+                } else {
+                    document.body.classList.remove('invitation-theme');
+                    if (typeof _hideWeddingSaleBtn === 'function') _hideWeddingSaleBtn();
+                }
             });
         });
     }
@@ -235,4 +251,14 @@
     // Init
     render();
     startAutoHover();
+
+    // Show sale button + theme if initial category is invitation
+    if (currentCategory === 'invitation') {
+        document.body.classList.add('invitation-theme');
+        function tryShowSale() {
+            if (typeof _showWeddingSaleBtn === 'function') { _showWeddingSaleBtn(); }
+            else { setTimeout(tryShowSale, 100); }
+        }
+        tryShowSale();
+    }
 })();

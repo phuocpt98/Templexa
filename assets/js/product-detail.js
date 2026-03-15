@@ -16,6 +16,11 @@
     const productId = params.get('id');
     const product = getProductById(productId);
 
+    // Invitation theme
+    if (product && product.category === 'invitation') {
+        document.body.classList.add('invitation-theme');
+    }
+
     if (!product) {
         contentEl.innerHTML = `
             <div class="products-empty" style="padding:100px 20px">
@@ -176,7 +181,7 @@
                 <p class="sidebar-features-title">Tính năng nổi bật</p>
                 <ul class="sidebar-features">${featuresHTML}</ul>
 
-                <a href="contact.html" class="btn-custom">Yêu cầu tùy chỉnh</a>
+                <a href="${product.category === 'invitation' ? 'bang-gia-thiep-cuoi.html' : 'contact.html'}" class="btn-custom">${product.category === 'invitation' ? 'Bảng giá dịch vụ' : 'Yêu cầu tùy chỉnh'}</a>
             </div>
         </div>
     `;
