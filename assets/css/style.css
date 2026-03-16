@@ -1715,12 +1715,15 @@ ul {
 .gallery-main {
     overflow: hidden;
     position: relative;
+    aspect-ratio: 16 / 10;
+    background: #000;
 }
 
 .gallery-main img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
+    object-fit: contain;
 }
 
 .gallery-arrow {
@@ -1890,6 +1893,8 @@ ul {
     flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
+    max-height: 240px;
+    overflow-y: auto;
 }
 
 .sidebar-features li {
@@ -3264,6 +3269,140 @@ ul {
 }
 
 /* ============================================
+   PRODUCT POPUP (products.html)
+   ============================================ */
+.product-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--overlay-bg);
+    z-index: 1500;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.product-popup-overlay.active {
+    display: flex;
+}
+
+.product-popup {
+    background: var(--card-bg);
+    border-radius: 16px;
+    max-width: 960px;
+    width: 100%;
+    position: relative;
+    animation: modalIn 0.3s ease;
+    margin: auto;
+}
+
+.product-popup-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    color: var(--text-tertiary);
+    transition: color 0.3s, background 0.3s;
+}
+
+.product-popup-close:hover {
+    color: var(--text-primary);
+    background: var(--border-color);
+}
+
+.product-popup-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+.product-popup-body {
+    padding: clamp(24px, 3vw, 36px);
+}
+
+.product-popup-body .popup-header {
+    margin-bottom: clamp(16px, 2vw, 24px);
+    padding-right: 40px;
+}
+
+.product-popup-body .popup-header h2 {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.product-popup-body .popup-header p {
+    font-size: 0.95rem;
+    color: var(--text-tertiary);
+}
+
+.product-popup-body .popup-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: clamp(20px, 2.5vw, 32px);
+    align-items: start;
+}
+
+.product-popup-body .popup-sidebar {
+    background: var(--bg-secondary);
+    border-radius: clamp(12px, 1.5vw, 16px);
+    border: 1px solid var(--border-color);
+    padding: clamp(16px, 2vw, 24px);
+}
+
+.product-popup-body .popup-gallery {
+    border-radius: clamp(12px, 1.5vw, 16px);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+
+.product-popup-body .popup-gallery .gallery-main {
+    overflow: hidden;
+    position: relative;
+}
+
+.product-popup-body .popup-gallery .gallery-main img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.product-popup-body .popup-gallery .gallery-arrow {
+    opacity: 0;
+}
+
+.product-popup-body .popup-gallery .gallery-main:hover .gallery-arrow {
+    opacity: 1;
+}
+
+/* Loading spinner inside popup */
+.product-popup-body .popup-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.product-popup-body .popup-loading svg {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
    ADDITIONAL RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
@@ -3277,6 +3416,14 @@ ul {
 
     .detail-page .container-section {
         max-width: 100%;
+    }
+
+    .product-popup-body .popup-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .product-popup-body .popup-sidebar {
+        position: static;
     }
 
     .detail-sidebar {
@@ -3301,6 +3448,14 @@ ul {
 }
 
 @media (max-width: 768px) {
+    .product-popup-overlay {
+        padding: 12px;
+    }
+
+    .product-popup-body .popup-header h2 {
+        font-size: 1.15rem;
+    }
+
     .products-grid {
         grid-template-columns: 1fr;
     }
