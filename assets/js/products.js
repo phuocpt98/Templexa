@@ -21,6 +21,39 @@
     const popupModalForm = document.getElementById('popupModalForm');
     const popupModalSuccess = document.getElementById('popupModalSuccess');
 
+    // ── Two-level filter: show category on type hover ──
+    function showCategoryFor(type) {
+        const allowed = TYPE_CATEGORIES[type] || TYPE_CATEGORIES['all'];
+        const cats = CATEGORIES.filter(c => allowed.includes(c.id));
+        categoryFiltersEl.innerHTML = cats.map(cat =>
+            `<button class="filter-btn${cat.id === currentCategory ? ' active' : ''}" data-category="${cat.id}">${cat.label}</button>`
+        ).join('');
+        // Re-bind category click
+        categoryFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentCategory = btn.dataset.category;
+                currentPage = 1;
+                render();
+                if (filtersWrapper) filtersWrapper.classList.add('category-locked');
+                if (currentCategory === 'invitation') {
+                    document.body.classList.add('invitation-theme');
+                } else {
+                    document.body.classList.remove('invitation-theme');
+                }
+            });
+        });
+        if (filtersWrapper) {
+            filtersWrapper.classList.remove('category-locked');
+            filtersWrapper.classList.add('category-open');
+        }
+    }
+
+    function hideCategoryRow() {
+        if (filtersWrapper) {
+            filtersWrapper.classList.remove('category-open');
+        }
+    }
+
     // ── Mobile dropdown toggle ───────────────────
     if (filtersToggle && filtersWrapper) {
         filtersToggle.addEventListener('click', function (e) {
@@ -31,6 +64,8 @@
 
         document.addEventListener('click', function (e) {
             if (!filtersWrapper.classList.contains('open')) return;
+            // Don't close if clicking a filter button (target may be removed by re-render)
+            if (e.target.closest('.filter-btn')) return;
             if (!filtersWrapper.contains(e.target) && !filtersToggle.contains(e.target)) {
                 filtersToggle.classList.remove('open');
                 filtersWrapper.classList.remove('open');
@@ -64,13 +99,13 @@
             `<button class="filter-btn${t.id === currentType ? ' active' : ''}" data-type="${t.id}">${t.label}</button>`
         ).join('');
 
-        // Event listeners
+        // Event listeners — category
         categoryFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 currentCategory = btn.dataset.category;
                 currentPage = 1;
                 render();
-                // Toggle floating sale button + invitation theme
+                if (filtersWrapper) filtersWrapper.classList.add('category-locked');
                 if (currentCategory === 'invitation') {
                     document.body.classList.add('invitation-theme');
                 } else {
@@ -79,24 +114,33 @@
             });
         });
 
+        // Event listeners — type (click + hover to show categories)
         typeFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 currentType = btn.dataset.type;
-                // Reset category nếu category hiện tại không có trong type mới
                 const newAllowed = TYPE_CATEGORIES[currentType] || TYPE_CATEGORIES['all'];
                 if (!newAllowed.includes(currentCategory)) {
                     currentCategory = 'all';
                 }
                 currentPage = 1;
                 render();
-                // Toggle sale button + theme after type change may reset category
                 if (currentCategory === 'invitation') {
                     document.body.classList.add('invitation-theme');
                 } else {
                     document.body.classList.remove('invitation-theme');
                 }
             });
+
+            // Hover → show categories for this type
+            btn.addEventListener('mouseenter', () => {
+                showCategoryFor(btn.dataset.type);
+            });
         });
+
+        // Hide category row when mouse leaves the entire filter area
+        if (filtersWrapper) {
+            filtersWrapper.addEventListener('mouseleave', hideCategoryRow);
+        }
     }
 
     // ── Render product cards ────────────────────
