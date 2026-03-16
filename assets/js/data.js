@@ -5872,6 +5872,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-16',
     },
+    {
+        id: 185,
+        name: 'Thiệp Cưới Coral Minimalist',
+        slug: 'thiep-cuoi-coral-minimalist',
+        description: 'Thiệp cưới phong cách coral minimalist — trắng + san hô (#ee8584), geometric SVG ornaments, hero diagonal clip-path, split-gradient, ảnh vuông + tròn. Clone style HuyThanh Jewelry.',
+        category: 'invitation',
+        type: 'website',
+        tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'coral', 'minimalist', 'modern', 'huythanh'],
+        price: '',
+        images: [
+            './products/Web/Invitation/gen_185_coral-minimalist-wedding/screen.webp',
+            './products/Web/Invitation/gen_185_coral-minimalist-wedding/anh_1.webp',
+            './products/Web/Invitation/gen_185_coral-minimalist-wedding/anh_2.webp',
+            './products/Web/Invitation/gen_185_coral-minimalist-wedding/anh_3.webp',
+            './products/Web/Invitation/gen_185_coral-minimalist-wedding/anh_4.webp',
+        ],
+        thumbnail: './products/Web/Invitation/gen_185_coral-minimalist-wedding/screen.webp',
+        path: './products/Web/Invitation/gen_185_coral-minimalist-wedding/',
+        demoUrl: './products/Web/Invitation/gen_185_coral-minimalist-wedding/code.html',
+        features: [
+            'Hero diagonal clip-path + ảnh vuông cô dâu chú rể',
+            'Love story timeline + countdown + lịch tháng',
+            'RSVP split-gradient + lời chúc + mừng cưới QR',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 5,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-03-16',
+    },
 ];
 
 // ============================================
