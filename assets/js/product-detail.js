@@ -198,7 +198,7 @@
                 </button>
 
                 ${product.demoUrl ? `
-                <a href="preview.html?url=${encodeURIComponent(product.demoUrl)}&name=${encodeURIComponent(product.name)}&id=${product.id}" target="_blank" class="btn-outline">
+                <a href="preview.html?url=${encodeURIComponent(product.demoUrl)}&name=${encodeURIComponent(product.name)}&id=${product.id}&category=${encodeURIComponent(product.category)}&type=${encodeURIComponent(product.type)}" target="_blank" class="btn-outline">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                         <circle cx="12" cy="12" r="3"></circle>
@@ -408,29 +408,38 @@
             relatedGrid.querySelectorAll('.related-card').forEach(el => cardObs.observe(el));
         }
 
-        // Lazy iframe loading for related cards (viewport only, no scroll animation)
-        const relatedCards = relatedGrid.querySelectorAll('.related-card[data-demo-url]');
-        if (relatedCards.length) {
-            const relIframeObs = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        const card = entry.target;
-                        const container = card.querySelector('.related-card-image');
-                        const img = container?.querySelector('img');
-                        if (img && card.dataset.demoUrl) {
-                            const iframe = document.createElement('iframe');
-                            iframe.src = card.dataset.demoUrl;
-                            iframe.title = card.querySelector('h4')?.textContent || '';
-                            iframe.loading = 'lazy';
-                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-                            iframe.setAttribute('scrolling', 'no');
-                            img.replaceWith(iframe);
-                        }
-                        relIframeObs.unobserve(card);
-                    }
+        // Hover iframe preview + auto-scroll for related cards
+        if (window.matchMedia('(hover: hover)').matches) {
+            relatedGrid.querySelectorAll('.related-card[data-demo-url]').forEach(function (card) {
+                var iframe = null;
+                var hovered = false;
+
+                card.addEventListener('mouseenter', function () {
+                    hovered = true;
+                    var container = card.querySelector('.related-card-image');
+                    if (!container || !card.dataset.demoUrl) return;
+
+                    iframe = document.createElement('iframe');
+                    iframe.src = card.dataset.demoUrl;
+                    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+                    iframe.setAttribute('scrolling', 'no');
+
+                    iframe.onload = function () {
+                        if (!hovered) { iframe.remove(); iframe = null; return; }
+                        iframe.classList.add('loaded');
+                        setTimeout(function () {
+                            if (hovered && iframe) iframe.classList.add('scrolling');
+                        }, 400);
+                    };
+
+                    container.appendChild(iframe);
                 });
-            }, { threshold: 0.1 });
-            relatedCards.forEach(function (c) { relIframeObs.observe(c); });
+
+                card.addEventListener('mouseleave', function () {
+                    hovered = false;
+                    if (iframe) { iframe.remove(); iframe = null; }
+                });
+            });
         }
     }
 })();

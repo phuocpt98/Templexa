@@ -183,33 +183,42 @@
         history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
     }
 
-    // ── Lazy iframe loading (viewport only) ─────
-    let iframeObserver = null;
+    // ── Hover iframe preview + auto-scroll ──────
+    const supportsHover = window.matchMedia('(hover: hover)').matches;
 
-    function initLazyIframes() {
-        if (iframeObserver) iframeObserver.disconnect();
+    function initHoverIframes() {
+        if (!supportsHover) return;
         const cards = grid.querySelectorAll('.product-card[data-demo-url]');
-        if (!cards.length) return;
-        iframeObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    const card = entry.target;
-                    const container = card.querySelector('.product-card-image');
-                    const img = container?.querySelector('img');
-                    if (img && card.dataset.demoUrl) {
-                        const iframe = document.createElement('iframe');
-                        iframe.src = card.dataset.demoUrl;
-                        iframe.title = card.querySelector('h3')?.textContent || '';
-                        iframe.loading = 'lazy';
-                        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-                        iframe.setAttribute('scrolling', 'no');
-                        img.replaceWith(iframe);
-                    }
-                    iframeObserver.unobserve(card);
-                }
+        cards.forEach(function (card) {
+            var iframe = null;
+            var hovered = false;
+
+            card.addEventListener('mouseenter', function () {
+                hovered = true;
+                var container = card.querySelector('.product-card-image');
+                if (!container || !card.dataset.demoUrl) return;
+
+                iframe = document.createElement('iframe');
+                iframe.src = card.dataset.demoUrl;
+                iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+                iframe.setAttribute('scrolling', 'no');
+
+                iframe.onload = function () {
+                    if (!hovered) { iframe.remove(); iframe = null; return; }
+                    iframe.classList.add('loaded');
+                    setTimeout(function () {
+                        if (hovered && iframe) iframe.classList.add('scrolling');
+                    }, 400);
+                };
+
+                container.appendChild(iframe);
             });
-        }, { threshold: 0.1 });
-        cards.forEach(function (card) { iframeObserver.observe(card); });
+
+            card.addEventListener('mouseleave', function () {
+                hovered = false;
+                if (iframe) { iframe.remove(); iframe = null; }
+            });
+        });
     }
 
     // ── Main render ─────────────────────────────
@@ -228,7 +237,7 @@
         updateURL();
         renderFilters();
         renderProducts(items);
-        initLazyIframes();
+        initHoverIframes();
         renderPagination(totalPages);
 
         // Khôi phục trạng thái dropdown sau render

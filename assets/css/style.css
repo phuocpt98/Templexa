@@ -1496,12 +1496,31 @@ ul {
 }
 
 .product-card-image iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 200%;
-    height: 200%;
+    height: 600%;
     border: none;
     pointer-events: none;
     transform: scale(0.5);
     transform-origin: top left;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.product-card-image iframe.loaded {
+    opacity: 1;
+}
+
+.product-card-image iframe.scrolling {
+    animation: iframeScroll 8s ease-in-out forwards;
+}
+
+@keyframes iframeScroll {
+    0%, 8% { top: 0; }
+    92%, 100% { top: -200%; }
 }
 
 .product-card:hover .product-card-image img {
@@ -2033,12 +2052,26 @@ ul {
 }
 
 .related-card-image iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 200%;
-    height: 200%;
+    height: 600%;
     border: none;
     pointer-events: none;
     transform: scale(0.5);
     transform-origin: top left;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.related-card-image iframe.loaded {
+    opacity: 1;
+}
+
+.related-card-image iframe.scrolling {
+    animation: iframeScroll 8s ease-in-out forwards;
 }
 
 .related-card-info {

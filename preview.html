@@ -248,6 +248,11 @@
             const url = params.get('url') || '';
             const name = params.get('name') || '';
             const id = params.get('id') || '';
+            const category = params.get('category') || '';
+            const type = params.get('type') || '';
+
+            // ── Default mode: mobile for invitation+website, desktop otherwise ──
+            const defaultMobile = (category === 'invitation' && type === 'website');
 
             // ── Populate ──
             document.title = (name || 'Xem trước') + ' - Templexa';
@@ -278,50 +283,80 @@
             var autoScrollStopped = false;
             var SCROLL_SPEED = 1.2; // px per frame
 
+            function killAutoScroll() {
+                autoScrollStopped = true;
+                if (autoScrollId) { cancelAnimationFrame(autoScrollId); autoScrollId = null; }
+            }
+
             function startAutoScroll() {
+                killAutoScroll();
                 autoScrollStopped = false;
-                if (autoScrollId) cancelAnimationFrame(autoScrollId);
 
                 try {
                     var iframeWin = iframe.contentWindow;
                     var iframeDoc = iframeWin.document;
 
-                    // Stop on user interaction
-                    function stopAutoScroll() {
-                        autoScrollStopped = true;
-                        if (autoScrollId) {
-                            cancelAnimationFrame(autoScrollId);
-                            autoScrollId = null;
-                        }
-                    }
-
-                    iframeWin.addEventListener('wheel', stopAutoScroll, { once: true, passive: true });
-                    iframeWin.addEventListener('touchstart', stopAutoScroll, { once: true, passive: true });
-                    iframeWin.addEventListener('mousedown', stopAutoScroll, { once: true });
-                    iframeWin.addEventListener('keydown', function (e) {
-                        if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].indexOf(e.key) !== -1) {
-                            stopAutoScroll();
-                        }
-                    }, { once: true });
-
-                    // Scroll loop
+                    // Scroll loop using scrollTop
                     function scrollStep() {
                         if (autoScrollStopped) return;
-                        var maxScroll = iframeDoc.documentElement.scrollHeight - iframeWin.innerHeight;
-                        if (iframeWin.scrollY >= maxScroll - 1) {
+                        var scrollEl = iframeDoc.scrollingElement || iframeDoc.documentElement;
+                        var maxScroll = scrollEl.scrollHeight - scrollEl.clientHeight;
+                        if (maxScroll <= 0 || scrollEl.scrollTop >= maxScroll - 1) {
                             autoScrollId = null;
                             return;
                         }
-                        iframeWin.scrollBy(0, SCROLL_SPEED);
+                        scrollEl.scrollTop += SCROLL_SPEED;
                         autoScrollId = requestAnimationFrame(scrollStep);
                     }
 
-                    // Delay 1.5s before starting
-                    setTimeout(function () {
-                        if (!autoScrollStopped) {
-                            autoScrollId = requestAnimationFrame(scrollStep);
+                    // Only manual scroll stops auto-scroll (wheel, touch-drag, keyboard)
+                    // Click does NOT stop it
+                    iframeWin.addEventListener('wheel', killAutoScroll, { once: true, passive: true });
+                    iframeWin.addEventListener('touchmove', killAutoScroll, { once: true, passive: true });
+                    iframeWin.addEventListener('keydown', function (e) {
+                        if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].indexOf(e.key) !== -1) {
+                            killAutoScroll();
                         }
-                    }, 1500);
+                    }, { once: true });
+
+                    // Wait for images, then begin
+                    function beginScroll() {
+                        if (autoScrollStopped) return;
+                        // Disable smooth scroll
+                        try {
+                            var resetStyle = iframeDoc.createElement('style');
+                            resetStyle.id = 'templexa-reset-scroll';
+                            resetStyle.textContent = 'html, body { scroll-behavior: auto !important; }';
+                            iframeDoc.head.appendChild(resetStyle);
+                        } catch (e) {}
+
+                        setTimeout(function () {
+                            if (!autoScrollStopped) {
+                                autoScrollId = requestAnimationFrame(scrollStep);
+                            }
+                        }, 1500);
+                    }
+
+                    var images = iframeDoc.querySelectorAll('img');
+                    var pending = 0;
+                    var started = false;
+
+                    function checkReady() {
+                        if (started) return;
+                        pending--;
+                        if (pending <= 0) { started = true; beginScroll(); }
+                    }
+
+                    images.forEach(function (img) {
+                        if (!img.complete) { pending++; img.addEventListener('load', checkReady); img.addEventListener('error', checkReady); }
+                    });
+
+                    if (pending === 0) { started = true; beginScroll(); }
+
+                    // Fallback: start after 5s even if some images are still loading
+                    setTimeout(function () {
+                        if (!started && !autoScrollStopped) { started = true; beginScroll(); }
+                    }, 5000);
 
                 } catch (e) { /* cross-origin — ignore */ }
             }
@@ -336,6 +371,14 @@
             const toggleBtns = document.querySelectorAll('.preview-toggle-btn');
             const frame = document.getElementById('previewFrame');
             const container = document.getElementById('previewContainer');
+
+            // Apply default mode
+            if (defaultMobile) {
+                frame.classList.add('mobile');
+                container.classList.add('mobile-mode');
+                toggleBtns.forEach(function (b) { b.classList.remove('active'); });
+                document.querySelector('.preview-toggle-btn[data-mode="mobile"]').classList.add('active');
+            }
 
             toggleBtns.forEach(function (btn) {
                 btn.addEventListener('click', function () {
