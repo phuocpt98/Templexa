@@ -349,12 +349,9 @@
             const badgeClass = p.price === 'free' ? 'free' : '';
 
             return `
-                <a href="product-detail.html?id=${p.id}" class="related-card">
+                <a href="product-detail.html?id=${p.id}" class="related-card"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
                     <div class="related-card-image">
-                        ${p.demoUrl
-                            ? `<iframe src="${p.demoUrl}" title="${p.name}" loading="lazy" sandbox="allow-scripts allow-same-origin" scrolling="no"></iframe>`
-                            : `<img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">`
-                        }
+                        <img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">
                         ${p.price === 'free' ? '<span class="product-badge free">FREE</span>' : ''}
                     </div>
                     <div class="related-card-info">
@@ -382,6 +379,31 @@
                 });
             }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
             relatedGrid.querySelectorAll('.related-card').forEach(el => cardObs.observe(el));
+        }
+
+        // Lazy iframe loading for related cards (viewport only, no scroll animation)
+        const relatedCards = relatedGrid.querySelectorAll('.related-card[data-demo-url]');
+        if (relatedCards.length) {
+            const relIframeObs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        const card = entry.target;
+                        const container = card.querySelector('.related-card-image');
+                        const img = container?.querySelector('img');
+                        if (img && card.dataset.demoUrl) {
+                            const iframe = document.createElement('iframe');
+                            iframe.src = card.dataset.demoUrl;
+                            iframe.title = card.querySelector('h4')?.textContent || '';
+                            iframe.loading = 'lazy';
+                            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+                            iframe.setAttribute('scrolling', 'no');
+                            img.replaceWith(iframe);
+                        }
+                        relIframeObs.unobserve(card);
+                    }
+                });
+            }, { threshold: 0.1 });
+            relatedCards.forEach(function (c) { relIframeObs.observe(c); });
         }
     }
 })();

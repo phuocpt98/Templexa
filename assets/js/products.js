@@ -66,10 +66,8 @@
                 // Toggle floating sale button + invitation theme
                 if (currentCategory === 'invitation') {
                     document.body.classList.add('invitation-theme');
-                    if (typeof _showWeddingSaleBtn === 'function') _showWeddingSaleBtn();
                 } else {
                     document.body.classList.remove('invitation-theme');
-                    if (typeof _hideWeddingSaleBtn === 'function') _hideWeddingSaleBtn();
                 }
             });
         });
@@ -87,10 +85,8 @@
                 // Toggle sale button + theme after type change may reset category
                 if (currentCategory === 'invitation') {
                     document.body.classList.add('invitation-theme');
-                    if (typeof _showWeddingSaleBtn === 'function') _showWeddingSaleBtn();
                 } else {
                     document.body.classList.remove('invitation-theme');
-                    if (typeof _hideWeddingSaleBtn === 'function') _hideWeddingSaleBtn();
                 }
             });
         });
@@ -115,12 +111,9 @@
             if (p.price === 'free') badgeHTML += '<span class="product-badge free" style="top:auto;bottom:12px;right:12px;">FREE</span>';
 
             return `
-                <a href="product-detail.html?id=${p.id}" class="product-card">
+                <a href="product-detail.html?id=${p.id}" class="product-card"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
                     <div class="product-card-image">
-                        ${p.demoUrl
-                            ? `<iframe src="${p.demoUrl}" title="${p.name}" loading="lazy" sandbox="allow-scripts allow-same-origin" scrolling="no"></iframe>`
-                            : `<img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">`
-                        }
+                        <img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">
                         ${badgeHTML}
                     </div>
                     <div class="product-card-info">
@@ -190,6 +183,35 @@
         history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
     }
 
+    // ── Lazy iframe loading (viewport only) ─────
+    let iframeObserver = null;
+
+    function initLazyIframes() {
+        if (iframeObserver) iframeObserver.disconnect();
+        const cards = grid.querySelectorAll('.product-card[data-demo-url]');
+        if (!cards.length) return;
+        iframeObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    const card = entry.target;
+                    const container = card.querySelector('.product-card-image');
+                    const img = container?.querySelector('img');
+                    if (img && card.dataset.demoUrl) {
+                        const iframe = document.createElement('iframe');
+                        iframe.src = card.dataset.demoUrl;
+                        iframe.title = card.querySelector('h3')?.textContent || '';
+                        iframe.loading = 'lazy';
+                        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
+                        iframe.setAttribute('scrolling', 'no');
+                        img.replaceWith(iframe);
+                    }
+                    iframeObserver.unobserve(card);
+                }
+            });
+        }, { threshold: 0.1 });
+        cards.forEach(function (card) { iframeObserver.observe(card); });
+    }
+
     // ── Main render ─────────────────────────────
     function render() {
         // Giữ trạng thái dropdown mobile trước khi rebuild
@@ -206,6 +228,7 @@
         updateURL();
         renderFilters();
         renderProducts(items);
+        initLazyIframes();
         renderPagination(totalPages);
 
         // Khôi phục trạng thái dropdown sau render
@@ -226,39 +249,11 @@
         }, 300);
     });
 
-    // ── Auto hover cycle ────────────────────────
-    let autoHoverTimer;
-    function startAutoHover() {
-        clearInterval(autoHoverTimer);
-        let index = 0;
-        autoHoverTimer = setInterval(() => {
-            const cards = grid.querySelectorAll('.product-card');
-            if (!cards.length) return;
-            cards.forEach(c => c.classList.remove('auto-hover'));
-            index = index % cards.length;
-            cards[index].classList.add('auto-hover');
-            index++;
-        }, 1500);
-    }
-
-    // Pause on real hover
-    grid.addEventListener('mouseenter', () => {
-        clearInterval(autoHoverTimer);
-        grid.querySelectorAll('.product-card').forEach(c => c.classList.remove('auto-hover'));
-    });
-    grid.addEventListener('mouseleave', () => startAutoHover());
-
     // Init
     render();
-    startAutoHover();
 
-    // Show sale button + theme if initial category is invitation
+    // Invitation theme if initial category
     if (currentCategory === 'invitation') {
         document.body.classList.add('invitation-theme');
-        function tryShowSale() {
-            if (typeof _showWeddingSaleBtn === 'function') { _showWeddingSaleBtn(); }
-            else { setTimeout(tryShowSale, 100); }
-        }
-        tryShowSale();
     }
 })();

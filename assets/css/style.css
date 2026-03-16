@@ -1095,142 +1095,10 @@ ul {
     animation: ctaGlowPulse 1.5s ease;
 }
 
-/* ============================================
-   BUTTERFLY 3D EFFECT
-   ============================================ */
-.butterfly-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 998;
-    pointer-events: none;
-    overflow: hidden;
-    display: none; /* TẠM TẮT */
-}
 
-.butterfly {
-    position: absolute;
-    width: 90px;
-    height: 60px;
-    will-change: transform;
-    perspective: 200px;
-}
-
-.butterfly-wing {
-    position: absolute;
-    top: 0;
-    width: 45px;
-    height: 60px;
-    transform-style: preserve-3d;
-}
-
-.butterfly-wing-left {
-    right: 50%;
-    transform-origin: right center;
-    animation: butterflyFlap 1s ease-in-out infinite;
-}
-
-.butterfly-wing-right {
-    left: 50%;
-    transform-origin: left center;
-    animation: butterflyFlap 1s ease-in-out infinite reverse;
-}
-
-.butterfly-wing svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-    overflow: visible;
-}
-
-.butterfly-body-wrap {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 14px;
-    height: 50px;
-    z-index: 2;
-}
-
-.butterfly-body-wrap svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-}
-
-/* Leader glow */
-.butterfly.leader .butterfly-wing svg {
-    filter: drop-shadow(0 0 4px rgba(168, 85, 247, 0.35));
-}
-
-/* Follower glow */
-.butterfly.follower .butterfly-wing svg {
-    filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.35));
-}
-
-/* Sparkles */
-.butterfly-sparkle {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    animation: sparkleFade 1.8s ease-out forwards;
-}
-
-.butterfly-sparkle.sparkle-leader {
-    background: radial-gradient(circle, rgba(236, 72, 153, 0.9), rgba(168, 85, 247, 0.4), transparent);
-    box-shadow: 0 0 4px rgba(236, 72, 153, 0.5);
-}
-
-.butterfly-sparkle.sparkle-follower {
-    background: radial-gradient(circle, rgba(52, 211, 153, 0.9), rgba(6, 182, 212, 0.4), transparent);
-    box-shadow: 0 0 4px rgba(52, 211, 153, 0.5);
-}
-
-@keyframes butterflyFlap {
-    0%, 100% {
-        transform: rotateY(0deg);
-    }
-    50% {
-        transform: rotateY(55deg);
-    }
-}
-
-@keyframes sparkleFade {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.6;
-        transform: scale(0.7);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.1);
-    }
-}
-
-@keyframes iframeAutoScroll {
-    0%, 5% {
-        transform: scale(0.5) translateY(0);
-    }
-    45%, 55% {
-        transform: scale(0.5) translateY(-50%);
-    }
-    95%, 100% {
-        transform: scale(0.5) translateY(0);
-    }
-}
 
 /* prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-    .butterfly-container {
-        display: none;
-    }
-
     .hero::after {
         animation: none;
     }
@@ -1608,8 +1476,7 @@ ul {
     cursor: pointer;
 }
 
-.product-card:hover,
-.product-card.auto-hover {
+.product-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
@@ -1637,8 +1504,7 @@ ul {
     transform-origin: top left;
 }
 
-.product-card:hover .product-card-image img,
-.product-card.auto-hover .product-card-image img {
+.product-card:hover .product-card-image img {
     transform: scale(1.05);
 }
 
@@ -3065,6 +2931,45 @@ ul {
 }
 
 /* ============================================
+   CHAT BUBBLES — Zalo & Messenger
+   ============================================ */
+.chat-bubbles {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+}
+.chat-bubble {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+.chat-bubble:hover {
+    transform: scale(1.12);
+    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.35);
+}
+.chat-bubble svg { width: 26px; height: 26px; }
+.chat-bubble-zalo {
+    background: #0068FF;
+    color: #fff;
+}
+.chat-bubble-zalo img { width: 28px; height: 28px; }
+.chat-bubble-messenger {
+    background: linear-gradient(135deg, #FF6968, #A855F7, #0095F6);
+    color: #fff;
+}
+
+/* ============================================
    DARK MODE — ALL HARDCODED OVERRIDES
    ============================================ */
 
@@ -3325,29 +3230,6 @@ ul {
     color: #FCA5A5;
 }
 
-/* Butterfly dark mode */
-[data-theme="dark"] .butterfly.leader .butterfly-wing svg {
-    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6)) brightness(1.15);
-}
-
-[data-theme="dark"] .butterfly.follower .butterfly-wing svg {
-    filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.6)) brightness(1.15);
-}
-
-[data-theme="dark"] .butterfly-body-wrap svg {
-    filter: brightness(1.4);
-}
-
-[data-theme="dark"] .butterfly-sparkle.sparkle-leader {
-    background: radial-gradient(circle, rgba(236, 72, 153, 1), rgba(168, 85, 247, 0.6), transparent);
-    box-shadow: 0 0 8px rgba(236, 72, 153, 0.7);
-}
-
-[data-theme="dark"] .butterfly-sparkle.sparkle-follower {
-    background: radial-gradient(circle, rgba(52, 211, 153, 1), rgba(6, 182, 212, 0.6), transparent);
-    box-shadow: 0 0 8px rgba(52, 211, 153, 0.7);
-}
-
 /* ============================================
    ADDITIONAL RESPONSIVE
    ============================================ */
@@ -3539,65 +3421,6 @@ ul {
 }
 
 /* ============================================
-   FLOATING SALE BUTTON — Thiệp cưới
-   Hiện trên products.html (category=invitation),
-   product-detail.html (sản phẩm invitation),
-   preview.html (sản phẩm invitation)
-   ============================================ */
-.floating-sale-btn {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 22px;
-    background: linear-gradient(135deg, #C41E3A, #8B0000);
-    color: #FFD700;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 50px;
-    box-shadow: 0 6px 25px rgba(196, 30, 58, 0.4);
-    transition: transform 0.3s, box-shadow 0.3s;
-    animation: sale-pulse 2s ease-in-out infinite;
-}
-.floating-sale-btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 10px 35px rgba(196, 30, 58, 0.5);
-}
-.floating-sale-btn svg {
-    width: 18px;
-    height: 18px;
-}
-.floating-sale-badge {
-    position: absolute;
-    top: -8px;
-    right: -6px;
-    padding: 2px 8px;
-    background: #FFD700;
-    color: #8B0000;
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-@keyframes sale-pulse {
-    0%, 100% { box-shadow: 0 6px 25px rgba(196, 30, 58, 0.4); }
-    50% { box-shadow: 0 6px 30px rgba(196, 30, 58, 0.6), 0 0 15px rgba(255, 215, 0, 0.3); }
-}
-@media (max-width: 480px) {
-    .floating-sale-btn { right: 16px; bottom: 16px; padding: 10px 18px; font-size: 0.8rem; }
-}
-
-[data-theme="dark"] .floating-sale-btn {
-    box-shadow: 0 6px 25px rgba(196, 30, 58, 0.3);
-}
-
-/* ============================================
    INVITATION THEME — Tông hồng cho thiệp mời
    Thêm class .invitation-theme vào <body>
    ============================================ */
@@ -3612,4 +3435,12 @@ ul {
 }
 [data-theme="dark"] .invitation-theme .detail-page {
     background: var(--bg-primary);
+}
+
+/* ── Chat bubbles responsive ── */
+@media (max-width: 480px) {
+    .chat-bubbles { bottom: 16px; right: 16px; gap: 10px; }
+    .chat-bubble { width: 46px; height: 46px; }
+    .chat-bubble svg { width: 22px; height: 22px; }
+    .chat-bubble-zalo img { width: 24px; height: 24px; }
 }
