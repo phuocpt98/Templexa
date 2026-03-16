@@ -36,5 +36,15 @@ const ProductDetail = (function () {
         return Object.assign({}, product, extra);
     }
 
-    return { getFullProduct };
+    /**
+     * Prefetch category JSON (fire-and-forget, warms cache)
+     */
+    function prefetch(id) {
+        const product = getProductById(id);
+        if (product && !cache[product.category]) {
+            fetchCategory(product.category).catch(function () {});
+        }
+    }
+
+    return { getFullProduct, prefetch };
 })();

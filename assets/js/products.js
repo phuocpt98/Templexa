@@ -431,6 +431,13 @@
             '</div>';
     }
 
+    // ── Prefetch on hover ─────────────────────────
+    grid.addEventListener('mouseenter', function (e) {
+        var card = e.target.closest('.product-card');
+        if (!card || !card.dataset.productId) return;
+        ProductDetail.prefetch(card.dataset.productId);
+    }, true);
+
     // ── Click handler on product cards ──────────
     grid.addEventListener('click', function (e) {
         var card = e.target.closest('.product-card');
