@@ -2,7 +2,7 @@
 // PRODUCT DETAIL PAGE
 // ============================================
 
-(function () {
+(async function () {
     const contentEl = document.getElementById('detailContent');
     const relatedSection = document.getElementById('relatedSection');
     const relatedGrid = document.getElementById('relatedGrid');
@@ -14,14 +14,14 @@
     // ── Get product from URL ────────────────────
     const params = new URLSearchParams(window.location.search);
     const productId = params.get('id');
-    const product = getProductById(productId);
+    const productSummary = getProductById(productId);
 
     // Invitation theme
-    if (product && product.category === 'invitation') {
+    if (productSummary && productSummary.category === 'invitation') {
         document.body.classList.add('invitation-theme');
     }
 
-    if (!product) {
+    if (!productSummary) {
         contentEl.innerHTML = `
             <div class="products-empty" style="padding:100px 20px">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:64px;height:64px;margin-bottom:16px;opacity:0.4">
@@ -36,8 +36,8 @@
         return;
     }
 
-    // Update page title + meta + JSON-LD
-    document.title = `${product.name} - Templexa`;
+    // Update page title + meta early (from summary)
+    document.title = `${productSummary.name} - Templexa`;
 
     const baseUrl = 'https://phuocpt98.github.io/Templexa/';
     function toAbsUrl(relative) {
@@ -45,16 +45,44 @@
     }
 
     const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.content = product.description;
+    if (metaDesc) metaDesc.content = productSummary.description;
     const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.content = `${product.name} - Templexa`;
+    if (ogTitle) ogTitle.content = `${productSummary.name} - Templexa`;
     const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) ogDesc.content = product.description;
+    if (ogDesc) ogDesc.content = productSummary.description;
     const ogImage = document.querySelector('meta[property="og:image"]');
-    if (ogImage && product.thumbnail) ogImage.content = toAbsUrl(product.thumbnail);
+    if (ogImage && productSummary.thumbnail) ogImage.content = toAbsUrl(productSummary.thumbnail);
     const twitterImage = document.querySelector('meta[name="twitter:image"]');
-    if (twitterImage && product.thumbnail) twitterImage.content = toAbsUrl(product.thumbnail);
+    if (twitterImage && productSummary.thumbnail) twitterImage.content = toAbsUrl(productSummary.thumbnail);
 
+    // Show loading state
+    contentEl.innerHTML = `
+        <div style="display:flex;justify-content:center;align-items:center;min-height:400px">
+            <div style="text-align:center;opacity:0.5">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite">
+                    <path d="M21 12a9 9 0 11-6.219-8.56"></path>
+                </svg>
+                <p style="margin-top:12px">Đang tải...</p>
+            </div>
+        </div>
+        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+    `;
+
+    // ── Fetch full product detail ─────────────────
+    let product;
+    try {
+        product = await ProductDetail.getFullProduct(productId);
+    } catch (e) {
+        console.error('Failed to load product detail:', e);
+        // Fallback: use summary data with empty detail fields
+        product = Object.assign({}, productSummary, {
+            images: [productSummary.thumbnail],
+            path: '',
+            features: [],
+        });
+    }
+
+    // Update JSON-LD schema
     const schemaEl = document.getElementById('productSchema');
     if (schemaEl) {
         schemaEl.textContent = JSON.stringify({
@@ -346,12 +374,11 @@
         relatedSection.style.display = '';
         relatedGrid.innerHTML = related.map(p => {
             const catLabel = CATEGORIES.find(c => c.id === p.category)?.label || p.category;
-            const badgeClass = p.price === 'free' ? 'free' : '';
 
             return `
                 <a href="product-detail.html?id=${p.id}" class="related-card"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
                     <div class="related-card-image">
-                        <img src="${p.thumbnail || p.images[0]}" alt="${p.name}" loading="lazy">
+                        <img src="${p.thumbnail}" alt="${p.name}" loading="lazy">
                         ${p.price === 'free' ? '<span class="product-badge free">FREE</span>' : ''}
                     </div>
                     <div class="related-card-info">
