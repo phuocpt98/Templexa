@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Anh — Hà Thu</title>
+    <meta name="description" content="Lời tâm tư ấm áp từ Hà Thu gửi đến Anh nhân ngày White Day 14/3 — câu chuyện tình yêu như mùa thu dịu dàng">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --amber: #D97706;
+            --amber-light: #FEF3C7;
+            --amber-dark: #B45309;
+            --terracotta: #C2410C;
+            --terracotta-light: #FFF7ED;
+            --olive: #65A30D;
+            --olive-light: #F7FEE7;
+            --cream: #FFFBF0;
+            --warm-bg: #FDF8F0;
+            --text-dark: #44403C;
+            --text-mid: #78716C;
+            --text-light: #A8A29E;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            color: var(--text-dark);
+            background: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .serif { font-family: 'Merriweather', serif; }
+
+        /* ===================== FALLING LEAVES ===================== */
+        .leaves-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        .leaf {
+            position: absolute;
+            top: -30px;
+            opacity: 0.7;
+            animation: leaf-fall linear forwards;
+        }
+        @keyframes leaf-fall {
+            0% { transform: translateX(0) rotate(0deg) scale(1); opacity: 0.8; }
+            25% { transform: translateX(50px) rotate(90deg) scale(0.95); }
+            50% { transform: translateX(-30px) rotate(180deg) scale(1.05); opacity: 0.6; }
+            75% { transform: translateX(60px) rotate(270deg) scale(0.9); }
+            100% { transform: translateX(0) rotate(360deg) scale(1); opacity: 0; top: 105vh; }
+        }
+
+        /* ===================== HERO ===================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(160deg, #FEF3C7 0%, #FFFBF0 30%, #FFF7ED 60%, #FDF8F0 100%);
+            padding: 60px 24px;
+            overflow: hidden;
+        }
+
+        .hero-deco {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-deco-1 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(217,119,6,0.1), transparent 70%);
+            top: -100px; right: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+        .hero-deco-2 {
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(194,65,12,0.08), transparent 70%);
+            bottom: 40px; left: -80px;
+            animation: float 7s ease-in-out infinite 1.5s;
+        }
+
+        .hero-icon-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+        }
+        .hero-icon-row span { font-size: 28px; }
+
+        .hero-date {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(14px, 2.5vw, 18px);
+            color: var(--amber);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+        }
+
+        .hero h1 {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(34px, 7vw, 68px);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s both;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--amber), var(--terracotta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: var(--text-mid);
+            max-width: 600px;
+            margin-bottom: 40px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            animation: bounce-gentle 2s infinite;
+            color: var(--text-light);
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        @keyframes bounce-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* ===================== IMAGE PARALLAX SECTIONS ===================== */
+        .parallax-image {
+            height: 50vh;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        .parallax-image img {
+            width: 100%;
+            height: 130%;
+            object-fit: cover;
+            object-position: center;
+            position: absolute;
+            top: -15%;
+        }
+        .parallax-image .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(68,64,60,0.6));
+            z-index: 1;
+        }
+        .parallax-image .caption {
+            position: absolute;
+            bottom: 32px;
+            left: 32px;
+            right: 32px;
+            z-index: 2;
+            color: white;
+            font-family: 'Merriweather', serif;
+            font-size: clamp(18px, 3vw, 28px);
+            font-style: italic;
+        }
+
+        /* ===================== SCENES ===================== */
+        .scene {
+            padding: 100px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .scene-content {
+            max-width: 750px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .scene-icon {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            background: rgba(217,119,6,0.1);
+            color: var(--amber);
+        }
+        .scene-icon i { width: 28px; height: 28px; }
+
+        .scene-chapter {
+            font-family: 'Merriweather', serif;
+            font-size: 13px;
+            color: var(--amber);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .scene h2 {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(26px, 5vw, 44px);
+            font-weight: 700;
+            margin-bottom: 32px;
+            line-height: 1.4;
+        }
+        .scene h2 .highlight, h2 .highlight {
+            background: linear-gradient(135deg, var(--amber), var(--terracotta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .scene p {
+            font-size: clamp(16px, 2vw, 18px);
+            color: var(--text-mid);
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+        .scene p em { color: var(--amber-dark); font-style: italic; }
+
+        .scene-divider {
+            width: 60px; height: 2px;
+            background: linear-gradient(90deg, var(--amber), var(--terracotta));
+            margin: 32px auto;
+            border-radius: 2px;
+        }
+
+        .scene-1 { background: var(--cream); }
+        .scene-2 { background: var(--warm-bg); }
+        .scene-3 { background: var(--terracotta-light); }
+
+        .scene-quote {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(18px, 3vw, 24px);
+            font-style: italic;
+            color: var(--amber-dark);
+            padding: 24px 32px;
+            border-left: 3px solid var(--amber);
+            text-align: left;
+            margin: 32px auto;
+            max-width: 580px;
+            background: rgba(217,119,6,0.05);
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* ===================== REASONS CARDS ===================== */
+        .reasons-section {
+            padding: 80px 24px;
+            background: var(--amber-light);
+        }
+        .reasons-section .scene-content { max-width: 900px; margin: 0 auto; }
+
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .reason-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .reason-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+        .reason-card .emoji {
+            font-size: 40px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .reason-card h3 {
+            font-family: 'Merriweather', serif;
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+        .reason-card p {
+            font-size: 14px;
+            color: var(--text-mid);
+            line-height: 1.7;
+        }
+
+        /* ===================== LETTER ===================== */
+        .letter-section {
+            padding: 100px 24px;
+            background: linear-gradient(180deg, var(--cream), var(--amber-light));
+            display: flex;
+            justify-content: center;
+        }
+
+        .letter-card {
+            max-width: 650px;
+            background: var(--white);
+            border-radius: 24px;
+            padding: clamp(32px, 6vw, 64px);
+            box-shadow: 0 20px 60px rgba(217,119,6,0.12);
+            position: relative;
+            border-top: 4px solid var(--amber);
+        }
+
+        .letter-greeting {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(24px, 4vw, 34px);
+            font-weight: 700;
+            color: var(--amber);
+            margin-bottom: 24px;
+        }
+        .letter-body p {
+            font-size: 16px;
+            color: var(--text-mid);
+            margin-bottom: 16px;
+            line-height: 2;
+        }
+        .letter-body p em { color: var(--amber-dark); }
+
+        .letter-sign {
+            margin-top: 40px;
+            text-align: right;
+        }
+        .letter-sign .name {
+            font-family: 'Merriweather', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--amber);
+        }
+        .letter-sign .date {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* ===================== FINAL ===================== */
+        .final-section {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px;
+            background: linear-gradient(160deg, #FEF3C7, #FFF7ED, #FFFBF0);
+        }
+        .final-section h2 {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(30px, 6vw, 52px);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .final-section p {
+            font-size: 18px;
+            color: var(--text-mid);
+            max-width: 500px;
+        }
+        .final-heart {
+            margin-top: 32px;
+            font-size: 48px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+
+        /* ===================== MUSIC ===================== */
+        .music-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--amber), var(--terracotta));
+            color: white;
+            cursor: pointer;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(217,119,6,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(217,119,6,0.5);
+        }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* ===================== ANIMATIONS ===================== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes slide-up-hero {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+        }
+        .animate-fade-up.is-visible { opacity: 1; transform: translateY(0); }
+
+        .animate-scale-up {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .animate-scale-up.is-visible { opacity: 1; transform: scale(1); }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 768px) {
+            .reasons-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+            .parallax-image { height: 35vh; }
+            .parallax-image .caption { font-size: 16px; bottom: 20px; left: 20px; }
+            .scene-quote { padding: 16px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Falling Leaves -->
+<div class="leaves-container" id="leaves"></div>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-deco hero-deco-1"></div>
+    <div class="hero-deco hero-deco-2"></div>
+
+    <div class="hero-icon-row">
+        <span>🍂</span><span>🧡</span><span>🍂</span>
+    </div>
+
+    <p class="hero-date">White Day — 14 tháng 3</p>
+
+    <h1>
+        Gửi <span class="highlight">Anh</span><br>
+        Từ Hà Thu
+    </h1>
+
+    <p class="hero-subtitle">
+        Như mùa thu dịu dàng, tình cảm em dành cho anh cũng nhẹ nhàng mà sâu lắng…<br>
+        Hãy để em kể anh nghe nhé.
+    </p>
+
+    <div class="scroll-hint">
+        <span>Cuộn xuống để đọc</span>
+        <i data-lucide="chevron-down"></i>
+    </div>
+</section>
+
+<!-- Parallax Image 1 -->
+<div class="parallax-image">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80" alt="Autumn scene">
+    <div class="overlay"></div>
+    <div class="caption">"Mùa thu đẹp nhất là mùa thu có anh…"</div>
+</div>
+
+<!-- Scene 1 -->
+<section class="scene scene-1">
+    <div class="scene-content">
+        <div class="scene-icon animate-fade-up">
+            <i data-lucide="leaf"></i>
+        </div>
+        <p class="scene-chapter animate-fade-up delay-1">Chương 1</p>
+        <h2 class="animate-fade-up delay-2">Mùa Thu Em <span class="highlight">Gặp Anh</span></h2>
+        <div class="scene-divider animate-fade-up delay-3"></div>
+        <p class="animate-fade-up delay-3">
+            Anh đến với em như mùa thu — không ồn ào, không vội vã. Cứ nhẹ nhàng, tự nhiên, rồi bao trùm tất cả.
+        </p>
+        <p class="animate-fade-up delay-4">
+            Em thích cái cách anh lắng nghe, cái cách anh im lặng nhưng luôn ở bên. <em>Với em, đó là sự ấm áp hiếm có nhất.</em>
+        </p>
+    </div>
+</section>
+
+<!-- Parallax Image 2 -->
+<div class="parallax-image">
+    <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=1920&q=80" alt="Together">
+    <div class="overlay"></div>
+    <div class="caption">"Bên anh, em thấy mình bình yên lạ thường…"</div>
+</div>
+
+<!-- Scene 2 -->
+<section class="scene scene-2">
+    <div class="scene-content">
+        <div class="scene-icon animate-fade-up">
+            <i data-lucide="sunset"></i>
+        </div>
+        <p class="scene-chapter animate-fade-up delay-1">Chương 2</p>
+        <h2 class="animate-fade-up delay-2">Những Buổi Chiều <span class="highlight">Ấm Áp</span></h2>
+        <div class="scene-divider animate-fade-up delay-3"></div>
+        <p class="animate-fade-up delay-3">
+            Em nhớ những buổi chiều bên nhau, khi ánh nắng vàng xuyên qua tán lá, khi gió mang theo hương mùa thu và tiếng cười của chúng mình.
+        </p>
+        <div class="scene-quote animate-fade-up delay-4">
+            "Hạnh phúc đôi khi chỉ đơn giản là được ngồi cạnh nhau, không cần nói gì cả."
+        </div>
+    </div>
+</section>
+
+<!-- Reasons -->
+<section class="reasons-section">
+    <div class="scene-content">
+        <p class="scene-chapter animate-fade-up">Lý do yêu anh</p>
+        <h2 class="animate-fade-up delay-1" style="font-family: 'Merriweather', serif; font-size: clamp(26px, 5vw, 40px); font-weight: 700;">Những Điều Em Yêu Ở <span class="highlight">Anh</span></h2>
+        <div class="reasons-grid">
+            <div class="reason-card animate-scale-up delay-1">
+                <span class="emoji">🌻</span>
+                <h3>Sự Ấm Áp</h3>
+                <p>Anh luôn biết cách khiến em cảm thấy an toàn, dù chỉ bằng một ánh nhìn hay một câu nói đơn giản.</p>
+            </div>
+            <div class="reason-card animate-scale-up delay-2">
+                <span class="emoji">🌙</span>
+                <h3>Sự Kiên Nhẫn</h3>
+                <p>Cảm ơn anh vì đã luôn kiên nhẫn với em, kể cả những lúc em khó tính hay cáu giận vô cớ.</p>
+            </div>
+            <div class="reason-card animate-scale-up delay-3">
+                <span class="emoji">✨</span>
+                <h3>Nụ Cười Của Anh</h3>
+                <p>Nụ cười ấy có sức mạnh kỳ diệu — nó khiến mọi mệt mỏi của em tan biến trong tích tắc.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scene 3 -->
+<section class="scene scene-3">
+    <div class="scene-content">
+        <div class="scene-icon animate-fade-up">
+            <i data-lucide="pen-tool"></i>
+        </div>
+        <p class="scene-chapter animate-fade-up delay-1">Chương 3</p>
+        <h2 class="animate-fade-up delay-2">Lời Từ <span class="highlight">Trái Tim Em</span></h2>
+        <div class="scene-divider animate-fade-up delay-3"></div>
+        <p class="animate-fade-up delay-3">
+            Anh ơi, em không giỏi nói yêu bằng lời. Nhưng em muốn anh biết rằng mỗi ngày em đều cảm ơn cuộc sống vì đã cho em gặp anh.
+        </p>
+        <p class="animate-fade-up delay-4">
+            Dù mai sau thế nào, <em>em sẽ luôn nhớ mùa thu này — mùa thu có anh.</em>
+        </p>
+    </div>
+</section>
+
+<!-- Letter -->
+<section class="letter-section">
+    <div class="letter-card animate-scale-up">
+        <p class="letter-greeting">Anh thương mến,</p>
+        <div class="letter-body">
+            <p>
+                Hôm nay là White Day, em muốn viết cho anh vài dòng thật lòng, không hoa mỹ, không phô trương.
+            </p>
+            <p>
+                Cảm ơn anh vì sự hiện diện ấm áp trong cuộc đời em. Anh là mùa thu dịu dàng mà em luôn mong chờ, là cơn gió mát xoa dịu những ngày nóng bức.
+            </p>
+            <p>
+                Em biết mình may mắn khi được yêu và được yêu thương bởi một người như anh. Và em hứa sẽ luôn trân trọng điều đó.
+            </p>
+            <p>
+                <em>Happy White Day! Anh luôn là mùa thu đẹp nhất của em. 🧡</em>
+            </p>
+        </div>
+        <div class="letter-sign">
+            <div class="name">Hà Thu</div>
+            <div class="date">14 tháng 3, 2026</div>
+        </div>
+    </div>
+</section>
+
+<!-- Final -->
+<section class="final-section">
+    <h2 class="animate-fade-up">
+        Mãi Là <span class="highlight">Mùa Thu</span> Của Anh 🍂
+    </h2>
+    <p class="animate-fade-up delay-2">
+        Từ Hà Thu, gửi tình yêu ấm áp đến anh
+    </p>
+    <div class="final-heart animate-fade-up delay-3">🧡</div>
+</section>
+
+<!-- Music -->
+<button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+    <i data-lucide="volume-2" class="music-icon-on"></i>
+    <i data-lucide="volume-x" class="music-icon-off"></i>
+</button>
+<audio id="bgMusic" loop preload="auto">
+    <source src="../../../shared/music/romantic/Endless Love  .mp3" type="audio/mpeg">
+</audio>
+
+<script>lucide.createIcons();</script>
+<script>
+// Falling leaves
+function createLeaves() {
+    const container = document.getElementById('leaves');
+    const leafEmojis = ['🍂', '🍁', '🧡', '🍃'];
+    setInterval(() => {
+        if (container.children.length > 20) return;
+        const leaf = document.createElement('div');
+        leaf.className = 'leaf';
+        leaf.style.left = Math.random() * 100 + '%';
+        leaf.style.animationDuration = (6 + Math.random() * 6) + 's';
+        leaf.style.fontSize = (14 + Math.random() * 14) + 'px';
+        leaf.innerHTML = leafEmojis[Math.floor(Math.random() * leafEmojis.length)];
+        container.appendChild(leaf);
+        setTimeout(() => leaf.remove(), 12000);
+    }, 800);
+}
+createLeaves();
+
+// IntersectionObserver
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('[class*="animate-"]').forEach(el => observer.observe(el));
+});
+
+// Music
+const musicBtn = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
+if (musicBtn && bgMusic) {
+    bgMusic.volume = 0.3;
+    let musicStarted = false;
+    musicBtn.addEventListener('click', () => {
+        if (!musicStarted) { bgMusic.play(); musicStarted = true; }
+        else if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('muted'); }
+        else { bgMusic.pause(); musicBtn.classList.add('muted'); }
+    });
+}
+</script>
+</body>
+</html>

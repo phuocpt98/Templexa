@@ -73,10 +73,14 @@
         });
     }
 
-    // ── Legacy URL redirect: ?category=invitation → ?type=invitation ──
+    // ── Legacy URL redirects ──
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('category') === 'invitation') {
         urlParams.delete('category');
+        urlParams.set('type', 'invitation');
+        history.replaceState(null, '', '?' + urlParams.toString());
+    }
+    if (urlParams.get('type') === 'trending') {
         urlParams.set('type', 'invitation');
         history.replaceState(null, '', '?' + urlParams.toString());
     }

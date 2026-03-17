@@ -8,9 +8,6 @@ products/
 │   ├── E-commerce/         # 5 san pham
 │   ├── Education/          # (trong)
 │   └── Portfolio/          # (trong)
-├── Trending/               # Mau Trending
-│   ├── Confession/         # 16 san pham
-│   └── OnePage/            # (trong)
 ├── Web/                    # Mau Web (type: website)
 │   ├── E-commerce/         # 38 san pham
 │   ├── Education/          # 30 san pham
@@ -18,7 +15,7 @@ products/
 │   └── Portfolio/          # 24 san pham
 ├── Invitation/             # Mau Thiep moi (type: invitation)
 │   ├── Wedding/            # 27 san pham (thiep cuoi)
-│   └── Other/              # 22 san pham (sinh nhat, ky niem, le hoi)
+│   └── Other/              # 39 san pham (sinh nhat, ky niem, le hoi, confession)
 ├── images/                 # Anh mockup dung chung
 ├── data.csv                # File CSV quan ly san pham
 └── products.md             # File nay
@@ -31,15 +28,13 @@ products/
 | **Google-sheet** | E-commerce | 5 |
 | **Google-sheet** | Education | 0 |
 | **Google-sheet** | Portfolio | 0 |
-| **Trending** | Confession | 16 |
-| **Trending** | OnePage | 0 |
 | **Web** | E-commerce | 38 |
 | **Web** | Education | 30 |
 | **Web** | Onepage | 26 |
 | **Web** | Portfolio | 24 |
 | **Invitation** | Wedding | 27 |
-| **Invitation** | Other | 22 |
-| | **Tong** | **188** |
+| **Invitation** | Other | 39 |
+| | **Tong** | **189** |
 
 ---
 
@@ -73,7 +68,7 @@ AI doc data.csv → quet folder → merge → ghi vao data.js
 
 ```
 products/{Loai}/{Loai-nho}/{folder_name}/
-├── index.html              (bat buoc voi type=website/trending)
+├── index.html              (bat buoc voi type=website/invitation)
 ├── thumbnail.png/jpg       (anh chinh — hien thi tren grid)
 ├── anh_1.png               (anh phu — hien thi trong gallery)
 ├── Screenshot_1.jpg        (tuy chon)
@@ -86,7 +81,7 @@ products/{Loai}/{Loai-nho}/{folder_name}/
 |------------|--------------------|--------------------|
 | `Web` | `E-commerce`, `Education`, `Invitation`, `Onepage`, `Portfolio` | `website` |
 | `Google-sheet` | `E-commerce`, `Education`, `Portfolio` | `google-sheet` |
-| `Trending` | `Confession`, `Invitation`, `OnePage` | `trending` |
+| `Invitation` | `Wedding`, `Other` | `invitation` |
 
 ### Quy tac xac dinh type va category tu folder
 
@@ -94,7 +89,7 @@ products/{Loai}/{Loai-nho}/{folder_name}/
 |-----------------|--------|-----------|
 | `products/Web/{Loai-nho}/...` | `website` | Loai-nho (lowercase): `e-commerce`, `education`, ... |
 | `products/Google-sheet/{Loai-nho}/...` | `google-sheet` | Loai-nho (lowercase) |
-| `products/Trending/{Loai-nho}/...` | `trending` | Loai-nho (lowercase): `confession`, `invitation`, ... |
+| `products/Invitation/{Loai-nho}/...` | `invitation` | Loai-nho (lowercase): `wedding`, `other` |
 
 ### Quy tac quet anh
 
@@ -113,7 +108,7 @@ products/{Loai}/{Loai-nho}/{folder_name}/
 | `slug` | Sinh tu `name` (kebab-case) |
 | `description` | Sinh tu category + name, hoac lay tu `<meta description>` |
 | `category` | Loai-nho tu duong dan folder (lowercase) |
-| `type` | Loai chinh tu duong dan folder: `Web`→`website`, `Google-sheet`→`google-sheet`, `Trending`→`trending` |
+| `type` | Loai chinh tu duong dan folder: `Web`→`website`, `Google-sheet`→`google-sheet`, `Invitation`→`invitation` |
 | `tags` | Sinh tu type + category + keywords trong name |
 | `price` | Mac dinh `free` |
 | `images` | Quet file anh trong folder |
@@ -172,31 +167,6 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 ### Google-sheet / Portfolio (0)
 
 (trong)
-
-### Trending / Confession (10)
-
-| # | Folder | Files |
-|---|--------|-------|
-| 1 | `rồi ai sẽ ngắm pháo hoa` | index.html, music.mp3, thumbnail.png, anh_1.png, anh_2.png, anh_3.png |
-| 2 | `gen_151_white-day-14-3` | code.html, screen.webp, anh_1.webp, anh_2.webp |
-| 3 | `gen_157_white-day-love-letter-thuy` | code.html, screen.webp, anh_1.webp, anh_2.webp, anh_3.webp, anh_4.webp |
-| 4 | `gen_158_white-day-love-manh` | code.html, screen.webp, anh_1.webp, anh_2.webp, anh_3.webp, anh_4.webp |
-| 5 | `gen_159_white-day-our-story` | code.html, screen.webp, anh_1.webp, anh_2.webp, anh_3.webp, anh_4.webp |
-| 6 | `gen_160_white-day-love-diary` | code.html, screen.webp, anh_1.webp, anh_2.webp, anh_3.webp, anh_4.webp |
-| 7 | `gen_161_white-day-thousand-words` | code.html, screen.webp, anh_1.webp, anh_2.webp, anh_3.webp, anh_4.webp |
-| 8 | `gen_162_white-day-together-forever` | code.html, screen.webp, anh_1.webp, anh_2.webp, anh_3.webp, anh_4.webp |
-| 9 | `gen_163_white-day-love-journey` | code.html, screen.webp, anh_1.webp, anh_2.webp, anh_3.webp, anh_4.webp |
-| 10 | `gen_164_love-confession-playful` | code.html, screen.webp, anh_1.webp, anh_2.webp, anh_3.webp, anh_4.webp |
-
-### Trending / Invitation (0)
-
-(trong)
-
-### Trending / OnePage (0)
-
-(trong)
-
----
 
 ### Web / E-commerce (35)
 

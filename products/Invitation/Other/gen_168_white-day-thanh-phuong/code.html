@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Anh — Thanh Phương</title>
+    <meta name="description" content="Tâm tư từ Thanh Phương gửi đến Anh nhân ngày White Day 14/3 — như dòng nhật ký với những trang viết đầy yêu thương">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --sage: #7C9A6E;
+            --sage-light: #F0F5EC;
+            --sage-dark: #5A7A4C;
+            --mint: #A8D5BA;
+            --mint-light: #EFF8F2;
+            --cream: #FDFCF8;
+            --warm-bg: #F8F6F0;
+            --brown: #8B7355;
+            --text-dark: #3E3C36;
+            --text-mid: #6B685E;
+            --text-light: #9B978D;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .serif { font-family: 'Crimson Pro', serif; }
+
+        /* ===================== FIREFLIES ===================== */
+        .fireflies-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+        .firefly {
+            position: absolute;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #E8D98E;
+            box-shadow: 0 0 10px #E8D98E, 0 0 20px rgba(232,217,142,0.5);
+            animation: firefly-move linear infinite;
+        }
+        @keyframes firefly-move {
+            0% { transform: translate(0, 0); opacity: 0; }
+            10% { opacity: 1; }
+            50% { opacity: 0.6; }
+            90% { opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
+        }
+
+        /* ===================== HERO ===================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(160deg, #F0F5EC 0%, #FDFCF8 30%, #EFF8F2 60%, #F8F6F0 100%);
+            padding: 60px 24px;
+            overflow: hidden;
+        }
+
+        .hero-deco {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero-deco-1 {
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(124,154,110,0.12), transparent 70%);
+            top: -60px; left: -60px;
+            animation: float 8s ease-in-out infinite;
+        }
+        .hero-deco-2 {
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(168,213,186,0.15), transparent 70%);
+            bottom: 100px; right: -40px;
+            animation: float 6s ease-in-out infinite 2s;
+        }
+
+        .hero-book {
+            font-size: 60px;
+            margin-bottom: 24px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: rgba(124,154,110,0.1);
+            border: 1px solid rgba(124,154,110,0.2);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--sage);
+            margin-bottom: 32px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+        }
+        .hero-badge i { width: 16px; height: 16px; }
+
+        .hero h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(36px, 7vw, 68px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s both;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--sage), var(--mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: var(--text-mid);
+            max-width: 600px;
+            margin-bottom: 40px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            animation: bounce-gentle 2s infinite;
+            color: var(--text-light);
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        @keyframes bounce-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* ===================== DIARY PAGES ===================== */
+        .diary-page {
+            padding: 80px 24px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        .diary-page:nth-child(odd) { background: var(--cream); }
+        .diary-page:nth-child(even) { background: var(--warm-bg); }
+
+        .diary-card {
+            max-width: 700px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 24px;
+            padding: clamp(32px, 5vw, 56px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            position: relative;
+            border-left: 4px solid var(--sage);
+        }
+
+        .diary-card::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: clamp(28px, 5vw, 52px);
+            right: clamp(28px, 5vw, 52px);
+            height: 1px;
+            background: repeating-linear-gradient(90deg, var(--sage-light) 0, var(--sage-light) 8px, transparent 8px, transparent 16px);
+        }
+
+        .diary-date {
+            font-family: 'Crimson Pro', serif;
+            font-size: 14px;
+            color: var(--sage);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .diary-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.3;
+        }
+        .diary-title .highlight {
+            background: linear-gradient(135deg, var(--sage), var(--mint));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .diary-body p {
+            font-size: clamp(15px, 2vw, 17px);
+            color: var(--text-mid);
+            line-height: 2;
+            margin-bottom: 16px;
+        }
+        .diary-body p em { color: var(--sage-dark); font-style: italic; }
+
+        .diary-mood {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--sage-light);
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        .diary-mood i { width: 16px; height: 16px; color: var(--sage); }
+
+        .diary-image {
+            width: 100%;
+            border-radius: 16px;
+            margin: 24px 0;
+            overflow: hidden;
+        }
+        .diary-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .diary-image:hover img { transform: scale(1.05); }
+
+        /* ===================== WISHES ===================== */
+        .wishes-section {
+            padding: 80px 24px;
+            background: var(--sage-light);
+        }
+        .wishes-section .center { max-width: 700px; margin: 0 auto; text-align: center; }
+
+        .wishes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .wish-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease;
+        }
+        .wish-card:hover { transform: translateY(-4px); }
+        .wish-card .emoji { font-size: 32px; margin-bottom: 12px; display: block; }
+        .wish-card p {
+            font-size: 15px;
+            color: var(--text-mid);
+            line-height: 1.7;
+        }
+
+        /* ===================== LETTER ===================== */
+        .letter-section {
+            padding: 100px 24px;
+            background: linear-gradient(180deg, var(--cream), var(--mint-light));
+            display: flex;
+            justify-content: center;
+        }
+
+        .letter-card {
+            max-width: 650px;
+            background: var(--white);
+            border-radius: 24px;
+            padding: clamp(32px, 6vw, 64px);
+            box-shadow: 0 20px 60px rgba(124,154,110,0.15);
+            position: relative;
+        }
+        .letter-card::before {
+            content: '📖';
+            position: absolute;
+            top: -12px;
+            left: 32px;
+            font-size: 32px;
+        }
+
+        .letter-greeting {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(24px, 4vw, 34px);
+            font-weight: 600;
+            color: var(--sage);
+            margin-bottom: 24px;
+        }
+        .letter-body p {
+            font-size: 16px;
+            color: var(--text-mid);
+            margin-bottom: 16px;
+            line-height: 2;
+        }
+        .letter-body p em { color: var(--sage-dark); }
+
+        .letter-sign {
+            margin-top: 40px;
+            text-align: right;
+        }
+        .letter-sign .name {
+            font-family: 'Crimson Pro', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--sage);
+        }
+        .letter-sign .date {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* ===================== FINAL ===================== */
+        .final-section {
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 24px;
+            background: linear-gradient(160deg, #F0F5EC, #EFF8F2, #FDFCF8);
+        }
+        .final-section h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(30px, 6vw, 52px);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .final-section p {
+            font-size: 18px;
+            color: var(--text-mid);
+            max-width: 500px;
+        }
+        .final-heart {
+            margin-top: 32px;
+            font-size: 48px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+
+        /* ===================== MUSIC ===================== */
+        .music-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, var(--sage), var(--mint));
+            color: white;
+            cursor: pointer;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(124,154,110,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(124,154,110,0.5);
+        }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* ===================== ANIMATIONS ===================== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes slide-up-hero {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+        }
+        .animate-fade-up.is-visible { opacity: 1; transform: translateY(0); }
+
+        .animate-fade-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+        }
+        .animate-fade-left.is-visible { opacity: 1; transform: translateX(0); }
+
+        .animate-scale-up {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .animate-scale-up.is-visible { opacity: 1; transform: scale(1); }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 768px) {
+            .wishes-grid { grid-template-columns: 1fr; }
+            .diary-image img { height: 180px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Fireflies -->
+<div class="fireflies-container" id="fireflies"></div>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-deco hero-deco-1"></div>
+    <div class="hero-deco hero-deco-2"></div>
+
+    <div class="hero-book">📔</div>
+
+    <div class="hero-badge">
+        <i data-lucide="heart"></i>
+        White Day — 14.03
+    </div>
+
+    <h1>
+        Nhật Ký Gửi <span class="highlight">Anh</span><br>
+        <span style="font-size: 0.6em; font-weight: 500;">— Thanh Phương —</span>
+    </h1>
+
+    <p class="hero-subtitle">
+        Mở cuốn nhật ký này ra, anh sẽ thấy những trang viết em dành riêng cho anh…
+    </p>
+
+    <div class="scroll-hint">
+        <span>Lật trang tiếp theo</span>
+        <i data-lucide="chevron-down"></i>
+    </div>
+</section>
+
+<!-- Diary Page 1 -->
+<section class="diary-page">
+    <div class="diary-card animate-fade-left">
+        <div class="diary-date">Trang 1 — Ngày gặp nhau</div>
+        <h2 class="diary-title">Lần Đầu Em <span class="highlight">Biết Đến Anh</span></h2>
+        <div class="diary-image">
+            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=80" alt="First meeting">
+        </div>
+        <div class="diary-body">
+            <p>
+                Hôm đó trời mưa, em vội vã chạy vào quán cafe trú. Rồi em thấy anh — ngồi góc cửa sổ, đọc sách, bình thản như thể cơn mưa không liên quan gì đến anh.
+            </p>
+            <p>
+                Em không biết tại sao mình lại nhìn lâu đến vậy. Có lẽ vì anh trông thật bình yên. <em>Và em nhận ra, mình cần sự bình yên ấy.</em>
+            </p>
+        </div>
+        <div class="diary-mood">
+            <i data-lucide="smile"></i>
+            Tâm trạng: Bối rối, hồi hộp, tò mò
+        </div>
+    </div>
+</section>
+
+<!-- Diary Page 2 -->
+<section class="diary-page">
+    <div class="diary-card animate-fade-left">
+        <div class="diary-date">Trang 2 — Khi tình cảm lớn dần</div>
+        <h2 class="diary-title">Em Bắt Đầu <span class="highlight">Yêu Anh</span></h2>
+        <div class="diary-image">
+            <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=800&q=80" alt="Growing love">
+        </div>
+        <div class="diary-body">
+            <p>
+                Không có khoảnh khắc bùng nổ nào cả. Tình cảm lớn dần theo từng cuộc gặp, từng tin nhắn, từng nụ cười anh dành cho em.
+            </p>
+            <p>
+                Một ngày, em nhận ra mình luôn tìm anh trong đám đông, luôn mong điện thoại rung lên với tin nhắn từ anh. <em>Lúc đó em biết — mình đã yêu.</em>
+            </p>
+        </div>
+        <div class="diary-mood">
+            <i data-lucide="heart"></i>
+            Tâm trạng: Hạnh phúc, ngại ngùng, yêu thương
+        </div>
+    </div>
+</section>
+
+<!-- Diary Page 3 -->
+<section class="diary-page">
+    <div class="diary-card animate-fade-left">
+        <div class="diary-date">Trang 3 — Những lúc khó khăn</div>
+        <h2 class="diary-title">Em Vẫn <span class="highlight">Chọn Anh</span></h2>
+        <div class="diary-body">
+            <p>
+                Không phải lúc nào cũng dễ dàng. Có những lúc em giận, em buồn, em muốn bỏ cuộc. Nhưng mỗi lần nghĩ đến anh, em lại thấy mình có thêm lý do để cố gắng.
+            </p>
+            <p>
+                Bởi vì anh xứng đáng. Bởi vì tình cảm này xứng đáng. <em>Và bởi vì em không muốn một ngày nào đó nhìn lại và hối hận vì đã buông tay.</em>
+            </p>
+        </div>
+        <div class="diary-mood">
+            <i data-lucide="anchor"></i>
+            Tâm trạng: Kiên định, trưởng thành, vững vàng
+        </div>
+    </div>
+</section>
+
+<!-- Wishes -->
+<section class="wishes-section">
+    <div class="center">
+        <p class="diary-date animate-fade-up" style="color: var(--sage); letter-spacing: 3px; text-transform: uppercase; font-weight: 600; font-size: 13px;">Lời chúc cho anh</p>
+        <h2 class="animate-fade-up delay-1" style="font-family: 'Crimson Pro', serif; font-size: clamp(26px, 5vw, 40px); font-weight: 700;">Em Mong Anh Luôn…</h2>
+        <div class="wishes-grid">
+            <div class="wish-card animate-scale-up delay-1">
+                <span class="emoji">☀️</span>
+                <p><strong>Luôn vui vẻ</strong> — Dù cuộc sống có bao nhiêu áp lực, em mong nụ cười không bao giờ tắt trên môi anh.</p>
+            </div>
+            <div class="wish-card animate-scale-up delay-2">
+                <span class="emoji">💪</span>
+                <p><strong>Luôn mạnh mẽ</strong> — Nhưng cũng đừng quên rằng anh được phép mệt mỏi, được phép dựa vào em.</p>
+            </div>
+            <div class="wish-card animate-scale-up delay-3">
+                <span class="emoji">🌱</span>
+                <p><strong>Luôn phát triển</strong> — Em tin anh sẽ đạt được mọi điều anh mơ ước, và em sẽ cổ vũ anh mỗi ngày.</p>
+            </div>
+            <div class="wish-card animate-scale-up delay-4">
+                <span class="emoji">💚</span>
+                <p><strong>Luôn biết mình được yêu</strong> — Dù em có quên nói, thì anh nhớ nhé — em yêu anh rất nhiều.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Letter -->
+<section class="letter-section">
+    <div class="letter-card animate-scale-up">
+        <p class="letter-greeting">Anh của em,</p>
+        <div class="letter-body">
+            <p>
+                Trang cuối cùng của cuốn nhật ký này, em dành riêng để viết cho anh vào ngày White Day.
+            </p>
+            <p>
+                Cảm ơn anh vì đã là người khiến em muốn trở thành phiên bản tốt hơn mỗi ngày. Cảm ơn anh vì sự kiên nhẫn, vì những cái ôm ấm áp, vì luôn tin tưởng em.
+            </p>
+            <p>
+                Em không biết viết hay, nhưng mỗi chữ trong cuốn nhật ký này đều là thật. Và em mong anh cảm nhận được.
+            </p>
+            <p>
+                <em>Happy White Day, anh yêu! 💚</em>
+            </p>
+        </div>
+        <div class="letter-sign">
+            <div class="name">Thanh Phương</div>
+            <div class="date">14 tháng 3, 2026</div>
+        </div>
+    </div>
+</section>
+
+<!-- Final -->
+<section class="final-section">
+    <h2 class="animate-fade-up">
+        Cuốn Nhật Ký Này<br>Mãi Viết Về <span class="highlight">Anh</span> 📔
+    </h2>
+    <p class="animate-fade-up delay-2">
+        Từ Thanh Phương, người luôn dành những trang đẹp nhất cho anh
+    </p>
+    <div class="final-heart animate-fade-up delay-3">💚</div>
+</section>
+
+<!-- Music -->
+<button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+    <i data-lucide="volume-2" class="music-icon-on"></i>
+    <i data-lucide="volume-x" class="music-icon-off"></i>
+</button>
+<audio id="bgMusic" loop preload="auto">
+    <source src="../../../shared/music/romantic/One In A Million.mp3" type="audio/mpeg">
+</audio>
+
+<script>lucide.createIcons();</script>
+<script>
+// Fireflies
+function createFireflies() {
+    const container = document.getElementById('fireflies');
+    for (let i = 0; i < 15; i++) {
+        const f = document.createElement('div');
+        f.className = 'firefly';
+        f.style.left = Math.random() * 100 + '%';
+        f.style.top = Math.random() * 100 + '%';
+        f.style.setProperty('--dx', (Math.random() * 200 - 100) + 'px');
+        f.style.setProperty('--dy', (Math.random() * 200 - 100) + 'px');
+        f.style.animationDuration = (4 + Math.random() * 6) + 's';
+        f.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(f);
+    }
+}
+createFireflies();
+
+// IntersectionObserver
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('[class*="animate-"]').forEach(el => observer.observe(el));
+});
+
+// Music
+const musicBtn = document.getElementById('musicToggle');
+const bgMusic = document.getElementById('bgMusic');
+if (musicBtn && bgMusic) {
+    bgMusic.volume = 0.3;
+    let musicStarted = false;
+    musicBtn.addEventListener('click', () => {
+        if (!musicStarted) { bgMusic.play(); musicStarted = true; }
+        else if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('muted'); }
+        else { bgMusic.pause(); musicBtn.classList.add('muted'); }
+    });
+}
+</script>
+</body>
+</html>

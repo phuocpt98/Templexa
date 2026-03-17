@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Câu Chuyện Của Đôi Mình - White Day 14/3</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rose: #e11d48;
+            --rose-light: #fda4af;
+            --rose-dark: #9f1239;
+            --amber: #d97706;
+            --amber-light: #fde68a;
+            --cream: #fef7ed;
+            --cream-dark: #fef3e2;
+            --warm-white: #fffbf5;
+            --text-dark: #44403c;
+            --text-medium: #78716c;
+            --text-light: #a8a29e;
+            --gold: #b8860b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            color: var(--text-dark);
+            background: var(--warm-white);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        @keyframes float-heart {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            25% { transform: translateY(-30px) rotate(5deg); opacity: 1; }
+            50% { transform: translateY(-15px) rotate(-3deg); opacity: 0.8; }
+            75% { transform: translateY(-40px) rotate(7deg); opacity: 0.6; }
+        }
+
+        @keyframes slide-up-hero {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-in-scale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(225, 29, 72, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(225, 29, 72, 0.6); }
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(10px) translateY(-20px); }
+            50% { transform: translateX(-5px) translateY(-10px); }
+            75% { transform: translateX(15px) translateY(-30px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        @keyframes typewriter-blink {
+            0%, 100% { border-color: var(--rose); }
+            50% { border-color: transparent; }
+        }
+
+        @keyframes float-up-fade {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-120px) scale(0.5); }
+        }
+
+        /* ==================== SCROLL ANIMATIONS ==================== */
+        .animate-on-scroll {
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+        }
+
+        .fade-up {
+            transform: translateY(40px);
+        }
+        .fade-up.visible {
+            transform: translateY(0);
+        }
+
+        .fade-left {
+            transform: translateX(-60px);
+        }
+        .fade-left.visible {
+            transform: translateX(0);
+        }
+
+        .fade-right {
+            transform: translateX(60px);
+        }
+        .fade-right.visible {
+            transform: translateX(0);
+        }
+
+        .scale-up {
+            transform: scale(0.85);
+        }
+        .scale-up.visible {
+            transform: scale(1);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+
+        /* ==================== MUSIC TOGGLE ==================== */
+        .music-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: var(--rose);
+            color: white;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.35);
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: pulse-glow 2s infinite;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(225, 29, 72, 0.45);
+        }
+
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+        .music-toggle.muted { animation: none; background: var(--text-light); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=1920&q=80') center/cover no-repeat;
+            z-index: 0;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(159, 18, 57, 0.55) 0%,
+                rgba(225, 29, 72, 0.4) 30%,
+                rgba(217, 119, 6, 0.35) 60%,
+                rgba(184, 134, 11, 0.45) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            max-width: 800px;
+        }
+
+        .hero-date {
+            font-family: 'Lora', serif;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            color: var(--amber-light);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            animation: slide-up-hero 1s ease forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+            animation: slide-up-hero 1s ease forwards;
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+
+        .hero-subtitle {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.35rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 32px;
+            animation: slide-up-hero 1s ease forwards;
+            animation-delay: 0.6s;
+            opacity: 0;
+        }
+
+        .hero-divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--rose-light), transparent);
+            margin: 0 auto 28px;
+            animation: slide-up-hero 1s ease forwards;
+            animation-delay: 0.7s;
+            opacity: 0;
+        }
+
+        .hero-scroll-hint {
+            animation: slide-up-hero 1s ease forwards;
+            animation-delay: 0.9s;
+            opacity: 0;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero-scroll-hint i {
+            display: block;
+            margin-top: 8px;
+            animation: drift 3s ease-in-out infinite;
+        }
+
+        /* Floating hearts in hero */
+        .hero-hearts {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 1.4rem;
+            animation: float-heart var(--duration, 4s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+            opacity: 0.6;
+        }
+
+        /* ==================== SCENE TRANSITION IMAGES ==================== */
+        .scene-image {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            min-height: 300px;
+            overflow: hidden;
+        }
+
+        .scene-image-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .scene-image-bg {
+                background-attachment: scroll;
+            }
+        }
+
+        .scene-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(254, 247, 237, 0.1) 0%,
+                rgba(225, 29, 72, 0.15) 50%,
+                rgba(254, 247, 237, 0.1) 100%
+            );
+        }
+
+        .scene-image-text {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            text-align: center;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+            padding: 0 20px;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        /* ==================== CHAPTER SECTIONS ==================== */
+        .chapter {
+            padding: clamp(60px, 10vw, 100px) clamp(20px, 5vw, 40px);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .chapter-label {
+            font-family: 'Lora', serif;
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--rose);
+            margin-bottom: 10px;
+        }
+
+        .chapter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+            font-weight: 700;
+            color: var(--rose-dark);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .chapter-line {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--rose), var(--amber));
+            border-radius: 2px;
+            margin-bottom: 32px;
+        }
+
+        /* ==================== CHAPTER 1 - LẦN ĐẦU GẶP GỠ ==================== */
+        .chapter-1 {
+            background: var(--cream);
+        }
+
+        .chapter-1-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(30px, 5vw, 60px);
+            align-items: center;
+        }
+
+        .chapter-1-text p {
+            font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+            color: var(--text-medium);
+            margin-bottom: 18px;
+            line-height: 1.9;
+        }
+
+        .chapter-1-text .highlight-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--rose);
+            border-left: 3px solid var(--rose-light);
+            padding-left: 20px;
+            margin: 28px 0;
+        }
+
+        .chapter-1-image {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(159, 18, 57, 0.15);
+        }
+
+        .chapter-1-image img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .chapter-1-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .chapter-1-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            border: 2px solid rgba(225, 29, 72, 0.15);
+            pointer-events: none;
+        }
+
+        /* ==================== CHAPTER 2 - NHỮNG NGÀY BÊN NHAU ==================== */
+        .chapter-2 {
+            background: var(--warm-white);
+        }
+
+        .chapter-2-header {
+            text-align: center;
+            margin-bottom: clamp(30px, 5vw, 50px);
+        }
+
+        .chapter-2-header .chapter-line {
+            margin: 0 auto 32px;
+        }
+
+        .chapter-2-header p {
+            font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+            color: var(--text-medium);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.9;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: auto auto;
+            gap: clamp(12px, 2vw, 20px);
+        }
+
+        .photo-grid-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            cursor: pointer;
+        }
+
+        .photo-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-grid-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .photo-grid-item:nth-child(1) { height: clamp(200px, 30vw, 320px); }
+        .photo-grid-item:nth-child(2) { height: clamp(200px, 30vw, 320px); }
+        .photo-grid-item:nth-child(3) { height: clamp(200px, 30vw, 320px); }
+        .photo-grid-item:nth-child(4) { height: clamp(200px, 30vw, 320px); }
+
+        .photo-grid-item .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 16px 14px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .photo-grid-item:hover .photo-caption {
+            transform: translateY(0);
+        }
+
+        /* ==================== CHAPTER 3 - LỜI HỨA 14/3 ==================== */
+        .chapter-3 {
+            background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
+            text-align: center;
+        }
+
+        .chapter-3 .chapter-line {
+            margin: 0 auto 32px;
+        }
+
+        .love-letter {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: clamp(30px, 5vw, 50px) clamp(25px, 5vw, 45px);
+            box-shadow:
+                0 20px 60px rgba(159, 18, 57, 0.1),
+                0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            border: 1px solid rgba(253, 164, 175, 0.3);
+        }
+
+        .love-letter::before {
+            content: '💌';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            background: var(--cream);
+            padding: 0 12px;
+        }
+
+        .love-letter-salutation {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            color: var(--rose);
+            margin-bottom: 24px;
+        }
+
+        .love-letter p {
+            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+            color: var(--text-medium);
+            margin-bottom: 18px;
+            line-height: 2;
+            text-align: left;
+        }
+
+        .love-letter-signature {
+            text-align: right;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--rose-dark);
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(253, 164, 175, 0.3);
+        }
+
+        .love-letter-date {
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+
+        /* ==================== CLOSING SECTION ==================== */
+        .closing {
+            position: relative;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                #9f1239 0%,
+                #e11d48 35%,
+                #f43f5e 55%,
+                #d97706 100%
+            );
+        }
+
+        .closing-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .closing-hearts-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .closing-heart {
+            position: absolute;
+            bottom: -30px;
+            font-size: 1.2rem;
+            animation: float-up-fade 4s ease-in infinite;
+            opacity: 0;
+        }
+
+        .closing-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 700;
+            color: white;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.2);
+        }
+
+        .closing-subtitle {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 36px;
+        }
+
+        .closing-heart-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: pulse-glow 2.5s infinite;
+            margin-bottom: 24px;
+        }
+
+        .closing-heart-icon i {
+            color: white;
+            width: 36px;
+            height: 36px;
+        }
+
+        .closing-date {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            background: #1c1917;
+            padding: 24px 20px;
+            text-align: center;
+        }
+
+        .footer p {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .footer span {
+            color: var(--rose);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .chapter-1-inner {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .chapter-1-image {
+                order: -1;
+            }
+
+            .chapter-1-image img {
+                height: 280px;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scene-image {
+                height: 35vh;
+                min-height: 220px;
+            }
+
+            .love-letter {
+                margin: 0 10px;
+            }
+
+            .closing {
+                min-height: 55vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .chapter {
+                padding: 50px 16px;
+            }
+
+            .closing-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== MUSIC TOGGLE ==================== -->
+    <button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+        <i data-lucide="volume-2" class="music-icon-on"></i>
+        <i data-lucide="volume-x" class="music-icon-off"></i>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/romantic/Endless Love .mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-hearts" id="heroHearts"></div>
+        <div class="hero-content">
+            <p class="hero-date">White Day — 14 Tháng 3</p>
+            <h1 class="hero-title">Câu Chuyện<br>Của Đôi Mình</h1>
+            <div class="hero-divider"></div>
+            <p class="hero-subtitle">"Mỗi khoảnh khắc bên em, anh đều muốn giữ mãi trong tim..."</p>
+            <div class="hero-scroll-hint">
+                <span>Cuộn xuống để đọc</span>
+                <i data-lucide="chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SCENE 1 ==================== -->
+    <div class="scene-image">
+        <div class="scene-image-bg" style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1920&q=80');"></div>
+        <div class="scene-image-overlay"></div>
+        <div class="scene-image-text animate-on-scroll fade-up">"Trên hành trình dài, điều tuyệt vời nhất là có em đồng hành..."</div>
+    </div>
+
+    <!-- ==================== CHAPTER 1 ==================== -->
+    <section class="chapter chapter-1">
+        <div class="chapter-1-inner">
+            <div class="chapter-1-text">
+                <p class="chapter-label animate-on-scroll fade-left stagger-1">Chương I</p>
+                <h2 class="chapter-title animate-on-scroll fade-left stagger-2">Lần Đầu Gặp Gỡ</h2>
+                <div class="chapter-line animate-on-scroll fade-left stagger-3"></div>
+
+                <p class="animate-on-scroll fade-left stagger-4">
+                    Ngày hôm đó, trời trong xanh và gió nhẹ. Anh không biết rằng cuộc đời mình sẽ thay đổi
+                    chỉ bằng một khoảnh khắc tình cờ — khi ánh mắt anh vô tình chạm vào nụ cười ấy.
+                </p>
+
+                <div class="highlight-quote animate-on-scroll fade-left stagger-5">
+                    "Em đến nhẹ nhàng như nắng ban mai, nhưng từ đó anh không còn muốn sống trong bóng tối nữa."
+                </div>
+
+                <p class="animate-on-scroll fade-left stagger-6">
+                    Câu chuyện bắt đầu từ một quán cà phê nhỏ, nơi em ngồi bên cửa sổ, tay cầm cuốn sách,
+                    mắt hướng ra phía những cành hoa đang nở rộ ngoài kia. Anh ngồi đối diện, tim đập lỡ nhịp
+                    và tự hỏi: "Sao có người đẹp đến vậy?"
+                </p>
+            </div>
+
+            <div class="chapter-1-image animate-on-scroll fade-right stagger-3">
+                <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=600&q=80" alt="Lần đầu gặp gỡ" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SCENE 2 ==================== -->
+    <div class="scene-image">
+        <div class="scene-image-bg" style="background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=1920&q=80');"></div>
+        <div class="scene-image-overlay"></div>
+        <div class="scene-image-text animate-on-scroll fade-up">"Nắm lấy tay em, anh chẳng cần biết nơi đâu là đích đến..."</div>
+    </div>
+
+    <!-- ==================== CHAPTER 2 ==================== -->
+    <section class="chapter chapter-2">
+        <div class="chapter-2-header">
+            <p class="chapter-label animate-on-scroll fade-up stagger-1">Chương II</p>
+            <h2 class="chapter-title animate-on-scroll fade-up stagger-2">Những Ngày Bên Nhau</h2>
+            <div class="chapter-line animate-on-scroll fade-up stagger-3"></div>
+            <p class="animate-on-scroll fade-up stagger-4">
+                Từng khoảnh khắc nhỏ bé, từng nụ cười, từng cái nắm tay — tất cả đều trở thành
+                những trang đẹp nhất trong cuốn nhật ký tình yêu của đôi mình.
+            </p>
+        </div>
+
+        <div class="photo-grid">
+            <div class="photo-grid-item animate-on-scroll scale-up stagger-1">
+                <img src="https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=600&q=80" alt="Kỷ niệm 1" loading="lazy">
+                <div class="photo-caption">Ly cà phê sáng cùng nhau</div>
+            </div>
+            <div class="photo-grid-item animate-on-scroll scale-up stagger-2">
+                <img src="https://images.unsplash.com/photo-1501901609772-df0848060b33?w=600&q=80" alt="Kỷ niệm 2" loading="lazy">
+                <div class="photo-caption">Cùng ngắm hoàng hôn</div>
+            </div>
+            <div class="photo-grid-item animate-on-scroll scale-up stagger-3">
+                <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=600&q=80" alt="Kỷ niệm 3" loading="lazy">
+                <div class="photo-caption">Nụ cười rạng rỡ nhất</div>
+            </div>
+            <div class="photo-grid-item animate-on-scroll scale-up stagger-4">
+                <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=600&q=80" alt="Kỷ niệm 4" loading="lazy">
+                <div class="photo-caption">Ngày mưa, có em là đủ</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SCENE 3 ==================== -->
+    <div class="scene-image">
+        <div class="scene-image-bg" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80');"></div>
+        <div class="scene-image-overlay"></div>
+        <div class="scene-image-text animate-on-scroll fade-up">"Bước cùng em qua mọi nẻo đường, là điều anh mong ước nhất..."</div>
+    </div>
+
+    <!-- ==================== CHAPTER 3 ==================== -->
+    <section class="chapter chapter-3">
+        <p class="chapter-label animate-on-scroll fade-up stagger-1">Chương III</p>
+        <h2 class="chapter-title animate-on-scroll fade-up stagger-2">Lời Hứa Ngày 14/3</h2>
+        <div class="chapter-line animate-on-scroll fade-up stagger-3"></div>
+
+        <div class="love-letter animate-on-scroll scale-up stagger-4">
+            <p class="love-letter-salutation">Em yêu thương,</p>
+
+            <p>
+                Ngày White Day này, anh không tặng em những bó hoa rực rỡ hay những món quà đắt tiền.
+                Anh muốn tặng em điều giản dị nhất — một lời hứa từ tận đáy lòng.
+            </p>
+
+            <p>
+                Anh hứa sẽ luôn ở bên em, dù ngày nắng hay ngày mưa. Sẽ là bờ vai cho em tựa vào
+                mỗi khi mệt mỏi, là đôi tay ấm áp nắm chặt tay em khi em sợ hãi.
+            </p>
+
+            <p>
+                Anh hứa sẽ lắng nghe mọi câu chuyện của em, sẽ cười cùng em trong niềm vui
+                và lau khô nước mắt em trong những ngày buồn. Bởi vì em — em là cả thế giới của anh.
+            </p>
+
+            <p>
+                Cảm ơn em đã đến bên đời anh, đã biến những ngày bình thường trở nên rực rỡ,
+                đã dạy anh biết yêu thương đúng nghĩa. Mỗi ngày bên em là một ngày anh biết ơn cuộc sống.
+            </p>
+
+            <div class="love-letter-signature">Mãi yêu em,<br>Người của em ♥</div>
+            <div class="love-letter-date">White Day — 14 tháng 3</div>
+        </div>
+    </section>
+
+    <!-- ==================== CLOSING ==================== -->
+    <section class="closing">
+        <div class="closing-hearts-container" id="closingHearts"></div>
+        <div class="closing-content">
+            <div class="closing-heart-icon animate-on-scroll scale-up">
+                <i data-lucide="heart"></i>
+            </div>
+            <h2 class="closing-title animate-on-scroll fade-up stagger-2">Mãi Yêu Em</h2>
+            <p class="closing-subtitle animate-on-scroll fade-up stagger-3">
+                "Dù mai sau thế giới có đổi thay, trái tim anh vẫn chỉ hướng về em..."
+            </p>
+            <p class="closing-date animate-on-scroll fade-up stagger-4">Happy White Day ♥ 14.03</p>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <p>Made with <span>♥</span> for you</p>
+    </footer>
+
+    <script>
+        // ==================== LUCIDE ICONS ====================
+        lucide.createIcons();
+
+        // ==================== MUSIC TOGGLE ====================
+        const musicBtn = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        if (musicBtn && bgMusic) {
+            bgMusic.volume = 0.3;
+            let musicStarted = false;
+            musicBtn.addEventListener('click', () => {
+                if (!musicStarted) {
+                    bgMusic.play();
+                    musicStarted = true;
+                } else if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicBtn.classList.remove('muted');
+                } else {
+                    bgMusic.pause();
+                    musicBtn.classList.add('muted');
+                }
+            });
+        }
+
+        // ==================== FLOATING HEARTS (HERO) ====================
+        (function() {
+            const container = document.getElementById('heroHearts');
+            if (!container) return;
+            const hearts = ['❤️', '💕', '💗', '🤍', '💖', '🩷', '♥'];
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('span');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.setProperty('--duration', (3 + Math.random() * 4) + 's');
+                heart.style.setProperty('--delay', (Math.random() * 5) + 's');
+                heart.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+                container.appendChild(heart);
+            }
+        })();
+
+        // ==================== FLOATING HEARTS (CLOSING) ====================
+        (function() {
+            const container = document.getElementById('closingHearts');
+            if (!container) return;
+            const hearts = ['❤️', '💕', '💗', '🤍', '💖', '♥', '🩷'];
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('span');
+                heart.className = 'closing-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = (Math.random() * 6) + 's';
+                heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+                heart.style.fontSize = (0.8 + Math.random() * 1) + 'rem';
+                container.appendChild(heart);
+            }
+        })();
+
+        // ==================== INTERSECTION OBSERVER ====================
+        (function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        })();
+    </script>
+</body>
+</html>

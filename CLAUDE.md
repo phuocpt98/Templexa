@@ -19,17 +19,12 @@ Templexa/
 │   │   ├── product-detail.js # Render chi tiết, gallery, modal nhận mẫu, related products
 │   │   └── contact.js        # Render pricing cards, form validation + submit Google Sheet
 │   └── images/               # Logo, icons, hero background, showcase, template previews
-├── products/                 # Các project mẫu sản phẩm
-│   ├── Web/                  # type: website
-│   │   ├── Onepage/          # Landing page, coming soon
-│   │   ├── E-commerce/       # Makeup, beauty, digital design, sport
-│   │   ├── Portfolio/        # Portfolio, personal blog
-│   │   └── Education/        # Khóa học, đào tạo, chứng chỉ
-│   ├── Google-sheet/         # type: google-sheet
-│   ├── Trending/             # type: trending
-│   └── Invitation/           # type: invitation
-│       ├── Wedding/          # Thiệp cưới (27 sản phẩm)
-│       └── Other/            # Sinh nhật, kỷ niệm, lễ hội (22 sản phẩm)
+├── products/                 # Các project mẫu sản phẩm (156 sản phẩm)
+│   ├── invitation/           # Wedding, birthday, anniversary, holiday, confession (65 sản phẩm)
+│   ├── onepage/              # Landing page, coming soon (30 sản phẩm)
+│   ├── e-commerce/           # Makeup, beauty, digital design, sport (37 sản phẩm)
+│   ├── portfolio/            # Portfolio, personal blog (26 sản phẩm)
+│   └── education/            # Khóa học, đào tạo, chứng chỉ (34 sản phẩm)
 └── docs/                     # Mockup thiết kế (PNG/SVG)
 ```
 
@@ -260,8 +255,8 @@ Templexa/
     name: 'Tên sản phẩm',
     slug: 'ten-san-pham',
     description: 'Mô tả...',
-    category: 'onepage',           // onepage | e-commerce | wedding | other | portfolio | education | confession
-    type: 'website',               // website | google-sheet | trending | invitation
+    category: 'onepage',           // onepage | e-commerce | wedding | other | portfolio | education
+    type: 'website',               // website | google-sheet | invitation
     tags: ['tag1', 'tag2'],
     price: 'free',                 // 'free' hoặc giá
     images: ['./products/.../screen.png', './products/.../Screenshot_1.jpg', ...],  // screen.png luôn đầu tiên
@@ -308,7 +303,7 @@ Templexa/
 |-------|-------|----------|
 | `products.html` | `?category=onepage` | Auto-filter theo danh mục |
 | `products.html` | `?type=website` | Auto-filter theo loại |
-| `products.html` | `?type=invitation` | Filter thiệp mời (type riêng) |
+| `products.html` | `?type=invitation` | Filter thiệp mời (type riêng). Legacy `?type=trending` redirect tới đây |
 | `products.html` | `?category=invitation` | Legacy redirect → `?type=invitation` |
 | `products.html` | `?search=keyword` | Auto-fill search + filter |
 | `contact.html` | `?service=pro` | Auto-select gói dịch vụ trong form |
@@ -325,16 +320,13 @@ products/
 │   ├── Education/          # category: education
 │   ├── Onepage/            # category: onepage
 │   └── Portfolio/          # category: portfolio
+├── Invitation/             # type: invitation
+│   ├── Wedding/            # category: wedding
+│   └── Other/              # category: other (birthday, anniversary, holiday, confession)
 ├── Google-sheet/           # type: google-sheet
 │   ├── E-commerce/
 │   ├── Education/
 │   └── Portfolio/
-├── Trending/               # type: trending
-│   ├── Confession/         # category: confession
-│   └── OnePage/            # category: onepage
-├── Invitation/             # type: invitation
-│   ├── Wedding/            # category: wedding (thiệp cưới)
-│   └── Other/              # category: other (sinh nhật, kỷ niệm, lễ hội)
 ├── images/                 # Ảnh mockup dùng chung
 ├── data.csv                # File CSV quản lý sản phẩm
 └── products.md             # Tài liệu chi tiết (danh sách, ghi chú)
@@ -345,15 +337,14 @@ products/
 | Đường dẫn folder | `type` | `category` |
 |-------------------|--------|-----------|
 | `products/Web/{Loại-nhỏ}/...` | `website` | loại-nhỏ (lowercase) |
-| `products/Google-sheet/{Loại-nhỏ}/...` | `google-sheet` | loại-nhỏ (lowercase) |
-| `products/Trending/{Loại-nhỏ}/...` | `trending` | loại-nhỏ (lowercase) |
 | `products/Invitation/Wedding/...` | `invitation` | `wedding` |
 | `products/Invitation/Other/...` | `invitation` | `other` |
+| `products/Google-sheet/{Loại-nhỏ}/...` | `google-sheet` | loại-nhỏ (lowercase) |
 
 ## Quy tắc thêm sản phẩm mới
 
 1. Tạo folder trong `products/{Loại}/{Loại-nhỏ}/{tên-folder}/`
-2. Đặt file: `index.html` (bắt buộc với website/trending) + ảnh (`thumbnail.png`, `anh_*.png`, ...)
+2. Đặt file: `index.html` (bắt buộc với website/invitation) + ảnh (`thumbnail.png`, `anh_*.png`, ...)
 3. Bảo AI: **"quét giúp tôi `products/{Loại}/{Loại-nhỏ}/{tên-folder}` thêm vào data.js"**
 4. AI tự quét folder → sinh product entry → chèn vào `data.js` + cập nhật `products.md`
 5. Set `showInSlider: true` nếu muốn hiện trên slider trang chủ
@@ -362,14 +353,14 @@ products/
 
 ### Quét đơn lẻ (từ folder)
 
-User bảo: `"quét giúp tôi products/Trending/Confession/tên-folder thêm vào data.js"`
+User bảo: `"quét giúp tôi products/Invitation/Other/tên-folder thêm vào data.js"`
 
 AI thực hiện:
 1. `ls` folder → lấy danh sách file
 2. Kiểm tra `index.html` → xác định có demo hay không
 3. Đọc `<title>` trong `index.html` → lấy tên/mô tả
 4. Lấy đường dẫn ảnh (KHÔNG đọc nội dung ảnh)
-5. Xác định `type` từ folder cha (`Web`→`website`, `Google-sheet`→`google-sheet`, `Trending`→`trending`)
+5. Xác định `type` từ folder cha (`Web`→`website`, `Google-sheet`→`google-sheet`, `Invitation`→`invitation`)
 6. Xác định `category` từ folder loại-nhỏ (lowercase)
 7. Sinh product entry → chèn vào `data.js` trước `];`
 8. Cập nhật `products.md` (số lượng + danh sách)
@@ -399,7 +390,7 @@ AI thực hiện:
 | `slug` | Sinh từ `name` (kebab-case) |
 | `description` | Sinh từ nội dung `index.html`, hoặc từ category + name |
 | `category` | Loại-nhỏ từ đường dẫn folder (lowercase) |
-| `type` | Loại chính: `Web`→`website`, `Google-sheet`→`google-sheet`, `Trending`→`trending` |
+| `type` | Loại chính: `Web`→`website`, `Google-sheet`→`google-sheet`, `Invitation`→`invitation` |
 | `tags` | Sinh từ type + category + keywords trong name |
 | `price` | Mặc định `'free'` |
 | `images` | Quét file ảnh trong folder |
