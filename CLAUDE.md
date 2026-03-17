@@ -19,12 +19,17 @@ Templexa/
 │   │   ├── product-detail.js # Render chi tiết, gallery, modal nhận mẫu, related products
 │   │   └── contact.js        # Render pricing cards, form validation + submit Google Sheet
 │   └── images/               # Logo, icons, hero background, showcase, template previews
-├── products/                 # Các project mẫu sản phẩm (156 sản phẩm)
-│   ├── onepage/              # Landing page, coming soon (30 sản phẩm)
-│   ├── e-commerce/           # Makeup, beauty, digital design, sport (37 sản phẩm)
-│   ├── invitation/           # Wedding, birthday, anniversary, holiday (29 sản phẩm)
-│   ├── portfolio/            # Portfolio, personal blog (26 sản phẩm)
-│   └── education/            # Khóa học, đào tạo, chứng chỉ (34 sản phẩm)
+├── products/                 # Các project mẫu sản phẩm
+│   ├── Web/                  # type: website
+│   │   ├── Onepage/          # Landing page, coming soon
+│   │   ├── E-commerce/       # Makeup, beauty, digital design, sport
+│   │   ├── Portfolio/        # Portfolio, personal blog
+│   │   └── Education/        # Khóa học, đào tạo, chứng chỉ
+│   ├── Google-sheet/         # type: google-sheet
+│   ├── Trending/             # type: trending
+│   └── Invitation/           # type: invitation
+│       ├── Wedding/          # Thiệp cưới (27 sản phẩm)
+│       └── Other/            # Sinh nhật, kỷ niệm, lễ hội (22 sản phẩm)
 └── docs/                     # Mockup thiết kế (PNG/SVG)
 ```
 
@@ -255,8 +260,8 @@ Templexa/
     name: 'Tên sản phẩm',
     slug: 'ten-san-pham',
     description: 'Mô tả...',
-    category: 'onepage',           // onepage | e-commerce | invitation | portfolio | education
-    type: 'website',               // website | google-sheet
+    category: 'onepage',           // onepage | e-commerce | wedding | other | portfolio | education | confession
+    type: 'website',               // website | google-sheet | trending | invitation
     tags: ['tag1', 'tag2'],
     price: 'free',                 // 'free' hoặc giá
     images: ['./products/.../screen.png', './products/.../Screenshot_1.jpg', ...],  // screen.png luôn đầu tiên
@@ -303,6 +308,8 @@ Templexa/
 |-------|-------|----------|
 | `products.html` | `?category=onepage` | Auto-filter theo danh mục |
 | `products.html` | `?type=website` | Auto-filter theo loại |
+| `products.html` | `?type=invitation` | Filter thiệp mời (type riêng) |
+| `products.html` | `?category=invitation` | Legacy redirect → `?type=invitation` |
 | `products.html` | `?search=keyword` | Auto-fill search + filter |
 | `contact.html` | `?service=pro` | Auto-select gói dịch vụ trong form |
 | `contact.html` | `#pricing-section` | Scroll đến phần pricing |
@@ -316,7 +323,6 @@ products/
 ├── Web/                    # type: website
 │   ├── E-commerce/         # category: e-commerce
 │   ├── Education/          # category: education
-│   ├── Invitation/         # category: invitation
 │   ├── Onepage/            # category: onepage
 │   └── Portfolio/          # category: portfolio
 ├── Google-sheet/           # type: google-sheet
@@ -325,8 +331,10 @@ products/
 │   └── Portfolio/
 ├── Trending/               # type: trending
 │   ├── Confession/         # category: confession
-│   ├── Invitation/         # category: invitation
 │   └── OnePage/            # category: onepage
+├── Invitation/             # type: invitation
+│   ├── Wedding/            # category: wedding (thiệp cưới)
+│   └── Other/              # category: other (sinh nhật, kỷ niệm, lễ hội)
 ├── images/                 # Ảnh mockup dùng chung
 ├── data.csv                # File CSV quản lý sản phẩm
 └── products.md             # Tài liệu chi tiết (danh sách, ghi chú)
@@ -339,6 +347,8 @@ products/
 | `products/Web/{Loại-nhỏ}/...` | `website` | loại-nhỏ (lowercase) |
 | `products/Google-sheet/{Loại-nhỏ}/...` | `google-sheet` | loại-nhỏ (lowercase) |
 | `products/Trending/{Loại-nhỏ}/...` | `trending` | loại-nhỏ (lowercase) |
+| `products/Invitation/Wedding/...` | `invitation` | `wedding` |
+| `products/Invitation/Other/...` | `invitation` | `other` |
 
 ## Quy tắc thêm sản phẩm mới
 

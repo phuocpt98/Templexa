@@ -8,16 +8,17 @@ products/
 │   ├── E-commerce/         # 5 san pham
 │   ├── Education/          # (trong)
 │   └── Portfolio/          # (trong)
-├── Trending/               # Mau Trending (chua co san pham)
-│   ├── Confession/         # (trong)
-│   ├── Invitation/         # (trong)
+├── Trending/               # Mau Trending
+│   ├── Confession/         # 16 san pham
 │   └── OnePage/            # (trong)
 ├── Web/                    # Mau Web (type: website)
-│   ├── E-commerce/         # 35 san pham
+│   ├── E-commerce/         # 38 san pham
 │   ├── Education/          # 30 san pham
-│   ├── Invitation/         # 30 san pham
-│   ├── Onepage/            # 25 san pham
+│   ├── Onepage/            # 26 san pham
 │   └── Portfolio/          # 24 san pham
+├── Invitation/             # Mau Thiep moi (type: invitation)
+│   ├── Wedding/            # 27 san pham (thiep cuoi)
+│   └── Other/              # 22 san pham (sinh nhat, ky niem, le hoi)
 ├── images/                 # Anh mockup dung chung
 ├── data.csv                # File CSV quan ly san pham
 └── products.md             # File nay
@@ -31,14 +32,14 @@ products/
 | **Google-sheet** | Education | 0 |
 | **Google-sheet** | Portfolio | 0 |
 | **Trending** | Confession | 16 |
-| **Trending** | Invitation | 0 |
 | **Trending** | OnePage | 0 |
 | **Web** | E-commerce | 38 |
 | **Web** | Education | 30 |
-| **Web** | Invitation | 40 |
 | **Web** | Onepage | 26 |
 | **Web** | Portfolio | 24 |
-| | **Tong** | **179** |
+| **Invitation** | Wedding | 27 |
+| **Invitation** | Other | 22 |
+| | **Tong** | **188** |
 
 ---
 

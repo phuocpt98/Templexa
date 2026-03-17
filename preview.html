@@ -214,23 +214,37 @@
         </div>
     </div>
 
+    <script src="./assets/js/data.js"></script>
     <script>
         (function () {
             // ── Dark mode ──
             const saved = localStorage.getItem('theme') || 'light';
             document.documentElement.setAttribute('data-theme', saved);
 
-            // ── URL params (decode base64, fallback old ?url=) ──
+            // ── URL params ──
             const params = new URLSearchParams(location.search);
-            const d = params.get('d') || '';
-            const url = d ? decodeURIComponent(atob(d)) : (params.get('url') || '');
-            const name = params.get('name') || '';
             const id = params.get('id') || '';
-            const category = params.get('category') || '';
-            const type = params.get('type') || '';
 
-            // ── Default mode: mobile for invitation+website, desktop otherwise ──
-            const defaultMobile = (category === 'invitation' && type === 'website');
+            // ── Load product by ID from data.js, fallback to legacy params ──
+            let url = '', name = '', category = '', type = '';
+            const product = id ? (typeof getProductById === 'function' ? getProductById(Number(id)) : null) : null;
+
+            if (product) {
+                url = product.demoUrl || '';
+                name = product.name || '';
+                category = product.category || '';
+                type = product.type || '';
+            } else {
+                // Fallback: legacy ?d= (base64) or ?url= params
+                const d = params.get('d') || '';
+                url = d ? decodeURIComponent(atob(d)) : (params.get('url') || '');
+                name = params.get('name') || '';
+                category = params.get('category') || '';
+                type = params.get('type') || '';
+            }
+
+            // ── Default mode: mobile for invitation type, desktop otherwise ──
+            const defaultMobile = (type === 'invitation');
 
             // ── Populate ──
             document.title = (name || 'Xem trước') + ' - Templexa';
