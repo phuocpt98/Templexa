@@ -40,7 +40,7 @@
             user-select: none;
         }
 
-        /* ── Toolbar ── */
+        /* ── Toolbar (mobile-frame mode — full bar) ── */
         .preview-toolbar {
             display: flex;
             align-items: center;
@@ -51,6 +51,90 @@
             background: var(--bg-primary);
             border-bottom: 1px solid var(--border-color);
             z-index: 10;
+        }
+        /* Desktop-frame mode → ẩn toolbar bar, dùng bubble thay thế */
+        .preview-toolbar.as-bubble {
+            display: none;
+        }
+
+        /* ── Floating Bubble (desktop mode) ── */
+        .preview-bubble {
+            display: none;
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+        }
+        .preview-bubble.active { display: block; }
+        .preview-bubble-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(99, 102, 241, 0.9);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            backdrop-filter: blur(8px);
+        }
+        .preview-bubble-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.45);
+        }
+        .preview-bubble-btn svg { width: 20px; height: 20px; }
+        .preview-bubble.open .preview-bubble-btn {
+            background: rgba(99, 102, 241, 1);
+        }
+        /* Dropdown panel */
+        .preview-bubble-panel {
+            position: absolute;
+            top: 52px;
+            right: 0;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 12px;
+            min-width: 200px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateY(-8px) scale(0.95);
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .preview-bubble.open .preview-bubble-panel {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        .bubble-panel-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            padding: 0 4px;
+        }
+        .bubble-panel-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .bubble-panel-row:last-child { margin-bottom: 0; }
+        /* Re-use existing toggle styles inside bubble */
+        .preview-bubble-panel .preview-toggle {
+            flex: 1;
+        }
+        .preview-bubble-panel .preview-toggle-btn {
+            padding: 6px 14px;
+            font-size: 0.75rem;
+        }
+        .preview-bubble-panel .autoscroll-toggle {
+            margin-left: 0;
         }
 
         .preview-name {
@@ -272,6 +356,49 @@
         </div>
     </div>
 
+    <!-- Floating bubble (desktop mode) -->
+    <div class="preview-bubble" id="previewBubble">
+        <button class="preview-bubble-btn" id="bubbleBtn" title="Tuỳ chọn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="19" cy="12" r="1"></circle>
+                <circle cx="5" cy="12" r="1"></circle>
+            </svg>
+        </button>
+        <div class="preview-bubble-panel">
+            <div class="bubble-panel-label">Chế độ xem</div>
+            <div class="bubble-panel-row">
+                <div class="preview-toggle">
+                    <button class="preview-toggle-btn active" data-mode="desktop" data-bubble="1">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                        <span>Desktop</span>
+                    </button>
+                    <button class="preview-toggle-btn" data-mode="mobile" data-bubble="1">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                        </svg>
+                        <span>Mobile</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bubble-panel-label">Auto scroll</div>
+            <div class="bubble-panel-row">
+                <div class="autoscroll-toggle">
+                    <div class="autoscroll-switch">
+                        <input type="checkbox" id="bubbleAutoScroll" checked>
+                        <span class="autoscroll-slider"></span>
+                    </div>
+                    <label for="bubbleAutoScroll">Tự động cuộn</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="preview-container" id="previewContainer">
         <div class="preview-frame" id="previewFrame">
             <iframe id="previewIframe" title="Preview"></iframe>
@@ -348,6 +475,55 @@
                     var cb = document.getElementById('autoScrollToggle');
                     if (cb) cb.checked = false;
                 }
+            }
+
+            // Resume from current position (for checkbox toggle)
+            function resumeAutoScroll() {
+                killAutoScroll(false);
+                autoScrollStopped = false;
+                try {
+                    var iframeWin = iframe.contentWindow;
+                    var iframeDoc = iframeWin.document;
+
+                    function getScrollInfo() {
+                        var scrollEl = iframeDoc.scrollingElement || iframeDoc.documentElement;
+                        var bodyEl = iframeDoc.body;
+                        var scrollTop = Math.max(scrollEl.scrollTop, bodyEl ? bodyEl.scrollTop : 0);
+                        var scrollHeight = Math.max(scrollEl.scrollHeight, bodyEl ? bodyEl.scrollHeight : 0);
+                        var clientHeight = scrollEl.clientHeight || iframeWin.innerHeight;
+                        return { scrollTop: scrollTop, maxScroll: scrollHeight - clientHeight };
+                    }
+                    function doScroll() {
+                        if (autoScrollStopped) return false;
+                        var info = getScrollInfo();
+                        if (info.maxScroll <= 0 || info.scrollTop >= info.maxScroll - 1) return false;
+                        iframeWin.scrollBy(0, SCROLL_SPEED);
+                        return true;
+                    }
+                    function scrollStep() {
+                        if (autoScrollStopped) return;
+                        if (!doScroll()) { autoScrollId = null; return; }
+                        autoScrollId = requestAnimationFrame(scrollStep);
+                    }
+
+                    // Re-bind stop listeners
+                    iframeWin.addEventListener('wheel', killAutoScroll, { once: true, passive: true });
+                    iframeWin.addEventListener('touchmove', killAutoScroll, { once: true, passive: true });
+                    iframeWin.addEventListener('keydown', function (e) {
+                        if (['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End'].indexOf(e.key) !== -1) {
+                            killAutoScroll();
+                        }
+                    }, { once: true });
+
+                    // Start immediately from current position
+                    autoScrollId = requestAnimationFrame(scrollStep);
+                    autoScrollTimer = setInterval(function () {
+                        if (autoScrollStopped || !doScroll()) {
+                            clearInterval(autoScrollTimer);
+                            autoScrollTimer = null;
+                        }
+                    }, 16);
+                } catch (e) { /* cross-origin */ }
             }
 
             function startAutoScroll() {
@@ -456,9 +632,52 @@
                 } catch (e) { /* cross-origin — ignore */ }
             }
 
+            // ── Bubble / Toolbar mode ──
+            var toolbar = document.querySelector('.preview-toolbar');
+            var bubble = document.getElementById('previewBubble');
+            var bubbleBtn = document.getElementById('bubbleBtn');
+            var bubbleAutoScroll = document.getElementById('bubbleAutoScroll');
+
+            function setDesktopMode() {
+                toolbar.classList.add('as-bubble');
+                bubble.classList.add('active');
+            }
+            function setMobileMode() {
+                toolbar.classList.remove('as-bubble');
+                bubble.classList.remove('active');
+                bubble.classList.remove('open');
+            }
+
+            // Bubble toggle open/close
+            bubbleBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                bubble.classList.toggle('open');
+            });
+            // Click ngoài bubble → đóng
+            document.addEventListener('click', function (e) {
+                if (!bubble.contains(e.target)) {
+                    bubble.classList.remove('open');
+                }
+            });
+            // Click trong iframe → đóng bubble
+            function closeBubbleFromIframe() {
+                try {
+                    iframe.contentWindow.addEventListener('click', function () {
+                        bubble.classList.remove('open');
+                    }, { passive: true });
+                } catch (e) {}
+            }
+
+            // Sync bubble auto-scroll checkbox với toolbar checkbox
+            bubbleAutoScroll.addEventListener('change', function () {
+                autoScrollCheckbox.checked = this.checked;
+                autoScrollCheckbox.dispatchEvent(new Event('change'));
+            });
+
             iframe.addEventListener('load', function () {
                 scrollbarHidden = false;
                 hideIframeScrollbar();
+                closeBubbleFromIframe();
                 if (autoScrollCheckbox.checked) {
                     startAutoScroll();
                 }
@@ -516,9 +735,9 @@
             var autoScrollCheckbox = document.getElementById('autoScrollToggle');
             autoScrollCheckbox.addEventListener('change', function () {
                 if (this.checked) {
-                    startAutoScroll();
+                    resumeAutoScroll();
                 } else {
-                    killAutoScroll();
+                    killAutoScroll(false);
                 }
             });
 
@@ -527,32 +746,40 @@
             const frame = document.getElementById('previewFrame');
             const container = document.getElementById('previewContainer');
 
+            function applyMode(mode) {
+                // Sync all toggle buttons (toolbar + bubble)
+                toggleBtns.forEach(function (b) {
+                    b.classList.toggle('active', b.dataset.mode === mode);
+                });
+
+                if (mode === 'mobile') {
+                    frame.classList.add('mobile');
+                    container.classList.add('mobile-mode');
+                    setMobileMode(); // toolbar bar hiện, bubble ẩn
+                } else {
+                    frame.classList.remove('mobile');
+                    container.classList.remove('mobile-mode');
+                    setDesktopMode(); // toolbar bar ẩn, bubble hiện
+                }
+
+                // Restart auto-scroll on mode switch if enabled
+                if (autoScrollCheckbox.checked) {
+                    startAutoScroll();
+                }
+            }
+
             // Apply default mode
             if (defaultMobile) {
-                frame.classList.add('mobile');
-                container.classList.add('mobile-mode');
-                toggleBtns.forEach(function (b) { b.classList.remove('active'); });
-                document.querySelector('.preview-toggle-btn[data-mode="mobile"]').classList.add('active');
+                applyMode('mobile');
+            } else {
+                applyMode('desktop');
             }
 
             toggleBtns.forEach(function (btn) {
                 btn.addEventListener('click', function () {
-                    toggleBtns.forEach(function (b) { b.classList.remove('active'); });
-                    btn.classList.add('active');
-
-                    var mode = btn.dataset.mode;
-                    if (mode === 'mobile') {
-                        frame.classList.add('mobile');
-                        container.classList.add('mobile-mode');
-                    } else {
-                        frame.classList.remove('mobile');
-                        container.classList.remove('mobile-mode');
-                    }
-
-                    // Restart auto-scroll on mode switch if enabled
-                    if (autoScrollCheckbox.checked) {
-                        startAutoScroll();
-                    }
+                    applyMode(btn.dataset.mode);
+                    // Đóng bubble sau khi chọn
+                    bubble.classList.remove('open');
                 });
             });
         })();

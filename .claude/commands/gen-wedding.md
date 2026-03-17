@@ -58,7 +58,7 @@ Xác định thêm:
 - **Category**: mặc định `invitation`
 - **Type**: mặc định `website`
 - **Google Sheets API**:
-  - **Gen mẫu** (KHÔNG phải gen từ prompt.txt/folder khách) → **MẶC ĐỊNH UI-ONLY**: KHÔNG load `wishes-api.js`, KHÔNG gọi API, các form (lời chúc, RSVP) chỉ hiển thị UI, dùng localStorage hoặc hiệu ứng tĩnh. KHÔNG hỏi sheet_id.
+  - **Gen mẫu** (KHÔNG phải gen từ prompt.txt/folder khách) → **MẶC ĐỊNH UI-ONLY + FLOATING LOCAL**: KHÔNG load `wishes-api.js`, KHÔNG gọi API. Dùng `initFloatingWishesLocal()` từ `scripts.js` mục 14b — bong bóng lời chúc bay lên từ data local (mặc định: Ngoạ Long, Phượng Sồ, Doremon, Pikachu, Kabibara). Form lời chúc + RSVP lưu localStorage. KHÔNG hỏi sheet_id. Nếu user yêu cầu bong bóng tin nhắn → dùng `initFloatingWishesLocal` với `DEFAULT_LOCAL_WISHES`.
   - **Gen theo khách** (Quy trình B, từ prompt.txt): kiểm tra prompt.txt có `sheet_id` không
     - Nếu có → thêm `<script src="../../../shared/wedding/wishes-api.js">` + logic gửi/đọc
     - Nếu không có → giữ UI-only
@@ -240,6 +240,26 @@ products/Web/Invitation/{folder}/code.html → ../../../shared/music/{loại}/{f
 | **Video** | User cung cấp link YouTube |
 | **Letter / Thư Ngỏ** | Phong bì toggle: mở → thư trượt ra + hearts bay. Đóng → thư trượt xuống chậm 1.8s biến mất sau thân. Thân phủ kín (top→bottom, z2) che thư (z1). 4 style. CSS mục 20 + JS mục 17 |
 | **Bridesmaids & Groomsmen** | User yêu cầu |
+
+#### Envelope / Phần mở thiệp — Trang trí cầu kỳ (BẮT BUỘC):
+
+Phần mở thiệp KHÔNG được để thô/đơn giản. LUÔN trang trí đầy đủ:
+
+| Thành phần | Bắt buộc | Mô tả |
+|------------|----------|-------|
+| **Card frame** | ✅ | Glass-morphism card với `backdrop-filter: blur(16px)`, bo tròn 20-24px |
+| **Viền đôi** | ✅ | `::before` solid border + `::after` dashed border bên trong card |
+| **Corner ornaments** | ✅ | 4 góc có ❦ hoặc ✿ (ẩn trên mobile nhỏ) |
+| **Ảnh nền blur** | ✅ | Ảnh couple blur 6px + overlay gradient phía sau |
+| **Botanical deco** | ✅ | 4-6 emoji lá/hoa bay lơ lửng nền (🌿🍃☘️🌸), opacity 0.1-0.15 |
+| **Ribbon bow** | ✅ | Thay nút "Mở Thiệp" bằng nơ ruy-băng CSS — bấm cởi ra rồi mở. CSS mục 20b |
+| **Stagger animation** | ✅ | Mỗi element xuất hiện lần lượt (delay 0.15-0.2s giữa các element) |
+| **Ảnh peek** | Tuỳ chọn | 2 ảnh nhỏ lấp ló dưới card, xoay nghiêng polaroid-style |
+
+**Tuỳ chỉnh ribbon bow theo palette:**
+```css
+.ribbon-bow { --bow-color: var(--accent); --bow-color-dark: var(--accent-dark); --bow-glow: var(--accent-glow); }
+```
 
 #### Decorative Animations — Trang trí vùng trống (BẮT BUỘC):
 
@@ -621,9 +641,13 @@ document.addEventListener('DOMContentLoaded', () => {
 - **Phải hỏi user** sheet_id nếu không được cung cấp
 - Nếu user KHÔNG muốn → form UI-only (không gửi dữ liệu, dùng localStorage hoặc tĩnh)
 
-#### Floating Wishes — Bong bóng lời chúc bay lên (BẮT BUỘC khi có sheet_id):
+#### Floating Wishes — Bong bóng lời chúc bay lên:
 
-Khi có `sheet_id` cho lời chúc → **LUÔN thêm floating bubbles + nút toggle**:
+**2 mode:**
+- **Local mode** (gen mẫu, không có sheet_id): dùng `initFloatingWishesLocal()` từ `scripts.js` mục 14b. Data mặc định: `DEFAULT_LOCAL_WISHES` (Ngoạ Long, Phượng Sồ, Doremon, Pikachu, Kabibara). User gửi lời chúc → lưu localStorage + thêm vào pool. **LUÔN thêm khi gen mẫu** (trừ gói Basic).
+- **API mode** (gen theo khách, có sheet_id): dùng `initFloatingWishes()` từ `scripts.js` mục 14. Load từ `sheetsAPI.get()`.
+
+Khi có floating wishes → **LUÔN thêm floating bubbles + nút toggle**:
 
 **Hoạt động:**
 - Bong bóng chat bay từ dưới lên, fixed bottom-left

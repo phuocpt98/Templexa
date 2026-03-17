@@ -2503,6 +2503,212 @@
 
 
 /* ============================================
+   20b. RIBBON BOW — Nơ ruy-băng cởi mở thiệp
+   Thay nút "Mở Thiệp" bằng nơ CSS. Bấm → untie animation → mở thiệp.
+   Dùng với envelope hoặc letter-wrap.
+
+   Cách dùng:
+     <div id="envelopeOpenBtn" class="ribbon-bow" role="button" tabindex="0">
+         <div class="bow-loop bow-loop-left"></div>
+         <div class="bow-loop bow-loop-right"></div>
+         <div class="bow-knot"></div>
+         <div class="bow-tail bow-tail-left"></div>
+         <div class="bow-tail bow-tail-right"></div>
+         <span class="bow-sparkle" style="top:30%;left:20%;--sx:-25px;--sy:-20px;">✨</span>
+         <span class="bow-sparkle" style="top:30%;right:20%;--sx:25px;--sy:-20px;">✨</span>
+         <span class="bow-sparkle" style="top:50%;left:10%;--sx:-30px;--sy:5px;">🌿</span>
+         <span class="bow-sparkle" style="top:50%;right:10%;--sx:30px;--sy:5px;">🍃</span>
+         <span class="bow-sparkle" style="top:70%;left:30%;--sx:-15px;--sy:20px;">💚</span>
+         <span class="bow-sparkle" style="top:70%;right:30%;--sx:15px;--sy:20px;">💚</span>
+         <span class="bow-hint">cởi nơ để mở thiệp</span>
+     </div>
+
+   JS (trong envelope click handler):
+     openBtn.classList.add('untying');
+     setTimeout(() => envelope.classList.add('opened'), 700);
+
+   Tuỳ chỉnh màu qua CSS variables:
+     --bow-color: #4A9E6F;       (màu nơ chính)
+     --bow-color-dark: #357A52;  (màu đậm — knot, tail gradient)
+     --bow-glow: rgba(74,158,111,0.25);
+   ============================================ */
+
+.ribbon-bow {
+    position: relative;
+    width: 120px;
+    height: 90px;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: transform 0.3s;
+    -webkit-tap-highlight-color: transparent;
+}
+.ribbon-bow:hover { transform: scale(1.08); }
+
+/* Glow on hover */
+.ribbon-bow::before {
+    content: '';
+    position: absolute;
+    inset: -15px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--bow-glow, rgba(212,175,55,0.2)), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.ribbon-bow:hover::before { opacity: 1; }
+
+/* Center knot */
+.bow-knot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 18px;
+    background: var(--bow-color-dark, var(--accent-dark, #B8860B));
+    border-radius: 4px;
+    z-index: 5;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.6s, opacity 0.6s;
+}
+.bow-knot::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 3px;
+}
+
+/* Loops (left & right) */
+.bow-loop {
+    position: absolute;
+    top: 50%;
+    width: 48px;
+    height: 36px;
+    border-radius: 50%;
+    border: 4px solid var(--bow-color, var(--accent, #D4AF37));
+    background: rgba(212, 175, 55, 0.1);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s 0.3s;
+}
+.bow-loop::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    width: 60%;
+    height: 35%;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+}
+.bow-loop-left {
+    right: 50%;
+    margin-top: -18px;
+    margin-right: 5px;
+    transform: rotate(-8deg);
+    transform-origin: right center;
+}
+.bow-loop-left::before { left: 8px; }
+.bow-loop-right {
+    left: 50%;
+    margin-top: -18px;
+    margin-left: 5px;
+    transform: rotate(8deg);
+    transform-origin: left center;
+}
+.bow-loop-right::before { right: 8px; }
+
+/* Tails */
+.bow-tail {
+    position: absolute;
+    top: 50%;
+    width: 4px;
+    height: 40px;
+    border-radius: 0 0 3px 3px;
+    background: linear-gradient(to bottom, var(--bow-color, var(--accent, #D4AF37)), var(--bow-color-dark, var(--accent-dark, #B8860B)));
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s 0.3s;
+}
+.bow-tail::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid var(--bow-color-dark, var(--accent-dark, #B8860B));
+}
+.bow-tail-left {
+    left: calc(50% - 12px);
+    margin-top: 5px;
+    transform: rotate(12deg);
+    transform-origin: top center;
+}
+.bow-tail-right {
+    left: calc(50% + 8px);
+    margin-top: 5px;
+    transform: rotate(-12deg);
+    transform-origin: top center;
+}
+
+/* Hint text */
+.bow-hint {
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-accent, 'Cormorant Garamond', serif);
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--text-tertiary, #A89070);
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+    animation: bow-hint-pulse 2s ease-in-out infinite;
+}
+@keyframes bow-hint-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.9; }
+}
+
+/* Sparkle particles */
+.bow-sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 12px;
+    opacity: 0;
+}
+
+/* ── UNTIE STATE ── */
+.ribbon-bow.untying .bow-loop-left {
+    transform: rotate(-70deg) scale(0.6);
+    opacity: 0;
+}
+.ribbon-bow.untying .bow-loop-right {
+    transform: rotate(70deg) scale(0.6);
+    opacity: 0;
+}
+.ribbon-bow.untying .bow-tail-left {
+    transform: rotate(50deg) translateY(15px) scale(0.5);
+    opacity: 0;
+}
+.ribbon-bow.untying .bow-tail-right {
+    transform: rotate(-50deg) translateY(15px) scale(0.5);
+    opacity: 0;
+}
+.ribbon-bow.untying .bow-knot {
+    transform: translate(-50%, -50%) scale(0) rotate(180deg);
+    opacity: 0;
+}
+.ribbon-bow.untying .bow-hint { opacity: 0; }
+.ribbon-bow.untying .bow-sparkle {
+    animation: bow-sparkle-burst 0.8s ease-out forwards;
+}
+@keyframes bow-sparkle-burst {
+    0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
+    100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(1.2) rotate(180deg); }
+}
+
+
+/* ============================================
    21. DECORATIVE ANIMATIONS — Hiệu ứng trang trí vùng trống
    Đặt bên cạnh khối chữ, giữa 2 ảnh, đè lên/bị đè bởi ảnh.
    Dùng class `.deco` + variant. Position absolute trong parent.

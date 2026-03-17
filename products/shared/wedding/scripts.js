@@ -1159,6 +1159,110 @@ function initFloatingWishes(config) {
 
 
 /* ============================================
+   14b. FLOATING WISHES LOCAL — Bong bóng lời chúc từ data local
+   Không cần Google Sheets API — dùng mảng cố định + localStorage.
+   Mặc định có 5 lời chúc mẫu: Ngoạ Long, Phượng Sồ, Doremon, Pikachu, Kabibara.
+
+   Cách dùng:
+   var floatingLocal = initFloatingWishesLocal({
+       containerId: 'floatingWishesBox',   // optional
+       storageKey: 'my_wishes',            // localStorage key
+       defaultWishes: [                    // lời chúc mẫu ban đầu
+           { name: 'Ngoạ Long', message: 'Chúc hai bạn trăm năm hạnh phúc!' },
+           ...
+       ],
+       maxVisible: 3,
+       interval: 2800,
+       duration: 10000,
+   });
+
+   // Sau khi user gửi lời chúc
+   floatingLocal.addWish('Tên', 'Lời chúc');
+   ============================================ */
+
+var DEFAULT_LOCAL_WISHES = [
+    { name: 'Ngoạ Long', message: 'Chúc hai bạn trăm năm hạnh phúc, sớm có tin vui nha! 🎉' },
+    { name: 'Phượng Sồ', message: 'Happy Wedding! Mong hai bạn luôn yêu thương nhau mãi mãi 💕' },
+    { name: 'Doremon', message: 'Chúc mừng đám cưới! Ước gì mình có túi thần kỳ tặng hai bạn 🤖' },
+    { name: 'Pikachu', message: 'Pika pika! Chúc anh chị hạnh phúc viên mãn, vạn sự như ý ⚡' },
+    { name: 'Kabibara', message: 'Chúc đôi uyên ương sống bên nhau trọn đời, yêu thương mỗi ngày 🧡' }
+];
+
+function initFloatingWishesLocal(config) {
+    config = config || {};
+    var storageKey = config.storageKey || 'wedding_wishes_local';
+    var maxVisible = config.maxVisible || 3;
+    var interval = config.interval || 2800;
+    var duration = config.duration || 10000;
+    var defaultWishes = config.defaultWishes || DEFAULT_LOCAL_WISHES;
+    var colorCount = 5;
+
+    // Load stored wishes
+    var storedWishes = [];
+    try {
+        var stored = JSON.parse(localStorage.getItem(storageKey));
+        if (Array.isArray(stored)) storedWishes = stored;
+    } catch (e) {}
+
+    var wishPool = defaultWishes.concat(storedWishes);
+    var currentIndex = 0;
+
+    // Container
+    var container = document.getElementById(config.containerId || 'floatingWishesBox');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'floatingWishesBox';
+        container.className = 'floating-wishes-box';
+        document.body.appendChild(container);
+    }
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    function createBubble(name, message) {
+        var el = document.createElement('div');
+        el.className = 'floating-wish fw-c' + (Math.floor(Math.random() * colorCount) + 1);
+        el.style.animationDuration = duration + 'ms';
+        el.innerHTML =
+            '<div class="floating-wish-avatar">' + esc(name).charAt(0).toUpperCase() + '</div>' +
+            '<span class="floating-wish-name">' + esc(name) + ':</span>' +
+            '<span class="floating-wish-text">' + esc(message) + '</span>';
+        container.appendChild(el);
+        while (container.children.length > maxVisible) {
+            container.removeChild(container.firstChild);
+        }
+        setTimeout(function () {
+            if (el.parentNode) el.parentNode.removeChild(el);
+        }, duration);
+    }
+
+    function showNext() {
+        if (wishPool.length === 0) return;
+        var wish = wishPool[currentIndex % wishPool.length];
+        createBubble(wish.name, wish.message);
+        currentIndex++;
+    }
+
+    // Start after delay
+    setTimeout(function () {
+        showNext();
+        setInterval(showNext, interval);
+    }, 2000);
+
+    return {
+        addWish: function (name, message) {
+            if (!name || !message) return;
+            var wish = { name: name, message: message };
+            wishPool.push(wish);
+            storedWishes.push(wish);
+            try { localStorage.setItem(storageKey, JSON.stringify(storedWishes)); } catch (e) {}
+            createBubble(name, message);
+        },
+        getPool: function () { return wishPool; },
+    };
+}
+
+
+/* ============================================
    15. VIDEO YOUTUBE — Lazy load embed
    Hiện thumbnail YouTube, click mới load iframe.
 

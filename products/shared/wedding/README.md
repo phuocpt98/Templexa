@@ -1217,3 +1217,106 @@ initCurtainOpening({
 | Navy & Gold | `navy` | `slide` | 3 |
 
 #### CSS: copy từ `styles.css` mục 23 (Curtain Opening)
+
+---
+
+### 19. Floating Wishes Local — Bong bóng lời chúc từ data local
+
+Dùng khi **gen mẫu** (không có Google Sheets API) hoặc khi user muốn lời chúc tĩnh.
+Mặc định 5 lời chúc mẫu: Ngoạ Long, Phượng Sồ, Doremon, Pikachu, Kabibara.
+
+```html
+<!-- Container -->
+<div class="floating-wishes-box" id="floatingWishesBox"></div>
+
+<!-- Nút toggle -->
+<button id="wishesToggle" class="wishes-toggle" aria-label="Toggle wishes">
+    <i data-lucide="message-circle" class="wishes-icon-on"></i>
+    <i data-lucide="message-circle-off" class="wishes-icon-off"></i>
+</button>
+```
+
+```javascript
+// Khởi tạo — copy function từ scripts.js mục 14b
+var floatingLocal = initFloatingWishesLocal({
+    containerId: 'floatingWishesBox',
+    storageKey: 'my_wishes',        // unique per thiệp
+    // defaultWishes: [...]          // tuỳ chọn, mặc định dùng DEFAULT_LOCAL_WISHES
+    maxVisible: 3,
+    interval: 2800,
+    duration: 10000,
+});
+
+// Khi user gửi lời chúc mới
+floatingLocal.addWish('Tên', 'Lời chúc');
+
+// Toggle
+var wishesBtn = document.getElementById('wishesToggle');
+var wishesBox = document.getElementById('floatingWishesBox');
+wishesBtn.addEventListener('click', function () {
+    var isHidden = wishesBtn.classList.toggle('hidden');
+    wishesBox.classList.toggle('hidden-wishes', isHidden);
+});
+```
+
+#### CSS: copy từ `styles.css` mục 17 (Floating Wishes)
+#### JS: copy `initFloatingWishesLocal` + `DEFAULT_LOCAL_WISHES` từ `scripts.js` mục 14b
+
+---
+
+### 20. Ribbon Bow — Nơ ruy-băng cởi mở thiệp
+
+Thay nút "Mở Thiệp" bằng nơ CSS. Bấm → nơ cởi ra (untie animation) → mở thiệp.
+
+```html
+<div id="envelopeOpenBtn" class="ribbon-bow" role="button" tabindex="0" aria-label="Mở thiệp">
+    <div class="bow-loop bow-loop-left"></div>
+    <div class="bow-loop bow-loop-right"></div>
+    <div class="bow-knot"></div>
+    <div class="bow-tail bow-tail-left"></div>
+    <div class="bow-tail bow-tail-right"></div>
+    <!-- Sparkles — tuỳ chỉnh emoji + hướng bay -->
+    <span class="bow-sparkle" style="top:30%;left:20%;--sx:-25px;--sy:-20px;">✨</span>
+    <span class="bow-sparkle" style="top:30%;right:20%;--sx:25px;--sy:-20px;">✨</span>
+    <span class="bow-sparkle" style="top:50%;left:10%;--sx:-30px;--sy:5px;">🌿</span>
+    <span class="bow-sparkle" style="top:50%;right:10%;--sx:30px;--sy:5px;">🍃</span>
+    <span class="bow-sparkle" style="top:70%;left:30%;--sx:-15px;--sy:20px;">💚</span>
+    <span class="bow-sparkle" style="top:70%;right:30%;--sx:15px;--sy:20px;">💚</span>
+    <span class="bow-hint">cởi nơ để mở thiệp</span>
+</div>
+```
+
+```javascript
+// JS — trong envelope click handler
+var bowUntied = false;
+openBtn.addEventListener('click', function () {
+    if (bowUntied) return;
+    bowUntied = true;
+    openBtn.classList.add('untying');       // nơ cởi ra
+    setTimeout(function () {
+        envelope.classList.add('opened');    // mở thiệp
+        if (bgMusic) { bgMusic.volume = 0.3; bgMusic.play(); }
+    }, 700);
+    setTimeout(function () { envelope.style.display = 'none'; }, 1700);
+});
+```
+
+**Tuỳ chỉnh màu** qua CSS variables trên `.ribbon-bow` hoặc parent:
+```css
+.ribbon-bow {
+    --bow-color: #D4AF37;       /* màu nơ — loops, tails */
+    --bow-color-dark: #B8860B;  /* màu đậm — knot, tail gradient */
+    --bow-glow: rgba(212,175,55,0.2);  /* hover glow */
+}
+```
+
+| Phong cách | `--bow-color` | `--bow-color-dark` | Sparkle emoji |
+|------------|---------------|-------------------|---------------|
+| Classic Gold | `#D4AF37` | `#B8860B` | ✨ 💛 |
+| Sage Green | `#4A9E6F` | `#357A52` | 🌿 🍃 💚 |
+| Blush Pink | `#E8A0BF` | `#C77DA3` | 🌸 💕 💗 |
+| Burgundy | `#A4343A` | `#722F37` | ✨ ❤️ |
+| Dark Luxury | `#D4AF37` | `#B8860B` | ✨ ⭐ |
+| Tropical | `#2D8B6F` | `#1A6B50` | 🌴 🌺 |
+
+#### CSS: copy từ `styles.css` mục 20b (Ribbon Bow)
