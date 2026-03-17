@@ -35,11 +35,6 @@
                 currentPage = 1;
                 render();
                 if (filtersWrapper) filtersWrapper.classList.add('category-locked');
-                if (currentType === 'invitation') {
-                    document.body.classList.add('invitation-theme');
-                } else {
-                    document.body.classList.remove('invitation-theme');
-                }
             });
         });
         if (filtersWrapper) {
@@ -117,11 +112,6 @@
                 currentPage = 1;
                 render();
                 if (filtersWrapper) filtersWrapper.classList.add('category-locked');
-                if (currentType === 'invitation') {
-                    document.body.classList.add('invitation-theme');
-                } else {
-                    document.body.classList.remove('invitation-theme');
-                }
             });
         });
 
@@ -135,11 +125,6 @@
                 }
                 currentPage = 1;
                 render();
-                if (currentType === 'invitation') {
-                    document.body.classList.add('invitation-theme');
-                } else {
-                    document.body.classList.remove('invitation-theme');
-                }
             });
 
             // Hover → show categories for this type
@@ -253,7 +238,9 @@
 
     function initHoverIframes() {
         if (!supportsHover) return;
-        const cards = grid.querySelectorAll('.product-card[data-demo-url]');
+        if (document.body.classList.contains('invitation-theme')) return;
+        var cards = grid.querySelectorAll('.product-card[data-demo-url]');
+
         cards.forEach(function (card) {
             var iframe = null;
             var hovered = false;
@@ -270,10 +257,6 @@
 
                 iframe.onload = function () {
                     if (!hovered) { iframe.remove(); iframe = null; return; }
-                    // Auto-click để mở thiệp cưới có animation click-to-open
-                    if (document.body.classList.contains('invitation-theme')) {
-                        try { iframe.contentDocument.body.click(); } catch (e) {}
-                    }
                     iframe.classList.add('loaded');
                     setTimeout(function () {
                         if (hovered && iframe) iframe.classList.add('scrolling');
@@ -553,6 +536,13 @@
     function render() {
         perPage = currentType === 'invitation' ? 12 : 9;
 
+        // Toggle invitation theme trước khi render
+        if (currentType === 'invitation') {
+            document.body.classList.add('invitation-theme');
+        } else {
+            document.body.classList.remove('invitation-theme');
+        }
+
         // Giữ trạng thái dropdown mobile trước khi rebuild
         const wasOpen = filtersWrapper && filtersWrapper.classList.contains('open');
 
@@ -590,11 +580,6 @@
 
     // Init
     render();
-
-    // Invitation theme if initial category
-    if (currentType === 'invitation') {
-        document.body.classList.add('invitation-theme');
-    }
 
     // ── Auto-open popup if ?pid= exists ─────────
     var pidParam = urlParams.get('pid');
