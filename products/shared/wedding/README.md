@@ -1320,3 +1320,65 @@ openBtn.addEventListener('click', function () {
 | Tropical | `#2D8B6F` | `#1A6B50` | 🌴 🌺 |
 
 #### CSS: copy từ `styles.css` mục 20b (Ribbon Bow)
+
+---
+
+### 21. Padlock — Ổ khoá tình yêu mở thiệp
+
+Chìa khoá bay vào cắm ổ → xoay → khoá bật ra + chìa rơi → mở thiệp. 4 phase animation.
+
+```html
+<div id="envelopeOpenBtn" class="padlock-wrap" role="button" tabindex="0" aria-label="Mở thiệp">
+    <div class="padlock-shackle"></div>
+    <div class="padlock-body">
+        <div class="padlock-keyhole"></div>
+        <span class="padlock-xi">囍</span>
+    </div>
+    <div class="padlock-key">
+        <div class="key-shaft">
+            <div class="key-head"></div>
+            <div class="key-teeth"></div>
+        </div>
+    </div>
+    <span class="padlock-sparkle" style="top:20%;left:15%;--sx:-30px;--sy:-25px;">✨</span>
+    <span class="padlock-sparkle" style="top:50%;left:5%;--sx:-35px;--sy:5px;">❤️</span>
+    <span class="padlock-sparkle" style="top:75%;right:20%;--sx:20px;--sy:25px;">🌸</span>
+    <span class="padlock-hint">chạm ổ khoá để mở thiệp</span>
+</div>
+```
+
+```javascript
+// JS — 4 phases
+var lockOpened = false;
+openBtn.addEventListener('click', function () {
+    if (lockOpened) return;
+    lockOpened = true;
+    openBtn.classList.add('inserting');           // Phase 1: chìa cắm vào (0.6s)
+    setTimeout(function () {
+        openBtn.classList.remove('inserting');
+        openBtn.classList.add('turning');          // Phase 2: xoay chìa (0.5s)
+    }, 650);
+    setTimeout(function () {
+        openBtn.classList.remove('turning');
+        openBtn.classList.add('unlocked');         // Phase 3: khoá bật ra (0.8s)
+    }, 1200);
+    setTimeout(function () {
+        envelope.classList.add('opened');          // Phase 4: mở thiệp
+        bgMusic.play();
+    }, 1800);
+    setTimeout(function () { envelope.style.display = 'none'; }, 2800);
+});
+```
+
+**Tuỳ chỉnh** qua CSS variables:
+- `--gold`: màu khoá + chìa (mặc định `#D4AF37`)
+- `--accent` / `--accent-dark`: màu lỗ khoá + viền đỏ
+
+| Phong cách | `--gold` | `--accent-dark` | `.padlock-xi` |
+|------------|----------|-----------------|---------------|
+| Traditional Red | `#D4AF37` | `#8B0000` | 囍 |
+| Classic Gold | `#D4AF37` | `#2C1810` | ♥ |
+| Blush Pink | `#C9A84C` | `#C77DA3` | ♥ |
+| Dark Luxury | `#D4AF37` | `#1A1A2E` | 囍 |
+
+#### CSS: copy từ `styles.css` mục 20c (Padlock)

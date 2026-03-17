@@ -3549,6 +3549,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-17',
     },
+    {
+        id: 191,
+        name: 'Thiệp Cưới - Việt Mềm Mại Hỷ',
+        slug: 'thiep-cuoi-viet-mem-mai-hy',
+        description: 'Thiệp cưới phong cách truyền thống Việt, tông đỏ hồng mềm mại, chữ Hỷ (囍) trang trọng, chim yến bay, hoa lớn trang trí, nơ ruy-băng đỏ cởi mở thiệp.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'truyền thống', 'đỏ', 'hỷ', 'chim yến', 'mềm mại'],
+        price: '',
+        images: [
+            './products/Web/Invitation/gen_191_viet-mem-mai-hy/screen.webp',
+            './products/Web/Invitation/gen_191_viet-mem-mai-hy/anh_1.webp',
+            './products/Web/Invitation/gen_191_viet-mem-mai-hy/anh_2.webp',
+            './products/Web/Invitation/gen_191_viet-mem-mai-hy/anh_3.webp',
+            './products/Web/Invitation/gen_191_viet-mem-mai-hy/anh_4.webp',
+        ],
+        thumbnail: './products/Web/Invitation/gen_191_viet-mem-mai-hy/screen.webp',
+        path: './products/Web/Invitation/gen_191_viet-mem-mai-hy/',
+        demoUrl: './products/Web/Invitation/gen_191_viet-mem-mai-hy/code.html',
+        features: [
+            'Chữ Hỷ 囍 + chim yến bay + hoa lớn trang trí',
+            'Nơ ruy-băng đỏ cởi mở thiệp + bong bóng lời chúc',
+            'Countdown + Gallery lightbox + RSVP + hoa rơi + sparkles',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 6,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-17',
+    },
 ];
 
 // ============================================

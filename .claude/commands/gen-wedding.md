@@ -252,7 +252,7 @@ Phần mở thiệp KHÔNG được để thô/đơn giản. LUÔN trang trí đ
 | **Corner ornaments** | ✅ | 4 góc có ❦ hoặc ✿ (ẩn trên mobile nhỏ) |
 | **Ảnh nền blur** | ✅ | Ảnh couple blur 6px + overlay gradient phía sau |
 | **Botanical deco** | ✅ | 4-6 emoji lá/hoa bay lơ lửng nền (🌿🍃☘️🌸), opacity 0.1-0.15 |
-| **Ribbon bow** | ✅ | Thay nút "Mở Thiệp" bằng nơ ruy-băng CSS — bấm cởi ra rồi mở. CSS mục 20b |
+| **Hiệu ứng mở** | ✅ | Chọn 1 trong 3: **Ribbon bow** (nơ cởi ra, mục 20b) / **Padlock** (ổ khoá + chìa cắm xoay bật, mục 20c) / **Button** (nút đơn giản — chỉ dùng khi cần). Ưu tiên Ribbon bow hoặc Padlock |
 | **Stagger animation** | ✅ | Mỗi element xuất hiện lần lượt (delay 0.15-0.2s giữa các element) |
 | **Ảnh peek** | Tuỳ chọn | 2 ảnh nhỏ lấp ló dưới card, xoay nghiêng polaroid-style |
 

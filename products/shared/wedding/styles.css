@@ -32,6 +32,8 @@
  *  18. VIDEO YOUTUBE — Nhúng video lazy load
  *  19. CALENDAR MONTH — Tờ lịch tháng đánh dấu ngày cưới
  *  20. LETTER ENVELOPE — Phong bì mở thư (4 styles)
+ *  20b. RIBBON BOW — Nơ ruy-băng cởi mở thiệp
+ *  20c. PADLOCK — Ổ khoá tình yêu mở thiệp (chìa cắm + xoay + bật)
  *  21. DECORATIVE ANIMATIONS — Hiệu ứng trang trí vùng trống (hearts, roses, gifts...)
  *  22. ICON DECORATIONS — Trang trí bằng ảnh icon WebP/SVG (shared/images/wedding/icons/)
  * ============================================
@@ -2705,6 +2707,303 @@
 @keyframes bow-sparkle-burst {
     0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
     100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(1.2) rotate(180deg); }
+}
+
+
+/* ============================================
+   20c. PADLOCK — Ổ khoá tình yêu mở thiệp
+   Chìa bay vào cắm ổ → xoay → khoá bật + chìa rơi → mở thiệp.
+   Dùng với envelope hoặc letter-wrap.
+
+   HTML:
+     <div id="envelopeOpenBtn" class="padlock-wrap" role="button" tabindex="0">
+         <div class="padlock-shackle"></div>
+         <div class="padlock-body">
+             <div class="padlock-keyhole"></div>
+             <span class="padlock-xi">囍</span>
+         </div>
+         <div class="padlock-key">
+             <div class="key-shaft">
+                 <div class="key-head"></div>
+                 <div class="key-teeth"></div>
+             </div>
+         </div>
+         <span class="padlock-sparkle" style="top:20%;left:15%;--sx:-30px;--sy:-25px;">✨</span>
+         <span class="padlock-sparkle" style="top:50%;left:5%;--sx:-35px;--sy:5px;">❤️</span>
+         <span class="padlock-sparkle" style="top:75%;right:20%;--sx:20px;--sy:25px;">🌸</span>
+         <span class="padlock-hint">chạm ổ khoá để mở thiệp</span>
+     </div>
+
+   JS (4 phases):
+     var lockOpened = false;
+     openBtn.addEventListener('click', function() {
+         if (lockOpened) return;
+         lockOpened = true;
+         openBtn.classList.add('inserting');                    // chìa cắm vào
+         setTimeout(function() {
+             openBtn.classList.remove('inserting');
+             openBtn.classList.add('turning');                  // xoay chìa
+         }, 650);
+         setTimeout(function() {
+             openBtn.classList.remove('turning');
+             openBtn.classList.add('unlocked');                 // bật khoá
+         }, 1200);
+         setTimeout(function() {
+             envelope.classList.add('opened');                  // mở thiệp
+             bgMusic.play();
+         }, 1800);
+         setTimeout(function() { envelope.style.display='none'; }, 2800);
+     });
+
+   Tuỳ chỉnh:
+     --gold: #D4AF37;          (màu khoá + chìa)
+     --accent: #C41E3A;        (màu lỗ khoá + viền)
+   ============================================ */
+
+.padlock-wrap {
+    position: relative;
+    width: 100px;
+    height: 130px;
+    margin: 0.5rem auto 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+.padlock-wrap:hover { filter: brightness(1.08); }
+
+/* Quai khoá */
+.padlock-shackle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 46px;
+    height: 36px;
+    border: 5px solid var(--gold, #D4AF37);
+    border-bottom: none;
+    border-radius: 23px 23px 0 0;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.5s 0.4s;
+    transform-origin: right bottom;
+    z-index: 2;
+}
+.padlock-shackle::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 6px;
+    width: 8px; height: 20px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Thân khoá */
+.padlock-body {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 52px;
+    background: linear-gradient(145deg, var(--gold, #D4AF37), #B8960B, var(--gold, #D4AF37));
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2),
+                inset 0 2px 4px rgba(255,255,255,0.2);
+    z-index: 3;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+                opacity 0.5s 0.6s;
+}
+.padlock-body::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1.5px solid rgba(196, 30, 58, 0.3);
+    border-radius: 5px;
+}
+
+/* Lỗ khoá */
+.padlock-keyhole {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px; height: 14px;
+    background: var(--accent-dark, #8B0000);
+    border-radius: 50%;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+}
+.padlock-keyhole::after {
+    content: '';
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px; height: 12px;
+    background: var(--accent-dark, #8B0000);
+    border-radius: 0 0 3px 3px;
+}
+.padlock-xi {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    color: var(--accent-dark, #8B0000);
+    font-weight: 900;
+    opacity: 0.5;
+}
+
+/* Chìa khoá */
+.padlock-key {
+    position: absolute;
+    top: 48px;
+    left: calc(50% + 28px);
+    z-index: 4;
+    transform: rotate(-30deg);
+    transition: none;
+}
+.key-shaft {
+    width: 4px; height: 28px;
+    background: linear-gradient(to bottom, var(--gold, #D4AF37), #C9A84C);
+    border-radius: 2px;
+    position: relative;
+}
+.key-head {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px; height: 18px;
+    border: 3px solid var(--gold, #D4AF37);
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.1);
+}
+.key-head::after {
+    content: '♥';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.45rem;
+    color: var(--accent, #C41E3A);
+}
+.key-teeth {
+    position: absolute;
+    bottom: 0; left: 4px;
+    width: 8px; height: 4px;
+    background: var(--gold, #D4AF37);
+    border-radius: 0 2px 2px 0;
+}
+.key-teeth::after {
+    content: '';
+    position: absolute;
+    top: -7px; left: 0;
+    width: 6px; height: 4px;
+    background: var(--gold, #D4AF37);
+    border-radius: 0 2px 2px 0;
+}
+
+.padlock-hint {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-accent, 'Cormorant Garamond', serif);
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--text-tertiary, #A89070);
+    white-space: nowrap;
+    animation: padlock-pulse 2s ease-in-out infinite;
+}
+@keyframes padlock-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.9; }
+}
+
+.padlock-sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 14px;
+    opacity: 0;
+}
+
+/* Hover */
+.padlock-wrap:hover .padlock-shackle {
+    animation: padlock-shackle-shake 0.4s ease-in-out;
+}
+@keyframes padlock-shackle-shake {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    25% { transform: translateX(-50%) rotate(-3deg); }
+    75% { transform: translateX(-50%) rotate(3deg); }
+}
+.padlock-wrap:hover .padlock-key {
+    animation: padlock-key-wiggle 0.6s ease-in-out;
+}
+@keyframes padlock-key-wiggle {
+    0%, 100% { transform: rotate(-30deg); }
+    25% { transform: rotate(-35deg) translateX(2px); }
+    75% { transform: rotate(-25deg) translateX(-2px); }
+}
+
+/* ── Phase 1: inserting — chìa bay vào cắm ổ ── */
+.padlock-wrap.inserting .padlock-key {
+    animation: padlock-key-insert 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes padlock-key-insert {
+    0%   { transform: rotate(-30deg); }
+    40%  { transform: rotate(0deg) translate(-26px, 0); }
+    100% { transform: rotate(0deg) translate(-26px, 5px); }
+}
+
+/* ── Phase 2: turning — xoay chìa ── */
+.padlock-wrap.turning .padlock-key {
+    animation: padlock-key-turn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes padlock-key-turn {
+    0%   { transform: rotate(0deg) translate(-26px, 5px); }
+    50%  { transform: rotate(45deg) translate(-26px, 5px); }
+    100% { transform: rotate(90deg) translate(-26px, 5px); }
+}
+.padlock-wrap.turning .padlock-body {
+    animation: padlock-body-shake 0.5s ease-in-out;
+}
+@keyframes padlock-body-shake {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    20% { transform: translateX(-50%) rotate(-2deg); }
+    40% { transform: translateX(-50%) rotate(2deg); }
+    60% { transform: translateX(-50%) rotate(-1deg); }
+    80% { transform: translateX(-50%) rotate(1deg); }
+}
+
+/* ── Phase 3: unlocked — bật khoá ── */
+.padlock-wrap.unlocked .padlock-shackle {
+    animation: padlock-shackle-pop 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes padlock-shackle-pop {
+    0%   { transform: translateX(-50%) rotate(0deg); }
+    40%  { transform: translateX(-50%) rotate(-60deg) translateY(-12px); }
+    100% { transform: translateX(-50%) rotate(-120deg) translateY(-30px); opacity: 0; }
+}
+.padlock-wrap.unlocked .padlock-key {
+    animation: padlock-key-fall 0.8s cubic-bezier(0.5, 0, 1, 1) forwards;
+}
+@keyframes padlock-key-fall {
+    0%   { transform: rotate(90deg) translate(-26px, 5px); opacity: 1; }
+    30%  { transform: rotate(60deg) translate(-20px, -10px); opacity: 1; }
+    100% { transform: rotate(140deg) translate(40px, 120px); opacity: 0; }
+}
+.padlock-wrap.unlocked .padlock-body {
+    animation: padlock-body-fall 0.8s cubic-bezier(0.5, 0, 1, 1) 0.2s forwards;
+}
+@keyframes padlock-body-fall {
+    0%   { transform: translateX(-50%) rotate(0deg); opacity: 1; }
+    40%  { transform: translateX(-50%) rotate(8deg) translateY(10px); opacity: 0.8; }
+    100% { transform: translateX(-50%) rotate(20deg) translateY(60px); opacity: 0; }
+}
+.padlock-wrap.unlocked .padlock-hint { opacity: 0; transition: opacity 0.3s; }
+.padlock-wrap.unlocked .padlock-sparkle {
+    animation: padlock-burst 0.8s ease-out forwards;
+}
+@keyframes padlock-burst {
+    0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
+    100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(1.3) rotate(180deg); }
 }
 
 
