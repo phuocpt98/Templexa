@@ -299,16 +299,215 @@
         }
         .demo-qr svg { width: 30px; height: 30px; color: #333; }
 
+        /* ===== TRANSITION EFFECTS (new) ===== */
+        .demo-fly { opacity: 0; transform: translateY(40px) scale(0.7); transition: all 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .demo-fly.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+        .demo-freefall { opacity: 0; transform: translateY(-40px) rotate(-15deg); transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .demo-freefall.is-visible { opacity: 1; transform: translateY(0) rotate(0deg); }
+
+        .demo-reveal { opacity: 0; filter: blur(10px); transform: scale(0.85); transition: all 0.7s ease; }
+        .demo-reveal.is-visible { opacity: 1; filter: blur(0); transform: scale(1); }
+
+        .demo-unfold { opacity: 0; transform: perspective(600px) rotateY(-70deg); transform-origin: left center; transition: all 0.8s ease; }
+        .demo-unfold.is-visible { opacity: 1; transform: perspective(600px) rotateY(0deg); }
+
+        /* ===== ICON GALLERY ===== */
+        .icon-grid {
+            display: grid; grid-template-columns: repeat(6, 1fr);
+            gap: 1rem; margin-bottom: 2rem;
+        }
+        .icon-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 1rem; text-align: center;
+            transition: all 0.2s;
+        }
+        .icon-card:hover { border-color: rgba(212,175,55,0.4); transform: translateY(-3px); }
+        .icon-card img {
+            width: 64px; height: 64px; object-fit: contain;
+            margin-bottom: 0.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        .icon-card .icon-name {
+            font-size: 0.7rem; color: var(--text-secondary);
+            word-break: break-all;
+        }
+        .icon-card .icon-style {
+            font-size: 0.6rem; color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* ===== ICON DECORATION EFFECTS ===== */
+        .deco-demo-row {
+            display: grid; grid-template-columns: 140px 200px 1fr 120px;
+            gap: 0; border: 1px solid var(--border); border-radius: 12px;
+            overflow: hidden; margin-bottom: 0.75rem; background: var(--bg-card);
+            transition: border-color 0.2s;
+        }
+        .deco-demo-row:hover { border-color: rgba(212,175,55,0.3); }
+        .deco-demo-cell {
+            padding: 1rem; border-right: 1px solid var(--border);
+            display: flex; align-items: center;
+        }
+        .deco-demo-cell:last-child { border-right: none; justify-content: center; }
+        .deco-demo-cell .cell-name {
+            font-family: var(--font-heading); font-size: 0.9rem; color: var(--text);
+        }
+        .deco-demo-cell .cell-class {
+            font-family: monospace; font-size: 0.65rem; color: var(--accent);
+            background: rgba(212,175,55,0.1); padding: 2px 6px; border-radius: 4px;
+            display: inline-block; margin-top: 0.2rem;
+        }
+        .deco-demo-cell .cell-desc { font-size: 0.78rem; color: var(--text-secondary); }
+        .deco-demo-icon { width: 50px; height: 50px; object-fit: contain; }
+
+        /* Deco icon animations for demo */
+        @keyframes icon-float { 0%,100%{transform:translateY(0) rotate(0deg)} 25%{transform:translateY(-10px) rotate(-2deg)} 75%{transform:translateY(6px) rotate(2deg)} }
+        @keyframes icon-sway { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
+        @keyframes icon-shine { 0%,100%{filter:brightness(1);transform:scale(1)} 50%{filter:brightness(1.3);transform:scale(1.05)} }
+        @keyframes icon-pulse-anim { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+        @keyframes icon-spin-anim { to{transform:rotate(360deg)} }
+        @keyframes icon-bounce-anim { 0%,100%{transform:translateY(0)} 40%{transform:translateY(-10px)} 60%{transform:translateY(2px)} }
+        @keyframes icon-fade-anim { 0%,100%{opacity:0.3} 50%{opacity:1} }
+        @keyframes icon-drift { 0%,100%{transform:translateX(0)} 33%{transform:translateX(15px)} 66%{transform:translateX(-8px)} }
+        @keyframes icon-majestic { 0%,100%{transform:translate(0,0) rotate(0) scale(1)} 25%{transform:translate(8px,-6px) rotate(3deg) scale(1.05)} 50%{transform:translate(0,-10px) rotate(0) scale(1.02)} 75%{transform:translate(-8px,-4px) rotate(-3deg) scale(1.05)} }
+        @keyframes icon-tilt { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} }
+
+        .icon-anim-float { animation: icon-float 5s ease-in-out infinite; }
+        .icon-anim-sway { animation: icon-sway 4s ease-in-out infinite; transform-origin: bottom center; }
+        .icon-anim-shine { animation: icon-shine 3s ease-in-out infinite; }
+        .icon-anim-pulse { animation: icon-pulse-anim 2s ease-in-out infinite; }
+        .icon-anim-spin { animation: icon-spin-anim 12s linear infinite; }
+        .icon-anim-bounce { animation: icon-bounce-anim 2.5s ease-in-out infinite; }
+        .icon-anim-fade { animation: icon-fade-anim 4s ease-in-out infinite; }
+        .icon-anim-drift { animation: icon-drift 6s ease-in-out infinite; }
+        .icon-anim-majestic { animation: icon-majestic 6s ease-in-out infinite; }
+        .icon-anim-tilt { animation: icon-tilt 5s ease-in-out infinite; }
+
+        /* Entrance demos */
+        .icon-enter-fade { opacity: 0; transition: opacity 1s ease; }
+        .icon-enter-fade.is-visible { opacity: 1; }
+        .icon-enter-scale { opacity: 0; transform: scale(0.5); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .icon-enter-scale.is-visible { opacity: 1; transform: scale(1); }
+        .icon-enter-slide-up { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .icon-enter-slide-up.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* Size demos */
+        .size-demo { display: flex; gap: 1rem; align-items: end; flex-wrap: wrap; padding: 1rem; }
+        .size-demo-item { text-align: center; }
+        .size-demo-item img { object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .size-demo-item span { display: block; font-size: 0.6rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        /* ===== COLOR PALETTES ===== */
+        .palette-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 1rem; margin-bottom: 2rem;
+        }
+        .palette-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 1.25rem;
+            transition: border-color 0.2s;
+        }
+        .palette-card:hover { border-color: rgba(212,175,55,0.4); }
+        .palette-card h3 {
+            font-family: var(--font-heading); font-size: 0.95rem;
+            color: var(--text); margin-bottom: 0.75rem;
+        }
+        .palette-swatches { display: flex; gap: 0; border-radius: 8px; overflow: hidden; margin-bottom: 0.75rem; }
+        .palette-swatch {
+            flex: 1; height: 40px; position: relative;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .palette-swatch span {
+            font-size: 0.5rem; color: inherit; font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            opacity: 0; transition: opacity 0.2s;
+        }
+        .palette-swatch:hover span { opacity: 1; }
+        .palette-vars {
+            font-family: monospace; font-size: 0.62rem;
+            color: var(--text-muted); line-height: 1.7;
+        }
+        .palette-fonts {
+            font-size: 0.68rem; color: var(--text-secondary);
+            margin-top: 0.5rem; font-style: italic;
+        }
+
+        /* ===== CSS COMPONENTS ===== */
+        .comp-group { margin-bottom: 2rem; }
+        .comp-group-title {
+            font-family: var(--font-heading); font-size: 1.1rem;
+            color: var(--accent-light); margin-bottom: 1rem;
+            padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+        }
+        .comp-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+        .comp-item {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 10px; padding: 1rem;
+            transition: border-color 0.2s;
+        }
+        .comp-item:hover { border-color: rgba(212,175,55,0.3); }
+        .comp-item h4 {
+            font-family: var(--font-heading); font-size: 0.9rem;
+            color: var(--text); margin-bottom: 0.25rem;
+        }
+        .comp-item .comp-class {
+            font-family: monospace; font-size: 0.65rem;
+            color: var(--accent); background: rgba(212,175,55,0.1);
+            padding: 2px 8px; border-radius: 4px; display: inline-block;
+            margin-bottom: 0.4rem;
+        }
+        .comp-item p { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5; }
+        .comp-variants {
+            font-size: 0.65rem; color: var(--text-muted);
+            margin-top: 0.4rem; font-style: italic;
+        }
+
+        /* ===== LAYOUT PATTERNS ===== */
+        .layout-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
+        .layout-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 1.25rem;
+            display: grid; grid-template-columns: 200px 1fr;
+            gap: 1.5rem; transition: border-color 0.2s;
+        }
+        .layout-card:hover { border-color: rgba(212,175,55,0.3); }
+        .layout-label {
+            font-family: var(--font-heading); font-size: 1.1rem;
+            color: var(--accent);
+        }
+        .layout-name {
+            font-size: 0.85rem; color: var(--text); font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .layout-desc { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .layout-flow {
+            display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center;
+        }
+        .layout-flow-item {
+            font-size: 0.62rem; padding: 3px 10px;
+            background: rgba(212,175,55,0.1); border: 1px solid var(--border);
+            border-radius: 14px; color: var(--text-secondary);
+        }
+        .layout-flow-arrow { color: var(--text-muted); font-size: 0.6rem; }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .card-row { grid-template-columns: 1fr; }
             .card-col { border-right: none; border-bottom: 1px solid var(--border); }
             .card-col:last-child { border-bottom: none; }
             .card-demo { min-height: 120px; }
+            .icon-grid { grid-template-columns: repeat(4, 1fr); }
+            .deco-demo-row { grid-template-columns: 1fr; }
+            .deco-demo-cell { border-right: none; border-bottom: 1px solid var(--border); }
+            .deco-demo-cell:last-child { border-bottom: none; }
+            .palette-grid { grid-template-columns: 1fr; }
+            .comp-list { grid-template-columns: 1fr; }
+            .layout-card { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
             .header { flex-direction: column; gap: 0.75rem; }
             .header-nav { justify-content: center; }
+            .icon-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -324,6 +523,11 @@
             <a href="#group">Group</a>
             <a href="#wedding">Wedding</a>
             <a href="#deco">Decorative</a>
+            <a href="#icons">Icons</a>
+            <a href="#icon-effects">Icon Effects</a>
+            <a href="#palettes">Palettes</a>
+            <a href="#components">Components</a>
+            <a href="#layouts">Layouts</a>
         </nav>
     </div>
 
@@ -388,6 +592,14 @@
         <div class="card-row"><div class="card-col"><p class="card-name">Spiral In</p><span class="card-class">.transition-spiral</span></div><div class="card-col card-desc">Xoáy vào từ xa. Dùng cho dramatic reveals, hero icons.</div><div class="card-col card-demo"><button class="replay-btn" data-target="dt2"><i data-lucide="refresh-cw"></i></button><div class="demo-box demo-spiral" id="dt2">Spiral</div></div></div>
 
         <div class="card-row"><div class="card-col"><p class="card-name">Zoom Burst</p><span class="card-class">.transition-zoom</span></div><div class="card-col card-desc">Phóng to bùng nổ. Dùng cho hero elements, countdown reveals.</div><div class="card-col card-demo"><button class="replay-btn" data-target="dt3"><i data-lucide="refresh-cw"></i></button><div class="demo-box demo-zoom-burst" id="dt3">Zoom</div></div></div>
+
+        <div class="card-row"><div class="card-col"><p class="card-name">Fly</p><span class="card-class">.transition-fly</span></div><div class="card-col card-desc">Bay vào từ dưới + scale. Dùng cho hero elements, feature reveals.</div><div class="card-col card-demo"><button class="replay-btn" data-target="dt4"><i data-lucide="refresh-cw"></i></button><div class="demo-box demo-fly" id="dt4">Fly</div></div></div>
+
+        <div class="card-row"><div class="card-col"><p class="card-name">Freefall</p><span class="card-class">.transition-freefall</span></div><div class="card-col card-desc">Rơi tự do + xoay nhẹ, spring bounce. Dùng cho playful reveals, cards.</div><div class="card-col card-demo"><button class="replay-btn" data-target="dt5"><i data-lucide="refresh-cw"></i></button><div class="demo-box demo-freefall" id="dt5">Fall</div></div></div>
+
+        <div class="card-row"><div class="card-col"><p class="card-name">Reveal</p><span class="card-class">.transition-reveal</span></div><div class="card-col card-desc">Fade + blur + scale nhẹ. Hiệu ứng cinematic, dreamy reveal.</div><div class="card-col card-demo"><button class="replay-btn" data-target="dt6"><i data-lucide="refresh-cw"></i></button><div class="demo-box demo-reveal" id="dt6">Reveal</div></div></div>
+
+        <div class="card-row"><div class="card-col"><p class="card-name">Unfold</p><span class="card-class">.transition-unfold</span></div><div class="card-col card-desc">Mở gập 3D từ trái sang. Dùng cho card reveals, letter opening.</div><div class="card-col card-demo"><button class="replay-btn" data-target="dt7"><i data-lucide="refresh-cw"></i></button><div class="demo-box demo-unfold" id="dt7">Unfold</div></div></div>
 
         <!-- ==================== GROUP ==================== -->
         <h2 class="section-title" id="group">Group Animations</h2>
@@ -469,6 +681,392 @@
 
         <div class="card-row"><div class="card-col"><p class="card-name">Angel</p><span class="card-class">.deco-angel</span></div><div class="card-col card-desc">Thiên thần bay vòng. Dreamy, whimsical.</div><div class="card-col card-demo"><div style="position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><span style="font-size:2rem;animation:demo-float 5s ease-in-out infinite;display:inline-block;opacity:0.6;">👼</span></div></div></div>
 
+        <!-- ==================== ICON GALLERY ==================== -->
+        <h2 class="section-title" id="icons">Icon Gallery</h2>
+        <p class="section-desc">28 icon ảnh dùng chung — đặt tại <code>products/shared/images/wedding/icons/</code>. Dùng với class <code>.deco-icon</code> + size + animation.</p>
+
+        <div class="icon-grid">
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/heart-icon.webp" alt="heart-icon"><div class="icon-name">heart-icon.webp</div><div class="icon-style">Tim — mọi theme</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/bouquet-1.webp" alt="bouquet-1"><div class="icon-name">bouquet-1.webp</div><div class="icon-style">Bó hoa — romantic</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/bouquet-2.webp" alt="bouquet-2"><div class="icon-name">bouquet-2.webp</div><div class="icon-style">Bó hoa — elegant</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/cherry-blossom.webp" alt="cherry-blossom"><div class="icon-name">cherry-blossom.webp</div><div class="icon-style">Hoa đào — truyền thống</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/decorative-flowers.webp" alt="decorative-flowers"><div class="icon-name">decorative-flowers.webp</div><div class="icon-style">Hoa trang trí — mọi theme</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/decorative-diamond.webp" alt="decorative-diamond"><div class="icon-name">decorative-diamond.webp</div><div class="icon-style">Kim cương — luxury</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/wax-seal.webp" alt="wax-seal"><div class="icon-name">wax-seal.webp</div><div class="icon-style">Phong ấn — classic</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/couple-chibi.webp" alt="couple-chibi"><div class="icon-name">couple-chibi.webp</div><div class="icon-style">Chibi đôi — cute</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/character-elegant.webp" alt="character-elegant"><div class="icon-name">character-elegant.webp</div><div class="icon-style">Nhân vật — elegant</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/character-romantic.webp" alt="character-romantic"><div class="icon-name">character-romantic.webp</div><div class="icon-style">Nhân vật — romantic</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/double-happiness.webp" alt="double-happiness"><div class="icon-name">double-happiness.webp</div><div class="icon-style">Song hỷ — truyền thống</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/chinese-happiness.webp" alt="chinese-happiness"><div class="icon-name">chinese-happiness.webp</div><div class="icon-style">Chữ Hỷ — truyền thống</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/rong.webp" alt="rong"><div class="icon-name">rong.webp</div><div class="icon-style">Rồng — truyền thống VN</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/phuong.webp" alt="phuong"><div class="icon-name">phuong.webp</div><div class="icon-style">Phượng — truyền thống VN</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/calen-heart.webp" alt="calen-heart"><div class="icon-name">calen-heart.webp</div><div class="icon-style">Lịch tim — countdown</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/calen-heart-2.webp" alt="calen-heart-2"><div class="icon-name">calen-heart-2.webp</div><div class="icon-style">Lịch tim v2 — countdown</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/happiness-1.webp" alt="happiness-1"><div class="icon-name">happiness-1.webp</div><div class="icon-style">Hạnh phúc — decorative</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/happiness-2.webp" alt="happiness-2"><div class="icon-name">happiness-2.webp</div><div class="icon-style">Hạnh phúc v2 — decorative</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/frame-1.webp" alt="frame-1"><div class="icon-name">frame-1.webp</div><div class="icon-style">Khung ảnh — gallery</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/frame-2.webp" alt="frame-2"><div class="icon-name">frame-2.webp</div><div class="icon-style">Khung ảnh v2 — gallery</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/frame-3.webp" alt="frame-3"><div class="icon-name">frame-3.webp</div><div class="icon-style">Khung ảnh v3 — gallery</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/crop-shape.webp" alt="crop-shape"><div class="icon-name">crop-shape.webp</div><div class="icon-style">Mask hình — ảnh đại diện</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/deco-1.webp" alt="deco-1"><div class="icon-name">deco-1.webp</div><div class="icon-style">Trang trí — filler</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/deco-element.webp" alt="deco-element"><div class="icon-name">deco-element.webp</div><div class="icon-style">Element — background</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/deco-footer.webp" alt="deco-footer"><div class="icon-name">deco-footer.webp</div><div class="icon-style">Footer — kết thúc</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/deco-divider.webp" alt="deco-divider"><div class="icon-name">deco-divider.webp</div><div class="icon-style">Đường kẻ — ngăn section</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/deco-divider-2.webp" alt="deco-divider-2"><div class="icon-name">deco-divider-2.webp</div><div class="icon-style">Đường kẻ v2 — ngăn section</div></div>
+            <div class="icon-card"><img src="./products/shared/images/wedding/icons/divider.svg" alt="divider"><div class="icon-name">divider.svg</div><div class="icon-style">SVG divider — scalable</div></div>
+        </div>
+
+        <!-- ==================== ICON DECORATION EFFECTS ==================== -->
+        <h2 class="section-title" id="icon-effects">Icon Decoration Effects</h2>
+        <p class="section-desc">10 animation + 3 entrance + 7 size + mirror — class <code>.deco-icon-{effect}</code> trên ảnh icon. Demo dùng heart-icon.webp</p>
+
+        <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--accent-light);margin:1.5rem 0 1rem;">Continuous Animations</h3>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Float</div><div class="cell-class">.deco-icon-float</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Lơ lửng nhẹ nhàng — translateY + rotate nhẹ. Phù hợp: bouquet, cherry-blossom, decorative-flowers.</div></div><div class="deco-demo-cell"><div class="cell-desc">5s ease-in-out infinite</div></div><div class="deco-demo-cell"><img class="deco-demo-icon icon-anim-float" src="./products/shared/images/wedding/icons/heart-icon.webp" alt="float"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Sway</div><div class="cell-class">.deco-icon-sway</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Lắc lư như cành hoa — rotate ±8°, origin bottom. Phù hợp: bouquet, cherry-blossom.</div></div><div class="deco-demo-cell"><div class="cell-desc">4s ease-in-out infinite</div></div><div class="deco-demo-cell"><img class="deco-demo-icon icon-anim-sway" src="./products/shared/images/wedding/icons/bouquet-1.webp" alt="sway"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Shine</div><div class="cell-class">.deco-icon-shine</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Toả sáng lấp lánh — brightness 1→1.3 + scale nhẹ. Phù hợp: wax-seal, happiness, diamond.</div></div><div class="deco-demo-cell"><div class="cell-desc">3s ease-in-out infinite</div></div><div class="deco-demo-cell"><img class="deco-demo-icon icon-anim-shine" src="./products/shared/images/wedding/icons/wax-seal.webp" alt="shine"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Pulse</div><div class="cell-class">.deco-icon-pulse</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Phóng to nhỏ nhịp nhàng — scale 1→1.1. Phù hợp: heart-icon, wax-seal, character.</div></div><div class="deco-demo-cell"><div class="cell-desc">2s ease-in-out infinite</div></div><div class="deco-demo-cell"><img class="deco-demo-icon icon-anim-pulse" src="./products/shared/images/wedding/icons/heart-icon.webp" alt="pulse"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Spin</div><div class="cell-class">.deco-icon-spin</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Xoay chậm 360° — 12s linear. Phù hợp: decorative-diamond, happiness.</div></div><div class="deco-demo-cell"><div class="cell-desc">12s linear infinite</div></div><div class="deco-demo-cell"><img class="deco-demo-icon icon-anim-spin" src="./products/shared/images/wedding/icons/decorative-diamond.webp" alt="spin"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Bounce</div><div class="cell-class">.deco-icon-bounce</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Nảy nhẹ — translateY 0→-10px→2px. Phù hợp: character, couple-chibi.</div></div><div class="deco-demo-cell"><div class="cell-desc">2.5s ease-in-out infinite</div></div><div class="deco-demo-cell"><img class="deco-demo-icon icon-anim-bounce" src="./products/shared/images/wedding/icons/couple-chibi.webp" alt="bounce"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Fade</div><div class="cell-class">.deco-icon-fade</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Mờ hiện mờ ẩn — opacity 0.3→1→0.3. Phù hợp: decorative-flowers, deco-element.</div></div><div class="deco-demo-cell"><div class="cell-desc">4s ease-in-out infinite</div></div><div class="deco-demo-cell"><img class="deco-demo-icon icon-anim-fade" src="./products/shared/images/wedding/icons/deco-element.webp" alt="fade"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Drift</div><div class="cell-class">.deco-icon-drift</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Trôi ngang nhẹ — translateX 0→15px→-8px. Phù hợp: cherry-blossom, phuong.</div></div><div class="deco-demo-cell"><div class="cell-desc">6s ease-in-out infinite</div></div><div class="deco-demo-cell"><img class="deco-demo-icon icon-anim-drift" src="./products/shared/images/wedding/icons/cherry-blossom.webp" alt="drift"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Majestic</div><div class="cell-class">.deco-icon-majestic</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Bay lượn uy nghi — translate + rotate + scale phức tạp. Phù hợp: rong, phuong.</div></div><div class="deco-demo-cell"><div class="cell-desc">6s ease-in-out infinite</div></div><div class="deco-demo-cell"><img class="deco-demo-icon icon-anim-majestic" src="./products/shared/images/wedding/icons/rong.webp" alt="majestic"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Tilt</div><div class="cell-class">.deco-icon-tilt</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Nghiêng qua lại — rotate ±5°. Phù hợp: frame, bouquet, divider.</div></div><div class="deco-demo-cell"><div class="cell-desc">5s ease-in-out infinite</div></div><div class="deco-demo-cell"><img class="deco-demo-icon icon-anim-tilt" src="./products/shared/images/wedding/icons/frame-1.webp" alt="tilt"></div></div>
+
+        <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--accent-light);margin:1.5rem 0 1rem;">Entrance Animations</h3>
+        <p class="section-desc">Kết hợp với IntersectionObserver — thêm class <code>.is-visible</code> khi vào viewport</p>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Enter Fade</div><div class="cell-class">.deco-icon-enter-fade</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Hiện dần từ opacity 0 → 1. Transition 1s ease.</div></div><div class="deco-demo-cell"><div class="cell-desc">Dùng: mọi icon</div></div><div class="deco-demo-cell"><button class="replay-btn" data-target="ie1"><i data-lucide="refresh-cw"></i></button><img class="deco-demo-icon icon-enter-fade is-visible" id="ie1" src="./products/shared/images/wedding/icons/heart-icon.webp" alt="enter-fade"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Enter Scale</div><div class="cell-class">.deco-icon-enter-scale</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Scale 0.5 → 1 + fade. Spring bounce cubic-bezier.</div></div><div class="deco-demo-cell"><div class="cell-desc">Dùng: wax-seal, diamond</div></div><div class="deco-demo-cell"><button class="replay-btn" data-target="ie2"><i data-lucide="refresh-cw"></i></button><img class="deco-demo-icon icon-enter-scale is-visible" id="ie2" src="./products/shared/images/wedding/icons/wax-seal.webp" alt="enter-scale"></div></div>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Enter Slide Up</div><div class="cell-class">.deco-icon-enter-slide-up</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Translate Y 20px → 0 + fade. Spring bounce.</div></div><div class="deco-demo-cell"><div class="cell-desc">Dùng: bouquet, frame</div></div><div class="deco-demo-cell"><button class="replay-btn" data-target="ie3"><i data-lucide="refresh-cw"></i></button><img class="deco-demo-icon icon-enter-slide-up is-visible" id="ie3" src="./products/shared/images/wedding/icons/bouquet-2.webp" alt="enter-slide-up"></div></div>
+
+        <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--accent-light);margin:1.5rem 0 1rem;">Size Presets</h3>
+        <p class="section-desc">7 kích thước preset — dùng CSS variable <code>--icon-size</code></p>
+
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
+            <div class="size-demo">
+                <div class="size-demo-item"><img src="./products/shared/images/wedding/icons/heart-icon.webp" alt="xs" style="width:30px;height:30px;"><span>xs — 30px</span></div>
+                <div class="size-demo-item"><img src="./products/shared/images/wedding/icons/heart-icon.webp" alt="sm" style="width:45px;height:45px;"><span>sm — 45px</span></div>
+                <div class="size-demo-item"><img src="./products/shared/images/wedding/icons/heart-icon.webp" alt="md" style="width:60px;height:60px;"><span>md — 60px</span></div>
+                <div class="size-demo-item"><img src="./products/shared/images/wedding/icons/heart-icon.webp" alt="lg" style="width:90px;height:90px;"><span>lg — 90px</span></div>
+                <div class="size-demo-item"><img src="./products/shared/images/wedding/icons/heart-icon.webp" alt="xl" style="width:120px;height:120px;"><span>xl — 120px</span></div>
+                <div class="size-demo-item"><img src="./products/shared/images/wedding/icons/heart-icon.webp" alt="2xl" style="width:160px;height:160px;"><span>2xl — 160px</span></div>
+            </div>
+        </div>
+
+        <h3 style="font-family:var(--font-heading);font-size:1rem;color:var(--accent-light);margin:1.5rem 0 1rem;">Mirror</h3>
+
+        <div class="deco-demo-row"><div class="deco-demo-cell"><div><div class="cell-name">Mirror</div><div class="cell-class">.deco-icon-mirror</div></div></div><div class="deco-demo-cell"><div class="cell-desc">Lật ngang icon — <code>scaleX(-1)</code>. Dùng cho rong+phuong đối xứng, bouquet trái/phải.</div></div><div class="deco-demo-cell"><div class="cell-desc">Kết hợp được với animation</div></div><div class="deco-demo-cell"><div style="display:flex;gap:8px;align-items:center;"><img class="deco-demo-icon" src="./products/shared/images/wedding/icons/phuong.webp" alt="normal" style="width:40px;height:40px;"><img class="deco-demo-icon" src="./products/shared/images/wedding/icons/phuong.webp" alt="mirror" style="width:40px;height:40px;transform:scaleX(-1);"></div></div></div>
+
+        <!-- ==================== COLOR PALETTES ==================== -->
+        <h2 class="section-title" id="palettes">Color Palettes</h2>
+        <p class="section-desc">11 bảng màu cưới — class <code>.palette-{tên}</code> trên element cha. Tự động set CSS variables cho toàn bộ con.</p>
+
+        <div class="palette-grid">
+            <div class="palette-card">
+                <h3>Classic Gold</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#D4AF37;color:#fff"><span>#D4AF37</span></div>
+                    <div class="palette-swatch" style="background:#B8860B;color:#fff"><span>#B8860B</span></div>
+                    <div class="palette-swatch" style="background:#F5E6B8;color:#333"><span>#F5E6B8</span></div>
+                    <div class="palette-swatch" style="background:#FFFEF5;color:#333"><span>#FFFEF5</span></div>
+                    <div class="palette-swatch" style="background:#2C1810;color:#fff"><span>#2C1810</span></div>
+                </div>
+                <div class="palette-vars">--accent: #D4AF37 · --accent-dark: #B8860B · --accent-light: #F5E6B8</div>
+                <div class="palette-fonts">Playfair Display + Cormorant Garamond</div>
+            </div>
+            <div class="palette-card">
+                <h3>Blush Pink</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#C77DA3;color:#fff"><span>#C77DA3</span></div>
+                    <div class="palette-swatch" style="background:#A85C84;color:#fff"><span>#A85C84</span></div>
+                    <div class="palette-swatch" style="background:#F5D5E3;color:#333"><span>#F5D5E3</span></div>
+                    <div class="palette-swatch" style="background:#FFF5F7;color:#333"><span>#FFF5F7</span></div>
+                    <div class="palette-swatch" style="background:#4A2040;color:#fff"><span>#4A2040</span></div>
+                </div>
+                <div class="palette-vars">--accent: #C77DA3 · --accent-dark: #A85C84 · --accent-light: #F5D5E3</div>
+                <div class="palette-fonts">Great Vibes + Lora</div>
+            </div>
+            <div class="palette-card">
+                <h3>Sage Green</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#6B8F5B;color:#fff"><span>#6B8F5B</span></div>
+                    <div class="palette-swatch" style="background:#4A6B3A;color:#fff"><span>#4A6B3A</span></div>
+                    <div class="palette-swatch" style="background:#D4E4CC;color:#333"><span>#D4E4CC</span></div>
+                    <div class="palette-swatch" style="background:#F5F7F2;color:#333"><span>#F5F7F2</span></div>
+                    <div class="palette-swatch" style="background:#2D3B25;color:#fff"><span>#2D3B25</span></div>
+                </div>
+                <div class="palette-vars">--accent: #6B8F5B · --accent-dark: #4A6B3A · --accent-light: #D4E4CC</div>
+                <div class="palette-fonts">Cormorant SC + Raleway</div>
+            </div>
+            <div class="palette-card">
+                <h3>Navy & Gold</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#D4AF37;color:#fff"><span>#D4AF37</span></div>
+                    <div class="palette-swatch" style="background:#B8860B;color:#fff"><span>#B8860B</span></div>
+                    <div class="palette-swatch" style="background:#1B2A4A;color:#fff"><span>#1B2A4A</span></div>
+                    <div class="palette-swatch" style="background:#F8F9FA;color:#333"><span>#F8F9FA</span></div>
+                    <div class="palette-swatch" style="background:#4A5568;color:#fff"><span>#4A5568</span></div>
+                </div>
+                <div class="palette-vars">--accent: #D4AF37 · --bg-secondary: #1B2A4A · --text-primary: #1B2A4A</div>
+                <div class="palette-fonts">Cinzel + EB Garamond</div>
+            </div>
+            <div class="palette-card">
+                <h3>Burgundy</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#A4343A;color:#fff"><span>#A4343A</span></div>
+                    <div class="palette-swatch" style="background:#722F37;color:#fff"><span>#722F37</span></div>
+                    <div class="palette-swatch" style="background:#E8B8BA;color:#333"><span>#E8B8BA</span></div>
+                    <div class="palette-swatch" style="background:#FFF9F5;color:#333"><span>#FFF9F5</span></div>
+                    <div class="palette-swatch" style="background:#2C1015;color:#fff"><span>#2C1015</span></div>
+                </div>
+                <div class="palette-vars">--accent: #A4343A · --accent-dark: #722F37 · --accent-light: #E8B8BA</div>
+                <div class="palette-fonts">Playfair Display + Cormorant Garamond</div>
+            </div>
+            <div class="palette-card">
+                <h3>Dusty Rose</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#B07575;color:#fff"><span>#B07575</span></div>
+                    <div class="palette-swatch" style="background:#8B5555;color:#fff"><span>#8B5555</span></div>
+                    <div class="palette-swatch" style="background:#E8C4C4;color:#333"><span>#E8C4C4</span></div>
+                    <div class="palette-swatch" style="background:#FDF6F6;color:#333"><span>#FDF6F6</span></div>
+                    <div class="palette-swatch" style="background:#5C3D3D;color:#fff"><span>#5C3D3D</span></div>
+                </div>
+                <div class="palette-vars">--accent: #B07575 · --accent-dark: #8B5555 · --accent-light: #E8C4C4</div>
+                <div class="palette-fonts">Dancing Script + Nunito</div>
+            </div>
+            <div class="palette-card">
+                <h3>Lavender</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#7B68AE;color:#fff"><span>#7B68AE</span></div>
+                    <div class="palette-swatch" style="background:#5B4A8C;color:#fff"><span>#5B4A8C</span></div>
+                    <div class="palette-swatch" style="background:#D4CCE8;color:#333"><span>#D4CCE8</span></div>
+                    <div class="palette-swatch" style="background:#F8F5FF;color:#333"><span>#F8F5FF</span></div>
+                    <div class="palette-swatch" style="background:#3D2D5C;color:#fff"><span>#3D2D5C</span></div>
+                </div>
+                <div class="palette-vars">--accent: #7B68AE · --accent-dark: #5B4A8C · --accent-light: #D4CCE8</div>
+                <div class="palette-fonts">Italiana + Montserrat</div>
+            </div>
+            <div class="palette-card">
+                <h3>Dark Luxury</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#D4AF37;color:#fff"><span>#D4AF37</span></div>
+                    <div class="palette-swatch" style="background:#B8860B;color:#fff"><span>#B8860B</span></div>
+                    <div class="palette-swatch" style="background:#0D0D0D;color:#fff"><span>#0D0D0D</span></div>
+                    <div class="palette-swatch" style="background:#1A1A2E;color:#fff"><span>#1A1A2E</span></div>
+                    <div class="palette-swatch" style="background:#F5F0E8;color:#333"><span>#F5F0E8</span></div>
+                </div>
+                <div class="palette-vars">--accent: #D4AF37 · --bg-primary: #0D0D0D · --bg-secondary: #1A1A2E</div>
+                <div class="palette-fonts">Cormorant SC + Raleway</div>
+            </div>
+            <div class="palette-card">
+                <h3>Terracotta</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#A0522D;color:#fff"><span>#A0522D</span></div>
+                    <div class="palette-swatch" style="background:#8B4513;color:#fff"><span>#8B4513</span></div>
+                    <div class="palette-swatch" style="background:#E8CDB8;color:#333"><span>#E8CDB8</span></div>
+                    <div class="palette-swatch" style="background:#FFF8F0;color:#333"><span>#FFF8F0</span></div>
+                    <div class="palette-swatch" style="background:#3D2B1F;color:#fff"><span>#3D2B1F</span></div>
+                </div>
+                <div class="palette-vars">--accent: #A0522D · --accent-dark: #8B4513 · --accent-light: #E8CDB8</div>
+                <div class="palette-fonts">Amatic SC + Josefin Sans</div>
+            </div>
+            <div class="palette-card">
+                <h3>Tropical</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#2D8B6F;color:#fff"><span>#2D8B6F</span></div>
+                    <div class="palette-swatch" style="background:#1A6B50;color:#fff"><span>#1A6B50</span></div>
+                    <div class="palette-swatch" style="background:#C4E8D8;color:#333"><span>#C4E8D8</span></div>
+                    <div class="palette-swatch" style="background:#FFFEF8;color:#333"><span>#FFFEF8</span></div>
+                    <div class="palette-swatch" style="background:#1A3C34;color:#fff"><span>#1A3C34</span></div>
+                </div>
+                <div class="palette-vars">--accent: #2D8B6F · --accent-dark: #1A6B50 · --accent-light: #C4E8D8</div>
+                <div class="palette-fonts">Dancing Script + Nunito</div>
+            </div>
+            <div class="palette-card">
+                <h3>Traditional Red</h3>
+                <div class="palette-swatches">
+                    <div class="palette-swatch" style="background:#C41E3A;color:#fff"><span>#C41E3A</span></div>
+                    <div class="palette-swatch" style="background:#8B0000;color:#fff"><span>#8B0000</span></div>
+                    <div class="palette-swatch" style="background:#FFD700;color:#333"><span>#FFD700</span></div>
+                    <div class="palette-swatch" style="background:#FFF8F0;color:#333"><span>#FFF8F0</span></div>
+                    <div class="palette-swatch" style="background:#2C1810;color:#fff"><span>#2C1810</span></div>
+                </div>
+                <div class="palette-vars">--accent: #C41E3A · --accent-dark: #8B0000 · --accent-light: #FFD700</div>
+                <div class="palette-fonts">Playfair Display + Be Vietnam Pro</div>
+            </div>
+        </div>
+
+        <!-- ==================== CSS COMPONENTS ==================== -->
+        <h2 class="section-title" id="components">CSS Components</h2>
+        <p class="section-desc">22 component categories trong <code>styles.css</code> — sẵn HTML + CSS + JS. Copy class vào thiệp là dùng được.</p>
+
+        <div class="comp-group">
+            <h3 class="comp-group-title">Core — Phong bì & Đếm ngược</h3>
+            <div class="comp-list">
+                <div class="comp-item"><h4>Envelope</h4><div class="comp-class">.envelope-overlay / .envelope-card</div><p>Phong bì mở thiệp. Click → reveal nội dung + bật nhạc.</p><div class="comp-variants">Variants: full-screen overlay, card, truyền thống</div></div>
+                <div class="comp-item"><h4>Countdown</h4><div class="comp-class">.countdown-section</div><p>Đếm ngược ngày cưới realtime. Auto-update mỗi giây.</p><div class="comp-variants">Variants: boxes, cards, circles</div></div>
+                <div class="comp-item"><h4>Timeline</h4><div class="comp-class">.timeline-section</div><p>Love story timeline với ảnh + text. Scroll reveal stagger.</p><div class="comp-variants">Variants: center, left-aligned, horizontal</div></div>
+                <div class="comp-item"><h4>Music Toggle</h4><div class="comp-class">.music-toggle</div><p>Nút bật/tắt nhạc nền. Fixed bottom-right, volume 30%, loop.</p><div class="comp-variants">Variants: button, spinning disc</div></div>
+            </div>
+        </div>
+
+        <div class="comp-group">
+            <h3 class="comp-group-title">Content — Sự kiện & Album</h3>
+            <div class="comp-list">
+                <div class="comp-item"><h4>Event Cards</h4><div class="comp-class">.event-section</div><p>Thông tin lễ cưới: thời gian, địa điểm, dress code.</p><div class="comp-variants">Variants: single card, double (lễ + tiệc)</div></div>
+                <div class="comp-item"><h4>Gallery + Lightbox</h4><div class="comp-class">.gallery-section</div><p>Album ảnh grid responsive. Click zoom, prev/next, keyboard, swipe.</p><div class="comp-variants">Grid: 3→2→1 cột responsive</div></div>
+                <div class="comp-item"><h4>Family</h4><div class="comp-class">.family-section</div><p>Thông tin gia đình hai bên: tên, ảnh, vai trò.</p><div class="comp-variants">Layout: 2 cột (nhà trai / nhà gái)</div></div>
+                <div class="comp-item"><h4>Google Maps</h4><div class="comp-class">.map-section</div><p>Nhúng bản đồ + nút "Mở Maps" + "Chỉ đường".</p><div class="comp-variants">Hỗ trợ: 1 hoặc 2 địa điểm</div></div>
+                <div class="comp-item"><h4>Video YouTube</h4><div class="comp-class">.video-section</div><p>Lazy load video — hiện thumbnail, click mới load iframe.</p><div class="comp-variants">Tiết kiệm bandwidth</div></div>
+                <div class="comp-item"><h4>Calendar Month</h4><div class="comp-class">.calendar-month</div><p>Tờ lịch tháng đánh dấu ngày cưới.</p><div class="comp-variants">Variants: classic, elegant, minimal</div></div>
+            </div>
+        </div>
+
+        <div class="comp-group">
+            <h3 class="comp-group-title">Interactive — Form & Tương tác</h3>
+            <div class="comp-list">
+                <div class="comp-item"><h4>RSVP Form</h4><div class="comp-class">.rsvp-section</div><p>Form xác nhận tham dự: tên, SĐT, số khách, lời nhắn → Google Sheets.</p><div class="comp-variants">Validation + success animation</div></div>
+                <div class="comp-item"><h4>Guestbook</h4><div class="comp-class">.guestbook-section</div><p>Sổ lưu bút — khách gửi lời chúc, hiển thị dạng cards.</p><div class="comp-variants">API: wishes-api.js</div></div>
+                <div class="comp-item"><h4>Gift Box</h4><div class="comp-class">.gift-section</div><p>Mã QR ngân hàng + copy STK 1 chạm.</p><div class="comp-variants">Hỗ trợ: 2 tài khoản (cô dâu + chú rể)</div></div>
+                <div class="comp-item"><h4>Floating Wishes</h4><div class="comp-class">.wishes-floating</div><p>Bong bóng lời chúc bay lên. 5 màu random, nền hồng nhạt.</p><div class="comp-variants">Toggle: bật/tắt hiển thị</div></div>
+                <div class="comp-item"><h4>Calendar Export</h4><div class="comp-class">.calendar-btn</div><p>Download file .ics — thêm lịch cưới vào Calendar app.</p><div class="comp-variants">Google Calendar, Apple Calendar</div></div>
+                <div class="comp-item"><h4>Guest Personalization</h4><div class="comp-class">?id=X query</div><p>Cá nhân hoá theo khách mời. Đọc ?id từ URL → hiện tên riêng.</p><div class="comp-variants">Cần: guests.js data file</div></div>
+            </div>
+        </div>
+
+        <div class="comp-group">
+            <h3 class="comp-group-title">Decoration & Effects</h3>
+            <div class="comp-list">
+                <div class="comp-item"><h4>Falling Effects</h4><div class="comp-class">.falling-petals</div><p>Hoa rơi, confetti, sparkles, hearts, leaves, snow từ trên màn hình.</p><div class="comp-variants">6 loại: petals, confetti, sparkles, hearts, leaves, snow</div></div>
+                <div class="comp-item"><h4>Decorative Animations</h4><div class="comp-class">.deco-*</div><p>Vật thể trang trí (emoji) đặt vào vùng trống. CSS-only.</p><div class="comp-variants">14 loại: heart, rose, petals, gift, arrow, rings, ...</div></div>
+                <div class="comp-item"><h4>Icon Decorations</h4><div class="comp-class">.deco-icon</div><p>Trang trí bằng ảnh icon WebP/SVG. 10 animations, 7 sizes, mirror.</p><div class="comp-variants">float, sway, shine, pulse, spin, bounce, fade, drift, majestic, tilt</div></div>
+                <div class="comp-item"><h4>Letter Envelope</h4><div class="comp-class">.letter-envelope</div><p>Phong bì mở thư với animation — nội dung bên trong.</p><div class="comp-variants">4 styles: classic, luxury, dreamy, youthful</div></div>
+                <div class="comp-item"><h4>Color Palettes</h4><div class="comp-class">.palette-*</div><p>11 bảng màu cưới — auto set CSS variables toàn bộ con.</p><div class="comp-variants">classic-gold, blush-pink, sage-green, navy-gold, ...</div></div>
+                <div class="comp-item"><h4>Font Combos</h4><div class="comp-class">.font-*</div><p>8 cặp font heading + body đã chọn sẵn.</p><div class="comp-variants">Mỗi combo có Google Fonts link</div></div>
+            </div>
+        </div>
+
+        <!-- ==================== LAYOUT PATTERNS ==================== -->
+        <h2 class="section-title" id="layouts">Layout Patterns</h2>
+        <p class="section-desc">5 layout gợi ý — thứ tự sections từ trên xuống. Chọn pattern → copy sections tương ứng.</p>
+
+        <div class="layout-grid">
+            <div class="layout-card">
+                <div>
+                    <div class="layout-label">Pattern A</div>
+                    <div class="layout-name">Classic Elegant</div>
+                    <div class="layout-desc">Phổ biến nhất — đầy đủ, cân đối, phù hợp mọi theme.</div>
+                </div>
+                <div class="layout-flow">
+                    <span class="layout-flow-item">Envelope</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Hero</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Countdown</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Family</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Love Story</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Event Cards</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Gallery</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">RSVP</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Guestbook</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Gift Box</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Map</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Footer</span>
+                </div>
+            </div>
+
+            <div class="layout-card">
+                <div>
+                    <div class="layout-label">Pattern B</div>
+                    <div class="layout-name">Romantic Story-driven</div>
+                    <div class="layout-desc">Nhấn mạnh Love Story — kể chuyện tình yêu chi tiết, cảm xúc.</div>
+                </div>
+                <div class="layout-flow">
+                    <span class="layout-flow-item">Envelope</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Hero</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Love Story (dài)</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Countdown</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Event Cards</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Gallery</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Blessing Quote</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">RSVP</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Guestbook</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Footer</span>
+                </div>
+            </div>
+
+            <div class="layout-card">
+                <div>
+                    <div class="layout-label">Pattern C</div>
+                    <div class="layout-name">Compact</div>
+                    <div class="layout-desc">Thiệp đơn giản — ít section, tải nhanh, phù hợp thiệp đơn.</div>
+                </div>
+                <div class="layout-flow">
+                    <span class="layout-flow-item">Envelope</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Hero</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Countdown</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Event Card</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Gallery</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">RSVP</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Guestbook</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Footer</span>
+                </div>
+            </div>
+
+            <div class="layout-card">
+                <div>
+                    <div class="layout-label">Pattern D</div>
+                    <div class="layout-name">Luxury Full-feature</div>
+                    <div class="layout-desc">Đầy đủ nhất — mọi tính năng, phù hợp thiệp cao cấp.</div>
+                </div>
+                <div class="layout-flow">
+                    <span class="layout-flow-item">Envelope</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Hero</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Family</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Countdown</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Love Story</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Event Cards</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Map</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Gallery</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Blessing Quote</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Guestbook</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">RSVP</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Gift Box</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Calendar</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Footer</span>
+                </div>
+            </div>
+
+            <div class="layout-card">
+                <div>
+                    <div class="layout-label">Pattern E</div>
+                    <div class="layout-name">Traditional Vietnamese</div>
+                    <div class="layout-desc">Phong cách truyền thống VN — rồng phượng, đỏ vàng, gia đình trước.</div>
+                </div>
+                <div class="layout-flow">
+                    <span class="layout-flow-item">Envelope (đỏ/vàng)</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Hero (rồng/phượng)</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Family (hai bên)</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Event Cards</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Countdown</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Gallery</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Guestbook</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Gift Box</span><span class="layout-flow-arrow">→</span>
+                    <span class="layout-flow-item">Footer</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- ===== SCRIPTS ===== -->
@@ -478,20 +1076,20 @@
 
         // Auto-trigger all scroll demos on load
         setTimeout(function () {
-            document.querySelectorAll('[class*="demo-fade-"], [class*="demo-scale-"], [class*="demo-rotate-"], [class*="demo-flip-"], [class*="demo-blur-"], [class*="demo-curtain"], [class*="demo-spiral"], [class*="demo-zoom-"], [class*="demo-group-"]').forEach(function (el) {
+            document.querySelectorAll('[class*="demo-fade-"], [class*="demo-scale-"], [class*="demo-rotate-"], [class*="demo-flip-"], [class*="demo-blur-"], [class*="demo-curtain"], [class*="demo-spiral"], [class*="demo-zoom-"], [class*="demo-group-"], [class*="demo-fly"], [class*="demo-freefall"], [class*="demo-reveal"], [class*="demo-unfold"], [class*="icon-enter-"]').forEach(function (el) {
                 el.classList.add('is-visible');
             });
         }, 500);
 
         // Replay buttons
         document.querySelectorAll('.replay-btn').forEach(function (btn) {
-            btn.addEventListener('click', function () {
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
                 var targetId = btn.dataset.target || btn.dataset.group;
                 var el = document.getElementById(targetId);
                 if (!el) return;
 
                 el.classList.remove('is-visible');
-                // Force reflow
                 void el.offsetWidth;
                 setTimeout(function () { el.classList.add('is-visible'); }, 50);
             });
@@ -516,7 +1114,7 @@
         setInterval(updateDemoCountdown, 1000);
 
         // Active nav on scroll
-        var sections = ['scroll', 'hover', 'keyframe', 'transition', 'group', 'wedding', 'deco'];
+        var sections = ['scroll', 'hover', 'keyframe', 'transition', 'group', 'wedding', 'deco', 'icons', 'icon-effects', 'palettes', 'components', 'layouts'];
         var navLinks = document.querySelectorAll('.header-nav a');
         window.addEventListener('scroll', function () {
             var current = '';

@@ -1081,3 +1081,86 @@ Không cần JS — chỉ thêm class `.deco` + variant vào `<span>` trong pare
 | Góc section thankyou | `deco-angel-wing deco-subtle` |
 
 #### CSS: copy từ `styles.css` mục 21 (CSS-only, không cần JS)
+
+---
+
+### 13b. Icon Decorations — Trang trí bằng ảnh icon
+
+Dùng ảnh icon từ `shared/images/wedding/icons/` — chất lượng cao hơn emoji, phong cách nhất quán.
+
+#### Cách dùng:
+
+```html
+<!-- Cơ bản: icon + hiệu ứng -->
+<img class="deco-icon deco-icon-float" src="../../../shared/images/wedding/icons/bouquet-1.webp" alt="">
+
+<!-- Với size + opacity -->
+<img class="deco-icon deco-icon-shine deco-icon-lg deco-icon-soft" src="../../../shared/images/wedding/icons/wax-seal.webp" alt="">
+
+<!-- Cặp đối xứng (rồng + phượng) -->
+<img class="deco-icon deco-icon-majestic deco-icon-2xl" src="../../../shared/images/wedding/icons/rong.webp" alt="" style="left:0;top:10%;">
+<img class="deco-icon deco-icon-majestic deco-icon-mirror deco-icon-2xl" src="../../../shared/images/wedding/icons/phuong.webp" alt="" style="right:0;top:10%;">
+
+<!-- Góc trang trí -->
+<img class="deco-icon deco-icon-sway deco-icon-lg deco-icon-top-left" src="../../../shared/images/wedding/icons/cherry-blossom.webp" alt="">
+<img class="deco-icon deco-icon-sway deco-icon-mirror deco-icon-lg deco-icon-top-right" src="../../../shared/images/wedding/icons/cherry-blossom.webp" alt="">
+```
+
+#### Danh sách hiệu ứng:
+
+| Class | Mô tả | Phù hợp icon |
+|-------|--------|--------------|
+| `deco-icon-float` | Lơ lửng nhẹ nhàng | bouquet, cherry-blossom, decorative-flowers |
+| `deco-icon-sway` | Lắc lư như cành hoa | bouquet, cherry-blossom, decorative-flowers |
+| `deco-icon-shine` | Toả sáng lấp lánh | wax-seal, happiness, double-happiness, decorative-diamond |
+| `deco-icon-pulse` | Phóng to nhỏ nhịp nhàng | heart-icon, wax-seal, character |
+| `deco-icon-spin` | Xoay chậm | decorative-diamond, happiness |
+| `deco-icon-bounce` | Nảy nhẹ | character-elegant, character-romantic, couple-chibi |
+| `deco-icon-fade` | Mờ hiện mờ ẩn | decorative-flowers, deco-element, deco-footer |
+| `deco-icon-drift` | Trôi ngang nhẹ | cherry-blossom, decorative-flowers, phuong |
+| `deco-icon-majestic` | Bay lượn uy nghi | rong, phuong |
+| `deco-icon-tilt` | Nghiêng qua lại | frame, bouquet, divider |
+
+#### Entrance animations (kết hợp IntersectionObserver):
+
+| Class | Mô tả |
+|-------|--------|
+| `deco-icon-enter-fade` | Fade in khi scroll vào view |
+| `deco-icon-enter-scale` | Scale từ nhỏ → lớn |
+| `deco-icon-enter-slide-up` | Trượt lên từ dưới |
+
+#### Modifiers:
+
+| Class | Tác dụng |
+|-------|---------|
+| `deco-icon-front` | z-index: 3 — đè lên nội dung |
+| `deco-icon-back` | z-index: -1 — bị nội dung đè |
+| `deco-icon-mirror` | Lật ngang (cho cặp đối xứng) |
+| `deco-icon-xs` ~ `deco-icon-3xl` | 30px → 200px |
+| `deco-icon-faint` ~ `deco-icon-full` | Opacity 0.15 → 1 |
+| `deco-icon-top-left` / `top-right` / `bottom-left` / `bottom-right` | Vị trí góc nhanh |
+| `deco-icon-center-left` / `center-right` | Vị trí giữa cạnh |
+
+#### Gợi ý icon theo phong cách thiệp:
+
+| Phong cách | Icons + hiệu ứng |
+|------------|-------------------|
+| **Elegant / Classic** | `wax-seal` + shine, `bouquet` + float, `frame` + tilt, `divider.svg` |
+| **Romantic / Modern** | `character-romantic` + bounce, `heart-icon` + pulse, `decorative-flowers` + sway |
+| **Truyền thống Việt** | `rong` + majestic, `phuong` + majestic + mirror, `chinese-happiness` + shine |
+| **Cute / Chibi** | `couple-chibi` + bounce, `cherry-blossom` + sway, `double-happiness` + shine |
+| **Black & Gold** | `wax-seal` + shine, `deco-divider` + tilt, `character-elegant` + bounce |
+| **Coral / Minimalist** | `heart-icon` + pulse, `decorative-flowers` + fade |
+
+#### Vị trí gợi ý trong thiệp:
+
+| Vị trí | Icon + hiệu ứng gợi ý |
+|--------|----------------------|
+| Phong bì (envelope) | `wax-seal` + shine, `bouquet` + float, `double-happiness` + shine |
+| Hero section | `rong` + `phuong` đối xứng, `cherry-blossom` góc, `couple-chibi` + bounce |
+| Section divider | `divider.svg`, `deco-divider` + tilt |
+| Gift section | `character-elegant` / `character-romantic` + bounce, `happiness` + shine |
+| Góc section | `cherry-blossom` + sway + mirror, `decorative-flowers` + fade, `bouquet` + float |
+| Footer | `deco-footer` + fade, `decorative-diamond` + spin |
+
+#### CSS: copy từ `styles.css` mục 22 (Icon Decorations)

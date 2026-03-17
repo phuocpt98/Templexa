@@ -33,6 +33,7 @@
  *  19. CALENDAR MONTH — Tờ lịch tháng đánh dấu ngày cưới
  *  20. LETTER ENVELOPE — Phong bì mở thư (4 styles)
  *  21. DECORATIVE ANIMATIONS — Hiệu ứng trang trí vùng trống (hearts, roses, gifts...)
+ *  22. ICON DECORATIONS — Trang trí bằng ảnh icon WebP/SVG (shared/images/wedding/icons/)
  * ============================================
  */
 
@@ -2883,3 +2884,223 @@
 .deco-subtle { opacity: 0.35; }
 .deco-soft { opacity: 0.5; }
 .deco-visible { opacity: 0.7; }
+
+
+/* ============================================
+   22. ICON DECORATIONS — Trang trí bằng ảnh icon (WebP/SVG)
+   Dùng ảnh icon từ shared/images/wedding/icons/
+   thay vì emoji — chất lượng cao, phong cách nhất quán.
+
+   Cách dùng:
+     <img class="deco-icon deco-icon-float" src="../../../shared/images/wedding/icons/bouquet-1.webp" alt="">
+     <img class="deco-icon deco-icon-shine deco-icon-lg" src="../../../shared/images/wedding/icons/wax-seal.webp" alt="">
+   ============================================ */
+
+/* ── Base icon ── */
+.deco-icon {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    object-fit: contain;
+    width: var(--icon-size, 60px);
+    height: auto;
+}
+.deco-icon-front { z-index: 3; }
+.deco-icon-back { z-index: -1; }
+
+/* ── Size presets ── */
+.deco-icon-xs { --icon-size: 30px; }
+.deco-icon-sm { --icon-size: 45px; }
+.deco-icon-md { --icon-size: 60px; }
+.deco-icon-lg { --icon-size: 90px; }
+.deco-icon-xl { --icon-size: 120px; }
+.deco-icon-2xl { --icon-size: 160px; }
+.deco-icon-3xl { --icon-size: 200px; }
+
+/* ─────────────────────────────────
+   FLOAT — Lơ lửng nhẹ nhàng
+   Phù hợp: bouquet, cherry-blossom, decorative-flowers
+   ───────────────────────────────── */
+.deco-icon-float {
+    animation: icon-float 5s ease-in-out infinite;
+}
+@keyframes icon-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(2deg); }
+    75% { transform: translateY(6px) rotate(-2deg); }
+}
+
+/* ─────────────────────────────────
+   SWAY — Lắc lư như cành hoa
+   Phù hợp: bouquet, cherry-blossom, decorative-flowers
+   ───────────────────────────────── */
+.deco-icon-sway {
+    transform-origin: bottom center;
+    animation: icon-sway 4s ease-in-out infinite;
+}
+@keyframes icon-sway {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+}
+
+/* ─────────────────────────────────
+   SHINE — Toả sáng lấp lánh
+   Phù hợp: wax-seal, double-happiness, happiness, decorative-diamond
+   ───────────────────────────────── */
+.deco-icon-shine {
+    animation: icon-shine 3s ease-in-out infinite;
+}
+@keyframes icon-shine {
+    0%, 100% { filter: brightness(1) drop-shadow(0 2px 8px rgba(212,175,55,0.2)); }
+    50% { filter: brightness(1.3) drop-shadow(0 2px 16px rgba(212,175,55,0.5)); }
+}
+
+/* ─────────────────────────────────
+   PULSE — Phóng to nhỏ nhịp nhàng
+   Phù hợp: heart-icon, wax-seal, character
+   ───────────────────────────────── */
+.deco-icon-pulse {
+    animation: icon-pulse 2s ease-in-out infinite;
+}
+@keyframes icon-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+/* ─────────────────────────────────
+   SPIN-SLOW — Xoay chậm
+   Phù hợp: decorative-diamond, happiness
+   ───────────────────────────────── */
+.deco-icon-spin {
+    animation: icon-spin 12s linear infinite;
+}
+@keyframes icon-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ─────────────────────────────────
+   BOUNCE — Nảy nhẹ
+   Phù hợp: character-elegant, character-romantic, couple-chibi
+   ───────────────────────────────── */
+.deco-icon-bounce {
+    animation: icon-bounce 2.5s ease-in-out infinite;
+}
+@keyframes icon-bounce {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-8px); }
+    75% { transform: translateY(3px); }
+}
+
+/* ─────────────────────────────────
+   FADE-IN-OUT — Mờ hiện mờ ẩn
+   Phù hợp: decorative-flowers, deco-element, deco-footer
+   ───────────────────────────────── */
+.deco-icon-fade {
+    animation: icon-fade 4s ease-in-out infinite;
+}
+@keyframes icon-fade {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+/* ─────────────────────────────────
+   DRIFT — Trôi ngang nhẹ
+   Phù hợp: cherry-blossom, decorative-flowers, phuong
+   ───────────────────────────────── */
+.deco-icon-drift {
+    animation: icon-drift 6s ease-in-out infinite;
+}
+@keyframes icon-drift {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(8px, -6px) rotate(3deg); }
+    66% { transform: translate(-5px, 4px) rotate(-2deg); }
+}
+
+/* ─────────────────────────────────
+   MAJESTIC — Bay lượn uy nghi
+   Phù hợp: rong (rồng), phuong (phượng)
+   ───────────────────────────────── */
+.deco-icon-majestic {
+    animation: icon-majestic 6s ease-in-out infinite;
+}
+@keyframes icon-majestic {
+    0%, 100% { transform: translate(0, 0) scaleX(1); }
+    25% { transform: translate(12px, -8px) scaleX(1); }
+    50% { transform: translate(20px, 0) scaleX(1); }
+    75% { transform: translate(12px, 8px) scaleX(1); }
+}
+
+/* ─────────────────────────────────
+   TILT — Nghiêng qua lại
+   Phù hợp: frame, bouquet, divider
+   ───────────────────────────────── */
+.deco-icon-tilt {
+    animation: icon-tilt 5s ease-in-out infinite;
+}
+@keyframes icon-tilt {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+
+/* ─────────────────────────────────
+   ENTRANCE ANIMATIONS — Hiệu ứng xuất hiện
+   Dùng kết hợp với IntersectionObserver
+   ───────────────────────────────── */
+.deco-icon-enter-fade {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+.deco-icon-enter-fade.is-visible { opacity: 1; }
+
+.deco-icon-enter-scale {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.deco-icon-enter-scale.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.deco-icon-enter-slide-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.deco-icon-enter-slide-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─────────────────────────────────
+   MIRROR — Lật ngang (dùng cho cặp icon đối xứng)
+   Phù hợp: rong+phuong, bouquet trái/phải, cherry-blossom góc
+   ───────────────────────────────── */
+.deco-icon-mirror { transform: scaleX(-1); }
+.deco-icon-mirror.deco-icon-float { animation: icon-float-mirror 5s ease-in-out infinite; }
+@keyframes icon-float-mirror {
+    0%, 100% { transform: scaleX(-1) translateY(0) rotate(0deg); }
+    25% { transform: scaleX(-1) translateY(-10px) rotate(-2deg); }
+    75% { transform: scaleX(-1) translateY(6px) rotate(2deg); }
+}
+
+/* ─────────────────────────────────
+   CORNER PRESETS — Vị trí góc nhanh
+   ───────────────────────────────── */
+.deco-icon-top-left { top: 0; left: 0; }
+.deco-icon-top-right { top: 0; right: 0; }
+.deco-icon-bottom-left { bottom: 0; left: 0; }
+.deco-icon-bottom-right { bottom: 0; right: 0; }
+.deco-icon-center-left { top: 50%; left: 0; transform: translateY(-50%); }
+.deco-icon-center-right { top: 50%; right: 0; transform: translateY(-50%); }
+
+/* ─────────────────────────────────
+   OPACITY cho icon
+   ───────────────────────────────── */
+.deco-icon-faint { opacity: 0.15; }
+.deco-icon-subtle { opacity: 0.3; }
+.deco-icon-soft { opacity: 0.5; }
+.deco-icon-visible { opacity: 0.7; }
+.deco-icon-full { opacity: 1; }

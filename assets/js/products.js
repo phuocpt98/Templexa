@@ -230,6 +230,9 @@
         if (currentType !== 'all') params.set('type', currentType);
         if (currentSearch) params.set('search', currentSearch);
         if (currentPage > 1) params.set('page', currentPage);
+        // Preserve pid if popup is open
+        var existingPid = new URLSearchParams(window.location.search).get('pid');
+        if (existingPid) params.set('pid', existingPid);
         const qs = params.toString();
         history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
     }
@@ -287,6 +290,7 @@
         popupOverlay.classList.remove('active');
         document.body.style.overflow = '';
         popupCurrentProduct = null;
+        setPopupURL(null);
     }
 
     function openModal(modal) {
@@ -395,10 +399,23 @@
         if (btnNext) btnNext.addEventListener('click', function () { popupGoToImage(popupCurrentIndex + 1); });
     }
 
+    // ── Update URL with product ID ──────────────
+    function setPopupURL(productId) {
+        var params = new URLSearchParams(window.location.search);
+        if (productId) {
+            params.set('pid', productId);
+        } else {
+            params.delete('pid');
+        }
+        var qs = params.toString();
+        history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
+    }
+
     // ── Render popup content ────────────────────
     function renderPopup(product) {
         popupCurrentProduct = product;
         popupCurrentIndex = 0;
+        setPopupURL(product.id);
 
         var categoryLabel = CATEGORIES.find(function (c) { return c.id === product.category; });
         categoryLabel = categoryLabel ? categoryLabel.label : product.category;
@@ -422,7 +439,7 @@
             : '';
 
         var demoBtn = product.demoUrl
-            ? '<a href="preview.html?url=' + encodeURIComponent(product.demoUrl) + '&name=' + encodeURIComponent(product.name) + '&id=' + product.id + '&category=' + encodeURIComponent(product.category) + '&type=' + encodeURIComponent(product.type) + '" target="_blank" class="btn-outline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>Xem demo</a>'
+            ? '<a href="preview.html?d=' + encodeURIComponent(btoa(encodeURIComponent(product.demoUrl))) + '&name=' + encodeURIComponent(product.name) + '&id=' + product.id + '&category=' + encodeURIComponent(product.category) + '&type=' + encodeURIComponent(product.type) + '" target="_blank" class="btn-outline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>Xem demo</a>'
             : '';
 
         var customBtn = product.category === 'invitation'
@@ -560,5 +577,29 @@
     // Invitation theme if initial category
     if (currentCategory === 'invitation') {
         document.body.classList.add('invitation-theme');
+    }
+
+    // ── Auto-open popup if ?pid= exists ─────────
+    var pidParam = urlParams.get('pid');
+    if (pidParam) {
+        showPopupLoading();
+        openPopup();
+        ProductDetail.getFullProduct(pidParam).then(function (product) {
+            if (!product) {
+                popupBody.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-tertiary)">Không tìm thấy sản phẩm</div>';
+                return;
+            }
+            renderPopup(product);
+        }).catch(function () {
+            var summary = getProductById(pidParam);
+            if (summary) {
+                renderPopup(Object.assign({}, summary, {
+                    images: [summary.thumbnail],
+                    features: [],
+                }));
+            } else {
+                popupBody.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-tertiary)">Không thể tải sản phẩm</div>';
+            }
+        });
     }
 })();
