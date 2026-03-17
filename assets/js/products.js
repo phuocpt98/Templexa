@@ -14,6 +14,9 @@
 
     if (!grid) return;
 
+    // ── Detail data cache for mobileView ─────
+    let detailDataCache = {};
+
     // ── Popup elements ─────────────────────────
     const popupOverlay = document.getElementById('productPopup');
     const popupBody = document.getElementById('popupBody');
@@ -150,6 +153,9 @@
         grid.style.display = '';
         emptyState.style.display = 'none';
 
+        const isInvitation = document.body.classList.contains('invitation-theme');
+        const invDetail = detailDataCache['invitation'];
+
         grid.innerHTML = products.map(p => {
             const categoryLabel = CATEGORIES.find(c => c.id === p.category)?.label || p.category;
             let badgeHTML = '';
@@ -157,10 +163,12 @@
             else if (p.status === 'hot') badgeHTML = '<span class="product-badge hot">HOT</span>';
             if (p.price === 'free') badgeHTML += '<span class="product-badge free" style="top:auto;bottom:12px;right:12px;">FREE</span>';
 
+            const imgSrc = (isInvitation && invDetail && invDetail[p.id] && invDetail[p.id].mobileView) || p.thumbnail;
+
             return `
                 <a href="product-detail.html?id=${p.id}" class="product-card" data-product-id="${p.id}"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
                     <div class="product-card-image">
-                        <img src="${p.thumbnail}" alt="${p.name}" loading="lazy">
+                        <img src="${imgSrc}" alt="${p.name}" loading="lazy">
                         ${badgeHTML}
                     </div>
                     <div class="product-card-info">
@@ -543,6 +551,18 @@
             document.body.classList.remove('invitation-theme');
         }
 
+        // Fetch invitation detail data (mobileView) nếu chưa có
+        if (currentType === 'invitation' && !detailDataCache['invitation']) {
+            ProductDetail.fetchCategoryData('invitation').then(function (data) {
+                detailDataCache['invitation'] = data;
+                renderCore(); // re-render với mobileView
+            }).catch(function () {});
+        }
+
+        renderCore();
+    }
+
+    function renderCore() {
         // Giữ trạng thái dropdown mobile trước khi rebuild
         const wasOpen = filtersWrapper && filtersWrapper.classList.contains('open');
 

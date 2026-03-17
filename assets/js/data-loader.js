@@ -52,5 +52,5 @@ const ProductDetail = (function () {
         }
     }
 
-    return { getFullProduct, prefetch };
+    return { getFullProduct, prefetch, fetchCategoryData: fetchCategory };
 })();
