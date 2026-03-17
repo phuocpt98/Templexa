@@ -541,6 +541,14 @@
     });
 
     // ── Main render ─────────────────────────────
+    // ── Update nav "Dịch Vụ" link based on type ──
+    function updateServiceNavLink() {
+        var href = currentType === 'invitation' ? 'bang-gia-thiep-cuoi.html' : 'contact.html';
+        document.querySelectorAll('.nav-menu a').forEach(function (a) {
+            if (a.textContent.trim() === 'Dịch Vụ') a.href = href;
+        });
+    }
+
     function render() {
         perPage = currentType === 'invitation' ? 12 : 9;
 
@@ -550,6 +558,9 @@
         } else {
             document.body.classList.remove('invitation-theme');
         }
+
+        // Update nav link cho Dịch Vụ
+        updateServiceNavLink();
 
         // Fetch invitation detail data (mobileView) nếu chưa có
         if (currentType === 'invitation' && !detailDataCache['invitation']) {
