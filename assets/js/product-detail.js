@@ -17,7 +17,7 @@
     const productSummary = getProductById(productId);
 
     // Invitation theme
-    if (productSummary && productSummary.category === 'invitation') {
+    if (productSummary && productSummary.type === 'invitation') {
         document.body.classList.add('invitation-theme');
     }
 
@@ -39,7 +39,7 @@
     // Update page title + meta early (from summary)
     document.title = `${productSummary.name} - Templexa`;
 
-    const baseUrl = 'https://phuocpt98.github.io/Templexa/';
+    const baseUrl = 'https://templexa.vn/';
     function toAbsUrl(relative) {
         return baseUrl + relative.replace(/^\.\//, '');
     }
@@ -209,7 +209,7 @@
                 <p class="sidebar-features-title">Tính năng nổi bật</p>
                 <ul class="sidebar-features">${featuresHTML}</ul>
 
-                <a href="${product.category === 'invitation' ? 'bang-gia-thiep-cuoi.html' : 'contact.html'}" class="btn-custom">${product.category === 'invitation' ? 'Bảng giá dịch vụ' : 'Yêu cầu tùy chỉnh'}</a>
+                <a href="${product.type === 'invitation' ? 'bang-gia-thiep-cuoi.html' : 'contact.html'}" class="btn-custom">${product.type === 'invitation' ? 'Bảng giá dịch vụ' : 'Yêu cầu tùy chỉnh'}</a>
             </div>
         </div>
     `;

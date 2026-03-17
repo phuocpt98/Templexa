@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation - Minh Tùng & Thanh Thuỷ</title>
+    <meta name="description" content="Thiệp mời đám cưới Minh Tùng & Thanh Thuỷ - Elegant Black & Gold">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* ========== VARIABLES ========== */
+        :root {
+            --gold: #baa58a;
+            --gold-light: #d4c4a8;
+            --gold-dark: #94745c;
+            --gold-accent: #bea12e;
+            --black: #000000;
+            --white: #ffffff;
+            --cream: #fffef5;
+            --warm-white: #faf8f4;
+            --text: #252525;
+            --text-light: #555555;
+            --text-faint: #999999;
+            --shadow-soft: rgba(0,0,0,0.06);
+            --shadow-medium: rgba(0,0,0,0.12);
+            --font-script: 'Great Vibes', cursive;
+            --font-display: 'Cinzel', serif;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-body: 'Quicksand', sans-serif;
+            --font-accent: 'Playfair Display', serif;
+        }
+
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 300;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background:
+                radial-gradient(circle at 15% 25%, rgba(186,165,138,0.04), transparent 50%),
+                radial-gradient(circle at 85% 75%, rgba(186,165,138,0.03), transparent 50%);
+        }
+
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+
+        /* ========== TYPOGRAPHY ========== */
+        .font-script { font-family: var(--font-script); font-weight: 400; }
+        .font-display { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.15em; }
+        .font-serif { font-family: var(--font-serif); }
+        .font-accent { font-family: var(--font-accent); }
+
+        .section-label {
+            font-family: var(--font-display);
+            font-size: 0.6rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title-script {
+            font-family: var(--font-script);
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        /* ========== ORNAMENT DIVIDERS ========== */
+        .ornament {
+            text-align: center;
+            padding: 1.2rem 0;
+            color: var(--gold);
+            font-size: 0.75rem;
+            letter-spacing: 0.5em;
+        }
+        .ornament::before, .ornament::after {
+            content: '';
+            display: inline-block;
+            width: 50px; height: 1px;
+            background: var(--gold-light);
+            vertical-align: middle;
+            margin: 0 14px;
+        }
+
+        /* ========== SCROLL REVEAL ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.vis {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal.delay-1 { transition-delay: 0.1s; }
+        .reveal.delay-2 { transition-delay: 0.2s; }
+        .reveal.delay-3 { transition-delay: 0.3s; }
+        .reveal.delay-4 { transition-delay: 0.4s; }
+
+        /* ========== ENVELOPE ========== */
+        .envelope-overlay {
+            position: fixed; inset: 0;
+            z-index: 9999;
+            background: var(--cream);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .envelope-overlay.opened {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .envelope-container {
+            position: relative;
+            width: clamp(280px, 75vw, 340px);
+            cursor: pointer;
+        }
+
+        .envelope-bouquet {
+            position: absolute;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .envelope-bouquet-left {
+            top: -60px; left: -40px;
+            width: 140px;
+            transform: rotate(45deg);
+        }
+        .envelope-bouquet-right {
+            top: -50px; right: -30px;
+            width: 120px;
+            transform: rotate(-15deg);
+        }
+
+        .envelope-body {
+            position: relative;
+            background: var(--white);
+            border: 1px solid var(--gold-light);
+            border-radius: 4px;
+            padding: clamp(2.5rem, 8vw, 3.5rem) clamp(1.5rem, 5vw, 2.5rem);
+            text-align: center;
+            box-shadow: 0 8px 30px var(--shadow-soft);
+        }
+
+        .envelope-title {
+            font-family: var(--font-script);
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+        .envelope-subtitle {
+            font-family: var(--font-display);
+            font-size: 0.55rem;
+            letter-spacing: 0.35em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .envelope-names {
+            font-family: var(--font-script);
+            font-size: clamp(2.2rem, 8vw, 3rem);
+            color: var(--gold-dark);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        .envelope-date-text {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--text-light);
+            letter-spacing: 0.05em;
+        }
+
+        .envelope-wax {
+            width: 60px; height: 60px;
+            margin: 1.5rem auto 0;
+            animation: pulse-wax 2s ease-in-out infinite;
+        }
+        @keyframes pulse-wax {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .envelope-tap {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: var(--text-faint);
+            margin-top: 1.5rem;
+            font-style: italic;
+            animation: fade-pulse 2.5s ease-in-out infinite;
+        }
+        @keyframes fade-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .envelope-invite-text {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+            font-style: italic;
+        }
+
+        .guest-name-display {
+            font-family: var(--font-script);
+            font-size: 1.6rem;
+            color: var(--gold-dark);
+            display: none;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Peek photos under envelope */
+        .envelope-peek-photos {
+            position: absolute;
+            bottom: -50px; left: 50%;
+            transform: translateX(-50%);
+            width: 260px; height: 85px;
+            z-index: 0; pointer-events: none;
+        }
+        .envelope-peek-photo {
+            position: absolute;
+            width: 100px; height: 72px;
+            border-radius: 5px; overflow: hidden;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            border: 3px solid var(--white);
+        }
+        .envelope-peek-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .envelope-peek-photo:first-child { left: 12px; bottom: 0; transform: rotate(-8deg); }
+        .envelope-peek-photo:last-child { right: 12px; bottom: 5px; transform: rotate(6deg); }
+
+        /* ========== HERO ========== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: clamp(4rem, 10vw, 6rem) 1.5rem;
+            background: var(--cream);
+            overflow: hidden;
+        }
+
+        .hero-scattered {
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: clamp(0.6rem, 2vw, 0.85rem);
+            letter-spacing: 0.3em;
+            color: var(--text-faint);
+            opacity: 0.4;
+            text-transform: uppercase;
+        }
+        .hero-scattered-1 { top: 12%; left: 5%; transform: rotate(-8deg); }
+        .hero-scattered-2 { top: 18%; right: 4%; transform: rotate(5deg); }
+        .hero-scattered-3 { bottom: 25%; left: 8%; transform: rotate(-3deg); }
+
+        .hero-label {
+            font-family: var(--font-display);
+            font-size: 0.55rem;
+            letter-spacing: 0.4em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+
+        .hero-names {
+            font-family: var(--font-script);
+            font-size: clamp(3.5rem, 12vw, 5.5rem);
+            color: var(--text);
+            line-height: 1.1;
+            margin-bottom: 0.8rem;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+        }
+        .hero-names .amp {
+            font-family: var(--font-serif);
+            font-size: 0.6em;
+            font-style: italic;
+            color: var(--gold);
+            display: inline-block;
+            margin: 0 0.15em;
+        }
+
+        .hero-date {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--gold-dark);
+            letter-spacing: 0.1em;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+
+        .hero-invite-label {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 1.5rem;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+        }
+
+        @keyframes slide-up-hero {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== BIG PHOTO ========== */
+        .big-photo {
+            position: relative;
+            width: 100%;
+            max-height: 75vh;
+            overflow: hidden;
+        }
+        .big-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 350px;
+        }
+        .big-photo::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 40%;
+            background: linear-gradient(to top, var(--cream), transparent);
+            pointer-events: none;
+        }
+
+        /* ========== INVITATION TEXT ========== */
+        .invitation-section {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            text-align: center;
+            background: var(--cream);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .invitation-kinhMoi {
+            font-family: var(--font-serif);
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            letter-spacing: 0.15em;
+            color: var(--text);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .invitation-datetime {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 500;
+            color: var(--gold);
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
+        .invitation-lunar {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .invitation-venue-label {
+            font-family: var(--font-serif);
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .invitation-venue {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 500;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .invitation-address {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-map {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gold-dark);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        .btn-map:hover { background: var(--gold); }
+        .btn-map i { width: 16px; height: 16px; }
+
+        /* ========== PERSONAL MESSAGE ========== */
+        .message-section {
+            padding: clamp(4rem, 10vw, 6rem) 1.5rem;
+            text-align: center;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        .message-text {
+            font-family: var(--font-serif);
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            font-weight: 400;
+            color: var(--text);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* ========== COUPLE PROFILES ========== */
+        .couple-section {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            text-align: center;
+            background: var(--white);
+        }
+        .couple-grid {
+            display: flex;
+            justify-content: center;
+            gap: clamp(1.5rem, 5vw, 3rem);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .couple-card {
+            text-align: center;
+            max-width: 200px;
+        }
+        .couple-card:first-child { transform: translateY(-10px); }
+        .couple-card:last-child { transform: translateY(10px); }
+
+        .couple-photo-wrap {
+            position: relative;
+            width: clamp(140px, 35vw, 180px);
+            height: clamp(200px, 50vw, 260px);
+            margin: 0 auto 1rem;
+            border-radius: 100px 100px 8px 8px;
+            overflow: hidden;
+            box-shadow: 0 6px 25px var(--shadow-medium);
+        }
+        .couple-photo-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        .couple-divider {
+            font-family: var(--font-serif);
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 0.3em;
+            margin-bottom: 0.3rem;
+        }
+        .couple-name {
+            font-family: var(--font-serif);
+            font-size: clamp(1.3rem, 4vw, 1.6rem);
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .couple-poem {
+            max-width: 500px;
+            margin: 0 auto;
+            font-family: var(--font-accent);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: var(--text-light);
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        /* ========== FRAMED GALLERY ========== */
+        .framed-gallery {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .gallery-header-text {
+            font-family: var(--font-display);
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            letter-spacing: 0.3em;
+            color: var(--text-faint);
+            margin-bottom: 2rem;
+        }
+
+        .framed-photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(clamp(140px, 40vw, 200px), 1fr));
+            gap: clamp(0.8rem, 2vw, 1.2rem);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .framed-photo {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+            aspect-ratio: 4/5;
+            transition: transform 0.4s ease;
+        }
+        .framed-photo:nth-child(even) { transform: translateY(15px); }
+        .framed-photo:hover { transform: translateY(-5px) scale(1.02); }
+        .framed-photo:nth-child(even):hover { transform: translateY(10px) scale(1.02); }
+        .framed-photo img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .framed-photo .frame-overlay {
+            position: absolute;
+            inset: -5%; z-index: 2;
+            width: 110%; height: 110%;
+            object-fit: contain;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* Full-width photo strip */
+        .photo-strip {
+            position: relative;
+            width: 100%;
+            height: clamp(180px, 30vw, 280px);
+            overflow: hidden;
+        }
+        .photo-strip img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .photo-strip-overlay {
+            position: absolute; inset: 0;
+            background: rgba(0,0,0,0.35);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+        }
+        .photo-strip-text {
+            font-family: var(--font-accent);
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            font-style: italic;
+            line-height: 1.8;
+            max-width: 400px;
+        }
+
+        /* ========== FLY PHOTOS ========== */
+        .fly-section {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            position: relative;
+            background: var(--white);
+        }
+        .fly-img {
+            width: clamp(130px, 35vw, 200px);
+            height: clamp(170px, 45vw, 260px);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 25px var(--shadow-medium);
+            border: 4px solid var(--white);
+        }
+        .fly-img img { width: 100%; height: 100%; object-fit: cover; }
+        .fly-img:first-child {
+            margin-right: -20px;
+            transform: rotate(-2.5deg);
+            z-index: 1;
+        }
+        .fly-img:last-child {
+            margin-left: -20px;
+            margin-top: 25px;
+            transform: rotate(1.5deg);
+            z-index: 1;
+        }
+        .fly-heart {
+            position: absolute;
+            font-size: 1.3rem;
+            color: var(--gold);
+            z-index: 3;
+            animation: heartbeat 1.8s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.15); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+        }
+
+        /* ========== QUOTE / LOVE STORY ========== */
+        .quote-section {
+            padding: clamp(5rem, 12vw, 7rem) 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .quote-bg-img {
+            position: absolute; inset: 0;
+            z-index: 0;
+        }
+        .quote-bg-img img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: blur(2px);
+            opacity: 0.07;
+        }
+        .quote-bg-img::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: rgba(255,254,245,0.88);
+        }
+
+        .quote-card {
+            position: relative; z-index: 1;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: clamp(2rem, 6vw, 3rem);
+            background: rgba(255,255,255,0.7);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px var(--shadow-soft);
+        }
+        .quote-card::before {
+            content: '\201C';
+            position: absolute;
+            top: -10px; left: 20px;
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            color: var(--gold-light);
+            line-height: 1;
+            opacity: 0.5;
+        }
+        .quote-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.9;
+        }
+
+        /* ========== ROTATED TEXT + PHOTO ========== */
+        .rotated-section {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 2rem);
+            position: relative;
+            background: var(--white);
+        }
+        .rotated-text {
+            writing-mode: vertical-lr;
+            font-family: var(--font-display);
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            letter-spacing: 0.3em;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+        }
+        .rotated-photo {
+            position: relative;
+            width: clamp(220px, 60vw, 360px);
+        }
+        .rotated-photo img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px var(--shadow-medium);
+        }
+        .rotated-photo .frame-overlay {
+            position: absolute;
+            inset: -8%; z-index: 2;
+            width: 116%; height: 116%;
+            object-fit: contain;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* ========== COUNTDOWN ========== */
+        .countdown-section {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            text-align: center;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: clamp(10px, 3vw, 20px);
+            margin-top: 1.5rem;
+        }
+        .countdown-box {
+            background: rgba(186,165,138,0.15);
+            border: 1px solid rgba(186,165,138,0.3);
+            border-radius: 8px;
+            padding: clamp(12px, 3vw, 20px) clamp(16px, 4vw, 28px);
+            min-width: clamp(60px, 16vw, 80px);
+        }
+        .countdown-number {
+            font-family: var(--font-serif);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 600;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .countdown-label {
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-top: 4px;
+        }
+
+        /* ========== CALENDAR MONTH ========== */
+        .calendar-section {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            text-align: center;
+            background: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+        .calendar-section .quote-bg-img {
+            opacity: 1;
+        }
+        .calendar-section .quote-bg-img img {
+            opacity: 0.06;
+            filter: blur(2px);
+        }
+        .calendar-section .quote-bg-img::after {
+            background: linear-gradient(to bottom, rgba(255,254,245,0.5), rgba(255,254,245,0.92) 40%);
+        }
+
+        .cal-container {
+            position: relative; z-index: 1;
+        }
+        .cal-month-grid {
+            display: inline-grid;
+            grid-template-columns: repeat(7, clamp(30px, 8vw, 42px));
+            gap: 2px;
+            margin-top: 1rem;
+        }
+        .cal-header-cell {
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            padding: 6px 0;
+        }
+        .cal-day {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            padding: 6px 0;
+            border-radius: 50%;
+            width: clamp(30px, 8vw, 42px);
+            height: clamp(30px, 8vw, 42px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cal-day.wedding-day {
+            background: var(--gold);
+            color: var(--white);
+            font-weight: 600;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(186,165,138,0.4);
+        }
+        .cal-day.wedding-day::after {
+            content: '♥';
+            position: absolute;
+            top: -8px; right: -4px;
+            font-size: 0.6rem;
+            color: var(--gold-dark);
+        }
+
+        .cal-event-label {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: var(--gold-dark);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* ========== RSVP ========== */
+        .rsvp-section {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .rsvp-form {
+            max-width: 380px;
+            margin: 1.5rem auto 0;
+            background: var(--white);
+            border: 1px solid rgba(186,165,138,0.25);
+            border-radius: 12px;
+            padding: clamp(1.5rem, 5vw, 2.5rem);
+            box-shadow: 0 4px 20px var(--shadow-soft);
+            text-align: left;
+        }
+        .rsvp-form label {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-light);
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            margin-top: 1rem;
+        }
+        .rsvp-form label:first-child { margin-top: 0; }
+
+        .rsvp-form input,
+        .rsvp-form select,
+        .rsvp-form textarea {
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            padding: 10px 14px;
+            border: 1px solid rgba(186,165,138,0.3);
+            border-radius: 6px;
+            background: var(--cream);
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .rsvp-form input:focus,
+        .rsvp-form select:focus,
+        .rsvp-form textarea:focus {
+            border-color: var(--gold);
+        }
+        .rsvp-form textarea { resize: vertical; min-height: 80px; }
+
+        .rsvp-radio-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        .rsvp-radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 0;
+        }
+        .rsvp-radio-group input[type="radio"] {
+            width: auto;
+            accent-color: var(--gold);
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 12px;
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-submit:hover { background: var(--gold-dark); }
+
+        .rsvp-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        .rsvp-success.show { display: block; }
+        .rsvp-success .check-icon {
+            width: 50px; height: 50px;
+            color: var(--gold);
+            margin: 0 auto 1rem;
+        }
+
+        /* ========== GIFT BOX ========== */
+        .gift-section {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            text-align: center;
+            background: var(--cream);
+        }
+
+        .gift-cards {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        .gift-card {
+            background: var(--white);
+            border: 1px solid rgba(186,165,138,0.2);
+            border-radius: 14px;
+            padding: 1.5rem;
+            max-width: 200px;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+            text-align: center;
+        }
+        .gift-card:first-child { transform: rotate(-1deg); }
+        .gift-card:last-child { transform: rotate(0.5deg); margin-top: 10px; }
+
+        .gift-card-icon {
+            width: 80px; height: 80px;
+            margin: 0 auto 1rem;
+        }
+        .gift-card-label {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+        .gift-card-sub {
+            font-size: 0.7rem;
+            color: var(--text-faint);
+        }
+        .gift-character {
+            width: clamp(60px, 15vw, 80px);
+            margin: 1.5rem auto 0;
+            opacity: 0.8;
+        }
+
+        /* ========== WISHES ========== */
+        .wishes-section {
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            text-align: center;
+            background: var(--white);
+        }
+
+        .wishes-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 1.5rem auto;
+            max-width: 400px;
+        }
+        .wish-preset {
+            padding: 6px 14px;
+            border: 1px solid var(--gold-light);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .wish-preset:hover, .wish-preset.active {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+
+        .wishes-form {
+            max-width: 380px;
+            margin: 0 auto;
+        }
+        .wishes-form input,
+        .wishes-form textarea {
+            width: 100%;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            padding: 10px 14px;
+            border: 1px solid rgba(186,165,138,0.3);
+            border-radius: 6px;
+            background: var(--cream);
+            color: var(--text);
+            outline: none;
+            margin-bottom: 0.8rem;
+        }
+        .wishes-form textarea { resize: vertical; min-height: 80px; }
+
+        .wishes-list {
+            max-width: 400px;
+            margin: 1.5rem auto 0;
+            text-align: left;
+        }
+        .wish-item {
+            padding: 1rem;
+            background: var(--cream);
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            box-shadow: 0 2px 8px var(--shadow-soft);
+        }
+        .wish-item-name {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gold-dark);
+            margin-bottom: 4px;
+        }
+        .wish-item-msg {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* ========== THANK YOU / FOOTER ========== */
+        .thankyou-section {
+            position: relative;
+            padding: clamp(5rem, 12vw, 8rem) 1.5rem;
+            text-align: center;
+            overflow: hidden;
+        }
+        .thankyou-bg {
+            position: absolute; inset: 0;
+        }
+        .thankyou-bg img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .thankyou-bg::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: rgba(0,0,0,0.5);
+        }
+        .thankyou-content {
+            position: relative; z-index: 1;
+            color: var(--white);
+        }
+        .thankyou-title {
+            font-family: var(--font-script);
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin-bottom: 0.5rem;
+        }
+        .thankyou-date {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--gold-light);
+            letter-spacing: 0.1em;
+        }
+        .thankyou-hearts {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        .footer-credit {
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--text-faint);
+            background: var(--cream);
+        }
+
+        /* ========== MUSIC TOGGLE ========== */
+        .music-toggle {
+            position: fixed;
+            bottom: 24px; right: 24px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gold);
+            color: var(--white);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* ========== FALLING SPARKLES ========== */
+        .sparkle {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            animation: sparkle-fade 2s ease-out forwards;
+        }
+        @keyframes sparkle-fade {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5) translateY(-30px); }
+        }
+
+        /* ========== DECORATIVE ANIMATIONS ========== */
+        .deco {
+            position: absolute;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .deco-front { z-index: 10; }
+        .deco-back { z-index: 0; }
+        .deco-xs { font-size: 0.6rem; }
+        .deco-sm { font-size: 0.85rem; }
+        .deco-md { font-size: 1.1rem; }
+        .deco-lg { font-size: 1.5rem; }
+        .deco-faint { opacity: 0.15; }
+        .deco-subtle { opacity: 0.25; }
+        .deco-soft { opacity: 0.4; }
+
+        .deco-gold { color: var(--gold); }
+        .deco-gold-accent { color: var(--gold-accent); }
+
+        @keyframes deco-beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        @keyframes deco-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .deco-heart-beat { animation: deco-beat 2s ease-in-out infinite; }
+        .deco-float { animation: deco-float 3s ease-in-out infinite; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 480px) {
+            .couple-grid { gap: 1rem; }
+            .couple-card:first-child,
+            .couple-card:last-child { transform: none; }
+            .fly-section { flex-direction: row; }
+            .fly-img { width: 42vw; height: 55vw; }
+            .rotated-section { flex-direction: column; }
+            .rotated-text { writing-mode: horizontal-tb; margin-bottom: 0.5rem; }
+            .gift-cards { flex-direction: column; align-items: center; }
+            .gift-card:first-child,
+            .gift-card:last-child { transform: none; margin-top: 0; }
+            .rsvp-radio-group { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ENVELOPE OVERLAY ===== -->
+    <div class="envelope-overlay" id="envelope">
+        <div class="envelope-container" onclick="openEnvelope()">
+            <div class="envelope-bouquet envelope-bouquet-left">
+                <img src="../../../shared/images/wedding/icons/bouquet-1.webp" alt="">
+            </div>
+            <div class="envelope-bouquet envelope-bouquet-right">
+                <img src="../../../shared/images/wedding/icons/bouquet-2.webp" alt="">
+            </div>
+            <div class="envelope-body">
+                <p class="envelope-subtitle">Wedding Invitation</p>
+                <p class="envelope-invite-text guest-invite-text">Nhà trai trân trọng kính mời</p>
+                <p class="guest-name-display"></p>
+                <h2 class="envelope-names">Minh Tùng <br>&amp; Thanh Thuỷ</h2>
+                <p class="envelope-date-text">25 . 10 . 2025</p>
+                <img class="envelope-wax" src="../../../shared/images/wedding/icons/wax-seal.webp" alt="seal">
+                <p class="envelope-tap">Chạm để mở thiệp</p>
+            </div>
+            <div class="envelope-peek-photos">
+                <div class="envelope-peek-photo"><img src="../../../shared/images/wedding/elegant-black-gold/gallery_4.webp" alt=""></div>
+                <div class="envelope-peek-photo"><img src="../../../shared/images/wedding/elegant-black-gold/gallery_3.webp" alt=""></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <span class="hero-scattered hero-scattered-1">You Are</span>
+        <span class="hero-scattered hero-scattered-2">The Love Of</span>
+        <span class="hero-scattered hero-scattered-3">My Life</span>
+
+        <p class="hero-label">Save The Date</p>
+        <h1 class="hero-names">
+            Minh Tùng <span class="amp">&amp;</span> Thanh Thuỷ
+        </h1>
+        <p class="hero-date">25 . 10 . 2025</p>
+        <p class="hero-invite-label guest-invite-text">Nhà Trai Trân Trọng Kính Mời</p>
+        <p class="guest-name-display"></p>
+
+        <span class="deco deco-front deco-heart-beat deco-md deco-gold" style="top:20%;right:10%;">♥</span>
+        <span class="deco deco-back deco-float deco-sm deco-gold-accent deco-subtle" style="bottom:20%;left:8%;">✦</span>
+    </section>
+
+    <!-- ===== BIG PHOTO ===== -->
+    <div class="big-photo reveal">
+        <img src="../../../shared/images/wedding/elegant-black-gold/couple_hero.webp" alt="Minh Tùng & Thanh Thuỷ" loading="lazy">
+    </div>
+
+    <!-- ===== INVITATION TEXT ===== -->
+    <section class="invitation-section" id="invitation">
+        <div class="ornament reveal">❦</div>
+
+        <p class="invitation-kinhMoi reveal delay-1">Trân trọng kính mời</p>
+
+        <p class="invitation-datetime reveal delay-2">
+            16 Giờ 00 &nbsp;|&nbsp; Thứ Bảy<br>25 . 10 . 2025
+        </p>
+
+        <p class="invitation-lunar reveal delay-3">
+            (Nhằm ngày 03 tháng 09 năm Ất Tỵ)
+        </p>
+
+        <div class="ornament reveal">✿</div>
+
+        <p class="invitation-venue-label reveal">Hôn lễ được cử hành tại</p>
+        <p class="invitation-venue reveal">Tư Gia Nhà Gái</p>
+        <p class="invitation-address reveal">124 Đường Chiến Thắng, Lê Chân, Hải Phòng</p>
+
+        <div style="margin-top: 1.5rem;" class="reveal delay-2">
+            <a href="https://maps.google.com/?q=124+Duong+Chien+Thang+Le+Chan+Hai+Phong" target="_blank" rel="noopener" class="btn-map">
+                <i data-lucide="map-pin"></i> Xem đường đi
+            </a>
+        </div>
+
+        <img src="../../../shared/images/wedding/icons/divider.svg" alt="" style="width: 120px; margin: 2rem auto 0; opacity: 0.4;" class="reveal">
+    </section>
+
+    <!-- ===== PERSONAL MESSAGE ===== -->
+    <section class="message-section reveal">
+        <p class="message-text">
+            Trong ngày trọng đại này, chúng tôi rất hân hạnh được đón tiếp quý khách.
+            Sự hiện diện của quý vị là niềm vui và hạnh phúc lớn lao đối với gia đình chúng tôi.
+            Rất mong được đón tiếp quý khách.
+        </p>
+    </section>
+
+    <!-- ===== PHOTO STRIP ===== -->
+    <div class="photo-strip reveal">
+        <img src="../../../shared/images/wedding/elegant-black-gold/gallery_1.webp" alt="" loading="lazy">
+        <div class="photo-strip-overlay">
+            <p class="gallery-header-text">FALL IN LOVE WEDDING</p>
+            <p class="photo-strip-text">
+                "As the clouds and mist dissipate, the sky reveals its endless beauty —
+                just like our love, forever shining."
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== COUPLE PROFILES ===== -->
+    <section class="couple-section" id="couple">
+        <div class="ornament reveal">♡</div>
+        <p class="section-label reveal">The Couple</p>
+
+        <div class="couple-grid">
+            <div class="couple-card reveal delay-1">
+                <div class="couple-photo-wrap">
+                    <img src="../../../shared/images/wedding/elegant-black-gold/portrait_groom.webp" alt="Minh Tùng" loading="lazy">
+                </div>
+                <p class="couple-divider">|</p>
+                <p class="couple-name font-serif">Minh Tùng</p>
+            </div>
+            <div class="couple-card reveal delay-3">
+                <div class="couple-photo-wrap">
+                    <img src="../../../shared/images/wedding/elegant-black-gold/portrait_bride.webp" alt="Thanh Thuỷ" loading="lazy">
+                </div>
+                <p class="couple-divider">|</p>
+                <p class="couple-name font-serif">Thanh Thuỷ</p>
+            </div>
+        </div>
+
+        <p class="couple-poem reveal">
+            Đôi ta như thể con tằm,<br>
+            Cùng chung một lá, cùng ăn một dàn.<br>
+            Đôi ta như thể con ong,<br>
+            Cùng bay cùng đậu, cùng trong một đàn.
+        </p>
+    </section>
+
+    <!-- ===== FLY PHOTOS ===== -->
+    <section class="fly-section reveal">
+        <div class="fly-img">
+            <img src="../../../shared/images/wedding/elegant-black-gold/gallery_2.webp" alt="" loading="lazy">
+        </div>
+        <span class="fly-heart">♥</span>
+        <div class="fly-img">
+            <img src="../../../shared/images/wedding/elegant-black-gold/gallery_3.webp" alt="" loading="lazy">
+        </div>
+        <span class="deco deco-front deco-heart-beat deco-sm deco-gold deco-soft" style="top:8%;left:5%;">✦</span>
+        <span class="deco deco-back deco-float deco-xs deco-gold-accent deco-faint" style="bottom:10%;right:8%;">♥</span>
+    </section>
+
+    <div class="ornament">❦</div>
+
+    <!-- ===== QUOTE / LOVE STORY ===== -->
+    <section class="quote-section" id="story">
+        <div class="quote-bg-img">
+            <img src="../../../shared/images/wedding/elegant-black-gold/couple_main.webp" alt="" loading="lazy">
+        </div>
+        <p class="section-label reveal" style="position: relative; z-index: 1;">Our Story</p>
+        <div class="quote-card reveal">
+            <p class="quote-text">
+                Có lẽ thế gian này có vô vàn điều tươi đẹp, nhưng chẳng có gì tuyệt vời hơn
+                khoảnh khắc ta tìm thấy nhau giữa muôn người. Cảm ơn em đã đến, để anh biết rằng
+                hạnh phúc không ở đâu xa — hạnh phúc là ở ngay đây, bên em.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== ROTATED TEXT + PHOTO ===== -->
+    <section class="rotated-section reveal">
+        <span class="rotated-text">My Love</span>
+        <div class="rotated-photo">
+            <img src="../../../shared/images/wedding/elegant-black-gold/couple_main.webp" alt="Our Love" loading="lazy">
+            <img class="frame-overlay" src="../../../shared/images/wedding/icons/frame-2.webp" alt="" loading="lazy">
+        </div>
+        <span class="rotated-text">Forever</span>
+    </section>
+
+    <!-- ===== GALLERY WITH FRAMES ===== -->
+    <section class="framed-gallery" id="gallery">
+        <p class="section-label reveal">Welcome To Wedding</p>
+        <h2 class="section-title-script reveal">Khoảnh Khắc</h2>
+        <p class="gallery-header-text reveal" style="margin-top: 0.5rem;">BEAUTIFUL MOMENTS</p>
+
+        <div class="framed-photo-grid" style="margin-top: 1.5rem;">
+            <div class="framed-photo reveal delay-1">
+                <img src="../../../shared/images/wedding/elegant-black-gold/gallery_1.webp" alt="" loading="lazy">
+            </div>
+            <div class="framed-photo reveal delay-2">
+                <img src="../../../shared/images/wedding/elegant-black-gold/gallery_2.webp" alt="" loading="lazy">
+            </div>
+            <div class="framed-photo reveal delay-3">
+                <img src="../../../shared/images/wedding/elegant-black-gold/gallery_3.webp" alt="" loading="lazy">
+            </div>
+            <div class="framed-photo reveal delay-1">
+                <img src="../../../shared/images/wedding/elegant-black-gold/gallery_4.webp" alt="" loading="lazy">
+            </div>
+            <div class="framed-photo reveal delay-2">
+                <img src="../../../shared/images/wedding/elegant-black-gold/gallery_5.webp" alt="" loading="lazy">
+            </div>
+            <div class="framed-photo reveal delay-3">
+                <img src="../../../shared/images/wedding/elegant-black-gold/couple_hero.webp" alt="" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PHOTO STRIP 2 ===== -->
+    <div class="photo-strip reveal">
+        <img src="../../../shared/images/wedding/elegant-black-gold/gallery_5.webp" alt="" loading="lazy">
+        <div class="photo-strip-overlay">
+            <p class="photo-strip-text">
+                "I love three things in this world:<br>
+                Sun, Moon and You.<br>
+                Sun for morning, Moon for night,<br>
+                and You forever."
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== COUNTDOWN ===== -->
+    <section class="countdown-section" id="countdown">
+        <p class="section-label" style="color: var(--gold-light);">Counting Down</p>
+        <h2 class="section-title-script" style="color: var(--white);">Đếm Ngược</h2>
+
+        <div class="countdown-grid">
+            <div class="countdown-box">
+                <div class="countdown-number" id="days">00</div>
+                <div class="countdown-label">Ngày</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-number" id="hours">00</div>
+                <div class="countdown-label">Giờ</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-number" id="minutes">00</div>
+                <div class="countdown-label">Phút</div>
+            </div>
+            <div class="countdown-box">
+                <div class="countdown-number" id="seconds">00</div>
+                <div class="countdown-label">Giây</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CALENDAR MONTH ===== -->
+    <section class="calendar-section" id="calendar-month">
+        <div class="quote-bg-img">
+            <img src="../../../shared/images/wedding/elegant-black-gold/couple_hero.webp" alt="" loading="lazy">
+        </div>
+        <div class="cal-container">
+            <p class="section-label reveal">Save The Date</p>
+            <h2 class="section-title-script reveal">Ngày Trọng Đại</h2>
+            <div id="weddingCalendar" class="reveal delay-2"></div>
+        </div>
+    </section>
+
+    <div class="ornament">✿</div>
+
+    <!-- ===== RSVP ===== -->
+    <section class="rsvp-section" id="rsvp">
+        <p class="section-label reveal">RSVP</p>
+        <h2 class="section-title-script reveal">Xác Nhận Tham Dự</h2>
+
+        <form class="rsvp-form reveal delay-2" id="rsvpForm" onsubmit="return submitRSVP(event)">
+            <label>Họ và tên</label>
+            <input type="text" name="name" placeholder="Nhập họ tên..." required>
+
+            <label>Bạn có tham dự được không?</label>
+            <div class="rsvp-radio-group">
+                <label><input type="radio" name="attend" value="yes" checked> Có, tôi sẽ tham dự</label>
+                <label><input type="radio" name="attend" value="no"> Tôi bận, rất tiếc...</label>
+            </div>
+
+            <label>Số khách</label>
+            <select name="guests">
+                <option value="1">1 người</option>
+                <option value="2">2 người</option>
+                <option value="3">3 người</option>
+                <option value="4">4 người</option>
+                <option value="5">5 người</option>
+            </select>
+
+            <label>Lời nhắn</label>
+            <textarea name="message" placeholder="Gửi lời nhắn đến cô dâu chú rể..."></textarea>
+
+            <button type="submit" class="btn-submit">Xác nhận</button>
+        </form>
+
+        <div class="rsvp-success" id="rsvpSuccess">
+            <i data-lucide="check-circle" class="check-icon"></i>
+            <p class="font-serif" style="font-size: 1.1rem; color: var(--gold-dark);">Cảm ơn bạn!</p>
+            <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;">
+                Chúng tôi đã nhận được phản hồi của bạn.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== WISHES ===== -->
+    <section class="wishes-section" id="wishes">
+        <p class="section-label reveal">Wishes</p>
+        <h2 class="section-title-script reveal">Lời Chúc</h2>
+
+        <div class="wishes-presets reveal">
+            <button type="button" class="wish-preset" data-msg="Chúc hai bạn trăm năm hạnh phúc!">🎉 Trăm năm hạnh phúc</button>
+            <button type="button" class="wish-preset" data-msg="Chúc anh chị sớm có thiên thần nhỏ!">👶 Sớm có baby</button>
+            <button type="button" class="wish-preset" data-msg="Hạnh phúc mãi mãi bên nhau nhé!">💕 Hạnh phúc mãi mãi</button>
+            <button type="button" class="wish-preset" data-msg="Chúc mừng hạnh phúc! Yêu thương trọn vẹn!">💖 Trọn vẹn yêu thương</button>
+        </div>
+
+        <div class="wishes-form reveal">
+            <input type="text" id="wishName" placeholder="Tên của bạn..." required>
+            <textarea id="wishMsg" placeholder="Viết lời chúc..."></textarea>
+            <button type="button" class="btn-submit" onclick="submitWish()">Gửi lời chúc</button>
+        </div>
+
+        <div class="wishes-list" id="wishesList"></div>
+    </section>
+
+    <!-- ===== GIFT BOX ===== -->
+    <section class="gift-section" id="gift">
+        <p class="section-label reveal">Wedding Gift</p>
+        <h2 class="section-title-script reveal">Hộp Quà Cưới</h2>
+        <p class="reveal" style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem; max-width: 400px; margin-left: auto; margin-right: auto;">
+            Sự hiện diện của bạn là món quà lớn nhất. Nếu muốn gửi thêm lời chúc phúc qua quà tặng:
+        </p>
+
+        <div class="gift-cards">
+            <div class="gift-card reveal delay-1">
+                <img class="gift-card-icon" src="../../../shared/images/wedding/icons/character-elegant.webp" alt="" loading="lazy">
+                <p class="gift-card-label font-serif">Mừng Cưới</p>
+                <p class="gift-card-sub">Quét mã QR</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== THANK YOU / FOOTER ===== -->
+    <section class="thankyou-section" id="thankyou">
+        <div class="thankyou-bg">
+            <img src="../../../shared/images/wedding/elegant-black-gold/gallery_5.webp" alt="" loading="lazy">
+        </div>
+        <div class="thankyou-content reveal">
+            <p class="section-label" style="color: var(--gold-light);">Thank You</p>
+            <h2 class="thankyou-title">Minh Tùng &amp; Thanh Thuỷ</h2>
+            <p class="thankyou-date">25 . 10 . 2025</p>
+            <div class="thankyou-hearts">♥ ♥ ♥</div>
+        </div>
+    </section>
+
+    <div class="footer-credit">
+        Made with ♥ by Templexa
+    </div>
+
+    <!-- ===== MUSIC TOGGLE ===== -->
+    <button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+        <i data-lucide="volume-2" class="music-icon-on"></i>
+        <i data-lucide="volume-x" class="music-icon-off"></i>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        lucide.createIcons();
+
+        // === ENVELOPE ===
+        function openEnvelope() {
+            var el = document.getElementById('envelope');
+            el.classList.add('opened');
+            var music = document.getElementById('bgMusic');
+            if (music) { music.volume = 0.3; music.play().catch(function(){}); }
+        }
+
+        // === MUSIC TOGGLE ===
+        var musicBtn = document.getElementById('musicToggle');
+        var bgMusic = document.getElementById('bgMusic');
+        if (musicBtn && bgMusic) {
+            bgMusic.volume = 0.3;
+            // Auto-play on load
+            bgMusic.play().then(function() { musicBtn.classList.remove('muted'); }).catch(function() {
+                document.addEventListener('click', function autoPlay() {
+                    bgMusic.play().then(function() { musicBtn.classList.remove('muted'); }).catch(function(){});
+                    document.removeEventListener('click', autoPlay);
+                }, { once: true });
+            });
+            musicBtn.addEventListener('click', function() {
+                if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicBtn.classList.remove('muted');
+                } else {
+                    bgMusic.pause();
+                    musicBtn.classList.add('muted');
+                }
+            });
+        }
+
+        // === COUNTDOWN ===
+        function updateCountdown() {
+            var weddingDate = new Date('2025-10-25T16:00:00').getTime();
+            var now = new Date().getTime();
+            var diff = weddingDate - now;
+            if (diff <= 0) {
+                document.querySelector('.countdown-grid').innerHTML = '<p style="font-size:1.3rem;color:var(--gold);font-family:var(--font-script);">🎉 Hôn lễ đã diễn ra! 🎉</p>';
+                return;
+            }
+            var d = Math.floor(diff / 86400000);
+            var h = Math.floor((diff % 86400000) / 3600000);
+            var m = Math.floor((diff % 3600000) / 60000);
+            var s = Math.floor((diff % 60000) / 1000);
+            document.getElementById('days').textContent = String(d).padStart(2, '0');
+            document.getElementById('hours').textContent = String(h).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // === CALENDAR MONTH ===
+        (function() {
+            var month = 10, year = 2025, weddingDay = 25;
+            var accentColor = '#baa58a';
+            var container = document.getElementById('weddingCalendar');
+            if (!container) return;
+
+            var dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+            var monthNames = ['', 'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+                'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+
+            var titleEl = document.createElement('p');
+            titleEl.style.cssText = 'font-family:var(--font-serif);font-size:1.2rem;color:var(--text);margin-bottom:0.3rem;font-weight:500;';
+            titleEl.textContent = monthNames[month] + ' ' + year;
+            container.appendChild(titleEl);
+
+            var grid = document.createElement('div');
+            grid.className = 'cal-month-grid';
+
+            dayNames.forEach(function(d) {
+                var cell = document.createElement('div');
+                cell.className = 'cal-header-cell';
+                cell.textContent = d;
+                grid.appendChild(cell);
+            });
+
+            var firstDay = new Date(year, month - 1, 1).getDay();
+            var daysInMonth = new Date(year, month, 0).getDate();
+
+            for (var i = 0; i < firstDay; i++) {
+                var empty = document.createElement('div');
+                empty.className = 'cal-day';
+                grid.appendChild(empty);
+            }
+
+            for (var d = 1; d <= daysInMonth; d++) {
+                var cell = document.createElement('div');
+                cell.className = 'cal-day' + (d === weddingDay ? ' wedding-day' : '');
+                cell.textContent = d;
+                grid.appendChild(cell);
+            }
+
+            container.appendChild(grid);
+
+            var label = document.createElement('p');
+            label.className = 'cal-event-label';
+            label.textContent = '16:00 — Lễ Thành Hôn';
+            container.appendChild(label);
+        })();
+
+        // === SCROLL REVEAL ===
+        var revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) entry.target.classList.add('vis');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { revealObserver.observe(el); });
+
+        // === SPARKLES EFFECT ===
+        function createSparkle() {
+            var sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.innerHTML = '✨';
+            sparkle.style.fontSize = (Math.random() * 8 + 8) + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(function() { sparkle.remove(); }, 2000);
+        }
+        setInterval(createSparkle, 600);
+
+        // === RSVP FORM ===
+        function submitRSVP(e) {
+            e.preventDefault();
+            document.getElementById('rsvpForm').style.display = 'none';
+            var success = document.getElementById('rsvpSuccess');
+            success.classList.add('show');
+            lucide.createIcons();
+            return false;
+        }
+
+        // === WISHES ===
+        var wishesData = [];
+        var defaultWishes = [
+            { name: 'Bạn bè', msg: 'Chúc hai bạn trăm năm hạnh phúc! 🎉' },
+            { name: 'Đồng nghiệp', msg: 'Hạnh phúc mãi mãi bên nhau nhé! 💕' }
+        ];
+
+        function renderWishes() {
+            var list = document.getElementById('wishesList');
+            var all = wishesData.length > 0 ? wishesData : defaultWishes;
+            list.innerHTML = '';
+            all.forEach(function(w) {
+                var item = document.createElement('div');
+                item.className = 'wish-item';
+                item.innerHTML = '<p class="wish-item-name">' + w.name + '</p><p class="wish-item-msg">' + w.msg + '</p>';
+                list.appendChild(item);
+            });
+        }
+        renderWishes();
+
+        function submitWish() {
+            var name = document.getElementById('wishName').value.trim();
+            var msg = document.getElementById('wishMsg').value.trim();
+            if (!name || !msg) return;
+            wishesData.push({ name: name, msg: msg });
+            document.getElementById('wishName').value = '';
+            document.getElementById('wishMsg').value = '';
+            renderWishes();
+        }
+
+        // Preset buttons
+        document.querySelectorAll('.wish-preset').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.getElementById('wishMsg').value = btn.dataset.msg;
+                document.querySelectorAll('.wish-preset').forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

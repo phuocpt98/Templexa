@@ -35,7 +35,7 @@
                 currentPage = 1;
                 render();
                 if (filtersWrapper) filtersWrapper.classList.add('category-locked');
-                if (currentCategory === 'invitation') {
+                if (currentType === 'invitation') {
                     document.body.classList.add('invitation-theme');
                 } else {
                     document.body.classList.remove('invitation-theme');
@@ -73,7 +73,14 @@
         });
     }
 
+    // ── Legacy URL redirect: ?category=invitation → ?type=invitation ──
     const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('category') === 'invitation') {
+        urlParams.delete('category');
+        urlParams.set('type', 'invitation');
+        history.replaceState(null, '', '?' + urlParams.toString());
+    }
+
     let currentCategory = urlParams.get('category') || 'all';
     let currentType = urlParams.get('type') || 'all';
     let currentSearch = urlParams.get('search') || '';
@@ -106,7 +113,7 @@
                 currentPage = 1;
                 render();
                 if (filtersWrapper) filtersWrapper.classList.add('category-locked');
-                if (currentCategory === 'invitation') {
+                if (currentType === 'invitation') {
                     document.body.classList.add('invitation-theme');
                 } else {
                     document.body.classList.remove('invitation-theme');
@@ -124,7 +131,7 @@
                 }
                 currentPage = 1;
                 render();
-                if (currentCategory === 'invitation') {
+                if (currentType === 'invitation') {
                     document.body.classList.add('invitation-theme');
                 } else {
                     document.body.classList.remove('invitation-theme');
@@ -442,7 +449,7 @@
             ? '<a href="preview.html?d=' + encodeURIComponent(btoa(encodeURIComponent(product.demoUrl))) + '&name=' + encodeURIComponent(product.name) + '&id=' + product.id + '&category=' + encodeURIComponent(product.category) + '&type=' + encodeURIComponent(product.type) + '" target="_blank" class="btn-outline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>Xem demo</a>'
             : '';
 
-        var customBtn = product.category === 'invitation'
+        var customBtn = product.type === 'invitation'
             ? '<a href="bang-gia-thiep-cuoi.html" class="btn-custom">Bảng giá dịch vụ</a>'
             : '<a href="contact.html" class="btn-custom">Yêu cầu tùy chỉnh</a>';
 
@@ -575,7 +582,7 @@
     render();
 
     // Invitation theme if initial category
-    if (currentCategory === 'invitation') {
+    if (currentType === 'invitation') {
         document.body.classList.add('invitation-theme');
     }
 

@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới - Nam & Linh</title>
+    <meta name="description" content="Nhà trai trân trọng kính mời quý khách tới dự lễ thành hôn của Nam & Linh — 30/05/2026">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --font-script: 'Great Vibes', cursive;
+            --font-heading: 'Cinzel', serif;
+            --font-body: 'Be Vietnam Pro', sans-serif;
+            --font-accent: 'Cormorant Garamond', serif;
+            --red-deep: #680e0e;
+            --red-dark: #8B1A1A;
+            --red-medium: #A52A2A;
+            --red-soft: #C04040;
+            --gold: #e9ce9e;
+            --gold-light: #F5E6C8;
+            --gold-bright: #D4AF37;
+            --gold-dim: #C5B58E;
+            --dark-bg: #2a0404;
+            --dark-surface: #3a0808;
+            --dark-card: #4a0c0c;
+            --cream: #FFF8F0;
+            --text-light: rgba(233,206,158,0.85);
+            --text-faint: rgba(233,206,158,0.5);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--dark-bg);
+            color: var(--gold);
+            line-height: 1.7;
+            overflow: auto;
+            font-weight: 300;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(104,14,14,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139,26,26,0.2) 0%, transparent 50%);
+        }
+
+        /* ===== COMMON ===== */
+        .section { padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 2rem); }
+        .section--breathe { padding: clamp(5rem, 12vw, 7rem) clamp(1rem, 5vw, 2rem); }
+        .section--compact { padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 5vw, 2rem); }
+        .container { max-width: 580px; margin: 0 auto; }
+        .section-heading { text-align: center; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 0.6rem; font-weight: 300;
+            color: var(--text-faint);
+            letter-spacing: 0.4em; text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            font-weight: 500; color: var(--gold);
+            letter-spacing: 0.15em;
+        }
+        .ornament { text-align: center; color: var(--gold-dim); font-size: 1.2rem; margin: 0.5rem 0; }
+        .divider { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); margin: 1rem auto; }
+
+        /* Section ornament dividers */
+        .section-ornament {
+            text-align: center;
+            padding: 1.5rem 0;
+            font-size: 1rem;
+            color: var(--gold-dim);
+            letter-spacing: 0.5em;
+            user-select: none;
+        }
+        .section-ornament::before,
+        .section-ornament::after {
+            content: '';
+            display: inline-block;
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+            vertical-align: middle;
+            margin: 0 1rem;
+        }
+
+        /* Reveal */
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1s cubic-bezier(0.25,0.1,0.25,1), transform 1s cubic-bezier(0.25,0.1,0.25,1); }
+        .reveal.vis { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.15s; }
+        .reveal-delay-2 { transition-delay: 0.3s; }
+
+        /* ===== ENVELOPE ===== */
+        .envelope-overlay {
+            position: fixed; inset: 0;
+            z-index: 9999;
+            background: var(--dark-bg);
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .envelope-overlay.opened {
+            opacity: 0; visibility: hidden;
+            pointer-events: none;
+        }
+        .envelope-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            cursor: pointer;
+            position: relative;
+        }
+        .envelope-happiness {
+            width: 80px; height: 80px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.7;
+        }
+        .envelope-happiness img {
+            width: 100%; height: 100%;
+            object-fit: contain;
+            filter: sepia(0.3) saturate(1.5) brightness(0.9);
+        }
+        .envelope-invite-text {
+            font-family: var(--font-body);
+            font-size: 0.65rem; font-weight: 300;
+            color: var(--text-faint);
+            letter-spacing: 0.4em; text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .envelope-couple {
+            font-family: var(--font-script);
+            font-size: clamp(2.8rem, 9vw, 4.5rem);
+            color: var(--gold);
+            line-height: 1.2;
+            text-shadow: 0 2px 20px rgba(233,206,158,0.2);
+        }
+        .envelope-amp {
+            display: block;
+            font-family: var(--font-accent);
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            font-style: italic;
+            color: var(--gold-dim);
+            margin: 0.4rem 0;
+        }
+        .envelope-date {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            color: var(--text-faint);
+            letter-spacing: 0.3em;
+            margin-top: 1.5rem;
+        }
+        .envelope-open-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: 2.5rem;
+            padding: 14px 40px;
+            background: transparent;
+            border: 1px solid var(--gold-dim);
+            color: var(--gold);
+            font-family: var(--font-body);
+            font-size: 0.8rem; font-weight: 400;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+            border-radius: 0;
+        }
+        .envelope-open-btn:hover {
+            background: var(--gold);
+            color: var(--dark-bg);
+            border-color: var(--gold);
+        }
+        .envelope-open-btn svg { width: 16px; height: 16px; }
+
+        /* Dragon-Phoenix border decoration */
+        .envelope-border {
+            position: absolute; inset: 0;
+            pointer-events: none;
+        }
+        .envelope-border::before,
+        .envelope-border::after {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            border: 1px solid rgba(233,206,158,0.15);
+        }
+        .envelope-border::before {
+            top: -15px; left: -15px;
+            border-right: none; border-bottom: none;
+            width: 60px; height: 60px;
+        }
+        .envelope-border::after {
+            bottom: -15px; right: -15px;
+            border-left: none; border-top: none;
+            width: 60px; height: 60px;
+        }
+
+        /* Ornamental corner frame */
+        .corner-frame {
+            position: absolute;
+            width: 40px; height: 40px;
+            border-color: var(--gold-dim);
+            opacity: 0.4;
+        }
+        .corner-tl { top: 30px; left: 30px; border-top: 1px solid; border-left: 1px solid; }
+        .corner-tr { top: 30px; right: 30px; border-top: 1px solid; border-right: 1px solid; }
+        .corner-bl { bottom: 30px; left: 30px; border-bottom: 1px solid; border-left: 1px solid; }
+        .corner-br { bottom: 30px; right: 30px; border-bottom: 1px solid; border-right: 1px solid; }
+
+        /* ===== 1. HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            padding: clamp(4rem, 10vw, 7rem) 2rem;
+            position: relative;
+            overflow: hidden;
+            background: var(--dark-bg);
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            z-index: 0;
+        }
+        .hero-bg img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+            filter: sepia(0.3) saturate(0.6) brightness(0.8);
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, rgba(42,4,4,0.3) 0%, rgba(42,4,4,0.8) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative; z-index: 2;
+            max-width: 500px;
+        }
+        .hero-dragon, .hero-phoenix {
+            position: absolute;
+            z-index: 2;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        .hero-dragon {
+            top: 10%; left: -5%;
+            width: clamp(120px, 25vw, 200px);
+            transform: scaleX(-1);
+        }
+        .hero-phoenix {
+            top: 10%; right: -5%;
+            width: clamp(120px, 25vw, 200px);
+        }
+        .hero-dragon img, .hero-phoenix img {
+            width: 100%; height: auto;
+            filter: sepia(0.5) saturate(1.2) brightness(1.5) hue-rotate(-10deg);
+        }
+        .hero-parents {
+            font-family: var(--font-body);
+            font-size: 0.7rem; font-weight: 300;
+            color: var(--text-faint);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+        .hero-invite-label {
+            font-family: var(--font-body);
+            font-size: 0.65rem; font-weight: 300;
+            color: var(--text-faint);
+            letter-spacing: 0.4em; text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: heroFadeUp 1.2s cubic-bezier(0.25,0.1,0.25,1) 0.3s forwards;
+        }
+        .hero-couple {
+            font-family: var(--font-script);
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: 400; color: var(--gold);
+            line-height: 1.15;
+            text-shadow: 0 4px 30px rgba(233,206,158,0.3);
+            opacity: 0;
+            animation: heroFadeUp 1.4s cubic-bezier(0.25,0.1,0.25,1) 0.6s forwards;
+        }
+        .hero-amp {
+            display: block;
+            font-family: var(--font-accent);
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            font-style: italic; color: var(--gold-dim);
+            margin: 0.5rem 0;
+            letter-spacing: 0.1em;
+        }
+        .hero-date {
+            font-family: var(--font-heading);
+            font-size: 0.9rem; color: var(--text-light);
+            letter-spacing: 0.3em; margin-top: 2rem;
+            font-weight: 400;
+            opacity: 0;
+            animation: heroFadeUp 1.2s cubic-bezier(0.25,0.1,0.25,1) 1s forwards;
+        }
+        .hero-happiness {
+            width: 50px; height: 50px;
+            margin: 2.5rem auto 0;
+            opacity: 0;
+            animation: heroFadeUp 1.2s cubic-bezier(0.25,0.1,0.25,1) 1.3s forwards;
+        }
+        .hero-happiness img {
+            width: 100%; height: 100%;
+            object-fit: contain;
+            filter: sepia(0.3) saturate(1.5) brightness(1.2);
+            opacity: 0.5;
+        }
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== 2. COUNTDOWN ===== */
+        .countdown-section {
+            background: var(--dark-surface);
+            padding: clamp(3rem, 8vw, 5rem) 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .countdown-grid {
+            display: flex; justify-content: center; gap: clamp(1rem, 4vw, 2rem);
+            margin-top: 1.5rem;
+        }
+        .countdown-box {
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .countdown-num {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 600;
+            color: var(--gold);
+            line-height: 1;
+            text-shadow: 0 2px 15px rgba(233,206,158,0.2);
+        }
+        .countdown-label {
+            font-family: var(--font-body);
+            font-size: 0.6rem; font-weight: 300;
+            color: var(--text-faint);
+            letter-spacing: 0.2em; text-transform: uppercase;
+            margin-top: 0.4rem;
+        }
+        .countdown-sep {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--gold-dim);
+            align-self: flex-start;
+            margin-top: 0.3rem;
+            opacity: 0.4;
+        }
+
+        /* ===== 3. COUPLE INFO ===== */
+        .couple-section {
+            background: var(--dark-bg);
+            position: relative;
+            overflow: hidden;
+        }
+        .couple-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .couple-card {
+            text-align: center;
+            position: relative;
+        }
+        .couple-img-wrapper {
+            width: clamp(100px, 25vw, 140px);
+            height: clamp(100px, 25vw, 140px);
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold-dim);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .couple-img-wrapper img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .couple-role {
+            font-family: var(--font-body);
+            font-size: 0.6rem; font-weight: 300;
+            color: var(--text-faint);
+            letter-spacing: 0.3em; text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+        .couple-name {
+            font-family: var(--font-script);
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+            color: var(--gold);
+        }
+        .couple-heart {
+            position: absolute;
+            left: 50%; top: 45%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            color: var(--red-soft);
+            z-index: 5;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 2px 8px rgba(192,64,64,0.4));
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%,-50%) scale(1); }
+            50% { transform: translate(-50%,-50%) scale(1.15); }
+        }
+
+        /* ===== 4. LOVE STORY ===== */
+        .story-section {
+            background: var(--dark-surface);
+            position: relative;
+            overflow: hidden;
+        }
+        .story-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url('../../../shared/images/wedding/korean-studio-gray/couple_4.webp') center/cover no-repeat;
+            opacity: 0.05;
+            filter: blur(2px);
+        }
+        .story-section::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: var(--dark-surface);
+            opacity: 0.92;
+        }
+        .story-section > .container { position: relative; z-index: 1; }
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px; top: 0; bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--gold-dim), transparent);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding-left: 10px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px; top: 6px;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 10px rgba(233,206,158,0.3);
+        }
+        .timeline-date {
+            font-family: var(--font-heading);
+            font-size: 0.7rem;
+            color: var(--gold-dim);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+        .timeline-title {
+            font-family: var(--font-accent);
+            font-size: 1.15rem;
+            font-style: italic;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+        }
+        .timeline-text {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* ===== 5. EVENT INFO ===== */
+        .event-section { background: var(--dark-bg); }
+        .event-card {
+            background: var(--dark-surface);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            border: 1px solid rgba(233,206,158,0.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+        }
+        .event-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem; font-weight: 500;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.15em;
+        }
+        .event-row {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 0.85rem; color: var(--text-light);
+            margin-bottom: 0.6rem;
+            font-weight: 300;
+        }
+        .event-row svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--gold-dim); margin-top: 3px; }
+        .event-schedule {
+            margin-top: 1.2rem; padding-top: 1rem;
+            border-top: 1px solid rgba(233,206,158,0.08);
+        }
+        .event-schedule-item {
+            font-size: 0.8rem; color: var(--text-light);
+            padding: 0.2rem 0;
+            font-weight: 300;
+        }
+        .event-schedule-item strong { color: var(--gold); font-weight: 500; }
+        .event-direction {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 1rem; padding: 10px 28px;
+            font-family: var(--font-body); font-size: 0.8rem; font-weight: 400;
+            color: var(--dark-bg); background: var(--gold);
+            border: none; border-radius: 0;
+            text-decoration: none; cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            letter-spacing: 0.1em;
+        }
+        .event-direction:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .event-direction svg { width: 14px; height: 14px; }
+
+        /* ===== 6. CALENDAR ===== */
+        .cal-section {
+            background: var(--dark-surface);
+            position: relative;
+            overflow: hidden;
+        }
+        .cal-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 50%;
+            background: url('../../../shared/images/wedding/korean-studio-gray/couple_2.webp') center top/cover no-repeat;
+            opacity: 0.06;
+            filter: blur(2px);
+            mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+        }
+        .cal-section > .container { position: relative; z-index: 1; }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            max-width: 380px; margin: 0 auto;
+        }
+        .cal-dow {
+            font-size: 0.6rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.15em;
+            text-align: center; padding: 8px 0;
+            color: var(--text-faint);
+            font-family: var(--font-body);
+        }
+        .cal-day {
+            aspect-ratio: 1;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            position: relative;
+        }
+        .cal-day.marked { color: var(--dark-bg); font-weight: 700; }
+        .cal-day.marked::before {
+            content: '';
+            position: absolute; inset: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        .cal-header { text-align: center; margin-bottom: 1rem; }
+        .cal-month-name {
+            font-family: var(--font-heading);
+            font-size: 1.2rem; font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+        .cal-year { font-size: 0.8rem; color: var(--text-faint); margin-left: 8px; }
+        .cal-events { max-width: 380px; margin: 1rem auto 0; display: flex; flex-direction: column; gap: 0.4rem; }
+        .cal-event { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-light); font-weight: 300; }
+        .cal-event-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+        /* ===== 7. GALLERY SLIDER ===== */
+        .slider-section { background: var(--dark-bg); }
+        .slider-container {
+            position: relative;
+            max-width: 500px; margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(233,206,158,0.1);
+        }
+        .slider-track {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.25,0.1,0.25,1);
+        }
+        .slider-slide { min-width: 100%; aspect-ratio: 4/3; }
+        .slider-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .slider-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 36px; height: 36px; border-radius: 50%;
+            background: rgba(42,4,4,0.7); border: 1px solid rgba(233,206,158,0.2);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 1.2rem; color: var(--gold);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            transition: background 0.3s, transform 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .slider-nav:hover { background: rgba(42,4,4,0.9); transform: translateY(-50%) scale(1.05); }
+        .slider-prev { left: 10px; }
+        .slider-next { right: 10px; }
+        .slider-dots { display: flex; justify-content: center; gap: 8px; margin-top: 1.2rem; }
+        .slider-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: rgba(233,206,158,0.2);
+            border: none; cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .slider-dot.active { background: var(--gold); transform: scale(1.4); }
+
+        /* ===== 8. RSVP ===== */
+        .rsvp-section {
+            background: var(--red-deep);
+            color: var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+        .rsvp-section::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: 0; right: 0;
+            height: 40px;
+            background: var(--dark-bg);
+            clip-path: ellipse(55% 100% at 50% 0%);
+        }
+        .rsvp-section .section-label { color: rgba(233,206,158,0.4); }
+        .rsvp-section .section-title { color: var(--gold); }
+        .rsvp-form {
+            max-width: 400px; margin: 0 auto;
+            display: flex; flex-direction: column; gap: 0.75rem;
+        }
+        .rsvp-input, .rsvp-select, .rsvp-textarea {
+            padding: 12px 16px;
+            border: 1px solid rgba(233,206,158,0.2);
+            border-radius: 0;
+            background: rgba(233,206,158,0.08);
+            color: var(--gold); font-family: var(--font-body); font-size: 0.9rem;
+            backdrop-filter: blur(4px);
+            font-weight: 300;
+            transition: border-color 0.3s;
+        }
+        .rsvp-input:focus, .rsvp-select:focus, .rsvp-textarea:focus {
+            outline: none;
+            border-color: var(--gold-dim);
+        }
+        .rsvp-input::placeholder, .rsvp-textarea::placeholder { color: rgba(233,206,158,0.35); }
+        .rsvp-select option { background: var(--dark-bg); color: var(--gold); }
+        .rsvp-textarea { min-height: 70px; resize: vertical; }
+        .rsvp-submit {
+            padding: 13px; border: none; border-radius: 0;
+            background: var(--gold); color: var(--dark-bg);
+            font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+        .rsvp-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+        .rsvp-success { text-align: center; display: none; }
+        .rsvp-success.show { display: block; }
+
+        /* ===== 9. WISHES ===== */
+        .wishes-section { background: var(--dark-surface); }
+        .wishes-form {
+            max-width: 400px; margin: 0 auto;
+            display: flex; flex-direction: column; gap: 0.75rem;
+        }
+        .wishes-input, .wishes-textarea {
+            padding: 12px 16px;
+            border: 1px solid rgba(233,206,158,0.15);
+            border-radius: 0;
+            background: rgba(233,206,158,0.05);
+            font-family: var(--font-body); font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: 300;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .wishes-input:focus, .wishes-textarea:focus {
+            outline: none;
+            border-color: var(--gold-dim);
+            box-shadow: 0 0 0 3px rgba(233,206,158,0.08);
+        }
+        .wishes-input::placeholder, .wishes-textarea::placeholder { color: rgba(233,206,158,0.3); }
+        .wishes-textarea { min-height: 70px; resize: vertical; }
+        .wishes-submit {
+            padding: 12px; border: none; border-radius: 0;
+            background: var(--gold); color: var(--dark-bg);
+            font-family: var(--font-body); font-size: 0.85rem; font-weight: 500;
+            cursor: pointer; transition: background 0.3s, transform 0.3s;
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+        .wishes-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .wishes-presets {
+            display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+        .wishes-preset-btn {
+            padding: 5px 14px; font-family: var(--font-body);
+            font-size: 0.72rem; color: var(--gold);
+            background: rgba(233,206,158,0.06);
+            border: 1px solid rgba(233,206,158,0.15);
+            border-radius: 0; cursor: pointer; transition: all 0.3s;
+            font-weight: 400;
+        }
+        .wishes-preset-btn:hover { background: var(--gold); color: var(--dark-bg); border-color: var(--gold); }
+        .wishes-success {
+            opacity: 0; transform: translateY(-8px); transition: all 0.3s;
+            color: var(--gold); font-weight: 500; text-align: center; margin: 8px 0;
+        }
+        .wishes-success.show { opacity: 1; transform: translateY(0); }
+
+        /* ===== 10. THANK YOU ===== */
+        .thankyou-section {
+            position: relative;
+            min-height: 50vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .thankyou-bg {
+            position: absolute; inset: 0;
+            object-fit: cover; width: 100%; height: 100%;
+        }
+        .thankyou-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(42,4,4,0.6) 0%, rgba(42,4,4,0.85) 100%);
+        }
+        .thankyou-content {
+            position: relative; z-index: 1;
+            text-align: center; color: var(--gold);
+            padding: 3rem 2rem;
+            max-width: 500px;
+        }
+        .thankyou-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+            font-weight: 500; margin-bottom: 1rem;
+            letter-spacing: 0.15em;
+        }
+        .thankyou-text {
+            font-size: 0.88rem;
+            line-height: 2;
+            color: var(--text-light);
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-weight: 300;
+        }
+        .thankyou-sign {
+            margin-top: 2rem;
+            font-family: var(--font-script);
+            font-size: 2rem;
+            color: var(--gold);
+            text-shadow: 0 2px 10px rgba(233,206,158,0.2);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark-bg);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(233,206,158,0.08);
+        }
+        .footer-hearts { display: flex; justify-content: center; gap: 10px; margin-bottom: 0.75rem; }
+        .footer-heart { color: var(--red-soft); animation: heartbeat 1.5s ease-in-out infinite; }
+        .footer-heart:nth-child(2) { animation-delay: 0.3s; }
+        .footer-heart:nth-child(3) { animation-delay: 0.6s; }
+        .footer-copy { font-size: 0.7rem; color: rgba(233,206,158,0.2); font-weight: 300; }
+
+        /* ===== MUSIC ===== */
+        .music-toggle {
+            position: fixed; bottom: 24px; right: 24px;
+            width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(233,206,158,0.3);
+            background: var(--dark-surface); color: var(--gold); cursor: pointer;
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
+        }
+        .music-toggle:hover { transform: scale(1.1); }
+        .music-toggle svg { width: 20px; height: 20px; }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* ===== SPARKLES ===== */
+        .sparkle {
+            position: fixed;
+            z-index: 9998;
+            pointer-events: none;
+            animation: sparkle-fade 2s ease-out forwards;
+        }
+        @keyframes sparkle-fade {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
+
+        /* ===== DECORATIVE ===== */
+        .deco { position: absolute; pointer-events: none; z-index: 0; user-select: none; }
+        .deco-front { z-index: 3; }
+        .deco-back { z-index: -1; }
+        .deco-heart-beat::after { content: '♥'; font-size: var(--deco-size, 1.5rem); color: var(--deco-color, #C04040); animation: deco-hb 1.5s ease-in-out infinite; filter: drop-shadow(0 2px 4px rgba(192,64,64,0.3)); }
+        @keyframes deco-hb { 0%,100% { transform: scale(1); } 15% { transform: scale(1.25); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } }
+        .deco-sparkle::after { content: '✨'; font-size: var(--deco-size, 1rem); animation: deco-tw 1.8s ease-in-out infinite; }
+        @keyframes deco-tw { 0%,100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+        .deco-rings::after { content: '💍'; font-size: var(--deco-size, 1.3rem); animation: deco-rg 3s ease-in-out infinite; }
+        @keyframes deco-rg { 0%,100% { transform: rotate(0deg); filter: brightness(1); } 50% { transform: rotate(15deg); filter: brightness(1.3); } }
+        .deco-xs { --deco-size: 0.7rem; } .deco-sm { --deco-size: 1rem; } .deco-md { --deco-size: 1.5rem; } .deco-lg { --deco-size: 2rem; }
+        .deco-faint { opacity: 0.2; } .deco-subtle { opacity: 0.35; } .deco-soft { opacity: 0.5; }
+
+        /* ===== FLY PHOTOS ===== */
+        .fly-section {
+            padding: clamp(3rem, 8vw, 5rem) 1rem;
+            overflow: hidden;
+            background: var(--dark-bg);
+        }
+        .fly-container {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0;
+            max-width: 500px; margin: 0 auto;
+            position: relative;
+        }
+        .fly-img {
+            width: 45%;
+            border-radius: 8px;
+            object-fit: cover;
+            aspect-ratio: 3/4;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            border: 2px solid rgba(233,206,158,0.15);
+            transition: transform 1.5s cubic-bezier(0.25,0.1,0.25,1), opacity 1.5s;
+        }
+        .fly-left {
+            transform: translateX(-120%) rotate(-3deg);
+            opacity: 0;
+            z-index: 2;
+            margin-right: -25px;
+        }
+        .fly-right {
+            transform: translateX(120%) rotate(2deg);
+            opacity: 0;
+            z-index: 1;
+            margin-left: -25px;
+            margin-top: 30px;
+        }
+        .fly-section.vis .fly-left { transform: translateX(0) rotate(-2deg); opacity: 1; }
+        .fly-section.vis .fly-right { transform: translateX(0) rotate(1.5deg); opacity: 1; }
+        .fly-heart {
+            font-size: 1.8rem;
+            color: var(--red-soft);
+            position: absolute;
+            z-index: 3;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 2px 8px rgba(192,64,64,0.4));
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .couple-cards { grid-template-columns: 1fr; gap: 2rem; }
+            .couple-heart { display: none; }
+            .hero-dragon, .hero-phoenix { opacity: 0.08; }
+            .fly-img { width: 42%; }
+            .fly-right { margin-top: 20px; }
+            .slider-nav { width: 30px; height: 30px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ENVELOPE (bìa mở thiệp) -->
+    <div class="envelope-overlay" id="envelopeOverlay">
+        <div class="corner-frame corner-tl"></div>
+        <div class="corner-frame corner-tr"></div>
+        <div class="corner-frame corner-bl"></div>
+        <div class="corner-frame corner-br"></div>
+        <div class="envelope-card" id="envelopeCard">
+            <div class="envelope-happiness">
+                <img src="../../../shared/images/wedding/icons/chinese-happiness.webp" alt="Hỷ">
+            </div>
+            <p class="envelope-invite-text">Nhà Trai Trân Trọng Kính Mời</p>
+            <h1 class="envelope-couple">
+                Nam
+                <span class="envelope-amp">&amp;</span>
+                Linh
+            </h1>
+            <p class="envelope-date">30 . 05 . 2026</p>
+            <button class="envelope-open-btn" id="envelopeOpenBtn">
+                <i data-lucide="mail-open"></i>
+                Mở Thiệp
+            </button>
+        </div>
+    </div>
+
+    <!-- 1. HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt="Background">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-dragon">
+            <img src="../../../shared/images/wedding/icons/rong.webp" alt="Rồng">
+        </div>
+        <div class="hero-phoenix">
+            <img src="../../../shared/images/wedding/icons/phuong.webp" alt="Phượng">
+        </div>
+        <div class="hero-content">
+            <p class="hero-invite-label">Nhà Trai Trân Trọng Kính Mời</p>
+            <h1 class="hero-couple">
+                Nam
+                <span class="hero-amp">&amp;</span>
+                Linh
+            </h1>
+            <p class="hero-date">30 . 05 . 2026</p>
+            <div class="hero-happiness">
+                <img src="../../../shared/images/wedding/icons/chinese-happiness.webp" alt="Hỷ">
+            </div>
+        </div>
+    </section>
+
+    <!-- Ornament -->
+    <div class="section-ornament">&#10087;</div>
+
+    <!-- 2. COUNTDOWN -->
+    <section class="countdown-section" id="countdown">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-label">Đếm Ngược</p>
+                <h2 class="section-title">Ngày Trọng Đại</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="countdown-grid reveal">
+                <div class="countdown-box">
+                    <span class="countdown-num" id="days">00</span>
+                    <span class="countdown-label">Ngày</span>
+                </div>
+                <span class="countdown-sep">:</span>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="hours">00</span>
+                    <span class="countdown-label">Giờ</span>
+                </div>
+                <span class="countdown-sep">:</span>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="minutes">00</span>
+                    <span class="countdown-label">Phút</span>
+                </div>
+                <span class="countdown-sep">:</span>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="seconds">00</span>
+                    <span class="countdown-label">Giây</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ornament -->
+    <div class="section-ornament">&#10047;</div>
+
+    <!-- 3. COUPLE INFO -->
+    <section class="section couple-section" id="couple">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-label">Cô Dâu &amp; Chú Rể</p>
+                <h2 class="section-title">Đôi Uyên Ương</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="couple-cards reveal" style="position:relative;">
+                <div class="couple-card">
+                    <div class="couple-img-wrapper">
+                        <img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt="Chú rể">
+                    </div>
+                    <p class="couple-role">Chú Rể</p>
+                    <p class="couple-name">Nam</p>
+                </div>
+                <span class="couple-heart">&#9829;</span>
+                <div class="couple-card">
+                    <div class="couple-img-wrapper">
+                        <img src="../../../shared/images/wedding/korean-studio-gray/couple_3.webp" alt="Cô dâu">
+                    </div>
+                    <p class="couple-role">Cô Dâu</p>
+                    <p class="couple-name">Linh</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ornament -->
+    <div class="section-ornament">&#10086;</div>
+
+    <!-- 4. LOVE STORY -->
+    <section class="section--breathe story-section" id="story">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-label">Chuyện Tình</p>
+                <h2 class="section-title">Câu Chuyện Của Chúng Tôi</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <p class="timeline-date">Tháng 9, 2020</p>
+                    <p class="timeline-title">Lần Đầu Gặp Nhau</p>
+                    <p class="timeline-text">Chúng tôi gặp nhau lần đầu trong một buổi họp nhóm, ánh mắt chạm nhau và câu chuyện bắt đầu từ đó.</p>
+                </div>
+                <div class="timeline-item reveal reveal-delay-1">
+                    <p class="timeline-date">Tháng 2, 2021</p>
+                    <p class="timeline-title">Chính Thức Hẹn Hò</p>
+                    <p class="timeline-text">Sau nhiều lần gặp gỡ, anh chính thức ngỏ lời yêu em vào một đêm valentine đầy sao.</p>
+                </div>
+                <div class="timeline-item reveal reveal-delay-2">
+                    <p class="timeline-date">Tháng 12, 2024</p>
+                    <p class="timeline-title">Lời Cầu Hôn</p>
+                    <p class="timeline-text">Dưới ánh đèn Giáng Sinh lung linh, anh quỳ gối cầu hôn em với lời hứa sẽ yêu thương trọn đời.</p>
+                </div>
+                <div class="timeline-item reveal">
+                    <p class="timeline-date">Tháng 5, 2026</p>
+                    <p class="timeline-title">Ngày Về Chung Một Nhà</p>
+                    <p class="timeline-text">Và hôm nay, chúng tôi chính thức nên duyên vợ chồng — viết tiếp câu chuyện tình yêu bằng cả trái tim.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ornament -->
+    <div class="section-ornament">&#10087;</div>
+
+    <!-- 5. EVENT INFO -->
+    <section class="section--compact event-section" id="event">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-label">Thông Tin</p>
+                <h2 class="section-title">Lễ Thành Hôn</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="event-card reveal" style="position:relative;">
+                <span class="deco deco-rings deco-md deco-subtle" style="top:-15px;right:-10px;"></span>
+                <p class="event-card-title">Tiệc Cưới</p>
+                <div class="event-row"><i data-lucide="calendar"></i> <span>Thứ Bảy, 30/05/2026</span></div>
+                <div class="event-row"><i data-lucide="clock"></i> <span>17:00 chiều</span></div>
+                <div class="event-row"><i data-lucide="map-pin"></i> <span>Nhà hàng Tiệc Cưới Diamond, 123 Đường Lê Lợi, Quận 1, TP.HCM</span></div>
+                <div class="event-schedule">
+                    <p class="event-schedule-item"><strong>17:00</strong> — Đón khách</p>
+                    <p class="event-schedule-item"><strong>17:30</strong> — Khai tiệc</p>
+                    <p class="event-schedule-item"><strong>18:00</strong> — Lễ thành hôn</p>
+                </div>
+                <div style="text-align:center;">
+                    <a href="https://maps.google.com/?q=Nha+hang+Diamond+Quan+1+TPHCM" target="_blank" rel="noopener" class="event-direction">
+                        <i data-lucide="navigation"></i> Chỉ Đường
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. CALENDAR -->
+    <section class="section cal-section" id="calendar">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-label">Save The Date</p>
+                <h2 class="section-title">Tháng 5 — 2026</h2>
+                <div class="divider"></div>
+            </div>
+            <div id="weddingCal" class="reveal"></div>
+        </div>
+    </section>
+
+    <!-- Ornament -->
+    <div class="section-ornament">&#10047;</div>
+
+    <!-- FLY PHOTOS -->
+    <section class="fly-section" id="flySection">
+        <div class="fly-container">
+            <img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt="Chú rể" class="fly-img fly-left">
+            <span class="fly-heart">&#9829;</span>
+            <img src="../../../shared/images/wedding/korean-studio-gray/couple_3.webp" alt="Cô dâu" class="fly-img fly-right">
+        </div>
+    </section>
+
+    <!-- 7. ALBUM SLIDER -->
+    <section class="section slider-section" id="gallery">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-label">Kỷ Niệm</p>
+                <h2 class="section-title">Album Ảnh</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="slider-container reveal" style="position:relative;">
+                <span class="deco deco-front deco-sparkle deco-md deco-subtle" style="top:-25px;right:-15px;"></span>
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slider-slide"><img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt="1" loading="lazy"></div>
+                    <div class="slider-slide"><img src="../../../shared/images/wedding/korean-studio-gray/couple_2.webp" alt="2" loading="lazy"></div>
+                    <div class="slider-slide"><img src="../../../shared/images/wedding/korean-studio-gray/couple_3.webp" alt="3" loading="lazy"></div>
+                    <div class="slider-slide"><img src="../../../shared/images/wedding/korean-studio-gray/couple_4.webp" alt="4" loading="lazy"></div>
+                </div>
+                <button class="slider-nav slider-prev" id="sliderPrev">&#8249;</button>
+                <button class="slider-nav slider-next" id="sliderNext">&#8250;</button>
+            </div>
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+    </section>
+
+    <!-- 8. RSVP -->
+    <section class="section rsvp-section" id="rsvp">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-label">Xác Nhận</p>
+                <h2 class="section-title">Tham Dự Hôn Lễ</h2>
+                <div class="divider" style="background:linear-gradient(90deg,transparent,rgba(233,206,158,0.3),transparent);"></div>
+            </div>
+            <form id="rsvpForm" class="rsvp-form reveal">
+                <input type="text" name="name" class="rsvp-input" placeholder="Họ và tên *" required>
+                <input type="tel" name="phone" class="rsvp-input" placeholder="Số điện thoại">
+                <select name="guests" class="rsvp-select">
+                    <option value="1">1 khách</option>
+                    <option value="2">2 khách</option>
+                    <option value="3">3 khách</option>
+                    <option value="4">4 khách</option>
+                    <option value="5">5 khách</option>
+                </select>
+                <textarea name="message" class="rsvp-textarea" placeholder="Lời nhắn..."></textarea>
+                <button type="submit" class="rsvp-submit">Gửi Xác Nhận</button>
+            </form>
+            <div id="rsvpSuccess" class="rsvp-success">
+                <p style="font-size:2rem;">🎊</p>
+                <p style="color:var(--gold);font-size:1rem;">Cảm ơn bạn đã xác nhận!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. WISHES -->
+    <section class="section wishes-section" id="wishes">
+        <div class="container">
+            <div class="section-heading reveal">
+                <p class="section-label">Sổ Lưu Bút</p>
+                <h2 class="section-title">Gửi Lời Chúc</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="wishes-presets reveal">
+                <button class="wishes-preset-btn">Trăm năm hạnh phúc! 💕</button>
+                <button class="wishes-preset-btn">Sớm có tin vui! 🎉</button>
+                <button class="wishes-preset-btn">Yêu thương mãi mãi! ❤️</button>
+                <button class="wishes-preset-btn">Hạnh phúc viên mãn! 🎊</button>
+            </div>
+            <form id="wishesForm" class="wishes-form reveal">
+                <input type="text" id="wishName" class="wishes-input" placeholder="Tên của bạn *" required>
+                <textarea id="wishMessage" class="wishes-textarea" placeholder="Lời chúc..." required></textarea>
+                <button type="submit" class="wishes-submit">Gửi Lời Chúc</button>
+            </form>
+            <div id="wishesSuccess" class="wishes-success">💕 Cảm ơn lời chúc của bạn!</div>
+        </div>
+    </section>
+
+    <!-- Ornament -->
+    <div class="section-ornament">&#10087;</div>
+
+    <!-- 10. THANK YOU -->
+    <section class="thankyou-section">
+        <img src="../../../shared/images/wedding/korean-studio-gray/couple_4.webp" alt="Background" class="thankyou-bg">
+        <div class="thankyou-overlay"></div>
+        <div class="thankyou-content reveal">
+            <h2 class="thankyou-title">Lời Cảm Ơn</h2>
+            <p class="thankyou-text">
+                Cảm ơn quý khách đã dành thời gian quý báu để đọc thiệp mời của chúng tôi.
+                Sự hiện diện của quý khách là niềm vinh hạnh và hạnh phúc lớn lao
+                trong ngày trọng đại của đôi uyên ương.
+            </p>
+            <p class="thankyou-sign">Nam & Linh ♡</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-hearts">
+            <span class="footer-heart">&#9829;</span>
+            <span class="footer-heart">&#9829;</span>
+            <span class="footer-heart">&#9829;</span>
+        </div>
+        <p class="footer-copy">Made with &#9829; by Templexa</p>
+    </footer>
+
+    <!-- MUSIC -->
+    <button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+        <i data-lucide="volume-2" class="music-icon-on"></i>
+        <i data-lucide="volume-x" class="music-icon-off"></i>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/wedding/A Thousand Years.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SCRIPTS -->
+    <script>lucide.createIcons();</script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // === ENVELOPE ===
+        var overlay = document.getElementById('envelopeOverlay');
+        var openBtn = document.getElementById('envelopeOpenBtn');
+        if (overlay && openBtn) {
+            document.body.style.overflow = 'hidden';
+            openBtn.addEventListener('click', function() {
+                overlay.classList.add('opened');
+                document.body.style.overflow = '';
+                // Start music on envelope open
+                var bgMusic = document.getElementById('bgMusic');
+                if (bgMusic) {
+                    bgMusic.volume = 0.3;
+                    bgMusic.play().catch(function(){});
+                    window._musicStarted = true;
+                }
+            });
+        }
+
+        // === MUSIC ===
+        var bgMusic = document.getElementById('bgMusic');
+        var musicBtn = document.getElementById('musicToggle');
+        if (bgMusic) bgMusic.volume = 0.3;
+        window._musicStarted = window._musicStarted || false;
+
+        if (musicBtn) {
+            musicBtn.addEventListener('click', function() {
+                if (!window._musicStarted) {
+                    bgMusic.play().catch(function(){});
+                    window._musicStarted = true;
+                } else if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicBtn.classList.remove('muted');
+                } else {
+                    bgMusic.pause();
+                    musicBtn.classList.add('muted');
+                }
+            });
+        }
+
+        // === COUNTDOWN ===
+        function updateCountdown() {
+            var weddingDate = new Date('2026-05-30T17:00:00').getTime();
+            var now = new Date().getTime();
+            var diff = weddingDate - now;
+
+            if (diff <= 0) {
+                var cdEl = document.querySelector('.countdown-grid');
+                if (cdEl) cdEl.innerHTML = '<p style="font-size:1.5rem;color:var(--gold);">🎊 Hôn lễ đã diễn ra! 🎊</p>';
+                return;
+            }
+
+            var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // === CALENDAR ===
+        (function() {
+            var c = document.getElementById('weddingCal');
+            if (!c) return;
+            var m=5, y=2026, events=[{day:30,color:'#e9ce9e',label:'17:00 — Tiệc Cưới'}];
+            var MN=['','Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
+            var DW=['CN','T2','T3','T4','T5','T6','T7'];
+            var fd=new Date(y,m-1,1).getDay(), dim=new Date(y,m,0).getDate();
+            var em={}; events.forEach(function(e){if(!em[e.day])em[e.day]=[];em[e.day].push(e);});
+            var h='<div class="cal-header"><span class="cal-month-name">'+MN[m]+'</span><span class="cal-year">'+y+'</span></div>';
+            h+='<div class="cal-grid">';
+            for(var d=0;d<7;d++) h+='<div class="cal-dow">'+DW[d]+'</div>';
+            for(var e=0;e<fd;e++) h+='<div></div>';
+            for(var day=1;day<=dim;day++){
+                var mk=!!em[day];
+                h+='<div class="cal-day'+(mk?' marked':'')+'">'+ day +'</div>';
+            }
+            h+='</div><div class="cal-events">';
+            events.forEach(function(ev){
+                h+='<div class="cal-event"><span class="cal-event-dot" style="background:'+ev.color+'"></span><span style="font-weight:600;">Ngày '+ev.day+'</span><span style="opacity:0.75;">'+ev.label+'</span></div>';
+            });
+            h+='</div>';
+            c.innerHTML=h;
+        })();
+
+        // === SLIDER ===
+        var track = document.getElementById('sliderTrack');
+        var slides = track ? track.children : [];
+        var dotsC = document.getElementById('sliderDots');
+        var cur = 0;
+        function goTo(i) {
+            cur = i;
+            track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+            dotsC.querySelectorAll('.slider-dot').forEach(function(d,j) { d.classList.toggle('active', j===cur); });
+        }
+        for (var i = 0; i < slides.length; i++) {
+            var dot = document.createElement('button');
+            dot.className = 'slider-dot' + (i===0?' active':'');
+            dot.setAttribute('data-i', i);
+            dot.addEventListener('click', function() { goTo(parseInt(this.getAttribute('data-i'))); });
+            dotsC.appendChild(dot);
+        }
+        document.getElementById('sliderPrev').addEventListener('click', function() { goTo((cur-1+slides.length)%slides.length); });
+        document.getElementById('sliderNext').addEventListener('click', function() { goTo((cur+1)%slides.length); });
+        setInterval(function() { goTo((cur+1)%slides.length); }, 4000);
+        // swipe
+        var tx=0;
+        track.addEventListener('touchstart', function(e) { tx=e.touches[0].clientX; }, {passive:true});
+        track.addEventListener('touchend', function(e) {
+            var d=e.changedTouches[0].clientX-tx;
+            if(Math.abs(d)>50) d>0 ? goTo((cur-1+slides.length)%slides.length) : goTo((cur+1)%slides.length);
+        }, {passive:true});
+
+        // === FLY SECTION ===
+        var flyObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('vis'); });
+        }, { threshold: 0.3 });
+        var flyEl = document.getElementById('flySection');
+        if (flyEl) flyObs.observe(flyEl);
+
+        // === RSVP (UI-only) ===
+        var rsvpForm = document.getElementById('rsvpForm');
+        if (rsvpForm) {
+            rsvpForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                rsvpForm.style.display = 'none';
+                document.getElementById('rsvpSuccess').classList.add('show');
+            });
+        }
+
+        // === WISHES (UI-only) ===
+        var wishesForm = document.getElementById('wishesForm');
+        if (wishesForm) {
+            wishesForm.addEventListener('submit', function(e) {
+                e.preventDefault(); wishesForm.reset();
+                var s = document.getElementById('wishesSuccess');
+                if (s) { s.classList.add('show'); setTimeout(function() { s.classList.remove('show'); }, 3000); }
+            });
+        }
+        document.querySelectorAll('.wishes-preset-btn').forEach(function(b) {
+            b.addEventListener('click', function() {
+                document.getElementById('wishMessage').value = b.textContent;
+                document.getElementById('wishMessage').focus();
+            });
+        });
+
+        // === SPARKLES ===
+        function createSparkle() {
+            var sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.innerHTML = '✨';
+            sparkle.style.fontSize = (Math.random() * 10 + 8) + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(function() { sparkle.remove(); }, 2000);
+        }
+        setInterval(createSparkle, 600);
+
+        // === SCROLL REVEAL ===
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('vis'); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+    });
+    </script>
+</body>
+</html>

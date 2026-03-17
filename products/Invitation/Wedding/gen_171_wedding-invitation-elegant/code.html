@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Mời Cưới - Minh Anh & Thùy Linh</title>
+    <meta name="description" content="Thiệp mời đám cưới Minh Anh & Thùy Linh - Mời bạn đến chung vui ngày trọng đại">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --gold: #C9A96E;
+            --gold-light: #E8D5A8;
+            --gold-dark: #A8854A;
+            --cream: #FDF8F0;
+            --cream-dark: #F5EBD8;
+            --text-dark: #2C1810;
+            --text-muted: #6B5B4E;
+            --rose: #D4A0A0;
+            --rose-light: #F0DADA;
+            --sage: #A8B5A0;
+            --white: #FFFFFF;
+            --overlay: rgba(44, 24, 16, 0.5);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            background: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* ======================== TRANSITION EFFECTS ======================== */
+
+        /* Curtain reveal - kéo rèm sang 2 bên */
+        .transition-curtain {
+            position: relative;
+            overflow: hidden;
+        }
+        .transition-curtain::before,
+        .transition-curtain::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 51%;
+            height: 100%;
+            background: var(--gold);
+            z-index: 10;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .transition-curtain::before { left: 0; transform: translateX(0); }
+        .transition-curtain::after { right: 0; transform: translateX(0); }
+        .transition-curtain.is-visible::before { transform: translateX(-100%); }
+        .transition-curtain.is-visible::after { transform: translateX(100%); }
+
+        /* Fly away - bay đi */
+        .transition-fly {
+            opacity: 0;
+            transform: translateY(80px) scale(0.9) rotate(3deg);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .transition-fly.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(0deg);
+        }
+
+        /* Free fall - rơi tự do */
+        .transition-freefall {
+            opacity: 0;
+            transform: translateY(-100px) rotate(-5deg);
+            transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .transition-freefall.is-visible {
+            opacity: 1;
+            transform: translateY(0) rotate(0deg);
+        }
+
+        /* Fade reveal - hiện dần ra */
+        .transition-reveal {
+            opacity: 0;
+            transform: scale(0.95);
+            filter: blur(8px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .transition-reveal.is-visible {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+        }
+
+        /* Slide from sides */
+        .transition-slide-left {
+            opacity: 0;
+            transform: translateX(-120px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .transition-slide-left.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .transition-slide-right {
+            opacity: 0;
+            transform: translateX(120px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .transition-slide-right.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Unfold - mở gập */
+        .transition-unfold {
+            opacity: 0;
+            transform: perspective(800px) rotateX(-15deg);
+            transform-origin: top center;
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .transition-unfold.is-visible {
+            opacity: 1;
+            transform: perspective(800px) rotateX(0deg);
+        }
+
+        /* Zoom burst */
+        .transition-zoom {
+            opacity: 0;
+            transform: scale(0.3);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .transition-zoom.is-visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Spiral in */
+        .transition-spiral {
+            opacity: 0;
+            transform: rotate(180deg) scale(0);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .transition-spiral.is-visible {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        /* Stagger delays */
+        .delay-1 { transition-delay: 0.1s !important; }
+        .delay-2 { transition-delay: 0.2s !important; }
+        .delay-3 { transition-delay: 0.3s !important; }
+        .delay-4 { transition-delay: 0.4s !important; }
+        .delay-5 { transition-delay: 0.5s !important; }
+        .delay-6 { transition-delay: 0.6s !important; }
+
+        /* ======================== FLOATING DECORATIONS ======================== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(20px) rotate(-5deg); }
+        }
+        @keyframes petal-fall {
+            0% { transform: translateY(-10%) translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) translateX(100px) rotate(720deg); opacity: 0; }
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        @keyframes slide-up-hero {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes heart-beat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+
+        /* Petals container */
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: var(--rose-light);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.7;
+            animation: petal-fall linear infinite;
+        }
+
+        /* ======================== COVER / HERO ======================== */
+        .cover {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .cover-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1920&q=80') center/cover;
+        }
+        .cover-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(44,24,16,0.3) 0%, rgba(44,24,16,0.6) 100%);
+        }
+        .cover-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+            padding: 40px 20px;
+        }
+        .cover-ornament {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+        .cover-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+        }
+        .cover-names .ampersand {
+            font-family: 'Great Vibes', cursive;
+            font-size: 0.6em;
+            color: var(--gold-light);
+            display: block;
+            margin: 8px 0;
+        }
+        .cover-date {
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-top: 24px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+        .cover-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+            z-index: 2;
+        }
+        .cover-scroll a {
+            color: var(--gold-light);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .cover-scroll svg { animation: float 2s ease-in-out infinite; }
+
+        /* Gold line dividers */
+        .gold-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 48px auto;
+            max-width: 300px;
+        }
+        .gold-divider::before,
+        .gold-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .gold-divider svg { color: var(--gold); flex-shrink: 0; }
+
+        /* ======================== SECTIONS COMMON ======================== */
+        section {
+            padding: clamp(60px, 10vw, 120px) 20px;
+            position: relative;
+        }
+        .section-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            text-align: center;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+        }
+        .section-subtitle {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* ======================== COUPLE SECTION ======================== */
+        .couple-section {
+            background: var(--white);
+        }
+        .couple-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 60px;
+        }
+        .couple-card {
+            text-align: center;
+        }
+        .couple-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold-light);
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 30px rgba(201, 169, 110, 0.2);
+        }
+        .couple-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .couple-role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .couple-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+            font-style: italic;
+        }
+        .couple-heart {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--rose-light), var(--gold-light));
+            border-radius: 50%;
+            animation: heart-beat 2s ease-in-out infinite;
+        }
+        .couple-heart svg { color: var(--rose); width: 36px; height: 36px; }
+
+        /* ======================== STORY / TIMELINE ======================== */
+        .story-section {
+            background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
+        }
+        .timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--gold-light), var(--gold), var(--gold-light));
+        }
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+        .timeline-item:nth-child(odd) .timeline-content { padding-left: 0; padding-right: 50px; }
+        .timeline-item:nth-child(even) .timeline-content { padding-left: 50px; }
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--gold);
+            border-radius: 50%;
+            border: 3px solid var(--cream);
+            z-index: 2;
+            box-shadow: 0 0 0 4px var(--gold-light);
+        }
+        .timeline-content {
+            flex: 1;
+        }
+        .timeline-date {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .timeline-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .timeline-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* ======================== EVENTS / INVITATION ======================== */
+        .events-section {
+            background: var(--white);
+        }
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 50px;
+        }
+        .event-card {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            border: 1px solid var(--gold-light);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(201, 169, 110, 0.15);
+        }
+        .event-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+        .event-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .event-detail {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .event-detail svg { width: 16px; height: 16px; color: var(--gold); }
+        .event-address {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gold-light);
+        }
+
+        /* ======================== COUNTDOWN ======================== */
+        .countdown-section {
+            background: url('https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1920&q=80') center/cover fixed;
+            position: relative;
+            text-align: center;
+        }
+        .countdown-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(44, 24, 16, 0.65);
+        }
+        .countdown-section .section-container { position: relative; z-index: 2; }
+        .countdown-section .section-title { color: var(--white); }
+        .countdown-section .section-subtitle { color: var(--gold-light); }
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: clamp(16px, 4vw, 40px);
+            margin-top: 48px;
+        }
+        .countdown-item {
+            text-align: center;
+        }
+        .countdown-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1;
+            min-width: 80px;
+            display: block;
+        }
+        .countdown-label {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 8px;
+        }
+        .countdown-separator {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--gold-light);
+            align-self: flex-start;
+            margin-top: 8px;
+        }
+
+        /* ======================== PHOTO ALBUM ======================== */
+        .album-section {
+            background: var(--cream);
+        }
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 250px;
+            gap: 16px;
+            margin-top: 50px;
+        }
+        .album-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .album-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .album-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(44,24,16,0.4));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .album-item:hover img { transform: scale(1.1); }
+        .album-item:hover::after { opacity: 1; }
+        .album-item.span-2 { grid-column: span 2; }
+        .album-item.span-row { grid-row: span 2; }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--white);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--white);
+            background: rgba(255,255,255,0.1);
+            border: none;
+            cursor: pointer;
+            padding: 16px;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        /* ======================== QR CODE ======================== */
+        .qr-section {
+            background: var(--white);
+            text-align: center;
+        }
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .qr-card {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 40px 24px;
+            border: 1px solid var(--gold-light);
+            transition: transform 0.4s ease;
+        }
+        .qr-card:hover { transform: translateY(-5px); }
+        .qr-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        .qr-placeholder {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 20px;
+            background: var(--white);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--gold-light);
+        }
+        .qr-placeholder svg { color: var(--gold); width: 48px; height: 48px; }
+        .qr-info {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ======================== RSVP / WISHES ======================== */
+        .rsvp-section {
+            background: linear-gradient(180deg, var(--cream-dark) 0%, var(--cream) 100%);
+        }
+        .rsvp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            margin-top: 50px;
+        }
+        .rsvp-form-card, .wishes-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--gold-light);
+            box-shadow: 0 8px 30px rgba(201, 169, 110, 0.08);
+        }
+        .rsvp-form-card h3, .wishes-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--gold-light);
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            background: var(--cream);
+            color: var(--text-dark);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+        }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            letter-spacing: 1px;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 169, 110, 0.35);
+        }
+        .radio-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 4px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
+        }
+
+        /* Wishes list */
+        .wishes-list {
+            max-height: 450px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        .wishes-list::-webkit-scrollbar { width: 4px; }
+        .wishes-list::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 4px; }
+        .wish-item {
+            padding: 16px;
+            border-bottom: 1px solid var(--cream-dark);
+            animation: slide-up-hero 0.5s ease both;
+        }
+        .wish-item:last-child { border-bottom: none; }
+        .wish-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--gold-dark);
+            margin-bottom: 4px;
+        }
+        .wish-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: 1.6;
+        }
+        .wish-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            opacity: 0.6;
+            margin-top: 4px;
+        }
+        .wishes-empty {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* ======================== FOOTER ======================== */
+        .footer {
+            background: var(--text-dark);
+            color: var(--cream);
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .footer-names {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+        .footer-names .amp {
+            font-family: 'Great Vibes', cursive;
+            color: var(--gold);
+            font-size: 0.7em;
+        }
+        .footer-date {
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+        }
+        .footer-thanks {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-top: 32px;
+        }
+        .footer-heart {
+            display: inline-flex;
+            animation: heart-beat 2s ease-in-out infinite;
+            margin: 0 8px;
+            color: var(--rose);
+        }
+
+        /* ======================== MUSIC TOGGLE ======================== */
+        .music-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gold);
+            color: var(--white);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(201, 169, 110, 0.5);
+        }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* ======================== RESPONSIVE ======================== */
+        @media (max-width: 1024px) {
+            .album-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 200px; }
+        }
+
+        @media (max-width: 768px) {
+            .couple-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .couple-heart {
+                margin: 0 auto;
+            }
+            .events-grid { grid-template-columns: 1fr; }
+            .qr-grid { grid-template-columns: 1fr; max-width: 400px; }
+            .rsvp-grid { grid-template-columns: 1fr; }
+            .album-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+            .album-item.span-2 { grid-column: span 1; }
+            .album-item.span-row { grid-row: span 1; }
+            .timeline::before { left: 20px; }
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: row;
+                text-align: left;
+            }
+            .timeline-item:nth-child(odd) .timeline-content { padding-left: 50px; padding-right: 0; }
+            .timeline-dot { left: 20px; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .couple-photo { width: 150px; height: 150px; }
+            .album-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
+            .countdown-number { font-size: 2.5rem; min-width: 60px; }
+            .event-card { padding: 28px 20px; }
+            .rsvp-form-card, .wishes-card { padding: 24px 20px; }
+        }
+
+        /* ======================== SUCCESS NOTIFICATION ======================== */
+        .toast {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: var(--white);
+            border: 1px solid var(--gold-light);
+            border-radius: 16px;
+            padding: 16px 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .toast.show { transform: translateX(0); }
+        .toast-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--sage);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+        .toast-text { font-size: 0.9rem; color: var(--text-dark); }
+    </style>
+</head>
+<body>
+
+    <!-- Falling Petals -->
+    <div class="petals-container" id="petals"></div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon"><i data-lucide="check" style="width:18px;height:18px"></i></div>
+        <span class="toast-text" id="toastText">Gửi thành công!</span>
+    </div>
+
+    <!-- ======================== COVER ======================== -->
+    <section class="cover" id="cover">
+        <div class="cover-bg"></div>
+        <div class="cover-content">
+            <div class="cover-ornament">~ Save The Date ~</div>
+            <h1 class="cover-names">
+                Minh Anh
+                <span class="ampersand">&</span>
+                Thùy Linh
+            </h1>
+            <p class="cover-date">15 . 08 . 2026</p>
+        </div>
+        <div class="cover-scroll">
+            <a href="#couple">
+                <span>KHÁM PHÁ</span>
+                <i data-lucide="chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- ======================== COUPLE ======================== -->
+    <section class="couple-section" id="couple">
+        <div class="section-container">
+            <p class="section-subtitle transition-reveal">Cô dâu & Chú rể</p>
+            <h2 class="section-title transition-reveal delay-1">Chúng Tôi</h2>
+
+            <div class="gold-divider transition-zoom delay-2">
+                <i data-lucide="heart" style="width:20px;height:20px"></i>
+            </div>
+
+            <div class="couple-grid">
+                <div class="couple-card transition-slide-left delay-2">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80" alt="Cô dâu" class="couple-photo">
+                    <h3 class="couple-name">Thùy Linh</h3>
+                    <p class="couple-role">Cô dâu</p>
+                    <p class="couple-desc">Con gái ông Nguyễn Văn Hùng<br>& bà Trần Thị Mai</p>
+                </div>
+
+                <div class="couple-heart transition-zoom delay-3">
+                    <i data-lucide="heart"></i>
+                </div>
+
+                <div class="couple-card transition-slide-right delay-2">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80" alt="Chú rể" class="couple-photo">
+                    <h3 class="couple-name">Minh Anh</h3>
+                    <p class="couple-role">Chú rể</p>
+                    <p class="couple-desc">Con trai ông Lê Quốc Dũng<br>& bà Phạm Thu Hà</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== LOVE STORY ======================== -->
+    <section class="story-section" id="story">
+        <div class="section-container">
+            <p class="section-subtitle transition-reveal">Chuyện tình yêu</p>
+            <h2 class="section-title transition-reveal delay-1">Câu Chuyện Của Chúng Tôi</h2>
+
+            <div class="gold-divider transition-zoom delay-2">
+                <i data-lucide="bookmark-heart" style="width:20px;height:20px"></i>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item transition-fly delay-1">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <p class="timeline-date">Mùa thu 2020</p>
+                        <h3 class="timeline-title">Lần Đầu Gặp Gỡ</h3>
+                        <p class="timeline-text">Chúng tôi gặp nhau trong một buổi họp mặt bạn bè. Ánh mắt đầu tiên đã khiến trái tim rung động không ngừng.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item transition-fly delay-2">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <p class="timeline-date">Đông 2021</p>
+                        <h3 class="timeline-title">Hẹn Hò Đầu Tiên</h3>
+                        <p class="timeline-text">Buổi hẹn hò đầu tiên tại một quán cà phê nhỏ ven hồ. Nơi bắt đầu của vô vàn kỷ niệm đẹp.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item transition-fly delay-3">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <p class="timeline-date">Xuân 2024</p>
+                        <h3 class="timeline-title">Lời Cầu Hôn</h3>
+                        <p class="timeline-text">Giữa vườn hoa đầy nắng, anh đã quỳ gối và nói: "Em có muốn cùng anh đi hết cuộc đời này không?"</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item transition-fly delay-4">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <p class="timeline-date">15.08.2026</p>
+                        <h3 class="timeline-title">Ngày Trọng Đại</h3>
+                        <p class="timeline-text">Và giờ đây, chúng tôi sẽ cùng nhau viết nên chương mới đẹp nhất của câu chuyện tình yêu này.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== EVENTS ======================== -->
+    <section class="events-section" id="events">
+        <div class="section-container">
+            <p class="section-subtitle transition-reveal">Chương trình</p>
+            <h2 class="section-title transition-reveal delay-1">Sự Kiện Cưới</h2>
+
+            <div class="gold-divider transition-zoom delay-2">
+                <i data-lucide="calendar-heart" style="width:20px;height:20px"></i>
+            </div>
+
+            <div class="events-grid">
+                <div class="event-card transition-curtain delay-2">
+                    <div class="event-icon">
+                        <i data-lucide="church" style="width:28px;height:28px"></i>
+                    </div>
+                    <h3 class="event-name">Lễ Vu Quy</h3>
+                    <div class="event-detail">
+                        <i data-lucide="calendar"></i>
+                        <span>Thứ Bảy, 15.08.2026</span>
+                    </div>
+                    <div class="event-detail">
+                        <i data-lucide="clock"></i>
+                        <span>08:00 - 10:00</span>
+                    </div>
+                    <div class="event-detail">
+                        <i data-lucide="map-pin"></i>
+                        <span>Tư gia nhà gái</span>
+                    </div>
+                    <p class="event-address">123 Đường Lê Lợi, Quận 1, TP. Hồ Chí Minh</p>
+                </div>
+
+                <div class="event-card transition-curtain delay-3">
+                    <div class="event-icon">
+                        <i data-lucide="utensils" style="width:28px;height:28px"></i>
+                    </div>
+                    <h3 class="event-name">Tiệc Cưới</h3>
+                    <div class="event-detail">
+                        <i data-lucide="calendar"></i>
+                        <span>Thứ Bảy, 15.08.2026</span>
+                    </div>
+                    <div class="event-detail">
+                        <i data-lucide="clock"></i>
+                        <span>17:30 - 21:00</span>
+                    </div>
+                    <div class="event-detail">
+                        <i data-lucide="map-pin"></i>
+                        <span>Trung tâm Hội nghị ABC</span>
+                    </div>
+                    <p class="event-address">456 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== COUNTDOWN ======================== -->
+    <section class="countdown-section" id="countdown">
+        <div class="section-container">
+            <p class="section-subtitle transition-reveal">Đếm ngược</p>
+            <h2 class="section-title transition-reveal delay-1">Đến Ngày Trọng Đại</h2>
+
+            <div class="countdown-grid transition-unfold delay-2">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Ngày</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Giờ</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Phút</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Giây</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== PHOTO ALBUM ======================== -->
+    <section class="album-section" id="album">
+        <div class="section-container" style="max-width:1100px">
+            <p class="section-subtitle transition-reveal">Khoảnh khắc</p>
+            <h2 class="section-title transition-reveal delay-1">Album Ảnh Cưới</h2>
+
+            <div class="gold-divider transition-zoom delay-2">
+                <i data-lucide="camera" style="width:20px;height:20px"></i>
+            </div>
+
+            <div class="album-grid">
+                <div class="album-item span-2 transition-freefall delay-1" onclick="openLightbox(0)">
+                    <img src="https://images.unsplash.com/photo-1529456837632-7db76c3f3b2e?w=800&q=80" alt="Ảnh cưới 1" loading="lazy">
+                </div>
+                <div class="album-item transition-freefall delay-2" onclick="openLightbox(1)">
+                    <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=500&q=80" alt="Ảnh cưới 2" loading="lazy">
+                </div>
+                <div class="album-item span-row transition-freefall delay-3" onclick="openLightbox(2)">
+                    <img src="https://images.unsplash.com/photo-1606216794079-73f85bbd57d5?w=500&q=80" alt="Ảnh cưới 3" loading="lazy">
+                </div>
+                <div class="album-item transition-freefall delay-1" onclick="openLightbox(3)">
+                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500&q=80" alt="Ảnh cưới 4" loading="lazy">
+                </div>
+                <div class="album-item transition-freefall delay-2" onclick="openLightbox(4)">
+                    <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=500&q=80" alt="Ảnh cưới 5" loading="lazy">
+                </div>
+                <div class="album-item transition-freefall delay-3" onclick="openLightbox(5)">
+                    <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=500&q=80" alt="Ảnh cưới 6" loading="lazy">
+                </div>
+                <div class="album-item span-2 transition-freefall delay-2" onclick="openLightbox(6)">
+                    <img src="https://images.unsplash.com/photo-1549417229-7686ac5595fd?w=800&q=80" alt="Ảnh cưới 7" loading="lazy">
+                </div>
+                <div class="album-item transition-freefall delay-3" onclick="openLightbox(7)">
+                    <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=500&q=80" alt="Ảnh cưới 8" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">
+            <i data-lucide="x" style="width:32px;height:32px"></i>
+        </button>
+        <button class="lightbox-nav lightbox-prev" onclick="prevPhoto()">
+            <i data-lucide="chevron-left" style="width:32px;height:32px"></i>
+        </button>
+        <img id="lightboxImg" src="" alt="Ảnh cưới phóng to">
+        <button class="lightbox-nav lightbox-next" onclick="nextPhoto()">
+            <i data-lucide="chevron-right" style="width:32px;height:32px"></i>
+        </button>
+    </div>
+
+    <!-- ======================== QR CODE ======================== -->
+    <section class="qr-section" id="qr">
+        <div class="section-container">
+            <p class="section-subtitle transition-reveal">Mừng cưới</p>
+            <h2 class="section-title transition-reveal delay-1">Hộp Mừng Cưới</h2>
+
+            <div class="gold-divider transition-zoom delay-2">
+                <i data-lucide="gift" style="width:20px;height:20px"></i>
+            </div>
+
+            <div class="qr-grid">
+                <div class="qr-card transition-slide-left delay-2">
+                    <h3>Nhà Trai</h3>
+                    <div class="qr-placeholder">
+                        <i data-lucide="qr-code"></i>
+                    </div>
+                    <p class="qr-info"><strong>Lê Minh Anh</strong></p>
+                    <p class="qr-info">Vietcombank</p>
+                    <p class="qr-info">0123 456 789</p>
+                </div>
+
+                <div class="qr-card transition-slide-right delay-3">
+                    <h3>Nhà Gái</h3>
+                    <div class="qr-placeholder">
+                        <i data-lucide="qr-code"></i>
+                    </div>
+                    <p class="qr-info"><strong>Nguyễn Thùy Linh</strong></p>
+                    <p class="qr-info">Techcombank</p>
+                    <p class="qr-info">9876 543 210</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== RSVP & WISHES ======================== -->
+    <section class="rsvp-section" id="rsvp">
+        <div class="section-container" style="max-width:1000px">
+            <p class="section-subtitle transition-reveal">Xác nhận</p>
+            <h2 class="section-title transition-reveal delay-1">Xác Nhận Tham Dự & Lời Chúc</h2>
+
+            <div class="gold-divider transition-zoom delay-2">
+                <i data-lucide="mail-heart" style="width:20px;height:20px"></i>
+            </div>
+
+            <div class="rsvp-grid">
+                <!-- RSVP Form -->
+                <div class="rsvp-form-card transition-unfold delay-2">
+                    <h3>Xác Nhận Tham Dự</h3>
+                    <form id="rsvpForm">
+                        <div class="form-group">
+                            <label>Họ và tên *</label>
+                            <input type="text" id="rsvpName" placeholder="Nhập họ và tên" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="tel" id="rsvpPhone" placeholder="0xxx xxx xxx">
+                            </div>
+                            <div class="form-group">
+                                <label>Số khách</label>
+                                <select id="rsvpGuests">
+                                    <option value="1">1 người</option>
+                                    <option value="2" selected>2 người</option>
+                                    <option value="3">3 người</option>
+                                    <option value="4">4 người</option>
+                                    <option value="5+">5+ người</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Bạn sẽ tham dự? *</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="attendance" value="yes" checked>
+                                    <span>Sẽ tham dự</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="attendance" value="no">
+                                    <span>Không thể đến</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Tham dự buổi nào?</label>
+                            <select id="rsvpSession">
+                                <option value="both">Cả lễ & tiệc</option>
+                                <option value="ceremony">Chỉ lễ vu quy (sáng)</option>
+                                <option value="reception">Chỉ tiệc cưới (chiều)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Lời nhắn</label>
+                            <textarea id="rsvpMessage" placeholder="Gửi lời chúc đến cô dâu chú rể..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <span>Gửi Xác Nhận</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Wishes Board -->
+                <div class="wishes-card transition-unfold delay-3">
+                    <h3>Sổ Lời Chúc</h3>
+                    <div class="wishes-list" id="wishesList">
+                        <div class="wishes-empty">
+                            <i data-lucide="message-circle-heart" style="width:48px;height:48px;color:var(--gold-light);margin-bottom:12px;display:block;margin-left:auto;margin-right:auto"></i>
+                            <p>Hãy là người đầu tiên gửi lời chúc!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== FOOTER ======================== -->
+    <footer class="footer">
+        <div class="transition-reveal">
+            <h2 class="footer-names">Minh Anh <span class="amp">&</span> Thùy Linh</h2>
+            <p class="footer-date">15 . 08 . 2026</p>
+            <p class="footer-thanks">
+                Cảm ơn bạn đã chung vui
+                <span class="footer-heart"><i data-lucide="heart" style="width:18px;height:18px"></i></span>
+                cùng chúng tôi
+            </p>
+        </div>
+    </footer>
+
+    <!-- Music Toggle -->
+    <button id="musicToggle" class="music-toggle" aria-label="Bật/tắt nhạc nền">
+        <i data-lucide="volume-2" class="music-icon-on"></i>
+        <i data-lucide="volume-x" class="music-icon-off"></i>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Initialize Lucide Icons -->
+    <script>lucide.createIcons();</script>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // ======================== PETALS ========================
+        function createPetals() {
+            const container = document.getElementById('petals');
+            if (!container) return;
+            const colors = ['#F0DADA', '#E8D5A8', '#D4A0A0', '#F5EBD8', '#DCC5C5'];
+            for (let i = 0; i < 15; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.width = (10 + Math.random() * 12) + 'px';
+                petal.style.height = petal.style.width;
+                petal.style.background = colors[Math.floor(Math.random() * colors.length)];
+                petal.style.animationDuration = (6 + Math.random() * 8) + 's';
+                petal.style.animationDelay = Math.random() * 10 + 's';
+                petal.style.opacity = 0.4 + Math.random() * 0.4;
+                container.appendChild(petal);
+            }
+        }
+        createPetals();
+
+        // ======================== COUNTDOWN ========================
+        const weddingDate = new Date('2026-08-15T08:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ======================== INTERSECTION OBSERVER ========================
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('[class*="transition-"]').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ======================== LIGHTBOX ========================
+        const albumPhotos = [
+            'https://images.unsplash.com/photo-1529456837632-7db76c3f3b2e?w=1200&q=85',
+            'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1200&q=85',
+            'https://images.unsplash.com/photo-1606216794079-73f85bbd57d5?w=1200&q=85',
+            'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&q=85',
+            'https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1200&q=85',
+            'https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=1200&q=85',
+            'https://images.unsplash.com/photo-1549417229-7686ac5595fd?w=1200&q=85',
+            'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1200&q=85',
+        ];
+        let currentPhoto = 0;
+
+        window.openLightbox = function(index) {
+            currentPhoto = index;
+            document.getElementById('lightboxImg').src = albumPhotos[index];
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+        window.closeLightbox = function() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        };
+        window.prevPhoto = function() {
+            currentPhoto = (currentPhoto - 1 + albumPhotos.length) % albumPhotos.length;
+            document.getElementById('lightboxImg').src = albumPhotos[currentPhoto];
+        };
+        window.nextPhoto = function() {
+            currentPhoto = (currentPhoto + 1) % albumPhotos.length;
+            document.getElementById('lightboxImg').src = albumPhotos[currentPhoto];
+        };
+
+        // Close lightbox on background click
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') prevPhoto();
+            if (e.key === 'ArrowRight') nextPhoto();
+        });
+
+        // ======================== TOAST ========================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastText').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ======================== RSVP FORM ========================
+        const wishes = [];
+
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('rsvpName').value.trim();
+            const phone = document.getElementById('rsvpPhone').value.trim();
+            const guests = document.getElementById('rsvpGuests').value;
+            const attendance = document.querySelector('input[name="attendance"]:checked').value;
+            const session = document.getElementById('rsvpSession').value;
+            const message = document.getElementById('rsvpMessage').value.trim();
+
+            if (!name) {
+                showToast('Vui lòng nhập họ và tên!');
+                return;
+            }
+
+            // Add wish to list
+            if (message) {
+                wishes.unshift({ name, message, time: new Date() });
+                renderWishes();
+            }
+
+            showToast(attendance === 'yes'
+                ? 'Cảm ơn bạn đã xác nhận tham dự!'
+                : 'Cảm ơn bạn đã phản hồi!'
+            );
+
+            this.reset();
+        });
+
+        function renderWishes() {
+            const list = document.getElementById('wishesList');
+            if (wishes.length === 0) {
+                list.innerHTML = `
+                    <div class="wishes-empty">
+                        <i data-lucide="message-circle-heart" style="width:48px;height:48px;color:var(--gold-light);margin-bottom:12px;display:block;margin-left:auto;margin-right:auto"></i>
+                        <p>Hãy là người đầu tiên gửi lời chúc!</p>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            list.innerHTML = wishes.map((w, i) => `
+                <div class="wish-item" style="animation-delay: ${i * 0.1}s">
+                    <p class="wish-author">${escapeHtml(w.name)}</p>
+                    <p class="wish-text">"${escapeHtml(w.message)}"</p>
+                    <p class="wish-time">${formatTime(w.time)}</p>
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function formatTime(date) {
+            const now = new Date();
+            const diff = Math.floor((now - date) / 1000);
+            if (diff < 60) return 'Vừa xong';
+            if (diff < 3600) return Math.floor(diff / 60) + ' phút trước';
+            if (diff < 86400) return Math.floor(diff / 3600) + ' giờ trước';
+            return date.toLocaleDateString('vi-VN');
+        }
+
+        // ======================== MUSIC ========================
+        const musicBtn = document.getElementById('musicToggle');
+        const bgMusic = document.getElementById('bgMusic');
+        if (musicBtn && bgMusic) {
+            bgMusic.volume = 0.3;
+            let musicStarted = false;
+
+            // Auto-play on load
+            bgMusic.play().then(() => { musicStarted = true; }).catch(() => {
+                document.addEventListener('click', function autoPlay() {
+                    bgMusic.play().then(() => { musicStarted = true; }).catch(() => {});
+                    document.removeEventListener('click', autoPlay);
+                }, { once: true });
+            });
+
+            musicBtn.addEventListener('click', () => {
+                if (!musicStarted) {
+                    bgMusic.play().catch(() => {});
+                    musicStarted = true;
+                } else if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicBtn.classList.remove('muted');
+                } else {
+                    bgMusic.pause();
+                    musicBtn.classList.add('muted');
+                }
+            });
+        }
+    })();
+    </script>
+</body>
+</html>

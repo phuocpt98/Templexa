@@ -6,17 +6,21 @@
 const ProductDetail = (function () {
     const cache = {};
 
+    // Map new category → existing JSON file
+    const DETAIL_FILE_MAP = { 'wedding': 'invitation', 'other': 'invitation' };
+
     /**
      * Fetch detail JSON for a category (cached per category)
      */
     async function fetchCategory(category) {
-        if (cache[category]) return cache[category];
+        const file = DETAIL_FILE_MAP[category] || category;
+        if (cache[file]) return cache[file];
 
-        const res = await fetch(`./assets/data/${category}.json`);
-        if (!res.ok) throw new Error(`Failed to load ${category}.json`);
+        const res = await fetch(`./assets/data/${file}.json`);
+        if (!res.ok) throw new Error(`Failed to load ${file}.json`);
 
         const data = await res.json();
-        cache[category] = data;
+        cache[file] = data;
         return data;
     }
 
@@ -41,7 +45,9 @@ const ProductDetail = (function () {
      */
     function prefetch(id) {
         const product = getProductById(id);
-        if (product && !cache[product.category]) {
+        if (!product) return;
+        const file = DETAIL_FILE_MAP[product.category] || product.category;
+        if (!cache[file]) {
             fetchCategory(product.category).catch(function () {});
         }
     }

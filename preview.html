@@ -270,6 +270,7 @@
             function startAutoScroll() {
                 killAutoScroll();
                 autoScrollStopped = false;
+                var scrollStartTime = Date.now();
 
                 try {
                     var iframeWin = iframe.contentWindow;
@@ -330,6 +331,10 @@
                             iframeDoc.head.appendChild(resetStyle);
                         } catch (e) {}
 
+                        // If images took > 500ms, start immediately; otherwise wait remaining time
+                        var elapsed = Date.now() - scrollStartTime;
+                        var remaining = Math.max(0, 500 - elapsed);
+
                         setTimeout(function () {
                             if (autoScrollStopped) return;
                             // Start RAF-based scroll
@@ -341,7 +346,7 @@
                                     autoScrollTimer = null;
                                 }
                             }, 16);
-                        }, 1500);
+                        }, remaining);
                     }
 
                     var images = iframeDoc.querySelectorAll('img');
@@ -360,10 +365,10 @@
 
                     if (pending === 0) { started = true; beginScroll(); }
 
-                    // Fallback: start after 5s even if some images are still loading
+                    // Fallback: start after 3s even if some images are still loading
                     setTimeout(function () {
                         if (!started && !autoScrollStopped) { started = true; beginScroll(); }
-                    }, 5000);
+                    }, 3000);
 
                 } catch (e) { /* cross-origin — ignore */ }
             }
