@@ -97,9 +97,10 @@ Xác định thêm:
 1. Tạo folder `products/Web/Invitation/gen_{id}_{keywords}/`
 2. Tạo file `code.html` (self-contained, wedding sections + nhạc + hiệu ứng)
 3. Tạo file `prompt.txt` (form điền thông tin cho khách — xem Bước 5b)
-4. Chạy Puppeteer chụp screenshot (2–5 ảnh viewport 1280x800)
-5. Chuyển PNG → WebP + xoá PNG gốc
-6. Trả về: `{ id, name, slug, description, category, type, tags, folder, images[], features[], demoUrl }`
+4. Chạy Puppeteer chụp screenshot desktop (2–5 ảnh viewport 1280x800)
+5. Chạy Puppeteer chụp screenshot mobile (1 ảnh viewport 440x956@3x → `mobile.png`)
+6. Chuyển PNG → WebP + xoá PNG gốc
+7. Trả về: `{ id, name, slug, description, category, type, tags, folder, images[], mobileView, features[], demoUrl }`
 
 #### Sau khi agents xong:
 1. Merge tất cả entries vào `data.js` trước `];`
@@ -1208,6 +1209,36 @@ const puppeteer = require('puppeteer');
 "
 ```
 
+### Bước 6a: Chụp ảnh mobile (iPhone 17 Pro Max)
+
+Chụp 1 ảnh mobile — chỉ initial viewport (hero view), không scroll:
+
+```javascript
+node -e "
+const puppeteer = require('puppeteer');
+(async () => {
+  const browser = await puppeteer.launch({ headless: 'new' });
+  const page = await browser.newPage();
+  const folder = '<đường dẫn folder sản phẩm>';
+  const filePath = 'file://' + process.cwd().replace(/\\\\/g, '/') + '/' + folder + '/code.html';
+
+  // iPhone 17 Pro Max: 440x956 @3x → output 1320x2868px
+  await page.setViewport({ width: 440, height: 956, deviceScaleFactor: 3 });
+  await page.goto(filePath, { waitUntil: 'networkidle0', timeout: 30000 });
+  await new Promise(r => setTimeout(r, 2000));
+
+  await page.screenshot({ path: folder + '/mobile.png', type: 'png' });
+  await browser.close();
+  console.log('Mobile screenshot done!');
+})();
+"
+```
+
+**Lưu ý:**
+- File `mobile.png` sẽ tự convert thành `mobile.webp` ở Bước 6b (script quét tất cả `.png` trong folder)
+- `deviceScaleFactor: 3` cho ảnh sắc nét (Retina 3x)
+- Một số thiệp có animation phong bì — wait 2s thường đủ để envelope mở xong. Nếu vẫn bị chặn, thêm `await page.click('body')` trước khi chụp
+
 ### Bước 6b: Chuyển PNG → WebP + Xoá PNG gốc
 
 ```bash
@@ -1266,6 +1297,19 @@ Chèn trước `];` đóng mảng PRODUCTS:
         updatedAt: '<YYYY-MM-DD>',
     },
 ```
+
+Cũng cập nhật `assets/data/invitation.json` — thêm entry cho sản phẩm mới:
+```json
+"<id>": {
+    "images": ["./<folder>/screen.webp", "./<folder>/anh_1.webp", ...],
+    "mobileView": "./<folder>/mobile.webp",
+    "path": "./<folder>/",
+    "features": ["...", "...", "..."]
+}
+```
+- Field `mobileView` là đường dẫn đến ảnh mobile, **KHÔNG nằm trong `images[]`** — là field riêng biệt
+- Sản phẩm cũ (chưa có `mobile.webp`) sẽ không có field này — code đọc cần check `undefined`
+- `data-loader.js` tự merge qua `Object.assign()` nên `product.mobileView` sẽ accessible
 
 **Tags luôn bao gồm**: `'wedding'`, `'invitation'`
 
@@ -1331,7 +1375,7 @@ Chi tiết: xem skill `/gen-qr`
 |---|----|-----|-----------|------|------|
 | 1 | 177 | Thiệp Cưới - Minh & Lan | Classic Gold | A Thousand Years | [Xem](demoUrl) |
 
-📸 Screenshots: <số> ảnh/mẫu (WebP)
+📸 Screenshots: <số> ảnh desktop + 1 ảnh mobile (iPhone 17 Pro Max 440x956@3x) / mẫu (WebP)
 🎵 Nhạc nền: <tên bài> (folder: wedding/)
 🌸 Hiệu ứng: hoa rơi + sparkles
 ⏱️ Countdown: <ngày cưới>
@@ -1675,8 +1719,9 @@ Ví dụ thay thế trong code.html:
 #### Bước B4: Ghi file + Screenshot
 
 1. Ghi `code.html` vào folder khách (OVERWRITE nếu đã có)
-2. Chạy Puppeteer chụp screenshot (giống Bước 6)
-3. Chuyển PNG → WebP (giống Bước 6b)
+2. Chạy Puppeteer chụp screenshot desktop (giống Bước 6)
+3. Chạy Puppeteer chụp screenshot mobile (giống Bước 6a — 1 ảnh 440x956@3x → `mobile.png`)
+4. Chuyển PNG → WebP (giống Bước 6b)
 
 #### Bước B5: Thêm vào data.js
 
@@ -1707,6 +1752,8 @@ Thêm entry mới (KHÔNG thay thế mẫu gốc):
     },
 ```
 
+Cũng cập nhật `assets/data/invitation.json` — thêm entry với `mobileView` (giống Bước 7).
+
 #### Bước B6: Báo cáo
 
 ```
@@ -1723,7 +1770,7 @@ Thêm entry mới (KHÔNG thay thế mẫu gốc):
 | Folder | {đường dẫn} |
 | Demo | [Xem]({demoUrl}) |
 
-📸 Screenshots: {số} ảnh (WebP)
+📸 Screenshots: {số} ảnh desktop + 1 ảnh mobile (WebP)
 ```
 
 ### Ràng buộc Quy trình B

@@ -89,7 +89,7 @@
     let currentType = urlParams.get('type') || 'all';
     let currentSearch = urlParams.get('search') || '';
     let currentPage = parseInt(urlParams.get('page')) || 1;
-    const perPage = 9;
+    let perPage = 9;
 
     if (currentSearch && searchInput) {
         searchInput.value = currentSearch;
@@ -270,6 +270,10 @@
 
                 iframe.onload = function () {
                     if (!hovered) { iframe.remove(); iframe = null; return; }
+                    // Auto-click để mở thiệp cưới có animation click-to-open
+                    if (document.body.classList.contains('invitation-theme')) {
+                        try { iframe.contentDocument.body.click(); } catch (e) {}
+                    }
                     iframe.classList.add('loaded');
                     setTimeout(function () {
                         if (hovered && iframe) iframe.classList.add('scrolling');
@@ -547,6 +551,8 @@
 
     // ── Main render ─────────────────────────────
     function render() {
+        perPage = currentType === 'invitation' ? 12 : 9;
+
         // Giữ trạng thái dropdown mobile trước khi rebuild
         const wasOpen = filtersWrapper && filtersWrapper.classList.contains('open');
 
