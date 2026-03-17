@@ -3,7 +3,7 @@ Gen thiệp cưới HTML + nhạc nền + prompt.txt + thêm entry vào data.js.
 Argument: $ARGUMENTS — mô tả yêu cầu thiệp cưới, hoặc đường dẫn folder khách.
 
 **2 chế độ:**
-- **Gen mẫu** (mặc định): tạo `code.html` + `prompt.txt` + screenshots → mẫu trống cho khách chọn
+- **Gen mẫu** (mặc định): tạo `code.html` + `prompt.txt` → mẫu trống cho khách chọn. Screenshots chụp sau khi user kiểm tra và xác nhận OK
 - **Gen theo khách**: đọc folder khách (có `prompt.txt` đã điền + ảnh) → gen thiệp với thông tin khách
 
 **2 loại thiệp:**
@@ -97,16 +97,14 @@ Xác định thêm:
 1. Tạo folder `products/Web/Invitation/gen_{id}_{keywords}/`
 2. Tạo file `code.html` (self-contained, wedding sections + nhạc + hiệu ứng)
 3. Tạo file `prompt.txt` (form điền thông tin cho khách — xem Bước 5b)
-4. Chạy Puppeteer chụp screenshot desktop (2–5 ảnh viewport 1280x800)
-5. Chạy Puppeteer chụp screenshot mobile (1 ảnh viewport 440x956@3x → `mobile.png`)
-6. Chuyển PNG → WebP + xoá PNG gốc
-7. Trả về: `{ id, name, slug, description, category, type, tags, folder, images[], mobileView, features[], demoUrl }`
+4. Trả về: `{ id, name, slug, description, category, type, tags, folder, features[], demoUrl }`
+5. **KHÔNG chụp screenshot** — đợi user kiểm tra + xác nhận OK trước (xem Bước 6)
 
 #### Sau khi agents xong:
-1. Merge tất cả entries vào `data.js` trước `];`
+1. Merge tất cả entries vào `data.js` trước `];` (images tạm rỗng `[]`, chưa có thumbnail)
 2. Cập nhật `products/products.md`
 3. Cập nhật `products/shared/animations.css` nếu có animation mới
-4. Báo cáo tổng hợp
+4. Báo cáo tổng hợp + **hỏi user kiểm tra từng mẫu** trước khi chụp screenshot
 
 ### Bước 2: Đọc thư viện wedding + animation
 
@@ -1177,7 +1175,17 @@ var GUEST_LIST = [
 
 ### Bước 6: Chụp ảnh tự động bằng Puppeteer
 
-Giống /gen-landing — chụp 2–5 viewport 1280x800:
+**⚠️ QUAN TRỌNG: KHÔNG chụp screenshot ngay sau khi gen HTML.**
+
+Quy trình:
+1. Sau khi gen xong `code.html` + `prompt.txt` + thêm entry `data.js` → **HỎI USER**:
+   > "Mẫu đã gen xong. Bạn kiểm tra và cho mình biết khi nào OK để chụp ảnh màn hình nhé!"
+2. **Đợi user xác nhận** (user nói "ok", "chụp đi", "gen ảnh", "screenshot"...)
+3. Nếu user yêu cầu **sửa** → sửa xong → **hỏi lại**: "Đã sửa xong. Bạn kiểm tra lại, OK thì mình chụp ảnh nhé?"
+4. **Lặp lại** bước 2–3 cho đến khi user xác nhận OK
+5. Khi user xác nhận → chạy Puppeteer chụp screenshot (desktop + mobile) + convert WebP + cập nhật `images[]` trong `data.js`
+
+Chụp 2–5 viewport 1280x800:
 
 ```javascript
 node -e "
@@ -1377,13 +1385,14 @@ Chi tiết: xem skill `/gen-qr`
 |---|----|-----|-----------|------|------|
 | 1 | 177 | Thiệp Cưới - Minh & Lan | Classic Gold | A Thousand Years | [Xem](demoUrl) |
 
-📸 Screenshots: <số> ảnh desktop + 1 ảnh mobile (iPhone 17 Pro Max 440x956@3x) / mẫu (WebP)
 🎵 Nhạc nền: <tên bài> (folder: wedding/)
 🌸 Hiệu ứng: hoa rơi + sparkles
 ⏱️ Countdown: <ngày cưới>
 💌 RSVP form: có
 📝 prompt.txt: có — khách điền thông tin để customise
    Ảnh cần: <số> ảnh (anh_bia, anh_doi x3, anh_gallery x6, anh_qr)
+
+📸 **Chưa chụp screenshot** — bạn kiểm tra mẫu và cho mình biết khi nào OK để chụp ảnh nhé!
 ```
 
 ---
@@ -1784,12 +1793,11 @@ Ví dụ thay thế trong code.html:
 - src="https://images.unsplash.com/photo-yyy?w=600" → src="./anh_doi_1.jpg"
 ```
 
-#### Bước B4: Ghi file + Screenshot
+#### Bước B4: Ghi file
 
 1. Ghi `code.html` vào folder khách (OVERWRITE nếu đã có)
-2. Chạy Puppeteer chụp screenshot desktop (giống Bước 6)
-3. Chạy Puppeteer chụp screenshot mobile (giống Bước 6a — 1 ảnh 440x956@3x → `mobile.png`)
-4. Chuyển PNG → WebP (giống Bước 6b)
+2. **KHÔNG chụp screenshot ngay** — hỏi user kiểm tra trước (giống Bước 6)
+3. Khi user xác nhận OK → chạy Puppeteer chụp screenshot desktop + mobile + convert WebP
 
 #### Bước B5: Thêm vào data.js
 
@@ -1838,7 +1846,7 @@ Cũng cập nhật `assets/data/invitation.json` — thêm entry với `mobileVi
 | Folder | {đường dẫn} |
 | Demo | [Xem]({demoUrl}) |
 
-📸 Screenshots: {số} ảnh desktop + 1 ảnh mobile (WebP)
+📸 **Chưa chụp screenshot** — bạn kiểm tra mẫu và cho mình biết khi nào OK để chụp ảnh nhé!
 ```
 
 ### Ràng buộc Quy trình B

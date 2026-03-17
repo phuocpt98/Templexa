@@ -102,7 +102,7 @@
             text-shadow: 0 2px 15px rgba(0,0,0,0.4);
         }
         .curtain-center__icon {
-            width: 80px; height: 80px;
+            width: 90px; height: 90px;
             margin: 0 auto 16px;
             border: 1.5px solid rgba(255,215,0,0.35);
             border-radius: 50%;
@@ -110,7 +110,15 @@
             animation: curtain-pulse 2s ease-in-out infinite;
             background: rgba(255,215,0,0.06);
         }
-        .curtain-center__icon svg { width: 36px; height: 36px; }
+        .curtain-center__icon img {
+            width: 56px; height: 56px;
+            object-fit: contain;
+            animation: icon-shine 3s ease-in-out infinite;
+        }
+        @keyframes icon-shine {
+            0%, 100% { filter: brightness(1) drop-shadow(0 2px 8px rgba(212,175,55,0.2)); }
+            50% { filter: brightness(1.3) drop-shadow(0 2px 16px rgba(212,175,55,0.5)); }
+        }
         .curtain-center__text {
             font-family: 'Quicksand', sans-serif;
             font-size: 13px;
@@ -124,26 +132,122 @@
         }
         @keyframes curtain-slide-left {
             0% { transform: translateX(0); opacity: 1; }
-            70% { opacity: 1; }
-            100% { transform: translateX(-100%); opacity: 0; }
+            80% { opacity: 1; }
+            100% { transform: translateX(-105%); opacity: 0; }
         }
         @keyframes curtain-slide-right {
             0% { transform: translateX(0); opacity: 1; }
-            70% { opacity: 1; }
-            100% { transform: translateX(100%); opacity: 0; }
+            80% { opacity: 1; }
+            100% { transform: translateX(105%); opacity: 0; }
         }
         @keyframes curtain-center-fade {
             0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1.15); }
         }
         .curtain-panel--left.curtain-opening {
-            animation: curtain-slide-left 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: curtain-slide-left 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .curtain-panel--right.curtain-opening {
-            animation: curtain-slide-right 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: curtain-slide-right 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .curtain-center.curtain-opening {
-            animation: curtain-center-fade 0.5s ease-out forwards;
+            animation: curtain-center-fade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* --- Deco trên rèm --- */
+        .curtain-deco {
+            position: absolute;
+            width: 50px; height: 50px;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 1;
+            /* Đổi tông → vàng gold sáng */
+            filter: brightness(2.2) sepia(1) saturate(3) hue-rotate(5deg);
+            /* Đèn nháy: sáng lấp lánh → tối → sáng */
+            animation: icon-drift 6s ease-in-out infinite,
+                       curtain-twinkle 2.5s ease-in-out infinite;
+        }
+        .curtain-deco--lg {
+            width: 75px; height: 75px;
+        }
+        @keyframes curtain-twinkle {
+            0%, 100% { opacity: 0.12; }
+            30% { opacity: 0.45; }
+            50% { opacity: 0.1; }
+            75% { opacity: 0.5; }
+        }
+        .deco-icon-drift {
+            animation: icon-drift 6s ease-in-out infinite;
+        }
+        @keyframes icon-drift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(8px, -6px) rotate(3deg); }
+            66% { transform: translate(-5px, 4px) rotate(-2deg); }
+        }
+        .deco-icon-mirror { transform: scaleX(-1); }
+
+        /* ============================================
+           CURTAIN PARTICLES — Hoa + mây khói khi mở
+           ============================================ */
+        .curtain-particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+            overflow: hidden;
+        }
+        .curtain-particle {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
+        /* Hoa bốc lên */
+        .curtain-particle--petal {
+            font-size: 18px;
+            animation: curtain-petal-rise var(--dur, 3s) cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) forwards;
+        }
+        @keyframes curtain-petal-rise {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.3) rotate(0deg);
+            }
+            15% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--dx, 0px), var(--dy, -200px)) scale(1.1) rotate(var(--rot, 360deg));
+            }
+        }
+        /* Mây khói trắng */
+        .curtain-particle--smoke {
+            width: var(--size, 80px);
+            height: var(--size, 80px);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 50%, transparent 70%);
+            filter: blur(8px);
+            animation: curtain-smoke-rise var(--dur, 3.5s) cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) forwards;
+        }
+        @keyframes curtain-smoke-rise {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.4);
+            }
+            20% {
+                opacity: 0.6;
+            }
+            60% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--dx, 0px), var(--dy, -250px)) scale(2.5);
+            }
         }
 
         /* ============================================
@@ -519,6 +623,29 @@
         }
         .gallery-item:hover img { transform: scale(1.05); }
         .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+
+        /* Frame deco bên ảnh cuối */
+        .gallery-frame-deco {
+            aspect-ratio: 3/4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .gallery-frame-deco img {
+            width: 70%;
+            height: auto;
+            object-fit: contain;
+            opacity: 0.2;
+            animation: gallery-frame-zoom 6s ease-in-out infinite;
+            filter: brightness(1.2) sepia(0.4) saturate(1.5) hue-rotate(-10deg);
+        }
+        @keyframes gallery-frame-zoom {
+            0%, 100% { transform: scale(0.85); opacity: 0.15; }
+            50% { transform: scale(1.05); opacity: 0.3; }
+        }
 
         @media (max-width: 480px) {
             .gallery-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1004,21 +1131,22 @@
          CURTAIN OPENING
          ============================ -->
     <div class="curtain-overlay" id="curtainOverlay">
-        <div class="curtain-panel curtain-panel--left"></div>
-        <div class="curtain-panel curtain-panel--right"></div>
+        <div class="curtain-panel curtain-panel--left">
+            <!-- Deco trên rèm trái — gần mép giữa -->
+            <img src="../../../shared/images/wedding/icons/cherry-blossom.webp" alt="" class="curtain-deco deco-icon-drift" style="top:18%;right:8%;">
+            <img src="../../../shared/images/wedding/icons/decorative-flowers.webp" alt="" class="curtain-deco deco-icon-drift" style="bottom:25%;right:5%;animation-delay:-2s;">
+            <img src="../../../shared/images/wedding/icons/bouquet-1.webp" alt="" class="curtain-deco curtain-deco--lg deco-icon-drift" style="bottom:5%;left:8%;animation-delay:-4s;">
+        </div>
+        <div class="curtain-panel curtain-panel--right">
+            <!-- Deco trên rèm phải — gần mép giữa -->
+            <img src="../../../shared/images/wedding/icons/cherry-blossom.webp" alt="" class="curtain-deco deco-icon-drift deco-icon-mirror" style="top:22%;left:5%;animation-delay:-1s;">
+            <img src="../../../shared/images/wedding/icons/decorative-flowers.webp" alt="" class="curtain-deco deco-icon-drift deco-icon-mirror" style="bottom:20%;left:8%;animation-delay:-3s;">
+            <img src="../../../shared/images/wedding/icons/bouquet-2.webp" alt="" class="curtain-deco curtain-deco--lg deco-icon-drift" style="bottom:5%;right:8%;animation-delay:-5s;">
+        </div>
         <div class="curtain-center" id="curtainCenter">
             <div class="curtain-center__names">Minh & Ngọc</div>
             <div class="curtain-center__icon">
-                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Envelope body -->
-                    <rect x="8" y="18" width="48" height="30" rx="3" fill="none" stroke="#FFD700" stroke-width="1.8" opacity="0.6"/>
-                    <!-- Envelope flap -->
-                    <path d="M8 18l24 16 24-16" fill="none" stroke="#FFD700" stroke-width="1.8" opacity="0.6"/>
-                    <!-- Heart wax seal -->
-                    <circle cx="32" cy="40" r="9" fill="#FFD700" opacity="0.2"/>
-                    <circle cx="32" cy="40" r="7.5" fill="none" stroke="#FFD700" stroke-width="1.2" opacity="0.7"/>
-                    <path d="M32 36c-1.2-1.8-3.5-2.2-5-1s-0.8 4 0.8 5.8L32 45l4.2-4.2c1.6-1.8 2.3-4.6 0.8-5.8s-3.8-0.8-5 1z" fill="#FFD700" opacity="0.85"/>
-                </svg>
+                <img src="../../../shared/images/wedding/icons/wax-seal.webp" alt="" class="deco-icon-shine">
             </div>
             <div class="curtain-center__text">Nhấn để mở thiệp</div>
         </div>
@@ -1274,6 +1402,9 @@
                 <div class="gallery-item" data-index="7">
                     <img src="../../../shared/images/wedding/elegant-black-gold/gallery_5.webp" alt="Ảnh cưới 6" loading="lazy">
                 </div>
+                <div class="gallery-frame-deco">
+                    <img src="../../../shared/images/wedding/icons/frame-2.webp" alt="" loading="lazy">
+                </div>
             </div>
         </div>
         <img src="../../../shared/images/wedding/icons/bouquet-1.webp" class="deco-icon deco-icon-md deco-icon-faint deco-float" style="top:2%;right:0;" alt="">
@@ -1464,20 +1595,76 @@
         var curtainCenter = document.getElementById('curtainCenter');
         var opened = false;
 
+        /* --- Spawn particles: hoa + mây khói --- */
+        function spawnCurtainParticles() {
+            var container = document.createElement('div');
+            container.className = 'curtain-particles';
+            document.body.appendChild(container);
+
+            var petals = ['🌸', '🩷', '💮', '✿', '🏵️', '💕'];
+            var totalPetals = 20;
+            var totalSmoke = 8;
+
+            // Hoa bốc lên từ giữa, toả ra 2 bên
+            for (var i = 0; i < totalPetals; i++) {
+                var p = document.createElement('span');
+                p.className = 'curtain-particle curtain-particle--petal';
+                p.textContent = petals[Math.floor(Math.random() * petals.length)];
+                var startX = 35 + Math.random() * 30; // 35-65% (vùng giữa)
+                var startY = 30 + Math.random() * 40;  // 30-70%
+                p.style.left = startX + '%';
+                p.style.top = startY + '%';
+                var angle = Math.random() * Math.PI * 2;
+                var dist = 80 + Math.random() * 180;
+                p.style.setProperty('--dx', (Math.cos(angle) * dist).toFixed(0) + 'px');
+                p.style.setProperty('--dy', (-60 - Math.random() * 200).toFixed(0) + 'px');
+                p.style.setProperty('--rot', ((Math.random() - 0.5) * 540).toFixed(0) + 'deg');
+                p.style.setProperty('--dur', (2.5 + Math.random() * 2) + 's');
+                p.style.setProperty('--delay', (Math.random() * 0.8) + 's');
+                p.style.fontSize = (14 + Math.random() * 12) + 'px';
+                container.appendChild(p);
+            }
+
+            // Mây khói trắng mờ bốc lên
+            for (var j = 0; j < totalSmoke; j++) {
+                var s = document.createElement('div');
+                s.className = 'curtain-particle curtain-particle--smoke';
+                var sx = 20 + Math.random() * 60;
+                var sy = 40 + Math.random() * 30;
+                s.style.left = sx + '%';
+                s.style.top = sy + '%';
+                s.style.setProperty('--size', (60 + Math.random() * 80) + 'px');
+                s.style.setProperty('--dx', ((Math.random() - 0.5) * 120).toFixed(0) + 'px');
+                s.style.setProperty('--dy', (-100 - Math.random() * 200).toFixed(0) + 'px');
+                s.style.setProperty('--dur', (3 + Math.random() * 2) + 's');
+                s.style.setProperty('--delay', (Math.random() * 0.6) + 's');
+                container.appendChild(s);
+            }
+
+            // Dọn dẹp container sau khi animation xong
+            setTimeout(function () { container.remove(); }, 6000);
+        }
+
         function openCurtain() {
             if (opened) return;
             opened = true;
             document.body.style.overflow = '';
+
+            // T=0: center fade out (nở ra + biến mất)
             curtainCenter.classList.add('curtain-opening');
+
+            // T=200ms: spawn particles + 2 panels slide mềm
             setTimeout(function () {
+                spawnCurtainParticles();
                 overlay.querySelector('.curtain-panel--left').classList.add('curtain-opening');
                 overlay.querySelector('.curtain-panel--right').classList.add('curtain-opening');
-            }, 250);
+            }, 200);
+
+            // T=4500ms: xoá overlay + phát nhạc
             setTimeout(function () {
                 overlay.remove();
-                // Start music after curtain opens
                 startMusic();
-            }, 4000);
+            }, 4500);
         }
 
         overlay.addEventListener('click', openCurtain);

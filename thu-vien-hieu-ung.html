@@ -490,6 +490,432 @@
         }
         .layout-flow-arrow { color: var(--text-muted); font-size: 0.6rem; }
 
+        /* ===== COLLAPSIBLE ===== */
+        .collapsible-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            font-size: 0.7rem;
+            font-family: var(--font-body);
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .collapsible-toggle:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+        .collapsible-toggle i { width: 12px; height: 12px; transition: transform 0.3s; }
+        .collapsible-toggle.collapsed i { transform: rotate(-90deg); }
+        .collapsible-body {
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+            max-height: 5000px;
+            opacity: 1;
+        }
+        .collapsible-body.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        /* ===== SCENARIO CARDS ===== */
+        .scenario-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .scenario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        .scenario-header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .scenario-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        .scenario-name {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+        .scenario-ref {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .scenario-duration {
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: rgba(212,175,55,0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .scenario-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .scenario-section-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin: 1.25rem 0 0.75rem;
+            font-weight: 600;
+        }
+        .scenario-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        .scenario-table th {
+            text-align: left;
+            padding: 8px 12px;
+            background: rgba(212,175,55,0.06);
+            color: var(--accent);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+        }
+        .scenario-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            color: var(--text-secondary);
+            vertical-align: top;
+        }
+        .scenario-table td:first-child {
+            color: var(--text);
+            font-weight: 500;
+            white-space: nowrap;
+            width: 120px;
+        }
+        .scenario-table code {
+            font-size: 0.75rem;
+            background: rgba(212,175,55,0.08);
+            color: var(--accent-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .scenario-table--compact td:first-child { width: 140px; }
+        .scenario-timeline {
+            position: relative;
+            padding-left: 20px;
+        }
+        .scenario-timeline::before {
+            content: '';
+            position: absolute;
+            left: 4px; top: 8px; bottom: 8px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), rgba(212,175,55,0.2));
+            border-radius: 1px;
+        }
+        .scenario-step {
+            display: flex;
+            gap: 16px;
+            padding: 10px 0;
+            position: relative;
+        }
+        .scenario-step::before {
+            content: '';
+            position: absolute;
+            left: -20px; top: 16px;
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg-card);
+            box-shadow: 0 0 0 2px rgba(212,175,55,0.3);
+        }
+        .scenario-time {
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 600;
+            min-width: 80px;
+            padding-top: 2px;
+            font-family: monospace;
+        }
+        .scenario-action {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .scenario-action strong {
+            color: var(--text);
+        }
+        .scenario-action code {
+            font-size: 0.72rem;
+            background: rgba(212,175,55,0.08);
+            color: var(--accent-light);
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+        .scenario-trigger {
+            margin-top: 4px;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        .scenario-code {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .scenario-code code {
+            font-size: 0.74rem;
+            background: rgba(212,175,55,0.08);
+            color: var(--accent-light);
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+
+        /* ===== SCENARIO DEMO — mini curtain ===== */
+        .scenario-demo {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+            height: 200px;
+            margin: 0 auto 1.25rem;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            cursor: pointer;
+        }
+        .sd-curtain-l, .sd-curtain-r {
+            position: absolute;
+            top: 0; height: 100%; width: 50%;
+            z-index: 3;
+            background: linear-gradient(135deg, #6A060D 0%, #8B0A12 30%, #6A060D 60%, #4D0409 100%);
+            transition: none;
+        }
+        .sd-curtain-l { left: 0; }
+        .sd-curtain-r { right: 0; }
+        .sd-curtain-l::after, .sd-curtain-r::after {
+            content: '';
+            position: absolute; top: 0; width: 10px; height: 100%;
+        }
+        .sd-curtain-l::after { right: 0; background: linear-gradient(to left, rgba(0,0,0,0.25), transparent); }
+        .sd-curtain-r::after { left: 0; background: linear-gradient(to right, rgba(0,0,0,0.25), transparent); }
+        /* Deco trên rèm mini */
+        .sd-deco {
+            position: absolute; z-index: 1; pointer-events: none;
+            font-size: 14px;
+            animation: sd-twinkle 2s ease-in-out infinite, icon-drift 5s ease-in-out infinite;
+        }
+        @keyframes sd-twinkle {
+            0%, 100% { opacity: 0.15; }
+            30% { opacity: 0.5; }
+            60% { opacity: 0.1; }
+            80% { opacity: 0.45; }
+        }
+        .sd-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            text-align: center;
+            color: #FFD700;
+        }
+        .sd-center-names {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+            margin-bottom: 6px;
+        }
+        .sd-center-icon {
+            width: 36px; height: 36px;
+            margin: 0 auto 6px;
+            border: 1px solid rgba(255,215,0,0.4);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+            animation: curtain-pulse 2s ease-in-out infinite;
+            background: rgba(255,215,0,0.06);
+        }
+        .sd-center-text {
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+        /* Behind curtain — hero preview */
+        .sd-hero {
+            position: absolute;
+            inset: 0; z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at center, rgba(212,175,55,0.08), transparent 60%);
+        }
+        .sd-hero-name {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            color: var(--accent);
+        }
+        .sd-hero-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+        /* Particles mini */
+        .sd-particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+        }
+        .sd-particle--petal {
+            font-size: 12px;
+            animation: sd-petal var(--dur, 2s) cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) forwards;
+        }
+        @keyframes sd-petal {
+            0% { opacity: 0; transform: translate(0, 0) scale(0.3) rotate(0deg); }
+            15% { opacity: 1; }
+            70% { opacity: 0.7; }
+            100% { opacity: 0; transform: translate(var(--dx, 0px), var(--dy, -80px)) scale(1) rotate(var(--rot, 300deg)); }
+        }
+        .sd-particle--smoke {
+            width: var(--size, 30px); height: var(--size, 30px);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 70%);
+            filter: blur(4px);
+            animation: sd-smoke var(--dur, 2.5s) cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) forwards;
+        }
+        @keyframes sd-smoke {
+            0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+            20% { opacity: 0.5; }
+            100% { opacity: 0; transform: translate(var(--dx, 0px), var(--dy, -100px)) scale(2); }
+        }
+        /* Open state */
+        .sd-curtain-l.sd-open {
+            animation: sd-slide-l 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .sd-curtain-r.sd-open {
+            animation: sd-slide-r 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes sd-slide-l {
+            0% { transform: translateX(0); opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateX(-105%); opacity: 0; }
+        }
+        @keyframes sd-slide-r {
+            0% { transform: translateX(0); opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateX(105%); opacity: 0; }
+        }
+        .sd-center.sd-open {
+            animation: sd-center-fade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes sd-center-fade {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+        }
+        .sd-replay {
+            position: absolute;
+            bottom: 8px; right: 8px;
+            z-index: 10;
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: rgba(30,41,59,0.8);
+            color: var(--accent);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .sd-replay:hover { border-color: var(--accent); background: rgba(212,175,55,0.1); }
+        .sd-replay i { width: 14px; height: 14px; }
+
+        /* ===== SCENARIO DEMO — mini envelope ===== */
+        .sd-env {
+            position: absolute; inset: 0; z-index: 3;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .sd-env-box {
+            width: 120px; height: 80px;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .sd-env-body {
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #D4878F, #E8A0AA);
+            border-radius: 6px;
+            position: relative; z-index: 2;
+        }
+        .sd-env-flap {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 40px;
+            background: linear-gradient(135deg, #BF6B78, #D4878F);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top center;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 3;
+        }
+        .sd-env-card {
+            position: absolute;
+            bottom: 10px; left: 50%;
+            transform: translateX(-50%) translateY(0);
+            width: 90px; height: 50px;
+            background: white;
+            border-radius: 4px;
+            z-index: 1;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .sd-env-card-name {
+            font-family: var(--font-heading);
+            font-size: 10px; color: #722F37;
+        }
+        .sd-env-card-date { font-size: 7px; color: #9A7A7E; }
+        .sd-env-text {
+            position: absolute;
+            bottom: -20px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            color: #FFD700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 4;
+            opacity: 0.8;
+        }
+        /* Env open state */
+        .sd-env-box.sd-env-open .sd-env-flap { transform: rotateX(-180deg); }
+        .sd-env-box.sd-env-open .sd-env-card { transform: translateX(-50%) translateY(-60px); }
+        .sd-env-box.sd-env-open { animation: sd-env-shrink 0.5s ease 1.2s forwards; }
+        @keyframes sd-env-shrink {
+            to { transform: scale(0.7); opacity: 0; }
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .card-row { grid-template-columns: 1fr; }
@@ -528,6 +954,7 @@
             <a href="#palettes">Palettes</a>
             <a href="#components">Components</a>
             <a href="#layouts">Layouts</a>
+            <a href="#scenarios">Scenarios</a>
         </nav>
     </div>
 
@@ -1067,11 +1494,375 @@
             </div>
         </div>
 
+        <!-- ==================== OPENING SCENARIOS ==================== -->
+        <h2 class="section-title" id="scenarios">Opening Scenarios</h2>
+        <p class="section-desc">Kịch bản mở thiệp — chuỗi hiệu ứng chạy tuần tự khi user tương tác. Mỗi scenario gồm: items tham gia, timeline, actions.</p>
+
+        <!-- Scenario A: Curtain Red (mẫu #188) -->
+        <div class="scenario-card">
+            <div class="scenario-header" onclick="toggleScenario(this)">
+                <div>
+                    <div class="scenario-label">Scenario A</div>
+                    <div class="scenario-name">Curtain Red — Rèm Đỏ Mở Màn</div>
+                    <div class="scenario-ref">Mẫu tham khảo: #188 — Burgundy & Gold</div>
+                </div>
+                <div class="scenario-header-right">
+                    <div class="scenario-duration">~4.5s</div>
+                    <button class="collapsible-toggle" type="button"><i data-lucide="chevron-down"></i> Thu gọn</button>
+                </div>
+            </div>
+
+            <!-- Demo mini curtain -->
+            <div class="scenario-demo" id="sdCurtainDemo">
+                <!-- Hero behind -->
+                <div class="sd-hero">
+                    <div class="sd-hero-name">Minh & Ngọc</div>
+                    <div class="sd-hero-date">20 · 09 · 2026</div>
+                </div>
+                <!-- Curtain panels -->
+                <div class="sd-curtain-l" id="sdCL">
+                    <span class="sd-deco" style="top:15%;right:10%;">🌸</span>
+                    <span class="sd-deco" style="bottom:20%;right:15%;animation-delay:-1.5s;">✿</span>
+                </div>
+                <div class="sd-curtain-r" id="sdCR">
+                    <span class="sd-deco" style="top:20%;left:12%;animation-delay:-0.8s;">🌸</span>
+                    <span class="sd-deco" style="bottom:18%;left:10%;animation-delay:-2.2s;">✿</span>
+                </div>
+                <!-- Center -->
+                <div class="sd-center" id="sdCC">
+                    <div class="sd-center-icon">✉</div>
+                    <div class="sd-center-names">M & N</div>
+                    <div class="sd-center-text">Click để mở</div>
+                </div>
+                <!-- Particle container (populated by JS) -->
+                <div id="sdParticles" style="position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden;"></div>
+                <!-- Replay -->
+                <button class="sd-replay" id="sdReplay" title="Phát lại"><i data-lucide="refresh-cw"></i></button>
+            </div>
+
+            <div class="collapsible-body" id="scenarioABody">
+            <div class="scenario-desc">
+                Rèm đỏ 2 mảnh che toàn màn hình. Icon wax-seal lấp lánh ở giữa, hoa gold nhấp nháy trên rèm. User click → icon nở ra biến mất → rèm trượt mềm sang 2 bên → hoa + mây khói bốc lên → nhạc tự phát.
+            </div>
+
+            <!-- Items -->
+            <div class="scenario-section-title">Items tham gia</div>
+            <table class="scenario-table">
+                <thead>
+                    <tr><th>Item</th><th>Class / Element</th><th>Mô tả</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Overlay</td><td><code>.curtain-overlay</code></td><td>Container fixed fullscreen, z-index 9999, chặn scroll + tương tác</td></tr>
+                    <tr><td>Panel trái</td><td><code>.curtain-panel--left</code></td><td>Nửa trái rèm, gradient đỏ đậm 4 điểm, texture sọc vải <code>::before</code>, shadow mép trong <code>::after</code></td></tr>
+                    <tr><td>Panel phải</td><td><code>.curtain-panel--right</code></td><td>Nửa phải rèm, mirror của panel trái</td></tr>
+                    <tr><td>Center</td><td><code>.curtain-center</code></td><td>Khối giữa: tên cặp đôi + icon + CTA text. z-index 3, absolute center</td></tr>
+                    <tr><td>Icon</td><td><code>.curtain-center__icon img</code></td><td>Ảnh <code>wax-seal.webp</code> trong vòng tròn 90px, animation <code>deco-icon-shine</code> (brightness pulse gold) + <code>curtain-pulse</code> (scale 1↔1.1)</td></tr>
+                    <tr><td>Deco hoa (×4)</td><td><code>.curtain-deco</code></td><td><code>cherry-blossom</code> + <code>decorative-flowers</code> trên mỗi panel, gần mép giữa. Filter vàng gold, animation <code>deco-icon-drift</code> + <code>curtain-twinkle</code> (đèn nháy)</td></tr>
+                    <tr><td>Deco bouquet (×2)</td><td><code>.curtain-deco--lg</code></td><td><code>bouquet-1/2</code> góc dưới mỗi panel, 75px, drift nhẹ + twinkle</td></tr>
+                    <tr><td>Particles hoa</td><td><code>.curtain-particle--petal</code> (×20)</td><td>Emoji hoa (🌸🩷💮✿🏵️💕) spawn JS, bốc lên từ giữa toả ra mọi hướng, xoay + fade 2.5-4.5s</td></tr>
+                    <tr><td>Particles khói</td><td><code>.curtain-particle--smoke</code> (×8)</td><td>Div tròn radial-gradient trắng, blur 8px, nở scale 0.4→2.5, bay lên mờ dần 3-5s</td></tr>
+                    <tr><td>Audio</td><td><code>#bgMusic</code></td><td>Nhạc nền, volume 0.3, loop. Auto-play sau khi rèm xoá xong</td></tr>
+                </tbody>
+            </table>
+
+            <!-- Timeline -->
+            <div class="scenario-section-title">Timeline</div>
+            <div class="scenario-timeline">
+                <div class="scenario-step">
+                    <div class="scenario-time">Idle</div>
+                    <div class="scenario-action">
+                        <strong>Chờ tương tác</strong> — <code>body.overflow = hidden</code> (lock scroll). Icon pulse + shine liên tục. Hoa drift + twinkle trên rèm. CTA "Nhấn để mở thiệp".
+                        <div class="scenario-trigger">Trigger: click / touchend / Enter / Space</div>
+                    </div>
+                </div>
+                <div class="scenario-step">
+                    <div class="scenario-time">T = 0ms</div>
+                    <div class="scenario-action">
+                        <strong>Center fade out</strong> — <code>.curtain-center</code> add class <code>.curtain-opening</code>.<br>
+                        Animation: <code>curtain-center-fade 0.6s</code> — scale(1) → scale(1.15) + opacity 0. Nở ra rồi biến mất.<br>
+                        Easing: <code>cubic-bezier(0.16, 1, 0.3, 1)</code> (decelerate mượt).<br>
+                        <code>body.overflow = ''</code> (unlock scroll).
+                    </div>
+                </div>
+                <div class="scenario-step">
+                    <div class="scenario-time">T = 200ms</div>
+                    <div class="scenario-action">
+                        <strong>Panels slide + Particles spawn</strong><br>
+                        1. Cả 2 panel add class <code>.curtain-opening</code> → slide ra ngoài ±105%, 4s, easing <code>cubic-bezier(0.16, 1, 0.3, 1)</code>. Opacity giữ 1 đến 80% duration, fade cuối.<br>
+                        2. JS <code>spawnCurtainParticles()</code>: tạo container <code>.curtain-particles</code> (fixed, z-index 10000) → spawn 20 petal + 8 smoke.<br>
+                        — Petal: vị trí random vùng giữa (35-65% x, 30-70% y), bay lên + toả ra, xoay ±270°, 2.5-4.5s, delay 0-0.8s.<br>
+                        — Smoke: vị trí 20-80% x, 40-70% y, nở scale 2.5, bay lên 100-300px, blur 8px, 3-5s, delay 0-0.6s.
+                    </div>
+                </div>
+                <div class="scenario-step">
+                    <div class="scenario-time">T ≈ 800ms</div>
+                    <div class="scenario-action">
+                        <strong>Center đã biến mất</strong> — Rèm đang trượt (nhanh ban đầu, giảm tốc). Particles đang bốc lên. Nội dung thiệp bắt đầu lộ ra từ giữa.
+                    </div>
+                </div>
+                <div class="scenario-step">
+                    <div class="scenario-time">T ≈ 2500ms</div>
+                    <div class="scenario-action">
+                        <strong>Rèm gần hết</strong> — Panels ở ≈80% hành trình, bắt đầu mờ. Particles bay cao, smoke nở to mờ dần. Hero section visible.
+                    </div>
+                </div>
+                <div class="scenario-step">
+                    <div class="scenario-time">T = 4500ms</div>
+                    <div class="scenario-action">
+                        <strong>Cleanup + Music</strong> — <code>overlay.remove()</code> xoá khỏi DOM. <code>startMusic()</code> → <code>bgMusic.play()</code> volume 0.3, nút nhạc chuyển sang 🔊.
+                    </div>
+                </div>
+                <div class="scenario-step">
+                    <div class="scenario-time">T = 6000ms</div>
+                    <div class="scenario-action">
+                        <strong>Particles cleanup</strong> — Container <code>.curtain-particles</code> bị <code>remove()</code>. Mọi DOM tạm thời đã dọn sạch.
+                    </div>
+                </div>
+            </div>
+
+            <!-- CSS cần có -->
+            <div class="scenario-section-title">CSS chính</div>
+            <div class="scenario-code">
+                <code>.curtain-panel</code> — gradient đỏ, <code>::before</code> texture sọc, <code>::after</code> shadow mép<br>
+                <code>.curtain-deco</code> — filter: <code>brightness(2.2) sepia(1) saturate(3) hue-rotate(5deg)</code> → tông vàng gold<br>
+                <code>curtain-twinkle</code> — opacity 0.12→0.45→0.10→0.50 (đèn nháy không đều, 2.5s)<br>
+                <code>icon-shine</code> — brightness 1→1.3 + gold drop-shadow pulse (3s)<br>
+                <code>curtain-petal-rise</code> — translate + scale + rotate, delay ngẫu nhiên (2.5-4.5s)<br>
+                <code>curtain-smoke-rise</code> — translate + scale 0.4→2.5 + blur, mờ dần (3-5s)<br>
+                <code>curtain-slide-left/right</code> — translateX ±105%, easing decelerate (4s)<br>
+                <code>curtain-center-fade</code> — scale 1→1.15 + opacity 0 (0.6s)
+            </div>
+
+            <!-- Variants gợi ý -->
+            <div class="scenario-section-title">Variants</div>
+            <table class="scenario-table scenario-table--compact">
+                <thead>
+                    <tr><th>Variant</th><th>Thay đổi</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Gold curtain</td><td>Panel gradient: <code>#8B6914 → #C5942A</code>. Deco filter giữ nguyên.</td></tr>
+                    <tr><td>Navy curtain</td><td>Panel gradient: <code>#0F1B3D → #1A2E5A</code>. Deco filter: <code>brightness(2) sepia(0.3) hue-rotate(180deg)</code> → xanh nhạt.</td></tr>
+                    <tr><td>Blush curtain</td><td>Panel gradient: <code>#D4838F → #E8A0AA</code>. Deco filter: <code>brightness(1.5) sepia(0.5) saturate(1.5)</code> → hồng ấm.</td></tr>
+                    <tr><td>3D fold</td><td>Add class <code>.curtain-3d</code> trên overlay. Panels mở kiểu cánh cửa (rotateY ±100°) thay vì slide.</td></tr>
+                    <tr><td>Confetti thay hoa</td><td>Đổi emoji: <code>['🎊','🎉','⭐','🌟','💫']</code>. Phù hợp theme fun/tropical.</td></tr>
+                    <tr><td>Không khói</td><td>Bỏ vòng lặp smoke trong <code>spawnCurtainParticles()</code>. Chỉ giữ hoa.</td></tr>
+                    <tr><td>Auto-open</td><td>Thêm <code>setTimeout(openCurtain, 5000)</code> — tự mở sau 5s nếu user không click.</td></tr>
+                </tbody>
+            </table>
+        </div><!-- /collapsible-body scenarioA -->
+        </div><!-- /scenario-card A -->
+
+        <!-- Scenario B: Envelope Letter (gợi ý) -->
+        <div class="scenario-card">
+            <div class="scenario-header" onclick="toggleScenario(this)">
+                <div>
+                    <div class="scenario-label">Scenario B</div>
+                    <div class="scenario-name">Envelope Letter — Phong Bì Mở Thư</div>
+                    <div class="scenario-ref">Dùng trong: mẫu classic, romantic, blush</div>
+                </div>
+                <div class="scenario-header-right">
+                    <div class="scenario-duration">~2.5s</div>
+                    <button class="collapsible-toggle" type="button"><i data-lucide="chevron-down"></i> Thu gọn</button>
+                </div>
+            </div>
+
+            <!-- Demo mini envelope -->
+            <div class="scenario-demo" id="sdEnvDemo" style="height:180px;background:linear-gradient(135deg,#FFF5F7,#FDF0E8);">
+                <!-- Hero behind -->
+                <div class="sd-hero">
+                    <div class="sd-hero-name" style="color:#722F37;">A & B</div>
+                    <div class="sd-hero-date">15 · 06 · 2026</div>
+                </div>
+                <!-- Envelope -->
+                <div class="sd-env">
+                    <div class="sd-env-box" id="sdEnvBox">
+                        <div class="sd-env-flap" id="sdEnvFlap"></div>
+                        <div class="sd-env-body"></div>
+                        <div class="sd-env-card">
+                            <div class="sd-env-card-name">A & B</div>
+                            <div class="sd-env-card-date">15.06.2026</div>
+                        </div>
+                        <div class="sd-env-text">Click để mở</div>
+                    </div>
+                </div>
+                <div id="sdEnvParticles" style="position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden;"></div>
+                <button class="sd-replay" id="sdEnvReplay" title="Phát lại"><i data-lucide="refresh-cw"></i></button>
+            </div>
+
+            <div class="collapsible-body" id="scenarioBBody">
+            <div class="scenario-desc">
+                Phong bì nằm giữa màn hình. Click → nắp bì lật lên (rotateX) → thư trượt lên từ bên trong → particles hoa bốc ra → phong bì co nhỏ biến mất → thiệp hiện. Dùng <code>initEnvelope()</code> từ thư viện shared/wedding.
+            </div>
+            <div class="scenario-section-title">Items tham gia</div>
+            <table class="scenario-table">
+                <thead>
+                    <tr><th>Item</th><th>Class / Element</th><th>Mô tả</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Wrapper</td><td><code>.letter-wrap</code></td><td>Container phong bì, fixed center, z-index 9999</td></tr>
+                    <tr><td>Thân bì</td><td><code>.letter-body</code></td><td>Phong bì hình chữ nhật, gradient theo theme</td></tr>
+                    <tr><td>Nắp bì</td><td><code>.letter-flap</code></td><td>Tam giác trên, rotateX -180° khi mở (perspective 3D)</td></tr>
+                    <tr><td>Thư</td><td><code>.letter-card</code></td><td>Card chứa tên + lời mời, translateY trượt lên từ trong bì</td></tr>
+                    <tr><td>Ảnh peek</td><td><code>.letter-peek-photo</code> (×2)</td><td>2 ảnh nhỏ lấp ló dưới bì, xoay -8°/+6°, polaroid style</td></tr>
+                    <tr><td>Particles</td><td><code>.letter-particle</code> (×12)</td><td>Emoji hoa toả ra từ giữa khi bì mở, <code>letter-burst</code> 1.5s</td></tr>
+                    <tr><td>Audio</td><td><code>#bgMusic</code></td><td>Auto-play sau khi bì mở xong</td></tr>
+                </tbody>
+            </table>
+            <div class="scenario-section-title">Timeline</div>
+            <div class="scenario-timeline">
+                <div class="scenario-step"><div class="scenario-time">Idle</div><div class="scenario-action"><strong>Chờ tương tác</strong> — Phong bì pulse nhẹ, ảnh peek lấp ló, CTA "Mở thiệp". Trigger: click / touchend.</div></div>
+                <div class="scenario-step"><div class="scenario-time">T = 0ms</div><div class="scenario-action"><strong>Nắp lật</strong> — <code>.letter-wrap</code> add <code>.open</code>. Nắp bì rotateX(-180°) 0.8s. Particles bắt đầu burst.</div></div>
+                <div class="scenario-step"><div class="scenario-time">T = 400ms</div><div class="scenario-action"><strong>Thư trượt lên</strong> — Card translateY từ trong bì lên trên, 0.8s ease-out.</div></div>
+                <div class="scenario-step"><div class="scenario-time">T = 1500ms</div><div class="scenario-action"><strong>Phong bì co nhỏ</strong> — Wrapper scale(0.8) + opacity 0, translateY xuống. 0.6s.</div></div>
+                <div class="scenario-step"><div class="scenario-time">T = 2200ms</div><div class="scenario-action"><strong>Cleanup + Music</strong> — Wrapper <code>display: none</code>. <code>startMusic()</code>. Scroll unlock.</div></div>
+            </div>
+        </div><!-- /collapsible-body scenarioB -->
+        </div><!-- /scenario-card B -->
+
     </div>
 
     <!-- ===== SCRIPTS ===== -->
     <script>lucide.createIcons();</script>
     <script>
+    /* ===== Collapsible toggle ===== */
+    function toggleScenario(header) {
+        var card = header.closest('.scenario-card');
+        var body = card.querySelector('.collapsible-body');
+        var btn = header.querySelector('.collapsible-toggle');
+        if (!body || !btn) return;
+        var isCollapsed = body.classList.toggle('collapsed');
+        btn.classList.toggle('collapsed', isCollapsed);
+        btn.innerHTML = isCollapsed
+            ? '<i data-lucide="chevron-right"></i> Mở rộng'
+            : '<i data-lucide="chevron-down"></i> Thu gọn';
+        lucide.createIcons();
+    }
+
+    /* ===== Mini Curtain Demo ===== */
+    (function () {
+        var demo = document.getElementById('sdCurtainDemo');
+        var cl = document.getElementById('sdCL');
+        var cr = document.getElementById('sdCR');
+        var cc = document.getElementById('sdCC');
+        var pc = document.getElementById('sdParticles');
+        var replay = document.getElementById('sdReplay');
+
+        function resetCurtain() {
+            cl.className = 'sd-curtain-l';
+            cr.className = 'sd-curtain-r';
+            cc.className = 'sd-center';
+            cc.style.display = '';
+            cl.style.display = '';
+            cr.style.display = '';
+            pc.innerHTML = '';
+        }
+
+        function spawnMiniParticles() {
+            var petals = ['🌸', '🩷', '💮', '✿', '💕'];
+            for (var i = 0; i < 10; i++) {
+                var p = document.createElement('span');
+                p.className = 'sd-particle sd-particle--petal';
+                p.textContent = petals[Math.floor(Math.random() * petals.length)];
+                p.style.left = (30 + Math.random() * 40) + '%';
+                p.style.top = (25 + Math.random() * 50) + '%';
+                var angle = Math.random() * Math.PI * 2;
+                var dist = 40 + Math.random() * 60;
+                p.style.setProperty('--dx', (Math.cos(angle) * dist).toFixed(0) + 'px');
+                p.style.setProperty('--dy', (-30 - Math.random() * 80).toFixed(0) + 'px');
+                p.style.setProperty('--rot', ((Math.random() - 0.5) * 400).toFixed(0) + 'deg');
+                p.style.setProperty('--dur', (1.5 + Math.random() * 1.5) + 's');
+                p.style.setProperty('--delay', (Math.random() * 0.5) + 's');
+                pc.appendChild(p);
+            }
+            for (var j = 0; j < 4; j++) {
+                var s = document.createElement('div');
+                s.className = 'sd-particle sd-particle--smoke';
+                s.style.left = (25 + Math.random() * 50) + '%';
+                s.style.top = (35 + Math.random() * 30) + '%';
+                s.style.setProperty('--size', (25 + Math.random() * 30) + 'px');
+                s.style.setProperty('--dx', ((Math.random() - 0.5) * 50).toFixed(0) + 'px');
+                s.style.setProperty('--dy', (-40 - Math.random() * 60).toFixed(0) + 'px');
+                s.style.setProperty('--dur', (2 + Math.random() * 1) + 's');
+                s.style.setProperty('--delay', (Math.random() * 0.3) + 's');
+                pc.appendChild(s);
+            }
+        }
+
+        function openMiniCurtain() {
+            cc.classList.add('sd-open');
+            setTimeout(function () {
+                cl.classList.add('sd-open');
+                cr.classList.add('sd-open');
+                spawnMiniParticles();
+            }, 150);
+            setTimeout(function () {
+                cl.style.display = 'none';
+                cr.style.display = 'none';
+                cc.style.display = 'none';
+            }, 3000);
+            setTimeout(function () { pc.innerHTML = ''; }, 4000);
+        }
+
+        demo.addEventListener('click', function (e) {
+            if (e.target.closest('.sd-replay')) return;
+            if (cl.classList.contains('sd-open')) return;
+            openMiniCurtain();
+        });
+        replay.addEventListener('click', function (e) {
+            e.stopPropagation();
+            resetCurtain();
+        });
+    })();
+
+    /* ===== Mini Envelope Demo ===== */
+    (function () {
+        var demo = document.getElementById('sdEnvDemo');
+        var box = document.getElementById('sdEnvBox');
+        var pc = document.getElementById('sdEnvParticles');
+        var replay = document.getElementById('sdEnvReplay');
+
+        function resetEnv() {
+            box.className = 'sd-env-box';
+            box.style = '';
+            pc.innerHTML = '';
+        }
+
+        function spawnEnvParticles() {
+            var petals = ['🌸', '💕', '✨', '🩷'];
+            for (var i = 0; i < 8; i++) {
+                var p = document.createElement('span');
+                p.className = 'sd-particle sd-particle--petal';
+                p.textContent = petals[Math.floor(Math.random() * petals.length)];
+                p.style.left = (40 + Math.random() * 20) + '%';
+                p.style.top = (35 + Math.random() * 30) + '%';
+                var angle = Math.random() * Math.PI * 2;
+                var dist = 30 + Math.random() * 50;
+                p.style.setProperty('--dx', (Math.cos(angle) * dist).toFixed(0) + 'px');
+                p.style.setProperty('--dy', (-20 - Math.random() * 60).toFixed(0) + 'px');
+                p.style.setProperty('--rot', ((Math.random() - 0.5) * 360).toFixed(0) + 'deg');
+                p.style.setProperty('--dur', (1 + Math.random() * 1) + 's');
+                p.style.setProperty('--delay', (Math.random() * 0.3) + 's');
+                pc.appendChild(p);
+            }
+        }
+
+        function openMiniEnv() {
+            box.classList.add('sd-env-open');
+            spawnEnvParticles();
+            setTimeout(function () { pc.innerHTML = ''; }, 3000);
+        }
+
+        demo.addEventListener('click', function (e) {
+            if (e.target.closest('.sd-replay')) return;
+            if (box.classList.contains('sd-env-open')) return;
+            openMiniEnv();
+        });
+        replay.addEventListener('click', function (e) {
+            e.stopPropagation();
+            resetEnv();
+        });
+    })();
+
     document.addEventListener('DOMContentLoaded', function () {
 
         // Auto-trigger all scroll demos on load
@@ -1114,7 +1905,7 @@
         setInterval(updateDemoCountdown, 1000);
 
         // Active nav on scroll
-        var sections = ['scroll', 'hover', 'keyframe', 'transition', 'group', 'wedding', 'deco', 'icons', 'icon-effects', 'palettes', 'components', 'layouts'];
+        var sections = ['scroll', 'hover', 'keyframe', 'transition', 'group', 'wedding', 'deco', 'icons', 'icon-effects', 'palettes', 'components', 'layouts', 'scenarios'];
         var navLinks = document.querySelectorAll('.header-nav a');
         window.addEventListener('scroll', function () {
             var current = '';
