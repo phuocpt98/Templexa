@@ -1164,3 +1164,56 @@ Dùng ảnh icon từ `shared/images/wedding/icons/` — chất lượng cao hơ
 | Footer | `deco-footer` + fade, `decorative-diamond` + spin |
 
 #### CSS: copy từ `styles.css` mục 22 (Icon Decorations)
+
+---
+
+### 23. Curtain Opening (Mở màn rèm)
+
+Hiệu ứng mở màn khi vào thiệp — 2 tấm rèm trượt/gập sang 2 bên, lộ nội dung thiệp bên dưới.
+
+#### HTML: Không cần — JS tự tạo DOM
+
+#### JS:
+```javascript
+initCurtainOpening({
+    names: 'Minh & Hoa',          // Tên hiển thị trên rèm
+    promptText: 'Nhấn để mở thiệp', // Text nhắc (mặc định)
+    duration: 3,                   // Giây (mặc định 3)
+    variant: 'slide',              // 'slide' | 'fold' | 'fade'
+    color: 'red',                  // 'red' | 'gold' | 'navy' | 'blush' | 'dark'
+    autoOpen: false,               // Tự mở sau 5s nếu chưa click
+    onOpen: function() {           // Callback khi mở xong
+        initMusicToggle();         // Ví dụ: bật nhạc
+    }
+});
+```
+
+#### Variants:
+
+| Variant | Mô tả | Class tự thêm |
+|---------|--------|---------------|
+| `slide` | Trượt phẳng sang 2 bên (mặc định) | — |
+| `fold` | Gập 3D như cánh cửa | `.curtain-3d` |
+| `fade` | Mờ dần đồng thời 2 panel | `.curtain-fade` |
+
+#### Colors:
+
+| Color | Mô tả | Phù hợp |
+|-------|--------|---------|
+| `red` | Đỏ burgundy (mặc định) | Truyền thống, sang trọng |
+| `gold` | Vàng gold | Classic Gold, Luxury |
+| `navy` | Xanh navy đậm | Navy & Gold |
+| `blush` | Hồng phấn | Blush Pink, Romantic |
+| `dark` | Đen luxury | Dark Luxury |
+
+#### Gợi ý kết hợp:
+
+| Phong cách thiệp | Color | Variant | Duration |
+|-------------------|-------|---------|----------|
+| Truyền thống Việt | `red` | `slide` | 3–4 |
+| Classic Gold | `gold` | `fold` | 3 |
+| Dark Luxury | `dark` | `fold` | 4 |
+| Romantic / Modern | `blush` | `slide` | 2.5 |
+| Navy & Gold | `navy` | `slide` | 3 |
+
+#### CSS: copy từ `styles.css` mục 23 (Curtain Opening)

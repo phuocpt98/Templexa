@@ -1418,3 +1418,104 @@ function initLetterEnvelope(config) {
  *   youthful: '🎉🎈🎊🌈⭐'  (confetti + bóng bay)
  */
 
+/* =============================================
+   18. CURTAIN OPENING — Mở màn rèm sang hai bên
+   ============================================= */
+
+/**
+ * initCurtainOpening(config)
+ *
+ * Tạo hiệu ứng mở rèm (curtain) khi vào thiệp.
+ * User click/tap → 2 panel trượt/gập sang 2 bên, lộ nội dung thiệp.
+ *
+ * @param {Object} config
+ * @param {string}  config.names        - Tên cô dâu & chú rể hiển thị trên màn (vd: "Chung & Linh")
+ * @param {string}  [config.promptText] - Text nhắc nhấn ("Nhấn để mở thiệp")
+ * @param {number}  [config.duration]   - Thời gian animation (giây), default 3
+ * @param {string}  [config.variant]    - "slide" (default) | "fold" | "fade"
+ * @param {string}  [config.color]      - "red" (default) | "gold" | "navy" | "blush" | "dark"
+ * @param {boolean} [config.autoOpen]   - Tự mở sau 5s nếu user chưa click, default false
+ * @param {Function} [config.onOpen]    - Callback khi mở xong (vd: start nhạc)
+ */
+function initCurtainOpening(config) {
+    config = config || {};
+    var names = config.names || '';
+    var promptText = config.promptText || 'Nhấn để mở thiệp';
+    var duration = config.duration || 3;
+    var variant = config.variant || 'slide';
+    var color = config.color || 'red';
+    var autoOpen = config.autoOpen || false;
+    var onOpen = config.onOpen || null;
+
+    // Build overlay HTML
+    var colorClass = 'curtain-' + color;
+    var variantClass = variant === 'fold' ? ' curtain-3d' : (variant === 'fade' ? ' curtain-fade' : '');
+
+    var overlay = document.createElement('div');
+    overlay.className = 'curtain-overlay ' + colorClass + variantClass;
+    overlay.style.setProperty('--curtain-duration', duration + 's');
+    overlay.innerHTML =
+        '<div class="curtain-panel curtain-panel--left"></div>' +
+        '<div class="curtain-panel curtain-panel--right"></div>' +
+        '<div class="curtain-center" id="curtainCenter">' +
+            (names ? '<div class="curtain-center__names">' + names + '</div>' : '') +
+            '<div class="curtain-center__icon">' +
+                '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14z" opacity="0.7"/>' +
+                    '<path d="M12 8l4 4h-3v4h-2v-4H8l4-4z" opacity="0.5"/>' +
+                '</svg>' +
+            '</div>' +
+            '<div class="curtain-center__text">' + promptText + '</div>' +
+        '</div>';
+
+    document.body.appendChild(overlay);
+
+    // Prevent scroll
+    var origOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    var opened = false;
+
+    function open() {
+        if (opened) return;
+        opened = true;
+
+        // Fade center prompt
+        var center = overlay.querySelector('.curtain-center');
+        if (center) center.classList.add('curtain-opening');
+
+        // Start panel animation after brief delay
+        setTimeout(function () {
+            overlay.querySelector('.curtain-panel--left').classList.add('curtain-opening');
+            overlay.querySelector('.curtain-panel--right').classList.add('curtain-opening');
+        }, 250);
+
+        // Restore scroll
+        document.body.style.overflow = origOverflow || '';
+
+        // Remove overlay after animation
+        setTimeout(function () {
+            if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+            if (typeof onOpen === 'function') onOpen();
+        }, (duration * 1000) + 400);
+    }
+
+    // Click/tap to open
+    overlay.addEventListener('click', open);
+    overlay.addEventListener('touchend', function (e) { e.preventDefault(); open(); });
+
+    // Keyboard
+    function onKey(e) {
+        if (!opened && (e.key === 'Enter' || e.key === ' ')) {
+            open();
+            document.removeEventListener('keydown', onKey);
+        }
+    }
+    document.addEventListener('keydown', onKey);
+
+    // Auto-open
+    if (autoOpen) {
+        setTimeout(function () { if (!opened) open(); }, 5000);
+    }
+}
+
