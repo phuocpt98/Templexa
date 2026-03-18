@@ -1382,3 +1382,125 @@ openBtn.addEventListener('click', function () {
 | Dark Luxury | `#D4AF37` | `#1A1A2E` | 囍 |
 
 #### CSS: copy từ `styles.css` mục 20c (Padlock)
+
+---
+
+### 19. Scroll Reveal Variants — Hiệu ứng xuất hiện đa dạng
+
+> CSS: `styles.css` mục 23 | JS: `scripts.js` mục 10 (initScrollReveal)
+
+Mở rộng `animate-fade-up` gốc thêm nhiều kiểu animation khi scroll.
+
+#### Các class có sẵn
+
+| Class | Hiệu ứng | Dùng cho |
+|-------|----------|----------|
+| `animate-fade-up` | Bay từ dưới lên | Mặc định, mọi element |
+| `animate-slide-left` | Bay từ trái qua | Ảnh, card bên trái |
+| `animate-slide-right` | Bay từ phải qua | Ảnh, card bên phải |
+| `animate-scale-in` | Hiện từ hư không (scale 0→1) | Ảnh polaroid, deco |
+| `animate-scale-up` | Scale nhẹ (0.85→1) | Section, banner |
+| `animate-blur-in` | Mờ→rõ | Quote, text |
+| `animate-flip-in` | Lật từ dưới | Card, event |
+| `animate-scale-rotate` | Hiện từ hư không + xoay | Ảnh nghiêng, polaroid |
+
+#### Delay utilities
+
+```html
+<div class="animate-slide-left delay-2">Delay 0.2s</div>
+<div class="animate-scale-in delay-5">Delay 0.5s</div>
+```
+
+| Class | Delay |
+|-------|-------|
+| `.delay-1` | 0.1s |
+| `.delay-2` | 0.2s |
+| `.delay-3` | 0.3s |
+| `.delay-4` | 0.4s |
+| `.delay-5` | 0.5s |
+| `.delay-6` | 0.6s |
+| `.delay-8` | 0.8s |
+| `.delay-10` | 1.0s |
+
+#### Ví dụ: Fly-in photos bay từ 2 bên
+
+```html
+<div class="fly-section">
+    <div class="fly-img animate-slide-left">
+        <img src="couple_1.webp" alt="">
+    </div>
+    <div class="fly-img animate-slide-right delay-2">
+        <img src="couple_2.webp" alt="">
+    </div>
+</div>
+```
+
+#### Ví dụ: Ảnh hiện từ hư không (quanh lịch)
+
+```html
+<div style="position:relative;">
+    <div class="cal-corner-photo animate-scale-in delay-5" style="position:absolute;top:-20px;left:-30px;">
+        <img src="couple_5.webp" style="width:130px;height:160px;object-fit:cover;border-radius:10px;border:3px solid white;box-shadow:0 4px 20px rgba(0,0,0,0.12);">
+    </div>
+    <div class="cal-corner-photo animate-scale-rotate delay-8" style="position:absolute;bottom:-20px;right:-30px;">
+        <img src="couple_10.webp" style="width:130px;height:160px;object-fit:cover;border-radius:10px;border:3px solid white;box-shadow:0 4px 20px rgba(0,0,0,0.12);">
+    </div>
+    <div id="weddingCalendar"></div>
+</div>
+```
+
+#### Ví dụ: Timeline items xen kẽ trái/phải
+
+```html
+<div class="timeline-item animate-slide-left">Mốc 1 — bay từ trái</div>
+<div class="timeline-item animate-slide-right">Mốc 2 — bay từ phải</div>
+<div class="timeline-item animate-slide-left">Mốc 3 — bay từ trái</div>
+```
+
+#### JS: đảm bảo observer bắt tất cả
+
+```javascript
+initScrollReveal({ selector: '[class*="animate-"]' });
+// Hoặc tự tạo observer:
+var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('[class*="animate-"]').forEach(function(el) { obs.observe(el); });
+```
+
+---
+
+### 20. Scattered Flowers — Hoa rải rác nền trang trí
+
+> CSS: `styles.css` mục 24
+
+10 bông hoa/lá fixed rải khắp trang, drift animation nhẹ nhàng.
+Opacity rất thấp — trang trí tinh tế, không che nội dung.
+
+#### HTML — thêm vào đầu `<body>`
+
+```html
+<span class="flower-scatter">🌸</span>
+<span class="flower-scatter">💮</span>
+<span class="flower-scatter">🌿</span>
+<span class="flower-scatter">✿</span>
+<span class="flower-scatter">🌷</span>
+<span class="flower-scatter">🍃</span>
+<span class="flower-scatter">🌺</span>
+<span class="flower-scatter">❀</span>
+<span class="flower-scatter">🌼</span>
+<span class="flower-scatter">🌸</span>
+```
+
+#### Tuỳ chỉnh
+
+- Thay emoji phù hợp theme
+- Đổi opacity: `body { --flower-opacity: 0.08; }` (mặc định 0.06)
+
+| Phong cách | Emoji gợi ý |
+|------------|-------------|
+| Classic/Elegant | 🌸 💮 ✿ ❀ 🌿 |
+| Romantic/Pink | 🌸 🌷 🌹 💐 💮 |
+| Rustic/Garden | 🌿 🍃 ☘️ 🌻 🌾 |
+| Tropical | 🌺 🌴 🍀 🌸 🌿 |
+| Winter | ❄ ❅ ✨ ⭐ 🌟 |

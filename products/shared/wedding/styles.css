@@ -36,6 +36,8 @@
  *  20c. PADLOCK — Ổ khoá tình yêu mở thiệp (chìa cắm + xoay + bật)
  *  21. DECORATIVE ANIMATIONS — Hiệu ứng trang trí vùng trống (hearts, roses, gifts...)
  *  22. ICON DECORATIONS — Trang trí bằng ảnh icon WebP/SVG (shared/images/wedding/icons/)
+ *  23. SCROLL REVEAL VARIANTS — Slide left/right, scale từ hư không, blur, flip, delay utils
+ *  24. SCATTERED FLOWERS — Hoa rải rác nền trang trí (fixed, drift animation)
  * ============================================
  */
 
@@ -3794,3 +3796,151 @@
 
 /* Center prompt fade */
 .curtain-center.curtain-opening { animation: curtain-center-fade 0.5s ease-out forwards; }
+
+
+/* ============================================
+   23. SCROLL REVEAL VARIANTS — Hiệu ứng xuất hiện đa dạng
+   Mở rộng animate-fade-up gốc (mục 10 scripts.js) thêm nhiều kiểu:
+   slide trái/phải, scale từ hư không, flip, blur.
+   Dùng chung IntersectionObserver (thêm selector vào initScrollReveal).
+
+   Cách dùng:
+     <div class="animate-slide-left">Bay từ trái</div>
+     <div class="animate-slide-right delay-2">Bay từ phải, delay 0.2s</div>
+     <div class="animate-scale-in">Hiện từ hư không (scale 0→1)</div>
+     <div class="animate-blur-in">Mờ→rõ</div>
+     <div class="animate-flip-in">Lật vào</div>
+
+   Delay utilities: .delay-1 → .delay-6 (0.1s → 0.6s)
+   ============================================ */
+
+/* --- Slide from left --- */
+.animate-slide-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-slide-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- Slide from right --- */
+.animate-slide-right {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-slide-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- Scale from nothing (hiện từ hư không) --- */
+.animate-scale-in {
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-scale-in.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- Scale nhẹ (0.85→1, không biến mất hoàn toàn) --- */
+.animate-scale-up {
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-scale-up.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- Blur in (mờ→rõ) --- */
+.animate-blur-in {
+    opacity: 0;
+    filter: blur(12px);
+    transform: scale(0.95);
+    transition: opacity 0.8s ease, filter 0.8s ease, transform 0.8s ease;
+}
+.animate-blur-in.is-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+}
+
+/* --- Flip in (lật từ dưới lên) --- */
+.animate-flip-in {
+    opacity: 0;
+    transform: perspective(600px) rotateX(30deg);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-flip-in.is-visible {
+    opacity: 1;
+    transform: perspective(600px) rotateX(0);
+}
+
+/* --- Scale + rotate (hiện từ hư không + xoay nhẹ) --- */
+.animate-scale-rotate {
+    opacity: 0;
+    transform: scale(0) rotate(-10deg);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-scale-rotate.is-visible {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* --- Delay utilities --- */
+.delay-1 { transition-delay: 0.1s !important; }
+.delay-2 { transition-delay: 0.2s !important; }
+.delay-3 { transition-delay: 0.3s !important; }
+.delay-4 { transition-delay: 0.4s !important; }
+.delay-5 { transition-delay: 0.5s !important; }
+.delay-6 { transition-delay: 0.6s !important; }
+.delay-8 { transition-delay: 0.8s !important; }
+.delay-10 { transition-delay: 1.0s !important; }
+
+
+/* ============================================
+   24. SCATTERED FLOWERS — Hoa rải rác nền trang trí
+   10 bông hoa/lá fixed trên toàn trang, drift animation nhẹ nhàng.
+   Opacity rất thấp (5-9%) — trang trí tinh tế.
+
+   Cách dùng:
+     Thêm 10 span vào đầu body:
+     <span class="flower-scatter">🌸</span>
+     <span class="flower-scatter">💮</span>
+     ...
+
+   Tuỳ chỉnh:
+     Thay emoji phù hợp theme (🌸 🌿 🍃 🌷 🌺 🌼 ❀ 💮 ☘️ 🌹)
+     Đổi opacity qua biến --flower-opacity (mặc định 0.06)
+   ============================================ */
+
+.flower-scatter {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    opacity: var(--flower-opacity, 0.06);
+    font-size: 2rem;
+    animation: flower-drift 12s ease-in-out infinite;
+}
+@keyframes flower-drift {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: var(--flower-opacity, 0.05); }
+    25% { transform: translateY(-12px) rotate(8deg); opacity: calc(var(--flower-opacity, 0.05) + 0.04); }
+    50% { transform: translateY(-6px) rotate(-5deg); opacity: calc(var(--flower-opacity, 0.05) + 0.02); }
+    75% { transform: translateY(-15px) rotate(12deg); opacity: calc(var(--flower-opacity, 0.05) + 0.03); }
+}
+.flower-scatter:nth-child(1)  { top: 5%;  left: 3%;  animation-delay: 0s;   font-size: 1.8rem; }
+.flower-scatter:nth-child(2)  { top: 12%; right: 4%; animation-delay: 2s;   font-size: 1.4rem; }
+.flower-scatter:nth-child(3)  { top: 25%; left: 6%;  animation-delay: 4s;   font-size: 2.2rem; }
+.flower-scatter:nth-child(4)  { top: 35%; right: 3%; animation-delay: 1s;   font-size: 1.6rem; }
+.flower-scatter:nth-child(5)  { top: 48%; left: 2%;  animation-delay: 3s;   font-size: 1.3rem; }
+.flower-scatter:nth-child(6)  { top: 55%; right: 5%; animation-delay: 5s;   font-size: 2rem; }
+.flower-scatter:nth-child(7)  { top: 65%; left: 4%;  animation-delay: 1.5s; font-size: 1.5rem; }
+.flower-scatter:nth-child(8)  { top: 75%; right: 2%; animation-delay: 3.5s; font-size: 1.8rem; }
+.flower-scatter:nth-child(9)  { top: 85%; left: 5%;  animation-delay: 0.5s; font-size: 1.4rem; }
+.flower-scatter:nth-child(10) { top: 92%; right: 6%; animation-delay: 2.5s; font-size: 1.6rem; }

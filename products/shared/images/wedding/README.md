@@ -49,6 +49,7 @@ products/shared/images/wedding/
 ├── elegant-black-gold/              ← Bộ 3: Sang trọng đen & vàng (9 ảnh)
 ├── modern-romantic/                 ← Bộ 4: Lãng mạn hiện đại (13 ảnh)
 ├── coral-minimalist/                ← Bộ 5: Coral tối giản (13 ảnh)
+├── vit-sang-trong/                  ← Bộ 6: Studio navy + trắng + lavender (13 ảnh)
 ├── korean-outdoor-nature/           ← (chưa có) Hàn Quốc, ngoài trời
 ├── chinese-traditional-red/         ← (chưa có) Trung Quốc, truyền thống đỏ
 ├── dark-luxury-studio/              ← (chưa có) Studio tối, sang trọng
@@ -197,6 +198,29 @@ products/shared/images/wedding/
 **Tông màu**: Coral, trắng, nude
 **Phù hợp**: Coral, Minimalist, Modern, Blush
 **Dùng bởi**: gen_185
+
+### 6. `vit-sang-trong/` — Studio Navy + Trắng + Lavender
+
+| File | Size | Mô tả | Dùng cho |
+|------|------|--------|----------|
+| `couple_hero.webp` | ~130KB | Nắm tay, đối mặt, hoa xanh | Hero, big photo |
+| `couple_2.webp` | ~110KB | Quay lưng, thân mật | Letter, envelope |
+| `couple_3.webp` | ~160KB | Chính diện, ôm nhau | Fly-in, gallery |
+| `couple_4.webp` | ~160KB | Hôn tay, lãng mạn | Love story |
+| `couple_5.webp` | ~150KB | Ngồi, cầm máy ảnh | Gallery |
+| `couple_6.webp` | ~150KB | Đứng pose, hoa xanh | Gallery, story |
+| `couple_7.webp` | ~160KB | Ôm ấp, cười | Love story, hug |
+| `couple_8.webp` | ~150KB | Đứng nắm tay, hoa xanh | Event, banner |
+| `couple_9.webp` | ~150KB | Ngồi, casual | Gallery |
+| `couple_10.webp` | ~155KB | Close-up thời trang | Gallery |
+| `couple_11.webp` | ~150KB | Close-up thân mật | Gallery, close-up |
+| `couple_12.webp` | ~165KB | Đứng, ngước lên | Gallery |
+| `couple_13.webp` | ~160KB | Ngồi ghế, hoa xanh tím | Thank you, footer bg |
+
+**Phong cách**: Thanh lịch, Hàn Quốc studio
+**Tông màu**: Navy (vest), trắng (váy), lavender/xanh tím (nền + hoa)
+**Phù hợp**: Navy & Lavender, Blue Romantic, Lavender, Modern Elegant
+**Dùng bởi**: gen_192
 
 ## Gợi ý chọn bộ ảnh theo palette thiệp
 

@@ -15,7 +15,7 @@
  *   7. RSVP FORM — Xác nhận tham dự
  *   8. CALENDAR EXPORT — Tạo file .ics
  *   9. GIFT BOX — Copy số tài khoản
- *  10. SCROLL REVEAL — IntersectionObserver
+ *  10. SCROLL REVEAL — IntersectionObserver (hỗ trợ mục 23 styles.css: slide, scale, blur, flip)
  *  11. SMOOTH SCROLL — Nav links
  *  12. NAVBAR — Sticky + active on scroll
  *  13. GOOGLE SHEETS API — Transport layer gửi/đọc dữ liệu (file riêng: wishes-api.js)
@@ -795,7 +795,24 @@ function initGiftBox() {
 
 /* ============================================
    10. SCROLL REVEAL — IntersectionObserver
-   Fade-up các section khi scroll tới
+   Fade-up các section khi scroll tới.
+
+   Hỗ trợ tất cả class animate-* (mục 23 styles.css):
+     animate-fade-up     — bay từ dưới lên
+     animate-slide-left  — bay từ trái qua
+     animate-slide-right — bay từ phải qua
+     animate-scale-in    — hiện từ hư không (scale 0→1)
+     animate-scale-up    — scale nhẹ (0.85→1)
+     animate-blur-in     — mờ→rõ
+     animate-flip-in     — lật từ dưới
+     animate-scale-rotate— hiện từ hư không + xoay
+
+   Delay: thêm class .delay-1 → .delay-10 (0.1s → 1.0s)
+
+   Cách dùng:
+     initScrollReveal();
+     // hoặc custom selector:
+     initScrollReveal({ selector: '.animate-fade-up, .animate-slide-left, .my-section' });
    ============================================ */
 
 function initScrollReveal(options = {}) {

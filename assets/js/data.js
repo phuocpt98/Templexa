@@ -3580,6 +3580,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-17',
     },
+    {
+        id: 192,
+        name: 'Thiệp Cưới - Phúc & Thảo Navy Lavender',
+        slug: 'thiep-cuoi-navy-lavender-elegant',
+        description: 'Thiệp cưới Phúc & Thảo phong cách thanh lịch tông xanh navy & tím lavender, studio Hàn Quốc, hiệu ứng sparkles + hoa rơi, đầy đủ tính năng.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'navy', 'lavender', 'elegant', 'korean-studio'],
+        price: '',
+        images: [
+            './products/Web/Invitation/gen_192_navy-lavender-elegant/screen.webp',
+            './products/Web/Invitation/gen_192_navy-lavender-elegant/anh_1.webp',
+            './products/Web/Invitation/gen_192_navy-lavender-elegant/anh_2.webp',
+            './products/Web/Invitation/gen_192_navy-lavender-elegant/anh_3.webp',
+            './products/Web/Invitation/gen_192_navy-lavender-elegant/anh_4.webp',
+        ],
+        thumbnail: './products/Web/Invitation/gen_192_navy-lavender-elegant/screen.webp',
+        path: './products/Web/Invitation/gen_192_navy-lavender-elegant/',
+        demoUrl: './products/Web/Invitation/gen_192_navy-lavender-elegant/code.html',
+        features: [
+            'Đếm ngược ngày cưới realtime',
+            'Nhạc nền Beautiful In White',
+            'Hiệu ứng sparkles + hoa rơi lavender',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 4,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-03-18',
+    },
 ];
 
 // ============================================
