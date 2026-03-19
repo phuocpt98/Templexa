@@ -187,121 +187,306 @@
         .photo-shift-left { margin-left: -10%; margin-right: 15%; }
         .photo-shift-right { margin-right: -10%; margin-left: 15%; }
 
-        /* ========== ENVELOPE ========== */
-        .envelope-overlay {
+        /* ========== OPENING SEQUENCE — 3 steps ========== */
+
+        /* --- FULL SCREEN OVERLAY --- */
+        .opening-overlay {
             position: fixed; inset: 0;
             z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
             background: var(--paper);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
             overflow: hidden;
         }
-        .envelope-overlay.opened {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
+        .opening-overlay.done {
+            opacity: 0; visibility: hidden; pointer-events: none;
         }
-
-        .envelope-bg-pattern {
-            position: absolute; inset: 0;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(82,97,62,0.06), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(196,168,124,0.05), transparent 40%);
-            pointer-events: none;
-        }
-        /* Paper texture on envelope */
-        .envelope-overlay::after {
+        .opening-overlay::after {
             content: '';
             position: absolute; inset: 0;
             background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-            pointer-events: none;
-            opacity: 0.5;
+            pointer-events: none; opacity: 0.5;
         }
 
-        .envelope-corner-ornament {
-            position: absolute;
-            font-size: 2.5rem;
-            color: var(--gold-light);
-            opacity: 0.25;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .envelope-corner-ornament.tl { top: 20px; left: 20px; transform: rotate(0deg); }
-        .envelope-corner-ornament.tr { top: 20px; right: 20px; transform: rotate(90deg); }
-        .envelope-corner-ornament.bl { bottom: 20px; left: 20px; transform: rotate(-90deg); }
-        .envelope-corner-ornament.br { bottom: 20px; right: 20px; transform: rotate(180deg); }
-
-        .envelope-container {
-            position: relative;
-            width: clamp(280px, 80vw, 380px);
-            cursor: pointer;
+        /* --- STEP 1: 3D CARD with flap --- */
+        .card3d-stage {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            perspective: 1200px;
             z-index: 2;
+            transition: opacity 0.5s ease;
         }
+        .card3d-stage.hidden { opacity: 0; pointer-events: none; }
 
-        .envelope-body {
+        .card3d {
             position: relative;
-            background: rgba(250,247,242,0.75);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(196,168,124,0.3);
-            border-radius: 16px;
-            padding: clamp(2.5rem, 8vw, 3.5rem) clamp(1.5rem, 5vw, 2.5rem);
-            text-align: center;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+            width: clamp(280px, 75vw, 340px);
+            height: clamp(400px, 80vh, 520px);
+            transform-style: preserve-3d;
+            cursor: pointer;
         }
-        .envelope-body::before {
-            content: '';
-            position: absolute; inset: 6px;
-            border: 1px solid rgba(196,168,124,0.15);
+        /* Front face — thiệp mời */
+        .card3d-front {
+            position: absolute; inset: 0;
+            background: var(--paper-light);
             border-radius: 12px;
-            pointer-events: none;
+            border: 1px solid rgba(196,168,124,0.25);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            backface-visibility: hidden;
+            overflow: hidden;
+        }
+        /* Viền đôi */
+        .card3d-front::before {
+            content: ''; position: absolute; inset: 8px;
+            border: 1.5px solid rgba(196,168,124,0.2);
+            border-radius: 8px; pointer-events: none;
+        }
+        .card3d-front::after {
+            content: ''; position: absolute; inset: 14px;
+            border: 1px dashed rgba(196,168,124,0.12);
+            border-radius: 6px; pointer-events: none;
         }
 
-        .envelope-bouquet {
+        /* Flap — nắp gập trên */
+        .card3d-flap {
             position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, var(--sage) 0%, var(--sage-dark) 100%);
+            border-radius: 12px 12px 0 0;
+            transform-origin: top center;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 5;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .card3d-flap::before {
+            content: ''; position: absolute; inset: 6px; inset-bottom: 0;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px 8px 0 0; border-bottom: none;
             pointer-events: none;
-            z-index: 4;
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08));
         }
-        .envelope-bouquet img {
-            width: 100%; height: 100%; object-fit: contain;
+        .card3d-flap-text {
+            font-family: var(--font-script);
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
-        .envelope-bouquet-tl {
-            top: -45px; left: -40px;
-            width: 110px; height: 110px;
-            transform: rotate(15deg);
-            opacity: 0.85;
+        .card3d-flap-date {
+            font-family: var(--font-serif);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.2em;
+            margin-top: 0.5rem;
         }
-        .envelope-bouquet-tr {
-            top: -40px; right: -35px;
-            width: 100px; height: 100px;
-            transform: rotate(-20deg) scaleX(-1);
-            opacity: 0.8;
+        .card3d-flap-tap {
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 1.5rem;
+            animation: pulse-tap 2s ease-in-out infinite;
         }
-        .envelope-bouquet-bl {
-            bottom: -35px; left: -25px;
-            width: 85px; height: 85px;
-            transform: rotate(-15deg);
-            opacity: 0.7;
-        }
-        .envelope-bouquet-br {
-            bottom: -35px; right: -25px;
-            width: 90px; height: 90px;
-            transform: rotate(25deg) scaleX(-1) scaleY(-1);
-            opacity: 0.7;
+        @keyframes pulse-tap {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
         }
 
-        .envelope-subtitle {
+        .card3d.flap-open .card3d-flap {
+            transform: rotateX(-175deg);
+        }
+
+        /* Card front content (hidden under flap initially) */
+        .card3d-content {
+            position: relative; z-index: 1;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.6s ease 0.8s, transform 0.6s ease 0.8s;
+        }
+        .card3d.flap-open .card3d-content {
+            opacity: 1; transform: translateY(0);
+        }
+        .card3d-label {
             font-family: var(--font-serif);
-            font-size: 0.6rem;
-            letter-spacing: 0.35em;
+            font-size: 0.55rem;
+            letter-spacing: 0.4em;
             color: var(--sage-light);
             text-transform: uppercase;
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.8rem;
         }
+        .card3d-invite {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        .card3d-names {
+            font-family: var(--font-script);
+            font-size: clamp(2rem, 7vw, 2.8rem);
+            color: var(--sage-dark);
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+        }
+        .card3d-date {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: var(--text-faint);
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+        .card3d-open-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 28px;
+            background: linear-gradient(135deg, var(--sage), var(--sage-dark));
+            color: #fff;
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            border: none; border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(82,97,62,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card3d-open-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(82,97,62,0.4);
+        }
+        /* Bouquet icons on 3D card */
+        .card3d-bouquet {
+            position: absolute; pointer-events: none; z-index: 6;
+        }
+        .card3d-bouquet img { width: 100%; height: 100%; object-fit: contain; }
+        .card3d-bouquet-tl { top: -30px; left: -25px; width: 90px; height: 90px; transform: rotate(15deg); opacity: 0.8; }
+        .card3d-bouquet-br { bottom: -25px; right: -20px; width: 80px; height: 80px; transform: rotate(-20deg) scaleX(-1); opacity: 0.75; }
+
+        /* --- STEP 2: ENVELOPE with flying photos --- */
+        .envelope-stage {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        .envelope-stage.active { opacity: 1; pointer-events: auto; }
+
+        .mini-envelope {
+            position: relative;
+            width: clamp(220px, 60vw, 280px);
+        }
+        /* Envelope body */
+        .mini-env-body {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(180deg, var(--paper-light) 0%, var(--paper-dark) 100%);
+            border-radius: 0 0 12px 12px;
+            border: 1px solid rgba(196,168,124,0.3);
+            border-top: none;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .mini-env-body::before {
+            content: ''; position: absolute; inset: 6px; inset-top: 0;
+            border: 1px solid rgba(196,168,124,0.15);
+            border-radius: 0 0 8px 8px; border-top: none;
+            pointer-events: none;
+        }
+        .mini-env-heart {
+            font-size: 2rem; color: var(--gold);
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.15); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+        }
+        /* Envelope flap (triangle) */
+        .mini-env-flap {
+            width: 100%;
+            height: 90px;
+            background: linear-gradient(180deg, var(--sage-light) 0%, var(--sage) 100%);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            position: relative;
+            z-index: 3;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: top center;
+        }
+        .mini-envelope.opened .mini-env-flap {
+            transform: rotateX(-170deg);
+            z-index: 0;
+        }
+
+        /* Flying photos */
+        .fly-photo {
+            position: absolute;
+            width: 110px; height: 140px;
+            border: 5px solid white;
+            border-radius: 4px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+            z-index: 1;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.3);
+            opacity: 0;
+            transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .fly-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .mini-envelope.opened .fly-photo-left {
+            transform: translate(-140%, -80%) rotate(-12deg) scale(1);
+            opacity: 1;
+        }
+        .mini-envelope.opened .fly-photo-right {
+            transform: translate(40%, -70%) rotate(8deg) scale(1);
+            opacity: 1;
+        }
+        /* Env bouquet icons */
+        .env-bouquet {
+            position: absolute; pointer-events: none; z-index: 4;
+        }
+        .env-bouquet img { width: 100%; height: 100%; object-fit: contain; }
+        .env-bouquet-l { top: -20px; left: -40px; width: 80px; height: 80px; transform: rotate(12deg); opacity: 0.7; }
+        .env-bouquet-r { top: -15px; right: -35px; width: 75px; height: 75px; transform: rotate(-15deg) scaleX(-1); opacity: 0.65; }
+
+        .env-continue-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 2rem;
+            padding: 10px 28px;
+            background: linear-gradient(135deg, var(--sage), var(--sage-dark));
+            color: #fff;
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            border: none; border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(82,97,62,0.3);
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.5s ease 1.5s, transform 0.5s ease 1.5s, box-shadow 0.3s, background 0.3s;
+        }
+        .mini-envelope.opened .env-continue-btn {
+            opacity: 1; transform: translateY(0);
+        }
+        .env-continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(82,97,62,0.4);
+        }
+
+        /* Scattered bouquet icons on overlay */
+        .opening-scatter {
+            position: absolute; pointer-events: none; z-index: 1;
+            opacity: 0.3;
+            animation: bouquet-sway 8s ease-in-out infinite;
+        }
+
         .envelope-invite-text {
             font-family: var(--font-serif);
             font-size: 0.95rem;
@@ -316,76 +501,6 @@
             display: none;
             margin-bottom: 0.5rem;
         }
-        .envelope-names {
-            font-family: var(--font-script);
-            font-size: clamp(2.2rem, 8vw, 3rem);
-            color: var(--sage-dark);
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-        .envelope-date-text {
-            font-family: var(--font-serif);
-            font-size: 1rem;
-            color: var(--text-light);
-            letter-spacing: 0.05em;
-        }
-
-        .envelope-wax {
-            width: 55px; height: 55px;
-            margin: 1.5rem auto 0;
-            animation: pulse-wax 2s ease-in-out infinite;
-        }
-        @keyframes pulse-wax {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-        }
-
-        .envelope-ribbon {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 1.5rem;
-            padding: 10px 28px;
-            background: linear-gradient(135deg, var(--sage), var(--sage-dark));
-            color: var(--white);
-            font-family: var(--font-serif);
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(82,97,62,0.35);
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: fade-pulse 2.5s ease-in-out infinite;
-        }
-        .envelope-ribbon:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(82,97,62,0.45);
-        }
-        @keyframes fade-pulse {
-            0%, 100% { opacity: 0.85; }
-            50% { opacity: 1; }
-        }
-
-        .envelope-peek-photos {
-            position: absolute;
-            bottom: -55px; left: 50%;
-            transform: translateX(-50%);
-            width: 260px; height: 85px;
-            z-index: 0; pointer-events: none;
-        }
-        .envelope-peek-photo {
-            position: absolute;
-            width: 100px; height: 72px;
-            border-radius: 6px; overflow: hidden;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-            border: 3px solid var(--white);
-        }
-        .envelope-peek-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
-        .envelope-peek-photo:first-child { left: 12px; bottom: 0; transform: rotate(-8deg); }
-        .envelope-peek-photo:first-child img { object-position: center 40%; }
-        .envelope-peek-photo:last-child { right: 12px; bottom: 5px; transform: rotate(6deg); }
-
         /* ========== SCATTERED BG ICONS ========== */
         .bg-scatter-icon {
             position: absolute;
@@ -1573,58 +1688,81 @@
 </head>
 <body>
 
-    <!-- ===== ENVELOPE OVERLAY ===== -->
-    <div class="envelope-overlay" id="envelope">
-        <div class="envelope-bg-pattern"></div>
+    <!-- ===== OPENING SEQUENCE — 3 steps ===== -->
+    <div class="opening-overlay" id="openingOverlay">
 
-        <!-- Corner ornaments -->
-        <span class="envelope-corner-ornament tl">&#10087;</span>
-        <span class="envelope-corner-ornament tr">&#10087;</span>
-        <span class="envelope-corner-ornament bl">&#10087;</span>
-        <span class="envelope-corner-ornament br">&#10087;</span>
+        <!-- Scattered bouquet icons -->
+        <img class="opening-scatter" src="../../../shared/images/wedding/icons/bouquet-1.webp" style="top:8%;left:5%;width:90px;--bq-rot:10deg;" alt="">
+        <img class="opening-scatter" src="../../../shared/images/wedding/icons/bouquet-2.webp" style="top:12%;right:6%;width:75px;--bq-rot:-15deg;animation-delay:2s;" alt="">
+        <img class="opening-scatter" src="../../../shared/images/wedding/icons/bouquet-1.webp" style="bottom:15%;left:8%;width:70px;--bq-rot:20deg;animation-delay:4s;" alt="">
+        <img class="opening-scatter" src="../../../shared/images/wedding/icons/bouquet-2.webp" style="bottom:10%;right:5%;width:85px;--bq-rot:-12deg;animation-delay:1s;" alt="">
 
-        <!-- Scattered icons on envelope screen -->
-        <img class="bg-scatter-icon bg-scatter-bounce" src="../../../shared/images/wedding/icons/chinese-happiness.webp" alt=""
-            style="top:15%;left:15%;--scatter-size:80px;--scatter-rot:8deg;opacity:0.45;">
-        <img class="bg-scatter-icon bg-scatter-bounce" src="../../../shared/images/wedding/icons/chinese-happiness.webp" alt=""
-            style="top:38%;right:12%;--scatter-size:65px;--scatter-rot:-12deg;animation-delay:1.2s;opacity:0.45;">
-        <img class="bg-scatter-icon bg-scatter-bounce" src="../../../shared/images/wedding/icons/chinese-happiness.webp" alt=""
-            style="bottom:20%;left:18%;--scatter-size:70px;--scatter-rot:15deg;animation-delay:2.5s;opacity:0.45;">
-        <img class="bg-scatter-icon bg-scatter-bounce" src="../../../shared/images/wedding/icons/double-happiness.webp" alt=""
-            style="top:22%;right:16%;--scatter-size:72px;--scatter-rot:-5deg;animation-delay:0.8s;">
-        <img class="bg-scatter-icon bg-scatter-bounce" src="../../../shared/images/wedding/icons/double-happiness.webp" alt=""
-            style="bottom:28%;left:12%;--scatter-size:58px;--scatter-rot:20deg;animation-delay:1.8s;">
-        <img class="bg-scatter-icon bg-scatter-bounce" src="../../../shared/images/wedding/icons/double-happiness.webp" alt=""
-            style="bottom:12%;right:14%;--scatter-size:75px;--scatter-rot:-18deg;animation-delay:3s;">
+        <!-- ========== STEP 1: 3D CARD ========== -->
+        <div class="card3d-stage" id="card3dStage">
+            <div class="card3d" id="card3d">
+                <!-- Bouquet decorations -->
+                <div class="card3d-bouquet card3d-bouquet-tl">
+                    <img src="../../../shared/images/wedding/icons/bouquet-1.webp" alt="">
+                </div>
+                <div class="card3d-bouquet card3d-bouquet-br">
+                    <img src="../../../shared/images/wedding/icons/bouquet-2.webp" alt="">
+                </div>
 
-        <div class="envelope-container" id="envelopeContainer">
-            <!-- White bouquet overlays on card -->
-            <div class="envelope-bouquet envelope-bouquet-tl">
-                <img src="../../../shared/images/wedding/icons/bouquet-1.webp" alt="">
+                <!-- Flap (nắp gập) -->
+                <div class="card3d-flap" id="card3dFlap">
+                    <span class="card3d-flap-text">N & T</span>
+                    <span class="card3d-flap-date">29 . 03 . 2026</span>
+                    <span class="card3d-flap-tap">Chạm để mở</span>
+                </div>
+
+                <!-- Front face (content dưới nắp) -->
+                <div class="card3d-front">
+                    <div class="card3d-content">
+                        <p class="card3d-label">Wedding Invitation</p>
+                        <p class="card3d-invite guest-invite-text">Trân trọng kính mời</p>
+                        <p class="guest-name-display"></p>
+                        <h2 class="card3d-names">Trọng Nghĩa<br>& Thu Thuỷ</h2>
+                        <p class="card3d-date">Chủ Nhật, 29 Tháng 3, 2026</p>
+                        <button class="card3d-open-btn" id="card3dOpenBtn">
+                            <i data-lucide="heart" style="width:14px;height:14px;"></i>
+                            Xem Thiệp
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="envelope-bouquet envelope-bouquet-tr">
-                <img src="../../../shared/images/wedding/icons/bouquet-2.webp" alt="">
-            </div>
-            <div class="envelope-bouquet envelope-bouquet-br">
-                <img src="../../../shared/images/wedding/icons/bouquet-2.webp" alt="">
-            </div>
+        </div>
 
-            <div class="envelope-body">
-                <p class="envelope-subtitle">Wedding Invitation</p>
-                <p class="envelope-invite-text guest-invite-text">Trân trọng kính mời</p>
-                <p class="guest-name-display"></p>
-                <h2 class="envelope-names">Trọng Nghĩa <br>&amp; Thu Thuỷ</h2>
-                <p class="envelope-date-text">29 . 03 . 2026</p>
-                <img class="envelope-wax" src="../../../shared/images/wedding/icons/wax-seal.webp" alt="seal">
-                <button class="envelope-ribbon" onclick="openEnvelope()">
-                    <i data-lucide="heart" style="width:16px;height:16px;"></i>
-                    Mở Thiệp
+        <!-- ========== STEP 2: ENVELOPE with flying photos ========== -->
+        <div class="envelope-stage" id="envelopeStage">
+            <div style="text-align:center;">
+                <div class="mini-envelope" id="miniEnvelope">
+                    <!-- Bouquet decorations -->
+                    <div class="env-bouquet env-bouquet-l">
+                        <img src="../../../shared/images/wedding/icons/bouquet-2.webp" alt="">
+                    </div>
+                    <div class="env-bouquet env-bouquet-r">
+                        <img src="../../../shared/images/wedding/icons/bouquet-1.webp" alt="">
+                    </div>
+
+                    <!-- Flying photos -->
+                    <div class="fly-photo fly-photo-left">
+                        <img src="./a5.webp" alt="">
+                    </div>
+                    <div class="fly-photo fly-photo-right">
+                        <img src="./a3.webp" alt="">
+                    </div>
+
+                    <!-- Envelope flap -->
+                    <div class="mini-env-flap"></div>
+                    <!-- Envelope body -->
+                    <div class="mini-env-body">
+                        <span class="mini-env-heart">💌</span>
+                    </div>
+                </div>
+                <button class="env-continue-btn" id="envContinueBtn">
+                    <i data-lucide="arrow-right" style="width:14px;height:14px;"></i>
+                    Vào Thiệp Cưới
                 </button>
-            </div>
-
-            <div class="envelope-peek-photos">
-                <div class="envelope-peek-photo"><img src="./a5.webp" alt="" loading="lazy"></div>
-                <div class="envelope-peek-photo"><img src="./a3.webp" alt="" loading="lazy"></div>
             </div>
         </div>
     </div>
@@ -2244,26 +2382,61 @@
         })();
 
         // ========================
-        // ENVELOPE
+        // OPENING SEQUENCE — 3 steps
         // ========================
-        function openEnvelope() {
-            var el = document.getElementById('envelope');
-            el.classList.add('opened');
-            document.body.style.overflow = '';
-            var music = document.getElementById('bgMusic');
-            if (music) {
-                music.volume = 0.3;
-                music.play().then(function() {
-                    var btn = document.getElementById('musicToggle');
-                    if (btn) btn.classList.remove('muted');
-                }).catch(function(){});
-            }
-            setTimeout(function() {
-                el.style.display = 'none';
-            }, 800);
-        }
-        // Lock scroll while envelope showing
+        var overlay = document.getElementById('openingOverlay');
+        var card3dStage = document.getElementById('card3dStage');
+        var card3d = document.getElementById('card3d');
+        var card3dFlap = document.getElementById('card3dFlap');
+        var card3dOpenBtn = document.getElementById('card3dOpenBtn');
+        var envStage = document.getElementById('envelopeStage');
+        var miniEnv = document.getElementById('miniEnvelope');
+        var envContinueBtn = document.getElementById('envContinueBtn');
+
+        // Lock scroll
         document.body.style.overflow = 'hidden';
+
+        // STEP 1: Click flap → open flap
+        if (card3dFlap) {
+            card3dFlap.addEventListener('click', function() {
+                card3d.classList.add('flap-open');
+            });
+        }
+
+        // STEP 1→2: Click "Xem Thiệp" → transition to envelope stage
+        if (card3dOpenBtn) {
+            card3dOpenBtn.addEventListener('click', function() {
+                // Fade out card stage
+                card3dStage.classList.add('hidden');
+                // Show envelope stage
+                setTimeout(function() {
+                    envStage.classList.add('active');
+                    // Auto open envelope after 0.5s
+                    setTimeout(function() {
+                        miniEnv.classList.add('opened');
+                    }, 500);
+                }, 500);
+            });
+        }
+
+        // STEP 2→done: Click "Vào Thiệp Cưới" → close overlay, play music
+        if (envContinueBtn) {
+            envContinueBtn.addEventListener('click', function() {
+                overlay.classList.add('done');
+                document.body.style.overflow = '';
+                var music = document.getElementById('bgMusic');
+                if (music) {
+                    music.volume = 0.3;
+                    music.play().then(function() {
+                        var btn = document.getElementById('musicToggle');
+                        if (btn) btn.classList.remove('muted');
+                    }).catch(function(){});
+                }
+                setTimeout(function() {
+                    overlay.style.display = 'none';
+                }, 600);
+            });
+        }
 
         // ========================
         // MUSIC TOGGLE
