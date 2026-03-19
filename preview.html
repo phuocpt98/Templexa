@@ -269,6 +269,28 @@
                 0 0 0 2px #374151,
                 0 20px 60px rgba(0, 0, 0, 0.2);
             position: relative;
+            aspect-ratio: 430 / 932;
+        }
+        /* Màn nhỏ: co width theo chiều cao để giữ tỷ lệ */
+        @media (max-height: 750px) and (min-width: 769px) {
+            .preview-frame.mobile {
+                height: calc(100vh - 56px - 40px);
+                width: auto;
+                max-width: 430px;
+            }
+        }
+        /* Màn rất nhỏ: không co nữa, cho scroll */
+        @media (max-height: 500px) and (min-width: 769px) {
+            .preview-container.mobile-mode {
+                align-items: flex-start;
+                overflow-y: auto;
+            }
+            .preview-frame.mobile {
+                height: 932px;
+                width: 430px;
+                max-height: none;
+                flex-shrink: 0;
+            }
         }
         .preview-frame.mobile::before {
             content: '';
