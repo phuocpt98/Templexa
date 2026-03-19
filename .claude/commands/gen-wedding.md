@@ -446,13 +446,20 @@ setInterval(createHeart, 1000);
 **Kết hợp nhiều font** trong 1 thiệp: heading script/serif + body sans + accent italic.
 **TRÁNH font cứng, nặng** (Impact, Arial Black, Roboto Condensed...).
 
+**⚠️ QUAN TRỌNG — Font tiếng Việt:**
+- **KHÔNG dùng `Cinzel`, `Cinzel Decorative`** cho text tiếng Việt — font này KHÔNG hỗ trợ dấu tiếng Việt (ă, ơ, ư, ê, ô, đ...), gây lỗi hiển thị.
+- **KHÔNG dùng `Italiana`** cho text tiếng Việt — tương tự không hỗ trợ đầy đủ.
+- Font script (`Great Vibes`, `Dancing Script`, `Sacramento`, `Alex Brush`) — **chỉ dùng cho tên KHÔNG DẤU** (ví dụ: "Minh & Ngoc"). Nếu tên có dấu → dùng serif thay thế.
+- **ƯU TIÊN font hỗ trợ tiếng Việt** cho mọi text có dấu: `Cormorant Garamond`, `Playfair Display`, `EB Garamond`, `Be Vietnam Pro`, `Quicksand`, `Nunito`, `Lora`.
+- Khi chọn `--font-heading` → **BẮT BUỘC** dùng font hỗ trợ tiếng Việt vì section title luôn có tiếng Việt.
+
 | Combo | Heading (script/serif) | Body (sans) | Accent (italic/light) | Vibe |
 |-------|----------------------|-------------|----------------------|------|
 | **Soft Romantic** | `Cormorant Garamond` | `Quicksand` | `Cormorant Garamond italic` | Mềm mại, lãng mạn |
 | **Dreamy** | `Great Vibes` | `Nunito` | `Lora italic` | Mộng mơ, bay bổng |
 | **Elegant Serif** | `Playfair Display` | `Lora` | `Playfair Display italic` | Sang trọng, tinh tế |
 | **Modern Soft** | `Italiana` | `Quicksand` | `Cormorant Garamond italic` | Hiện đại, mềm |
-| **Classic Grace** | `Cinzel` | `EB Garamond` | `Cormorant Garamond italic` | Cổ điển, quý phái |
+| **Classic Grace** | `Playfair Display` | `EB Garamond` | `Cormorant Garamond italic` | Cổ điển, quý phái |
 | **Gentle** | `Dancing Script` | `Be Vietnam Pro` | `Be Vietnam Pro italic` | Nhẹ nhàng, tươi |
 | **Luxury Silk** | `Cormorant SC` | `Raleway` | `Cormorant Garamond italic` | Cao cấp, mượt mà |
 | **Warm** | `Sacramento` | `Nunito` | `Lora italic` | Ấm áp, thân mật |
@@ -464,7 +471,7 @@ setInterval(createHeart, 1000);
 | Vị trí | Font gợi ý | Weight | Lý do |
 |--------|-----------|--------|-------|
 | Tên cặp đôi | Script: `Great Vibes`, `Sacramento`, `Alex Brush`, `Dancing Script` | 400 | Mềm mại, nổi bật |
-| Tiêu đề section | Serif: `Cormorant Garamond`, `Playfair Display`, `Cinzel` | 500-600 | Thanh lịch, dễ đọc |
+| Tiêu đề section | Serif: `Cormorant Garamond`, `Playfair Display`, `EB Garamond` | 500-600 | Thanh lịch, dễ đọc (⚠️ KHÔNG dùng Cinzel — lỗi tiếng Việt) |
 | Body text | Sans: `Quicksand`, `Nunito`, `Be Vietnam Pro` | 400-500 | Tròn trịa, thân thiện |
 | Quote / thư tay | Serif italic: `Cormorant Garamond italic`, `Lora italic` | 400i | Mềm mại, cảm xúc |
 | Label nhỏ | Sans light: `Quicksand 300`, `Raleway 300` | 300 | Nhẹ, tinh tế |
@@ -477,10 +484,13 @@ setInterval(createHeart, 1000);
 - **Font-size dùng `clamp()`** — responsive tự nhiên giữa mobile và desktop
 - **Tránh font quá nặng** (>100KB) — ảnh hưởng tốc độ load trên mobile
 
-**Font hỗ trợ tiếng Việt tốt nhất:**
+**Font hỗ trợ tiếng Việt tốt nhất (ƯU TIÊN DÙNG):**
 - Body: `Be Vietnam Pro`, `Quicksand`, `Nunito`, `Montserrat`, `Lora`
 - Heading serif: `Cormorant Garamond`, `Playfair Display`, `EB Garamond`
 - Script (chỉ cho tên không dấu): `Great Vibes`, `Dancing Script`, `Sacramento`, `Alex Brush`
+
+**⛔ Font KHÔNG hỗ trợ tiếng Việt — TUYỆT ĐỐI KHÔNG dùng cho text có dấu:**
+- `Cinzel`, `Cinzel Decorative`, `Italiana`, `Allura`, `Tangerine`
 
 **Google Fonts URL mẫu (3 font):**
 ```html
