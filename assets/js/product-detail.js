@@ -427,9 +427,10 @@
                     iframe.onload = function () {
                         if (!hovered) { iframe.remove(); iframe = null; return; }
                         iframe.classList.add('loaded');
-                        setTimeout(function () {
-                            if (hovered && iframe) iframe.classList.add('scrolling');
-                        }, 400);
+                        // Auto-scroll tạm tắt
+                        // setTimeout(function () {
+                        //     if (hovered && iframe) iframe.classList.add('scrolling');
+                        // }, 400);
                     };
 
                     container.appendChild(iframe);
