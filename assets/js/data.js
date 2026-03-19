@@ -3673,6 +3673,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-18',
     },
+    {
+        id: 195,
+        name: 'Thiệp Cưới - Trọng Nghĩa & Thu Thuỷ',
+        slug: 'thiep-cuoi-trong-nghia-thu-thuy',
+        description: 'Thiệp cưới Trọng Nghĩa & Thu Thuỷ — tông be ấm áp, hoa trắng, 2 tiệc (Điện Biên + Hà Nội), ảnh không đối xứng, Google Maps 2 địa điểm, QR mừng cưới, lời chúc + RSVP qua Google Sheets.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'custom', 'beige', 'white-flowers', 'thiệp-đôi'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/khach_1/screen.webp',
+            './products/Invitation/Wedding/khach_1/anh_1.webp',
+            './products/Invitation/Wedding/khach_1/anh_2.webp',
+            './products/Invitation/Wedding/khach_1/anh_3.webp',
+            './products/Invitation/Wedding/khach_1/anh_4.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/khach_1/screen.webp',
+        path: './products/Invitation/Wedding/khach_1/',
+        demoUrl: './products/Invitation/Wedding/khach_1/code.html',
+        features: [
+            '2 tiệc: Lễ Thành Hôn (Điện Biên) + Báo Hỷ (Hà Nội)',
+            'Gửi lời chúc + RSVP qua Google Sheets',
+            'Google Maps 2 địa điểm + QR mừng cưới nhà trai/gái',
+        ],
+        status: 'new',
+        priority: 999,
+        downloads: 3,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-19',
+    },
 ];
 
 // ============================================
