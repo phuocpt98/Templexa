@@ -3704,6 +3704,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-19',
     },
+    {
+        id: 196,
+        name: 'Thiệp Cưới - Trọng Nghĩa & Thu Thuỷ v2',
+        slug: 'thiep-cuoi-trong-nghia-thu-thuy-v2',
+        description: 'Thiệp cưới Trọng Nghĩa & Thu Thuỷ v2 — phong cách thiệp giấy (paper texture), tông xanh lá sage + vàng gold, icon bó hoa watercolor, ảnh polaroid bất đối xứng, mobile-first.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'custom', 'paper', 'sage-green', 'botanical', 'jmiiwedding'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/khach_1_v2/screen.webp',
+            './products/Invitation/Wedding/khach_1_v2/anh_1.webp',
+            './products/Invitation/Wedding/khach_1_v2/anh_2.webp',
+            './products/Invitation/Wedding/khach_1_v2/anh_3.webp',
+            './products/Invitation/Wedding/khach_1_v2/anh_4.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/khach_1_v2/screen.webp',
+        path: './products/Invitation/Wedding/khach_1_v2/',
+        demoUrl: './products/Invitation/Wedding/khach_1_v2/code.html',
+        features: [
+            'Phong cách thiệp giấy + icon bó hoa botanical + nền paper texture',
+            '2 tiệc: Lễ Thành Hôn (Điện Biên) + Báo Hỷ (Hà Nội)',
+            'Gửi lời chúc + RSVP Google Sheets + QR + Google Maps 2 địa điểm',
+        ],
+        status: 'new',
+        priority: 999,
+        downloads: 5,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-19',
+    },
 ];
 
 // ============================================
