@@ -154,23 +154,39 @@
         /* 2 polaroid photos — on top of card */
         .hero-photos {
             position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
-            width: 76%; height: 280px; z-index: 2;
+            width: 62%; height: 280px; z-index: 2;
         }
         .polaroid {
-            position: absolute; width: 48%; max-width: 165px; height: 210px;
+            position: absolute; width: 52%; max-width: 165px; height: 210px;
+            overflow: hidden;
         }
         .polaroid-frame {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 2;
         }
         .polaroid-photo {
-            position: absolute; top: 7%; left: 7%; width: 86%; height: 74%;
+            position: absolute;
             object-fit: cover; z-index: 1; border-radius: 2px;
         }
+        /* Frame trái (element_0024_10) — xoay nhẹ phải trong ảnh */
+        .polaroid-left .polaroid-photo {
+            top: 9%;
+            left: 4%;
+            /* width: 77%; */
+            height: 67%;
+        }
+        /* Frame phải (element_0023_11) — xoay nhẹ trái trong ảnh */
+        .polaroid-right .polaroid-photo {
+            top: 7.5%;
+            left: 9%;
+            /* width: 79%; */
+            height: 69%;
+        }
         .polaroid-left {
-            top: 30px; left: -10px;
+            top: 30px; left: 15px;
             transform: rotate(-6deg);
             opacity: 0;
+            z-index: 3;
         }
         .polaroid-right {
             top: 5px; right: -10px;
@@ -256,6 +272,21 @@
             text-transform: uppercase; letter-spacing: 2px; line-height: 1.6;
             opacity: 0; animation: fadeInUp 0.8s ease 2.5s forwards;
         }
+
+        /* ------ Khách mời ------ */
+        .khach-moi {
+            font-family: 'UVNHoaTay', serif;
+            font-size: clamp(22px, 7vw, 30px);
+            color: rgb(82, 97, 62);
+            text-transform: none;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            margin: 8px 0 4px;
+            min-height: 0;
+            text-decoration: none;
+            font-style: normal;
+        }
+        .khach-moi:empty { display: none; }
 
         /* ------ S2: Full-width photo ------ */
         .s-photo-full { height: 295px; }
@@ -349,7 +380,7 @@
             position: absolute; pointer-events: none; z-index: 1;
         }
         .ls-deco-top-left {
-            top: -15px; left: -10px; width: 100px; opacity: 0.85;
+            top: -15px; left: -30px; width: 100px; opacity: 0.85;
         }
         .ls-deco-bottom-right {
             bottom: -10px; right: -10px; width: 130px; opacity: 0.85;
@@ -630,11 +661,14 @@
             align-items: center; justify-content: center;
         }
         .popup-overlay.show { display: flex; }
+        .popup-overlay { overflow-y: auto; padding: 20px 0; }
         .popup {
             background: #fff; border-radius: 16px; padding: 30px; max-width: 360px; width: 90%;
             text-align: center; position: relative;
             background-image: url('./images/thiep-thanh-dat-element_0033_1.webp');
             background-size: cover;
+            margin: auto;
+            max-height: 90vh; overflow-y: auto;
         }
         .popup-close {
             position: absolute; top: 12px; right: 15px;
@@ -656,17 +690,24 @@
         /* Popup Gift / Banking */
         .popup-gift { max-width: 380px; }
         .popup-gift-photo {
-            width: 100%; height: 200px; object-fit: cover;
+            width: 100%; height: 200px; object-fit: cover; object-position: center 20%;
             border-radius: 12px; margin-bottom: 15px;
+        }
+        .popup-gift-grid {
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .popup-gift-card {
+            text-align: center;
+        }
+        .popup-gift-divider {
+            width: 60px; height: 1px; background: rgba(146,132,98,0.4);
+            margin: 0 auto;
         }
         .popup-gift-label {
             font-family: 'UVNHoaTay', serif; font-size: 30px; margin-bottom: 5px;
         }
         .popup-gift-name {
-            font-size: 25px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
-        }
-        .popup-gift-bank {
-            font-size: 21px; margin-bottom: 15px;
+            font-size: 18px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;
         }
         .popup-gift-qr {
             width: 200px; margin: 0 auto; border-radius: 12px;
@@ -753,7 +794,7 @@
             <div class="hero-photos">
                 <div class="polaroid polaroid-left">
                     <img class="polaroid-frame" src="./images/element_0024_10.webp" alt="">
-                    <img class="polaroid-photo" src="./customer/a1.webp" alt="Couple photo 1">
+                    <img class="polaroid-photo" src="./customer/20.webp" alt="Couple photo 1">
                 </div>
                 <div class="polaroid polaroid-right">
                     <img class="polaroid-frame" src="./images/element_0023_11.webp" alt="">
@@ -771,7 +812,12 @@
 
         <!-- Date + text below card -->
         <div class="hero-date">29.03.2026</div>
-        <div class="hero-invite-text">Kính mời tham dự<br>tiệc chung vui của gia đình chúng tôi</div>
+        <div class="hero-invite-text">Trân trọng kính mời
+
+            <div class="khach-moi"></div>
+            <br>
+
+            tới dự bữa cơm thân mật<br>chung vui cùng gia đình <span style="white-space:nowrap;">chúng tôi</span></div>
     </div>
 
     <!-- S2: Full-width photo -->
@@ -849,7 +895,7 @@
             <!-- Chú rể: ảnh trên-trái, text bên phải -->
             <div class="ls-photo-wrap groom anim-left">
                 <img class="ls-frame" src="./images/groom-frame.webp" alt="">
-                <img class="ls-photo groom-photo" src="./customer/a1.webp" alt="Chú rể">
+                <img class="ls-photo groom-photo" src="./customer/chu_re.webp" alt="Chú rể">
             </div>
             <div class="ls-label" style="position:absolute;top:80px;right:15px;width:160px;z-index:3;">Chú rể</div>
             <div class="ls-name" style="position:absolute;top:110px;right:15px;width:160px;z-index:3;">Trọng Nghĩa</div>
@@ -857,7 +903,7 @@
             <!-- Cô dâu: ảnh dưới-phải, text bên trái -->
             <div class="ls-photo-wrap bride anim-right">
                 <img class="ls-frame" src="./images/bride-frame.webp" alt="">
-                <img class="ls-photo bride-photo" src="./customer/a5.webp" alt="Cô dâu">
+                <img class="ls-photo bride-photo" src="./customer/16.webp" alt="Cô dâu">
             </div>
             <div class="ls-label" style="position:absolute;top:320px;left:15px;width:160px;z-index:3;">Cô dâu</div>
             <div class="ls-name" style="position:absolute;top:350px;left:15px;width:160px;z-index:3;">Thu Thuỷ</div>
@@ -902,31 +948,31 @@
     </div>
 
     <!-- S7: Timeline -->
-    <div class="section s-timeline">
-        <div class="tl-title anim">Timeline</div>
-        <div class="tl-items">
-            <div class="tl-item anim">
-                <div class="tl-icon"><img src="./images/timeline-4.webp" alt=""></div>
-                <div class="tl-time">08:00</div>
-                <div class="tl-desc">Rước dâu</div>
-            </div>
-            <div class="tl-item anim">
-                <div class="tl-icon"><img src="./images/timeline-2.webp" alt=""></div>
-                <div class="tl-time">10:30</div>
-                <div class="tl-desc">Đón khách tại Hội trường Hoa Ban</div>
-            </div>
-            <div class="tl-item anim">
-                <div class="tl-icon"><img src="./images/timeline-1.webp" alt=""></div>
-                <div class="tl-time">11:00</div>
-                <div class="tl-desc">Lễ Thành Hôn</div>
-            </div>
-            <div class="tl-item anim">
-                <div class="tl-icon"><img src="./images/timeline-3.webp" alt=""></div>
-                <div class="tl-time">11:30</div>
-                <div class="tl-desc">Khai tiệc</div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="section s-timeline">-->
+<!--        <div class="tl-title anim">Timeline</div>-->
+<!--        <div class="tl-items">-->
+<!--            <div class="tl-item anim">-->
+<!--                <div class="tl-icon"><img src="./images/timeline-4.webp" alt=""></div>-->
+<!--                <div class="tl-time">08:00</div>-->
+<!--                <div class="tl-desc">Rước dâu</div>-->
+<!--            </div>-->
+<!--            <div class="tl-item anim">-->
+<!--                <div class="tl-icon"><img src="./images/timeline-2.webp" alt=""></div>-->
+<!--                <div class="tl-time">10:30</div>-->
+<!--                <div class="tl-desc">Đón khách tại Hội trường Hoa Ban</div>-->
+<!--            </div>-->
+<!--            <div class="tl-item anim">-->
+<!--                <div class="tl-icon"><img src="./images/timeline-1.webp" alt=""></div>-->
+<!--                <div class="tl-time">11:00</div>-->
+<!--                <div class="tl-desc">Lễ Thành Hôn</div>-->
+<!--            </div>-->
+<!--            <div class="tl-item anim">-->
+<!--                <div class="tl-icon"><img src="./images/timeline-3.webp" alt=""></div>-->
+<!--                <div class="tl-time">11:30</div>-->
+<!--                <div class="tl-desc">Khai tiệc</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <!-- S8: Countdown -->
     <div class="section s-countdown">
@@ -963,18 +1009,25 @@
     <!-- S9: Gallery Slider -->
     <div class="section s-gallery">
         <div class="gal-view">
-            <img id="galView" src="./customer/a1.webp" alt="Gallery">
+            <img id="galView" src="./customer/a5.webp" alt="Gallery">
             <button class="gal-btn gal-btn-prev" id="galPrev">&#10094;</button>
             <button class="gal-btn gal-btn-next" id="galNext">&#10095;</button>
         </div>
         <div class="gal-controls" id="galControls">
-            <div class="gal-thumb active" data-src="./customer/a1.webp"><img src="./customer/a1.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/a2.webp"><img src="./customer/a2.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/a3.webp"><img src="./customer/a3.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/a4.webp"><img src="./customer/a4.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/a5.webp"><img src="./customer/a5.webp" alt=""></div>
+            <div class="gal-thumb active" data-src="./customer/a5.webp"><img src="./customer/a5.webp" alt=""></div>
             <div class="gal-thumb" data-src="./customer/a6.webp"><img src="./customer/a6.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/a7.webp"><img src="./customer/a7.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/a8.webp"><img src="./customer/a8.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/9.webp"><img src="./customer/9.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/10.webp"><img src="./customer/10.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/11.webp"><img src="./customer/11.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/12.webp"><img src="./customer/12.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/13.webp"><img src="./customer/13.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/14.webp"><img src="./customer/14.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/16.webp"><img src="./customer/16.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/17.webp"><img src="./customer/17.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/18.webp"><img src="./customer/18.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/19.webp"><img src="./customer/19.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/20.webp"><img src="./customer/20.webp" alt=""></div>
         </div>
     </div>
 
@@ -1028,7 +1081,7 @@
         <button class="popup-close" id="closeThankyou">&times;</button>
         <div class="popup-thankyou-title">Thank you!</div>
         <div class="popup-thankyou-text">Cảm ơn bạn đã dành thời gian phản hồi.<br>Chúng tôi rất mong được gặp bạn!</div>
-        <div class="popup-date-big">29 . 03 . 2026</div>
+<!--        <div class="popup-date-big">29 . 03 . 2026</div>-->
     </div>
 </div>
 
@@ -1036,13 +1089,28 @@
 <div class="popup-overlay" id="popupGift">
     <div class="popup popup-gift">
         <button class="popup-close" id="closeGift">&times;</button>
-        <img class="popup-gift-photo" src="./customer/a6.webp" alt="">
-        <div class="popup-gift-label">Chú rể</div>
-        <div class="popup-gift-name">Nguyễn Trọng Nghĩa</div>
-        <div class="popup-gift-bank">--- — ---</div>
-        <img class="popup-gift-qr" src="./images/stk.webp" alt="QR Code">
+        <img class="popup-gift-photo" src="./customer/nha_qua.webp" alt="">
+        <div class="popup-gift-grid">
+            <div class="popup-gift-card">
+                <div class="popup-gift-label">Chú rể</div>
+                <div class="popup-gift-name">Nguyễn Trọng Nghĩa</div>
+                <img class="popup-gift-qr" src="./customer/qr_nam.webp" alt="QR Chú rể">
+            </div>
+            <div class="popup-gift-divider"></div>
+            <div class="popup-gift-card">
+                <div class="popup-gift-label">Cô dâu</div>
+                <div class="popup-gift-name">Ngô Thu Thuỷ</div>
+                <img class="popup-gift-qr" src="./customer/qr_nu.webp" alt="QR Cô dâu">
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- ========== DATA ========== -->
+<script src="./customer/data.js"></script>
+
+<!-- ========== SHEETS API ========== -->
+<script src="../../../shared/wedding/wishes-api.js"></script>
 
 <!-- ========== MUSIC ========== -->
 <button class="music-btn" id="musicBtn" title="Bật/tắt nhạc">&#9835;</button>
@@ -1051,6 +1119,22 @@
 </audio>
 
 <script>
+/* === Guest Personalization === */
+(function () {
+    if (typeof WEDDING_DATA === 'undefined' || !WEDDING_DATA.guests) return;
+    var params = new URLSearchParams(window.location.search);
+    var rawId = params.get('id');
+    if (rawId === null) return;
+    var guestId = parseInt(rawId, 10);
+    var guest = null;
+    for (var i = 0; i < WEDDING_DATA.guests.length; i++) {
+        if (WEDDING_DATA.guests[i].id === guestId) { guest = WEDDING_DATA.guests[i]; break; }
+    }
+    if (!guest) return;
+    var el = document.querySelector('.khach-moi');
+    if (el) el.textContent = guest.name;
+})();
+
 (function () {
     /* === Cover → Main transition === */
     var cover = document.getElementById('screenCover');
@@ -1153,10 +1237,45 @@
     });
     galStartAuto();
 
-    /* === RSVP form === */
-    document.getElementById('rsvpForm').addEventListener('submit', function (e) {
+    /* === RSVP form → Google Sheets === */
+    var SHEET_ID = '3';
+    var rsvpForm = document.getElementById('rsvpForm');
+    var rsvpBtn = rsvpForm.querySelector('.rsvp-btn');
+
+    rsvpForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        document.getElementById('popupThankyou').classList.add('show');
+        var name = rsvpForm.name.value.trim();
+        var message = rsvpForm.message.value.trim();
+        var attendance = rsvpForm.attendance.value;
+        var phone = rsvpForm.phone.value.trim();
+
+        if (!name) return;
+
+        rsvpBtn.disabled = true;
+        rsvpBtn.textContent = 'Đang gửi...';
+
+        var now = new Date();
+        var time = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN');
+
+        sheetsAPI.post(SHEET_ID, {
+            A: name,
+            B: phone,
+            C: attendance === 'yes' ? 'Tham dự' : attendance === 'no' ? 'Không tham dự' : '',
+            D: message,
+            E: time
+        }).then(function () {
+            rsvpBtn.textContent = 'Đã gửi!';
+            document.getElementById('popupThankyou').classList.add('show');
+            rsvpForm.reset();
+            setTimeout(function () {
+                rsvpBtn.disabled = false;
+                rsvpBtn.textContent = 'Gửi lời nhắn & xác nhận';
+            }, 3000);
+        }).catch(function () {
+            rsvpBtn.disabled = false;
+            rsvpBtn.textContent = 'Gửi lời nhắn & xác nhận';
+            alert('Gửi thất bại, vui lòng thử lại!');
+        });
     });
 
     /* === Gift popup === */
