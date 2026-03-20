@@ -29,7 +29,10 @@
             var slug = parts[parts.length - 1];
             var entry = (typeof WEDDING !== 'undefined') && WEDDING[slug];
             if (entry) {
-                document.getElementById('f').src = entry.src + location.search + location.hash;
+                // Tính base URL: từ /wedding/{slug}/ lùi 2 cấp về gốc project
+                var base = location.pathname.replace(/\/wedding\/[^/]+\/.*$/, '');
+                var fullSrc = base + entry.src.replace(/^\.\.\/\.\.\//,'');
+                document.getElementById('f').src = fullSrc + location.search + location.hash;
             } else {
                 document.body.innerHTML = '<p style="text-align:center;padding:40px;font-family:sans-serif;color:#666">Không tìm thấy thiệp. Vui lòng kiểm tra lại đường dẫn.</p>';
             }
