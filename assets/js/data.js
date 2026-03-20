@@ -3698,6 +3698,37 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-19',
     },
+    {
+        id: 198,
+        name: 'Thiệp Cưới - Trọng Nghĩa & Thu Thuỷ',
+        slug: 'thiep-cuoi-trong-nghia-thu-thuy',
+        description: 'Thiệp cưới Trọng Nghĩa & Thu Thuỷ — phong cách vintage sage green, phong bì mở + 2 ảnh polaroid, hoa lan trang trí, 2 lễ: Thành Hôn (Điện Biên) + Báo Hỷ (Hà Nội).',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'custom', 'vintage', 'sage-green', 'polaroid', 'envelope'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/khach_1_v1/screen.webp',
+            './products/Invitation/Wedding/khach_1_v1/anh_1.webp',
+            './products/Invitation/Wedding/khach_1_v1/anh_2.webp',
+            './products/Invitation/Wedding/khach_1_v1/anh_3.webp',
+            './products/Invitation/Wedding/khach_1_v1/anh_4.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/khach_1_v1/screen.webp',
+        path: './products/Invitation/Wedding/khach_1_v1/',
+        demoUrl: './products/Invitation/Wedding/khach_1_v1/index.html',
+        features: [
+            'Phong bì mở + 2 ảnh polaroid + hoa lan trang trí',
+            '2 lễ: Thành Hôn (Điện Biên) + Báo Hỷ (Hà Nội)',
+            'Gallery ảnh + Countdown + RSVP + Gửi quà mừng cưới',
+        ],
+        status: 'new',
+        priority: 999,
+        downloads: 3,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-03-20',
+    },
 ];
 
 // ============================================
