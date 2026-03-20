@@ -35,7 +35,7 @@
         img { display: block; max-width: 100%; }
         a { color: inherit; text-decoration: none; }
 
-        .wrapper { width: 420px; margin: 0 auto; overflow: hidden; }
+        .wrapper { width: 100%; max-width: 420px; min-width: 320px; margin: 0 auto; overflow: hidden; }
 
         /* ========== KEYFRAMES ========== */
         @keyframes fadeInUp { 0% { opacity:0; transform:translateY(20px); } 100% { opacity:1; transform:translateY(0); } }
@@ -132,7 +132,7 @@
         /* Card container — the envelope is a card, not full bg */
         .hero-card {
             position: relative;
-            width: 340px;
+            width: clamp(280px, 81%, 340px);
             margin: 0 auto;
         }
 
@@ -154,10 +154,10 @@
         /* 2 polaroid photos — on top of card */
         .hero-photos {
             position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
-            width: 260px; height: 280px; z-index: 2;
+            width: 76%; height: 280px; z-index: 2;
         }
         .polaroid {
-            position: absolute; width: 165px; height: 210px;
+            position: absolute; width: 48%; max-width: 165px; height: 210px;
         }
         .polaroid-frame {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -277,7 +277,7 @@
         }
         .info-couple { margin: 25px 0; }
         .info-couple .name {
-            font-family: 'Hastegi', serif; font-size: 55px;
+            font-family: 'Hastegi', serif; font-size: clamp(40px, 13vw, 55px);
             text-transform: uppercase; letter-spacing: 2px; line-height: 1.1;
         }
         .info-and {
@@ -290,7 +290,7 @@
             font-size: 18px; text-transform: uppercase; letter-spacing: 2px; line-height: 1.6; margin: 15px 0;
         }
         .info-day {
-            font-family: 'Hastegi', serif; font-size: 82px; line-height: 1; margin: 10px 0;
+            font-family: 'Hastegi', serif; font-size: clamp(60px, 19.5vw, 82px); line-height: 1; margin: 10px 0;
         }
         .info-month, .info-year {
             font-size: 19px; text-transform: uppercase; letter-spacing: 3px; line-height: 1.6;
@@ -322,8 +322,8 @@
         }
         .s-quote .quote-text {
             position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
-            font-family: 'BeyondPerfection', serif; font-size: 36px; color: #fff;
-            text-align: center; width: 350px; line-height: 1.3;
+            font-family: 'BeyondPerfection', serif; font-size: clamp(28px, 8.5vw, 36px); color: #fff;
+            text-align: center; width: 90%; max-width: 350px; line-height: 1.3;
             text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
@@ -334,16 +334,30 @@
         }
         .ls-title {
             width: 280px; margin: 0 auto 30px;
+            filter: sepia(1) saturate(2) hue-rotate(-15deg) brightness(0.6);
         }
         .ls-photos {
-            position: relative; width: 100%; height: 620px; margin-bottom: 30px;
+            position: relative; width: 100%; height: 500px; margin-bottom: 30px;
         }
         .ls-photo-wrap {
-            position: absolute; width: 235px; height: 260px;
+            position: absolute; width: clamp(170px, 55%, 210px); height: clamp(195px, 57%, 240px);
             overflow: hidden;
         }
-        .ls-photo-wrap.bride { top: 300px; left: 0; }
-        .ls-photo-wrap.groom { top: 0; right: 0; }
+        .ls-photo-wrap.groom { top: 0; left: 2.5%; }
+        .ls-photo-wrap.bride { top: 240px; right: 2.5%; }
+        .ls-deco {
+            position: absolute; pointer-events: none; z-index: 1;
+        }
+        .ls-deco-top-left {
+            top: -15px; left: -10px; width: 100px; opacity: 0.85;
+        }
+        .ls-deco-bottom-right {
+            bottom: -10px; right: -10px; width: 130px; opacity: 0.85;
+        }
+        .ls-deco-center {
+            top: 48%; left: 50%; transform: translate(-50%, -50%);
+            width: 60px; z-index: 5;
+        }
         .ls-frame {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 2; pointer-events: none;
@@ -360,11 +374,11 @@
             transform: rotate(-10deg);
         }
         .ls-label {
-            font-family: 'UVNHoaTay', serif; font-size: 36px; text-align: center;
-            margin-top: 5px;
+            font-family: 'UVNHoaTay', serif; font-size: 28px; text-align: center;
+            margin-top: 3px;
         }
         .ls-name {
-            font-family: 'Lora', serif; font-size: 23px; text-align: center;
+            font-family: 'Lora', serif; font-size: 18px; text-align: center;
             text-transform: uppercase; letter-spacing: 2px;
         }
 
@@ -407,13 +421,15 @@
         .cal-day.empty { visibility: hidden; }
         .cal-day.highlight {
             color: #fff; font-weight: 700;
+            width: 44px; height: 44px;
+            border-radius: 0;
             background: url('./images/heart-icon.webp') no-repeat center / contain;
             animation: pulse 1.5s ease infinite;
         }
 
         /* ------ S7: Timeline ------ */
         .s-timeline {
-            min-height: 620px; padding: 50px 20px;
+             padding: 50px 20px;
             background: url('./images/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
         }
         .tl-title {
@@ -478,7 +494,7 @@
             padding: 40px 20px;
         }
         .cd-title {
-            font-family: 'UVNHoaTay', serif; font-size: 42px; color: rgb(146,132,98);
+            font-family: 'UVNHoaTay', serif; font-size: clamp(32px, 10vw, 42px); color: rgb(146,132,98);
             margin-bottom: 40px; line-height: 1.2;
         }
         .cd-timer {
@@ -486,8 +502,8 @@
         }
         .cd-unit { text-align: center; }
         .cd-number {
-            font-family: 'Hastegi', serif; font-size: 54px; color: rgb(146,132,98);
-            min-width: 70px; line-height: 1;
+            font-family: 'Hastegi', serif; font-size: clamp(38px, 12.8vw, 54px); color: rgb(146,132,98);
+            min-width: clamp(50px, 16.7vw, 70px); line-height: 1;
         }
         .cd-label {
             font-family: 'Lora', serif; font-size: 12px; color: rgba(146,132,98,0.7);
@@ -498,7 +514,7 @@
             margin-top: -15px;
         }
 
-        /* ------ S9: Gallery ------ */
+        /* ------ S9: Gallery Slider ------ */
         .s-gallery {
             height: 715px;
             background: url('./images/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
@@ -511,6 +527,17 @@
             width: 100%; height: 100%; object-fit: cover;
             transition: opacity 0.5s ease;
         }
+        .gal-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(146,132,98,0.6); color: #fff;
+            border: none; cursor: pointer; z-index: 3;
+            font-size: 18px; display: flex; align-items: center; justify-content: center;
+            transition: background 0.3s;
+        }
+        .gal-btn:hover { background: rgba(146,132,98,0.9); }
+        .gal-btn-prev { left: 10px; }
+        .gal-btn-next { right: 10px; }
         .gal-controls {
             height: 90px; display: flex; align-items: center; gap: 8px;
             padding: 5px 10px; overflow-x: auto;
@@ -658,8 +685,25 @@
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 420px) {
-            .wrapper { width: 100vw; }
-            .cover-section { transform-origin: top left; transform: scale(calc(100vw / 420)); }
+            .cover-section {
+                transform-origin: top left;
+                transform: scale(calc(100vw / 420));
+                height: calc(772px * (100vw / 420));
+            }
+            .s-photo-full { height: clamp(200px, 70vw, 295px); }
+            .s-quote { height: clamp(450px, 152vw, 638px); }
+            .s-gallery { height: clamp(500px, 170vw, 715px); }
+            .s-calendar { height: clamp(320px, 88vw, 370px); }
+            .header-countdown { min-height: clamp(150px, 47.6vw, 200px); }
+            .gal-thumb { width: 65px; height: 65px; }
+            .gal-controls { height: 75px; }
+            .info-venue-name { font-size: clamp(16px, 5vw, 21px); }
+        }
+        @media (max-width: 350px) {
+            .ls-photos { height: 440px; }
+            .ls-photo-wrap.bride { top: 210px; }
+            .cd-timer { gap: 4px; }
+            .cd-sep { font-size: 24px; }
         }
     </style>
 </head>
@@ -797,19 +841,26 @@
         <img class="ls-title anim" src="./images/love-story-ornament.webp" alt="Our story">
 
         <div class="ls-photos">
-            <div class="ls-photo-wrap groom anim-right">
+            <!-- Hoa trang trí -->
+            <img class="ls-deco ls-deco-top-left" src="./images/group-16.webp" alt="">
+            <img class="ls-deco ls-deco-bottom-right" src="./images/leaf-left.webp" alt="">
+            <img class="ls-deco ls-deco-center" src="./images/small-element.webp" alt="">
+
+            <!-- Chú rể: ảnh trên-trái, text bên phải -->
+            <div class="ls-photo-wrap groom anim-left">
                 <img class="ls-frame" src="./images/groom-frame.webp" alt="">
                 <img class="ls-photo groom-photo" src="./customer/a1.webp" alt="Chú rể">
             </div>
-            <div class="ls-name" style="position:absolute;top:150px;left:0;width:200px;z-index:3;">Trọng Nghĩa</div>
-            <div class="ls-label" style="position:absolute;top:175px;left:0;width:200px;z-index:3;">Chú rể</div>
+            <div class="ls-label" style="position:absolute;top:80px;right:15px;width:160px;z-index:3;">Chú rể</div>
+            <div class="ls-name" style="position:absolute;top:110px;right:15px;width:160px;z-index:3;">Trọng Nghĩa</div>
 
-            <div class="ls-photo-wrap bride anim-left">
+            <!-- Cô dâu: ảnh dưới-phải, text bên trái -->
+            <div class="ls-photo-wrap bride anim-right">
                 <img class="ls-frame" src="./images/bride-frame.webp" alt="">
                 <img class="ls-photo bride-photo" src="./customer/a5.webp" alt="Cô dâu">
             </div>
-            <div class="ls-name" style="position:absolute;top:400px;right:0;width:180px;z-index:3;">Thu Thuỷ</div>
-            <div class="ls-label" style="position:absolute;top:425px;right:0;width:180px;z-index:3;">Cô dâu</div>
+            <div class="ls-label" style="position:absolute;top:320px;left:15px;width:160px;z-index:3;">Cô dâu</div>
+            <div class="ls-name" style="position:absolute;top:350px;left:15px;width:160px;z-index:3;">Thu Thuỷ</div>
         </div>
 
         <div class="ls-text-block anim">
@@ -909,10 +960,12 @@
         </div>
     </div>
 
-    <!-- S9: Gallery -->
+    <!-- S9: Gallery Slider -->
     <div class="section s-gallery">
         <div class="gal-view">
             <img id="galView" src="./customer/a1.webp" alt="Gallery">
+            <button class="gal-btn gal-btn-prev" id="galPrev">&#10094;</button>
+            <button class="gal-btn gal-btn-next" id="galNext">&#10095;</button>
         </div>
         <div class="gal-controls" id="galControls">
             <div class="gal-thumb active" data-src="./customer/a1.webp"><img src="./customer/a1.webp" alt=""></div>
@@ -1065,20 +1118,40 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    /* === Gallery === */
+    /* === Gallery Slider === */
     var galView = document.getElementById('galView');
     var thumbs = document.querySelectorAll('.gal-thumb');
-    thumbs.forEach(function (thumb) {
+    var galIndex = 0;
+    var galAuto;
+
+    function galGoTo(i) {
+        galIndex = (i + thumbs.length) % thumbs.length;
+        thumbs.forEach(function (t) { t.classList.remove('active'); });
+        thumbs[galIndex].classList.add('active');
+        galView.style.opacity = 0;
+        setTimeout(function () {
+            galView.src = thumbs[galIndex].getAttribute('data-src');
+            galView.style.opacity = 1;
+        }, 300);
+    }
+
+    function galStartAuto() {
+        galAuto = setInterval(function () { galGoTo(galIndex + 1); }, 1500);
+    }
+    function galStopAuto() { clearInterval(galAuto); }
+
+    document.getElementById('galPrev').addEventListener('click', function () {
+        galStopAuto(); galGoTo(galIndex - 1); galStartAuto();
+    });
+    document.getElementById('galNext').addEventListener('click', function () {
+        galStopAuto(); galGoTo(galIndex + 1); galStartAuto();
+    });
+    thumbs.forEach(function (thumb, idx) {
         thumb.addEventListener('click', function () {
-            thumbs.forEach(function (t) { t.classList.remove('active'); });
-            thumb.classList.add('active');
-            galView.style.opacity = 0;
-            setTimeout(function () {
-                galView.src = thumb.getAttribute('data-src');
-                galView.style.opacity = 1;
-            }, 300);
+            galStopAuto(); galGoTo(idx); galStartAuto();
         });
     });
+    galStartAuto();
 
     /* === RSVP form === */
     document.getElementById('rsvpForm').addEventListener('submit', function (e) {
