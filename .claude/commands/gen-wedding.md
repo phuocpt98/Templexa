@@ -32,7 +32,7 @@ Ví dụ:
 | Hiệu ứng | Standard animations | **Thêm hoa rơi / confetti / sparkles** |
 | Bảng màu | Theo chủ đề | Wedding palettes (gold, blush, sage, navy...) |
 | Font | Generic Google Fonts | Serif/script elegant (Playfair Display, Cormorant Garamond, Great Vibes...) |
-| Tên mặc định | Cô Dâu & Chú Rể | Lấy từ $ARGUMENTS hoặc placeholder "Anh & Em" |
+| Tên mặc định | Cô Dâu & Chú Rể | Lấy từ $ARGUMENTS hoặc random từ `products/shared/wedding/names.js` |
 | Loại thiệp | Không có | **Thiệp đơn** (mặc định) hoặc **Thiệp đôi** |
 
 ---
@@ -52,7 +52,14 @@ Xác định thêm:
   - `"thiệp nhà trai"`, `"bên trai"` → **Thiệp đơn — nhà trai**
   - `"thiệp nhà gái"`, `"bên gái"` → **Thiệp đơn — nhà gái**
   - Không nói gì / chỉ nói `"thiệp cưới"` → **Thiệp đơn — nhà trai** (mặc định)
-- **Tên cô dâu & chú rể** (nếu có, không thì dùng placeholder "Minh & Ngọc")
+- **Tên cô dâu & chú rể**: nếu user cung cấp thì dùng, nếu KHÔNG thì **BẮT BUỘC** random từ thư viện tên:
+  - Đọc file `products/shared/wedding/names.js` → lấy mảng `GROOM_NAMES` và `BRIDE_NAMES`
+  - Random 1 groom + 1 bride (tránh trùng họ) — dùng logic `randomCouple()`
+  - Random tên bố mẹ 2 bên — dùng logic `randomParents(ho, side)`
+  - Dùng `.display` (chỉ tên, VD: "Minh") cho ký hiệu `&` ở hero, monogram
+  - Dùng `.displayDT` (đệm + tên, VD: "Văn Minh") cho hero tên lớn, envelope, thông tin lễ, couple section
+  - Dùng `.full` (họ đệm tên, VD: "Nguyễn Văn Minh") cho thông tin gia đình, sidebar
+  - **KHÔNG hardcode "Minh & Ngọc" hay bất kỳ tên cố định nào** — luôn random mỗi lần gen
 - **Ngày cưới** (nếu có, dùng cho countdown — không thì dùng ngày mẫu trong tương lai)
 - **Phong cách/theme** (classic gold, rustic, modern, blush pink, dark luxury, tropical...)
 - **Category**: mặc định `invitation`
