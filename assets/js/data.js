@@ -3723,10 +3723,10 @@ const PRODUCTS = [
             'Gallery ảnh + Countdown + RSVP + Gửi quà mừng cưới',
         ],
         status: 'new',
-        priority: 999,
+        priority: 0,
         downloads: 3,
         rating: 4.8,
-        showInSlider: false,
+        showInSlider: true,
         updatedAt: '2026-03-20',
     },
 ];
