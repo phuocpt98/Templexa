@@ -3729,6 +3729,31 @@ const PRODUCTS = [
         showInSlider: true,
         updatedAt: '2026-03-20',
     },
+    {
+        id: 199,
+        name: 'Thiệp Cưới Chibi - Bảo & Ánh',
+        slug: 'thiep-cuoi-chibi-bao-anh-demo',
+        description: 'Thiệp cưới phong cách chibi đỏ truyền thống, dành cho demo',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'chibi', 'red', 'demo'],
+        price: '',
+        images: [],
+        thumbnail: '',
+        path: './products/Invitation/Wedding/chibi demo/',
+        demoUrl: './products/Invitation/Wedding/chibi demo/code.html',
+        features: [
+            'Phong cách chibi đỏ truyền thống',
+            'Countdown + Gallery + RSVP',
+            'Nhạc nền + hiệu ứng đặc biệt',
+        ],
+        status: 'new',
+        priority: 999,
+        downloads: 1,
+        rating: 4.7,
+        showInSlider: false,
+        updatedAt: '2026-03-21',
+    },
 ];
 
 // ============================================
