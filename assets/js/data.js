@@ -3582,6 +3582,7 @@ const PRODUCTS = [
     },
     {
         id: 192,
+        isPublic: false,
         name: 'Thiệp Cưới - Phúc & Thảo Navy Lavender',
         slug: 'thiep-cuoi-navy-lavender-elegant',
         description: 'Thiệp cưới Phúc & Thảo phong cách thanh lịch tông xanh navy & tím lavender, studio Hàn Quốc, hiệu ứng sparkles + hoa rơi, đầy đủ tính năng.',
@@ -3613,6 +3614,7 @@ const PRODUCTS = [
     },
     {
         id: 193,
+        isPublic: false,
         name: 'Thiệp Cưới #193 Modern Romantic Red (Tuấn & Hương)',
         slug: 'thiep-cuoi-modern-romantic-red',
         description: 'Thiệp cưới phong cách Modern Romantic Red — nền kem, accent đỏ burgundy, hoa rải rác, ảnh overlap, letter envelope, phong bì ribbon bow, gallery stagger, ảnh nền mờ xuyên suốt.',
@@ -3644,6 +3646,7 @@ const PRODUCTS = [
     },
     {
         id: 194,
+        isPublic: false,
         name: 'Thiệp Cưới - Modern Romantic White (Burgundy & Gold)',
         slug: 'thiep-cuoi-modern-romantic-white',
         description: 'Thiệp cưới đôi phong cách Modern Romantic — nền trắng kem ivory, accent burgundy + vàng gold. Lấy cảm hứng mẫu Cinelove. Ảnh bộ modern-romantic.',
@@ -3675,6 +3678,7 @@ const PRODUCTS = [
     },
     {
         id: 197,
+        isPublic: false,
         name: 'Thiệp Cưới - Trọng Nghĩa & Thu Thuỷ v3',
         slug: 'thiep-cuoi-trong-nghia-thu-thuy-v3',
         description: 'Thiệp cưới Trọng Nghĩa & Thu Thuỷ v3 — clone jmiiwedding: nền trắng tinh, sage green, mobile-first 420px, image-centric staggered layout, fadeInUp + pulse.',
@@ -3731,6 +3735,7 @@ const PRODUCTS = [
     },
     {
         id: 199,
+        isPublic: false,
         name: 'Thiệp Cưới Chibi - Bảo & Ánh',
         slug: 'thiep-cuoi-chibi-bao-anh-demo',
         description: 'Thiệp cưới phong cách chibi đỏ truyền thống, dành cho demo',
@@ -3878,7 +3883,10 @@ const PRICING = [
  * Lấy danh sách sản phẩm hiển thị trên slider trang chủ
  */
 function getSliderProducts() {
-    return PRODUCTS.filter(p => p.showInSlider);
+    return PRODUCTS
+        .filter(p => p.type === 'invitation' && p.isPublic !== false)
+        .sort((a, b) => (a.priority - b.priority) || (b.id - a.id))
+        .slice(0, 6);
 }
 
 /**
@@ -3904,7 +3912,7 @@ function getProductsSorted() {
 
     const typeOrder = { 'website': 0, 'invitation': 1, 'google-sheet': 2 };
 
-    return [...PRODUCTS].sort((a, b) => {
+    return [...PRODUCTS].filter(p => p.isPublic !== false).sort((a, b) => {
         const aFull = isFullpage(a) ? 1 : 0;
         const bFull = isFullpage(b) ? 1 : 0;
         if (aFull !== bFull) return bFull - aFull;
@@ -3951,7 +3959,7 @@ function getRelatedProducts(productId, limit = 4) {
     const product = getProductById(productId);
     if (!product) return [];
     return PRODUCTS
-        .filter(p => p.id !== product.id && p.category === product.category)
+        .filter(p => p.id !== product.id && p.category === product.category && p.isPublic !== false)
         .sort((a, b) => a.priority - b.priority)
         .slice(0, limit);
 }
