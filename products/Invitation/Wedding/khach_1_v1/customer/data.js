@@ -87,5 +87,9 @@ const WEDDING_DATA = {
         { id: 45, name: 'Bạn Quỳnh Anh cùng người thương' },
         { id: 46, name: 'Chị Nghĩa cùng gia đình' },
         { id: 47, name: 'Em Hiền cùng người thương' },
+        { id: 48, name: 'Gia đình anh Mạnh chị Diệp' },
+        { id: 49, name: 'Chị Sâm cùng gia đình' },
+        { id: 50, name: 'Em Tuyết cùng gia đình' },
+        { id: 51, name: 'Em Lan Anh' },
     ],
 };
