@@ -3816,6 +3816,38 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-03-21',
     },
+    {
+        id: 202,
+        isPublic: true,
+        name: 'Thiệp Cưới - Weddingday Traditional',
+        slug: 'thiep-cuoi-weddingday-traditional',
+        description: 'Thiệp cưới phong cách truyền thống Việt — rèm đỏ, hoa sen, oval frame, calendar highlight, countdown tròn, sổ lưu bút, mừng cưới QR.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'thiệp-đôi', 'traditional', 'red', 'cream', 'vietnamese'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_202_weddingday-clone/screen.webp',
+            './products/Invitation/Wedding/gen_202_weddingday-clone/anh_1.webp',
+            './products/Invitation/Wedding/gen_202_weddingday-clone/anh_2.webp',
+            './products/Invitation/Wedding/gen_202_weddingday-clone/anh_3.webp',
+            './products/Invitation/Wedding/gen_202_weddingday-clone/anh_4.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_202_weddingday-clone/screen.webp',
+        path: './products/Invitation/Wedding/gen_202_weddingday-clone/',
+        demoUrl: './products/Invitation/Wedding/gen_202_weddingday-clone/code.html',
+        features: [
+            'Rèm đỏ + hoa sen hero, oval photo frame',
+            'Calendar highlight + countdown tròn + sổ lưu bút',
+            'Thiệp đôi (Nhà Trai + Nhà Gái) + hearts rơi',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 7,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-22',
+    },
 ];
 
 // ============================================
