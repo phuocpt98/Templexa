@@ -1285,6 +1285,111 @@
         .form-success.show {
             display: block;
         }
+
+        /* ===== ENTRANCE ANIMATIONS ===== */
+        .anim-fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .anim-fade-left { opacity: 0; transform: translateX(-30px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .anim-fade-right { opacity: 0; transform: translateX(30px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .anim-scale-in { opacity: 0; transform: scale(0.8); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .anim-fade-up.in-view, .anim-fade-left.in-view, .anim-fade-right.in-view, .anim-scale-in.in-view { opacity: 1; transform: none; }
+
+        /* Stagger delays */
+        .anim-delay-1 { transition-delay: 0.15s; }
+        .anim-delay-2 { transition-delay: 0.3s; }
+        .anim-delay-3 { transition-delay: 0.45s; }
+        .anim-delay-4 { transition-delay: 0.6s; }
+
+        /* ===== CONTINUOUS MOTION ANIMATIONS ===== */
+        @keyframes gentle-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes gentle-sway { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+        @keyframes gentle-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes gentle-glow { 0%,100% { box-shadow: 0 0 0 rgba(196,30,58,0); } 50% { box-shadow: 0 0 20px rgba(196,30,58,0.15); } }
+        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+
+        /* Hearts continuous pulse */
+        .section-divider .heart { animation: gentle-pulse 2.5s ease-in-out infinite; display: inline-block; }
+        .wish-card .wish-name .heart { animation: gentle-pulse 3s ease-in-out infinite; display: inline-block; }
+        .couple-divider .small-heart { animation: gentle-pulse 2s ease-in-out infinite; display: inline-block; }
+        .couple-divider .small-heart:last-child { animation-delay: 0.5s; }
+
+        /* Gold divider shimmer */
+        .gold-divider .line,
+        .section-divider .line {
+            background: linear-gradient(90deg, var(--border) 0%, var(--gold-light) 25%, var(--border) 50%, var(--gold-light) 75%, var(--border) 100%);
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+        .gold-divider .line {
+            background: linear-gradient(90deg, var(--gold) 0%, #FFD700 25%, var(--gold) 50%, #FFD700 75%, var(--gold) 100%);
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* Photo frames glow */
+        .hero-photo-frame { animation: gentle-glow 4s ease-in-out infinite; }
+        .couple-card .photo-circle { animation: gentle-glow 4s ease-in-out infinite; }
+        .couple-card:nth-child(2) .photo-circle { animation-delay: 1s; }
+        .rsvp-image { animation: gentle-glow 4s ease-in-out infinite 0.5s; }
+
+        /* Countdown circles pulse */
+        .countdown-box { animation: gentle-pulse 3s ease-in-out infinite; }
+        .countdown-box:nth-child(2) { animation-delay: 0.3s; }
+        .countdown-box:nth-child(3) { animation-delay: 0.6s; }
+        .countdown-box:nth-child(4) { animation-delay: 0.9s; }
+
+        /* ===== GALLERY FLY ANIMATIONS ===== */
+        @keyframes gallery-fly-1 { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-6px) rotate(0.5deg); } }
+        @keyframes gallery-fly-2 { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-5px) rotate(-0.8deg); } }
+        @keyframes gallery-fly-3 { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-4px) scale(1.02); } }
+
+        .gallery-item:nth-child(1) { animation: gallery-fly-1 4s ease-in-out infinite; }
+        .gallery-item:nth-child(2) { animation: gallery-fly-2 3.5s ease-in-out infinite 0.3s; }
+        .gallery-item:nth-child(3) { animation: gallery-fly-3 4.2s ease-in-out infinite 0.6s; }
+        .gallery-item:nth-child(4) { animation: gallery-fly-1 3.8s ease-in-out infinite 0.9s; }
+        .gallery-item:nth-child(5) { animation: gallery-fly-2 4.5s ease-in-out infinite 0.2s; }
+        .gallery-item:nth-child(6) { animation: gallery-fly-3 3.6s ease-in-out infinite 0.7s; }
+        .gallery-item:nth-child(7) { animation: gallery-fly-1 4.1s ease-in-out infinite 0.4s; }
+        .gallery-item:nth-child(8) { animation: gallery-fly-2 3.9s ease-in-out infinite 1s; }
+
+        /* ===== DECORATIVE ELEMENTS ===== */
+        .section-deco {
+            text-align: center; padding: 0.6rem 0; position: relative;
+        }
+        .deco-leaf { font-size: 16px; opacity: 0.3; display: inline-block; }
+        .deco-leaf.deco-left { animation: gentle-sway 4s ease-in-out infinite; }
+        .deco-leaf.deco-right { animation: gentle-sway 4s ease-in-out infinite reverse; }
+        .deco-heart { font-size: 12px; opacity: 0.5; margin: 0 10px; color: var(--primary-red); display: inline-block; }
+
+        .corner-deco {
+            position: absolute; font-size: 18px; opacity: 0.15; pointer-events: none;
+            animation: gentle-float 5s ease-in-out infinite;
+        }
+        .corner-deco.top-left { top: 15px; left: 15px; }
+        .corner-deco.top-right { top: 15px; right: 15px; animation-delay: 1s; }
+        .corner-deco.bottom-left { bottom: 15px; left: 15px; animation-delay: 2s; }
+        .corner-deco.bottom-right { bottom: 15px; right: 15px; animation-delay: 0.5s; }
+
+        .floating-icon {
+            position: absolute; pointer-events: none; opacity: 0.2;
+            animation: gentle-float 4s ease-in-out infinite;
+        }
+
+        /* Shimmer text for footer thank you */
+        .shimmer-text {
+            background: linear-gradient(90deg, var(--primary-red) 0%, #E85670 25%, var(--primary-red) 50%, #E85670 75%, var(--primary-red) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* Ensure sections have relative positioning for decorations */
+        .calendar-section, .countdown-section, .love-story-section,
+        .couple-section, .gallery-section, .loi-ngo-section,
+        .venue-section, .guestbook-section, .rsvp-section,
+        .gift-section, .footer-section, .hero-photo-2 {
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -1337,15 +1442,28 @@
 
     <!-- 3. HERO PHOTO 2 -->
     <section class="hero-photo-2 reveal">
-        <div class="photo-oval">
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <span class="corner-deco bottom-left">💮</span>
+        <span class="corner-deco bottom-right">✿</span>
+        <div class="photo-oval anim-scale-in">
             <img src="../../../shared/images/wedding/viet-mem-mai/2.webp" alt="Hoàng Phúc & Mai Anh" loading="lazy">
         </div>
     </section>
 
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
+
     <!-- 4. SAVE THE DATE CALENDAR -->
     <section class="calendar-section reveal">
-        <p class="section-label">Save The Date</p>
-        <h2 class="section-title-script">Hoàng Phúc & Mai Anh</h2>
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <span class="floating-icon" style="bottom: 30px; right: 20px; font-size: 16px; animation-delay: 1.5s;">🌺</span>
+        <p class="section-label anim-fade-up">Save The Date</p>
+        <h2 class="section-title-script anim-fade-up anim-delay-1">Hoàng Phúc & Mai Anh</h2>
         <div class="section-divider">
             <span class="line"></span>
             <span class="heart">&#9829;</span>
@@ -1449,10 +1567,18 @@
         </div>
     </section>
 
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
+
     <!-- 5. COUNTDOWN -->
     <section class="countdown-section reveal">
-        <h2 class="countdown-label"><em>Chỉ Còn</em></h2>
-        <div class="countdown-boxes">
+        <span class="corner-deco top-right">🌸</span>
+        <span class="corner-deco bottom-left">💮</span>
+        <h2 class="countdown-label anim-fade-up"><em>Chỉ Còn</em></h2>
+        <div class="countdown-boxes anim-scale-in anim-delay-1">
             <div class="countdown-box">
                 <span class="number" id="cdDays">00</span>
                 <span class="unit">Ngày</span>
@@ -1470,37 +1596,61 @@
                 <span class="unit">Giây</span>
             </div>
         </div>
-        <p class="countdown-subtitle">Cho đến khi chúng ta kết hôn</p>
+        <p class="countdown-subtitle anim-fade-up anim-delay-2">Cho đến khi chúng ta kết hôn</p>
     </section>
+
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
 
     <!-- 6. LOVE STORY -->
     <section class="love-story-section reveal">
-        <p class="section-label">Our Love Story</p>
-        <h2 class="section-title">Chuyện Tình Của Chúng Ta</h2>
-        <div class="section-divider">
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <span class="corner-deco bottom-left">💮</span>
+        <span class="corner-deco bottom-right">✿</span>
+        <span class="floating-icon" style="top: 40%; left: 5px; font-size: 14px;">♡</span>
+        <span class="floating-icon" style="top: 20%; right: 8px; font-size: 12px; animation-delay: 1s;">♡</span>
+        <span class="floating-icon" style="bottom: 15%; left: 12px; font-size: 13px; animation-delay: 2s;">♡</span>
+        <span class="floating-icon" style="bottom: 30%; right: 5px; font-size: 11px; animation-delay: 0.5s;">♡</span>
+        <p class="section-label anim-fade-up">Our Love Story</p>
+        <h2 class="section-title anim-fade-up anim-delay-1">Chuyện Tình Của Chúng Ta</h2>
+        <div class="section-divider anim-scale-in anim-delay-2">
             <span class="line"></span>
             <span class="heart">&#9829;</span>
             <span class="line"></span>
         </div>
-        <p class="love-story-text">
+        <p class="love-story-text anim-fade-up anim-delay-2">
             Chúng tôi gặp nhau trong một dịp tình cờ, khi mùa thu vừa chớm. Lần đầu nhìn thấy em, anh đã biết rằng cuộc đời mình sẽ không còn như trước. Từ những cuộc trò chuyện đầu tiên ngại ngùng, đến những buổi hẹn hò bên nhau dưới hàng cây vàng lá, tình yêu của chúng tôi lớn dần theo thời gian.
         </p>
-        <p class="love-story-text" style="margin-top: 12px;">
+        <p class="love-story-text anim-fade-up anim-delay-3" style="margin-top: 12px;">
             Qua bao thăng trầm, niềm vui và thử thách, chúng tôi nhận ra rằng — điều tuyệt vời nhất trong cuộc đời là được nắm tay nhau đi qua mọi mùa. Và hôm nay, chúng tôi sẵn sàng bước vào hành trình mới — bên nhau, mãi mãi.
         </p>
     </section>
 
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
+
     <!-- 7. COUPLE PROFILES -->
     <section class="couple-section">
-        <p class="section-label">Cặp Đôi</p>
-        <h2 class="section-title">Chú Rể & Cô Dâu</h2>
-        <div class="section-divider">
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <span class="corner-deco bottom-left">💮</span>
+        <span class="corner-deco bottom-right">✿</span>
+        <p class="section-label anim-fade-up">Cặp Đôi</p>
+        <h2 class="section-title anim-fade-up anim-delay-1">Chú Rể & Cô Dâu</h2>
+        <div class="section-divider anim-scale-in anim-delay-2">
             <span class="line"></span>
             <span class="heart">&#9829;</span>
             <span class="line"></span>
         </div>
 
-        <div class="couple-card reveal">
+        <div class="couple-card reveal anim-fade-left">
             <div class="photo-circle">
                 <img src="../../../shared/images/wedding/viet-mem-mai/3.webp" alt="Chú Rể - Phạm Hoàng Phúc" loading="lazy">
             </div>
@@ -1509,13 +1659,15 @@
             <p class="desc">Con trai ông Lê Văn Hùng và bà Nguyễn Thị Hoa. 123 Nguyễn Huệ, Quận 1, TP.HCM.</p>
         </div>
 
-        <div class="couple-divider">
+        <div class="couple-divider anim-scale-in">
             <span class="small-heart">&#9829;</span>
+            <span class="floating-icon" style="position: relative; opacity: 0.4; font-size: 16px; animation: gentle-float 3s ease-in-out infinite;">💍</span>
             &
+            <span class="floating-icon" style="position: relative; opacity: 0.4; font-size: 16px; animation: gentle-float 3s ease-in-out infinite 0.5s;">💍</span>
             <span class="small-heart">&#9829;</span>
         </div>
 
-        <div class="couple-card reveal">
+        <div class="couple-card reveal anim-fade-right">
             <div class="photo-circle">
                 <img src="../../../shared/images/wedding/viet-mem-mai/4.webp" alt="Cô Dâu - Trần Thị Mai Anh" loading="lazy">
             </div>
@@ -1525,11 +1677,21 @@
         </div>
     </section>
 
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
+
     <!-- 8. PHOTO GALLERY -->
     <section class="gallery-section reveal">
-        <p class="section-label">Gallery</p>
-        <h2 class="section-title">Khoảnh Khắc Được Ghi Lại</h2>
-        <div class="section-divider">
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <span class="corner-deco bottom-left">💮</span>
+        <span class="corner-deco bottom-right">✿</span>
+        <p class="section-label anim-fade-up">Gallery</p>
+        <h2 class="section-title anim-fade-up anim-delay-1">Khoảnh Khắc Được Ghi Lại</h2>
+        <div class="section-divider anim-scale-in anim-delay-2">
             <span class="line"></span>
             <span class="heart">&#9829;</span>
             <span class="line"></span>
@@ -1568,16 +1730,25 @@
         <img src="" alt="Gallery photo" id="lightboxImg">
     </div>
 
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
+
     <!-- 9. LOI NGO -->
     <section class="loi-ngo-section reveal">
-        <p class="section-label">Lời Ngỏ</p>
-        <h2 class="section-title-script">Lời Ngỏ</h2>
-        <div class="section-divider">
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <span class="floating-icon" style="top: 50%; right: 10px; font-size: 16px; animation-delay: 0.8s;">✒️</span>
+        <p class="section-label anim-fade-up">Lời Ngỏ</p>
+        <h2 class="section-title-script anim-fade-up anim-delay-1">Lời Ngỏ</h2>
+        <div class="section-divider anim-scale-in anim-delay-2">
             <span class="line"></span>
             <span class="heart">&#9829;</span>
             <span class="line"></span>
         </div>
-        <div class="loi-ngo-frame">
+        <div class="loi-ngo-frame anim-fade-up anim-delay-2">
             <p class="loi-ngo-text">
                 Thưa quý khách, thưa bạn bè và người thân yêu,
             </p>
@@ -1594,11 +1765,23 @@
         </div>
     </section>
 
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
+
     <!-- 10. VENUE INFO -->
     <section class="venue-section reveal">
-        <p class="section-label">Wedding Ceremony</p>
-        <h2 class="section-title">Thông Tin Lễ Cưới</h2>
-        <div class="section-divider">
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <span class="corner-deco bottom-left">💮</span>
+        <span class="corner-deco bottom-right">✿</span>
+        <span class="floating-icon" style="top: 25%; right: 12px; font-size: 16px; animation-delay: 0.3s;">🔔</span>
+        <span class="floating-icon" style="top: 25%; left: 12px; font-size: 14px; animation-delay: 1.2s;">🔔</span>
+        <p class="section-label anim-fade-up">Wedding Ceremony</p>
+        <h2 class="section-title anim-fade-up anim-delay-1">Thông Tin Lễ Cưới</h2>
+        <div class="section-divider anim-scale-in anim-delay-2">
             <span class="line"></span>
             <span class="heart">&#9829;</span>
             <span class="line"></span>
@@ -1606,7 +1789,7 @@
 
         <div class="venue-cards">
             <!-- Nha Trai -->
-            <div class="venue-card">
+            <div class="venue-card anim-fade-left">
                 <p class="venue-side">Nhà Trai</p>
                 <div class="venue-icon">
                     <i data-lucide="map-pin"></i>
@@ -1624,7 +1807,7 @@
             </div>
 
             <!-- Nha Gai -->
-            <div class="venue-card">
+            <div class="venue-card anim-fade-right anim-delay-2">
                 <p class="venue-side">Nhà Gái</p>
                 <div class="venue-icon">
                     <i data-lucide="map-pin"></i>
@@ -1643,17 +1826,25 @@
         </div>
     </section>
 
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
+
     <!-- 11. GUEST BOOK -->
     <section class="guestbook-section reveal">
-        <p class="section-label">Guest Book</p>
-        <h2 class="section-title">Sổ Lưu Bút</h2>
-        <div class="section-divider">
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <p class="section-label anim-fade-up">Guest Book</p>
+        <h2 class="section-title anim-fade-up anim-delay-1">Sổ Lưu Bút</h2>
+        <div class="section-divider anim-scale-in anim-delay-2">
             <span class="line"></span>
             <span class="heart">&#9829;</span>
             <span class="line"></span>
         </div>
 
-        <form class="guestbook-form" id="guestbookForm" onsubmit="submitGuestbook(event)">
+        <form class="guestbook-form anim-fade-up anim-delay-3" id="guestbookForm" onsubmit="submitGuestbook(event)">
             <div class="form-group">
                 <label for="gbMessage">Lời chúc *</label>
                 <textarea id="gbMessage" placeholder="Gửi lời chúc đến cặp đôi..." required></textarea>
@@ -1685,21 +1876,32 @@
         </div>
     </section>
 
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
+
     <!-- 12. RSVP -->
     <section class="rsvp-section reveal">
-        <p class="section-label">RSVP</p>
-        <h2 class="section-title">Xác Nhận Tham Dự</h2>
-        <div class="section-divider">
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <span class="corner-deco bottom-left">💮</span>
+        <span class="corner-deco bottom-right">✿</span>
+        <span class="floating-icon" style="top: 30%; right: 10px; font-size: 16px; animation-delay: 0.6s;">✉️</span>
+        <p class="section-label anim-fade-up">RSVP</p>
+        <h2 class="section-title anim-fade-up anim-delay-1">Xác Nhận Tham Dự</h2>
+        <div class="section-divider anim-scale-in anim-delay-2">
             <span class="line"></span>
             <span class="heart">&#9829;</span>
             <span class="line"></span>
         </div>
 
-        <div class="rsvp-image">
+        <div class="rsvp-image anim-scale-in anim-delay-2">
             <img src="../../../shared/images/wedding/viet-mem-mai/2.webp" alt="RSVP" loading="lazy">
         </div>
 
-        <form class="rsvp-form" id="rsvpForm" onsubmit="submitRSVP(event)">
+        <form class="rsvp-form anim-fade-up anim-delay-3" id="rsvpForm" onsubmit="submitRSVP(event)">
             <div class="form-group">
                 <label for="rsvpName">Họ và tên *</label>
                 <input type="text" id="rsvpName" placeholder="Nhập họ và tên" required>
@@ -1737,18 +1939,29 @@
         </form>
     </section>
 
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
+
     <!-- 13. GIFT REGISTRY -->
     <section class="gift-section reveal">
-        <p class="section-label">Wedding Gift</p>
-        <h2 class="section-title">Hộp Mừng Cưới</h2>
-        <div class="section-divider">
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <span class="corner-deco bottom-left">💮</span>
+        <span class="corner-deco bottom-right">✿</span>
+        <span class="floating-icon" style="top: 20%; left: 10px; font-size: 16px; animation-delay: 0.4s;">🎁</span>
+        <p class="section-label anim-fade-up">Wedding Gift</p>
+        <h2 class="section-title anim-fade-up anim-delay-1">Hộp Mừng Cưới</h2>
+        <div class="section-divider anim-scale-in anim-delay-2">
             <span class="line"></span>
             <span class="heart">&#9829;</span>
             <span class="line"></span>
         </div>
 
         <div class="gift-cards">
-            <div class="gift-card">
+            <div class="gift-card anim-fade-left anim-delay-2">
                 <p class="gift-label">Chú Rể</p>
                 <h3 class="gift-name">Phạm Hoàng Phúc</h3>
                 <div class="qr-placeholder">
@@ -1762,7 +1975,7 @@
                 </div>
             </div>
 
-            <div class="gift-card">
+            <div class="gift-card anim-fade-right anim-delay-3">
                 <p class="gift-label">Cô Dâu</p>
                 <h3 class="gift-name">Trần Thị Mai Anh</h3>
                 <div class="qr-placeholder">
@@ -1778,11 +1991,19 @@
         </div>
     </section>
 
+    <div class="section-deco">
+        <span class="deco-leaf deco-left">🌿</span>
+        <span class="deco-heart">❦</span>
+        <span class="deco-leaf deco-right">🌿</span>
+    </div>
+
     <!-- 14. FOOTER -->
     <section class="footer-section reveal">
-        <h2 class="footer-thankyou">Thank You!</h2>
-        <p class="footer-names">HOÀNG PHÚC & MAI ANH</p>
-        <div class="footer-hearts">&#9829; &#9829; &#9829;</div>
+        <span class="corner-deco top-left">✿</span>
+        <span class="corner-deco top-right">🌸</span>
+        <h2 class="footer-thankyou shimmer-text anim-scale-in">Thank You!</h2>
+        <p class="footer-names anim-fade-up anim-delay-1">HOÀNG PHÚC & MAI ANH</p>
+        <div class="footer-hearts anim-fade-up anim-delay-2">&#9829; &#9829; &#9829;</div>
         <p class="footer-credit">Made with love</p>
     </section>
 
@@ -1868,6 +2089,23 @@
 
     document.querySelectorAll('.reveal').forEach(el => {
         revealObserver.observe(el);
+    });
+
+    // ===== ENTRANCE ANIMATIONS (anim-*) =====
+    const animObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                animObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -30px 0px'
+    });
+
+    document.querySelectorAll('.anim-fade-up, .anim-fade-left, .anim-fade-right, .anim-scale-in').forEach(el => {
+        animObserver.observe(el);
     });
 
     // ===== STICKY HEADER SHADOW =====
