@@ -235,6 +235,22 @@ const WEDDING_ASSET_CATALOG = {
         // Cinelove style
         { id: 'cinelove-audio', file: 'icons/cinelove/audio-icon.png', name: 'Audio icon (Cinelove)', tags: ['modern', 'cinelove', 'audio'], usage: ['music-toggle'] },
         { id: 'cinelove-calen-heart', file: 'icons/cinelove/calen_heart_1.png', name: 'Calendar heart (Cinelove)', tags: ['romantic', 'cinelove', 'calendar'], usage: ['calendar-section'] },
+
+        // Từ Canva — Họa tiết truyền thống đỏ (2.png)
+        { id: 'couple-lineart-red', file: 'icons/couple-lineart-red.webp', name: 'Cặp đôi line art đỏ', tags: ['traditional', 'red', 'lineart', 'cute', 'chibi'], usage: ['envelope-center', 'hero-center', 'thankyou'] },
+        { id: 'happiness-circle-gold', file: 'icons/happiness-circle-gold.webp', name: 'Chữ Hỷ tròn vàng gold', tags: ['traditional', 'gold', 'chinese', 'luxury'], usage: ['envelope-center', 'hero-center', 'section-header'] },
+        { id: 'cupid-angel', file: 'icons/cupid-angel.webp', name: 'Thiên thần Cupid', tags: ['romantic', 'cute', 'red', 'lineart'], usage: ['scatter-deco', 'corner-deco'] },
+        { id: 'double-happiness-red-heart', file: 'icons/double-happiness-red-heart.webp', name: 'Song Hỷ đỏ trái tim', tags: ['traditional', 'red', 'chinese', 'heart'], usage: ['envelope-center', 'section-header'] },
+        { id: 'bouquet-lineart-red', file: 'icons/bouquet-lineart-red.webp', name: 'Bó hoa line art đỏ', tags: ['traditional', 'red', 'lineart', 'floral', 'elegant'], usage: ['section-deco', 'corner-deco', 'hero-deco'] },
+
+        // Từ Canva — Họa tiết hoa lá watercolor (8.png)
+        { id: 'leaf-gray-lineart', file: 'icons/leaf-gray-lineart.webp', name: 'Lá xám line art', tags: ['minimal', 'gray', 'lineart', 'leaf', 'elegant'], usage: ['corner-deco', 'section-deco'] },
+        { id: 'branch-brown-lineart', file: 'icons/branch-brown-lineart.webp', name: 'Cành hoa nâu line art', tags: ['vintage', 'brown', 'lineart', 'floral', 'elegant'], usage: ['corner-deco', 'header-deco'] },
+        { id: 'leaf-gold-lineart', file: 'icons/leaf-gold-lineart.webp', name: 'Lá vàng gold line art', tags: ['luxury', 'gold', 'lineart', 'leaf', 'elegant'], usage: ['side-deco', 'section-deco'] },
+        { id: 'flowers-watercolor-pastel', file: 'icons/flowers-watercolor-pastel.webp', name: 'Hoa watercolor pastel', tags: ['watercolor', 'pastel', 'soft', 'floral', 'romantic'], usage: ['section-deco', 'background-deco'] },
+        { id: 'flower-vine-watercolor', file: 'icons/flower-vine-watercolor.webp', name: 'Dây hoa watercolor', tags: ['watercolor', 'pastel', 'vine', 'floral', 'romantic'], usage: ['side-deco', 'border-deco'] },
+        { id: 'flower-branch-watercolor', file: 'icons/flower-branch-watercolor.webp', name: 'Cành hoa watercolor dọc', tags: ['watercolor', 'pastel', 'floral', 'vertical'], usage: ['side-deco', 'corner-deco'] },
+        { id: 'flowers-scatter-watercolor', file: 'icons/flowers-scatter-watercolor.webp', name: 'Hoa rải watercolor', tags: ['watercolor', 'pastel', 'scatter', 'floral', 'soft'], usage: ['scatter-deco', 'background-deco'] },
     ],
 
     /* ============================================

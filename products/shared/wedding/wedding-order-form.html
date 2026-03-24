@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templexa — Form Thu Thập Thông Tin Thiệp Cưới</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --primary-light: #E0E7FF;
+            --accent: #C41E3A;
+            --accent-light: #FEE2E2;
+            --bg: #F8FAFC;
+            --card: #FFFFFF;
+            --text: #1E293B;
+            --text-light: #64748B;
+            --text-muted: #94A3B8;
+            --border: #E2E8F0;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --radius: 12px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .form-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        .form-header h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .form-header p { font-size: 14px; opacity: 0.8; max-width: 500px; margin: 0 auto; }
+
+        /* Container */
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Progress */
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin: 24px 0 32px;
+            position: relative;
+        }
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 40px;
+            right: 40px;
+            height: 3px;
+            background: var(--border);
+            z-index: 0;
+        }
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        .progress-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 3px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: all 0.3s;
+        }
+        .progress-step.active .progress-dot {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+        .progress-step.done .progress-dot {
+            background: var(--success);
+            border-color: var(--success);
+            color: #fff;
+        }
+        .progress-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .progress-step.active .progress-label { color: var(--primary); font-weight: 600; }
+        .progress-step.done .progress-label { color: var(--success); }
+
+        /* Section */
+        .form-section {
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 28px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .form-section.active { display: block; }
+        .section-icon { font-size: 28px; margin-bottom: 8px; }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+        .section-desc {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        /* Field groups */
+        .field-group {
+            margin-bottom: 20px;
+        }
+        .field-group-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .field-group-title::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .field-row.single { grid-template-columns: 1fr; }
+        .field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+        /* Fields */
+        .field { margin-bottom: 16px; }
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        .field label .required { color: var(--accent); margin-left: 2px; }
+        .field label .optional {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-left: 4px;
+        }
+        .field input, .field select, .field textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text);
+            background: #fff;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .field input:focus, .field select:focus, .field textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+        .field textarea { min-height: 80px; resize: vertical; }
+        .field .hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .field input[type="file"] {
+            padding: 8px;
+            border-style: dashed;
+            cursor: pointer;
+        }
+
+        /* Radio/Checkbox groups */
+        .option-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .option-chip {
+            padding: 8px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 50px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fff;
+            user-select: none;
+        }
+        .option-chip:hover { border-color: var(--primary); }
+        .option-chip.selected {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+        .option-chip input { display: none; }
+
+        /* Color swatches */
+        .color-swatches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .color-swatch {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .color-swatch:hover { transform: scale(1.1); }
+        .color-swatch.selected {
+            border-color: var(--text);
+            box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--text);
+        }
+        .color-swatch-label {
+            font-size: 10px;
+            text-align: center;
+            margin-top: 4px;
+            color: var(--text-muted);
+        }
+
+        /* Buttons */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-prev {
+            background: var(--card);
+            color: var(--text-light);
+            border: 1.5px solid var(--border);
+        }
+        .btn-prev:hover { border-color: var(--text-muted); color: var(--text); }
+        .btn-next {
+            background: var(--primary);
+            color: #fff;
+            margin-left: auto;
+        }
+        .btn-next:hover { background: var(--primary-dark); }
+        .btn-submit {
+            background: var(--success);
+            color: #fff;
+            margin-left: auto;
+        }
+        .btn-submit:hover { background: #059669; }
+
+        /* Summary */
+        .summary-section { margin-bottom: 20px; }
+        .summary-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 6px 12px;
+            font-size: 13px;
+        }
+        .summary-label { color: var(--text-muted); }
+        .summary-value { color: var(--text); font-weight: 500; }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .field-row { grid-template-columns: 1fr; }
+            .field-row.triple { grid-template-columns: 1fr; }
+            .progress-label { font-size: 9px; }
+            .form-container { padding: 16px; }
+            .form-section { padding: 20px; }
+        }
+
+        /* Notes box */
+        .note-box {
+            background: #FFFBEB;
+            border: 1px solid #FDE68A;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 12px;
+            color: #92400E;
+            margin-bottom: 16px;
+        }
+        .note-box strong { color: #78350F; }
+    </style>
+</head>
+<body>
+
+<div class="form-header">
+    <h1>📋 Form Thông Tin Thiệp Cưới</h1>
+    <p>Vui lòng điền đầy đủ thông tin bên dưới để chúng tôi tạo thiệp cưới cho bạn</p>
+</div>
+
+<div class="form-container">
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar">
+        <div class="progress-step active" data-step="1">
+            <div class="progress-dot">1</div>
+            <span class="progress-label">Cô Dâu<br>Chú Rể</span>
+        </div>
+        <div class="progress-step" data-step="2">
+            <div class="progress-dot">2</div>
+            <span class="progress-label">Gia Đình<br>Hai Bên</span>
+        </div>
+        <div class="progress-step" data-step="3">
+            <div class="progress-dot">3</div>
+            <span class="progress-label">Sự Kiện<br>Tiệc Cưới</span>
+        </div>
+        <div class="progress-step" data-step="4">
+            <div class="progress-dot">4</div>
+            <span class="progress-label">Ảnh &<br>Nội Dung</span>
+        </div>
+        <div class="progress-step" data-step="5">
+            <div class="progress-dot">5</div>
+            <span class="progress-label">Phong Cách<br>& Màu Sắc</span>
+        </div>
+        <div class="progress-step" data-step="6">
+            <div class="progress-dot">6</div>
+            <span class="progress-label">Tính Năng<br>& Gửi</span>
+        </div>
+    </div>
+
+    <form id="weddingForm">
+
+    <!-- ═══ STEP 1: CÔ DÂU & CHÚ RỂ ═══ -->
+    <div class="form-section active" data-step="1">
+        <div class="section-icon">💍</div>
+        <h2 class="section-title">Thông Tin Cô Dâu & Chú Rể</h2>
+        <p class="section-desc">Tên sẽ hiển thị trên thiệp cưới</p>
+
+        <div class="field-group">
+            <div class="field-group-title">Chú Rể</div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Họ <span class="required">*</span></label>
+                    <input type="text" name="groom_ho" placeholder="VD: Nguyễn" required>
+                </div>
+                <div class="field">
+                    <label>Tên đệm + Tên <span class="required">*</span></label>
+                    <input type="text" name="groom_ten" placeholder="VD: Văn Minh" required>
+                </div>
+            </div>
+            <div class="field-row single">
+                <div class="field">
+                    <label>Tên hiển thị trên thiệp <span class="optional">(mặc định = Tên đệm + Tên)</span></label>
+                    <input type="text" name="groom_display" placeholder="VD: Văn Minh, hoặc chỉ 'Minh'">
+                    <p class="hint">Tên sẽ hiển thị lớn trên hero/envelope. Để trống = dùng tên đệm + tên.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Cô Dâu</div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Họ <span class="required">*</span></label>
+                    <input type="text" name="bride_ho" placeholder="VD: Trần">
+                </div>
+                <div class="field">
+                    <label>Tên đệm + Tên <span class="required">*</span></label>
+                    <input type="text" name="bride_ten" placeholder="VD: Thị Ngọc">
+                </div>
+            </div>
+            <div class="field-row single">
+                <div class="field">
+                    <label>Tên hiển thị trên thiệp <span class="optional">(mặc định = Tên đệm + Tên)</span></label>
+                    <input type="text" name="bride_display" placeholder="VD: Thị Ngọc, hoặc chỉ 'Ngọc'">
+                </div>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Liên hệ đặt thiệp</div>
+            <div class="field-row">
+                <div class="field">
+                    <label>SĐT liên hệ <span class="required">*</span></label>
+                    <input type="tel" name="contact_phone" placeholder="0909 xxx xxx" required>
+                </div>
+                <div class="field">
+                    <label>Email <span class="optional">(không bắt buộc)</span></label>
+                    <input type="email" name="contact_email" placeholder="email@gmail.com">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ STEP 2: GIA ĐÌNH HAI BÊN ═══ -->
+    <div class="form-section" data-step="2">
+        <div class="section-icon">👨‍👩‍👧‍👦</div>
+        <h2 class="section-title">Thông Tin Gia Đình Hai Bên</h2>
+        <p class="section-desc">Tên bố mẹ sẽ hiển thị trong phần thông tin gia đình trên thiệp</p>
+
+        <div class="note-box">
+            <strong>Lưu ý:</strong> Nếu bố hoặc mẹ đã mất, ghi rõ "Cố" trước tên (VD: "Cố Ông Nguyễn Văn A"). Nếu không muốn hiển thị, để trống.
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Nhà Trai (Bố Mẹ Chú Rể)</div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Tên Bố <span class="required">*</span></label>
+                    <input type="text" name="groom_father" placeholder="VD: Ông Nguyễn Văn Hùng">
+                </div>
+                <div class="field">
+                    <label>Tên Mẹ <span class="required">*</span></label>
+                    <input type="text" name="groom_mother" placeholder="VD: Bà Trần Thị Lan">
+                </div>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Nhà Gái (Bố Mẹ Cô Dâu)</div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Tên Bố <span class="required">*</span></label>
+                    <input type="text" name="bride_father" placeholder="VD: Ông Trần Đức Hải">
+                </div>
+                <div class="field">
+                    <label>Tên Mẹ <span class="required">*</span></label>
+                    <input type="text" name="bride_mother" placeholder="VD: Bà Lê Thị Hoa">
+                </div>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Loại thiệp</div>
+            <div class="option-group" id="invitationType">
+                <label class="option-chip selected"><input type="radio" name="invitation_type" value="nha-trai" checked> Thiệp Nhà Trai</label>
+                <label class="option-chip"><input type="radio" name="invitation_type" value="nha-gai"> Thiệp Nhà Gái</label>
+                <label class="option-chip"><input type="radio" name="invitation_type" value="doi"> Thiệp Đôi (cả 2 bên)</label>
+            </div>
+            <p class="hint" style="margin-top:8px;">Thiệp đôi = 1 thiệp chung cho cả nhà trai & nhà gái. Thiệp đơn = chỉ hiện 1 bên.</p>
+        </div>
+    </div>
+
+    <!-- ═══ STEP 3: SỰ KIỆN ═══ -->
+    <div class="form-section" data-step="3">
+        <div class="section-icon">📅</div>
+        <h2 class="section-title">Thông Tin Sự Kiện</h2>
+        <p class="section-desc">Ngày giờ, địa điểm tiệc cưới</p>
+
+        <div class="field-group">
+            <div class="field-group-title">Tiệc Nhà Trai</div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Ngày cưới <span class="required">*</span></label>
+                    <input type="date" name="groom_event_date" required>
+                </div>
+                <div class="field">
+                    <label>Giờ bắt đầu <span class="required">*</span></label>
+                    <input type="time" name="groom_event_time" value="11:00" required>
+                </div>
+            </div>
+            <div class="field-row single">
+                <div class="field">
+                    <label>Ngày Âm lịch <span class="optional">(nếu muốn hiển thị)</span></label>
+                    <input type="text" name="groom_lunar_date" placeholder="VD: Nhằm ngày 10 tháng 10 năm Ất Tỵ">
+                </div>
+            </div>
+            <div class="field-row single">
+                <div class="field">
+                    <label>Tên nhà hàng / Địa điểm <span class="required">*</span></label>
+                    <input type="text" name="groom_venue" placeholder="VD: Trung tâm tiệc cưới ABC Palace">
+                </div>
+            </div>
+            <div class="field-row single">
+                <div class="field">
+                    <label>Địa chỉ đầy đủ <span class="required">*</span></label>
+                    <input type="text" name="groom_address" placeholder="VD: 123 Đường Nguyễn Huệ, Quận 1, TP.HCM">
+                </div>
+            </div>
+            <div class="field-row single">
+                <div class="field">
+                    <label>Link Google Maps <span class="optional">(không bắt buộc)</span></label>
+                    <input type="url" name="groom_maps" placeholder="https://maps.google.com/...">
+                </div>
+            </div>
+        </div>
+
+        <div class="field-group" id="brideEventGroup">
+            <div class="field-group-title">Tiệc Nhà Gái <span class="optional">(nếu khác nhà trai)</span></div>
+            <div class="note-box">Nếu tiệc nhà gái cùng ngày, cùng nơi với nhà trai → bỏ qua phần này.</div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Ngày cưới</label>
+                    <input type="date" name="bride_event_date">
+                </div>
+                <div class="field">
+                    <label>Giờ bắt đầu</label>
+                    <input type="time" name="bride_event_time" value="17:00">
+                </div>
+            </div>
+            <div class="field-row single">
+                <div class="field">
+                    <label>Ngày Âm lịch</label>
+                    <input type="text" name="bride_lunar_date" placeholder="VD: Nhằm ngày 10 tháng 10 năm Ất Tỵ">
+                </div>
+            </div>
+            <div class="field-row single">
+                <div class="field">
+                    <label>Tên nhà hàng / Địa điểm</label>
+                    <input type="text" name="bride_venue" placeholder="VD: Nhà hàng Hoàng Gia Palace">
+                </div>
+            </div>
+            <div class="field-row single">
+                <div class="field">
+                    <label>Địa chỉ đầy đủ</label>
+                    <input type="text" name="bride_address" placeholder="VD: 456 Đường Lê Lợi, Quận 3, TP.HCM">
+                </div>
+            </div>
+            <div class="field-row single">
+                <div class="field">
+                    <label>Link Google Maps</label>
+                    <input type="url" name="bride_maps" placeholder="https://maps.google.com/...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ STEP 4: ẢNH & NỘI DUNG ═══ -->
+    <div class="form-section" data-step="4">
+        <div class="section-icon">📸</div>
+        <h2 class="section-title">Ảnh & Nội Dung</h2>
+        <p class="section-desc">Ảnh cưới, câu chuyện tình yêu, lời mời</p>
+
+        <div class="field-group">
+            <div class="field-group-title">Ảnh cưới (Album)</div>
+            <div class="field">
+                <label>Upload ảnh cưới <span class="required">*</span></label>
+                <input type="file" name="album_photos" multiple accept="image/*">
+                <p class="hint">Tối thiểu 4 ảnh, tối đa 15 ảnh. Ưu tiên ảnh dọc (portrait). Dung lượng mỗi ảnh &lt; 5MB.</p>
+            </div>
+            <div class="field">
+                <label>Ảnh chân dung chú rể <span class="optional">(riêng, nếu có)</span></label>
+                <input type="file" name="groom_portrait" accept="image/*">
+            </div>
+            <div class="field">
+                <label>Ảnh chân dung cô dâu <span class="optional">(riêng, nếu có)</span></label>
+                <input type="file" name="bride_portrait" accept="image/*">
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Love Story (Câu chuyện tình yêu)</div>
+            <div class="note-box">Ghi 3–4 mốc quan trọng. Mỗi mốc gồm: tiêu đề, thời gian, mô tả ngắn.</div>
+            <div class="field">
+                <label>Mốc 1 — Lần đầu gặp nhau</label>
+                <input type="text" name="story_1_title" placeholder="VD: Lần đầu gặp gỡ" style="margin-bottom:8px;">
+                <input type="text" name="story_1_date" placeholder="VD: Tháng 3, 2020" style="margin-bottom:8px;">
+                <textarea name="story_1_desc" placeholder="Mô tả ngắn..."></textarea>
+            </div>
+            <div class="field">
+                <label>Mốc 2 — Hẹn hò</label>
+                <input type="text" name="story_2_title" placeholder="VD: Chính thức yêu nhau" style="margin-bottom:8px;">
+                <input type="text" name="story_2_date" placeholder="VD: Tháng 8, 2020" style="margin-bottom:8px;">
+                <textarea name="story_2_desc" placeholder="Mô tả ngắn..."></textarea>
+            </div>
+            <div class="field">
+                <label>Mốc 3 — Cầu hôn / Đính hôn</label>
+                <input type="text" name="story_3_title" placeholder="VD: Ngày cầu hôn" style="margin-bottom:8px;">
+                <input type="text" name="story_3_date" placeholder="VD: Tháng 12, 2024" style="margin-bottom:8px;">
+                <textarea name="story_3_desc" placeholder="Mô tả ngắn..."></textarea>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Lời mời & Thông điệp</div>
+            <div class="field">
+                <label>Câu quote / lời mời <span class="optional">(hiển thị trên hero)</span></label>
+                <textarea name="hero_quote" placeholder='VD: "Từ khi gặp em, mỗi ngày đều là một ngày đẹp trời"'></textarea>
+            </div>
+            <div class="field">
+                <label>Lời cảm ơn <span class="optional">(cuối thiệp)</span></label>
+                <textarea name="thankyou_message" placeholder="VD: Sự hiện diện của quý vị là niềm vinh hạnh lớn lao..."></textarea>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Mừng cưới (QR chuyển khoản)</div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Ngân hàng chú rể</label>
+                    <input type="text" name="groom_bank" placeholder="VD: Vietcombank">
+                </div>
+                <div class="field">
+                    <label>Số tài khoản</label>
+                    <input type="text" name="groom_account" placeholder="VD: 0123456789">
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Ngân hàng cô dâu</label>
+                    <input type="text" name="bride_bank" placeholder="VD: Techcombank">
+                </div>
+                <div class="field">
+                    <label>Số tài khoản</label>
+                    <input type="text" name="bride_account" placeholder="VD: 9876543210">
+                </div>
+            </div>
+            <div class="field">
+                <label>Ảnh QR chú rể <span class="optional">(nếu có)</span></label>
+                <input type="file" name="groom_qr" accept="image/*">
+            </div>
+            <div class="field">
+                <label>Ảnh QR cô dâu <span class="optional">(nếu có)</span></label>
+                <input type="file" name="bride_qr" accept="image/*">
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ STEP 5: PHONG CÁCH & MÀU SẮC ═══ -->
+    <div class="form-section" data-step="5">
+        <div class="section-icon">🎨</div>
+        <h2 class="section-title">Phong Cách & Màu Sắc</h2>
+        <p class="section-desc">Chọn tone màu, phong cách thiết kế</p>
+
+        <div class="field-group">
+            <div class="field-group-title">Tone màu chủ đạo</div>
+            <div class="color-swatches" id="colorPicker">
+                <div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #C41E3A, #8B0000);" data-color="red-gold" title="Đỏ truyền thống"></div>
+                    <div class="color-swatch-label">Đỏ Gold</div>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #D4878F, #F0C4C8);" data-color="pink-romantic" title="Hồng romantic"></div>
+                    <div class="color-swatch-label">Hồng</div>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #7C2D3C, #4A1525);" data-color="burgundy" title="Burgundy"></div>
+                    <div class="color-swatch-label">Burgundy</div>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8);" data-color="blue-modern" title="Xanh dương hiện đại"></div>
+                    <div class="color-swatch-label">Xanh dương</div>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #7C9A6E, #4A6741);" data-color="sage-green" title="Sage green"></div>
+                    <div class="color-swatch-label">Sage Green</div>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #D4AF37, #B8860B);" data-color="gold-luxury" title="Vàng gold sang trọng"></div>
+                    <div class="color-swatch-label">Gold</div>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #F5E6D3, #E8D5B7);" data-color="beige-cream" title="Beige/Cream nhẹ nhàng"></div>
+                    <div class="color-swatch-label">Beige</div>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #1a1a2e, #2d2d44);" data-color="dark-elegant" title="Tối sang trọng"></div>
+                    <div class="color-swatch-label">Dark</div>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #E8A87C, #D67D5B);" data-color="coral" title="Coral/Cam đất"></div>
+                    <div class="color-swatch-label">Coral</div>
+                </div>
+                <div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #9B59B6, #6C3483);" data-color="purple" title="Tím lavender"></div>
+                    <div class="color-swatch-label">Tím</div>
+                </div>
+            </div>
+            <input type="hidden" name="color_theme" id="colorThemeInput" value="">
+            <div class="field" style="margin-top:12px;">
+                <label>Hoặc mô tả màu bạn muốn <span class="optional">(nếu không có ở trên)</span></label>
+                <input type="text" name="color_custom" placeholder="VD: Trắng chủ đạo + gold accent, hoặc pastel nhạt">
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Phong cách thiết kế</div>
+            <div class="option-group" id="styleOptions">
+                <label class="option-chip"><input type="checkbox" name="style" value="truyen-thong"> 🏮 Truyền thống Việt</label>
+                <label class="option-chip"><input type="checkbox" name="style" value="hien-dai"> ✨ Hiện đại / Modern</label>
+                <label class="option-chip"><input type="checkbox" name="style" value="lang-man"> 💕 Lãng mạn / Romantic</label>
+                <label class="option-chip"><input type="checkbox" name="style" value="toi-gian"> 🌿 Tối giản / Minimalist</label>
+                <label class="option-chip"><input type="checkbox" name="style" value="sang-trong"> 👑 Sang trọng / Luxury</label>
+                <label class="option-chip"><input type="checkbox" name="style" value="hoa-la"> 🌸 Hoa lá / Floral</label>
+                <label class="option-chip"><input type="checkbox" name="style" value="phim-anh"> 🎬 Phim ảnh / Cinematic</label>
+                <label class="option-chip"><input type="checkbox" name="style" value="vintage"> 📜 Vintage / Cổ điển</label>
+                <label class="option-chip"><input type="checkbox" name="style" value="korean"> 🇰🇷 Korean style</label>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Nhạc nền</div>
+            <div class="option-group" id="musicOptions">
+                <label class="option-chip selected"><input type="radio" name="music" value="auto" checked> 🎵 Chọn tự động</label>
+                <label class="option-chip"><input type="radio" name="music" value="custom"> 🎤 Gửi file nhạc riêng</label>
+                <label class="option-chip"><input type="radio" name="music" value="none"> 🔇 Không cần nhạc</label>
+            </div>
+            <div class="field" style="margin-top:12px;" id="musicFileField" hidden>
+                <label>Upload file nhạc (MP3, tối đa 5MB)</label>
+                <input type="file" name="music_file" accept="audio/*">
+            </div>
+            <div class="field" style="margin-top:8px;">
+                <label>Hoặc ghi tên bài hát bạn muốn</label>
+                <input type="text" name="music_request" placeholder="VD: Can't Help Falling In Love, Em Gái Mưa...">
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Dresscode (trang phục khách mời)</div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Yêu cầu dresscode <span class="optional">(nếu có)</span></label>
+                    <input type="text" name="dresscode" placeholder="VD: Formal, Smart casual, Tông pastel...">
+                </div>
+                <div class="field">
+                    <label>Màu dresscode</label>
+                    <input type="text" name="dresscode_color" placeholder="VD: Trắng + Xanh mint">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ STEP 6: TÍNH NĂNG & GỬI ═══ -->
+    <div class="form-section" data-step="6">
+        <div class="section-icon">⚙️</div>
+        <h2 class="section-title">Tính Năng & Yêu Cầu Thêm</h2>
+        <p class="section-desc">Chọn các tính năng muốn có trên thiệp</p>
+
+        <div class="field-group">
+            <div class="field-group-title">Tính năng mong muốn</div>
+            <div class="option-group" id="featureOptions">
+                <label class="option-chip selected"><input type="checkbox" name="feature" value="envelope" checked> ✉️ Phong bì mở thiệp</label>
+                <label class="option-chip selected"><input type="checkbox" name="feature" value="countdown" checked> ⏳ Đếm ngược</label>
+                <label class="option-chip selected"><input type="checkbox" name="feature" value="calendar" checked> 📅 Lịch tháng</label>
+                <label class="option-chip selected"><input type="checkbox" name="feature" value="gallery" checked> 🖼️ Album ảnh</label>
+                <label class="option-chip selected"><input type="checkbox" name="feature" value="rsvp" checked> ✅ Xác nhận tham dự</label>
+                <label class="option-chip selected"><input type="checkbox" name="feature" value="guestbook" checked> 💌 Sổ lời chúc</label>
+                <label class="option-chip selected"><input type="checkbox" name="feature" value="gift" checked> 🎁 Mừng cưới QR</label>
+                <label class="option-chip"><input type="checkbox" name="feature" value="lovestory"> 💕 Love Story</label>
+                <label class="option-chip"><input type="checkbox" name="feature" value="dresscode"> 👔 Dresscode</label>
+                <label class="option-chip"><input type="checkbox" name="feature" value="map"> 🗺️ Bản đồ</label>
+                <label class="option-chip"><input type="checkbox" name="feature" value="timeline"> 📋 Timeline sự kiện</label>
+                <label class="option-chip"><input type="checkbox" name="feature" value="music"> 🎵 Nhạc nền</label>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Ghi chú / Yêu cầu đặc biệt</div>
+            <div class="field">
+                <textarea name="special_notes" rows="4" placeholder="VD: Muốn giống mẫu #189, thêm hiệu ứng hoa rơi, font chữ cổ điển, có phần ảnh bìa lớn..."></textarea>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Mẫu tham khảo</div>
+            <div class="field">
+                <label>Link mẫu thiệp tham khảo <span class="optional">(nếu có)</span></label>
+                <input type="text" name="reference_link" placeholder="VD: https://... hoặc mã thiệp #189, #191...">
+            </div>
+            <div class="field">
+                <label>Upload ảnh mẫu tham khảo</label>
+                <input type="file" name="reference_images" multiple accept="image/*">
+            </div>
+        </div>
+
+        <div class="field-group">
+            <div class="field-group-title">Thông tin đối tác / sale</div>
+            <div class="field-row">
+                <div class="field">
+                    <label>Mã đối tác / Sale <span class="optional">(nếu có)</span></label>
+                    <input type="text" name="partner_code" placeholder="VD: PARTNER001">
+                </div>
+                <div class="field">
+                    <label>Gói dịch vụ</label>
+                    <select name="service_package">
+                        <option value="">-- Chọn gói --</option>
+                        <option value="basic">BASIC — Thiệp cơ bản</option>
+                        <option value="pro">PRO — Thiệp đầy đủ tính năng</option>
+                        <option value="premium">PREMIUM — Thiệp premium + tuỳ chỉnh</option>
+                        <option value="custom">CUSTOM — Thiết kế riêng theo yêu cầu</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </form>
+
+    <!-- Navigation buttons -->
+    <div class="form-actions" id="formActions">
+        <button type="button" class="btn btn-prev" id="btnPrev" hidden onclick="changeStep(-1)">← Quay lại</button>
+        <button type="button" class="btn btn-next" id="btnNext" onclick="changeStep(1)">Tiếp theo →</button>
+        <button type="button" class="btn btn-submit" id="btnSubmit" hidden onclick="submitForm()">📩 Gửi thông tin</button>
+    </div>
+</div>
+
+<script>
+    let currentStep = 1;
+    const totalSteps = 6;
+
+    function changeStep(dir) {
+        currentStep += dir;
+        if (currentStep < 1) currentStep = 1;
+        if (currentStep > totalSteps) currentStep = totalSteps;
+        renderStep();
+    }
+
+    function renderStep() {
+        /* Sections */
+        document.querySelectorAll('.form-section').forEach(s => {
+            s.classList.toggle('active', parseInt(s.dataset.step) === currentStep);
+        });
+        /* Progress */
+        document.querySelectorAll('.progress-step').forEach(s => {
+            const step = parseInt(s.dataset.step);
+            s.classList.remove('active', 'done');
+            if (step === currentStep) s.classList.add('active');
+            else if (step < currentStep) s.classList.add('done');
+        });
+        /* Buttons */
+        document.getElementById('btnPrev').hidden = currentStep === 1;
+        document.getElementById('btnNext').hidden = currentStep === totalSteps;
+        document.getElementById('btnSubmit').hidden = currentStep !== totalSteps;
+        /* Scroll to top */
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* Option chips toggle */
+    document.querySelectorAll('.option-chip').forEach(chip => {
+        chip.addEventListener('click', function() {
+            const input = this.querySelector('input');
+            if (input.type === 'radio') {
+                this.closest('.option-group').querySelectorAll('.option-chip').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+            } else {
+                this.classList.toggle('selected');
+                input.checked = this.classList.contains('selected');
+            }
+        });
+    });
+
+    /* Color swatch selection */
+    document.querySelectorAll('.color-swatch').forEach(swatch => {
+        swatch.addEventListener('click', function() {
+            document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+            this.classList.add('selected');
+            document.getElementById('colorThemeInput').value = this.dataset.color;
+        });
+    });
+
+    /* Music file toggle */
+    document.querySelectorAll('input[name="music"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            document.getElementById('musicFileField').hidden = this.value !== 'custom';
+        });
+    });
+
+    /* Submit */
+    function submitForm() {
+        const form = document.getElementById('weddingForm');
+        const data = new FormData(form);
+        const obj = {};
+        for (const [key, val] of data.entries()) {
+            if (obj[key]) {
+                if (!Array.isArray(obj[key])) obj[key] = [obj[key]];
+                obj[key].push(val);
+            } else {
+                obj[key] = val;
+            }
+        }
+        console.log('Form data:', obj);
+        alert('✅ Đã ghi nhận thông tin!\n\nChúng tôi sẽ liên hệ bạn trong 24h để xác nhận và bắt đầu thiết kế thiệp.');
+    }
+</script>
+</body>
+</html>
