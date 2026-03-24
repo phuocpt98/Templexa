@@ -3769,6 +3769,7 @@ const PRODUCTS = [
             './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/Screenshot_2.webp',
             './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/Screenshot_3.webp',
             './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/Screenshot_4.webp',
+            './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/Screenshot_mobile_hero.webp',
             './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/screen_mobile.webp',
         ],
         thumbnail: './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/screen.webp',
