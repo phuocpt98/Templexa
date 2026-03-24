@@ -3764,9 +3764,14 @@ const PRODUCTS = [
         tags: ['invitation', 'wedding', 'ăn-hỏi', 'traditional', 'red-gold', 'vietnamese', 'classic', 'song-hy'],
         price: '',
         images: [
-            './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/index.html',
+            './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/screen.webp',
+            './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/Screenshot_1.webp',
+            './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/Screenshot_2.webp',
+            './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/Screenshot_3.webp',
+            './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/Screenshot_4.webp',
+            './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/screen_mobile.webp',
         ],
-        thumbnail: './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/index.html',
+        thumbnail: './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/screen.webp',
         path: './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/',
         demoUrl: './products/Invitation/Wedding/gen_204_an-hoi-traditional-red-gold/index.html',
         features: [
