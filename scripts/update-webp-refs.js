@@ -15,6 +15,11 @@ const ROOT = path.resolve(__dirname, '..');
 
 const FILES_TO_SCAN = [
     'assets/js/data.js',
+    'assets/data/onepage.json',
+    'assets/data/e-commerce.json',
+    'assets/data/education.json',
+    'assets/data/portfolio.json',
+    'assets/data/invitation.json',
     'assets/css/style.css',
     'index.html',
     'products.html',
