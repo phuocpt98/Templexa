@@ -241,46 +241,6 @@
         history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
     }
 
-    // ── Hover iframe preview + auto-scroll ──────
-    const supportsHover = window.matchMedia('(hover: hover)').matches;
-
-    function initHoverIframes() {
-        if (!supportsHover) return;
-        if (document.body.classList.contains('invitation-theme')) return;
-        var cards = grid.querySelectorAll('.product-card[data-demo-url]');
-
-        cards.forEach(function (card) {
-            var iframe = null;
-            var hovered = false;
-
-            card.addEventListener('mouseenter', function () {
-                hovered = true;
-                var container = card.querySelector('.product-card-image');
-                if (!container || !card.dataset.demoUrl) return;
-
-                iframe = document.createElement('iframe');
-                iframe.src = card.dataset.demoUrl;
-                iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
-                iframe.setAttribute('scrolling', 'no');
-
-                iframe.onload = function () {
-                    if (!hovered) { iframe.remove(); iframe = null; return; }
-                    iframe.classList.add('loaded');
-                    // Auto-scroll tạm tắt
-                    // setTimeout(function () {
-                    //     if (hovered && iframe) iframe.classList.add('scrolling');
-                    // }, 400);
-                };
-
-                container.appendChild(iframe);
-            });
-
-            card.addEventListener('mouseleave', function () {
-                hovered = false;
-                if (iframe) { iframe.remove(); iframe = null; }
-            });
-        });
-    }
 
     // ============================================
     // PRODUCT POPUP
@@ -589,7 +549,6 @@
         updateURL();
         renderFilters();
         renderProducts(items);
-        initHoverIframes();
         renderPagination(totalPages);
 
         // Khôi phục trạng thái dropdown sau render
