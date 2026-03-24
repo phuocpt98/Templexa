@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Makeup Mastery — Khóa Học Makeup Chuyên Nghiệp</title>
+    <meta name="description" content="Khóa học makeup cao cấp dành cho những ai đam mê làm đẹp. Học từ chuyên gia hàng đầu với chương trình bài bản.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CSS VARIABLES & RESET
+           ============================================ */
+        :root {
+            --bg-deep: #110E0C;
+            --bg-dark: #1A1410;
+            --bg-card: #231B15;
+            --bg-card-hover: #2D221A;
+            --bg-accent: #3A2C20;
+            --gold: #C9A96E;
+            --gold-light: #DFC59A;
+            --gold-dark: #A08040;
+            --rose: #D4A0A0;
+            --cream: #F5EDE4;
+            --cream-muted: #BFB0A0;
+            --text-primary: #F5EDE4;
+            --text-secondary: #BFB0A0;
+            --text-muted: #8A7A6A;
+            --border: rgba(201, 169, 110, 0.15);
+            --border-gold: rgba(201, 169, 110, 0.3);
+            --shadow-gold: rgba(201, 169, 110, 0.08);
+            --font-heading: 'Cormorant', Georgia, serif;
+            --font-body: 'Montserrat', 'Helvetica Neue', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ============================================
+           UTILITIES
+           ============================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 500;
+            line-height: 1.15;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+        .section-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            line-height: 1.8;
+        }
+        .gold-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            margin: 24px 0;
+        }
+
+        /* ============================================
+           SCROLL ANIMATIONS
+           ============================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal-left, .reveal-right, .reveal-scale {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+
+        /* ============================================
+           SHIMMER / GLOW KEYFRAMES
+           ============================================ */
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(201, 169, 110, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(201, 169, 110, 0.25); }
+        }
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes dash-draw {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -10%); }
+            30% { transform: translate(3%, -15%); }
+            50% { transform: translate(12%, 9%); }
+            70% { transform: translate(9%, 4%); }
+            90% { transform: translate(-1%, 7%); }
+        }
+
+        /* Film grain overlay */
+        .grain-overlay::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            animation: grain 8s steps(10) infinite;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.4;
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(17, 14, 12, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+        }
+        .nav-links a {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-cta {
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            letter-spacing: 3px !important;
+            padding: 10px 28px;
+            border: 1px solid var(--gold);
+            color: var(--gold) !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer;
+        }
+        .nav-cta:hover {
+            background: var(--gold) !important;
+            color: var(--bg-deep) !important;
+        }
+        .nav-cta::after { display: none !important; }
+
+        /* Mobile menu toggle */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .nav-toggle span {
+            width: 24px;
+            height: 1.5px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.35) saturate(0.8);
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(17, 14, 12, 0.3) 0%,
+                rgba(17, 14, 12, 0.1) 40%,
+                rgba(17, 14, 12, 0.6) 70%,
+                rgba(17, 14, 12, 1) 100%
+            );
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            padding: 160px 0 100px;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border: 1px solid var(--border-gold);
+            background: rgba(201, 169, 110, 0.08);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 32px;
+            animation: fade-in-up 1s ease 0.2s both;
+        }
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: pulse-glow 2s ease infinite;
+        }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(44px, 7vw, 80px);
+            font-weight: 400;
+            line-height: 1.05;
+            color: var(--cream);
+            margin-bottom: 28px;
+            animation: fade-in-up 1s ease 0.4s both;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        .hero-desc {
+            font-size: 16px;
+            line-height: 1.9;
+            color: var(--cream-muted);
+            margin-bottom: 44px;
+            max-width: 500px;
+            animation: fade-in-up 1s ease 0.6s both;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            animation: fade-in-up 1s ease 0.8s both;
+        }
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--bg-deep);
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        .btn-gold:hover::before { left: 100%; }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(201, 169, 110, 0.3);
+        }
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            border: 1px solid var(--border-gold);
+            color: var(--gold-light);
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: rgba(201, 169, 110, 0.1);
+            border-color: var(--gold);
+        }
+
+        /* Hero decorative elements */
+        .hero-deco {
+            position: absolute;
+            right: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            opacity: 0.12;
+        }
+        .hero-deco svg {
+            width: 300px;
+            height: 300px;
+            animation: rotate-slow 60s linear infinite;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: fade-in-up 1s ease 1.2s both;
+        }
+        .scroll-indicator span {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: float 2s ease-in-out infinite;
+        }
+
+        /* ============================================
+           ABOUT / INTRO SECTION
+           ============================================ */
+        .about {
+            padding: 120px 0;
+            position: relative;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-image {
+            position: relative;
+        }
+        .about-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            filter: saturate(0.85) brightness(0.95);
+        }
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid var(--border-gold);
+            z-index: -1;
+        }
+        .about-image .floating-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--gold);
+            color: var(--bg-deep);
+            padding: 20px 28px;
+            text-align: center;
+            animation: pulse-glow 3s ease infinite;
+        }
+        .floating-badge .number {
+            font-family: var(--font-heading);
+            font-size: 36px;
+            font-weight: 600;
+            display: block;
+            line-height: 1;
+        }
+        .floating-badge .label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+        .about-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 40px;
+            font-weight: 500;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* ============================================
+           FEATURES / WHY US
+           ============================================ */
+        .features {
+            padding: 100px 0;
+            background: var(--bg-dark);
+            position: relative;
+        }
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+        }
+        .features-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .features-header .section-desc {
+            margin: 0 auto;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+        .feature-card {
+            padding: 48px 36px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-gold);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .feature-card:hover::before { opacity: 1; }
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-gold);
+            margin-bottom: 28px;
+            color: var(--gold);
+            transition: all 0.4s ease;
+        }
+        .feature-card:hover .feature-icon {
+            background: rgba(201, 169, 110, 0.1);
+        }
+        .feature-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1.5;
+        }
+        .feature-card h3 {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 14px;
+            color: var(--cream);
+        }
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ============================================
+           CURRICULUM / MODULES
+           ============================================ */
+        .curriculum {
+            padding: 120px 0;
+            position: relative;
+        }
+        .curriculum-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .curriculum-header .section-desc {
+            margin: 0 auto;
+        }
+        .modules-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .module-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 32px;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        .module-item:first-child { border-top: 1px solid var(--border); }
+        .module-item:hover { padding-left: 16px; }
+        .module-number {
+            font-family: var(--font-heading);
+            font-size: 48px;
+            font-weight: 400;
+            color: var(--gold);
+            opacity: 0.4;
+            line-height: 1;
+            transition: opacity 0.3s ease;
+        }
+        .module-item:hover .module-number { opacity: 1; }
+        .module-content h3 {
+            font-family: var(--font-heading);
+            font-size: 26px;
+            font-weight: 500;
+            color: var(--cream);
+            margin-bottom: 10px;
+        }
+        .module-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .module-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+        .module-tag {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+        .module-item:hover .module-tag {
+            border-color: var(--border-gold);
+            color: var(--gold-light);
+        }
+
+        /* ============================================
+           GALLERY / SHOWCASE
+           ============================================ */
+        .gallery {
+            padding: 100px 0;
+            background: var(--bg-dark);
+            overflow: hidden;
+        }
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .gallery-track {
+            display: flex;
+            gap: 20px;
+            animation: scroll-left 30s linear infinite;
+        }
+        .gallery-track:hover { animation-play-state: paused; }
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .gallery-item {
+            flex: 0 0 350px;
+            height: 450px;
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.7) brightness(0.85);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .gallery-item:hover img {
+            filter: saturate(1) brightness(1);
+            transform: scale(1.05);
+        }
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(17,14,12,0.7) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* ============================================
+           INSTRUCTOR
+           ============================================ */
+        .instructor {
+            padding: 120px 0;
+        }
+        .instructor-grid {
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .instructor-image {
+            position: relative;
+        }
+        .instructor-image img {
+            width: 100%;
+            height: 560px;
+            object-fit: cover;
+            object-position: top;
+            filter: saturate(0.8) brightness(0.9);
+        }
+        .instructor-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to top, var(--bg-deep), transparent);
+        }
+        .instructor-info .section-title {
+            margin-bottom: 8px;
+        }
+        .instructor-role {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+        .instructor-bio {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 32px;
+        }
+        .instructor-achievements {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .achievement {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+        }
+        .achievement:hover { border-color: var(--border-gold); }
+        .achievement svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1.5;
+            margin-top: 2px;
+        }
+        .achievement-text {
+            font-size: 13px;
+            color: var(--cream-muted);
+            line-height: 1.6;
+        }
+        .achievement-text strong {
+            color: var(--cream);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* ============================================
+           TESTIMONIALS
+           ============================================ */
+        .testimonials {
+            padding: 100px 0;
+            background: var(--bg-dark);
+        }
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .testimonial-card {
+            padding: 40px 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+        .testimonial-card:hover {
+            border-color: var(--border-gold);
+            transform: translateY(-4px);
+        }
+        .testimonial-quote {
+            font-family: var(--font-heading);
+            font-size: 64px;
+            color: var(--gold);
+            opacity: 0.2;
+            line-height: 1;
+            position: absolute;
+            top: 20px;
+            left: 28px;
+        }
+        .testimonial-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 28px;
+            font-style: italic;
+            position: relative;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border-gold);
+        }
+        .author-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--cream);
+        }
+        .author-role {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .testimonial-stars {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .testimonial-stars svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--gold);
+        }
+
+        /* ============================================
+           PRICING / CTA
+           ============================================ */
+        .pricing {
+            padding: 120px 0;
+            position: relative;
+        }
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .pricing-header .section-desc { margin: 0 auto; }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .pricing-card {
+            padding: 48px 40px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .pricing-card.featured {
+            border-color: var(--gold);
+            background: linear-gradient(165deg, var(--bg-card) 0%, rgba(201,169,110,0.05) 100%);
+        }
+        .pricing-card.featured::before {
+            content: 'PHỔ BIẾN NHẤT';
+            position: absolute;
+            top: 20px;
+            right: -32px;
+            background: var(--gold);
+            color: var(--bg-deep);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 6px 40px;
+            transform: rotate(45deg);
+        }
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+        }
+        .pricing-name {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .pricing-amount {
+            font-family: var(--font-heading);
+            font-size: 48px;
+            font-weight: 500;
+            color: var(--cream);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .pricing-amount .currency {
+            font-size: 20px;
+            color: var(--text-muted);
+            vertical-align: super;
+        }
+        .pricing-period {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+        .pricing-features {
+            margin-bottom: 36px;
+        }
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        .pricing-features li:last-child { border: none; }
+        .pricing-features svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 2;
+            flex-shrink: 0;
+        }
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--font-body);
+        }
+        .pricing-btn:hover {
+            background: var(--gold);
+            color: var(--bg-deep);
+        }
+        .pricing-card.featured .pricing-btn {
+            background: var(--gold);
+            color: var(--bg-deep);
+            border-color: var(--gold);
+        }
+        .pricing-card.featured .pricing-btn:hover {
+            background: var(--gold-light);
+            box-shadow: 0 8px 30px rgba(201, 169, 110, 0.3);
+        }
+
+        /* ============================================
+           FINAL CTA
+           ============================================ */
+        .final-cta {
+            padding: 120px 0;
+            background: var(--bg-dark);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201,169,110,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .final-cta .section-title {
+            font-size: clamp(36px, 5vw, 56px);
+        }
+        .final-cta .section-desc {
+            margin: 0 auto 48px;
+            text-align: center;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 28px;
+        }
+        .footer-links a {
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-copy {
+            font-size: 12px;
+            color: var(--text-muted);
+            width: 100%;
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; gap: 48px; }
+            .about-image img { height: 400px; }
+            .instructor-grid { grid-template-columns: 1fr; gap: 48px; }
+            .instructor-image img { height: 400px; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item { flex: 0 0 280px; height: 360px; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 280px;
+                height: 100vh;
+                background: var(--bg-card);
+                padding: 80px 40px;
+                gap: 24px;
+                border-left: 1px solid var(--border);
+                z-index: 1001;
+            }
+            .hero h1 { font-size: clamp(36px, 8vw, 56px); }
+            .hero-content { padding: 140px 0 80px; }
+            .hero-actions { flex-direction: column; align-items: flex-start; }
+            .features-grid { grid-template-columns: 1fr; }
+            .module-item { grid-template-columns: 50px 1fr; gap: 20px; }
+            .module-number { font-size: 36px; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .instructor-achievements { grid-template-columns: 1fr; }
+            .about-stats { flex-wrap: wrap; gap: 24px; }
+            .gallery-item { flex: 0 0 250px; height: 320px; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-links { justify-content: center; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            .feature-card { padding: 32px 24px; }
+            .pricing-card { padding: 36px 28px; }
+            .about-image::before { display: none; }
+            .floating-badge { display: none; }
+        }
+    </style>
+</head>
+<body class="grain-overlay">
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="nav-logo">LUXE MAKEUP</a>
+            <div class="nav-links" id="navLinks">
+                <a href="#about">Giới thiệu</a>
+                <a href="#features">Tại sao chọn</a>
+                <a href="#curriculum">Chương trình</a>
+                <a href="#instructor">Giảng viên</a>
+                <a href="#pricing" class="nav-cta">Đăng Ký</a>
+            </div>
+            <div class="nav-toggle" id="navToggle" role="button" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1920&q=80" alt="Luxury makeup artistry" loading="eager">
+        </div>
+        <div class="hero-deco">
+            <svg viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="90" fill="none" stroke="currentColor" stroke-width="0.3" stroke-dasharray="4 8" color="var(--gold)"/>
+                <circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-width="0.2" stroke-dasharray="2 6" color="var(--gold)"/>
+                <circle cx="100" cy="100" r="50" fill="none" stroke="currentColor" stroke-width="0.3" color="var(--gold)"/>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">Khoá học cao cấp 2026</div>
+                <h1>Nghệ Thuật<br><em>Makeup</em><br>Đỉnh Cao</h1>
+                <p class="hero-desc">Khóa học chuyên sâu dành cho những ai muốn chinh phục kỹ thuật trang điểm chuyên nghiệp, từ nền tảng cơ bản đến phong cách editorial cao cấp.</p>
+                <div class="hero-actions">
+                    <a href="#pricing" class="btn-gold">Đăng Ký Ngay</a>
+                    <a href="#curriculum" class="btn-outline">Xem Chương Trình</a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Khám phá</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image reveal-left">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80" alt="Makeup brushes and tools" loading="lazy">
+                    <div class="floating-badge">
+                        <span class="number">8+</span>
+                        <span class="label">Năm kinh nghiệm</span>
+                    </div>
+                </div>
+                <div class="about-text reveal-right">
+                    <span class="section-label">Về khoá học</span>
+                    <h2 class="section-title">Nơi Đam Mê<br>Hóa Thành<br>Nghệ Thuật</h2>
+                    <div class="gold-line"></div>
+                    <p class="section-desc">Chương trình được thiết kế bởi đội ngũ makeup artist hàng đầu Việt Nam, kết hợp lý thuyết chuyên sâu với thực hành trực tiếp trên mẫu thật. Mỗi buổi học là một trải nghiệm sáng tạo, nơi bạn được tự do thể hiện phong cách cá nhân.</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Học viên</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">12</div>
+                            <div class="stat-label">Module</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">96%</div>
+                            <div class="stat-label">Hài lòng</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="features-header reveal">
+                <span class="section-label">Điểm nổi bật</span>
+                <h2 class="section-title">Tại Sao Chọn<br>Luxe Makeup?</h2>
+                <p class="section-desc">Phương pháp đào tạo độc quyền, kết hợp nghệ thuật phương Tây với vẻ đẹp Á Đông.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal stagger-1">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <h3>Giảng Viên Hàng Đầu</h3>
+                    <p>Đội ngũ makeup artist với hơn 8 năm kinh nghiệm trong ngành thời trang và giải trí, từng hợp tác với các thương hiệu quốc tế.</p>
+                </div>
+                <div class="feature-card reveal stagger-2">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <h3>Giáo Trình Chuẩn Quốc Tế</h3>
+                    <p>Chương trình được xây dựng theo tiêu chuẩn các trường đào tạo makeup hàng đầu tại Paris, London và New York.</p>
+                </div>
+                <div class="feature-card reveal stagger-3">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    </div>
+                    <h3>Thực Hành Trên Mẫu Thật</h3>
+                    <p>80% thời lượng dành cho thực hành. Bạn sẽ làm việc trực tiếp với mẫu thật ngay từ tuần đầu tiên của khoá học.</p>
+                </div>
+                <div class="feature-card reveal stagger-4">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <h3>Bộ Kit Cao Cấp</h3>
+                    <p>Mỗi học viên được tặng bộ kit makeup chuyên nghiệp trị giá 5 triệu đồng từ các thương hiệu MAC, NARS, Charlotte Tilbury.</p>
+                </div>
+                <div class="feature-card reveal stagger-5">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>Cộng Đồng Alumni</h3>
+                    <p>Tham gia cộng đồng 500+ cựu học viên, chia sẻ cơ hội nghề nghiệp và cập nhật xu hướng mới nhất.</p>
+                </div>
+                <div class="feature-card reveal stagger-6">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </div>
+                    <h3>Chứng Chỉ Được Công Nhận</h3>
+                    <p>Chứng chỉ hoàn thành được công nhận bởi Hiệp hội Makeup Artist Việt Nam, mở ra cơ hội nghề nghiệp rộng mở.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CURRICULUM -->
+    <section class="curriculum" id="curriculum">
+        <div class="container">
+            <div class="curriculum-header reveal">
+                <span class="section-label">Chương trình học</span>
+                <h2 class="section-title">12 Module<br>Từ Cơ Bản Đến Nâng Cao</h2>
+                <p class="section-desc">Hành trình 3 tháng biến đam mê thành chuyên môn vững chắc</p>
+            </div>
+            <div class="modules-list">
+                <div class="module-item reveal stagger-1">
+                    <div class="module-number">01</div>
+                    <div class="module-content">
+                        <h3>Nền Tảng Skincare & Prep</h3>
+                        <p>Phân tích loại da, quy trình chăm sóc da trước makeup, kỹ thuật primer chuyên nghiệp.</p>
+                        <div class="module-tags">
+                            <span class="module-tag">Skincare</span>
+                            <span class="module-tag">Prep</span>
+                            <span class="module-tag">2 buổi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="module-item reveal stagger-2">
+                    <div class="module-number">02</div>
+                    <div class="module-content">
+                        <h3>Base Makeup Hoàn Hảo</h3>
+                        <p>Foundation matching, kỹ thuật blend không tì vết, contour & highlight tạo khối chuyên nghiệp.</p>
+                        <div class="module-tags">
+                            <span class="module-tag">Foundation</span>
+                            <span class="module-tag">Contour</span>
+                            <span class="module-tag">3 buổi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="module-item reveal stagger-3">
+                    <div class="module-number">03</div>
+                    <div class="module-content">
+                        <h3>Nghệ Thuật Eye Makeup</h3>
+                        <p>Từ natural đến smokey eye, kỹ thuật cut crease, eyeliner, lash application chuyên nghiệp.</p>
+                        <div class="module-tags">
+                            <span class="module-tag">Eyes</span>
+                            <span class="module-tag">Smokey</span>
+                            <span class="module-tag">4 buổi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="module-item reveal stagger-4">
+                    <div class="module-number">04</div>
+                    <div class="module-content">
+                        <h3>Lip Art & Brow Sculpting</h3>
+                        <p>Kỹ thuật ombre lip, overline lip, tạo dáng lông mày phù hợp khuôn mặt.</p>
+                        <div class="module-tags">
+                            <span class="module-tag">Lips</span>
+                            <span class="module-tag">Brows</span>
+                            <span class="module-tag">2 buổi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="module-item reveal stagger-5">
+                    <div class="module-number">05</div>
+                    <div class="module-content">
+                        <h3>Bridal & Editorial Makeup</h3>
+                        <p>Phong cách cô dâu Á Đông, editorial makeup cho tạp chí, kỹ thuật trang điểm bền màu 12 giờ.</p>
+                        <div class="module-tags">
+                            <span class="module-tag">Bridal</span>
+                            <span class="module-tag">Editorial</span>
+                            <span class="module-tag">4 buổi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="module-item reveal stagger-6">
+                    <div class="module-number">06</div>
+                    <div class="module-content">
+                        <h3>Portfolio & Branding Cá Nhân</h3>
+                        <p>Xây dựng portfolio chuyên nghiệp, chụp ảnh tác phẩm, xây dựng thương hiệu trên mạng xã hội.</p>
+                        <div class="module-tags">
+                            <span class="module-tag">Portfolio</span>
+                            <span class="module-tag">Branding</span>
+                            <span class="module-tag">2 buổi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery">
+        <div class="gallery-header reveal">
+            <div class="container">
+                <span class="section-label">Tác phẩm học viên</span>
+                <h2 class="section-title">Cảm Hứng Không Giới Hạn</h2>
+            </div>
+        </div>
+        <div class="gallery-track" id="galleryTrack">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1503236823255-94609f598e71?w=700&q=80" alt="Makeup look 1" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=700&q=80" alt="Makeup look 2" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1457972729786-0411a3b2b626?w=700&q=80" alt="Makeup look 3" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1526045478516-99145907023c?w=700&q=80" alt="Makeup look 4" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=700&q=80" alt="Makeup look 5" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=700&q=80" alt="Makeup tools" loading="lazy">
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1503236823255-94609f598e71?w=700&q=80" alt="Makeup look 1" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=700&q=80" alt="Makeup look 2" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1457972729786-0411a3b2b626?w=700&q=80" alt="Makeup look 3" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1526045478516-99145907023c?w=700&q=80" alt="Makeup look 4" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=700&q=80" alt="Makeup look 5" loading="lazy">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=700&q=80" alt="Makeup tools" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTRUCTOR -->
+    <section class="instructor" id="instructor">
+        <div class="container">
+            <div class="instructor-grid">
+                <div class="instructor-image reveal-left">
+                    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&q=80" alt="Lead instructor" loading="lazy">
+                </div>
+                <div class="instructor-info reveal-right">
+                    <span class="section-label">Giảng viên chính</span>
+                    <h2 class="section-title">Thanh Hương</h2>
+                    <p class="instructor-role">Lead Makeup Artist & Founder</p>
+                    <p class="instructor-bio">Với hơn 8 năm kinh nghiệm trong ngành làm đẹp, Thanh Hương đã hợp tác cùng các thương hiệu lớn như L'Oréal, Estée Lauder và nhiều tạp chí thời trang hàng đầu. Cô mang đến phương pháp giảng dạy kết hợp giữa nghệ thuật phương Tây và nét đẹp Á Đông truyền thống.</p>
+                    <div class="instructor-achievements">
+                        <div class="achievement">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <div class="achievement-text">
+                                <strong>500+ Học viên</strong>
+                                Đã đào tạo thành công
+                            </div>
+                        </div>
+                        <div class="achievement">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <div class="achievement-text">
+                                <strong>L'Oréal Paris</strong>
+                                Key Makeup Artist 2022-2025
+                            </div>
+                        </div>
+                        <div class="achievement">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <div class="achievement-text">
+                                <strong>Vietnam Fashion Week</strong>
+                                Lead Artist 3 mùa liên tiếp
+                            </div>
+                        </div>
+                        <div class="achievement">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <div class="achievement-text">
+                                <strong>Chứng chỉ quốc tế</strong>
+                                London School of Makeup
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="testimonials-header reveal">
+                <span class="section-label">Nhận xét</span>
+                <h2 class="section-title">Học Viên Nói Gì?</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal stagger-1">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-text">Khoá học đã thay đổi hoàn toàn cách mình nhìn nhận về makeup. Từ một người tự học qua YouTube, giờ mình đã tự tin nhận job freelance và có thu nhập ổn định.</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&q=80" alt="Minh Anh" class="testimonial-avatar" loading="lazy">
+                        <div>
+                            <div class="author-name">Minh Anh</div>
+                            <div class="author-role">Freelance MUA — Khóa 12</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal stagger-2">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-text">Chị Thanh Hương dạy rất tận tâm, chỉ dẫn từng chi tiết nhỏ. Bộ kit được tặng xịn hơn mình tưởng nhiều. Đáng từng đồng bỏ ra!</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&q=80" alt="Thu Trang" class="testimonial-avatar" loading="lazy">
+                        <div>
+                            <div class="author-name">Thu Trang</div>
+                            <div class="author-role">Beauty Blogger — Khóa 15</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal stagger-3">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="testimonial-text">Module bridal makeup là highlight. Mình đã apply ngay cho đám cưới bạn thân và nhận được rất nhiều lời khen. Giờ mình đang mở studio riêng!</p>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&q=80" alt="Hải Yến" class="testimonial-avatar" loading="lazy">
+                        <div>
+                            <div class="author-name">Hải Yến</div>
+                            <div class="author-role">Studio Owner — Khóa 10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="pricing-header reveal">
+                <span class="section-label">Bảng giá</span>
+                <h2 class="section-title">Đầu Tư Cho<br>Tương Lai Của Bạn</h2>
+                <p class="section-desc">Chọn gói phù hợp và bắt đầu hành trình chinh phục nghệ thuật makeup</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card reveal stagger-1">
+                    <div class="pricing-name">Foundation</div>
+                    <div class="pricing-amount"><span class="currency">₫</span>8.900.000</div>
+                    <div class="pricing-period">/ khoá 3 tháng</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            6 module cơ bản (Module 1-4)
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Bộ kit cơ bản trị giá 2 triệu
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tài liệu học online trọn đời
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Chứng chỉ hoàn thành
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Hỗ trợ qua group chat
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Đăng Ký Ngay</button>
+                </div>
+                <div class="pricing-card featured reveal stagger-2">
+                    <div class="pricing-name">Mastery</div>
+                    <div class="pricing-amount"><span class="currency">₫</span>15.900.000</div>
+                    <div class="pricing-period">/ khoá 3 tháng</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Toàn bộ 12 module (1-6)
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Bộ kit cao cấp trị giá 5 triệu
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            1-on-1 mentoring (4 buổi)
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Chụp portfolio chuyên nghiệp
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Kết nối cơ hội việc làm
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            Tham gia cộng đồng Alumni VIP
+                        </li>
+                    </ul>
+                    <button class="pricing-btn">Đăng Ký Ngay</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-label">Sẵn sàng?</span>
+                <h2 class="section-title">Biến Đam Mê<br>Thành Sự Nghiệp</h2>
+                <p class="section-desc">Khóa học tiếp theo bắt đầu vào tháng 4/2026. Số lượng giới hạn 20 học viên mỗi khoá. Đăng ký sớm để nhận ưu đãi early bird giảm 15%.</p>
+                <a href="#pricing" class="btn-gold" style="margin-top: 20px;">Đăng Ký Early Bird</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">LUXE MAKEUP</div>
+                <div class="footer-links">
+                    <a href="#about">Giới thiệu</a>
+                    <a href="#curriculum">Chương trình</a>
+                    <a href="#pricing">Bảng giá</a>
+                    <a href="mailto:luxemakeup@gmail.com">Liên hệ</a>
+                </div>
+                <div class="footer-copy">&copy; 2026 Luxe Makeup Mastery. All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        /* ============================================
+           NAVBAR SCROLL EFFECT
+           ============================================ */
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+            if (currentScroll > 60) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            lastScroll = currentScroll;
+        }, { passive: true });
+
+        /* ============================================
+           MOBILE MENU TOGGLE
+           ============================================ */
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        /* Close mobile menu on link click */
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        /* ============================================
+           SCROLL REVEAL (IntersectionObserver)
+           ============================================ */
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        /* ============================================
+           SMOOTH SCROLL FOR ANCHOR LINKS
+           ============================================ */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const position = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top: position, behavior: 'smooth' });
+                }
+            });
+        });
+
+        /* ============================================
+           COUNTER ANIMATION
+           ============================================ */
+        function animateCounter(element, target, suffix) {
+            const duration = 2000;
+            const start = 0;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                /* Ease out cubic */
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(start + (target - start) * eased);
+                element.textContent = current + suffix;
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const text = el.textContent;
+                    const num = parseInt(text);
+                    const suffix = text.replace(/[0-9]/g, '');
+                    animateCounter(el, num, suffix);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        statNumbers.forEach(el => counterObserver.observe(el));
+
+        /* ============================================
+           PARALLAX EFFECT ON HERO
+           ============================================ */
+        const heroImg = document.querySelector('.hero-bg img');
+        if (heroImg && window.innerWidth > 768) {
+            window.addEventListener('scroll', () => {
+                const scroll = window.scrollY;
+                if (scroll < window.innerHeight) {
+                    heroImg.style.transform = `translateY(${scroll * 0.3}px) scale(1.05)`;
+                }
+            }, { passive: true });
+        }
+
+        /* ============================================
+           MAGNETIC CURSOR EFFECT ON BUTTONS
+           ============================================ */
+        if (window.innerWidth > 1024) {
+            document.querySelectorAll('.btn-gold, .btn-outline').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = '';
+                });
+            });
+        }
+    </script>
+</body>
+</html>

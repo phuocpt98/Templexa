@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thầy Minh Đức — Chuyên Gia Ôn Thi Toán THPT & Đại Học</title>
+    <meta name="description" content="Portfolio giảng viên ôn thi Toán THPT Quốc gia & Đại học. 15 năm kinh nghiệm, 3000+ học sinh đỗ đại học, phương pháp độc quyền.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CSS VARIABLES & RESET
+           ============================================ */
+        :root {
+            --navy: #1B2E1B;
+            --navy-light: #253525;
+            --navy-mid: #2D4A2D;
+            --slate: #3D5A3D;
+            --blue: #1A7A4C;
+            --blue-light: #34D399;
+            --blue-glow: rgba(26, 122, 76, 0.12);
+            --amber: #B45309;
+            --amber-light: #D97706;
+            --green: #059669;
+            --cream: #F7F5F0;
+            --cream-dark: #EBE6DB;
+            --white: #FFFFFF;
+            --text-dark: #1B2E1B;
+            --text-body: #3D4F3D;
+            --text-muted: #5F7A5F;
+            --text-light: #8FA08F;
+            --border: #D4DDD4;
+            --border-navy: rgba(27, 46, 27, 0.1);
+            --font-heading: 'Crimson Pro', Georgia, serif;
+            --font-body: 'DM Sans', system-ui, sans-serif;
+            --shadow-sm: 0 1px 3px rgba(27, 46, 27, 0.06);
+            --shadow-md: 0 4px 20px rgba(27, 46, 27, 0.08);
+            --shadow-lg: 0 12px 40px rgba(27, 46, 27, 0.12);
+            --shadow-blue: 0 8px 30px rgba(26, 122, 76, 0.2);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--text-body);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ============================================
+           SHARED STYLES
+           ============================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-label::before {
+            content: '';
+            width: 32px;
+            height: 2px;
+            background: var(--blue);
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(32px, 4.5vw, 50px);
+            font-weight: 600;
+            line-height: 1.15;
+            color: var(--text-dark);
+            margin-bottom: 18px;
+        }
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 540px;
+            line-height: 1.8;
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+        .s1 { transition-delay: 0.1s; }
+        .s2 { transition-delay: 0.2s; }
+        .s3 { transition-delay: 0.3s; }
+        .s4 { transition-delay: 0.4s; }
+        .s5 { transition-delay: 0.5s; }
+        .s6 { transition-delay: 0.6s; }
+
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+        @keyframes count-up { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes slide-in { from{opacity:0;transform:translateX(-20px)} to{opacity:1;transform:translateX(0)} }
+        @keyframes shine { 0%{left:-100%} 100%{left:200%} }
+        @keyframes draw-line { from{width:0} to{width:100%} }
+        @keyframes rotate-badge { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+        /* Hero text animations */
+        @keyframes hero-word-reveal {
+            0% { opacity: 0; transform: translateY(100%); filter: blur(4px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        @keyframes hero-line-grow {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        @keyframes hero-subtitle-slide {
+            from { opacity: 0; transform: translateX(-30px); letter-spacing: 8px; }
+            to { opacity: 1; transform: translateX(0); letter-spacing: 0.5px; }
+        }
+        @keyframes hero-glow {
+            0%, 100% { text-shadow: 0 0 0 transparent; }
+            50% { text-shadow: 0 0 20px rgba(26, 122, 76, 0.15); }
+        }
+        .hero h1 .word {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+        }
+        .hero h1 .word-inner {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+            filter: blur(4px);
+            animation: hero-word-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .hero h1 .word-inner.w1 { animation-delay: 0.3s; }
+        .hero h1 .word-inner.w2 { animation-delay: 0.45s; }
+        .hero h1 .word-inner.w3 { animation-delay: 0.6s; }
+        .hero h1 .accent-line {
+            position: relative;
+            display: inline-block;
+        }
+        .hero h1 .accent-line::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--blue);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: hero-line-grow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+        }
+        .hero-subtitle {
+            animation: hero-subtitle-slide 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both !important;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal-left, .reveal-right { opacity:1; transform:none; transition:none; }
+        }
+
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 18px 0;
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(248, 246, 241, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 10px 0;
+            box-shadow: var(--shadow-sm);
+        }
+        .navbar .container { display:flex; align-items:center; justify-content:space-between; }
+        .nav-brand {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+        .nav-brand span { color: var(--blue); }
+        .nav-links { display:flex; gap:32px; align-items:center; }
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.3s;
+            letter-spacing: 0.5px;
+        }
+        .nav-links a:hover { color: var(--blue); }
+        .nav-cta-btn {
+            padding: 10px 24px;
+            background: var(--navy);
+            color: var(--white) !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            letter-spacing: 1px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .nav-cta-btn:hover {
+            background: var(--blue);
+            box-shadow: var(--shadow-blue);
+            transform: translateY(-1px);
+        }
+        .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; }
+        .nav-toggle span { width:22px; height:2px; background:var(--navy); transition:all 0.3s; border-radius:2px; }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(160deg, var(--cream) 0%, var(--cream-dark) 50%, #D4E8D4 100%);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(217,119,6,0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            padding: 140px 0 100px;
+        }
+        .hero-text { position: relative; z-index: 2; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--blue-glow);
+            border: 1px solid rgba(37,99,235,0.2);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--blue);
+            margin-bottom: 24px;
+            animation: slide-in 0.8s ease 0.2s both;
+        }
+        .hero-badge-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--blue);
+            animation: pulse 2s ease infinite;
+        }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(42px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--navy);
+            margin-bottom: 12px;
+            animation: count-up 0.8s ease 0.3s both;
+        }
+        .hero h1 .accent { color: var(--blue); }
+        .hero-subtitle {
+            font-family: var(--font-heading);
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            animation: count-up 0.8s ease 0.5s both;
+        }
+        .hero-desc {
+            font-size: 16px;
+            color: var(--text-body);
+            line-height: 1.9;
+            max-width: 480px;
+            margin-bottom: 36px;
+            animation: count-up 0.8s ease 0.6s both;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            animation: count-up 0.8s ease 0.7s both;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: var(--blue);
+            color: var(--white);
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: none;
+        }
+        .btn-primary:hover::after { animation: shine 0.6s ease forwards; }
+        .btn-primary:hover { box-shadow: var(--shadow-blue); transform: translateY(-2px); }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border: 1.5px solid var(--border);
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        .btn-secondary:hover { border-color: var(--navy); background: var(--white); }
+        .btn-secondary svg { width:18px; height:18px; }
+
+        /* Hero image */
+        .hero-visual {
+            position: relative;
+            animation: count-up 1s ease 0.5s both;
+        }
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            object-position: top;
+        }
+        .hero-image-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(12,27,51,0.15) 0%, transparent 40%);
+        }
+        /* Floating stat cards */
+        .float-card {
+            position: absolute;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: float 4s ease-in-out infinite;
+            z-index: 3;
+        }
+        .float-card-1 { top: 60px; left: -40px; animation-delay: 0s; }
+        .float-card-2 { bottom: 80px; right: -30px; animation-delay: 1s; }
+        .float-card-3 { bottom: -10px; left: 20px; animation-delay: 2s; }
+        .float-icon {
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .float-icon svg { width:20px; height:20px; stroke-width:1.5; fill:none; }
+        .float-icon-blue { background: var(--blue-glow); }
+        .float-icon-blue svg { stroke: var(--blue); }
+        .float-icon-amber { background: rgba(217,119,6,0.1); }
+        .float-icon-amber svg { stroke: var(--amber); }
+        .float-icon-green { background: rgba(5,150,105,0.1); }
+        .float-icon-green svg { stroke: var(--green); }
+        .float-card .num {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1;
+        }
+        .float-card .txt {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Hero trust bar */
+        .hero-trust {
+            display: flex;
+            gap: 40px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            animation: count-up 0.8s ease 0.9s both;
+        }
+        .trust-item { display:flex; align-items:center; gap:10px; }
+        .trust-item svg { width:18px; height:18px; stroke:var(--green); fill:none; stroke-width:2; flex-shrink:0; }
+        .trust-item span { font-size:13px; color:var(--text-muted); font-weight:500; }
+
+        /* ============================================
+           STATS BANNER
+           ============================================ */
+        .stats-banner {
+            background: var(--navy);
+            padding: 48px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .stats-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(37,99,235,0.05) 50%, transparent 100%);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+            position: relative;
+        }
+        .stat-item { position: relative; }
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 10%;
+            height: 80%;
+            width: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+        .stat-item:last-child::after { display:none; }
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 44px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+        }
+        .stat-number .highlight { color: var(--blue-light); }
+        .stat-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        /* ============================================
+           ABOUT
+           ============================================ */
+        .about {
+            padding: 120px 0;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-image-wrap {
+            position: relative;
+        }
+        .about-image-wrap img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+        .about-experience {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--blue);
+            color: var(--white);
+            padding: 24px 28px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow-blue);
+        }
+        .about-experience .exp-num {
+            font-family: var(--font-heading);
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .about-experience .exp-text {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            opacity: 0.8;
+        }
+        .about-content .section-desc { margin-bottom: 32px; }
+        .about-highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: var(--white);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .highlight-item:hover {
+            border-color: var(--blue);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-2px);
+        }
+        .highlight-item svg {
+            width: 20px; height: 20px;
+            stroke: var(--blue);
+            fill: none;
+            stroke-width: 2;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .highlight-item strong {
+            display: block;
+            font-size: 14px;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+        .highlight-item span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           COURSES / SERVICES
+           ============================================ */
+        .courses {
+            padding: 100px 0;
+            background: var(--white);
+        }
+        .courses-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        .courses-header .section-desc { margin: 0 auto; }
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .course-card {
+            background: var(--cream);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+            cursor: pointer;
+        }
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+        .course-card-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .course-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .course-card:hover .course-card-img img { transform: scale(1.08); }
+        .course-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--white);
+            z-index: 2;
+        }
+        .badge-popular { background: var(--blue); }
+        .badge-new { background: var(--green); }
+        .badge-intensive { background: var(--amber); }
+        .course-card-body {
+            padding: 28px 24px;
+        }
+        .course-card-body h3 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        .course-card-body p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+        .course-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .course-meta-item svg { width:14px; height:14px; stroke:var(--text-light); fill:none; stroke-width:2; }
+        .course-price {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        /* ============================================
+           RESULTS / ACHIEVEMENTS
+           ============================================ */
+        .results {
+            padding: 120px 0;
+            position: relative;
+        }
+        .results-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .results-header .section-desc { margin: 0 auto; }
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .result-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--blue);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .result-card:hover::before { transform: scaleX(1); }
+        .result-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+        }
+        .result-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .result-icon svg { width:24px; height:24px; fill:none; stroke-width:1.5; }
+        .ri-blue { background: var(--blue-glow); }
+        .ri-blue svg { stroke: var(--blue); }
+        .ri-amber { background: rgba(217,119,6,0.1); }
+        .ri-amber svg { stroke: var(--amber); }
+        .ri-green { background: rgba(5,150,105,0.1); }
+        .ri-green svg { stroke: var(--green); }
+        .ri-navy { background: rgba(12,27,51,0.06); }
+        .ri-navy svg { stroke: var(--navy); }
+        .result-card h3 {
+            font-family: var(--font-heading);
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+        .result-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           TESTIMONIALS
+           ============================================ */
+        .testimonials {
+            padding: 100px 0;
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+        }
+        .testimonials .section-label { color: var(--blue-light); }
+        .testimonials .section-label::before { background: var(--blue-light); }
+        .testimonials .section-title { color: var(--white); }
+        .testimonials-header { text-align:center; margin-bottom:60px; position:relative; z-index:2; }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            position: relative;
+            z-index: 2;
+        }
+        .test-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 36px 28px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        .test-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-4px);
+        }
+        .test-stars { display:flex; gap:3px; margin-bottom:18px; }
+        .test-stars svg { width:14px; height:14px; fill:var(--amber-light); }
+        .test-text {
+            font-size: 15px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+        .test-author { display:flex; align-items:center; gap:12px; }
+        .test-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.15);
+        }
+        .test-name { font-size:14px; font-weight:600; color:var(--white); }
+        .test-role { font-size:12px; color:rgba(255,255,255,0.4); margin-top:2px; }
+        .test-result {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            padding: 3px 10px;
+            background: rgba(5,150,105,0.15);
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #34D399;
+        }
+
+        /* ============================================
+           METHOD / PROCESS
+           ============================================ */
+        .method {
+            padding: 120px 0;
+        }
+        .method-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .method-steps { display:flex; flex-direction:column; gap:24px; }
+        .method-step {
+            display: flex;
+            gap: 20px;
+            padding: 24px;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .method-step:hover {
+            border-color: var(--blue);
+            box-shadow: var(--shadow-sm);
+        }
+        .step-num {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--blue);
+            line-height: 1;
+            flex-shrink: 0;
+            width: 40px;
+        }
+        .step-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+        .step-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           CTA SECTION
+           ============================================ */
+        .cta-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        .cta-box {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+            border-radius: 20px;
+            padding: 64px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+        }
+        .cta-box .section-label { color: var(--blue-light); }
+        .cta-box .section-label::before { background: var(--blue-light); }
+        .cta-box .section-title { color: var(--white); margin-bottom: 12px; }
+        .cta-box .section-desc { color: rgba(255,255,255,0.6); }
+        .cta-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+        }
+        .btn-white {
+            padding: 16px 36px;
+            background: var(--white);
+            color: var(--navy);
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .btn-white:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+        .btn-ghost {
+            padding: 16px 36px;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            text-align: center;
+        }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            padding: 48px 0 32px;
+            background: var(--cream);
+            border-top: 1px solid var(--border);
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer-brand {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+        .footer-links { display:flex; gap:24px; }
+        .footer-links a { font-size:13px; color:var(--text-muted); transition:color 0.3s; }
+        .footer-links a:hover { color: var(--blue); }
+        .footer-copy {
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns:1fr; gap:48px; text-align:center; }
+            .hero-desc { margin: 0 auto 36px; }
+            .hero-actions { justify-content:center; }
+            .hero-trust { justify-content:center; }
+            .hero-visual { max-width:500px; margin:0 auto; }
+            .float-card-1 { left:0; }
+            .float-card-2 { right:0; }
+            .about-grid { grid-template-columns:1fr; gap:48px; }
+            .method-grid { grid-template-columns:1fr; gap:48px; }
+            .courses-grid { grid-template-columns:repeat(2,1fr); }
+            .results-grid { grid-template-columns:repeat(2,1fr); }
+            .cta-box { grid-template-columns:1fr; text-align:center; padding:48px 32px; }
+            .cta-actions { flex-direction:row; justify-content:center; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display:none; }
+            .nav-toggle { display:flex; }
+            .nav-links.active {
+                display:flex; flex-direction:column;
+                position:fixed; top:0; right:0;
+                width:260px; height:100vh;
+                background:var(--white);
+                padding:80px 32px;
+                gap:20px; z-index:1001;
+                box-shadow: var(--shadow-lg);
+                border-left: 1px solid var(--border);
+            }
+            .hero h1 { font-size: clamp(36px,8vw,52px); }
+            .stats-grid { grid-template-columns:repeat(2,1fr); gap:24px; }
+            .stat-item::after { display:none; }
+            .courses-grid { grid-template-columns:1fr; }
+            .testimonials-grid { grid-template-columns:1fr; }
+            .results-grid { grid-template-columns:repeat(2,1fr); }
+            .about-highlights { grid-template-columns:1fr; }
+            .hero-trust { flex-wrap:wrap; gap:16px; justify-content:center; }
+            .float-card { display:none; }
+            .cta-actions { flex-direction:column; }
+        }
+        @media (max-width: 480px) {
+            .container { padding:0 16px; }
+            .hero-grid { padding:120px 0 60px; }
+            .stats-grid { grid-template-columns:1fr 1fr; }
+            .results-grid { grid-template-columns:1fr; }
+            .cta-box { padding:36px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="nav-brand">Thầy Minh<span>.</span></a>
+            <div class="nav-links" id="navLinks">
+                <a href="#about">Giới thiệu</a>
+                <a href="#courses">Khoá học</a>
+                <a href="#results">Thành tích</a>
+                <a href="#method">Phương pháp</a>
+                <a href="#contact" class="nav-cta-btn">Đăng ký tư vấn</a>
+            </div>
+            <div class="nav-toggle" id="navToggle" role="button" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <span class="hero-badge-dot"></span>
+                        Tuyển sinh Khoá Hè 2026
+                    </div>
+                    <h1><span class="word"><span class="word-inner w1">Thầy</span></span> <span class="word"><span class="word-inner w2">Minh</span></span> <span class="word"><span class="word-inner w3 accent-line"><span class="accent">Đức</span></span></span></h1>
+                    <p class="hero-subtitle">Chuyên gia Ôn thi Toán — THPT & Đại học</p>
+                    <p class="hero-desc">15 năm đồng hành cùng hơn 3.000 học sinh chinh phục kỳ thi THPT Quốc gia và thi vào các trường Đại học hàng đầu. Phương pháp giảng dạy cá nhân hóa, tập trung vào tư duy giải bài thay vì học thuộc công thức.</p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn-primary">
+                            Đăng Ký Tư Vấn Miễn Phí
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <a href="#courses" class="btn-secondary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            Xem khoá học
+                        </a>
+                    </div>
+                    <div class="hero-trust">
+                        <div class="trust-item">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>Cam kết đầu ra</span>
+                        </div>
+                        <div class="trust-item">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>Hoàn tiền 100% nếu không đỗ</span>
+                        </div>
+                        <div class="trust-item">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>Lớp nhỏ ≤15 HS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80" alt="Thầy Minh Đức giảng bài" loading="eager">
+                    </div>
+                    <div class="float-card float-card-1">
+                        <div class="float-icon float-icon-blue">
+                            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                        </div>
+                        <div>
+                            <div class="num">3.000+</div>
+                            <div class="txt">Học sinh đỗ ĐH</div>
+                        </div>
+                    </div>
+                    <div class="float-card float-card-2">
+                        <div class="float-icon float-icon-amber">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <div>
+                            <div class="num">9.8/10</div>
+                            <div class="txt">Đánh giá chất lượng</div>
+                        </div>
+                    </div>
+                    <div class="float-card float-card-3">
+                        <div class="float-icon float-icon-green">
+                            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                        <div>
+                            <div class="num">96%</div>
+                            <div class="txt">Tỉ lệ đỗ ĐH</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS BANNER -->
+    <section class="stats-banner">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item reveal s1">
+                    <div class="stat-number">15<span class="highlight">+</span></div>
+                    <div class="stat-label">Năm kinh nghiệm</div>
+                </div>
+                <div class="stat-item reveal s2">
+                    <div class="stat-number">3.200<span class="highlight">+</span></div>
+                    <div class="stat-label">Học sinh đã dạy</div>
+                </div>
+                <div class="stat-item reveal s3">
+                    <div class="stat-number">96<span class="highlight">%</span></div>
+                    <div class="stat-label">Tỉ lệ đỗ Đại học</div>
+                </div>
+                <div class="stat-item reveal s4">
+                    <div class="stat-number">28<span class="highlight">+</span></div>
+                    <div class="stat-label">Thủ khoa các trường</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image-wrap reveal-left">
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&q=80" alt="Thầy Minh Đức dạy học" loading="lazy">
+                    <div class="about-experience">
+                        <span class="exp-num">15</span>
+                        <span class="exp-text">Năm Kinh Nghiệm</span>
+                    </div>
+                </div>
+                <div class="about-content reveal-right">
+                    <span class="section-label">Về thầy Minh Đức</span>
+                    <h2 class="section-title">Dạy Toán Không Chỉ Là<br>Giải Bài Tập</h2>
+                    <p class="section-desc">Tốt nghiệp Thạc sĩ Toán học — Đại học Sư phạm Hà Nội. Từng là giáo viên trường chuyên và hiện tập trung vào luyện thi chuyên sâu. Phương pháp của thầy tập trung vào xây dựng tư duy logic và kỹ năng phân tích đề, giúp học sinh tự tin trong mọi dạng bài.</p>
+                    <div class="about-highlights">
+                        <div class="highlight-item reveal s1">
+                            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                            <div>
+                                <strong>ThS. Toán học</strong>
+                                <span>ĐH Sư phạm Hà Nội</span>
+                            </div>
+                        </div>
+                        <div class="highlight-item reveal s2">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <div>
+                                <strong>GV xuất sắc 5 năm</strong>
+                                <span>Sở GD&ĐT Hà Nội</span>
+                            </div>
+                        </div>
+                        <div class="highlight-item reveal s3">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            <div>
+                                <strong>Tác giả sách</strong>
+                                <span>"Toán Tư Duy" — 5 tập</span>
+                            </div>
+                        </div>
+                        <div class="highlight-item reveal s4">
+                            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <div>
+                                <strong>Mentor toàn quốc</strong>
+                                <span>Dạy online & offline</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COURSES -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <div class="courses-header reveal">
+                <span class="section-label">Các khoá học</span>
+                <h2 class="section-title">Chương Trình Ôn Thi<br>Chuyên Biệt</h2>
+                <p class="section-desc">Mỗi khoá được thiết kế riêng cho từng mục tiêu, từ ôn thi lớp 10, THPT Quốc gia đến luyện thi Đại học top đầu.</p>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card reveal s1">
+                    <div class="course-card-img">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80" alt="Ôn thi lớp 10" loading="lazy">
+                        <span class="course-badge badge-new">Mới 2026</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>Ôn Thi Vào Lớp 10</h3>
+                        <p>Chương trình toàn diện cho học sinh lớp 9, tập trung vào các dạng bài thường gặp trong đề thi tuyển sinh lớp 10 các tỉnh.</p>
+                        <div class="course-meta">
+                            <div class="course-meta-item">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                4 tháng
+                            </div>
+                            <div class="course-meta-item">
+                                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                ≤15 HS/lớp
+                            </div>
+                            <div class="course-price">2.5tr/th</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card reveal s2">
+                    <div class="course-card-img">
+                        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&q=80" alt="Ôn thi THPT Quốc gia" loading="lazy">
+                        <span class="course-badge badge-popular">Phổ biến</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>THPT Quốc Gia — Toán</h3>
+                        <p>Khoá ôn thi chuyên sâu cho học sinh lớp 12. Bám sát cấu trúc đề thi mới nhất, luyện đề hàng tuần, phân tích lỗi sai cá nhân.</p>
+                        <div class="course-meta">
+                            <div class="course-meta-item">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                6 tháng
+                            </div>
+                            <div class="course-meta-item">
+                                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                ≤12 HS/lớp
+                            </div>
+                            <div class="course-price">3.5tr/th</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card reveal s3">
+                    <div class="course-card-img">
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80" alt="Luyện thi Đại học" loading="lazy">
+                        <span class="course-badge badge-intensive">Chuyên sâu</span>
+                    </div>
+                    <div class="course-card-body">
+                        <h3>Luyện Thi ĐH Top Đầu</h3>
+                        <p>Dành cho học sinh mục tiêu Y Dược, Bách Khoa, Ngoại Thương, Kinh tế. Giải đề nâng cao, tư duy phản biện, kỹ năng thi.</p>
+                        <div class="course-meta">
+                            <div class="course-meta-item">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                8 tháng
+                            </div>
+                            <div class="course-meta-item">
+                                <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                ≤10 HS/lớp
+                            </div>
+                            <div class="course-price">4.5tr/th</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="results" id="results">
+        <div class="container">
+            <div class="results-header reveal">
+                <span class="section-label">Thành tích nổi bật</span>
+                <h2 class="section-title">Con Số Nói Lên Tất Cả</h2>
+                <p class="section-desc">Kết quả thực tế của học viên qua các năm — không quảng cáo, chỉ có sự thật.</p>
+            </div>
+            <div class="results-grid">
+                <div class="result-card reveal s1">
+                    <div class="result-icon ri-blue">
+                        <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    </div>
+                    <h3>96%</h3>
+                    <p>Học sinh đỗ Đại học nguyện vọng 1</p>
+                </div>
+                <div class="result-card reveal s2">
+                    <div class="result-icon ri-amber">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <h3>28</h3>
+                    <p>Thủ khoa đầu vào các trường ĐH</p>
+                </div>
+                <div class="result-card reveal s3">
+                    <div class="result-icon ri-green">
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <h3>8.5+</h3>
+                    <p>Điểm trung bình Toán THPT QG</p>
+                </div>
+                <div class="result-card reveal s4">
+                    <div class="result-icon ri-navy">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>200+</h3>
+                    <p>Học viên đỗ Y Dược, Bách Khoa mỗi năm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="testimonials-header reveal">
+                <span class="section-label">Phụ huynh & học sinh</span>
+                <h2 class="section-title">Lời Nhận Xét Thực Tế</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="test-card reveal s1">
+                    <div class="test-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="test-text">"Con tôi từ 5 điểm Toán lên 8.7 trong kỳ thi THPT Quốc gia. Thầy Minh Đức rất tận tâm, biết cách động viên và tìm ra đúng lỗ hổng kiến thức của từng em."</p>
+                    <div class="test-author">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=96&q=80" alt="Chị Hương" class="test-avatar" loading="lazy">
+                        <div>
+                            <div class="test-name">Chị Nguyễn Thu Hương</div>
+                            <div class="test-role">Phụ huynh — Cầu Giấy, Hà Nội</div>
+                            <div class="test-result">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Con đỗ Y Hà Nội
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-card reveal s2">
+                    <div class="test-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="test-text">"Em học thầy từ lớp 11 đến 12. Thầy không chỉ dạy Toán mà còn dạy cách tư duy. Bây giờ em đang năm 2 Bách Khoa và kiến thức từ thầy vẫn rất hữu ích."</p>
+                    <div class="test-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&q=80" alt="Đức Anh" class="test-avatar" loading="lazy">
+                        <div>
+                            <div class="test-name">Trần Đức Anh</div>
+                            <div class="test-role">Cựu học sinh — Khoá 2024</div>
+                            <div class="test-result">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Đỗ Bách Khoa HN — 9.2 điểm Toán
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="test-card reveal s3">
+                    <div class="test-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="test-text">"Lớp nhỏ nên thầy chú ý từng em. Con gái tôi nhút nhát nhưng ở lớp thầy Đức lại rất chủ động hỏi bài. Thầy có phương pháp riêng để các em tự tin hơn."</p>
+                    <div class="test-author">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=96&q=80" alt="Chị Lan" class="test-avatar" loading="lazy">
+                        <div>
+                            <div class="test-name">Chị Phạm Thuỳ Lan</div>
+                            <div class="test-role">Phụ huynh — Hoàn Kiếm, Hà Nội</div>
+                            <div class="test-result">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Con đỗ Ngoại Thương
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- METHOD -->
+    <section class="method" id="method">
+        <div class="container">
+            <div class="method-grid">
+                <div class="reveal-left">
+                    <span class="section-label">Phương pháp giảng dạy</span>
+                    <h2 class="section-title">Quy Trình 4 Bước<br>"Hiểu — Nhớ — Vận Dụng"</h2>
+                    <p class="section-desc" style="margin-bottom:40px;">Không phải học thêm nhiều là giỏi. Quan trọng là học đúng phương pháp, đúng trọng tâm.</p>
+                    <div class="method-steps">
+                        <div class="method-step reveal s1">
+                            <div class="step-num">01</div>
+                            <div class="step-content">
+                                <h4>Chẩn Đoán Năng Lực</h4>
+                                <p>Bài test đầu vào xác định chính xác lỗ hổng kiến thức, từ đó lên lộ trình riêng cho từng em.</p>
+                            </div>
+                        </div>
+                        <div class="method-step reveal s2">
+                            <div class="step-num">02</div>
+                            <div class="step-content">
+                                <h4>Xây Nền Tảng Tư Duy</h4>
+                                <p>Dạy hiểu bản chất thay vì học thuộc. Mỗi công thức đều được giải thích "tại sao" trước khi áp dụng.</p>
+                            </div>
+                        </div>
+                        <div class="method-step reveal s3">
+                            <div class="step-num">03</div>
+                            <div class="step-content">
+                                <h4>Luyện Đề Chuyên Sâu</h4>
+                                <p>Hệ thống 2000+ bài tập phân theo mức độ. Luyện đề hàng tuần, chấm chi tiết, phân tích lỗi sai.</p>
+                            </div>
+                        </div>
+                        <div class="method-step reveal s4">
+                            <div class="step-num">04</div>
+                            <div class="step-content">
+                                <h4>Thi Thử & Đánh Giá</h4>
+                                <p>Thi thử mô phỏng thật mỗi tháng. Bảng xếp hạng, so sánh tiến bộ, điều chỉnh chiến lược kịp thời.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal-right">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80" alt="Học sinh thảo luận" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:16px;box-shadow:var(--shadow-lg);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-box reveal">
+                <div>
+                    <span class="section-label">Đăng ký ngay</span>
+                    <h2 class="section-title">Sẵn Sàng Chinh Phục<br>Kỳ Thi 2026?</h2>
+                    <p class="section-desc">Đăng ký tư vấn miễn phí để nhận lộ trình ôn thi cá nhân hóa. Số lượng mỗi lớp chỉ 10-15 học sinh — đăng ký sớm để giữ chỗ.</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="tel:0912345678" class="btn-white">Gọi ngay: 0912 345 678</a>
+                    <a href="https://zalo.me/0912345678" class="btn-ghost">Nhắn Zalo tư vấn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">Thầy Minh Đức</div>
+                <div class="footer-links">
+                    <a href="#about">Giới thiệu</a>
+                    <a href="#courses">Khoá học</a>
+                    <a href="#results">Thành tích</a>
+                    <a href="#contact">Liên hệ</a>
+                </div>
+                <div class="footer-copy">&copy; 2026 Thầy Minh Đức — Chuyên gia ôn thi Toán THPT & Đại học</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        /* Navbar scroll */
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        }, { passive: true });
+
+        /* Mobile menu */
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+        navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('active')));
+
+        /* Scroll reveal */
+        const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        /* Smooth scroll */
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                const t = document.querySelector(this.getAttribute('href'));
+                if (t) {
+                    window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+                }
+            });
+        });
+
+        /* Counter animation */
+        function animateCounter(el, target, suffix) {
+            const dur = 2000, start = performance.now();
+            function tick(now) {
+                const p = Math.min((now - start) / dur, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.floor(target * eased) + suffix;
+                if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+        const statNums = document.querySelectorAll('.stat-number');
+        const cObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const el = e.target;
+                    const text = el.textContent;
+                    const match = text.match(/([\d.]+)/);
+                    if (match) {
+                        const num = parseFloat(match[1].replace('.', ''));
+                        const suffix = text.replace(match[1], '').replace(/\s/g, '');
+                        const hasComma = match[1].includes('.');
+                        if (hasComma) {
+                            const parts = match[1].split('.');
+                            const full = parseInt(parts.join(''));
+                            const dur = 2000, start = performance.now();
+                            function tick(now) {
+                                const p = Math.min((now - start) / dur, 1);
+                                const eased = 1 - Math.pow(1 - p, 3);
+                                const cur = Math.floor(full * eased);
+                                const formatted = cur.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                                el.innerHTML = formatted + '<span class="highlight">' + suffix + '</span>';
+                                if (p < 1) requestAnimationFrame(tick);
+                            }
+                            requestAnimationFrame(tick);
+                        } else {
+                            const dur = 2000, start = performance.now();
+                            function tick2(now) {
+                                const p = Math.min((now - start) / dur, 1);
+                                const eased = 1 - Math.pow(1 - p, 3);
+                                el.innerHTML = Math.floor(num * eased) + '<span class="highlight">' + suffix + '</span>';
+                                if (p < 1) requestAnimationFrame(tick2);
+                            }
+                            requestAnimationFrame(tick2);
+                        }
+                    }
+                    cObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        statNums.forEach(el => cObserver.observe(el));
+    </script>
+</body>
+</html>

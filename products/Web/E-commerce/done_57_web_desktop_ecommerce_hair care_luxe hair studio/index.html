@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Hair Studio — Sản Phẩm Chăm Sóc Tóc Chuyên Nghiệp</title>
+    <meta name="description" content="Luxe Hair Studio — Tiệm tóc chuyên nghiệp cung cấp sản phẩm chăm sóc tóc cao cấp. Dầu gội, dầu xả, serum, tinh dầu dưỡng tóc chính hãng.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════
+           CSS VARIABLES & RESET
+           ═══════════════════════════════════════════ */
+        :root {
+            --primary: #1a1a2e;
+            --accent: #c9a96e;
+            --accent-light: #e8d5a8;
+            --accent-dark: #a8843c;
+            --rose: #d4878f;
+            --rose-light: #f0c4c8;
+            --bg: #faf8f5;
+            --bg-card: #ffffff;
+            --text: #2c2c2c;
+            --text-light: #6b6b6b;
+            --text-muted: #999;
+            --border: #e8e4de;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; transition: color var(--transition); }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ═══════════════════════════════════════════
+           TOPBAR
+           ═══════════════════════════════════════════ */
+        .topbar {
+            background: var(--primary);
+            color: #fff;
+            padding: 10px 0;
+            font-size: 13px;
+        }
+        .topbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .topbar-left { display: flex; gap: 20px; align-items: center; }
+        .topbar-left span { opacity: 0.8; }
+        .topbar-left svg { width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px; fill: var(--accent); }
+        .topbar-right { display: flex; gap: 16px; align-items: center; }
+        .topbar-right a {
+            color: #fff;
+            opacity: 0.8;
+            transition: opacity var(--transition);
+        }
+        .topbar-right a:hover { opacity: 1; }
+        .topbar-social { display: flex; gap: 10px; }
+        .topbar-social a {
+            width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transition: background var(--transition);
+        }
+        .topbar-social a:hover { background: var(--accent); }
+        .topbar-social svg { width: 14px; height: 14px; fill: #fff; }
+
+        /* ═══════════════════════════════════════════
+           HEADER / NAV
+           ═══════════════════════════════════════════ */
+        .header {
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow var(--transition);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--accent); }
+
+        .nav { display: flex; gap: 32px; align-items: center; }
+        .nav a {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text);
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width var(--transition);
+        }
+        .nav a:hover { color: var(--accent-dark); }
+        .nav a:hover::after { width: 100%; }
+        .nav a.active { color: var(--accent-dark); }
+        .nav a.active::after { width: 100%; }
+
+        .nav-icons { display: flex; gap: 16px; align-items: center; }
+        .nav-icons a {
+            width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            background: var(--bg);
+            transition: all var(--transition);
+        }
+        .nav-icons a:hover { background: var(--accent); }
+        .nav-icons a:hover svg { fill: #fff; }
+        .nav-icons svg { width: 18px; height: 18px; fill: var(--text); transition: fill var(--transition); }
+        .nav-icons .cart-badge {
+            position: relative;
+        }
+        .nav-icons .cart-badge::after {
+            content: '3';
+            position: absolute;
+            top: 2px; right: 2px;
+            width: 16px; height: 16px;
+            background: var(--rose);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--primary);
+            margin: 6px 0;
+            transition: var(--transition);
+        }
+
+        /* ═══════════════════════════════════════════
+           HERO SECTION
+           ═══════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            min-height: 620px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5ebe0 0%, #faf8f5 40%, #f0e6d6 100%);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201,169,110,0.15) 0%, transparent 70%);
+        }
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-content { max-width: 520px; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(201,169,110,0.15);
+            color: var(--accent-dark);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 30px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .hero-badge svg { width: 16px; height: 16px; fill: var(--accent); }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent-dark);
+        }
+        .hero p {
+            font-size: 17px;
+            color: var(--text-light);
+            margin-bottom: 36px;
+            max-width: 440px;
+        }
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(201,169,110,0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(201,169,110,0.45);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent-dark);
+        }
+        .btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        .hero-image img {
+            width: 100%;
+            max-width: 480px;
+            border-radius: 24px;
+            object-fit: cover;
+            box-shadow: var(--shadow-lg);
+        }
+        .hero-float {
+            position: absolute;
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 14px 20px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            animation: float 3s ease-in-out infinite;
+        }
+        .hero-float.top-left {
+            top: 20px;
+            left: -20px;
+        }
+        .hero-float.bottom-right {
+            bottom: 40px;
+            right: -20px;
+            animation-delay: 1.5s;
+        }
+        .hero-float svg { width: 32px; height: 32px; }
+        .hero-float .num { font-size: 22px; font-weight: 700; color: var(--accent-dark); }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ═══════════════════════════════════════════
+           MARQUEE BRANDS
+           ═══════════════════════════════════════════ */
+        .brands {
+            padding: 40px 0;
+            background: #fff;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .brands-track {
+            display: flex;
+            gap: 60px;
+            animation: marquee 30s linear infinite;
+        }
+        .brands-track span {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+            opacity: 0.25;
+            white-space: nowrap;
+            transition: all var(--transition);
+            letter-spacing: 1px;
+        }
+        .brands-track span:hover {
+            opacity: 0.7;
+            color: var(--accent-dark);
+        }
+        .brands-sep {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.3;
+            flex-shrink: 0;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ═══════════════════════════════════════════
+           SECTION COMMON
+           ═══════════════════════════════════════════ */
+        .section { padding: 80px 0; }
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+        .section-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-light);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* ═══════════════════════════════════════════
+           CATEGORIES
+           ═══════════════════════════════════════════ */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .cat-card {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 3/4;
+        }
+        .cat-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .cat-card:hover img { transform: scale(1.08); }
+        .cat-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+        }
+        .cat-card-overlay h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .cat-card-overlay span {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+        }
+        .cat-card-overlay .cat-arrow {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all var(--transition);
+        }
+        .cat-card:hover .cat-arrow {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .cat-arrow svg { width: 16px; height: 16px; fill: #fff; }
+
+        /* ═══════════════════════════════════════════
+           PRODUCTS GRID
+           ═══════════════════════════════════════════ */
+        .products-section { background: #fff; }
+        .products-filter {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .product-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+        .product-img {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            background: #f5f0ea;
+        }
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .product-img img { transform: scale(1.06); }
+        .product-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .product-tag.new { background: var(--accent); color: #fff; }
+        .product-tag.hot { background: var(--rose); color: #fff; }
+        .product-tag.sale { background: #e74c3c; color: #fff; }
+        .product-wishlist {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all var(--transition);
+        }
+        .product-card:hover .product-wishlist {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .product-wishlist svg { width: 16px; height: 16px; fill: var(--rose); }
+
+        .product-info { padding: 20px; }
+        .product-brand {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+        .product-name:hover { color: var(--accent-dark); }
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+        .product-rating .stars { color: #f4b740; font-size: 13px; }
+        .product-rating span { font-size: 12px; color: var(--text-muted); }
+        .product-price-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .product-price-old {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        /* ═══════════════════════════════════════════
+           FEATURED / BANNER
+           ═══════════════════════════════════════════ */
+        .featured-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 60px;
+        }
+        .banner-card {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .banner-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .banner-card:hover img { transform: scale(1.05); }
+        .banner-card-content {
+            position: relative;
+            z-index: 1;
+            padding: 40px;
+            max-width: 320px;
+        }
+        .banner-card-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .banner-card-content p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 20px;
+        }
+        .banner-card .btn { padding: 12px 24px; font-size: 13px; }
+
+        /* ═══════════════════════════════════════════
+           BENEFITS
+           ═══════════════════════════════════════════ */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .benefit-card {
+            text-align: center;
+            padding: 40px 24px;
+            border-radius: var(--radius);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+        }
+        .benefit-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        .benefit-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+            background: rgba(201,169,110,0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .benefit-icon svg { width: 28px; height: 28px; fill: var(--accent-dark); }
+        .benefit-card h4 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        .benefit-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ═══════════════════════════════════════════
+           TESTIMONIALS
+           ═══════════════════════════════════════════ */
+        .testimonials { background: var(--primary); color: #fff; }
+        .testimonials .section-label { color: var(--accent-light); }
+        .testimonials .section-title { color: #fff; }
+        .testimonials .section-desc { color: rgba(255,255,255,0.6); }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .testi-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: all var(--transition);
+        }
+        .testi-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-4px);
+        }
+        .testi-stars { color: #f4b740; font-size: 14px; margin-bottom: 16px; }
+        .testi-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+        .testi-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .testi-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        .testi-name { font-weight: 600; font-size: 15px; }
+        .testi-role { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+        /* ═══════════════════════════════════════════
+           BLOG / TIPS
+           ═══════════════════════════════════════════ */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .blog-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+        }
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        .blog-img {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+        }
+        .blog-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .blog-card:hover .blog-img img { transform: scale(1.06); }
+        .blog-body { padding: 24px; }
+        .blog-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: flex;
+            gap: 16px;
+        }
+        .blog-body h3 {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .blog-body h3:hover { color: var(--accent-dark); }
+        .blog-body p {
+            font-size: 14px;
+            color: var(--text-light);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ═══════════════════════════════════════════
+           NEWSLETTER
+           ═══════════════════════════════════════════ */
+        .newsletter {
+            background: linear-gradient(135deg, #f5ebe0 0%, #faf8f5 50%, #f0e6d6 100%);
+        }
+        .newsletter .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .newsletter-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .newsletter-text p {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+        }
+        .newsletter-form input {
+            padding: 14px 24px;
+            border-radius: 50px;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            font-size: 15px;
+            width: 300px;
+            outline: none;
+            transition: border-color var(--transition);
+            font-family: inherit;
+        }
+        .newsletter-form input:focus { border-color: var(--accent); }
+        .newsletter-form button { white-space: nowrap; }
+
+        /* ═══════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════ */
+        .footer {
+            background: var(--primary);
+            color: #fff;
+            padding: 60px 0 0;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-brand .logo { color: #fff; margin-bottom: 16px; }
+        .footer-brand p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition);
+        }
+        .footer-social a:hover { background: var(--accent); }
+        .footer-social svg { width: 16px; height: 16px; fill: #fff; }
+
+        .footer-col h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col a {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            transition: color var(--transition);
+        }
+        .footer-col a:hover { color: var(--accent-light); }
+        .footer-contact li {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .footer-contact svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--accent);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            padding: 20px 0;
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ═══════════════════════════════════════════
+           BACK TO TOP
+           ═══════════════════════════════════════════ */
+        .back-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all var(--transition);
+            z-index: 99;
+            border: none;
+        }
+        .back-top.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .back-top:hover { background: var(--accent-dark); }
+        .back-top svg { width: 18px; height: 18px; fill: #fff; }
+
+        /* ═══════════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .hero .container { grid-template-columns: 1fr; gap: 40px; }
+            .hero-content { max-width: 100%; text-align: center; }
+            .hero-content p { margin: 0 auto 36px; }
+            .hero-actions { justify-content: center; }
+            .hero-image { max-width: 400px; margin: 0 auto; }
+            .hero-float.top-left { left: 0; }
+            .hero-float.bottom-right { right: 0; }
+
+            .categories-grid { grid-template-columns: repeat(2, 1fr); }
+            .products-grid { grid-template-columns: repeat(3, 1fr); }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .topbar { display: none; }
+            .header .container { height: 64px; }
+            .logo { font-size: 22px; }
+            .nav { display: none; }
+            .menu-toggle { display: block; }
+            .nav.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: #fff;
+                padding: 20px 24px;
+                box-shadow: var(--shadow-md);
+                gap: 16px;
+            }
+
+            .hero { min-height: auto; padding: 60px 0; }
+            .hero h1 { font-size: 32px; }
+
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .featured-banner { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .blog-grid { grid-template-columns: 1fr; }
+
+            .newsletter .container { flex-direction: column; text-align: center; }
+            .newsletter-form { flex-direction: column; width: 100%; }
+            .newsletter-form input { width: 100%; }
+
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .section { padding: 60px 0; }
+        }
+
+        @media (max-width: 480px) {
+            .categories-grid { grid-template-columns: 1fr; }
+            .products-grid { grid-template-columns: 1fr; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .hero-actions { flex-direction: column; align-items: stretch; }
+            .btn { justify-content: center; }
+            .hero-float { display: none; }
+        }
+
+        /* ═══════════════════════════════════════════
+           ANIMATIONS & EFFECTS
+           ═══════════════════════════════════════════ */
+
+        /* ── Scroll reveal variants ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .fade-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ── Stagger delay classes ── */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* ── Hero entrance animation ── */
+        @keyframes heroSlideUp {
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroSlideRight {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes heroImageReveal {
+            from { opacity: 0; transform: scale(0.9) translateX(60px); }
+            to { opacity: 1; transform: scale(1) translateX(0); }
+        }
+        @keyframes heroBadgePop {
+            0% { opacity: 0; transform: scale(0) translateY(20px); }
+            60% { transform: scale(1.1) translateY(-4px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .hero-badge {
+            animation: heroBadgePop 0.8s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        .hero h1 {
+            animation: heroSlideUp 0.9s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .hero p {
+            animation: heroSlideUp 0.9s 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .hero-actions {
+            animation: heroSlideUp 0.9s 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .hero-image img {
+            animation: heroImageReveal 1s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .hero-float.top-left {
+            animation: heroBadgePop 0.7s 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        .hero-float.bottom-right {
+            animation: heroBadgePop 0.7s 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        /* ── Shimmer effect on hero badge ── */
+        .hero-badge {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-badge::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+            animation: shimmer 3s 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* ── Parallax floating for hero image ── */
+        .hero-image {
+            transition: transform 0.3s ease-out;
+        }
+
+        /* ── Gradient text animation on section labels ── */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .section-label {
+            background: linear-gradient(90deg, var(--accent), var(--accent-dark), var(--accent));
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        /* ── Product card hover lift with glow ── */
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(201,169,110,0.15), 0 8px 16px rgba(0,0,0,0.06);
+            border-color: rgba(201,169,110,0.3);
+        }
+
+        /* ── Quick-view overlay on product image ── */
+        .product-img::after {
+            content: 'Xem nhanh';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26,26,46,0.85);
+            color: #fff;
+            text-align: center;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .product-card:hover .product-img::after {
+            transform: translateY(0);
+        }
+
+        /* ── Category card zoom + overlay fade ── */
+        .cat-card-overlay {
+            transition: background 0.5s ease;
+        }
+        .cat-card:hover .cat-card-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 60%);
+        }
+        .cat-card-overlay h3 {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .cat-card:hover .cat-card-overlay h3 {
+            transform: translateY(-4px);
+        }
+
+        /* ── Benefit icon pulse on hover ── */
+        @keyframes iconPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+            100% { transform: scale(1); }
+        }
+        .benefit-card:hover .benefit-icon {
+            animation: iconPulse 0.6s ease;
+            background: rgba(201,169,110,0.22);
+        }
+
+        /* ── Testimonial card subtle tilt on hover ── */
+        .testi-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .testi-card:hover {
+            transform: translateY(-6px) rotate(-0.5deg);
+        }
+
+        /* ── Blog card image zoom with overlay ── */
+        .blog-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--rose));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+        .blog-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .blog-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* ── Button ripple effect ── */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* ── Underline draw for nav ── */
+        .nav a::after {
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ── Newsletter input focus glow ── */
+        .newsletter-form input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(201,169,110,0.15);
+        }
+
+        /* ── Scroll-triggered counter animation ── */
+        .counter-animate {
+            display: inline-block;
+            transition: opacity 0.5s;
+        }
+
+        /* ── Smooth header shadow on scroll ── */
+        .header.scrolled {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        /* ── Marquee pause on hover ── */
+        .brands:hover .brands-track {
+            animation-play-state: paused;
+        }
+
+        /* ── Floating particles bg for hero ── */
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-particles span {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.15;
+            animation: particleFloat 8s infinite ease-in-out;
+        }
+        .hero-particles span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 7s; }
+        .hero-particles span:nth-child(2) { left: 25%; top: 60%; animation-delay: 1.5s; animation-duration: 9s; width: 8px; height: 8px; }
+        .hero-particles span:nth-child(3) { left: 50%; top: 30%; animation-delay: 3s; animation-duration: 6s; width: 4px; height: 4px; }
+        .hero-particles span:nth-child(4) { left: 70%; top: 70%; animation-delay: 2s; animation-duration: 10s; }
+        .hero-particles span:nth-child(5) { left: 85%; top: 15%; animation-delay: 4s; animation-duration: 8s; width: 10px; height: 10px; opacity: 0.08; }
+        .hero-particles span:nth-child(6) { left: 40%; top: 80%; animation-delay: 1s; animation-duration: 11s; width: 5px; height: 5px; }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -30px) rotate(90deg); }
+            50% { transform: translate(-10px, -60px) rotate(180deg); }
+            75% { transform: translate(15px, -30px) rotate(270deg); }
+        }
+
+        /* ── Prefers reduced motion ── */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ TOPBAR ═══ -->
+    <div class="topbar">
+        <div class="container">
+            <div class="topbar-left">
+                <span>
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    123 Nguyễn Huệ, Q.1, TP.HCM
+                </span>
+                <span>
+                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    0909 888 999
+                </span>
+            </div>
+            <div class="topbar-right">
+                <span>Miễn phí vận chuyển đơn từ 500K</span>
+                <div class="topbar-social">
+                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                    <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.43v-7.15a8.16 8.16 0 005.58 2.18V11.2a4.85 4.85 0 01-2.68-.81V6.69h2.68z"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">Luxe<span>Hair</span></a>
+            <nav class="nav" id="mainNav">
+                <a href="#" class="active">Trang chủ</a>
+                <a href="#categories">Danh mục</a>
+                <a href="#products">Sản phẩm</a>
+                <a href="#blog">Blog</a>
+                <a href="#contact">Liên hệ</a>
+            </nav>
+            <div class="nav-icons">
+                <a href="#" aria-label="Tìm kiếm"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></a>
+                <a href="#" aria-label="Yêu thích"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></a>
+                <a href="#" aria-label="Giỏ hàng" class="cart-badge"><svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg></a>
+            </div>
+            <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('open')" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero">
+        <div class="hero-particles">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    Chuyên gia chăm sóc tóc
+                </div>
+                <h1>Tóc Đẹp Bắt Đầu<br>Từ <em>Sản Phẩm</em> Đúng</h1>
+                <p>Sản phẩm chăm sóc tóc cao cấp từ các thương hiệu hàng đầu. Được lựa chọn bởi chuyên gia — yêu thương mái tóc của bạn.</p>
+                <div class="hero-actions">
+                    <a href="#products" class="btn btn-primary">
+                        Khám Phá Ngay
+                        <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                    </a>
+                    <a href="#benefits" class="btn btn-outline">Vì Sao Chọn Chúng Tôi</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&h=750&fit=crop&q=80" alt="Hair care products" loading="eager">
+                <div class="hero-float top-left">
+                    <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="#c9a96e" opacity="0.12"/><path d="M24 14l2.47 5.01L32 19.77l-4 3.9.94 5.5L24 26.77l-4.94 2.4.94-5.5-4-3.9 5.53-.76L24 14z" fill="#c9a96e"/></svg>
+                    <div>
+                        <div class="num">4.9★</div>
+                        <div style="color: var(--text-muted); font-size: 11px;">2,500+ đánh giá</div>
+                    </div>
+                </div>
+                <div class="hero-float bottom-right">
+                    <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="#d4878f" opacity="0.12"/><path d="M32 16H16c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V18c0-1.1-.9-2-2-2zm0 4l-8 5-8-5v-2l8 5 8-5v2z" fill="#d4878f"/></svg>
+                    <div>
+                        <div class="num">50+</div>
+                        <div style="color: var(--text-muted); font-size: 11px;">Thương hiệu</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ BRAND MARQUEE ═══ -->
+    <div class="brands">
+        <div class="brands-track">
+            <span>L'Oréal</span><div class="brands-sep"></div>
+            <span>Shiseido</span><div class="brands-sep"></div>
+            <span>Moroccanoil</span><div class="brands-sep"></div>
+            <span>Kérastase</span><div class="brands-sep"></div>
+            <span>Olaplex</span><div class="brands-sep"></div>
+            <span>Redken</span><div class="brands-sep"></div>
+            <span>Dove</span><div class="brands-sep"></div>
+            <span>Garnier</span><div class="brands-sep"></div>
+            <span>Head & Shoulders</span><div class="brands-sep"></div>
+            <span>Gatsby</span><div class="brands-sep"></div>
+            <span>L'Oréal</span><div class="brands-sep"></div>
+            <span>Shiseido</span><div class="brands-sep"></div>
+            <span>Moroccanoil</span><div class="brands-sep"></div>
+            <span>Kérastase</span><div class="brands-sep"></div>
+            <span>Olaplex</span><div class="brands-sep"></div>
+            <span>Redken</span><div class="brands-sep"></div>
+            <span>Dove</span><div class="brands-sep"></div>
+            <span>Garnier</span><div class="brands-sep"></div>
+            <span>Head & Shoulders</span><div class="brands-sep"></div>
+            <span>Gatsby</span><div class="brands-sep"></div>
+        </div>
+    </div>
+
+    <!-- ═══ CATEGORIES ═══ -->
+    <section class="section" id="categories">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">Danh Mục</div>
+                <h2 class="section-title">Chọn Theo Nhu Cầu Của Bạn</h2>
+                <p class="section-desc">Từ dầu gội chuyên sâu đến serum phục hồi — mọi thứ cho mái tóc hoàn hảo</p>
+            </div>
+            <div class="categories-grid">
+                <div class="cat-card scale-in delay-1">
+                    <img src="https://images.unsplash.com/photo-1585751119414-ef2636f8aede?w=400&h=530&fit=crop&q=80" alt="Dầu gội & Dầu xả" loading="lazy">
+                    <div class="cat-card-overlay">
+                        <h3>Dầu Gội & Dầu Xả</h3>
+                        <span>24 sản phẩm</span>
+                        <div class="cat-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                    </div>
+                </div>
+                <div class="cat-card scale-in delay-2">
+                    <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=400&h=530&fit=crop&q=80" alt="Serum & Tinh dầu" loading="lazy">
+                    <div class="cat-card-overlay">
+                        <h3>Serum & Tinh Dầu</h3>
+                        <span>18 sản phẩm</span>
+                        <div class="cat-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                    </div>
+                </div>
+                <div class="cat-card scale-in delay-3">
+                    <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&h=530&fit=crop&q=80" alt="Kem ủ & Mặt nạ tóc" loading="lazy">
+                    <div class="cat-card-overlay">
+                        <h3>Kem Ủ & Mặt Nạ Tóc</h3>
+                        <span>15 sản phẩm</span>
+                        <div class="cat-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                    </div>
+                </div>
+                <div class="cat-card scale-in delay-4">
+                    <img src="https://images.unsplash.com/photo-1522338242992-e1a54906a8da?w=400&h=530&fit=crop&q=80" alt="Dụng cụ tạo kiểu" loading="lazy">
+                    <div class="cat-card-overlay">
+                        <h3>Dụng Cụ Tạo Kiểu</h3>
+                        <span>12 sản phẩm</span>
+                        <div class="cat-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRODUCTS ═══ -->
+    <section class="section products-section" id="products">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">Sản Phẩm</div>
+                <h2 class="section-title">Bán Chạy Nhất Tuần Này</h2>
+                <p class="section-desc">Được các chuyên gia và khách hàng tin dùng</p>
+            </div>
+
+            <div class="products-filter fade-up">
+                <button class="filter-btn active">Tất cả</button>
+                <button class="filter-btn">Dầu gội</button>
+                <button class="filter-btn">Dầu xả</button>
+                <button class="filter-btn">Serum</button>
+                <button class="filter-btn">Kem ủ tóc</button>
+                <button class="filter-btn">Tạo kiểu</button>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=400&h=400&fit=crop&q=80" alt="Dầu gội phục hồi Keratin" loading="lazy">
+                        <span class="product-tag hot">Hot</span>
+                        <div class="product-wishlist"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z"/></svg></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">L'Oréal Professionnel</div>
+                        <h3 class="product-name">Dầu Gội Phục Hồi Keratin Absolut Repair</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span>(128)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">485.000₫</span>
+                            <span class="product-price-old">650.000₫</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&h=400&fit=crop&q=80" alt="Serum dưỡng tóc" loading="lazy">
+                        <span class="product-tag new">Mới</span>
+                        <div class="product-wishlist"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z"/></svg></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Moroccanoil</div>
+                        <h3 class="product-name">Serum Dưỡng Tóc Argan Oil Treatment</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span>(95)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">890.000₫</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=400&h=400&fit=crop&q=80" alt="Kem ủ tóc" loading="lazy">
+                        <span class="product-tag sale">-30%</span>
+                        <div class="product-wishlist"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z"/></svg></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Shiseido</div>
+                        <h3 class="product-name">Kem Ủ Tóc Tsubaki Premium Repair</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span>(76)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">320.000₫</span>
+                            <span class="product-price-old">460.000₫</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1597354984706-fac992d9306f?w=400&h=400&fit=crop&q=80" alt="Dầu xả không xả" loading="lazy">
+                        <div class="product-wishlist"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z"/></svg></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Kérastase</div>
+                        <h3 class="product-name">Dầu Xả Không Xả Nutritive Nectar</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span>(203)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">750.000₫</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 5 -->
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=400&h=400&fit=crop&q=80" alt="Tinh dầu dưỡng tóc" loading="lazy">
+                        <span class="product-tag hot">Hot</span>
+                        <div class="product-wishlist"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z"/></svg></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Olaplex</div>
+                        <h3 class="product-name">Tinh Dầu Dưỡng Tóc No.7 Bonding Oil</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span>(312)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">680.000₫</span>
+                            <span class="product-price-old">850.000₫</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 6 -->
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1599751449128-eb7249c3d6b1?w=400&h=400&fit=crop&q=80" alt="Xịt dưỡng tóc" loading="lazy">
+                        <div class="product-wishlist"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z"/></svg></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Dove</div>
+                        <h3 class="product-name">Xịt Dưỡng Tóc Intensive Repair Mist</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span>(89)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">185.000₫</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 7 -->
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=400&h=400&fit=crop&q=80" alt="Dầu gội trị gàu" loading="lazy">
+                        <span class="product-tag new">Mới</span>
+                        <div class="product-wishlist"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z"/></svg></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Head & Shoulders</div>
+                        <h3 class="product-name">Dầu Gội Trị Gàu Supreme Moisture</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span>(167)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">225.000₫</span>
+                            <span class="product-price-old">290.000₫</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 8 -->
+                <div class="product-card fade-up">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop&q=80" alt="Wax tạo kiểu" loading="lazy">
+                        <div class="product-wishlist"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z"/></svg></div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-brand">Gatsby</div>
+                        <h3 class="product-name">Wax Tạo Kiểu Mat & Hard Styling</h3>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span>(245)</span>
+                        </div>
+                        <div class="product-price-row">
+                            <span class="product-price">120.000₫</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Banners -->
+            <div class="featured-banner fade-up">
+                <div class="banner-card">
+                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=700&h=350&fit=crop&q=80" alt="Combo tiết kiệm" loading="lazy">
+                    <div class="banner-card-content">
+                        <h3>Combo Tiết Kiệm Đến 40%</h3>
+                        <p>Mua trọn bộ chăm sóc tóc với giá ưu đãi đặc biệt</p>
+                        <a href="#" class="btn btn-primary">Xem Combo</a>
+                    </div>
+                </div>
+                <div class="banner-card">
+                    <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=700&h=350&fit=crop&q=80" alt="Tư vấn miễn phí" loading="lazy">
+                    <div class="banner-card-content">
+                        <h3>Tư Vấn Tóc Miễn Phí</h3>
+                        <p>Đội ngũ hair stylist 10+ năm kinh nghiệm sẵn sàng hỗ trợ</p>
+                        <a href="#contact" class="btn btn-primary">Đặt Lịch Ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ BENEFITS ═══ -->
+    <section class="section" id="benefits">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">Cam Kết</div>
+                <h2 class="section-title">Vì Sao Khách Hàng Tin Tưởng Chúng Tôi</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card fade-left delay-1">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                    </div>
+                    <h4>100% Chính Hãng</h4>
+                    <p>Cam kết hàng chính hãng, tem chống hàng giả, hoàn tiền nếu phát hiện hàng nhái</p>
+                </div>
+                <div class="benefit-card fade-up delay-2">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M18 18.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5zM5.5 4h13c.83 0 1.5-.67 1.5-1.5S19.33 1 18.5 1h-13C4.67 1 4 1.67 4 2.5S4.67 4 5.5 4zm12.5 6.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5zM6 18.5c-1.38 0-2.5 1.12-2.5 2.5S4.62 23.5 6 23.5s2.5-1.12 2.5-2.5S7.38 18.5 6 18.5zM6 10.5c-1.38 0-2.5 1.12-2.5 2.5S4.62 15.5 6 15.5s2.5-1.12 2.5-2.5S7.38 10.5 6 10.5z"/></svg>
+                    </div>
+                    <h4>Giao Hàng Nhanh</h4>
+                    <p>Giao hàng trong 2h nội thành. Miễn phí ship cho đơn từ 500.000₫</p>
+                </div>
+                <div class="benefit-card fade-up delay-3">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <h4>Tư Vấn Chuyên Gia</h4>
+                    <p>Đội ngũ hair stylist chuyên nghiệp tư vấn sản phẩm phù hợp với từng loại tóc</p>
+                </div>
+                <div class="benefit-card fade-right delay-4">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.94s4.18 1.36 4.18 3.85c0 1.89-1.44 2.98-3.12 3.19z"/></svg>
+                    </div>
+                    <h4>Đổi Trả Dễ Dàng</h4>
+                    <p>Đổi trả trong 7 ngày nếu không hài lòng. Hoàn tiền 100% giá trị sản phẩm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TESTIMONIALS ═══ -->
+    <section class="section testimonials">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">Đánh Giá</div>
+                <h2 class="section-title">Khách Hàng Nói Gì Về Chúng Tôi</h2>
+                <p class="section-desc">Hơn 2,500 đánh giá 5 sao từ khách hàng thực</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testi-card fade-up">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"Tóc mình bị hư nặng do nhuộm nhiều, dùng bộ Olaplex được 2 tuần thấy tóc mượt hẳn. Nhân viên tư vấn rất nhiệt tình!"</p>
+                    <div class="testi-author">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&q=80" alt="Minh Anh" class="testi-avatar" loading="lazy">
+                        <div>
+                            <div class="testi-name">Minh Anh</div>
+                            <div class="testi-role">Khách hàng thân thiết</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card fade-up">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"Mình là thợ cắt tóc, lấy hàng ở đây 3 năm rồi. Giá sỉ tốt, hàng chính hãng, giao nhanh. Rất recommend cho anh em trong nghề."</p>
+                    <div class="testi-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&q=80" alt="Đức Huy" class="testi-avatar" loading="lazy">
+                        <div>
+                            <div class="testi-name">Đức Huy</div>
+                            <div class="testi-role">Chủ salon — Q.Bình Thạnh</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card fade-up">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"Serum Moroccanoil thay đổi cuộc đời tóc mình luôn! Mua ở đây yên tâm vì check được mã vạch chính hãng."</p>
+                    <div class="testi-author">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&q=80" alt="Thu Hà" class="testi-avatar" loading="lazy">
+                        <div>
+                            <div class="testi-name">Thu Hà</div>
+                            <div class="testi-role">Beauty Blogger</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ BLOG / TIPS ═══ -->
+    <section class="section" id="blog">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">Blog</div>
+                <h2 class="section-title">Mẹo Chăm Sóc Tóc Từ Chuyên Gia</h2>
+                <p class="section-desc">Kiến thức bổ ích giúp bạn có mái tóc khỏe đẹp mỗi ngày</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card fade-up">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&h=320&fit=crop&q=80" alt="Cách chọn dầu gội" loading="lazy">
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <span>24/03/2026</span>
+                            <span>5 phút đọc</span>
+                        </div>
+                        <h3>Cách Chọn Dầu Gội Phù Hợp Với Từng Loại Tóc</h3>
+                        <p>Hướng dẫn chi tiết cách nhận biết loại tóc và chọn dầu gội phù hợp để tóc khỏe mạnh từ gốc đến ngọn.</p>
+                    </div>
+                </div>
+                <div class="blog-card fade-up">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=500&h=320&fit=crop&q=80" alt="Phục hồi tóc hư" loading="lazy">
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <span>20/03/2026</span>
+                            <span>7 phút đọc</span>
+                        </div>
+                        <h3>5 Bước Phục Hồi Tóc Hư Tổn Do Nhiệt & Hóa Chất</h3>
+                        <p>Tóc khô xơ, gãy rụng sau nhuộm tẩy? Quy trình 5 bước đơn giản giúp tóc bạn hồi sinh trong 30 ngày.</p>
+                    </div>
+                </div>
+                <div class="blog-card fade-up">
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=500&h=320&fit=crop&q=80" alt="Xu hướng tóc 2026" loading="lazy">
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-meta">
+                            <span>15/03/2026</span>
+                            <span>4 phút đọc</span>
+                        </div>
+                        <h3>Xu Hướng Tóc Hot Nhất 2026 — Màu Nào Hợp Bạn?</h3>
+                        <p>Tổng hợp các xu hướng nhuộm tóc đang "gây bão" năm nay và cách chăm sóc sau nhuộm đúng cách.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ NEWSLETTER ═══ -->
+    <section class="section newsletter" id="contact">
+        <div class="container">
+            <div class="newsletter-text">
+                <h3>Nhận Ưu Đãi Độc Quyền</h3>
+                <p>Đăng ký để nhận mã giảm giá 15% cho đơn hàng đầu tiên</p>
+            </div>
+            <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Đã đăng ký ✓'; this.querySelector('input').value='';">
+                <input type="email" placeholder="Nhập email của bạn..." required>
+                <button type="submit" class="btn btn-primary">Đăng Ký</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">Luxe<span>Hair</span></div>
+                    <p>Chuyên cung cấp sản phẩm chăm sóc tóc chính hãng từ các thương hiệu hàng đầu thế giới. Đồng hành cùng vẻ đẹp mái tóc Việt.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.43v-7.15a8.16 8.16 0 005.58 2.18V11.2a4.85 4.85 0 01-2.68-.81V6.69h2.68z"/></svg></a>
+                        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Sản Phẩm</h4>
+                    <ul>
+                        <li><a href="#">Dầu gội</a></li>
+                        <li><a href="#">Dầu xả</a></li>
+                        <li><a href="#">Serum dưỡng tóc</a></li>
+                        <li><a href="#">Kem ủ tóc</a></li>
+                        <li><a href="#">Dụng cụ tạo kiểu</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hỗ Trợ</h4>
+                    <ul>
+                        <li><a href="#">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Chính sách vận chuyển</a></li>
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Liên Hệ</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            <span>123 Nguyễn Huệ, Q.1, TP.HCM</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                            <span>0909 888 999</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            <span>hello@luxehair.vn</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LuxeHair Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Lên đầu trang">
+        <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+    </button>
+
+    <!-- ═══ SCRIPTS ═══ -->
+    <script>
+        /* ── Scroll reveal animations (handles all .fade-up, .fade-left, .fade-right, .scale-in) ── */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-in').forEach(el => observer.observe(el));
+
+        /* ── Header shadow on scroll ── */
+        const header = document.querySelector('.header');
+        const backTopBtn = document.getElementById('backTop');
+
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            header.classList.toggle('scrolled', y > 50);
+            backTopBtn.classList.toggle('show', y > 400);
+        }, { passive: true });
+
+        /* ── Hero parallax on mouse move ── */
+        const heroSection = document.querySelector('.hero');
+        const heroImage = document.querySelector('.hero-image');
+
+        if (window.innerWidth > 768) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const rect = heroSection.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                heroImage.style.transform = `translate(${x * 15}px, ${y * 10}px)`;
+            });
+            heroSection.addEventListener('mouseleave', () => {
+                heroImage.style.transform = 'translate(0, 0)';
+            });
+        }
+
+        /* ── Product card 3D tilt on hover ── */
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const rotateX = (0.5 - y) * 8;
+                const rotateY = (x - 0.5) * 8;
+                card.style.transform = `translateY(-8px) perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        /* ── Counter animation for hero floating badges ── */
+        function animateCounter(el, target, suffix = '') {
+            let current = 0;
+            const step = target / 40;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                el.textContent = (Number.isInteger(target) ? Math.floor(current) : current.toFixed(1)) + suffix;
+            }, 30);
+        }
+
+        /* Animate counters when hero is loaded */
+        setTimeout(() => {
+            const ratingEl = document.querySelector('.hero-float.top-left .num');
+            const brandsEl = document.querySelector('.hero-float.bottom-right .num');
+            if (ratingEl) animateCounter(ratingEl, 4.9, '★');
+            if (brandsEl) animateCounter(brandsEl, 50, '+');
+        }, 1500);
+
+        /* ── Filter buttons with fade effect ── */
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                btn.classList.add('active');
+
+                /* Quick fade-in/out effect on products grid */
+                const grid = document.querySelector('.products-grid');
+                grid.style.opacity = '0';
+                grid.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    grid.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    grid.style.opacity = '1';
+                    grid.style.transform = 'translateY(0)';
+                }, 150);
+            });
+        });
+
+        /* ── Smooth scroll for nav links ── */
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const nav = document.getElementById('mainNav');
+                    if (nav.classList.contains('open')) nav.classList.remove('open');
+                }
+            });
+        });
+
+        /* ── Magnetic effect on CTA buttons ── */
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>

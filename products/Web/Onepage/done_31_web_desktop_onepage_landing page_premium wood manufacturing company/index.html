@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thành Phát Wood — Nhà Sản Xuất Ván Gỗ & Gỗ Ép Cao Cấp</title>
+    <meta name="description" content="Thành Phát Wood — Chuyên sản xuất ván gỗ, gỗ ép, MDF, HDF chất lượng cao. Hơn 20 năm kinh nghiệm, xuất khẩu 15+ quốc gia.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════
+           CSS VARIABLES
+           ═══════════════════════════════════════════ */
+        :root {
+            --wood-dark: #1a1208;
+            --wood-deep: #2c1e0e;
+            --wood-brown: #5c3d1e;
+            --wood-warm: #8b5e34;
+            --wood-light: #c49a6c;
+            --wood-cream: #e8d5b7;
+            --wood-pale: #f5efe6;
+            --gold: #d4a853;
+            --gold-light: #e8c97a;
+            --gold-dark: #b8922f;
+            --white: #faf8f4;
+            --text: #1a1208;
+            --text-light: #6b5d4f;
+            --text-muted: #9a8b7a;
+            --shadow-sm: 0 2px 10px rgba(26,18,8,0.08);
+            --shadow-md: 0 12px 40px rgba(26,18,8,0.12);
+            --shadow-lg: 0 24px 60px rgba(26,18,8,0.18);
+            --radius: 12px;
+            --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--white);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ═══════════════════════════════════════════
+           PRELOADER
+           ═══════════════════════════════════════════ */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: var(--wood-dark);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .preloader-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        .preloader-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(212,168,83,0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .preloader-bar::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 100%;
+            background: var(--gold);
+            animation: preload 1.8s ease-in-out forwards;
+        }
+        @keyframes preload {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        /* ═══════════════════════════════════════════
+           CUSTOM CURSOR
+           ═══════════════════════════════════════════ */
+        .cursor-dot {
+            position: fixed;
+            width: 8px; height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.1s ease;
+            mix-blend-mode: difference;
+        }
+        .cursor-ring {
+            position: fixed;
+            width: 36px; height: 36px;
+            border: 1.5px solid var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            transition: all 0.15s ease-out;
+            opacity: 0.5;
+        }
+        .cursor-ring.hover {
+            width: 56px; height: 56px;
+            opacity: 1;
+            border-color: var(--gold-light);
+        }
+
+        /* ═══════════════════════════════════════════
+           HEADER
+           ═══════════════════════════════════════════ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            transition: all var(--transition);
+        }
+        .header.scrolled {
+            background: rgba(26,18,8,0.95);
+            backdrop-filter: blur(12px);
+            padding: 12px 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .logo span { color: #fff; font-weight: 400; }
+
+        .nav { display: flex; gap: 36px; align-items: center; }
+        .nav a {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1.5px;
+            background: var(--gold);
+            transition: width var(--transition);
+        }
+        .nav a:hover { color: #fff; }
+        .nav a:hover::after { width: 100%; }
+
+        .header-cta {
+            padding: 10px 28px;
+            border: 1.5px solid var(--gold);
+            border-radius: 50px;
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all var(--transition);
+        }
+        .header-cta:hover {
+            background: var(--gold);
+            color: var(--wood-dark);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            transition: var(--transition);
+        }
+
+        /* ═══════════════════════════════════════════
+           HERO
+           ═══════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: var(--wood-dark);
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.35;
+            filter: brightness(0.6);
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(26,18,8,0.9) 0%, rgba(44,30,14,0.6) 50%, rgba(26,18,8,0.85) 100%);
+        }
+
+        .hero-grain {
+            position: absolute;
+            inset: 0;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .hero-content { max-width: 560px; }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(212,168,83,0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s 2s forwards;
+        }
+        .hero-tag-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+        .hero-tag span {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(42px, 6vw, 72px);
+            font-weight: 700;
+            line-height: 1.08;
+            color: #fff;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeSlideUp 1s 2.2s forwards;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+        .hero-desc {
+            font-size: 17px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 40px;
+            max-width: 460px;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeSlideUp 1s 2.4s forwards;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            opacity: 0;
+            animation: fadeSlideUp 1s 2.6s forwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--wood-dark);
+            box-shadow: 0 8px 30px rgba(212,168,83,0.35);
+        }
+        .btn-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(212,168,83,0.5);
+        }
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .btn-gold:hover::before { width: 300px; height: 300px; }
+
+        .btn-ghost {
+            background: transparent;
+            color: #fff;
+            border: 1.5px solid rgba(255,255,255,0.25);
+        }
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+        /* Hero right — stats */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            opacity: 0;
+            animation: fadeSlideRight 1s 2.8s forwards;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(212,168,83,0.15);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            transition: all var(--transition);
+        }
+        .stat-card:hover {
+            background: rgba(212,168,83,0.08);
+            border-color: rgba(212,168,83,0.35);
+            transform: translateY(-4px);
+        }
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .stat-card:nth-child(2) { margin-top: 40px; }
+        .stat-card:nth-child(3) { margin-top: -20px; }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeSlideRight {
+            from { opacity: 0; transform: translateX(60px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeSlideLeft {
+            from { opacity: 0; transform: translateX(-60px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ═══════════════════════════════════════════
+           MARQUEE
+           ═══════════════════════════════════════════ */
+        .marquee-section {
+            background: var(--wood-deep);
+            padding: 18px 0;
+            overflow: hidden;
+            border-top: 1px solid rgba(212,168,83,0.1);
+            border-bottom: 1px solid rgba(212,168,83,0.1);
+        }
+        .marquee-track {
+            display: flex;
+            gap: 60px;
+            animation: marquee 25s linear infinite;
+            white-space: nowrap;
+        }
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+        .marquee-item span {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .marquee-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0.4;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ═══════════════════════════════════════════
+           SECTION COMMON
+           ═══════════════════════════════════════════ */
+        .section { padding: 100px 0; }
+        .section-header { margin-bottom: 64px; }
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .section-tag::before {
+            content: '';
+            width: 40px; height: 1.5px;
+            background: var(--gold);
+        }
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(32px, 4vw, 50px);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-light);
+            max-width: 520px;
+            line-height: 1.8;
+        }
+
+        /* ═══════════════════════════════════════════
+           ABOUT
+           ═══════════════════════════════════════════ */
+        .about .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-images {
+            position: relative;
+            height: 520px;
+        }
+        .about-img-main {
+            width: 380px;
+            height: 460px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 2;
+        }
+        .about-img-float {
+            position: absolute;
+            width: 240px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            bottom: 0;
+            right: 0;
+            z-index: 3;
+            border: 4px solid var(--white);
+        }
+        .about-pattern {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 120px;
+            height: 120px;
+            z-index: 1;
+            opacity: 0.15;
+            background: repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 1px, transparent 10px);
+        }
+        .about-year {
+            position: absolute;
+            bottom: 40px;
+            left: -10px;
+            background: var(--gold);
+            color: var(--wood-dark);
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: var(--shadow-md);
+            z-index: 4;
+        }
+        .about-year strong { font-size: 32px; display: block; }
+
+        .about-content { max-width: 480px; }
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 32px;
+        }
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .about-feature-icon {
+            width: 40px; height: 40px;
+            border-radius: 8px;
+            background: rgba(212,168,83,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .about-feature-icon svg { width: 20px; height: 20px; fill: var(--gold-dark); }
+        .about-feature h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+        .about-feature p { font-size: 13px; color: var(--text-muted); }
+
+        /* ═══════════════════════════════════════════
+           PRODUCTS
+           ═══════════════════════════════════════════ */
+        .products { background: var(--wood-dark); color: #fff; }
+        .products .section-title { color: #fff; }
+        .products .section-desc { color: rgba(255,255,255,0.5); }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .prod-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all var(--transition);
+            position: relative;
+        }
+        .prod-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212,168,83,0.3);
+            box-shadow: 0 24px 48px rgba(0,0,0,0.3);
+        }
+        .prod-card-img {
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            position: relative;
+        }
+        .prod-card-img img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .prod-card:hover .prod-card-img img { transform: scale(1.08); }
+        .prod-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26,18,8,0.6) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+        .prod-card:hover .prod-card-overlay { opacity: 1; }
+        .prod-card-body { padding: 24px; }
+        .prod-card-body h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .prod-card-body p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .prod-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: gap var(--transition);
+        }
+        .prod-card:hover .prod-card-link { gap: 14px; }
+        .prod-card-link svg { width: 14px; height: 14px; fill: var(--gold); }
+
+        /* ═══════════════════════════════════════════
+           PROCESS
+           ═══════════════════════════════════════════ */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            position: relative;
+        }
+        .process-grid::before {
+            content: '';
+            position: absolute;
+            top: 48px;
+            left: 12.5%;
+            right: 12.5%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.2;
+        }
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+        .process-num {
+            width: 96px; height: 96px;
+            border-radius: 50%;
+            background: rgba(212,168,83,0.08);
+            border: 2px solid rgba(212,168,83,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--gold);
+            transition: all var(--transition);
+        }
+        .process-step:hover .process-num {
+            background: var(--gold);
+            color: var(--wood-dark);
+            border-color: var(--gold);
+            transform: scale(1.1);
+        }
+        .process-step h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .process-step p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ═══════════════════════════════════════════
+           STATS BANNER
+           ═══════════════════════════════════════════ */
+        .stats-banner {
+            background: linear-gradient(135deg, var(--wood-brown), var(--wood-warm));
+            position: relative;
+            overflow: hidden;
+        }
+        .stats-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+            position: relative;
+        }
+        .stats-item { padding: 20px 0; }
+        .stats-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .stats-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* ═══════════════════════════════════════════
+           GALLERY
+           ═══════════════════════════════════════════ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: 280px 280px;
+            gap: 16px;
+        }
+        .gallery-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        .gallery-item:nth-child(1) { grid-row: span 2; }
+        .gallery-item:nth-child(4) { grid-row: span 2; }
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.06); }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(26,18,8,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-overlay svg { width: 36px; height: 36px; fill: #fff; }
+
+        /* ═══════════════════════════════════════════
+           TESTIMONIALS
+           ═══════════════════════════════════════════ */
+        .testimonials {
+            background: var(--wood-pale);
+        }
+        .testi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .testi-card {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition);
+            position: relative;
+        }
+        .testi-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+        }
+        .testi-card::before {
+            content: '"';
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 80px;
+            color: var(--gold);
+            opacity: 0.2;
+            position: absolute;
+            top: 12px; left: 24px;
+            line-height: 1;
+        }
+        .testi-text {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+        .testi-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .testi-avatar {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+        }
+        .testi-name { font-weight: 600; font-size: 15px; }
+        .testi-role { font-size: 12px; color: var(--text-muted); }
+
+        /* ═══════════════════════════════════════════
+           CTA
+           ═══════════════════════════════════════════ */
+        .cta {
+            background: var(--wood-dark);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(212,168,83,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(212,168,83,0.05) 0%, transparent 50%);
+        }
+        .cta .container { position: relative; z-index: 1; }
+        .cta .section-title { color: #fff; max-width: 600px; margin: 0 auto 16px; }
+        .cta .section-desc { color: rgba(255,255,255,0.5); margin: 0 auto 40px; text-align: center; }
+        .cta-actions { display: flex; gap: 16px; justify-content: center; }
+
+        /* ═══════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════ */
+        .footer {
+            background: var(--wood-deep);
+            padding: 60px 0 0;
+            color: #fff;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .footer-brand p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.7;
+            margin: 16px 0 20px;
+        }
+        .footer-social { display: flex; gap: 10px; }
+        .footer-social a {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+        }
+        .footer-social a:hover { background: var(--gold); border-color: var(--gold); }
+        .footer-social svg { width: 14px; height: 14px; fill: #fff; }
+
+        .footer-col h4 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        .footer-col li { margin-bottom: 10px; }
+        .footer-col a {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            transition: color var(--transition);
+        }
+        .footer-col a:hover { color: var(--gold-light); }
+
+        .footer-bottom {
+            padding: 20px 0;
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ═══════════════════════════════════════════
+           SCROLL ANIMATIONS
+           ═══════════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.3s; }
+        .d4 { transition-delay: 0.4s; }
+        .d5 { transition-delay: 0.5s; }
+        .d6 { transition-delay: 0.6s; }
+
+        /* ═══════════════════════════════════════════
+           PARALLAX LINE DECORATION
+           ═══════════════════════════════════════════ */
+        .deco-line {
+            position: absolute;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+            opacity: 0.1;
+        }
+
+        /* ═══════════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .hero .container { grid-template-columns: 1fr; gap: 50px; }
+            .hero-content { max-width: 100%; text-align: center; }
+            .hero-desc { margin: 0 auto 40px; }
+            .hero-actions { justify-content: center; }
+            .hero-stats { max-width: 400px; margin: 0 auto; }
+
+            .about .container { grid-template-columns: 1fr; gap: 50px; }
+            .about-images { height: 400px; margin: 0 auto; max-width: 500px; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-grid::before { display: none; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: 240px 240px; }
+            .testi-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav, .header-cta { display: none; }
+            .menu-toggle { display: flex; }
+            .nav.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px; left: 0; right: 0;
+                background: rgba(26,18,8,0.98);
+                padding: 24px;
+                gap: 16px;
+            }
+            .section { padding: 70px 0; }
+            .hero { min-height: auto; padding: 120px 0 80px; }
+            .hero-stats { grid-template-columns: 1fr 1fr; }
+            .stat-card:nth-child(2) { margin-top: 0; }
+            .stat-card:nth-child(3) { margin-top: 0; }
+            .products-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+            .gallery-item:nth-child(1), .gallery-item:nth-child(4) { grid-row: auto; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .cursor-dot, .cursor-ring { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-actions { flex-direction: column; width: 100%; }
+            .btn { width: 100%; justify-content: center; }
+            .hero-stats { grid-template-columns: 1fr; }
+            .process-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .about-features { grid-template-columns: 1fr; }
+            .cta-actions { flex-direction: column; align-items: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">Thành Phát</div>
+        <div class="preloader-bar"></div>
+    </div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="header" id="header">
+        <div class="container">
+            <a href="#" class="logo">Thành Phát <span>Wood</span></a>
+            <nav class="nav" id="mainNav">
+                <a href="#about">Giới thiệu</a>
+                <a href="#products">Sản phẩm</a>
+                <a href="#process">Quy trình</a>
+                <a href="#gallery">Nhà máy</a>
+                <a href="#testimonials">Đánh giá</a>
+            </nav>
+            <a href="#cta" class="header-cta">Liên Hệ</a>
+            <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('open')" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1541123603104-512919d6a96c?w=1600&h=900&fit=crop&q=80" alt="Wood manufacturing" loading="eager">
+        </div>
+        <div class="hero-grain"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-tag">
+                    <div class="hero-tag-dot"></div>
+                    <span>Từ năm 2003 — Uy tín hơn 20 năm</span>
+                </div>
+                <h1>Kiến Tạo <em>Giá Trị</em> Từ Gỗ Tự Nhiên</h1>
+                <p class="hero-desc">Chuyên sản xuất ván gỗ công nghiệp, gỗ ép, MDF, HDF cao cấp. Xuất khẩu 15+ quốc gia — đối tác tin cậy của hàng trăm doanh nghiệp nội thất.</p>
+                <div class="hero-actions">
+                    <a href="#products" class="btn btn-gold">
+                        Xem Sản Phẩm
+                        <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                    </a>
+                    <a href="#about" class="btn btn-ghost">Tìm Hiểu Thêm</a>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-number" data-target="20">0</div>
+                    <div class="stat-label">Năm kinh nghiệm</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Quốc gia xuất khẩu</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="500">0</div>
+                    <div class="stat-label">Đối tác toàn cầu</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-label">Ngàn m³ / năm</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ MARQUEE ═══ -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Ván MDF</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Ván HDF</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Gỗ Ép Phủ Melamine</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Ván Plywood</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Gỗ Ghép Thanh</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Ván Dăm</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Gỗ Công Nghiệp</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Ván Veneer</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Ván MDF</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Ván HDF</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Gỗ Ép Phủ Melamine</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Ván Plywood</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Gỗ Ghép Thanh</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Ván Dăm</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Gỗ Công Nghiệp</span></div>
+            <div class="marquee-item"><div class="marquee-dot"></div><span>Ván Veneer</span></div>
+        </div>
+    </div>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-images reveal-left">
+                <div class="about-pattern"></div>
+                <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=500&h=600&fit=crop&q=80" alt="Nhà máy gỗ" class="about-img-main" loading="lazy">
+                <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=400&h=400&fit=crop&q=80" alt="Sản phẩm gỗ" class="about-img-float" loading="lazy">
+                <div class="about-year">
+                    <strong>20+</strong> Năm kinh nghiệm
+                </div>
+            </div>
+            <div class="about-content reveal-right">
+                <div class="section-header">
+                    <div class="section-tag">Về chúng tôi</div>
+                    <h2 class="section-title">Chất Lượng Gỗ Vượt Trội, Đồng Hành Bền Vững</h2>
+                    <p class="section-desc">Thành Phát Wood là nhà sản xuất ván gỗ công nghiệp hàng đầu Việt Nam. Với công nghệ châu Âu, nguyên liệu chọn lọc và quy trình kiểm soát nghiêm ngặt.</p>
+                </div>
+                <div class="about-features">
+                    <div class="about-feature reveal d1">
+                        <div class="about-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+                        </div>
+                        <div>
+                            <h4>ISO 9001:2015</h4>
+                            <p>Tiêu chuẩn quốc tế</p>
+                        </div>
+                    </div>
+                    <div class="about-feature reveal d2">
+                        <div class="about-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L18 9l-9 9z"/></svg>
+                        </div>
+                        <div>
+                            <h4>FSC Certified</h4>
+                            <p>Gỗ bền vững</p>
+                        </div>
+                    </div>
+                    <div class="about-feature reveal d3">
+                        <div class="about-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+                        </div>
+                        <div>
+                            <h4>Xuất khẩu 15+</h4>
+                            <p>Quốc gia trên thế giới</p>
+                        </div>
+                    </div>
+                    <div class="about-feature reveal d4">
+                        <div class="about-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <div>
+                            <h4>Top 10 VN</h4>
+                            <p>Ngành gỗ công nghiệp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRODUCTS ═══ -->
+    <section class="section products" id="products">
+        <div class="container">
+            <div class="section-header reveal" style="text-align:center;">
+                <div class="section-tag" style="justify-content:center;">Sản phẩm</div>
+                <h2 class="section-title">Dòng Sản Phẩm Gỗ Cao Cấp</h2>
+                <p class="section-desc" style="margin:0 auto;">Đa dạng chủng loại, đáp ứng mọi nhu cầu nội thất và xây dựng</p>
+            </div>
+            <div class="products-grid">
+                <div class="prod-card reveal d1">
+                    <div class="prod-card-img">
+                        <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=500&h=380&fit=crop&q=80" alt="Ván MDF" loading="lazy">
+                        <div class="prod-card-overlay"></div>
+                    </div>
+                    <div class="prod-card-body">
+                        <h3>Ván MDF Cao Cấp</h3>
+                        <p>Ván sợi mật độ trung bình, bề mặt mịn, dễ sơn phủ. Dày 6–25mm, kích thước tùy chỉnh.</p>
+                        <a href="#" class="prod-card-link">Chi tiết <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
+                    </div>
+                </div>
+                <div class="prod-card reveal d2">
+                    <div class="prod-card-img">
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=500&h=380&fit=crop&q=80" alt="Ván HDF" loading="lazy">
+                        <div class="prod-card-overlay"></div>
+                    </div>
+                    <div class="prod-card-body">
+                        <h3>Ván HDF Chịu Nước</h3>
+                        <p>Ván sợi mật độ cao, siêu bền, chống ẩm. Lý tưởng cho sàn gỗ và đồ nội thất chất lượng.</p>
+                        <a href="#" class="prod-card-link">Chi tiết <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
+                    </div>
+                </div>
+                <div class="prod-card reveal d3">
+                    <div class="prod-card-img">
+                        <img src="https://images.unsplash.com/photo-1541123603104-512919d6a96c?w=500&h=380&fit=crop&q=80" alt="Gỗ ép Plywood" loading="lazy">
+                        <div class="prod-card-overlay"></div>
+                    </div>
+                    <div class="prod-card-body">
+                        <h3>Gỗ Ép Plywood</h3>
+                        <p>Nhiều lớp ván mỏng ép chéo, cường độ cao, ổn định kích thước. Phù hợp xuất khẩu.</p>
+                        <a href="#" class="prod-card-link">Chi tiết <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
+                    </div>
+                </div>
+                <div class="prod-card reveal d4">
+                    <div class="prod-card-img">
+                        <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=500&h=380&fit=crop&q=80" alt="Phủ Melamine" loading="lazy">
+                        <div class="prod-card-overlay"></div>
+                    </div>
+                    <div class="prod-card-body">
+                        <h3>Ván Phủ Melamine</h3>
+                        <p>Bề mặt phủ melamine đa dạng vân gỗ, chống trầy xước, dễ vệ sinh. 100+ mẫu vân.</p>
+                        <a href="#" class="prod-card-link">Chi tiết <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
+                    </div>
+                </div>
+                <div class="prod-card reveal d5">
+                    <div class="prod-card-img">
+                        <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=500&h=380&fit=crop&q=80" alt="Gỗ ghép thanh" loading="lazy">
+                        <div class="prod-card-overlay"></div>
+                    </div>
+                    <div class="prod-card-body">
+                        <h3>Gỗ Ghép Thanh</h3>
+                        <p>Thanh gỗ tự nhiên ghép finger-joint, giữ nguyên vẻ đẹp tự nhiên, độ bền cao.</p>
+                        <a href="#" class="prod-card-link">Chi tiết <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
+                    </div>
+                </div>
+                <div class="prod-card reveal d6">
+                    <div class="prod-card-img">
+                        <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=500&h=380&fit=crop&q=80" alt="Ván veneer" loading="lazy">
+                        <div class="prod-card-overlay"></div>
+                    </div>
+                    <div class="prod-card-body">
+                        <h3>Ván Veneer Tự Nhiên</h3>
+                        <p>Lớp gỗ tự nhiên mỏng bóc từ thân gỗ quý, giữ vân thớ nguyên bản, sang trọng.</p>
+                        <a href="#" class="prod-card-link">Chi tiết <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PROCESS ═══ -->
+    <section class="section" id="process">
+        <div class="container">
+            <div class="section-header reveal" style="text-align:center;">
+                <div class="section-tag" style="justify-content:center;">Quy trình</div>
+                <h2 class="section-title">Quy Trình Sản Xuất Hiện Đại</h2>
+                <p class="section-desc" style="margin:0 auto;">Dây chuyền công nghệ châu Âu, kiểm soát chất lượng mỗi công đoạn</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step reveal d1">
+                    <div class="process-num">01</div>
+                    <h4>Nguyên Liệu</h4>
+                    <p>Chọn lọc gỗ từ rừng trồng FSC, kiểm tra độ ẩm và phân loại kỹ lưỡng</p>
+                </div>
+                <div class="process-step reveal d2">
+                    <div class="process-num">02</div>
+                    <h4>Xử Lý & Ép</h4>
+                    <p>Sấy khô, xử lý hóa chất bảo quản, ép nhiệt áp lực cao theo tiêu chuẩn</p>
+                </div>
+                <div class="process-step reveal d3">
+                    <div class="process-num">03</div>
+                    <h4>Phủ Bề Mặt</h4>
+                    <p>Phủ melamine, veneer hoặc sơn PU theo yêu cầu, chống trầy cấp độ 3+</p>
+                </div>
+                <div class="process-step reveal d4">
+                    <div class="process-num">04</div>
+                    <h4>Kiểm Tra & Giao</h4>
+                    <p>QC 3 lớp kiểm tra kích thước, độ bền, bề mặt. Đóng gói xuất khẩu quốc tế</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ STATS BANNER ═══ -->
+    <section class="section stats-banner" style="padding:60px 0;">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stats-item reveal d1">
+                    <div class="stats-num" data-target="50000">0</div>
+                    <div class="stats-label">M³ sản lượng / năm</div>
+                </div>
+                <div class="stats-item reveal d2">
+                    <div class="stats-num" data-target="120">0</div>
+                    <div class="stats-label">Mẫu vân gỗ</div>
+                </div>
+                <div class="stats-item reveal d3">
+                    <div class="stats-num" data-target="300">0</div>
+                    <div class="stats-label">Nhân sự</div>
+                </div>
+                <div class="stats-item reveal d4">
+                    <div class="stats-num" data-target="98">0</div>
+                    <div class="stats-label">% Khách hài lòng</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ GALLERY ═══ -->
+    <section class="section" id="gallery">
+        <div class="container">
+            <div class="section-header reveal" style="text-align:center;">
+                <div class="section-tag" style="justify-content:center;">Nhà máy</div>
+                <h2 class="section-title">Hình Ảnh Nhà Máy & Sản Phẩm</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item reveal-scale d1">
+                    <img src="https://images.unsplash.com/photo-1541123603104-512919d6a96c?w=500&h=700&fit=crop&q=80" alt="Nhà máy" loading="lazy">
+                    <div class="gallery-overlay"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                </div>
+                <div class="gallery-item reveal-scale d2">
+                    <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=400&h=300&fit=crop&q=80" alt="Kho gỗ" loading="lazy">
+                    <div class="gallery-overlay"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                </div>
+                <div class="gallery-item reveal-scale d3">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400&h=300&fit=crop&q=80" alt="Dây chuyền" loading="lazy">
+                    <div class="gallery-overlay"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                </div>
+                <div class="gallery-item reveal-scale d4">
+                    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=500&h=700&fit=crop&q=80" alt="Sản phẩm" loading="lazy">
+                    <div class="gallery-overlay"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                </div>
+                <div class="gallery-item reveal-scale d5">
+                    <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=400&h=300&fit=crop&q=80" alt="Showroom" loading="lazy">
+                    <div class="gallery-overlay"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                </div>
+                <div class="gallery-item reveal-scale d6">
+                    <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&h=300&fit=crop&q=80" alt="Xuất khẩu" loading="lazy">
+                    <div class="gallery-overlay"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TESTIMONIALS ═══ -->
+    <section class="section testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header reveal" style="text-align:center;">
+                <div class="section-tag" style="justify-content:center;">Đánh giá</div>
+                <h2 class="section-title">Đối Tác Nói Về Chúng Tôi</h2>
+            </div>
+            <div class="testi-grid">
+                <div class="testi-card reveal d1">
+                    <p class="testi-text">"Chất lượng ván MDF của Thành Phát luôn ổn định, giao hàng đúng hạn. Chúng tôi đã hợp tác 8 năm và rất hài lòng với dịch vụ."</p>
+                    <div class="testi-author">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&q=80" alt="Nguyễn Văn Minh" class="testi-avatar" loading="lazy">
+                        <div>
+                            <div class="testi-name">Nguyễn Văn Minh</div>
+                            <div class="testi-role">GĐ Nội thất Hòa Phát</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card reveal d2">
+                    <p class="testi-text">"Ván plywood xuất khẩu đạt tiêu chuẩn JAS (Nhật Bản). Quy trình QC nghiêm ngặt, đội ngũ hỗ trợ kỹ thuật rất chuyên nghiệp."</p>
+                    <div class="testi-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&q=80" alt="Tanaka Hiroshi" class="testi-avatar" loading="lazy">
+                        <div>
+                            <div class="testi-name">Tanaka Hiroshi</div>
+                            <div class="testi-role">CEO Sakura Wood — Japan</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card reveal d3">
+                    <p class="testi-text">"Đối tác đáng tin cậy nhất mà chúng tôi từng làm việc ở Đông Nam Á. Giá cạnh tranh, chất lượng xuất sắc, giao tiếp rõ ràng."</p>
+                    <div class="testi-author">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&q=80" alt="Sarah Williams" class="testi-avatar" loading="lazy">
+                        <div>
+                            <div class="testi-name">Sarah Williams</div>
+                            <div class="testi-role">Procurement — IKEA Supplier</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CTA ═══ -->
+    <section class="section cta" id="cta">
+        <div class="container">
+            <div class="section-tag reveal" style="justify-content:center;">Liên hệ</div>
+            <h2 class="section-title reveal d1">Sẵn Sàng Hợp Tác Cùng Chúng Tôi?</h2>
+            <p class="section-desc reveal d2">Liên hệ ngay để nhận báo giá ưu đãi và tư vấn giải pháp gỗ công nghiệp phù hợp nhất</p>
+            <div class="cta-actions reveal d3">
+                <a href="tel:0909888999" class="btn btn-gold">
+                    Gọi Ngay: 0909 888 999
+                    <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                </a>
+                <a href="mailto:info@thanhphatwood.vn" class="btn btn-ghost">Gửi Email</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">Thành Phát <span>Wood</span></div>
+                    <p>Nhà sản xuất ván gỗ công nghiệp hàng đầu Việt Nam. Chất lượng quốc tế, giá cạnh tranh, giao hàng toàn cầu.</p>
+                    <div class="footer-social">
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+                        <a href="#"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z"/></svg></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Sản Phẩm</h4>
+                    <ul>
+                        <li><a href="#">Ván MDF</a></li>
+                        <li><a href="#">Ván HDF</a></li>
+                        <li><a href="#">Gỗ ép Plywood</a></li>
+                        <li><a href="#">Phủ Melamine</a></li>
+                        <li><a href="#">Gỗ ghép thanh</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Công Ty</h4>
+                    <ul>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Nhà máy</a></li>
+                        <li><a href="#">Chứng nhận</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Liên Hệ</h4>
+                    <ul>
+                        <li><a href="#">KCN Phú Tài, Quy Nhơn, Bình Định</a></li>
+                        <li><a href="#">0909 888 999</a></li>
+                        <li><a href="#">info@thanhphatwood.vn</a></li>
+                        <li><a href="#">Thứ 2 – 6: 7:30 – 17:00</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Thành Phát Wood. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══ SCRIPTS ═══ -->
+    <script>
+        /* ── Preloader ── */
+        window.addEventListener('load', () => {
+            setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2000);
+        });
+
+        /* ── Custom cursor ── */
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
+                dot.style.left = e.clientX - 4 + 'px';
+                dot.style.top = e.clientY - 4 + 'px';
+                ring.style.left = e.clientX - 18 + 'px';
+                ring.style.top = e.clientY - 18 + 'px';
+            });
+            document.querySelectorAll('a, button, .prod-card, .gallery-item').forEach(el => {
+                el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+                el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+            });
+        }
+
+        /* ── Header scroll ── */
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 80);
+        }, { passive: true });
+
+        /* ── Scroll reveal ── */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => observer.observe(el));
+
+        /* ── Counter animation ── */
+        function animateCounters(entries, obs) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target);
+                    const suffix = el.textContent.includes('+') ? '+' : '';
+                    let current = 0;
+                    const increment = target / 60;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        el.textContent = Math.floor(current).toLocaleString() + (target < 100 ? '+' : '+');
+                    }, 25);
+                    obs.unobserve(el);
+                }
+            });
+        }
+        const counterObs = new IntersectionObserver(animateCounters, { threshold: 0.5 });
+        document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
+
+        /* ── Parallax on hero bg ── */
+        const heroBg = document.querySelector('.hero-bg img');
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            if (y < window.innerHeight) {
+                heroBg.style.transform = 'scale(1.1) translateY(' + (y * 0.3) + 'px)';
+            }
+        }, { passive: true });
+
+        /* ── Product card 3D tilt ── */
+        document.querySelectorAll('.prod-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                card.style.transform = 'translateY(-8px) perspective(600px) rotateX(' + ((0.5 - y) * 6) + 'deg) rotateY(' + ((x - 0.5) * 6) + 'deg)';
+            });
+            card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+        });
+
+        /* ── Smooth scroll ── */
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const nav = document.getElementById('mainNav');
+                    if (nav.classList.contains('open')) nav.classList.remove('open');
+                }
+            });
+        });
+
+        /* ── Magnetic buttons ── */
+        document.querySelectorAll('.btn-gold').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const r = btn.getBoundingClientRect();
+                const x = e.clientX - r.left - r.width / 2;
+                const y = e.clientY - r.top - r.height / 2;
+                btn.style.transform = 'translate(' + (x * 0.15) + 'px,' + (y * 0.15) + 'px)';
+            });
+            btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+        });
+    </script>
+</body>
+</html>
