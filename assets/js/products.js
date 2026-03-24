@@ -84,7 +84,7 @@
     }
 
     let currentCategory = urlParams.get('category') || 'all';
-    let currentType = urlParams.get('type') || 'invitation';
+    let currentType = urlParams.get('type') || 'all';
     let currentSearch = urlParams.get('search') || '';
     let currentPage = parseInt(urlParams.get('page')) || 1;
     let perPage = 9;
