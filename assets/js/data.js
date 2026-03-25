@@ -4032,6 +4032,37 @@ const PRODUCTS = [
         rating: 4.8,
         showInSlider: false,
         updatedAt: '2026-03-24',
+    },
+    {
+        id: 211,
+        isPublic: true,
+        name: 'Thiệp Cưới Blush Romantic — Viết & Trang Hoa',
+        slug: 'thiep-cuoi-blush-romantic-viet-trang-hoa',
+        description: 'Thiệp cưới phong cách blush romantic — phong bì wax seal cầu kỳ, hoa hồng pastel, falling petals, gallery, RSVP, sổ lưu bút, mừng cưới QR.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'blush', 'romantic', 'pastel', 'rose', 'wax-seal'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_211_viet-trang-hoa/screen.webp',
+            './products/Invitation/Wedding/gen_211_viet-trang-hoa/anh_1.webp',
+            './products/Invitation/Wedding/gen_211_viet-trang-hoa/anh_2.webp',
+            './products/Invitation/Wedding/gen_211_viet-trang-hoa/anh_3.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_211_viet-trang-hoa/screen.webp',
+        path: './products/Invitation/Wedding/gen_211_viet-trang-hoa/',
+        demoUrl: './products/Invitation/Wedding/gen_211_viet-trang-hoa/index.html',
+        features: [
+            'Phong bì wax seal, nhạc nền, gallery ảnh, falling petals',
+            'RSVP xác nhận, lời chúc realtime, lịch tháng đánh dấu',
+            'QR mừng cưới, love story, responsive mọi thiết bị',
+        ],
+        status: 'new',
+        priority: -1,
+        downloads: 1,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-25',
     }
 ];
 
