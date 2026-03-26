@@ -135,12 +135,29 @@ Cập nhật `wedding-asset-catalog.js` nếu tạo asset mới.
 - Thử kỹ thuật mới mỗi lần: nếu lần trước dùng wax seal → lần này thử ribbon/card flip/polaroid. Nếu lần trước blush pink → lần này thử sage green/navy/terracotta
 - Hero section là ấn tượng đầu tiên — **đầu tư sáng tạo nhất** cho hero + envelope
 
-**Bài học từ thiệp #211 (Viết & Trang Hoa):**
+**Bài học từ thiệp #211 (Viết & Trang Hoa — Blush Romantic):**
 - Envelope wax seal + corner ornaments + blurred photo bg → ấn tượng mạnh
 - Hero full-viewport với ảnh cưới nền dark + tên script lớn → sang trọng
 - Dùng backgrounds floral overlay (wreath + corner dual) → thêm chiều sâu cho couple section
 - Cupid icons 2 bên ảnh → điểm nhấn dễ thương
 - Gallery aspect-ratio 4/5 + max-height 70vh → vừa màn mobile
+
+**Bài học từ thiệp #215 (Song Hỷ — Double Happiness):**
+- **Brainstorm trước khi code** — dùng brainstormer agent tạo 5-7 ý tưởng envelope → user chọn → kết quả WOW hơn tự nghĩ
+- Chữ 囍 tách đôi (clip-path inset split) → hiệu ứng ĐỘC, gắn chặt chủ đề, chưa ai làm
+- Ánh sáng vàng tràn khe giữa khi tách → thêm drama (div width 2px→100vw, radial-gradient gold)
+- Gold confetti 20 particles CSS → cảm giác lễ hội
+- Font Ma Shan Zheng cho chữ Hán decorative → đúng theme truyền thống
+- Palette đỏ+vàng+đen → hoàn toàn khác blush/pastel → tránh lặp palette thành công
+- **Thiết kế THEO ảnh**: bộ ảnh nền đỏ + Song Hỷ 3D → thiệp đỏ vàng. Không ép ảnh vào template sẵn
+- Envelope animation là yếu tố quyết định ấn tượng — đầu tư brainstorm kỹ ở bước này
+
+**Quy trình đã chứng minh hiệu quả:**
+1. Xem ảnh → phân tích mood/color/style
+2. Brainstorm 5-7 ý tưởng envelope (dùng brainstormer agent)
+3. User chọn → implement
+4. Screenshot (Puppeteer + Python HTTP server)
+5. Thêm data.js + ghi bài học
 
 ### Bước 5: Review
 

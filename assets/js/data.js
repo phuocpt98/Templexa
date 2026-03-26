@@ -4172,7 +4172,7 @@ const PRODUCTS = [
     },
     {
         id: 215,
-        isPublic: true,
+        isPublic: false,
         name: 'Thiệp Cưới Song Hỷ — Double Happiness',
         slug: 'thiep-cuoi-song-hy-double-happiness',
         description: 'Thiệp cưới phong cách Trung Hoa hiện đại — chữ 囍 tách đôi mở thiệp, nền đỏ rực, gold confetti, gallery, RSVP, sổ lưu bút, mừng cưới QR.',
