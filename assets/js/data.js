@@ -4063,6 +4063,38 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         updatedAt: '2026-03-25',
+    },
+    {
+        id: 212,
+        isPublic: false,
+        name: 'Thiệp Cưới Cinematic Light & Shadow Editorial',
+        slug: 'thiep-cuoi-cinematic-light-shadow-editorial',
+        description: 'Thiệp cưới phong cách tạp chí thời trang cao cấp — 3 chương ánh sáng: Golden Hour, B&W Vintage, Sparkle Night. Envelope cinematic, film grain, editorial typography.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'cinematic', 'editorial', 'magazine', 'light-shadow', 'film', 'korean-studio'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_212_cinematic-light-shadow-editorial/screen.webp',
+            './products/Invitation/Wedding/gen_212_cinematic-light-shadow-editorial/anh_1.webp',
+            './products/Invitation/Wedding/gen_212_cinematic-light-shadow-editorial/anh_2.webp',
+            './products/Invitation/Wedding/gen_212_cinematic-light-shadow-editorial/anh_3.webp',
+            './products/Invitation/Wedding/gen_212_cinematic-light-shadow-editorial/mobile.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_212_cinematic-light-shadow-editorial/screen.webp',
+        path: './products/Invitation/Wedding/gen_212_cinematic-light-shadow-editorial/',
+        demoUrl: './products/Invitation/Wedding/gen_212_cinematic-light-shadow-editorial/index.html',
+        features: [
+            '3 chương ánh sáng: hoàng hôn, B&W vintage, đêm lung linh',
+            'Envelope cinematic curtain, film grain, sparkle particles',
+            'Gallery lightbox, RSVP, sổ lưu bút, mừng cưới, countdown',
+        ],
+        status: 'new',
+        priority: -1,
+        downloads: 1,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-26',
     }
 ];
 

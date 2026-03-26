@@ -59,7 +59,14 @@ var WEDDING_DATA = {
             { id: 'bg-floral-photo-arch-pastel-ring', file: 'floral-photo/bg-floral-photo-arch-pastel-ring.webp', name: 'Arch hoa that pastel nhan', category: 'floral-photo', tags: ['floral', 'photo', 'arch', 'pastel', 'ring'], colors: ['pastel', 'pink', 'cream'], usage: ['hero-section', 'cover'] },
             { id: 'bg-floral-photo-arch-ring-gold', file: 'floral-photo/bg-floral-photo-arch-ring-gold.webp', name: 'Arch nhan cuoi gold lace', category: 'floral-photo', tags: ['floral', 'photo', 'arch', 'ring', 'gold', 'lace'], colors: ['gold', 'cream'], usage: ['hero-section', 'cover'] },
             { id: 'bg-minimalist-black-floral-shadow', file: 'minimalist-clean/bg-minimalist-black-floral-shadow.webp', name: 'Hoa den shadow co day', category: 'minimalist-clean', tags: ['minimalist', 'black', 'floral', 'shadow', 'modern'], colors: ['black', 'white', 'gray'], usage: ['hero-section', 'full-page'] },
-            { id: 'bg-minimalist-nude-cover-lineart', file: 'minimalist-clean/bg-minimalist-nude-cover-lineart.webp', name: 'Cover nude lineart hoa cuoi', category: 'minimalist-clean', tags: ['minimalist', 'nude', 'lineart', 'cover', 'wedding'], colors: ['nude', 'brown', 'cream'], usage: ['cover', 'envelope-section'] }
+            { id: 'bg-minimalist-nude-cover-lineart', file: 'minimalist-clean/bg-minimalist-nude-cover-lineart.webp', name: 'Cover nude lineart hoa cuoi', category: 'minimalist-clean', tags: ['minimalist', 'nude', 'lineart', 'cover', 'wedding'], colors: ['nude', 'brown', 'cream'], usage: ['cover', 'envelope-section'] },
+
+            // Batch 2026-03-26 — Backgrounds
+            { id: 'bg-floral-watercolor-rose-frame-petals', file: 'floral-watercolor/bg-floral-watercolor-rose-frame-petals.webp', name: 'Khung hoa hong watercolor canh hoa roi', category: 'floral-watercolor', tags: ['watercolor', 'floral', 'romantic', 'soft', 'frame'], colors: ['pink', 'blush', 'sage', 'cream'], usage: ['hero-section', 'full-page', 'cover'] },
+            { id: 'bg-frame-ornament-gold-baroque-crown', file: 'frame-ornament/bg-frame-ornament-gold-baroque-crown.webp', name: 'Khung vang baroque vuong mien', category: 'frame-ornament', tags: ['ornament', 'classic', 'luxury', 'formal', 'baroque'], colors: ['gold', 'cream', 'ivory'], usage: ['hero-section', 'full-page', 'cover'] },
+            { id: 'bg-floral-photo-petals-pink-soft', file: 'floral-photo/bg-floral-photo-petals-pink-soft.webp', name: 'Nen canh hoa hong pastel photo', category: 'floral-photo', tags: ['floral', 'photo', 'soft', 'romantic', 'petals'], colors: ['pink', 'blush', 'cream', 'nude'], usage: ['full-page', 'section-background'] },
+            { id: 'bg-traditional-red-dragon-phoenix', file: 'traditional-red/bg-traditional-red-dragon-phoenix.webp', name: 'Nen truyen thong do rong phuong vang', category: 'traditional-red', tags: ['traditional', 'luxury', 'formal', 'ornament', 'dragon', 'phoenix'], colors: ['red', 'gold'], usage: ['hero-section', 'full-page', 'cover'] },
+            { id: 'bg-floral-watercolor-blue-arch-couple', file: 'floral-watercolor/bg-floral-watercolor-blue-arch-couple.webp', name: 'Cong hoa xanh watercolor co dau chu re', category: 'floral-watercolor', tags: ['watercolor', 'floral', 'romantic', 'elegant', 'couple', 'arch'], colors: ['blue', 'cream', 'gold'], usage: ['hero-section', 'full-page', 'cover'] }
         ]
     },
 
@@ -160,7 +167,80 @@ var WEDDING_DATA = {
             { id: 'vine-round-leaf-watercolor-mint', file: 'icons/vine-round-leaf-watercolor-mint.webp', name: 'Day la tron watercolor mint', tags: ['vine', 'watercolor', 'mint', 'botanical'], usage: ['side-deco', 'floating-deco'] },
             { id: 'bouquet-small-watercolor-pink-purple', file: 'icons/bouquet-small-watercolor-pink-purple.webp', name: 'Bo hoa nho watercolor hong tim', tags: ['bouquet', 'watercolor', 'pink', 'purple'], usage: ['corner-deco', 'scatter-deco'] },
             { id: 'hydrangea-pink-bouquet-vintage', file: 'icons/hydrangea-pink-bouquet-vintage.webp', name: 'Bo hoa cam tu cau hong vintage', tags: ['hydrangea', 'pink', 'bouquet', 'vintage'], usage: ['section-deco', 'hero-deco'] },
-            { id: 'lily-white-bouquet-botanical', file: 'icons/lily-white-bouquet-botanical.webp', name: 'Bo hoa lily trang', tags: ['lily', 'white', 'bouquet', 'botanical'], usage: ['section-deco', 'corner-deco'] }
+            { id: 'lily-white-bouquet-botanical', file: 'icons/lily-white-bouquet-botanical.webp', name: 'Bo hoa lily trang', tags: ['lily', 'white', 'bouquet', 'botanical'], usage: ['section-deco', 'corner-deco'] },
+
+            // Batch 2026-03-26 — Floral icons
+            { id: 'peony-watercolor-pink', file: 'icons/peony-watercolor-pink.webp', name: 'Hoa mau don hong watercolor', tags: ['watercolor', 'floral', 'pink', 'romantic'], usage: ['between-names', 'section-deco', 'corner-deco'] },
+            { id: 'rose-watercolor-red', file: 'icons/rose-watercolor-red.webp', name: 'Hoa hong do watercolor', tags: ['watercolor', 'floral', 'red', 'classic'], usage: ['between-names', 'section-deco'] },
+            { id: 'lavender-watercolor', file: 'icons/lavender-watercolor.webp', name: 'Hoa oai huong watercolor', tags: ['watercolor', 'floral', 'lavender', 'soft'], usage: ['section-deco', 'corner-deco'] },
+            { id: 'bouquet-lineart', file: 'icons/bouquet-lineart.webp', name: 'Bo hoa lineart', tags: ['lineart', 'floral', 'elegant', 'romantic'], usage: ['between-names', 'section-deco'] },
+            { id: 'peony-lineart', file: 'icons/peony-lineart.webp', name: 'Hoa mau don lineart', tags: ['lineart', 'floral', 'elegant'], usage: ['between-names', 'section-deco'] },
+            { id: 'wildflower-lineart', file: 'icons/wildflower-lineart.webp', name: 'Hoa dong noi lineart', tags: ['lineart', 'floral', 'natural'], usage: ['section-deco', 'corner-deco'] },
+            { id: 'rose-gold', file: 'icons/rose-gold.webp', name: 'Hoa hong vang gold', tags: ['gold', 'floral', 'luxury'], usage: ['section-deco', 'corner-deco'] },
+            { id: 'laurel-wreath-gold', file: 'icons/laurel-wreath-gold.webp', name: 'Vong nguyet que vang', tags: ['gold', 'ornament', 'elegant', 'classic'], usage: ['hero-center', 'section-header'] },
+            { id: 'olive-branch-gold', file: 'icons/olive-branch-gold.webp', name: 'Canh olive vang', tags: ['gold', 'botanical', 'elegant'], usage: ['side-deco', 'corner-deco'] },
+
+            // Batch 2026-03-26 — Wedding symbols
+            { id: 'wedding-rings-gold', file: 'icons/wedding-rings-gold.webp', name: 'Nhan cuoi doi vang', tags: ['gold', 'classic', 'romantic'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'heart-wings-red', file: 'icons/heart-wings-red.webp', name: 'Trai tim co canh', tags: ['red', 'romantic', 'love'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'wedding-bells-gold', file: 'icons/wedding-bells-gold.webp', name: 'Chuong cuoi vang', tags: ['gold', 'classic', 'celebration'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'champagne-toast', file: 'icons/champagne-toast.webp', name: 'Ly champagne chuc mung', tags: ['gold', 'celebration', 'elegant'], usage: ['inline-icon', 'event-section'] },
+            { id: 'wedding-cake', file: 'icons/wedding-cake.webp', name: 'Banh cuoi 3 tang', tags: ['cream', 'elegant', 'classic'], usage: ['inline-icon', 'event-section'] },
+            { id: 'church-wedding', file: 'icons/church-wedding.webp', name: 'Nha tho cuoi', tags: ['classic', 'elegant', 'formal'], usage: ['inline-icon', 'event-section'] },
+            { id: 'love-letter-envelope', file: 'icons/love-letter-envelope.webp', name: 'Thu tinh phong bi', tags: ['cream', 'romantic', 'vintage'], usage: ['inline-icon', 'envelope-section'] },
+            { id: 'heart-lock-key', file: 'icons/heart-lock-key.webp', name: 'Khoa va chia khoa tinh yeu', tags: ['gold', 'romantic', 'vintage'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'infinity-heart-red', file: 'icons/infinity-heart-red.webp', name: 'Vo cuc trai tim', tags: ['red', 'romantic', 'love'], usage: ['inline-icon', 'between-names'] },
+
+            // Batch 2026-03-26 — Wax seals & stamps
+            { id: 'wax-seal-heart-red', file: 'icons/wax-seal-heart-red.webp', name: 'Dau sap do trai tim', tags: ['red', 'vintage', 'elegant'], usage: ['envelope-seal', 'section-deco'] },
+            { id: 'wax-seal-wreath-gold', file: 'icons/wax-seal-wreath-gold.webp', name: 'Dau sap vang vong hoa', tags: ['gold', 'vintage', 'luxury'], usage: ['envelope-seal', 'section-deco'] },
+            { id: 'wax-seal-love-burgundy', file: 'icons/wax-seal-love-burgundy.webp', name: 'Dau sap burgundy Love', tags: ['burgundy', 'vintage', 'romantic'], usage: ['envelope-seal', 'section-deco'] },
+            { id: 'stamp-vintage-heart', file: 'icons/stamp-vintage-heart.webp', name: 'Tem vintage trai tim', tags: ['vintage', 'cream', 'romantic'], usage: ['envelope-seal', 'scatter-deco'] },
+            { id: 'badge-laurel-gold', file: 'icons/badge-laurel-gold.webp', name: 'Huy hieu vong nguyet que', tags: ['gold', 'classic', 'elegant'], usage: ['section-header', 'hero-center'] },
+
+            // Batch 2026-03-26 — Dividers
+            { id: 'divider-roses-pink', file: 'icons/divider-roses-pink.webp', name: 'Divider hoa hong', tags: ['watercolor', 'floral', 'pink', 'soft'], usage: ['section-divider'] },
+            { id: 'divider-leaves-green', file: 'icons/divider-leaves-green.webp', name: 'Divider la xanh', tags: ['botanical', 'green', 'natural'], usage: ['section-divider'] },
+            { id: 'divider-lavender', file: 'icons/divider-lavender.webp', name: 'Divider hoa oai huong', tags: ['floral', 'lavender', 'soft'], usage: ['section-divider'] },
+            { id: 'divider-scrollwork-gold', file: 'icons/divider-scrollwork-gold.webp', name: 'Divider scrollwork vang', tags: ['gold', 'ornament', 'classic'], usage: ['section-divider'] },
+            { id: 'divider-art-deco', file: 'icons/divider-art-deco.webp', name: 'Divider art deco', tags: ['geometric', 'modern', 'elegant'], usage: ['section-divider'] },
+            { id: 'divider-flourish-brown', file: 'icons/divider-flourish-brown.webp', name: 'Divider flourish nau', tags: ['vintage', 'ornament', 'brown'], usage: ['section-divider'] },
+            { id: 'divider-heart-minimal', file: 'icons/divider-heart-minimal.webp', name: 'Divider trai tim minimal', tags: ['minimalist', 'romantic', 'soft'], usage: ['section-divider'] },
+            { id: 'divider-diamonds', file: 'icons/divider-diamonds.webp', name: 'Divider kim cuong', tags: ['minimalist', 'elegant', 'geometric'], usage: ['section-divider'] },
+            { id: 'divider-dots-dashes', file: 'icons/divider-dots-dashes.webp', name: 'Divider cham gach', tags: ['minimalist', 'elegant', 'decorative'], usage: ['section-divider'] },
+
+            // Batch 2026-03-26 — Utility icons
+            { id: 'calendar-heart-lineart', file: 'icons/calendar-heart-lineart.webp', name: 'Lich trai tim', tags: ['lineart', 'brown', 'elegant'], usage: ['inline-icon', 'event-section'] },
+            { id: 'clock-pocket-vintage', file: 'icons/clock-pocket-vintage.webp', name: 'Dong ho bao tui', tags: ['lineart', 'brown', 'vintage'], usage: ['inline-icon', 'event-section'] },
+            { id: 'location-heart-lineart', file: 'icons/location-heart-lineart.webp', name: 'Vi tri trai tim', tags: ['lineart', 'brown', 'elegant'], usage: ['inline-icon', 'event-section'] },
+            { id: 'phone-elegant-lineart', file: 'icons/phone-elegant-lineart.webp', name: 'Dien thoai', tags: ['lineart', 'brown', 'modern'], usage: ['inline-icon'] },
+            { id: 'envelope-floral-lineart', file: 'icons/envelope-floral-lineart.webp', name: 'Phong bi hoa', tags: ['lineart', 'brown', 'floral'], usage: ['inline-icon', 'envelope-section'] },
+            { id: 'music-heart-lineart', file: 'icons/music-heart-lineart.webp', name: 'Not nhac trai tim', tags: ['lineart', 'brown', 'romantic'], usage: ['inline-icon', 'music-toggle'] },
+            { id: 'camera-vintage-lineart', file: 'icons/camera-vintage-lineart.webp', name: 'May anh vintage', tags: ['lineart', 'brown', 'vintage'], usage: ['inline-icon'] },
+            { id: 'gift-box-lineart', file: 'icons/gift-box-lineart.webp', name: 'Hop qua no', tags: ['lineart', 'brown', 'celebration'], usage: ['inline-icon'] },
+            { id: 'rsvp-card-lineart', file: 'icons/rsvp-card-lineart.webp', name: 'RSVP xac nhan', tags: ['lineart', 'brown', 'formal'], usage: ['inline-icon'] },
+
+            // Batch 2026-03-26 — Traditional Vietnamese
+            { id: 'lotus-pink-top', file: 'icons/lotus-pink-top.webp', name: 'Hoa sen hong top', tags: ['watercolor', 'floral', 'pink', 'traditional'], usage: ['section-deco', 'hero-deco'] },
+            { id: 'lotus-lineart-gold', file: 'icons/lotus-lineart-gold.webp', name: 'Hoa sen lineart vang', tags: ['lineart', 'gold', 'traditional'], usage: ['section-deco', 'inline-icon'] },
+            { id: 'lotus-pink-side', file: 'icons/lotus-pink-side.webp', name: 'Hoa sen hong canh', tags: ['floral', 'pink', 'traditional'], usage: ['section-deco', 'corner-deco'] },
+            { id: 'phoenix-red-gold', file: 'icons/phoenix-red-gold.webp', name: 'Phuong hoang do vang', tags: ['traditional', 'red', 'gold', 'luxury'], usage: ['hero-deco', 'section-deco'] },
+            { id: 'dragon-gold', file: 'icons/dragon-gold.webp', name: 'Rong vang', tags: ['traditional', 'gold', 'luxury'], usage: ['hero-deco', 'section-deco'] },
+            { id: 'cloud-traditional-gold', file: 'icons/cloud-traditional-gold.webp', name: 'May truyen thong vang', tags: ['traditional', 'gold', 'lineart'], usage: ['scatter-deco', 'background-deco'] },
+            { id: 'betel-areca-traditional', file: 'icons/betel-areca-traditional.webp', name: 'Trau cau', tags: ['traditional', 'green', 'natural'], usage: ['section-deco', 'inline-icon'] },
+            { id: 'double-happiness-red', file: 'icons/double-happiness-red.webp', name: 'Chu Song Hy', tags: ['traditional', 'red', 'gold', 'formal'], usage: ['hero-center', 'section-header'] },
+            { id: 'lantern-red-gold', file: 'icons/lantern-red-gold.webp', name: 'Den long do', tags: ['traditional', 'red', 'gold'], usage: ['section-deco', 'scatter-deco'] },
+
+            // Batch 2026-03-26 — Chibi couples
+            { id: 'chibi-couple-western', file: 'icons/chibi-couple-western.webp', name: 'Chibi co dau chu re Tay', tags: ['chibi', 'cute', 'romantic', 'modern'], usage: ['hero-center', 'cover-header'] },
+            { id: 'chibi-couple-pastel', file: 'icons/chibi-couple-pastel.webp', name: 'Chibi co dau chu re pastel', tags: ['chibi', 'cute', 'pastel', 'romantic'], usage: ['hero-center', 'cover-header'] },
+            { id: 'chibi-couple-floral-arch', file: 'icons/chibi-couple-floral-arch.webp', name: 'Chibi co dau duoi cong hoa', tags: ['chibi', 'cute', 'floral', 'romantic'], usage: ['hero-center', 'cover-header'] },
+            { id: 'chibi-couple-aodai-red', file: 'icons/chibi-couple-aodai-red.webp', name: 'Chibi ao dai do xanh', tags: ['chibi', 'cute', 'traditional', 'red'], usage: ['hero-center', 'cover-header'] },
+            { id: 'chibi-couple-aodai-tea', file: 'icons/chibi-couple-aodai-tea.webp', name: 'Chibi ao dai tra dao', tags: ['chibi', 'cute', 'traditional', 'red'], usage: ['hero-center', 'cover-header'] },
+            { id: 'chibi-couple-aodai-lotus', file: 'icons/chibi-couple-aodai-lotus.webp', name: 'Chibi ao dai sen', tags: ['chibi', 'cute', 'traditional', 'cream'], usage: ['hero-center', 'cover-header'] },
+            { id: 'chibi-couple-chinese', file: 'icons/chibi-couple-chinese.webp', name: 'Chibi co dau Trung Hoa', tags: ['chibi', 'cute', 'traditional', 'red'], usage: ['hero-center', 'cover-header'] },
+            { id: 'chibi-couple-double-happiness', file: 'icons/chibi-couple-double-happiness.webp', name: 'Chibi Song Hy Trung Hoa', tags: ['chibi', 'cute', 'traditional', 'red'], usage: ['hero-center', 'cover-header'] },
+            { id: 'chibi-couple-hanbok', file: 'icons/chibi-couple-hanbok.webp', name: 'Chibi hanbok Han Quoc', tags: ['chibi', 'cute', 'traditional', 'pastel'], usage: ['hero-center', 'cover-header'] }
         ]
     },
 
@@ -213,7 +293,32 @@ var WEDDING_DATA = {
             { id: 'corner-floral-watercolor-blue-pink', file: 'wedding-elements/corner-floral-watercolor-blue-pink.webp', name: 'Goc hoa watercolor xanh hong gold', tags: ['floral', 'watercolor', 'blue', 'pink', 'gold'], usage: ['corner-deco', 'hero-deco'] },
             { id: 'border-eucalyptus-purple-teal-top', file: 'wedding-elements/border-eucalyptus-purple-teal-top.webp', name: 'Dai la eucalyptus tim xanh top', tags: ['eucalyptus', 'watercolor', 'purple', 'teal'], usage: ['header-deco', 'section-divider'] },
             { id: 'wreath-floral-blue-flat', file: 'wedding-elements/wreath-floral-blue-flat.webp', name: 'Vong hoa xanh tim flat', tags: ['wreath', 'floral', 'blue', 'flat', 'cute'], usage: ['hero-center', 'section-header'] },
-            { id: 'corner-rose-vine-watercolor-pink', file: 'wedding-elements/corner-rose-vine-watercolor-pink.webp', name: 'Day hoa hong leo goc watercolor', tags: ['rose', 'vine', 'watercolor', 'pink', 'corner'], usage: ['corner-deco', 'side-deco'] }
+            { id: 'corner-rose-vine-watercolor-pink', file: 'wedding-elements/corner-rose-vine-watercolor-pink.webp', name: 'Day hoa hong leo goc watercolor', tags: ['rose', 'vine', 'watercolor', 'pink', 'corner'], usage: ['corner-deco', 'side-deco'] },
+
+            // Batch 2026-03-26 — Frames & monograms
+            { id: 'frame-circle-floral', file: 'wedding-elements/frame-circle-floral.webp', name: 'Khung tron hoa watercolor', tags: ['watercolor', 'floral', 'pink', 'frame'], usage: ['photo-frame', 'couple-frame'] },
+            { id: 'frame-oval-gold-ornate', file: 'wedding-elements/frame-oval-gold-ornate.webp', name: 'Khung oval vang ornate', tags: ['gold', 'ornament', 'luxury', 'frame'], usage: ['photo-frame', 'couple-frame'] },
+            { id: 'frame-hexagon-geometric', file: 'wedding-elements/frame-hexagon-geometric.webp', name: 'Khung luc giac geometric', tags: ['geometric', 'modern', 'minimalist', 'frame'], usage: ['photo-frame', 'couple-frame'] },
+            { id: 'frame-diamond-floral', file: 'wedding-elements/frame-diamond-floral.webp', name: 'Khung kim cuong hoa goc', tags: ['floral', 'elegant', 'classic', 'frame'], usage: ['photo-frame', 'couple-frame'] },
+
+            // Batch 2026-03-26 — Corner decorations
+            { id: 'corner-roses-pink-watercolor', file: 'wedding-elements/corner-roses-pink-watercolor.webp', name: 'Goc hoa hong watercolor', tags: ['watercolor', 'floral', 'pink', 'romantic'], usage: ['corner-deco', 'hero-deco'] },
+            { id: 'corner-eucalyptus-green', file: 'wedding-elements/corner-eucalyptus-green.webp', name: 'Goc la eucalyptus', tags: ['botanical', 'green', 'natural', 'sage'], usage: ['corner-deco', 'hero-deco'] },
+            { id: 'corner-wildflower-colorful', file: 'wedding-elements/corner-wildflower-colorful.webp', name: 'Goc hoa dong noi', tags: ['watercolor', 'floral', 'colorful', 'natural'], usage: ['corner-deco', 'hero-deco'] },
+            { id: 'corner-baroque-gold', file: 'wedding-elements/corner-baroque-gold.webp', name: 'Goc baroque vang', tags: ['gold', 'ornament', 'luxury', 'classic'], usage: ['corner-deco', 'hero-deco'] },
+            { id: 'corner-art-nouveau-floral', file: 'wedding-elements/corner-art-nouveau-floral.webp', name: 'Goc art nouveau hoa', tags: ['ornament', 'floral', 'elegant', 'vintage'], usage: ['corner-deco'] },
+            { id: 'corner-art-deco-gold', file: 'wedding-elements/corner-art-deco-gold.webp', name: 'Goc art deco vang', tags: ['geometric', 'gold', 'modern', 'elegant'], usage: ['corner-deco'] },
+
+            // Batch 2026-03-26 — Full frames
+            { id: 'frame-square-roses', file: 'wedding-elements/frame-square-roses.webp', name: 'Khung vuong hoa hong', tags: ['floral', 'pink', 'green', 'elegant'], usage: ['photo-frame', 'couple-frame'] },
+            { id: 'frame-square-roses-gold', file: 'wedding-elements/frame-square-roses-gold.webp', name: 'Khung vuong hoa goc', tags: ['floral', 'pink', 'gold', 'classic'], usage: ['photo-frame', 'couple-frame'] },
+            { id: 'frame-oval-vine-green', file: 'wedding-elements/frame-oval-vine-green.webp', name: 'Khung oval la xanh', tags: ['botanical', 'green', 'minimalist', 'natural'], usage: ['photo-frame', 'couple-frame'] },
+
+            // Batch 2026-03-26 — Album cover
+            { id: 'album-cover-couple-chibi', file: 'wedding-elements/album-cover-couple-chibi.webp', name: 'Bia album cuoi chibi', tags: ['cute', 'chibi', 'pink', 'romantic', 'floral'], usage: ['cover-background', 'popup-background'] },
+
+            // Batch 2026-03-26 — Wreath
+            { id: 'wreath-floral-photo-colorful', file: 'wedding-elements/wreath-floral-photo-colorful.webp', name: 'Vong hoa photo colorful', tags: ['floral', 'photo', 'colorful', 'natural'], usage: ['hero-center', 'photo-frame'] }
         ]
     },
 
@@ -526,6 +631,44 @@ var WEDDING_DATA = {
                 { path: 'products/shared/images/wedding/vit-sang-trong/couple_11.webp', description: 'Couple portrait 11' },
                 { path: 'products/shared/images/wedding/vit-sang-trong/couple_12.webp', description: 'Couple portrait 12' },
                 { path: 'products/shared/images/wedding/vit-sang-trong/couple_13.webp', description: 'Couple portrait 13' }
+            ]
+        },
+        {
+            id: 'viet-studio-dark-floral',
+            name: 'Viet Studio Dark Floral',
+            folder: 'products/shared/images/wedding/viet-trang-hoa/',
+            count: 14,
+            style: 'Vietnamese studio, black background, pink floral arrangement, modern elegant',
+            tags: ['vietnamese', 'studio', 'dark', 'black', 'floral', 'pink', 'modern', 'elegant', 'romantic', 'indoor'],
+            colors: ['black', 'white', 'pink', 'green'],
+            mood: 'sang trong, lang man, hien dai',
+            description: 'Bo anh couple Viet phong den, hoa hong tuoi, vest trang. Phong cach hien dai sang trong, phu hop thiep cuoi dark theme hoac pink floral.',
+            hasPortrait: true,
+            portraitFiles: { bride: '627789060_1496741912453620_3108546600317143173_n.webp', groom: '628232532_1496741939120284_2188543106842202943_n.webp' },
+            matchPalettes: ['blush-pink', 'dusty-rose', 'burgundy', 'dark-moody', 'classic-gold'],
+            files: {
+                hero: '629708109_1496741975786947_7694401786574075770_n.webp',
+                envelope: '625879595_1496741972453614_8061171316701395782_n.webp',
+                story: ['628045812_1496742042453607_50305878371780347_n.webp', '629235467_1496742385786906_5916049160219901503_n.webp'],
+                gallery: ['626759978_1496742325786912_8666924174171780533_n.webp', '628267914_1496742209120257_3178729502643930985_n.webp', '629227517_1496742499120228_4192193729224028066_n.webp', '629719960_1496739252453886_2578583488563429923_n.webp', '628427200_1496742375786907_1068531846115830906_n.webp'],
+                decoration: ['629214346_1496741812453630_740612148984566707_n.webp']
+            },
+            usedBy: [],
+            images: [
+                { path: 'products/shared/images/wedding/viet-trang-hoa/625879595_1496741972453614_8061171316701395782_n.webp', description: 'Close-up co dau ngui hoa, chu re canh' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/626759978_1496742325786912_8666924174171780533_n.webp', description: 'Couple ngoi, hoa hai ben' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/627789060_1496741912453620_3108546600317143173_n.webp', description: 'Portrait co dau solo, bo hoa' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/628045812_1496742042453607_50305878371780347_n.webp', description: 'Couple dung, co dau tua vai' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/628232532_1496741939120284_2188543106842202943_n.webp', description: 'Portrait chu re solo, bo hoa' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/628255527_1496741349120343_2167207757054090780_n.webp', description: 'Couple ngoi, hoa hai ben - goc 2' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/628264245_1496742449120233_4645514456825061638_n.webp', description: 'Co dau ngoi solo, hoa xung quanh' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/628267914_1496742209120257_3178729502643930985_n.webp', description: 'Couple dung thang, hoa ben trai' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/628427200_1496742375786907_1068531846115830906_n.webp', description: 'Couple ngoi thoai mai, cuoi' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/629214346_1496741812453630_740612148984566707_n.webp', description: 'Close-up bo hoa cam tay' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/629227517_1496742499120228_4192193729224028066_n.webp', description: 'Couple, co dau ngoi chu re dung' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/629235467_1496742385786906_5916049160219901503_n.webp', description: 'Couple quay lung nam tay' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/629708109_1496741975786947_7694401786574075770_n.webp', description: 'Couple om nhau close-up' },
+                { path: 'products/shared/images/wedding/viet-trang-hoa/629719960_1496739252453886_2578583488563429923_n.webp', description: 'Couple ngoi, nhin xa' }
             ]
         }
     ],
