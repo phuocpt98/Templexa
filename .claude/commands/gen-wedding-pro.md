@@ -334,6 +334,24 @@ Chạy ĐÚNG quy trình `/gen-wedding`:
 
 ---
 
+## Kinh nghiệm thiết kế (rút ra từ thực tế — XEM XÉT phù hợp trước khi áp dụng)
+
+Các kỹ thuật dưới đây là kinh nghiệm tham khảo, KHÔNG phải mặc định. Đánh giá context + style thiệp trước khi dùng.
+
+| Kỹ thuật | Mô tả | Khi nào nên dùng |
+|----------|-------|-----------------|
+| **Nền giấy nhám** | SVG feTurbulence overlay, opacity ~0.06-0.08, baseFrequency ~0.65 | Editorial, vintage, magazine feel |
+| **Font viết tay** | Caveat (hỗ trợ tiếng Việt) cho accent text — ngày cưới, closing, annotation. KHÔNG dùng khắp nơi | Khi muốn điểm nhấn organic, personal |
+| **Ảnh xoay lệch** | rotate ±1-2deg, translateY offset, box-shadow lệch → 3D scrapbook feel | Editorial, scrapbook, collage style |
+| **Giấy xé tay** | clip-path polygon với điểm không đều cho event cards | Khi muốn organic thay vì border cứng |
+| **Sepia nhẹ** | `filter: sepia(0.05)` cho tông ấm đồng nhất | Vintage, warm tone themes |
+| **Tape strip** | Pseudo-element translucent trên ảnh | Scrapbook, polaroid style |
+| **Vignette viền** | radial-gradient tối nhẹ ở viền trang | Cinematic, film feel |
+
+> Danh sách này sẽ được bổ sung thêm theo thời gian.
+
+---
+
 ## Tham chiếu
 
 - Quy trình gen HTML chi tiết: xem `/gen-wedding` (Bước 1 → Bước 10)

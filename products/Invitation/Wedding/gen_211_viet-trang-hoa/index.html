@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiệp Cưới - Viết & Trang Hoa</title>
+    <title>Thiệp Cưới - Hoàng Viết & Trang Hoa</title>
     <meta name="description" content="Trân trọng kính mời quý khách tới dự lễ thành hôn của Nguyễn Hoàng Viết & Trần Trang Hoa">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -672,90 +672,18 @@
         }
         .event-map-btn:hover { background: var(--blush); color: white; }
 
-        /* ===== 6. CALENDAR ===== */
-        .calendar-section { background: var(--warm-white); }
-        .calendar-widget {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 25px rgba(74,55,40,0.06);
-            max-width: 340px; margin: 0 auto;
-        }
-        .cal-header {
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 1rem;
-        }
-        .cal-month {
-            font-family: var(--font-heading);
-            font-size: 1.3rem; font-style: italic;
-            color: var(--text); flex: 1; text-align: center;
-        }
-        .cal-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-        }
-        .cal-day-name {
-            text-align: center;
-            font-size: 0.6rem; font-weight: 600;
-            color: var(--text-faint); letter-spacing: 0.05em;
-            padding-bottom: 0.5rem;
-        }
-        .cal-day {
-            text-align: center;
-            font-size: 0.8rem; font-weight: 300;
-            color: var(--text-light);
-            aspect-ratio: 1; display: flex;
-            align-items: center; justify-content: center;
-            border-radius: 50%; cursor: default;
-            transition: background 0.2s;
-        }
-        .cal-day.empty { pointer-events: none; }
-        .cal-day.highlight {
-            background: linear-gradient(135deg, var(--blush), var(--blush-dark));
-            color: white !important; font-weight: 600;
-            box-shadow: 0 4px 12px rgba(196,137,158,0.4);
-        }
-        .cal-day.other-event {
-            background: var(--sage-light); color: var(--text); font-weight: 500;
-        }
-        .cal-events {
-            margin-top: 1.2rem; padding-top: 1rem;
-            border-top: 1px solid rgba(0,0,0,0.04);
-        }
-        .cal-event-item {
-            display: flex; align-items: center; gap: 8px;
-            font-size: 0.75rem; color: var(--text-light);
-            margin-bottom: 0.5rem; font-weight: 300;
-        }
-        .cal-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%; flex-shrink: 0;
-        }
-        .cal-dot--blush { background: var(--blush-dark); }
-        .cal-dot--sage { background: var(--sage); }
-
         /* ===== 7. GALLERY ===== */
         .gallery-section { background: var(--cream); }
         .gallery-slider {
-            position: relative; overflow: hidden;
+            position: relative;
             border-radius: 16px;
             box-shadow: 0 8px 35px rgba(74,55,40,0.12);
             max-width: 480px; margin: 0 auto;
+            overflow: hidden;
         }
-        .gallery-track {
-            display: flex;
-            transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
-        }
-        .gallery-slide {
-            min-width: 100%;
-            aspect-ratio: 4/5;
-            max-height: 70vh;
-            overflow: hidden; flex-shrink: 0;
-        }
-        .gallery-slide img {
-            width: 100%; height: 100%;
-            object-fit: cover; display: block;
+        .gallery-slider img {
+            width: 100%; height: auto;
+            object-fit: contain; display: block;
         }
         .gallery-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
@@ -1281,20 +1209,6 @@
         </div>
     </section>
 
-    <!-- ===== CALENDAR ===== -->
-    <section class="calendar-section section--compact">
-        <div class="container">
-            <div class="section-heading reveal">
-                <span class="section-label">Đánh Dấu Ngày</span>
-                <h2 class="section-title">Lịch Sự Kiện</h2>
-            </div>
-
-            <div class="calendar-widget reveal reveal-d1" id="calWidget"></div>
-        </div>
-    </section>
-
-    <div class="sep reveal" aria-hidden="true">❦</div>
-
     <!-- ===== GALLERY ===== -->
     <section class="gallery-section section">
         <div class="container">
@@ -1303,34 +1217,8 @@
                 <h2 class="section-title">Khoảnh Khắc Đẹp</h2>
             </div>
 
-            <div class="gallery-slider reveal reveal-d1" id="gallerySlider"
-                 role="region" aria-label="Album ảnh cưới">
-                <div class="gallery-track" id="galleryTrack">
-                    <div class="gallery-slide">
-                        <img src="../../../shared/images/wedding/viet-trang-hoa/628045812_1496742042453607_50305878371780347_n.webp"
-                             alt="Ảnh cưới 1" loading="lazy">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="../../../shared/images/wedding/viet-trang-hoa/628267914_1496742209120257_3178729502643930985_n.webp"
-                             alt="Ảnh cưới 2" loading="lazy">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="../../../shared/images/wedding/viet-trang-hoa/628427200_1496742375786907_1068531846115830906_n.webp"
-                             alt="Ảnh cưới 3" loading="lazy">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="../../../shared/images/wedding/viet-trang-hoa/629227517_1496742499120228_4192193729224028066_n.webp"
-                             alt="Ảnh cưới 4" loading="lazy">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="../../../shared/images/wedding/viet-trang-hoa/629235467_1496742385786906_5916049160219901503_n.webp"
-                             alt="Ảnh cưới 5" loading="lazy">
-                    </div>
-                    <div class="gallery-slide">
-                        <img src="../../../shared/images/wedding/viet-trang-hoa/628255527_1496741349120343_2167207757054090780_n.webp"
-                             alt="Ảnh cưới 6" loading="lazy">
-                    </div>
-                </div>
+            <div class="gallery-slider reveal reveal-d1" id="gallerySlider">
+                <img id="galleryImg" src="../../../shared/images/wedding/viet-trang-hoa/628045812_1496742042453607_50305878371780347_n.webp" alt="Ảnh cưới">
                 <button class="gallery-btn gallery-btn--prev" id="galPrev" aria-label="Ảnh trước">&#8249;</button>
                 <button class="gallery-btn gallery-btn--next" id="galNext" aria-label="Ảnh tiếp">&#8250;</button>
             </div>
@@ -1382,7 +1270,7 @@
     <!-- ===== COUPLE BIG PHOTO ===== -->
     <div style="position:relative; overflow:hidden;">
         <img src="../../../shared/images/wedding/viet-trang-hoa/625879595_1496741972453614_8061171316701395782_n.webp"
-             alt="Viết &amp; Trang Hoa" loading="lazy"
+             alt="Hoàng Viết &amp; Trang Hoa" loading="lazy"
              style="width:100%; max-height:65vh; object-fit:cover; display:block;">
         <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(255,248,245,0.5) 0%, transparent 20%, transparent 80%, rgba(255,248,245,0.6) 100%); pointer-events:none;"></div>
     </div>
@@ -1469,7 +1357,7 @@
     <!-- ===== GALLERY COUPLE ===== -->
     <div style="position:relative; overflow:hidden; margin-top:0;">
         <img src="../../../shared/images/wedding/viet-trang-hoa/626759978_1496742325786912_8666924174171780533_n.webp"
-             alt="Viết &amp; Trang Hoa — khoảnh khắc đẹp" loading="lazy"
+             alt="Hoàng Viết &amp; Trang Hoa — khoảnh khắc đẹp" loading="lazy"
              style="width:100%; max-height:65vh; object-fit:cover; display:block;">
         <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(255,248,245,0.5) 0%, transparent 25%, transparent 75%, rgba(255,248,245,0.6) 100%); pointer-events:none;"></div>
     </div>
@@ -1487,7 +1375,7 @@
             <h2 class="thankyou-title">Cảm Ơn</h2>
             <p class="thankyou-msg">
                 Cảm ơn bạn đã chia sẻ niềm vui trong ngày trọng đại này cùng chúng tôi.<br><br>
-                Viết &amp; Trang Hoa
+                Hoàng Viết &amp; Trang Hoa
             </p>
         </div>
     </section>
@@ -1503,7 +1391,7 @@
 
     <!-- ===== FOOTER ===== -->
     <footer class="site-footer">
-        <p class="footer-names">Viết &amp; Trang Hoa</p>
+        <p class="footer-names">Hoàng Viết &amp; Trang Hoa</p>
         <p class="footer-date">28 · 04 · 2026</p>
     </footer>
 
@@ -1587,84 +1475,36 @@
             petalContainer.appendChild(p);
         }
 
-        // ── Calendar ───────────────────────────────────────────────────────
-        const calWidget = document.getElementById('calWidget');
-        const CAL_YEAR = 2026, CAL_MONTH = 3; // April (0-indexed)
-        const HIGHLIGHT_DAYS = [28];
-        const OTHER_DAYS = []; // additional event days if any
-        const DAY_NAMES = ['CN','T2','T3','T4','T5','T6','T7'];
-        const firstDay = new Date(CAL_YEAR, CAL_MONTH, 1).getDay();
-        const daysInMonth = new Date(CAL_YEAR, CAL_MONTH + 1, 0).getDate();
-
-        let calHtml = `
-            <div class="cal-header">
-                <span class="cal-month">Tháng 4 · 2026</span>
-            </div>
-            <div class="cal-grid">
-        `;
-        DAY_NAMES.forEach(d => calHtml += `<div class="cal-day-name">${d}</div>`);
-        for (let i = 0; i < firstDay; i++) calHtml += `<div class="cal-day empty"></div>`;
-        for (let d = 1; d <= daysInMonth; d++) {
-            let cls = 'cal-day';
-            if (HIGHLIGHT_DAYS.includes(d)) cls += ' highlight';
-            else if (OTHER_DAYS.includes(d)) cls += ' other-event';
-            calHtml += `<div class="${cls}">${d}</div>`;
-        }
-        calHtml += `</div>
-            <div class="cal-events">
-                <div class="cal-event-item">
-                    <span class="cal-dot cal-dot--blush"></span>
-                    <span>28/04 — Lễ Vu Quy &amp; Tiệc Thân Mật</span>
-                </div>
-            </div>
-        `;
-        calWidget.innerHTML = calHtml;
-
-        // ── Gallery Slider ─────────────────────────────────────────────────
-        const track  = document.getElementById('galleryTrack');
+        // ── Gallery ───────────────────────────────────────────────────────
+        const galImages = [
+            '../../../shared/images/wedding/viet-trang-hoa/628045812_1496742042453607_50305878371780347_n.webp',
+            '../../../shared/images/wedding/viet-trang-hoa/628267914_1496742209120257_3178729502643930985_n.webp',
+            '../../../shared/images/wedding/viet-trang-hoa/628427200_1496742375786907_1068531846115830906_n.webp',
+            '../../../shared/images/wedding/viet-trang-hoa/629227517_1496742499120228_4192193729224028066_n.webp',
+            '../../../shared/images/wedding/viet-trang-hoa/629235467_1496742385786906_5916049160219901503_n.webp',
+            '../../../shared/images/wedding/viet-trang-hoa/628255527_1496741349120343_2167207757054090780_n.webp'
+        ];
+        const galImg = document.getElementById('galleryImg');
         const dotsEl = document.getElementById('galleryDots');
-        const slides = track.querySelectorAll('.gallery-slide');
         let current = 0;
-        let autoSlide;
-        let startX = 0;
 
         // Build dots
-        slides.forEach((_, i) => {
+        galImages.forEach((_, i) => {
             const btn = document.createElement('button');
             btn.className = 'gallery-dot' + (i === 0 ? ' active' : '');
-            btn.setAttribute('role', 'tab');
-            btn.setAttribute('aria-label', `Ảnh ${i+1}`);
             btn.addEventListener('click', () => goTo(i));
             dotsEl.appendChild(btn);
         });
 
         function goTo(idx) {
-            current = (idx + slides.length) % slides.length;
-            track.style.transform = `translateX(-${current * 100}%)`;
+            current = (idx + galImages.length) % galImages.length;
+            galImg.src = galImages[current];
             dotsEl.querySelectorAll('.gallery-dot').forEach((d, i) =>
                 d.classList.toggle('active', i === current));
         }
 
-        function startAuto() {
-            clearInterval(autoSlide);
-            autoSlide = setInterval(() => goTo(current + 1), 4000);
-        }
-
-        document.getElementById('galPrev').addEventListener('click', () => { goTo(current - 1); startAuto(); });
-        document.getElementById('galNext').addEventListener('click', () => { goTo(current + 1); startAuto(); });
-
-        // Touch swipe
-        const slider = document.getElementById('gallerySlider');
-        slider.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-        slider.addEventListener('touchend', e => {
-            const dx = e.changedTouches[0].clientX - startX;
-            if (Math.abs(dx) > 40) {
-                goTo(current + (dx < 0 ? 1 : -1));
-                startAuto();
-            }
-        });
-
-        startAuto();
+        document.getElementById('galPrev').addEventListener('click', () => goTo(current - 1));
+        document.getElementById('galNext').addEventListener('click', () => goTo(current + 1));
 
         // ── RSVP Form ──────────────────────────────────────────────────────
         document.getElementById('rsvpForm').addEventListener('submit', (e) => {
