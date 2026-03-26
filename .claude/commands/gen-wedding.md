@@ -1899,3 +1899,28 @@ Cũng cập nhật `assets/data/invitation.json` — thêm entry với `mobileVi
 - **Nhạc**: nếu khách chọn nhạc khác → đổi relative path, nếu trống → giữ nhạc mẫu
 - Tag `'custom'` trong entry data.js để phân biệt sản phẩm custom vs mẫu
 - `prompt.txt` trong folder khách giữ nguyên (không xoá) — làm record thông tin
+
+---
+
+## Lưu ý quan trọng khi dùng ảnh shared assets
+
+**Ảnh webp (chibi, corner, divider, icon, element) từ `products/shared/` thường có nền trắng/nhạt KHÔNG hoàn toàn transparent.** Khi đặt lên nền có màu (gradient, cream, pink...) sẽ lộ viền vuông ở cả 4 cạnh.
+
+**Giải pháp ưu tiên:**
+
+1. **SVG inline** cho corners/dividers — KHÔNG bao giờ bị lộ viền, màu theo CSS `currentColor`
+2. **Nếu buộc dùng webp**: gom 1 CSS rule chung cho TẤT CẢ ảnh shared, fade cả 4 cạnh:
+
+```css
+/* Gom tất cả ảnh shared webp — fade 4 cạnh */
+.env-chibi,
+.env-divider,
+.hero-chibi,
+.closing-chibi,
+.divider-img,
+.event-flower,
+.family-sep img {
+  -webkit-mask-image: radial-gradient(ellipse 75% 75% at center, black 45%, transparent 95%);
+  mask-image: radial-gradient(ellipse 75% 75% at center, black 45%, transparent 95%);
+}
+```

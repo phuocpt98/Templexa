@@ -120,18 +120,24 @@
       pointer-events: none;
     }
 
-    /* Corners on envelope */
+    /* Shared asset images: clip 3% each edge to hide residual border artifacts */
+    .asset-clip {
+      clip-path: inset(3%);
+    }
+
+    /* Corners */
     .env-corner {
       position: absolute;
-      width: 110px;
-      height: 110px;
+      width: 130px;
+      height: 130px;
       object-fit: contain;
-      opacity: 0.85;
+      pointer-events: none;
+      clip-path: inset(3%);
     }
-    .env-corner.tl { top: 0;    left: 0;  transform: rotate(0deg); }
-    .env-corner.tr { top: 0;    right: 0; transform: rotate(90deg); }
-    .env-corner.bl { bottom: 0; left: 0;  transform: rotate(270deg); }
-    .env-corner.br { bottom: 0; right: 0; transform: rotate(180deg); }
+    .env-corner.tl { top: -4px;    left: -4px; }
+    .env-corner.tr { top: -4px;    right: -4px; transform: scaleX(-1); }
+    .env-corner.bl { bottom: -4px; left: -4px;  transform: scaleY(-1); }
+    .env-corner.br { bottom: -4px; right: -4px; transform: scale(-1,-1); }
 
     .env-content {
       display: flex;
@@ -185,6 +191,13 @@
       opacity: 0.75;
       margin: 4px 0;
     }
+    /* Shared asset images — clip 3% edges to hide residual border */
+    /* NOTE: hero-chibi & closing-chibi excluded — they animate (floatY) and clip-path causes jitter */
+    .env-divider,
+    .event-flower,
+    .family-sep img {
+      clip-path: inset(3%);
+    }
 
     #open-btn {
       margin-top: 8px;
@@ -230,9 +243,11 @@
 
     .divider-img {
       display: block;
-      margin: 12px auto;
+      margin: 0 auto;
       width: 200px;
-      height: auto;
+      height: 80px;
+      object-fit: cover;
+      object-position: center;
       opacity: 0.7;
     }
 
@@ -469,7 +484,7 @@
       font-size: 12px;
       font-weight: 500;
       color: var(--accent);
-      border: 1px solid var(--border);
+      /*border: 1px solid var(--border);*/
       border-radius: var(--r-pill);
       padding: 5px 14px;
       background: rgba(232,160,191,0.08);
@@ -627,21 +642,21 @@
 
   <!-- ===== ENVELOPE SCREEN ===== -->
   <div id="envelope-screen" role="dialog" aria-label="Phong bì thiệp cưới">
-    <!-- Corners -->
-    <img class="env-corner tl" src="../../../shared/images/wedding-elements/corner-roses-pink-watercolor.webp" alt="" aria-hidden="true" />
-    <img class="env-corner tr" src="../../../shared/images/wedding-elements/corner-roses-pink-watercolor.webp" alt="" aria-hidden="true" />
-    <img class="env-corner bl" src="../../../shared/images/wedding-elements/corner-roses-pink-watercolor.webp" alt="" aria-hidden="true" />
-    <img class="env-corner br" src="../../../shared/images/wedding-elements/corner-roses-pink-watercolor.webp" alt="" aria-hidden="true" />
+    <!-- Corners with mix-blend-mode:multiply — white bg becomes transparent -->
+    <img class="env-corner tl" src="../../../shared/images/wedding-elements/corner-roses-pink-watercolor-nobg.webp" alt="" aria-hidden="true" />
+    <img class="env-corner tr" src="../../../shared/images/wedding-elements/corner-roses-pink-watercolor-nobg.webp" alt="" aria-hidden="true" />
+    <img class="env-corner bl" src="../../../shared/images/wedding-elements/corner-roses-pink-watercolor-nobg.webp" alt="" aria-hidden="true" />
+    <img class="env-corner br" src="../../../shared/images/wedding-elements/corner-roses-pink-watercolor-nobg.webp" alt="" aria-hidden="true" />
 
     <div class="env-content">
       <span class="env-label">Thiệp Mời Trân Trọng</span>
 
       <img class="env-chibi"
-           src="../../../shared/images/wedding/icons/chibi-couple-floral-arch.webp"
+           src="../../../shared/images/wedding/icons/chibi-couple-floral-arch-nobg.webp"
            alt="Cặp đôi chibi dưới vòm hoa" />
 
       <img class="env-divider"
-           src="../../../shared/images/wedding/icons/divider-roses-pink.webp"
+           src="../../../shared/images/wedding/icons/divider-roses-pink-nobg.webp"
            alt="" aria-hidden="true" />
 
       <div class="env-names groom-displayDT bride-name-env">
@@ -664,7 +679,7 @@
       <p class="hero-subtitle reveal">The Wedding Of</p>
 
       <img class="hero-chibi reveal"
-           src="../../../shared/images/wedding/icons/chibi-couple-floral-arch.webp"
+           src="../../../shared/images/wedding/icons/chibi-couple-floral-arch-nobg.webp"
            alt="Cặp đôi cưới chibi" />
 
       <div class="hero-names-wrap reveal">
@@ -676,7 +691,7 @@
       <p class="hero-date reveal">Chủ Nhật · 20 Tháng 07 · 2026</p>
 
       <img class="divider-img reveal"
-           src="../../../shared/images/wedding/icons/divider-roses-pink.webp"
+           src="../../../shared/images/wedding/icons/divider-roses-pink-nobg.webp"
            alt="" aria-hidden="true" />
 
       <div class="scroll-hint" aria-hidden="true">
@@ -689,7 +704,7 @@
     <section id="family">
       <p class="section-label reveal">Gia Đình</p>
       <img class="divider-img reveal"
-           src="../../../shared/images/wedding/icons/divider-heart-minimal.webp"
+           src="../../../shared/images/wedding/icons/divider-heart-minimal-nobg.webp"
            alt="" aria-hidden="true" />
 
       <div class="family-grid reveal">
@@ -712,7 +727,7 @@
 
         <!-- Separator -->
         <div class="family-sep">
-          <img src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp" alt="" aria-hidden="true" />
+          <img src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel-nobg.webp" alt="" aria-hidden="true" />
         </div>
 
         <!-- Nhà Gái -->
@@ -738,7 +753,7 @@
     <section id="events">
       <p class="section-label reveal">Lễ Cưới</p>
       <img class="divider-img reveal"
-           src="../../../shared/images/wedding/icons/divider-roses-pink.webp"
+           src="../../../shared/images/wedding/icons/divider-roses-pink-nobg.webp"
            alt="" aria-hidden="true" />
 
       <div class="events-grid">
@@ -746,7 +761,7 @@
         <!-- Card 1: Lễ Vu Quy -->
         <article class="event-card reveal">
           <img class="event-flower"
-               src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp"
+               src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel-nobg.webp"
                alt="" aria-hidden="true" />
           <p class="event-type">Buổi Sáng</p>
           <h3 class="event-name">Lễ Vu Quy</h3>
@@ -775,7 +790,7 @@
         <!-- Card 2: Tiệc Cưới -->
         <article class="event-card reveal">
           <img class="event-flower"
-               src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp"
+               src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel-nobg.webp"
                alt="" aria-hidden="true" />
           <p class="event-type">Buổi Chiều</p>
           <h3 class="event-name">Tiệc Cưới</h3>
@@ -808,7 +823,7 @@
     <section id="gallery">
       <p class="section-label reveal">Khoảnh Khắc</p>
       <img class="divider-img reveal"
-           src="../../../shared/images/wedding/icons/divider-heart-minimal.webp"
+           src="../../../shared/images/wedding/icons/divider-heart-minimal-nobg.webp"
            alt="" aria-hidden="true" />
 
       <div class="gallery-top reveal">
@@ -826,7 +841,7 @@
     <!-- CLOSING -->
     <section id="closing">
       <img class="closing-chibi reveal"
-           src="../../../shared/images/wedding/icons/chibi-couple-pastel.webp"
+           src="../../../shared/images/wedding/icons/chibi-couple-pastel-nobg.webp"
            alt="Cặp đôi chibi pastel" />
 
       <div class="closing-names reveal">
@@ -836,7 +851,7 @@
       </div>
 
       <img class="divider-img reveal"
-           src="../../../shared/images/wedding/icons/divider-roses-pink.webp"
+           src="../../../shared/images/wedding/icons/divider-roses-pink-nobg.webp"
            alt="" aria-hidden="true" />
 
       <p class="closing-msg reveal">
