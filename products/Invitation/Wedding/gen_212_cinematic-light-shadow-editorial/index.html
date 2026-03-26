@@ -8,7 +8,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Lucide Icons -->
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
@@ -31,6 +31,7 @@
             --font-editorial: 'Cormorant Garamond', serif;
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Be Vietnam Pro', sans-serif;
+            --font-handwritten: 'Caveat', cursive;
 
             --max-width: 680px;
             --section-gap: 6rem;
@@ -50,16 +51,26 @@
         img { max-width: 100%; height: auto; display: block; }
         a { text-decoration: none; color: inherit; }
 
-        /* ===== FILM GRAIN OVERLAY ===== */
+        /* ===== FILM GRAIN OVERLAY (paper feel) ===== */
         body::after {
             content: '';
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 9000;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.07;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
             background-size: 128px 128px;
+        }
+
+        /* ===== PAGE EDGE VIGNETTE ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 8999;
+            background: radial-gradient(ellipse at center, transparent 60%, rgba(30, 20, 10, 0.18) 100%);
         }
 
         /* ===== TYPOGRAPHY ===== */
@@ -92,6 +103,12 @@
             letter-spacing: 0.5em;
             text-align: center;
             margin: 2rem 0;
+        }
+
+        /* ===== HANDWRITTEN ACCENT ===== */
+        .handwritten {
+            font-family: var(--font-handwritten);
+            font-weight: 500;
         }
 
         /* ===== ENVELOPE — CINEMATIC CURTAIN ===== */
@@ -584,6 +601,68 @@
         .photo-item.wide { aspect-ratio: 16/9; }
         .photo-item.square { aspect-ratio: 1/1; }
 
+        /* Warm tone on all photos — subtle editorial cohesion */
+        .photo-item img { filter: sepia(0.05); }
+        .photo-item.bw img { filter: grayscale(1) contrast(1.1) sepia(0.08); }
+
+        /* ===== OFF-BALANCE PHOTO ROTATIONS (3D scrapbook feel) ===== */
+        .photo-spread.layout-duo .photo-item:first-child {
+            transform: rotate(-1.5deg) translateY(8px);
+            box-shadow: 4px 6px 20px rgba(0,0,0,0.12);
+        }
+        .photo-spread.layout-duo .photo-item:last-child {
+            transform: rotate(1.2deg) translateY(-6px);
+            box-shadow: -3px 5px 18px rgba(0,0,0,0.10);
+        }
+        .photo-spread.layout-trio .photo-item:first-child {
+            transform: rotate(-0.8deg);
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.12);
+        }
+        .photo-spread.layout-trio .photo-item:nth-child(2) {
+            transform: rotate(1.5deg) translateX(4px);
+        }
+        .photo-spread.layout-trio .photo-item:nth-child(3) {
+            transform: rotate(-1deg) translateX(-3px);
+        }
+
+        /* Tape strip on duo first photo */
+        .photo-spread.layout-duo .photo-item:first-child::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 44px;
+            height: 14px;
+            background: rgba(200, 169, 110, 0.22);
+            z-index: 2;
+            pointer-events: none;
+        }
+        /* Tape strip on trio last photo */
+        .photo-spread.layout-trio .photo-item:last-child::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: 16px;
+            transform: rotate(3deg);
+            width: 36px;
+            height: 12px;
+            background: rgba(200, 169, 110, 0.20);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* ===== GALLERY OFF-BALANCE ===== */
+        .gallery-item:nth-child(odd) {
+            transform: rotate(-0.8deg);
+        }
+        .gallery-item:nth-child(even) {
+            transform: rotate(0.6deg);
+        }
+        .gallery-item.span-2 {
+            transform: rotate(-0.3deg) !important;
+        }
+
         /* ===== CHAPTER TRANSITIONS ===== */
         .chapter-transition {
             text-align: center;
@@ -617,25 +696,36 @@
             margin: 0 auto;
         }
 
-        /* ===== EVENT CARDS ===== */
+        /* ===== EVENT CARDS — torn paper style ===== */
         .events { padding: var(--section-gap) 0; }
         .event-card {
-            border: 1px solid rgba(200, 169, 110, 0.3);
-            padding: 2.5rem 2rem;
-            margin-bottom: 1.5rem;
+            background: #FFFDF8;
+            border: none;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
             text-align: center;
             position: relative;
-            background: rgba(255, 255, 255, 0.5);
+            clip-path: polygon(
+                0% 2%, 3% 0%, 8% 1.5%, 15% 0.5%, 22% 2%, 30% 0.8%,
+                38% 1.8%, 45% 0.3%, 52% 2.2%, 60% 0.6%, 68% 1.5%,
+                75% 0.2%, 82% 2%, 90% 0.8%, 95% 1.5%, 100% 0.5%,
+                100% 97%, 97% 100%, 92% 98.5%, 85% 99.5%, 78% 98%,
+                70% 99.2%, 62% 98.2%, 55% 99.7%, 48% 97.8%, 40% 99.4%,
+                32% 98.5%, 25% 99.8%, 18% 98%, 10% 99.2%, 5% 98.5%, 0% 99.5%
+            );
+            box-shadow: 2px 3px 15px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
         }
+        /* Paper fiber texture overlay */
         .event-card::before {
             content: '';
             position: absolute;
-            top: -1px; left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 2px;
-            background: var(--amber);
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
         }
+        .event-card > * { position: relative; z-index: 1; }
         .event-type {
             font-family: var(--font-body);
             font-size: 0.65rem;
@@ -645,9 +735,9 @@
             margin-bottom: 1rem;
         }
         .event-date-big {
-            font-family: var(--font-editorial);
-            font-size: 2rem;
-            font-weight: 300;
+            font-family: var(--font-handwritten);
+            font-size: 2.2rem;
+            font-weight: 500;
             color: var(--text-dark);
             margin-bottom: 0.3rem;
         }
@@ -682,35 +772,6 @@
         }
         .event-map-link:hover { opacity: 0.7; }
 
-        /* ===== COUNTDOWN ===== */
-        .countdown-section {
-            text-align: center;
-            padding: 4rem 0;
-        }
-        .countdown-grid {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        .countdown-item {
-            text-align: center;
-        }
-        .countdown-number {
-            font-family: var(--font-editorial);
-            font-size: clamp(2rem, 6vw, 3rem);
-            font-weight: 300;
-            color: var(--text-dark);
-            line-height: 1;
-        }
-        .countdown-label {
-            font-family: var(--font-body);
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--soft-gray);
-            margin-top: 0.5rem;
-        }
 
         /* ===== DARK SECTION — CHAPTER 3: NIGHT ===== */
         .dark-chapter {
@@ -892,170 +953,8 @@
             margin-bottom: 1rem;
         }
 
-        /* ===== RSVP ===== */
-        .rsvp-section {
-            text-align: center;
-            padding: var(--section-gap) 0;
-        }
-        .rsvp-form {
-            max-width: 400px;
-            margin: 2rem auto 0;
-            text-align: left;
-        }
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-        .form-group label {
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            display: block;
-            margin-bottom: 0.4rem;
-        }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid rgba(200, 169, 110, 0.3);
-            background: rgba(255, 255, 255, 0.5);
-            font-family: var(--font-body);
-            font-size: 0.85rem;
-            color: var(--text-dark);
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: var(--amber);
-        }
-        .form-group textarea { resize: vertical; min-height: 80px; }
-        .rsvp-submit {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid var(--amber);
-            background: transparent;
-            color: var(--amber);
-            font-family: var(--font-body);
-            font-size: 0.75rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 0.5rem;
-        }
-        .rsvp-submit:hover {
-            background: var(--amber);
-            color: var(--white);
-        }
-        .rsvp-submit:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .form-success {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-        .form-success.show { display: block; }
-        .form-success i { color: var(--amber); margin-bottom: 1rem; }
-        .form-success p {
-            font-family: var(--font-editorial);
-            font-size: 1.2rem;
-            font-style: italic;
-            color: var(--text-muted);
-        }
 
-        /* ===== GUESTBOOK ===== */
-        .guestbook-section {
-            padding: var(--section-gap) 0;
-            text-align: center;
-        }
-        .guestbook-form {
-            max-width: 400px;
-            margin: 2rem auto 0;
-            text-align: left;
-        }
-        .guestbook-messages {
-            max-width: 400px;
-            margin: 2rem auto 0;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        .guestbook-msg {
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(200, 169, 110, 0.15);
-        }
-        .guestbook-msg-name {
-            font-family: var(--font-heading);
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-dark);
-        }
-        .guestbook-msg-text {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 0.3rem;
-            line-height: 1.5;
-        }
-        .guestbook-msg-time {
-            font-size: 0.65rem;
-            color: var(--soft-gray);
-            margin-top: 0.2rem;
-        }
 
-        /* ===== GIFT BOX ===== */
-        .gift-section {
-            text-align: center;
-            padding: 4rem 0;
-        }
-        .gift-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 2rem;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .gift-card {
-            border: 1px solid rgba(200, 169, 110, 0.3);
-            padding: 1.5rem 1rem;
-            text-align: center;
-        }
-        .gift-card-label {
-            font-size: 0.6rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--amber);
-            margin-bottom: 0.8rem;
-        }
-        .gift-card-name {
-            font-family: var(--font-heading);
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.3rem;
-        }
-        .gift-card-number {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 0.8rem;
-            word-break: break-all;
-        }
-        .gift-copy-btn {
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--amber);
-            background: none;
-            border: 1px solid var(--amber);
-            padding: 6px 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .gift-copy-btn:hover { background: var(--amber); color: var(--white); }
 
         /* ===== CLOSING ===== */
         .closing {
@@ -1063,10 +962,9 @@
             padding: 6rem 0 4rem;
         }
         .closing-names {
-            font-family: var(--font-editorial);
-            font-size: clamp(2rem, 7vw, 3.5rem);
-            font-weight: 300;
-            font-style: italic;
+            font-family: var(--font-handwritten);
+            font-size: clamp(2.2rem, 7vw, 3.8rem);
+            font-weight: 600;
             color: var(--text-dark);
             line-height: 1.2;
         }
@@ -1128,23 +1026,6 @@
         }
         .reveal-right.visible { opacity: 1; transform: translateX(0); }
 
-        /* ===== CALENDAR BUTTON ===== */
-        .calendar-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--amber);
-            border: 1px solid var(--amber);
-            padding: 10px 24px;
-            background: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 1.5rem;
-        }
-        .calendar-btn:hover { background: var(--amber); color: var(--white); }
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
@@ -1154,8 +1035,7 @@
             .wedding-page { padding: 0 16px; }
             .dark-chapter { margin: 0 -16px; padding: var(--section-gap) 16px; }
             .family-grid { gap: 1.5rem; }
-            .gift-cards { grid-template-columns: 1fr; }
-            .countdown-grid { gap: 1.2rem; }
+
             .gallery-grid { gap: 6px; }
             .photo-spread { gap: 8px; }
             .photo-spread.layout-duo { grid-template-columns: 1fr; }
@@ -1164,6 +1044,14 @@
             }
             .photo-spread.layout-trio .photo-item:first-child {
                 grid-row: auto;
+            }
+            /* Reset rotations on mobile to prevent overflow */
+            .photo-spread.layout-duo .photo-item:first-child,
+            .photo-spread.layout-duo .photo-item:last-child,
+            .photo-spread.layout-trio .photo-item:first-child,
+            .photo-spread.layout-trio .photo-item:nth-child(2),
+            .photo-spread.layout-trio .photo-item:nth-child(3) {
+                transform: none;
             }
         }
     </style>
@@ -1268,6 +1156,7 @@
                 mà cả hai muốn viết cùng nhau,
                 cho đến mãi về sau.
             </p>
+            <div style="margin-top:1.5rem;font-family:var(--font-handwritten);font-size:1.1rem;color:var(--amber-dark);opacity:0.7;letter-spacing:0.05em">— our story ♡</div>
         </section>
 
         <!-- ===== CHAPTER 1: GOLDEN LIGHT ===== -->
@@ -1379,33 +1268,6 @@
             </div>
         </section>
 
-        <!-- ===== COUNTDOWN ===== -->
-        <section class="countdown-section reveal">
-            <div class="section-label">Đếm Ngược</div>
-            <div class="thin-rule"></div>
-            <div class="countdown-grid">
-                <div class="countdown-item">
-                    <div class="countdown-number" id="days">00</div>
-                    <div class="countdown-label">Ngày</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="hours">00</div>
-                    <div class="countdown-label">Giờ</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="minutes">00</div>
-                    <div class="countdown-label">Phút</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-number" id="seconds">00</div>
-                    <div class="countdown-label">Giây</div>
-                </div>
-            </div>
-            <button class="calendar-btn" onclick="exportCalendar()">
-                <i data-lucide="calendar-plus" style="width:14px;height:14px"></i>
-                Thêm vào lịch
-            </button>
-        </section>
     </main>
 
     <!-- ===== CHAPTER 3: SPARKLE NIGHT (DARK) ===== -->
@@ -1520,92 +1382,14 @@
             </div>
         </section>
 
-        <!-- ===== RSVP ===== -->
-        <section class="rsvp-section reveal">
-            <div class="section-label">Xác Nhận Tham Dự</div>
-            <div class="thin-rule"></div>
-            <p style="font-family:var(--font-editorial);font-size:1.1rem;font-style:italic;color:var(--text-muted);max-width:380px;margin:0 auto">
-                Sự hiện diện của bạn là niềm vui lớn nhất của chúng mình
-            </p>
 
-            <form class="rsvp-form" id="rsvpForm">
-                <div class="form-group">
-                    <label>Họ và Tên *</label>
-                    <input type="text" id="rsvpName" required placeholder="Nhập họ tên">
-                </div>
-                <div class="form-group">
-                    <label>Số Điện Thoại</label>
-                    <input type="tel" id="rsvpPhone" placeholder="Nhập số điện thoại">
-                </div>
-                <div class="form-group">
-                    <label>Số Người Tham Dự</label>
-                    <select id="rsvpGuests">
-                        <option value="1">1 người</option>
-                        <option value="2" selected>2 người</option>
-                        <option value="3">3 người</option>
-                        <option value="4">4 người</option>
-                        <option value="5+">5+ người</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Lời Chúc</label>
-                    <textarea id="rsvpMessage" placeholder="Gửi lời chúc đến cô dâu & chú rể"></textarea>
-                </div>
-                <button type="submit" class="rsvp-submit">Xác Nhận</button>
-            </form>
 
-            <div class="form-success" id="rsvpSuccess">
-                <i data-lucide="heart" style="width:32px;height:32px"></i>
-                <p>Cảm ơn bạn! Chúng mình rất vui được đón tiếp bạn.</p>
-            </div>
-        </section>
-
-        <!-- ===== GUESTBOOK ===== -->
-        <section class="guestbook-section reveal">
-            <div class="section-label">Sổ Lưu Bút</div>
-            <div class="thin-rule"></div>
-            <form class="guestbook-form" id="guestbookForm">
-                <div class="form-group">
-                    <label>Tên của bạn *</label>
-                    <input type="text" id="guestbookName" required placeholder="Tên bạn">
-                </div>
-                <div class="form-group">
-                    <label>Lời nhắn *</label>
-                    <textarea id="guestbookMessage" required placeholder="Viết lời chúc..."></textarea>
-                </div>
-                <button type="submit" class="rsvp-submit">Gửi Lời Chúc</button>
-            </form>
-            <div class="guestbook-messages" id="guestbookMessages"></div>
-        </section>
-
-        <!-- ===== GIFT BOX ===== -->
-        <section class="gift-section reveal">
-            <div class="section-label">Hộp Mừng Cưới</div>
-            <div class="thin-rule"></div>
-            <p style="font-family:var(--font-editorial);font-size:1rem;font-style:italic;color:var(--text-muted);max-width:350px;margin:0 auto 1rem">
-                Sự hiện diện của bạn là món quà quý nhất.
-                Nếu muốn gửi thêm lời chúc phúc qua phong bì:
-            </p>
-            <div class="gift-cards">
-                <div class="gift-card">
-                    <div class="gift-card-label">Chú Rể</div>
-                    <div class="gift-card-name groom-full">Nguyễn Văn Minh</div>
-                    <div class="gift-card-number">0123 456 789</div>
-                    <button class="gift-copy-btn" onclick="copyText('0123 456 789', this)">Sao chép</button>
-                </div>
-                <div class="gift-card">
-                    <div class="gift-card-label">Cô Dâu</div>
-                    <div class="gift-card-name bride-full">Lê Thị Linh</div>
-                    <div class="gift-card-number">9876 543 210</div>
-                    <button class="gift-copy-btn" onclick="copyText('9876 543 210', this)">Sao chép</button>
-                </div>
-            </div>
-        </section>
 
         <!-- ===== CLOSING ===== -->
         <section class="closing reveal">
             <div class="section-label">With Love</div>
             <div class="thin-rule"></div>
+            <div style="font-family:var(--font-handwritten);font-size:1.3rem;color:var(--amber-dark);opacity:0.8;margin-bottom:0.8rem">with all our love,</div>
             <div class="closing-names">
                 <span class="groom-display">Minh</span>
                 <span class="amp">&</span>
@@ -1683,29 +1467,6 @@
         });
     }
 
-    /* ===== COUNTDOWN ===== */
-    function initCountdown(dateStr) {
-        var target = new Date(dateStr).getTime();
-        function update() {
-            var diff = target - Date.now();
-            if (diff <= 0) {
-                document.querySelector('.countdown-section').innerHTML =
-                    '<div style="text-align:center;padding:2rem;font-family:var(--font-editorial);font-size:1.5rem;font-style:italic;color:var(--amber)">Hôn lễ đã diễn ra!</div>';
-                return;
-            }
-            var d = Math.floor(diff / 86400000);
-            var h = Math.floor((diff % 86400000) / 3600000);
-            var m = Math.floor((diff % 3600000) / 60000);
-            var s = Math.floor((diff % 60000) / 1000);
-            var el = function(id) { return document.getElementById(id); };
-            if (el('days')) el('days').textContent = String(d).padStart(2, '0');
-            if (el('hours')) el('hours').textContent = String(h).padStart(2, '0');
-            if (el('minutes')) el('minutes').textContent = String(m).padStart(2, '0');
-            if (el('seconds')) el('seconds').textContent = String(s).padStart(2, '0');
-        }
-        update();
-        setInterval(update, 1000);
-    }
 
     /* ===== SCROLL REVEAL ===== */
     function initReveal() {
@@ -1772,84 +1533,6 @@
         }, { passive: true });
     }
 
-    /* ===== GUESTBOOK ===== */
-    function initGuestbook() {
-        var form = document.getElementById('guestbookForm');
-        var container = document.getElementById('guestbookMessages');
-        if (!form || !container) return;
-
-        var KEY = 'wedding_guestbook_212';
-
-        function loadMessages() {
-            var msgs = JSON.parse(localStorage.getItem(KEY) || '[]');
-            container.innerHTML = '';
-            msgs.reverse().forEach(function(m) {
-                var div = document.createElement('div');
-                div.className = 'guestbook-msg';
-                div.innerHTML = '<div class="guestbook-msg-name">' + escapeHtml(m.name) + '</div>' +
-                    '<div class="guestbook-msg-text">' + escapeHtml(m.text) + '</div>' +
-                    '<div class="guestbook-msg-time">' + m.time + '</div>';
-                container.appendChild(div);
-            });
-        }
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            var name = document.getElementById('guestbookName').value.trim();
-            var text = document.getElementById('guestbookMessage').value.trim();
-            if (!name || !text) return;
-
-            var msgs = JSON.parse(localStorage.getItem(KEY) || '[]');
-            msgs.push({ name: name, text: text, time: new Date().toLocaleString('vi-VN') });
-            localStorage.setItem(KEY, JSON.stringify(msgs));
-            form.reset();
-            loadMessages();
-        });
-
-        loadMessages();
-    }
-
-    function escapeHtml(str) {
-        var div = document.createElement('div');
-        div.textContent = str;
-        return div.innerHTML;
-    }
-
-    /* ===== RSVP ===== */
-    function initRSVP() {
-        var form = document.getElementById('rsvpForm');
-        var success = document.getElementById('rsvpSuccess');
-        if (!form) return;
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            var btn = form.querySelector('.rsvp-submit');
-            btn.disabled = true;
-            btn.textContent = 'Đang gửi...';
-
-            var data = {
-                A: document.getElementById('rsvpName').value,
-                B: document.getElementById('rsvpPhone').value,
-                C: document.getElementById('rsvpGuests').value,
-                D: document.getElementById('rsvpMessage').value,
-                E: new Date().toLocaleString('vi-VN')
-            };
-
-            if (typeof sheetsAPI !== 'undefined') {
-                sheetsAPI.post('RSVP_SHEET_ID', data)
-                    .then(function() { showSuccess(); })
-                    .catch(function() { showSuccess(); });
-            } else {
-                showSuccess();
-            }
-
-            function showSuccess() {
-                form.style.display = 'none';
-                success.classList.add('show');
-                lucide.createIcons({ nodes: success.querySelectorAll('[data-lucide]') });
-            }
-        });
-    }
 
     /* ===== SPARKLE EFFECT ===== */
     function initSparkles() {
@@ -1882,47 +1565,15 @@
         setInterval(createSparkle, 600);
     }
 
-    /* ===== CALENDAR EXPORT ===== */
-    function exportCalendar() {
-        var event = [
-            'BEGIN:VCALENDAR',
-            'VERSION:2.0',
-            'BEGIN:VEVENT',
-            'DTSTART:20260615T100000',
-            'DTEND:20260615T220000',
-            'SUMMARY:Lễ cưới Minh & Linh',
-            'LOCATION:White Palace, 194 Hoàng Văn Thụ, Phú Nhuận, TP.HCM',
-            'DESCRIPTION:Chúng mình rất vui được đón tiếp bạn tại lễ cưới!',
-            'END:VEVENT',
-            'END:VCALENDAR'
-        ].join('\r\n');
 
-        var blob = new Blob([event], { type: 'text/calendar' });
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = 'wedding-minh-linh.ics';
-        a.click();
-    }
-
-    /* ===== COPY TEXT ===== */
-    function copyText(text, btn) {
-        navigator.clipboard.writeText(text).then(function() {
-            var original = btn.textContent;
-            btn.textContent = 'Đã sao chép!';
-            setTimeout(function() { btn.textContent = original; }, 2000);
-        });
-    }
 
     /* ===== INIT ALL ===== */
     document.addEventListener('DOMContentLoaded', function() {
         lucide.createIcons();
         initEnvelope();
         initMusicToggle();
-        initCountdown('2026-06-15T10:00:00');
         initReveal();
         initLightbox();
-        initGuestbook();
-        initRSVP();
         initSparkles();
     });
     </script>
