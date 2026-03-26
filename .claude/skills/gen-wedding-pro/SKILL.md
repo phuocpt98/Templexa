@@ -152,12 +152,23 @@ Cập nhật `wedding-asset-catalog.js` nếu tạo asset mới.
 - **Thiết kế THEO ảnh**: bộ ảnh nền đỏ + Song Hỷ 3D → thiệp đỏ vàng. Không ép ảnh vào template sẵn
 - Envelope animation là yếu tố quyết định ấn tượng — đầu tư brainstorm kỹ ở bước này
 
+**Bài học từ thiệp #217 (Garden Gate — Cổng Vườn Xanh):**
+- Brainstorm TỪNG SECTION (không chỉ envelope) → mỗi section có hiệu ứng riêng gắn theme → chất lượng cao hơn nhiều
+- Cổng sắt uốn 3D perspective rotateY → ý tưởng tốt, action đúng, nhưng CSS shapes cổng sắt hơi thô → cần thêm chi tiết ornamental (cuộn sắt, hoa lá) hoặc dùng SVG inline cho cổng đẹp hơn
+- Hạt bồ công anh (dandelion seeds) thay petals/hearts → unique ambient, nhẹ nhàng
+- Polaroid clothesline + pendulum swing → cute, phù hợp outdoor
+- Garden path stepping stones xen kẽ trái/phải → love story hay, user "đi bộ" qua câu chuyện
+- Biển chỉ đường gỗ + chim đậu → chi tiết nhỏ nhưng tạo charm
+- Đom đóm (fireflies) thay confetti → romantic, khác biệt
+- Dresscode + Timeline bữa tiệc = 2 section mới hữu ích → nên thêm vào checklist mặc định
+- **Bài học: envelope CSS shapes phức tạp (cổng sắt, cột gỗ) dễ trông thô nếu chỉ dùng border/pseudo → nên chuẩn bị SVG inline hoặc background image cho phần phức tạp**
+
 **Quy trình đã chứng minh hiệu quả:**
-1. Xem ảnh → phân tích mood/color/style
-2. Brainstorm 5-7 ý tưởng envelope (dùng brainstormer agent)
+1. Xem ảnh → phân tích mood/color/style → đề xuất 3 style cho user chọn
+2. Brainstorm TỪNG SECTION (dùng brainstormer agent) — không chỉ envelope
 3. User chọn → implement
 4. Screenshot (Puppeteer + Python HTTP server)
-5. Thêm data.js + ghi bài học
+5. Thêm data.js (isPublic: false mặc định) + ghi bài học
 
 ### Bước 5: Review
 
