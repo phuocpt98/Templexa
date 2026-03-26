@@ -1319,6 +1319,7 @@ Chèn trước `];` đóng mảng PRODUCTS:
 ```javascript
     {
         id: <auto_increment>,
+        isPublic: false,
         name: 'Thiệp Cưới - <Tên Chú Rể> & <Tên Cô Dâu>',
         slug: 'thiep-cuoi-<slug>',
         description: 'Thiệp mời đám cưới <phong cách>...',
@@ -1847,6 +1848,7 @@ Thêm entry mới (KHÔNG thay thế mẫu gốc):
 ```javascript
     {
         id: <auto_increment>,
+        isPublic: false,
         name: 'Thiệp Cưới - <Tên Chú Rể> & <Tên Cô Dâu>',
         slug: 'thiep-cuoi-<slug>',
         description: 'Thiệp mời đám cưới của <tên>...',

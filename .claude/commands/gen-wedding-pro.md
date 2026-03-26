@@ -294,7 +294,7 @@ Sau khi score ≥ 70%:
 Chạy ĐÚNG quy trình `/gen-wedding`:
 - Bước 6: Chụp screenshot chính thức (desktop + mobile) — **SAU KHI user confirm**
 - Bước 6b: Convert PNG → WebP
-- Bước 7: Thêm entry vào data.js
+- Bước 7: Thêm entry vào data.js (**LUÔN đặt `isPublic: false`** — user tự chuyển true sau)
 - Bước 8: Cập nhật products.md
 - Bước 9: Cập nhật thư viện (nếu có component mới)
 - Bước 9b: Gen QR (nếu có base URL)

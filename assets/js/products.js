@@ -159,8 +159,14 @@
         grid.innerHTML = products.map(p => {
             const categoryLabel = CATEGORIES.find(c => c.id === p.category)?.label || p.category;
             let badgeHTML = '';
-            if (p.status === 'new') badgeHTML = '<span class="product-badge new">NEW</span>';
-            else if (p.status === 'hot') badgeHTML = '<span class="product-badge hot">HOT</span>';
+            const isAdmin = window.location.pathname.includes('products-admin');
+            if (isAdmin) {
+                if (p.isPublic === false) badgeHTML = '<span class="product-badge hot">HIDDEN</span>';
+                else badgeHTML = '<span class="product-badge new">PUBLIC</span>';
+            } else {
+                if (p.status === 'new') badgeHTML = '<span class="product-badge new">NEW</span>';
+                else if (p.status === 'hot') badgeHTML = '<span class="product-badge hot">HOT</span>';
+            }
             if (p.price === 'free') badgeHTML += '<span class="product-badge free" style="top:auto;bottom:12px;right:12px;">FREE</span>';
 
             const imgSrc = (isInvitation && invDetail && invDetail[p.id] && invDetail[p.id].mobileView) || p.thumbnail;
