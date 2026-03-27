@@ -4324,6 +4324,36 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         updatedAt: '2026-03-27',
+    },
+    {
+        id: 220,
+        isPublic: false,
+        name: 'Thiệp Cưới Midnight Sapphire Luxury',
+        slug: 'thiep-cuoi-midnight-sapphire-luxury',
+        description: 'Thiệp cưới đêm xa hoa — Midnight Editorial x Royal Sapphire. Wax seal vỡ + ring zoom + photo reveal, split layout sapphire/ivory, dark monogram close. Chỉ 4 section. Bold tuyệt đối.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'luxury', 'midnight', 'sapphire', 'dark', 'editorial', 'bold', 'gold'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_220_midnight-sapphire-luxury/anh_1.webp',
+            './products/Invitation/Wedding/gen_220_midnight-sapphire-luxury/anh_2.webp',
+            './products/Invitation/Wedding/gen_220_midnight-sapphire-luxury/anh_3.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_220_midnight-sapphire-luxury/screen.webp',
+        path: './products/Invitation/Wedding/gen_220_midnight-sapphire-luxury/',
+        demoUrl: './products/Invitation/Wedding/gen_220_midnight-sapphire-luxury/index.html',
+        features: [
+            'Envelope: wax seal crack + 15 gold particles burst + ring zoom + photo reveal (2.5s)',
+            'Split layout sapphire/ivory với circular couple photo tại giao điểm',
+            '4 section bold: Envelope, Hero editorial, Thông tin tiệc, Cảm ơn monogram',
+        ],
+        status: 'new',
+        priority: -1,
+        downloads: 1,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-27',
     }
 ];
 

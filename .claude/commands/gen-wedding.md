@@ -1928,3 +1928,5 @@ Cũng cập nhật `assets/data/invitation.json` — thêm entry với `mobileVi
 ```
 
 **Tên bố mẹ trong section Gia Đình:** Chỉ ghi "Ông/Bà + Họ tên". KHÔNG ghi chú thích "Thân phụ", "Thân mẫu", "Cha", "Mẹ", "Bố" — thừa vì đã có label "Nhà Trai"/"Nhà Gái".
+
+**Tên couple responsive:** Khi tên "Chú Rể & Cô Dâu" nằm cùng 1 dòng: **BẮT BUỘC** dùng `font-size: clamp(1.4rem, 6vw, 3rem)` + `white-space: nowrap` để chữ co theo màn hình, tránh xuống dòng giữa tên. Min clamp phải đủ nhỏ (~1.4rem) cho màn 320px. Áp dụng cho MỌI chỗ hiện tên couple: envelope, hero, closing.
