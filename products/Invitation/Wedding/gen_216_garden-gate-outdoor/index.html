@@ -80,7 +80,7 @@ section { position: relative; overflow: hidden; }
 }
 
 /* =========================================
-   SECTION 1: ENVELOPE — WROUGHT IRON GATE
+   SECTION 1: ENVELOPE — 3D FLORAL ARCH GATE
    ========================================= */
 #envelope {
   position: fixed;
@@ -115,7 +115,7 @@ section { position: relative; overflow: hidden; }
   filter: blur(2px);
 }
 
-/* Gate scene container */
+/* Scene container */
 .gate-scene {
   position: relative;
   display: flex;
@@ -127,157 +127,12 @@ section { position: relative; overflow: hidden; }
   padding: 0 16px;
 }
 
-/* Gate wrapper with 3D perspective */
-.gate-wrap {
-  perspective: 1200px;
-  perspective-origin: center center;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  width: 100%;
-  max-width: 320px;
-  height: 360px;
-  position: relative;
-  margin: 0 auto;
-}
-
-/* Individual gate panels */
-.gate-panel {
-  width: 47%;
-  height: 100%;
-  position: relative;
-  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-  background: transparent;
-}
-
-.gate-left  { transform-origin: left center; }
-.gate-right { transform-origin: right center; margin-left: 6px; }
-
-#envelope.open-anim .gate-left  { transform: rotateY(-110deg); }
-#envelope.open-anim .gate-right { transform: rotateY(110deg); }
-
-/* Gate frame inner — the main vertical bar */
-.gate-inner {
-  position: absolute;
-  inset: 0;
-  border: 3px solid var(--forest);
-  border-radius: 50% 50% 4px 4px / 20% 20% 4px 4px;
-  background: linear-gradient(180deg,
-    rgba(45,95,45,0.08) 0%,
-    rgba(45,95,45,0.04) 60%,
-    rgba(45,95,45,0.06) 100%);
-  box-shadow: inset 0 0 0 1px rgba(45,95,45,0.15), 2px 0 8px rgba(45,95,45,0.12);
-}
-
-/* Vertical iron bars */
-.gate-bars {
-  position: absolute;
-  inset: 12px 8px 4px;
-  display: flex;
-  gap: 6px;
-  align-items: stretch;
-}
-
-.gate-bars span {
-  flex: 1;
-  background: linear-gradient(90deg, var(--forest) 0%, #3a7a3a 40%, var(--forest) 100%);
-  border-radius: 2px 2px 4px 4px;
-  position: relative;
-  box-shadow: 1px 0 3px rgba(0,0,0,0.2);
-}
-
-/* Spear tip on each bar */
-.gate-bars span::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 6px;
-  height: 10px;
-  background: var(--forest);
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-}
-
-/* Horizontal rail */
-.gate-rail {
-  position: absolute;
-  height: 4px;
-  left: 6px;
-  right: 6px;
-  background: linear-gradient(90deg, var(--forest), #3a7a3a, var(--forest));
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-.gate-rail.top    { top: 28px; }
-.gate-rail.middle { top: 50%; }
-.gate-rail.bottom { bottom: 24px; }
-
-/* Scroll ornament at arch top */
-.gate-ornament {
-  position: absolute;
-  top: -22px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 28px;
-  height: 28px;
-  background: var(--gold);
-  border-radius: 50%;
-  border: 3px solid var(--forest);
-  box-shadow: 0 2px 8px rgba(212,167,106,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  color: var(--forest);
-  font-weight: 700;
-}
-
-/* Scroll curl decorations */
-.gate-scroll {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border: 2.5px solid var(--forest);
-  border-radius: 50%;
-  bottom: 30px;
-}
-.gate-scroll.left-scroll  { left: 4px; }
-.gate-scroll.right-scroll { right: 4px; }
-
-/* Center text between gates */
-.gate-center-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  text-align: center;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.gate-lock {
-  width: 28px;
-  height: 28px;
-  border: 2.5px solid var(--gold);
-  border-radius: 50%;
-  background: var(--cream);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  box-shadow: 0 2px 8px rgba(212,167,106,0.4);
-}
-
 /* Text content above gate */
 .env-text-top {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   position: relative;
-  z-index: 2;
+  z-index: 5;
 }
 
 .env-invite-label {
@@ -303,20 +158,83 @@ section { position: relative; overflow: hidden; }
   font-size: 0.85em;
 }
 
-/* Gate ground / base */
-.gate-base {
+/* Eucalyptus four-corner frame overlay on envelope */
+.env-frame {
+  position: absolute;
+  inset: 0;
+  background-image: url('../../../shared/images/wedding/backgrounds/greenery/bg-greenery-eucalyptus-four-corner.webp');
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.7;
+}
+
+/* ---- FLORAL IRON GATE (AI-generated image, mirrored) ---- */
+.floral-arch {
+  position: relative;
   width: 100%;
   max-width: 340px;
-  height: 8px;
-  background: linear-gradient(180deg, var(--brown) 0%, #3a2218 100%);
-  border-radius: 4px;
+  height: 440px;
   margin: 0 auto;
-  box-shadow: 0 4px 12px rgba(92,64,51,0.4);
+  perspective: 1200px;
+  perspective-origin: center center;
 }
+
+/* Each gate panel uses the AI-generated gate image */
+.gate-panel {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 52%;
+  transition: transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 8px 20px rgba(61,107,61,0.3));
+}
+.gate-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Left panel — hinge on left, slight overlap toward center */
+.gate-left {
+  left: -2%;
+  transform-origin: left center;
+}
+/* Right panel — mirrored, hinge on right */
+.gate-right {
+  right: -2%;
+  transform-origin: right center;
+}
+.gate-right img {
+  transform: scaleX(-1);
+}
+
+/* Open animation — doors swing outward in 3D */
+#envelope.open-anim .gate-left  { transform: rotateY(-120deg); }
+#envelope.open-anim .gate-right { transform: rotateY(120deg); }
+
+/* Lock icon between doors */
+.gate-lock {
+  position: absolute;
+  top: 58%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px; height: 56px;
+  z-index: 8;
+  filter: drop-shadow(0 4px 14px rgba(201,168,76,0.5));
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  cursor: pointer;
+}
+.gate-lock img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+}
+.gate-lock:hover { transform: translate(-50%, -50%) scale(1.12) rotate(5deg); }
+#envelope.open-anim .gate-lock { transform: translate(-50%, -50%) scale(0) rotate(180deg); opacity: 0; }
 
 /* Tap hint */
 .env-tap-hint {
-  margin-top: 32px;
+  margin-top: 24px;
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 300;
   font-size: 12px;
@@ -324,6 +242,7 @@ section { position: relative; overflow: hidden; }
   text-transform: uppercase;
   color: var(--text-faint);
   animation: blinkHint 1.8s ease-in-out infinite;
+  z-index: 10; position: relative;
   cursor: pointer;
 }
 
@@ -1075,43 +994,85 @@ section { position: relative; overflow: hidden; }
   border-radius: inherit;
 }
 
-/* Signs */
+/* Signs — vertical layout: pole in center, signs alternate left/right */
 .sign-boards {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  pointer-events: none;
+  align-items: center;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+/* Vertical pole running through center */
+.sign-pole-v {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  background: linear-gradient(90deg, #8B6252 0%, #C49A82 35%, #A07060 65%, #6B4535 100%);
+  border-radius: 3px 3px 6px 6px;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+  z-index: 0;
 }
 
 .sign-board {
   position: relative;
-  padding: 10px 18px;
+  width: 55%;
+  padding: 14px 18px;
   background: linear-gradient(180deg, #D4A76A 0%, #C49560 100%);
   border: 2px solid var(--brown);
   border-radius: 4px;
   box-shadow: 2px 3px 8px rgba(0,0,0,0.2);
-  white-space: nowrap;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, opacity 0.4s ease;
   opacity: 0;
+  z-index: 1;
+  text-align: center;
 }
 
+/* Vu Quy — left side */
 .sign-board.left-sign {
+  align-self: flex-start;
+  margin-left: 12px;
   transform: rotateY(25deg) translateX(-10px);
   transform-origin: right center;
 }
 
+/* Tiệc Cưới — right side */
 .sign-board.right-sign {
+  align-self: flex-end;
+  margin-right: 12px;
   transform: rotateY(-25deg) translateX(10px);
   transform-origin: left center;
+}
+
+/* Gap between signs */
+.sign-spacer {
+  height: 40px;
+  width: 100%;
 }
 
 .sign-board.visible {
   opacity: 1;
   transform: rotateY(0deg) translateX(0);
+}
+
+.sign-board-time {
+  font-family: 'Lora', serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--brown);
+  margin-bottom: 4px;
+}
+
+.sign-board-place {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #5C4033;
 }
 
 /* Arrow chevron on sign ends */
@@ -2127,6 +2088,7 @@ section { position: relative; overflow: hidden; }
      ============================== -->
 <section id="envelope">
   <div class="env-bg"></div>
+  <div class="env-frame"></div>
 
   <div class="gate-scene">
     <!-- Title above gate -->
@@ -2137,45 +2099,24 @@ section { position: relative; overflow: hidden; }
       </div>
     </div>
 
-    <!-- Gate with 3D perspective -->
-    <div class="gate-wrap">
-      <!-- Left gate panel -->
+    <!-- 3D Floral Iron Gate (AI-generated) -->
+    <div class="floral-arch">
+      <!-- Left gate panel (original) -->
       <div class="gate-panel gate-left">
-        <div class="gate-inner"></div>
-        <div class="gate-bars">
-          <span></span><span></span><span></span><span></span>
-        </div>
-        <div class="gate-rail top"></div>
-        <div class="gate-rail middle"></div>
-        <div class="gate-rail bottom"></div>
-        <div class="gate-ornament">✦</div>
-        <div class="gate-scroll left-scroll"></div>
+        <img src="../../../shared/images/wedding/icons/gate-iron-floral-watercolor.webp" alt="" loading="eager" />
       </div>
-
-      <!-- Center lock -->
-      <div class="gate-center-text">
-        <div class="gate-lock">🔒</div>
+      <!-- Lock icon -->
+      <div class="gate-lock">
+        <img src="../../../shared/images/wedding/icons/heart-lock-key.webp" alt="Mở" />
       </div>
-
-      <!-- Right gate panel -->
+      <!-- Right gate panel (mirrored) -->
       <div class="gate-panel gate-right">
-        <div class="gate-inner"></div>
-        <div class="gate-bars">
-          <span></span><span></span><span></span><span></span>
-        </div>
-        <div class="gate-rail top"></div>
-        <div class="gate-rail middle"></div>
-        <div class="gate-rail bottom"></div>
-        <div class="gate-ornament">✦</div>
-        <div class="gate-scroll right-scroll"></div>
+        <img src="../../../shared/images/wedding/icons/gate-iron-floral-watercolor.webp" alt="" loading="eager" />
       </div>
     </div>
 
-    <!-- Gate base -->
-    <div class="gate-base"></div>
-
     <!-- Tap hint -->
-    <p class="env-tap-hint" id="tapHint">✦ Chạm để mở cổng ✦</p>
+    <p class="env-tap-hint" id="tapHint">✦ Chạm để mở cổng hoa ✦</p>
   </div>
 </section>
 
@@ -2445,21 +2386,25 @@ section { position: relative; overflow: hidden; }
 
     <div class="signpost-bird" aria-hidden="true">🐦</div>
 
-    <div style="position:relative; display:inline-block;">
-      <div class="sign-pole" style="height:220px;"></div>
+    <div class="sign-boards" aria-label="Lịch trình lễ cưới">
+      <!-- Vertical pole -->
+      <div class="sign-pole-v"></div>
 
-      <div class="sign-boards" aria-label="Lịch trình lễ cưới">
-        <!-- Vu Quy sign -->
-        <div class="sign-board left-sign" style="width:220px; left:-120px;">
-          <div class="sign-board-title">Lễ Vu Quy</div>
-          <div class="sign-board-detail">08:00 · Nhà gái — Hội An</div>
-        </div>
+      <!-- Vu Quy — left side -->
+      <div class="sign-board left-sign reveal">
+        <div class="sign-board-title">Lễ Vu Quy</div>
+        <div class="sign-board-time">08:00</div>
+        <div class="sign-board-place">Nhà gái — Hội An</div>
+      </div>
 
-        <!-- Tiec Cuoi sign -->
-        <div class="sign-board right-sign" style="width:220px; left:-100px; top:70px;">
-          <div class="sign-board-title">Tiệc Cưới</div>
-          <div class="sign-board-detail">17:00 · Nhà hàng Vườn Xanh</div>
-        </div>
+      <!-- Spacer -->
+      <div class="sign-spacer"></div>
+
+      <!-- Tiệc Cưới — right side -->
+      <div class="sign-board right-sign reveal">
+        <div class="sign-board-title">Tiệc Cưới</div>
+        <div class="sign-board-time">17:00</div>
+        <div class="sign-board-place">Nhà hàng Vườn Xanh</div>
       </div>
     </div>
 
@@ -2588,7 +2533,7 @@ section { position: relative; overflow: hidden; }
       <img src="../../../shared/images/wedding/viet-ngoai-troi/562051485_1186822726831921_7104630307011300666_n.webp" alt="Cô dâu quay lưng, cỏ xanh mướt" loading="lazy">
     </div>
     <div class="gallery-item">
-      <img src="../../../shared/images/wedding/viet-ngoai-troi/562333326_1186822783498582_7104630307011300666_n.webp" alt="Cặp đôi ôm nhau, vải voan trắng" loading="lazy">
+      <img src="../../../shared/images/wedding/viet-ngoai-troi/562333326_1186822783498582_7950576852117940994_n.webp" alt="Cặp đôi ôm nhau, vải voan trắng" loading="lazy">
     </div>
     <div class="gallery-item">
       <img src="../../../shared/images/wedding/viet-ngoai-troi/563447378_1186822843498576_573815191487459772_n.webp" alt="Cặp đôi nhảy vui trên cỏ" loading="lazy">
