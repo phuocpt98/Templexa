@@ -239,7 +239,42 @@ var WEDDING_DATA = {
             { id: 'chibi-couple-aodai-lotus', file: 'icons/chibi-couple-aodai-lotus.webp', name: 'Chibi ao dai sen', tags: ['chibi', 'cute', 'traditional', 'cream'], usage: ['hero-center', 'cover-header'] },
             { id: 'chibi-couple-chinese', file: 'icons/chibi-couple-chinese.webp', name: 'Chibi co dau Trung Hoa', tags: ['chibi', 'cute', 'traditional', 'red'], usage: ['hero-center', 'cover-header'] },
             { id: 'chibi-couple-double-happiness', file: 'icons/chibi-couple-double-happiness.webp', name: 'Chibi Song Hy Trung Hoa', tags: ['chibi', 'cute', 'traditional', 'red'], usage: ['hero-center', 'cover-header'] },
-            { id: 'chibi-couple-hanbok', file: 'icons/chibi-couple-hanbok.webp', name: 'Chibi hanbok Han Quoc', tags: ['chibi', 'cute', 'traditional', 'pastel'], usage: ['hero-center', 'cover-header'] }
+            { id: 'chibi-couple-hanbok', file: 'icons/chibi-couple-hanbok.webp', name: 'Chibi hanbok Han Quoc', tags: ['chibi', 'cute', 'traditional', 'pastel'], usage: ['hero-center', 'cover-header'] },
+
+            // Gate / Arch
+            { id: 'gate-iron-floral-watercolor', file: 'icons/gate-iron-floral-watercolor.webp', name: 'Cong sat hoa watercolor', tags: ['gate', 'iron', 'floral', 'watercolor', 'garden', 'green'], usage: ['envelope-section', 'decoration'] },
+
+            // 3D Glass White
+            { id: 'glass-white-wedding-rings', file: 'icons/glass-white-wedding-rings.webp', name: 'Glass White - Nhan cuoi', tags: ['glass', 'white', 'elegant', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-white-heart', file: 'icons/glass-white-heart.webp', name: 'Glass White - Trai tim', tags: ['glass', 'white', 'elegant', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-white-flower', file: 'icons/glass-white-flower.webp', name: 'Glass White - Hoa', tags: ['glass', 'white', 'elegant', '3d', 'floral'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-white-cake', file: 'icons/glass-white-cake.webp', name: 'Glass White - Banh cuoi', tags: ['glass', 'white', 'elegant', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-white-champagne', file: 'icons/glass-white-champagne.webp', name: 'Glass White - Ly champagne', tags: ['glass', 'white', 'elegant', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-white-dress', file: 'icons/glass-white-dress.webp', name: 'Glass White - Vay cuoi', tags: ['glass', 'white', 'elegant', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-white-invitation', file: 'icons/glass-white-invitation.webp', name: 'Glass White - Thiep moi', tags: ['glass', 'white', 'elegant', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-white-gift', file: 'icons/glass-white-gift.webp', name: 'Glass White - Qua tang', tags: ['glass', 'white', 'elegant', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-white-car', file: 'icons/glass-white-car.webp', name: 'Glass White - Xe hoa', tags: ['glass', 'white', 'elegant', '3d'], usage: ['inline-icon', 'section-deco'] },
+
+            // 3D Glass Blush
+            { id: 'glass-blush-wedding-rings', file: 'icons/glass-blush-wedding-rings.webp', name: 'Glass Blush - Nhan cuoi', tags: ['glass', 'blush', 'pink', 'romantic', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-blush-heart-pink', file: 'icons/glass-blush-heart-pink.webp', name: 'Glass Blush - Trai tim hong', tags: ['glass', 'blush', 'pink', 'romantic', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-blush-flower', file: 'icons/glass-blush-flower.webp', name: 'Glass Blush - Hoa', tags: ['glass', 'blush', 'pink', 'romantic', '3d', 'floral'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-blush-cake', file: 'icons/glass-blush-cake.webp', name: 'Glass Blush - Banh cuoi', tags: ['glass', 'blush', 'pink', 'romantic', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-blush-champagne', file: 'icons/glass-blush-champagne.webp', name: 'Glass Blush - Ly champagne', tags: ['glass', 'blush', 'pink', 'romantic', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-blush-dress', file: 'icons/glass-blush-dress.webp', name: 'Glass Blush - Vay cuoi', tags: ['glass', 'blush', 'pink', 'romantic', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-blush-gift', file: 'icons/glass-blush-gift.webp', name: 'Glass Blush - Qua tang', tags: ['glass', 'blush', 'pink', 'romantic', '3d'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'glass-blush-car', file: 'icons/glass-blush-car.webp', name: 'Glass Blush - Xe hoa', tags: ['glass', 'blush', 'pink', 'romantic', '3d'], usage: ['inline-icon', 'section-deco'] },
+
+            // Neon
+            { id: 'neon-wedding-rings', file: 'icons/neon-wedding-rings.webp', name: 'Neon - Nhan cuoi', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'neon-heart', file: 'icons/neon-heart.webp', name: 'Neon - Trai tim', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'neon-champagne', file: 'icons/neon-champagne.webp', name: 'Neon - Ly champagne', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'neon-cake', file: 'icons/neon-cake.webp', name: 'Neon - Banh cuoi', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'neon-dress', file: 'icons/neon-dress.webp', name: 'Neon - Vay cuoi', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'neon-suit', file: 'icons/neon-suit.webp', name: 'Neon - Vest chu re', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'neon-bouquet', file: 'icons/neon-bouquet.webp', name: 'Neon - Hoa cuoi', tags: ['neon', 'glow', 'modern', 'dark', 'floral'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'neon-car', file: 'icons/neon-car.webp', name: 'Neon - Xe hoa', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'neon-gift', file: 'icons/neon-gift.webp', name: 'Neon - Qua tang', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] }
         ]
     },
 

@@ -938,191 +938,178 @@ section { position: relative; overflow: hidden; }
 }
 
 /* =========================================
-   SECTION 7: EVENT INFO — WOODEN SIGNPOST
+   SECTION 7: EVENT INFO — HANGING GARDEN TAGS
    ========================================= */
 #event-info {
-  padding: 70px 24px;
+  padding: 70px 24px 50px;
   background: var(--cream);
   position: relative;
 }
 
-.signpost-scene {
+.event-scene {
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
-  position: relative;
 }
 
-.signpost-title {
+.event-title {
   font-family: 'Lora', serif;
   font-style: italic;
   font-weight: 400;
   font-size: clamp(20px, 5.5vw, 28px);
   color: var(--forest);
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
-/* Bird on top */
-.signpost-bird {
-  font-size: 20px;
-  margin-bottom: -4px;
-  animation: birdHop 3s ease-in-out infinite;
-}
-
-@keyframes birdHop {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-4px); }
-}
-
-/* Post pole */
-.sign-pole {
-  width: 14px;
-  min-height: 200px;
-  background: linear-gradient(90deg, #8B6252 0%, #C49A82 35%, #A07060 65%, #6B4535 100%);
-  border-radius: 3px 3px 6px 6px;
-  margin: 0 auto;
+/* Rope line across the top */
+.rope-line {
   position: relative;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent 0%, var(--bark) 15%, var(--bark) 85%, transparent 100%);
+  border-radius: 2px;
+  margin-bottom: 0;
 }
-
-/* Grain texture */
-.sign-pole::after {
+/* Rope texture */
+.rope-line::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(180deg, transparent 0, transparent 6px, rgba(255,255,255,0.06) 6px, rgba(255,255,255,0.06) 7px);
+  background: repeating-linear-gradient(90deg, transparent 0, transparent 8px, rgba(255,255,255,0.15) 8px, rgba(255,255,255,0.15) 10px);
   border-radius: inherit;
 }
 
-/* Signs — vertical layout: pole in center, signs alternate left/right */
-.sign-boards {
-  position: relative;
+/* Cards container */
+.hanging-cards {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 360px;
-  margin: 0 auto;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 8px;
 }
 
-/* Vertical pole running through center */
-.sign-pole-v {
+/* Each hanging tag */
+.hang-tag {
+  position: relative;
+  flex: 1;
+  max-width: 170px;
+  padding: 24px 16px 20px;
+  background: var(--cream);
+  border: 1.5px solid rgba(143,174,130,0.4);
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(92,64,51,0.12);
+  text-align: center;
+  transform-origin: top center;
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.hang-tag.visible {
+  opacity: 1;
+}
+
+/* String connecting tag to rope */
+.hang-tag::before {
+  content: '';
   position: absolute;
-  top: 0; bottom: 0;
+  top: -20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 14px;
-  background: linear-gradient(90deg, #8B6252 0%, #C49A82 35%, #A07060 65%, #6B4535 100%);
-  border-radius: 3px 3px 6px 6px;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.15);
-  z-index: 0;
+  width: 2px;
+  height: 20px;
+  background: var(--bark);
 }
-
-.sign-board {
-  position: relative;
-  width: 55%;
-  padding: 14px 18px;
-  background: linear-gradient(180deg, #D4A76A 0%, #C49560 100%);
-  border: 2px solid var(--brown);
-  border-radius: 4px;
-  box-shadow: 2px 3px 8px rgba(0,0,0,0.2);
-  transition: transform 0.4s ease, opacity 0.4s ease;
-  opacity: 0;
-  z-index: 1;
-  text-align: center;
-}
-
-/* Vu Quy — left side */
-.sign-board.left-sign {
-  align-self: flex-start;
-  margin-left: 12px;
-  transform: rotateY(25deg) translateX(-10px);
-  transform-origin: right center;
-}
-
-/* Tiệc Cưới — right side */
-.sign-board.right-sign {
-  align-self: flex-end;
-  margin-right: 12px;
-  transform: rotateY(-25deg) translateX(10px);
-  transform-origin: left center;
-}
-
-/* Gap between signs */
-.sign-spacer {
-  height: 40px;
-  width: 100%;
-}
-
-.sign-board.visible {
-  opacity: 1;
-  transform: rotateY(0deg) translateX(0);
-}
-
-.sign-board-time {
-  font-family: 'Lora', serif;
-  font-weight: 600;
-  font-size: 15px;
-  color: var(--brown);
-  margin-bottom: 4px;
-}
-
-.sign-board-place {
-  font-family: 'Josefin Sans', sans-serif;
-  font-weight: 300;
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: #5C4033;
-}
-
-/* Arrow chevron on sign ends */
-.sign-board.left-sign::before {
+/* Small knot circle at top of string */
+.hang-tag::after {
   content: '';
   position: absolute;
-  left: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 8px solid transparent;
-  border-right-color: var(--brown);
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--bark);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
-.sign-board.right-sign::after {
-  content: '';
-  position: absolute;
-  right: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 8px solid transparent;
-  border-left-color: var(--brown);
+/* Slight tilts for natural look */
+.hang-tag:first-child {
+  transform: rotate(-2.5deg) translateY(8px);
+}
+.hang-tag:first-child.visible {
+  animation: tagSwing 4s ease-in-out infinite;
+  animation-delay: 0s;
+}
+.hang-tag:last-child {
+  transform: rotate(2deg) translateY(4px);
+}
+.hang-tag:last-child.visible {
+  animation: tagSwing 4.5s ease-in-out infinite;
+  animation-delay: 0.5s;
 }
 
-.sign-board-title {
-  font-family: 'Lora', serif;
-  font-style: italic;
+@keyframes tagSwing {
+  0%, 100% { transform: rotate(-2deg); }
+  50%      { transform: rotate(2deg); }
+}
+
+/* Tag icon (botanical image) */
+.hang-tag-icon {
+  width: 36px; height: 36px;
+  margin: 0 auto 12px;
+  opacity: 0.7;
+}
+.hang-tag-icon img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Tag title */
+.hang-tag-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem;
   font-weight: 600;
-  font-size: 13px;
-  color: var(--brown);
-  margin-bottom: 2px;
+  color: var(--forest);
+  margin-bottom: 10px;
 }
 
-.sign-board-detail {
+/* Divider inside tag */
+.hang-tag-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--sage);
+  margin: 0 auto 10px;
+  opacity: 0.5;
+}
+
+/* Time */
+.hang-tag-time {
+  font-family: 'Lora', serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--bark);
+  margin-bottom: 6px;
+}
+
+/* Place */
+.hang-tag-place {
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 300;
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: #5C4033;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: var(--text-light);
+  line-height: 1.5;
 }
 
-/* Ground patch */
-.sign-ground {
+/* Ground foliage (replaces emoji) */
+.event-ground {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 4px;
-  margin-top: 4px;
-  font-size: 14px;
-  opacity: 0.6;
+  align-items: center;
+  gap: 0;
+  margin-top: 28px;
+  opacity: 0.45;
 }
+.event-ground img {
+  height: 28px;
+  object-fit: contain;
+}
+.event-ground img:first-child { transform: scaleX(-1); }
 
 /* =========================================
    SECTION 8: CALENDAR — LEAF SHAPE
@@ -2381,35 +2368,41 @@ section { position: relative; overflow: hidden; }
      SECTION 7: EVENT INFO — WOODEN SIGNPOST
      ============================== -->
 <section id="event-info">
-  <div class="signpost-scene">
-    <h2 class="signpost-title reveal">Thông Tin Lễ Cưới</h2>
+  <div class="event-scene">
+    <h2 class="event-title reveal">Thông Tin Lễ Cưới</h2>
 
-    <div class="signpost-bird" aria-hidden="true">🐦</div>
+    <!-- Rope line -->
+    <div class="rope-line reveal"></div>
 
-    <div class="sign-boards" aria-label="Lịch trình lễ cưới">
-      <!-- Vertical pole -->
-      <div class="sign-pole-v"></div>
-
-      <!-- Vu Quy — left side -->
-      <div class="sign-board left-sign reveal">
-        <div class="sign-board-title">Lễ Vu Quy</div>
-        <div class="sign-board-time">08:00</div>
-        <div class="sign-board-place">Nhà gái — Hội An</div>
+    <!-- Hanging tags -->
+    <div class="hanging-cards">
+      <!-- Vu Quy -->
+      <div class="hang-tag reveal">
+        <div class="hang-tag-icon">
+          <img src="../../../shared/images/wedding/icons/glass-white-wedding-rings.webp" alt="" />
+        </div>
+        <div class="hang-tag-name">Lễ Vu Quy</div>
+        <div class="hang-tag-divider"></div>
+        <div class="hang-tag-time">08:00</div>
+        <div class="hang-tag-place">Nhà gái<br>Hội An</div>
       </div>
 
-      <!-- Spacer -->
-      <div class="sign-spacer"></div>
-
-      <!-- Tiệc Cưới — right side -->
-      <div class="sign-board right-sign reveal">
-        <div class="sign-board-title">Tiệc Cưới</div>
-        <div class="sign-board-time">17:00</div>
-        <div class="sign-board-place">Nhà hàng Vườn Xanh</div>
+      <!-- Tiệc Cưới -->
+      <div class="hang-tag reveal">
+        <div class="hang-tag-icon">
+          <img src="../../../shared/images/wedding/icons/glass-white-champagne.webp" alt="" />
+        </div>
+        <div class="hang-tag-name">Tiệc Cưới</div>
+        <div class="hang-tag-divider"></div>
+        <div class="hang-tag-time">17:00</div>
+        <div class="hang-tag-place">Nhà hàng Vườn Xanh<br>Hội An</div>
       </div>
     </div>
 
-    <div class="sign-ground" aria-hidden="true">
-      🌿 🪨 🌱 🪨 🌿
+    <!-- Ground foliage (replaces emoji) -->
+    <div class="event-ground" aria-hidden="true">
+      <img src="../../../shared/images/wedding/icons/olive-branch-gold.webp" alt="" />
+      <img src="../../../shared/images/wedding/icons/olive-branch-gold.webp" alt="" />
     </div>
   </div>
 </section>
