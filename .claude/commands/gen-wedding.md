@@ -1926,3 +1926,5 @@ Cũng cập nhật `assets/data/invitation.json` — thêm entry với `mobileVi
   mask-image: radial-gradient(ellipse 75% 75% at center, black 45%, transparent 95%);
 }
 ```
+
+**Tên bố mẹ trong section Gia Đình:** Chỉ ghi "Ông/Bà + Họ tên". KHÔNG ghi chú thích "Thân phụ", "Thân mẫu", "Cha", "Mẹ", "Bố" — thừa vì đã có label "Nhà Trai"/"Nhà Gái".
