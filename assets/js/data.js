@@ -4186,6 +4186,7 @@ const PRODUCTS = [
             './products/Invitation/Wedding/gen_215_double-happiness-song-hy/anh_3.webp',
         ],
         thumbnail: './products/Invitation/Wedding/gen_215_double-happiness-song-hy/screen.webp',
+        mobileView: './products/Invitation/Wedding/gen_215_double-happiness-song-hy/mobile.webp',
         path: './products/Invitation/Wedding/gen_215_double-happiness-song-hy/',
         demoUrl: './products/Invitation/Wedding/gen_215_double-happiness-song-hy/index.html',
         features: [
@@ -4242,11 +4243,13 @@ const PRODUCTS = [
         tags: ['website', 'invitation', 'wedding', 'garden', 'outdoor', 'green', 'sage', 'gate', 'nature', 'fireflies'],
         price: '',
         images: [
+            './products/Invitation/Wedding/gen_216_garden-gate-outdoor/screen.webp',
             './products/Invitation/Wedding/gen_216_garden-gate-outdoor/anh_1.webp',
             './products/Invitation/Wedding/gen_216_garden-gate-outdoor/anh_2.webp',
             './products/Invitation/Wedding/gen_216_garden-gate-outdoor/anh_3.webp',
         ],
         thumbnail: './products/Invitation/Wedding/gen_216_garden-gate-outdoor/screen.webp',
+        mobileView: './products/Invitation/Wedding/gen_216_garden-gate-outdoor/mobile.webp',
         path: './products/Invitation/Wedding/gen_216_garden-gate-outdoor/',
         demoUrl: './products/Invitation/Wedding/gen_216_garden-gate-outdoor/index.html',
         features: [
@@ -4275,6 +4278,7 @@ const PRODUCTS = [
             './products/Invitation/Wedding/gen_218_silk-veil-ethereal/screen.webp',
         ],
         thumbnail: './products/Invitation/Wedding/gen_218_silk-veil-ethereal/screen.webp',
+        mobileView: './products/Invitation/Wedding/gen_218_silk-veil-ethereal/mobile.webp',
         path: './products/Invitation/Wedding/gen_218_silk-veil-ethereal/',
         demoUrl: './products/Invitation/Wedding/gen_218_silk-veil-ethereal/index.html',
         features: [

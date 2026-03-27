@@ -169,7 +169,8 @@
             }
             if (p.price === 'free') badgeHTML += '<span class="product-badge free" style="top:auto;bottom:12px;right:12px;">FREE</span>';
 
-            const imgSrc = (isInvitation && invDetail && invDetail[p.id] && invDetail[p.id].mobileView) || p.thumbnail;
+            const showMobile = isInvitation || (p.type === 'invitation' && window.location.pathname.includes('products-admin'));
+            const imgSrc = (showMobile && p.mobileView) || (isInvitation && invDetail && invDetail[p.id] && invDetail[p.id].mobileView) || p.thumbnail;
 
             return `
                 <a href="product-detail.html?id=${p.id}" class="product-card" data-product-id="${p.id}"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
