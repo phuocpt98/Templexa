@@ -1,1736 +1,929 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Câu Chuyện Của Chúng Mình</title>
-    <meta name="description" content="Hành trình yêu thương — từ ngày đầu đến ngày cưới">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-
-    <!-- Anime.js v4 -->
-    <script src="https://cdn.jsdelivr.net/npm/animejs@4.0.2/lib/anime.iife.min.js"></script>
-
-    <style>
-        /* ============================================
-           CSS VARIABLES & RESET
-           ============================================ */
-        :root {
-            --primary: #FF8B7A;
-            --primary-soft: #FFB4A8;
-            --secondary: #F4C7AB;
-            --accent: #E85D75;
-            --accent-warm: #FF6B6B;
-            --bg: #FFF5F0;
-            --bg-warm: #FFFAF7;
-            --bg-cream: #FFF8F2;
-            --bg-dark: #2D1B14;
-            --bg-romantic: #1a0a15;
-            --text: #2D1B14;
-            --text-sub: #6B5147;
-            --text-light: #9B8A82;
-            --gold: #D4AF37;
-            --gold-soft: #E8D5A3;
-            --pink: #FFB5C2;
-            --pink-soft: #FFD6DE;
-            --lavender: #C8B6FF;
-
-            --font-script: 'Caveat', cursive;
-            --font-heading: 'Cormorant Garamond', serif;
-            --font-body: 'Quicksand', sans-serif;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            font-family: var(--font-body);
-            color: var(--text);
-            background: var(--bg);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ============================================
-           SLIDE SYSTEM — full viewport, no scroll
-           ============================================ */
-        .slides-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            height: 100dvh;
-        }
-        .scene {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem 1.5rem 4.5rem;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: none;
-            z-index: 1;
-        }
-        .scene.active {
-            opacity: 1;
-            transform: translateX(0);
-            pointer-events: auto;
-            z-index: 2;
-        }
-        .scene.exit-left {
-            opacity: 0;
-            transform: translateX(-100%);
-        }
-        .scene.exit-right {
-            opacity: 0;
-            transform: translateX(100%);
-        }
-        /* Prepare enter from left (for "prev" navigation) */
-        .scene.enter-left {
-            transform: translateX(-100%);
-            opacity: 0;
-        }
-
-        .scene-content {
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            padding-right: 30px; /* space for chapter dots */
-        }
-
-        /* ============================================
-           TEXT STYLES
-           ============================================ */
-        .narrator {
-            font-family: var(--font-body);
-            font-size: clamp(1rem, 4vw, 1.15rem);
-            font-weight: 400;
-            color: var(--text-sub);
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-        .narrator strong { color: var(--text); font-weight: 600; }
-        .narrator em { color: var(--accent); font-style: normal; font-weight: 500; }
-        .script-text {
-            font-family: var(--font-script);
-            font-size: clamp(1.4rem, 5vw, 2rem);
-            color: var(--text);
-            line-height: 1.4;
-        }
-        .couple-name {
-            font-family: var(--font-heading);
-            font-size: clamp(1.4rem, 6vw, 3rem);
-            font-weight: 600;
-            white-space: nowrap;
-            color: var(--text);
-        }
-
-        /* Reveal animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(25px);
-            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-delay-1 { transition-delay: 0.15s; }
-        .reveal-delay-2 { transition-delay: 0.3s; }
-        .reveal-delay-3 { transition-delay: 0.45s; }
-        .reveal-delay-4 { transition-delay: 0.6s; }
-        .reveal-delay-5 { transition-delay: 0.75s; }
-
-        @keyframes breathe {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-        }
-
-        /* ============================================
-           NAV BUTTONS — Prev / Next (cute pill style)
-           ============================================ */
-        .slide-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 500;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 16px;
-            background: linear-gradient(transparent 0%, rgba(255,245,240,0.9) 40%);
-        }
-        .slide-nav.show { display: flex; }
-        .nav-btn {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 10px 20px;
-            font-family: var(--font-script);
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: var(--text-sub);
-            background: white;
-            border: 1.5px solid var(--pink-soft);
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 12px rgba(255,181,194,0.2);
-        }
-        .nav-btn:hover {
-            background: var(--pink-soft);
-            color: var(--accent);
-            box-shadow: 0 5px 18px rgba(255,181,194,0.35);
-            transform: translateY(-2px);
-        }
-        .nav-btn:active { transform: translateY(0) scale(0.97); }
-        .nav-btn:disabled {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .nav-btn-icon { font-size: 0.9rem; }
-
-        /* Dark scene nav override */
-        .slide-nav.dark-mode {
-            background: linear-gradient(transparent 0%, rgba(26,10,21,0.9) 40%);
-        }
-        .slide-nav.dark-mode .nav-btn {
-            background: rgba(255,181,194,0.12);
-            color: var(--pink-soft);
-            border-color: rgba(255,214,222,0.2);
-        }
-        .slide-nav.dark-mode .nav-btn:hover {
-            background: rgba(255,181,194,0.25);
-        }
-
-        /* ============================================
-           CHAPTER DOTS — right side menu
-           ============================================ */
-        .chapter-dots {
-            position: fixed;
-            right: 6px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 500;
-            display: none;
-            flex-direction: column;
-            gap: 3px;
-            align-items: flex-end;
-        }
-        .chapter-dots.show { display: flex; }
-
-        .dot-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            padding: 2px 0;
-            flex-direction: row-reverse;
-        }
-        .dot-icon {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.5rem;
-            background: rgba(255,255,255,0.85);
-            border: 1.5px solid rgba(155,138,130,0.25);
-            transition: all 0.3s ease;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-            flex-shrink: 0;
-        }
-        .dot-label {
-            font-family: var(--font-body);
-            font-size: 0.6rem;
-            font-weight: 500;
-            color: var(--text-light);
-            white-space: nowrap;
-            opacity: 0;
-            transform: translateX(6px);
-            transition: opacity 0.25s, transform 0.25s;
-            pointer-events: none;
-            background: white;
-            padding: 2px 6px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-        }
-        .dot-item:hover .dot-label {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .dot-item.active .dot-icon {
-            background: var(--accent);
-            border-color: var(--accent);
-            transform: scale(1.25);
-            box-shadow: 0 2px 10px rgba(232,93,117,0.4);
-        }
-        .dot-item.active .dot-icon span { filter: brightness(10); }
-        .dot-item.visited .dot-icon {
-            border-color: var(--primary-soft);
-            background: var(--bg-warm);
-        }
-
-        /* Dark scene dots override */
-        .chapter-dots.dark-mode .dot-icon {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,214,222,0.2);
-        }
-        .chapter-dots.dark-mode .dot-label {
-            background: rgba(26,10,21,0.9);
-            color: var(--pink-soft);
-        }
-        .chapter-dots.dark-mode .dot-item.active .dot-icon {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-
-        /* ============================================
-           SCENE 0: SPLASH
-           ============================================ */
-        #splash {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 9999;
-            background: linear-gradient(135deg, #1a0a15 0%, #2D1B14 50%, #1a1525 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: opacity 1s ease, transform 1s ease;
-        }
-        #splash.opened {
-            opacity: 0;
-            transform: scale(1.05);
-            pointer-events: none;
-        }
-        .splash-text {
-            font-family: var(--font-script);
-            font-size: clamp(1.5rem, 6vw, 2.2rem);
-            color: #FFD6DE;
-            opacity: 0;
-            text-align: center;
-            line-height: 1.6;
-        }
-        .splash-hint {
-            font-family: var(--font-body);
-            font-size: 0.85rem;
-            color: rgba(255,214,222,0.5);
-            margin-top: 2rem;
-            letter-spacing: 0.15em;
-            animation: breathe 2.5s ease-in-out infinite;
-        }
-        .splash-sparkles {
-            position: absolute;
-            width: 100%; height: 100%;
-            pointer-events: none;
-        }
-        .splash-sparkle {
-            position: absolute;
-            width: 4px; height: 4px;
-            background: var(--gold-soft);
-            border-radius: 50%;
-            opacity: 0;
-        }
-
-        /* ============================================
-           SCENE 1: HELLO
-           ============================================ */
-        #scene-hello { background: var(--bg-warm); }
-        .polaroid {
-            width: 200px;
-            background: white;
-            padding: 10px 10px 40px;
-            box-shadow: 0 8px 30px rgba(45,27,20,0.12);
-            transform: rotate(-3deg);
-            margin: 0 auto 2rem;
-            transition: transform 0.4s ease;
-        }
-        .polaroid:hover { transform: rotate(0deg) scale(1.03); }
-        .polaroid img { width: 100%; height: 180px; object-fit: cover; display: block; }
-        .polaroid-caption {
-            font-family: var(--font-script);
-            font-size: 1rem;
-            color: var(--text-sub);
-            margin-top: 8px;
-            text-align: center;
-        }
-        #scene-hello::before, #scene-hello::after {
-            content: '';
-            position: absolute;
-            width: 200px; height: 200px;
-            border-radius: 50%;
-            opacity: 0.15;
-            z-index: 0;
-        }
-        #scene-hello::before { background: var(--pink); top: 10%; left: -50px; }
-        #scene-hello::after { background: var(--lavender); bottom: 10%; right: -50px; }
-
-        /* ============================================
-           SCENE 2: FIRST MEET (vintage)
-           ============================================ */
-        #scene-firstmeet { background: var(--bg-cream); }
-        .film-frame {
-            position: relative;
-            width: 240px;
-            margin: 0 auto 2rem;
-            padding: 12px;
-            background: white;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-        .film-frame img { width: 100%; height: 200px; object-fit: cover; filter: sepia(0.15) contrast(1.05); }
-        .film-date {
-            position: absolute;
-            bottom: 18px; right: 18px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.7rem;
-            color: #D4AF37;
-            background: rgba(0,0,0,0.5);
-            padding: 2px 6px;
-            letter-spacing: 0.1em;
-        }
-        #scene-firstmeet::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            opacity: 0.04;
-            z-index: 1;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-        }
-
-        /* ============================================
-           SCENE 3: FLIRTING (chat bubbles)
-           ============================================ */
-        #scene-flirt { background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-warm) 100%); }
-        .chat-container {
-            max-width: 340px;
-            margin: 1rem auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-height: 40vh;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-        }
-        /* Hide chat wrapper until bubble inside is visible */
-        .chat-wrapper {
-            display: none;
-        }
-        .chat-wrapper.shown {
-            display: flex;
-            flex-direction: column;
-        }
-        .chat-bubble {
-            max-width: 80%;
-            padding: 10px 16px;
-            border-radius: 18px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .chat-bubble.visible { opacity: 1; transform: scale(1); }
-        .chat-left {
-            align-self: flex-start;
-            background: white;
-            color: var(--text);
-            border-bottom-left-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        }
-        .chat-right {
-            align-self: flex-end;
-            background: var(--primary);
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
-        .chat-label { font-size: 0.7rem; color: var(--text-light); margin-bottom: 2px; }
-        .chat-label-right { text-align: right; color: rgba(255,255,255,0.7); }
-        .chat-tap-hint {
-            font-family: var(--font-body);
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-top: 0.5rem;
-            animation: breathe 2.5s ease-in-out infinite;
-            cursor: pointer;
-        }
-
-        /* ============================================
-           SCENE 4: OFFICIAL
-           ============================================ */
-        #scene-official { background: linear-gradient(180deg, var(--bg-warm) 0%, #FFF0F3 100%); }
-        .big-date {
-            font-family: var(--font-heading);
-            font-size: clamp(1.2rem, 4vw, 1.6rem);
-            font-weight: 400;
-            font-style: italic;
-            color: var(--accent);
-            margin: 0.5rem 0 1rem;
-            letter-spacing: 0.05em;
-        }
-        .heart-photo {
-            width: 180px; height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid white;
-            box-shadow: 0 8px 30px rgba(232,93,117,0.2);
-            margin: 0 auto 1rem;
-            display: block;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        .heart-photo:hover { transform: scale(1.05); }
-        .fly-heart {
-            position: fixed;
-            font-size: 1.2rem;
-            pointer-events: none;
-            z-index: 10;
-            animation: flyUp 1.5s ease-out forwards;
-        }
-        @keyframes flyUp {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-120px) scale(0.5) rotate(20deg); }
-        }
-
-        /* ============================================
-           SCENE 5: TOGETHER (scrapbook)
-           ============================================ */
-        #scene-together { background: var(--bg-cream); }
-        .scrapbook {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            max-width: 340px;
-            margin: 1rem auto;
-        }
-        .scrap-item {
-            position: relative;
-            background: white;
-            padding: 5px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-        }
-        .scrap-item:nth-child(odd) { transform: rotate(-2deg); }
-        .scrap-item:nth-child(even) { transform: rotate(1.5deg); }
-        .scrap-item:nth-child(3) { transform: rotate(3deg); }
-        .scrap-item img { width: 100%; height: 120px; object-fit: cover; display: block; }
-        .scrap-item::before {
-            content: '';
-            position: absolute;
-            top: -5px; left: 50%;
-            transform: translateX(-50%) rotate(-2deg);
-            width: 45px; height: 12px;
-            background: rgba(255, 228, 196, 0.7);
-            z-index: 2;
-        }
-        .scrap-caption {
-            font-family: var(--font-script);
-            font-size: 0.8rem;
-            color: var(--text-sub);
-            text-align: center;
-            padding: 3px 0 1px;
-        }
-
-        /* ============================================
-           SCENE 6: PROPOSAL (dark, suspense)
-           ============================================ */
-        #scene-proposal { background: var(--bg-romantic); color: #FFD6DE; }
-        #scene-proposal .narrator { color: rgba(255,214,222,0.75); }
-        .proposal-question {
-            font-family: var(--font-heading);
-            font-size: clamp(1.3rem, 4.5vw, 1.8rem);
-            font-weight: 400;
-            font-style: italic;
-            color: var(--gold-soft);
-            margin: 1.5rem 0;
-        }
-        .proposal-tap {
-            font-size: 0.85rem;
-            color: rgba(255,214,222,0.4);
-            animation: breathe 2s ease-in-out infinite;
-            cursor: pointer;
-            padding: 1rem;
-        }
-        .proposal-answer { display: none; }
-        .proposal-answer.revealed { display: block; }
-        .answer-text {
-            font-family: var(--font-script);
-            font-size: clamp(3rem, 12vw, 5rem);
-            font-weight: 700;
-            color: var(--primary);
-            text-shadow: 0 0 40px rgba(255,139,122,0.4);
-        }
-        .sparkle-ring { width: 60px; height: 60px; margin: 1rem auto; opacity: 0; }
-
-        /* ============================================
-           SCENE 7: GROOM REVEAL
-           ============================================ */
-        #scene-groom { background: var(--bg-warm); }
-        .groom-reveal { text-align: center; }
-        .groom-photo-wrapper {
-            position: relative;
-            width: 180px;
-            height: 220px;
-            margin: 0 auto 0.8rem;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(45,27,20,0.12);
-            cursor: pointer;
-        }
-        .groom-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: filter 0.8s ease;
-        }
-        .groom-photo.blurred {
-            filter: blur(20px) brightness(0.9);
-        }
-        .groom-photo.revealed {
-            filter: none;
-        }
-        .groom-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(45,27,20,0.3);
-            transition: opacity 0.6s ease;
-        }
-        .groom-overlay span {
-            font-family: var(--font-script);
-            font-size: 3rem;
-            color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            animation: breathe 2s ease-in-out infinite;
-        }
-        .groom-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        .groom-tap-hint {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            animation: breathe 2.5s ease-in-out infinite;
-            cursor: pointer;
-        }
-
-        /* ============================================
-           SCENE 8: WEDDING PHOTOS
-           ============================================ */
-        #scene-wedding-photos { background: var(--bg-cream); }
-        .wedding-gallery {
-            max-width: 320px;
-            margin: 0 auto;
-        }
-        .wedding-photo-main {
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(45,27,20,0.1);
-            margin-bottom: 8px;
-        }
-        .wedding-photo-main img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            display: block;
-        }
-        .wedding-photo-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-        .wedding-photo-small {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 12px rgba(45,27,20,0.08);
-        }
-        .wedding-photo-small img {
-            width: 100%;
-            height: 110px;
-            object-fit: cover;
-            display: block;
-        }
-
-        @keyframes petalFall {
-            0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.7; }
-            50% { transform: translateY(45vh) rotate(180deg) translateX(30px); opacity: 0.5; }
-            100% { transform: translateY(95vh) rotate(360deg) translateX(-20px); opacity: 0; }
-        }
-
-        /* Wedding photo animations */
-        .wedding-photo-anim {
-            animation: weddingPhotoIn 0.8s ease both;
-        }
-        @keyframes weddingPhotoIn {
-            from { opacity: 0; transform: scale(0.9) translateY(15px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        .wedding-photo-main { position: relative; }
-        .wedding-photo-main::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(135deg,
-                rgba(255,181,194,0.15) 0%,
-                transparent 40%,
-                transparent 60%,
-                rgba(200,182,255,0.1) 100%);
-            pointer-events: none;
-            border-radius: 14px;
-        }
-        .wedding-photo-small {
-            transition: transform 0.3s ease;
-        }
-        .wedding-photo-small:hover {
-            transform: scale(1.03) rotate(-1deg);
-        }
-
-        /* ============================================
-           SCENE 9: TRANSITION
-           ============================================ */
-        #scene-transition { background: var(--bg-warm); }
-
-        /* ============================================
-           SCENE 8: INVITATION
-           ============================================ */
-        #scene-invite { background: linear-gradient(180deg, var(--bg-warm) 0%, #FFF0EC 50%, var(--bg-warm) 100%); }
-        .invite-card {
-            background: white;
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 16px;
-            padding: clamp(1.5rem, 5vw, 2.5rem);
-            max-width: 400px;
-            margin: 0 auto;
-            box-shadow: 0 12px 40px rgba(45,27,20,0.08);
-            position: relative;
-        }
-        .invite-card::before, .invite-card::after {
-            content: '❦';
-            position: absolute;
-            font-size: 1.2rem;
-            color: var(--gold);
-            opacity: 0.4;
-        }
-        .invite-card::before { top: 10px; left: 14px; }
-        .invite-card::after { bottom: 10px; right: 14px; transform: rotate(180deg); }
-        .invite-ornament { font-size: 1.5rem; color: var(--gold); margin-bottom: 0.5rem; }
-        .invite-label {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 0.75rem;
-        }
-        .invite-couple {
-            font-family: var(--font-heading);
-            font-size: clamp(1.6rem, 6vw, 2.4rem);
-            font-weight: 600;
-            white-space: nowrap;
-            margin-bottom: 1rem;
-        }
-        .invite-divider { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.5; }
-        .invite-detail {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.95rem;
-            color: var(--text-sub);
-            margin-bottom: 0.6rem;
-        }
-        .invite-detail-icon { flex-shrink: 0; width: 20px; text-align: center; color: var(--primary); }
-        .invite-closing {
-            font-family: var(--font-script);
-            font-size: clamp(1.1rem, 4vw, 1.4rem);
-            color: var(--accent);
-            margin-top: 1.2rem;
-        }
-
-        /* ============================================
-           SCENE 9: RSVP
-           ============================================ */
-        #scene-rsvp { background: var(--bg); }
-        .rsvp-form {
-            max-width: 360px;
-            margin: 1rem auto 0;
-            text-align: left;
-        }
-        .rsvp-input, .rsvp-textarea {
-            width: 100%;
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            padding: 12px 16px;
-            border: 1px solid rgba(212,175,55,0.3);
-            border-radius: 12px;
-            background: white;
-            color: var(--text);
-            outline: none;
-            margin-bottom: 10px;
-            transition: border-color 0.3s;
-        }
-        .rsvp-input:focus, .rsvp-textarea:focus { border-color: var(--primary); }
-        .rsvp-textarea { height: 80px; resize: none; }
-        .rsvp-btn {
-            width: 100%;
-            padding: 12px;
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: white;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .rsvp-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,93,117,0.3); }
-        .rsvp-success { display: none; text-align: center; padding: 1.5rem 0; }
-        .rsvp-success.show { display: block; }
-
-        /* ============================================
-           SCENE 10: CLOSING
-           ============================================ */
-        #scene-closing { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%); }
-        .closing-photo {
-            width: 160px; height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-            box-shadow: 0 8px 30px rgba(45,27,20,0.1);
-            margin: 0 auto 1.5rem;
-            display: block;
-        }
-        .floating-hearts {
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .float-heart {
-            position: absolute;
-            bottom: -30px;
-            font-size: 1rem;
-            opacity: 0.5;
-            animation: floatHeart linear infinite;
-        }
-        @keyframes floatHeart {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* ============================================
-           CONFETTI
-           ============================================ */
-        .confetti-container {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 100;
-            overflow: hidden;
-        }
-        .confetti-piece {
-            position: absolute;
-            top: -10px;
-            width: 10px; height: 10px;
-            opacity: 0;
-        }
-
-        /* ============================================
-           MUSIC TOGGLE
-           ============================================ */
-        .music-toggle {
-            position: fixed;
-            bottom: 60px;
-            right: 12px;
-            z-index: 1000;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: white;
-            border: 1px solid rgba(212,175,55,0.3);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-        .music-toggle.show { opacity: 1; }
-        .music-bars { display: flex; gap: 2px; align-items: flex-end; height: 14px; }
-        .music-bar { width: 3px; background: var(--primary); border-radius: 1px; }
-        .music-bar.playing { animation: musicPulse 0.8s ease-in-out infinite alternate; }
-        .music-bar:nth-child(1) { height: 7px; animation-delay: 0s; }
-        .music-bar:nth-child(2) { height: 12px; animation-delay: 0.15s; }
-        .music-bar:nth-child(3) { height: 9px; animation-delay: 0.3s; }
-        .music-bar:nth-child(4) { height: 14px; animation-delay: 0.1s; }
-        .music-bar.paused { animation: none !important; height: 5px !important; }
-        @keyframes musicPulse { 0% { height: 3px; } 100% { height: 14px; } }
-
-        /* ============================================
-           PROGRESS BAR (top)
-           ============================================ */
-        .slide-progress {
-            position: fixed;
-            top: 0; left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            z-index: 9998;
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-
-        /* ============================================
-           RESPONSIVE
-           ============================================ */
-        @media (max-width: 480px) {
-            .polaroid { width: 160px; }
-            .polaroid img { height: 140px; }
-            .film-frame { width: 190px; }
-            .film-frame img { height: 160px; }
-            .scrap-item img { height: 95px; }
-            .heart-photo { width: 150px; height: 150px; }
-            .closing-photo { width: 130px; height: 130px; }
-            .chapter-dots { right: 4px; gap: 2px; }
-            .dot-icon { width: 18px; height: 18px; font-size: 0.45rem; }
-        }
-        @media (max-height: 700px) {
-            .scene { padding: 1.5rem 1.5rem 4rem; }
-            .narrator { font-size: 0.9rem; margin-bottom: 0.6rem; }
-            .polaroid { width: 140px; margin-bottom: 1rem; }
-            .polaroid img { height: 120px; }
-            .heart-photo { width: 130px; height: 130px; }
-            .scrap-item img { height: 80px; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Progress bar -->
-    <div class="slide-progress" id="slideProgress"></div>
-
-    <!-- Background music -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="../../../shared/music/romantic/Everyday I Love You.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Music toggle -->
-    <div class="music-toggle" id="musicToggle">
-        <div class="music-bars">
-            <div class="music-bar paused"></div>
-            <div class="music-bar paused"></div>
-            <div class="music-bar paused"></div>
-            <div class="music-bar paused"></div>
-        </div>
-    </div>
-
-    <!-- Chapter dots (right side) -->
-    <nav class="chapter-dots" id="chapterDots">
-        <!-- Populated by JS -->
-    </nav>
-
-    <!-- Nav buttons (bottom) -->
-    <div class="slide-nav" id="slideNav">
-        <button class="nav-btn" id="btnPrev" disabled>
-            <span class="nav-btn-icon">🌿</span> Quay lại
-        </button>
-        <button class="nav-btn" id="btnNext">
-            Tiếp nè <span class="nav-btn-icon">🌸</span>
-        </button>
-    </div>
-
-    <!-- =============================================
-         SCENE 0: SPLASH
-         ============================================= -->
-    <div id="splash">
-        <div class="splash-sparkles" id="splashSparkles"></div>
-        <div class="splash-text" id="splashText">Psst... có chuyện muốn kể nè</div>
-        <div class="splash-hint">nhấn vào đây đi...</div>
-    </div>
-
-    <!-- Slides wrapper -->
-    <div class="slides-wrapper" id="slidesWrapper">
-
-        <!-- SCENE 1: HELLO — ảnh dấu mặt (tay nắm) -->
-        <section class="scene active" id="scene-hello" data-chapter="Xin chào" data-icon="👋" data-dark="false">
-            <div class="scene-content">
-                <div class="polaroid reveal">
-                    <img src="../../../shared/images/wedding/viet-trang-hoa/629214346_1496741812453630_740612148984566707_n.webp" alt="Bouquet">
-                    <div class="polaroid-caption">đoán xem tụi mình là ai ~</div>
-                </div>
-                <p class="narrator reveal reveal-delay-1">Chào bạn!</p>
-                <p class="narrator reveal reveal-delay-2">
-                    Mình là <strong id="brideName1">Thuỳ Linh</strong>
-                    — còn người kia ư? <em>Bí mật!</em>
-                </p>
-                <p class="narrator reveal reveal-delay-3">
-                    Ừm... nếu bạn nhận được cái này,<br>
-                    nghĩa là bạn <em>đặc biệt lắm</em> đó!
-                </p>
-                <p class="narrator reveal reveal-delay-4">
-                    Ngồi xuống đi, mình kể chuyện cho nghe nè~
-                </p>
-            </div>
-        </section>
-
-        <!-- SCENE 2: FIRST MEET -->
-        <section class="scene" id="scene-firstmeet" data-chapter="Ngày đó" data-icon="🌸" data-dark="false">
-            <div class="scene-content">
-                <p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 1</p>
-                <p class="script-text reveal reveal-delay-1" style="margin-bottom: 1.5rem;">"Ngày đó..."</p>
-                <div class="film-frame reveal reveal-delay-2">
-                    <img src="../../../shared/images/wedding/viet-trang-hoa/628264245_1496742449120233_4645514456825061638_n.webp" alt="Bride solo" style="object-position: center 20%;">
-                    <div class="film-date">2020</div>
-                </div>
-                <p class="narrator reveal reveal-delay-3">Chuyện bắt đầu từ một ngày<br>rất bình thường...</p>
-                <p class="narrator reveal reveal-delay-4">
-                    <span id="groomName2">Đức Anh</span> lúc đó còn chẳng biết
-                    <span id="brideName2">Thuỳ Linh</span> là ai
-                </p>
-                <p class="narrator reveal reveal-delay-5">Nhưng mà ông trời xếp cho gặp<br>thì phải gặp thôi!</p>
-            </div>
-        </section>
-
-        <!-- SCENE 3: FLIRTING -->
-        <section class="scene" id="scene-flirt" data-chapter="Thả thính" data-icon="💬" data-dark="false">
-            <div class="scene-content">
-                <p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 2</p>
-                <p class="script-text reveal reveal-delay-1" style="margin-bottom: 0.5rem;">"Thế là..."</p>
-                <p class="narrator reveal reveal-delay-2" style="margin-bottom: 0.5rem; font-size: 0.9rem;">
-                    Tin nhắn ngày càng nhiều...<br>
-                    Cuộc gọi ngày càng dài...
-                </p>
-                <div class="chat-container" id="chatContainer"></div>
-                <p class="chat-tap-hint reveal reveal-delay-3" id="chatTapHint">nhấn để xem thêm tin nhắn...</p>
-            </div>
-        </section>
-
-        <!-- SCENE 4: OFFICIAL -->
-        <section class="scene" id="scene-official" data-chapter="Yêu nhau" data-icon="💕" data-dark="false">
-            <div class="scene-content">
-                <p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 3</p>
-                <p class="script-text reveal reveal-delay-1">"Và rồi... TADA!"</p>
-                <img class="heart-photo reveal reveal-delay-2" id="officialPhoto"
-                     src="../../../shared/images/wedding/viet-trang-hoa/627789060_1496741912453620_3108546600317143173_n.webp"
-                     alt="Bride with bouquet" style="object-position: center 20%">
-                <p class="big-date reveal reveal-delay-3" id="officialDate">Ngày 14 tháng 02 năm 2021</p>
-                <p class="narrator reveal reveal-delay-4">Chính thức về một nhà!</p>
-                <p class="narrator reveal reveal-delay-5" style="font-size: 0.85rem; color: var(--text-light);">
-                    (Ý là về một nhà... yêu nhau ấy, chưa cưới đâu, từ từ)
-                </p>
-            </div>
-        </section>
-
-        <!-- SCENE 5: TOGETHER -->
-        <section class="scene" id="scene-together" data-chapter="Bên nhau" data-icon="📸" data-dark="false">
-            <div class="scene-content">
-                <p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 4</p>
-                <p class="script-text reveal reveal-delay-1" style="margin-bottom: 0.5rem;">"Những ngày bên nhau"</p>
-                <p class="narrator reveal reveal-delay-2" style="margin-bottom: 0.5rem; font-size: 0.9rem;">
-                    Từ đó thì... đi khắp nơi cùng nhau!
-                </p>
-                <div class="scrapbook reveal reveal-delay-3">
-                    <div class="scrap-item">
-                        <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=300&h=200&fit=crop" alt="Food">
-                        <div class="scrap-caption">ăn cùng nhau</div>
-                    </div>
-                    <div class="scrap-item">
-                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&h=200&fit=crop" alt="Beach">
-                        <div class="scrap-caption">đi hết thế giới</div>
-                    </div>
-                    <div class="scrap-item">
-                        <img src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=300&h=200&fit=crop" alt="Concert">
-                        <div class="scrap-caption">quẩy cùng nhau</div>
-                    </div>
-                    <div class="scrap-item">
-                        <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=300&h=200&fit=crop" alt="Coffee">
-                        <div class="scrap-caption">cà phê cuối tuần</div>
-                    </div>
-                </div>
-                <p class="narrator reveal reveal-delay-4" style="margin-top: 0.5rem; font-size: 0.9rem;">
-                    Và đi hết những chuyến đi mà hai đứa hứa
-                </p>
-            </div>
-        </section>
-
-        <!-- SCENE 6: PROPOSAL -->
-        <section class="scene" id="scene-proposal" data-chapter="Cầu hôn" data-icon="💍" data-dark="true">
-            <div class="scene-content">
-                <p class="narrator reveal" style="color: rgba(255,214,222,0.5); font-style: italic;">Chương 5</p>
-                <p class="narrator reveal reveal-delay-1">Rồi một ngày...</p>
-                <p class="proposal-question reveal reveal-delay-2">"Lấy anh nhé?"</p>
-                <div class="sparkle-ring reveal reveal-delay-3">
-                    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="30" cy="34" r="14" stroke="#D4AF37" stroke-width="2.5" fill="none"/>
-                        <path d="M30 20 L26 28 L30 24 L34 28 Z" fill="#D4AF37"/>
-                        <circle cx="30" cy="18" r="3" fill="#E8D5A3"/>
-                    </svg>
-                </div>
-                <p class="narrator reveal reveal-delay-3">Và câu trả lời là...</p>
-                <div class="proposal-tap reveal reveal-delay-4" id="proposalTap">nhấn để biết câu trả lời...</div>
-                <div class="proposal-answer" id="proposalAnswer">
-                    <p class="answer-text">CÓ!</p>
-                    <p class="narrator" style="color: rgba(255,214,222,0.8); margin-top: 0.5rem;">(hehe, bạn cũng biết mà)</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SCENE 7: GROOM REVEAL — tò mò, playful -->
-        <section class="scene" id="scene-groom" data-chapter="Người ấy" data-icon="🤵" data-dark="false">
-            <div class="scene-content">
-                <p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 6</p>
-                <p class="script-text reveal reveal-delay-1" style="margin-bottom: 1rem;">
-                    "Mà khoan... người ấy là ai?"
-                </p>
-                <p class="narrator reveal reveal-delay-2" style="margin-bottom: 1rem;">
-                    Kể từ đầu giờ chưa thấy mặt người ta nhỉ?<br>
-                    Đến lúc lộ diện rồi đó!
-                </p>
-                <div class="groom-reveal reveal reveal-delay-3" id="groomReveal">
-                    <div class="groom-photo-wrapper" id="groomPhotoWrapper">
-                        <img class="groom-photo blurred" id="groomPhoto"
-                             src="../../../shared/images/wedding/viet-trang-hoa/628232532_1496741939120284_2188543106842202943_n.webp"
-                             alt="Groom" style="object-position: center 15%">
-                        <div class="groom-overlay" id="groomOverlay">
-                            <span>?</span>
-                        </div>
-                    </div>
-                    <p class="groom-tap-hint" id="groomTapHint">nhấn để lộ mặt anh ấy...</p>
-                </div>
-                <p class="narrator reveal reveal-delay-4 groom-name-reveal" id="groomNameReveal" style="display:none; font-weight: 600; color: var(--accent);">
-                    Xin giới thiệu — Đức Anh đây ạ!
-                </p>
-            </div>
-        </section>
-
-        <!-- SCENE 8: WEDDING PHOTOS — ảnh cưới đẹp -->
-        <section class="scene" id="scene-wedding-photos" data-chapter="Ảnh cưới" data-icon="📷" data-dark="false">
-            <div class="scene-content">
-                <p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 7</p>
-                <p class="script-text reveal reveal-delay-1" style="margin-bottom: 0.8rem;">
-                    "Ngày mà hai đứa chụp ảnh cưới"
-                </p>
-                <p class="narrator reveal reveal-delay-2" style="margin-bottom: 0.8rem; font-size: 0.9rem;">
-                    Đẹp nhất đời luôn á... (tự khen tí)
-                </p>
-                <div class="wedding-gallery reveal reveal-delay-3">
-                    <div class="wedding-photo-main wedding-photo-anim">
-                        <img src="../../../shared/images/wedding/viet-trang-hoa/628267914_1496742209120257_3178729502643930985_n.webp" alt="Couple standing" style="object-position: center 15%">
-                    </div>
-                    <div class="wedding-photo-row">
-                        <div class="wedding-photo-small wedding-photo-anim" style="animation-delay: 0.2s">
-                            <img src="../../../shared/images/wedding/viet-trang-hoa/628427200_1496742375786907_1068531846115830906_n.webp" alt="Couple laughing" style="object-position: center 20%">
-                        </div>
-                        <div class="wedding-photo-small wedding-photo-anim" style="animation-delay: 0.4s">
-                            <img src="../../../shared/images/wedding/viet-trang-hoa/629235467_1496742385786906_5916049160219901503_n.webp" alt="Couple exchanging" style="object-position: center 15%">
-                        </div>
-                    </div>
-                </div>
-                <p class="narrator reveal reveal-delay-4" style="font-size: 0.85rem; margin-top: 0.5rem;">
-                    (bạn thấy đẹp đôi không? nói thiệt nha!)
-                </p>
-            </div>
-        </section>
-
-        <!-- SCENE 9: TRANSITION -->
-        <section class="scene" id="scene-transition" data-chapter="Hé lộ" data-icon="🤫" data-dark="false">
-            <div class="scene-content">
-                <p class="script-text reveal" style="margin-bottom: 1rem;">Kể xong rồi nè!</p>
-                <p class="narrator reveal reveal-delay-1">Cảm ơn bạn đã nghe nha~</p>
-                <p class="narrator reveal reveal-delay-2">À mà... có một việc muốn nhờ bạn nè...</p>
-                <p class="narrator reveal reveal-delay-3" style="color: var(--primary); font-weight: 500;">
-                    Nhấn "Tiếp" để biết nha!
-                </p>
-            </div>
-        </section>
-
-        <!-- SCENE 8: INVITATION -->
-        <section class="scene" id="scene-invite" data-chapter="Lời mời" data-icon="💌" data-dark="false">
-            <div class="scene-content">
-                <p class="script-text reveal" style="margin-bottom: 1rem;">Hai đứa mình sắp cưới!</p>
-                <div class="invite-card reveal reveal-delay-1">
-                    <div class="invite-ornament">❦</div>
-                    <div class="invite-label">Trân trọng kính mời</div>
-                    <div class="invite-couple" id="inviteCouple">Đức Anh & Thuỳ Linh</div>
-                    <div class="invite-divider"></div>
-                    <div class="invite-detail">
-                        <span class="invite-detail-icon">📅</span>
-                        <span id="inviteDate">Chủ Nhật, 15 tháng 11 năm 2026</span>
-                    </div>
-                    <div class="invite-detail">
-                        <span class="invite-detail-icon">🕐</span>
-                        <span id="inviteTime">17:30</span>
-                    </div>
-                    <div class="invite-detail">
-                        <span class="invite-detail-icon">📍</span>
-                        <span id="inviteVenue">Nhà hàng White Palace, Q.1, TP.HCM</span>
-                    </div>
-                    <p class="invite-closing">Đám cưới mà thiếu bạn thì buồn lắm...<br>Đến nha!</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SCENE 9: RSVP -->
-        <section class="scene" id="scene-rsvp" data-chapter="Lời nhắn" data-icon="✏️" data-dark="false">
-            <div class="scene-content">
-                <p class="script-text reveal" style="margin-bottom: 0.5rem;">Gửi lời nhắn cho tụi mình nhé!</p>
-                <p class="narrator reveal reveal-delay-1" style="font-size: 0.9rem;">
-                    Không cần dài, một chữ "Có!" là vui rồi
-                </p>
-                <form class="rsvp-form reveal reveal-delay-2" id="rsvpForm">
-                    <input class="rsvp-input" type="text" name="name" placeholder="Tên bạn" required>
-                    <textarea class="rsvp-textarea" name="wish" placeholder="Lời nhắn gửi đến cô dâu chú rể..."></textarea>
-                    <button class="rsvp-btn" type="submit">Gửi lời chúc</button>
-                </form>
-                <div class="rsvp-success" id="rsvpSuccess">
-                    <p class="script-text" style="color: var(--primary); font-size: 1.8rem;">Cảm ơn bạn!</p>
-                    <p class="narrator" style="margin-top: 0.5rem;">Tụi mình nhận được rồi nè~</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SCENE 10: CLOSING -->
-        <section class="scene" id="scene-closing" data-chapter="Cảm ơn" data-icon="💗" data-dark="false">
-            <div class="scene-content">
-                <img class="closing-photo reveal"
-                     src="../../../shared/images/wedding/viet-trang-hoa/629214346_1496741812453630_740612148984566707_n.webp"
-                     alt="Bouquet" style="object-position: center 30%">
-                <p class="narrator reveal reveal-delay-1">Cảm ơn bạn đã dành thời gian<br>nghe câu chuyện tụi mình</p>
-                <p class="script-text reveal reveal-delay-2" style="color: var(--primary); margin: 0.8rem 0;">
-                    Hẹn gặp bạn ở đám cưới nha!
-                </p>
-                <p class="couple-name reveal reveal-delay-3" id="closingCouple">Đức Anh & Thuỳ Linh</p>
-                <p class="narrator reveal reveal-delay-4" style="font-size: 0.8rem; color: var(--text-light); margin-top: 1.5rem;">
-                    Made with love
-                </p>
-            </div>
-            <div class="floating-hearts" id="floatingHearts"></div>
-        </section>
-
-    </div><!-- /slides-wrapper -->
-
-    <!-- Confetti container -->
-    <div class="confetti-container" id="confettiContainer"></div>
-
-    <!-- =============================================
-         JAVASCRIPT
-         ============================================= -->
-    <script>
-    (function() {
-        'use strict';
-
-        var animeLib = anime;
-        var animateFn = animeLib.animate;
-        var staggerFn = animeLib.stagger;
-
-        /* ==========================================
-           CONFIG
-           ========================================== */
-        var GROOM = { display: 'Đức Anh', full: 'Trần Đức Anh' };
-        var BRIDE = { display: 'Thuỳ Linh', full: 'Nguyễn Thuỳ Linh' };
-
-        var CHAT_MESSAGES = [
-            { side: 'left', label: BRIDE.display, text: 'Ê, hôm nay trời đẹp ghê!' },
-            { side: 'right', label: GROOM.display, text: 'Ừ, đẹp gần bằng bạn' },
-            { side: 'left', label: BRIDE.display, text: '...' },
-            { side: 'left', label: BRIDE.display, text: 'Bạn flirt hả?? 😂' },
-            { side: 'right', label: GROOM.display, text: 'Hông! Mình nói thật mà 🫣' },
-            { side: 'left', label: BRIDE.display, text: 'Hmm thôi cho qua lần này 😏' },
-            { side: 'right', label: GROOM.display, text: 'Cuối tuần này rảnh không?' },
-            { side: 'left', label: BRIDE.display, text: 'Để xem...' },
-            { side: 'left', label: BRIDE.display, text: 'Rảnh nè! Đi đâu?' },
-            { side: 'right', label: GROOM.display, text: 'Bí mật 🤫' },
-        ];
-
-        /* ==========================================
-           SLIDE CONTROLLER
-           ========================================== */
-        var scenes = Array.from(document.querySelectorAll('.scene'));
-        var currentIndex = 0;
-        var isTransitioning = false;
-        var visitedScenes = new Set([0]);
-
-        /* Build chapter dots */
-        var dotsContainer = document.getElementById('chapterDots');
-        scenes.forEach(function(scene, i) {
-            var dot = document.createElement('div');
-            dot.className = 'dot-item' + (i === 0 ? ' active' : '');
-            dot.innerHTML =
-                '<span class="dot-label">' + scene.dataset.chapter + '</span>' +
-                '<span class="dot-icon"><span>' + scene.dataset.icon + '</span></span>';
-            dot.addEventListener('click', function() { goToScene(i); });
-            dotsContainer.appendChild(dot);
-        });
-
-        function goToScene(targetIndex) {
-            if (targetIndex === currentIndex || isTransitioning) return;
-            if (targetIndex < 0 || targetIndex >= scenes.length) return;
-            isTransitioning = true;
-
-            var direction = targetIndex > currentIndex ? 'next' : 'prev';
-            var oldScene = scenes[currentIndex];
-            var newScene = scenes[targetIndex];
-
-            /* Reset reveals on new scene */
-            var reveals = newScene.querySelectorAll('.reveal');
-            reveals.forEach(function(el) { el.classList.remove('visible'); });
-
-            /* Set entry position for new scene (disable transition briefly) */
-            newScene.style.transition = 'none';
-            if (direction === 'next') {
-                newScene.classList.remove('exit-left', 'exit-right', 'enter-left');
-                newScene.style.transform = 'translateX(100%)';
-            } else {
-                newScene.classList.remove('exit-left', 'exit-right');
-                newScene.classList.add('enter-left');
-                newScene.style.transform = 'translateX(-100%)';
-            }
-            newScene.style.opacity = '0';
-            /* Force reflow */
-            void newScene.offsetWidth;
-            newScene.style.transition = '';
-
-            /* Activate new scene */
-            oldScene.classList.remove('active');
-            oldScene.classList.add(direction === 'next' ? 'exit-left' : 'exit-right');
-
-            newScene.classList.remove('enter-left', 'exit-left', 'exit-right');
-            newScene.style.transform = '';
-            newScene.style.opacity = '';
-            newScene.classList.add('active');
-
-            currentIndex = targetIndex;
-            visitedScenes.add(currentIndex);
-
-            updateUI();
-
-            /* Trigger reveals after slide transition */
-            setTimeout(function() {
-                reveals.forEach(function(el) { el.classList.add('visible'); });
-                onSceneEnter(currentIndex);
-                isTransitioning = false;
-            }, 350);
-        }
-
-        function updateUI() {
-            /* Nav buttons */
-            document.getElementById('btnPrev').disabled = currentIndex === 0;
-            document.getElementById('btnNext').disabled = currentIndex === scenes.length - 1;
-
-            /* Progress bar */
-            var progress = ((currentIndex + 1) / scenes.length) * 100;
-            document.getElementById('slideProgress').style.width = progress + '%';
-
-            /* Dots */
-            var dots = dotsContainer.querySelectorAll('.dot-item');
-            dots.forEach(function(d, i) {
-                d.classList.remove('active');
-                if (i === currentIndex) d.classList.add('active');
-                if (visitedScenes.has(i) && i !== currentIndex) d.classList.add('visited');
-            });
-
-            /* Dark mode for nav/dots on dark scenes */
-            var isDark = scenes[currentIndex].dataset.dark === 'true';
-            document.getElementById('slideNav').classList.toggle('dark-mode', isDark);
-            dotsContainer.classList.toggle('dark-mode', isDark);
-        }
-
-        /* Scene-specific logic on enter */
-        function onSceneEnter(index) {
-            var sceneId = scenes[index].id;
-            if (sceneId === 'scene-flirt') initChatOnce();
-            if (sceneId === 'scene-wedding-photos') spawnPetals();
-            if (sceneId === 'scene-closing') startFloatingHearts();
-        }
-
-        /* Nav buttons */
-        document.getElementById('btnPrev').addEventListener('click', function() { goToScene(currentIndex - 1); });
-        document.getElementById('btnNext').addEventListener('click', function() { goToScene(currentIndex + 1); });
-
-        /* Keyboard nav */
-        document.addEventListener('keydown', function(e) {
-            if (document.getElementById('splash').style.display !== 'none') return;
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goToScene(currentIndex + 1); }
-            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goToScene(currentIndex - 1); }
-        });
-
-        /* Touch swipe */
-        var touchStartX = 0;
-        var touchStartY = 0;
-        document.addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-        document.addEventListener('touchend', function(e) {
-            if (document.getElementById('splash').style.display !== 'none') return;
-            var dx = e.changedTouches[0].clientX - touchStartX;
-            var dy = e.changedTouches[0].clientY - touchStartY;
-            /* Only horizontal swipes (ignore if user is interacting with chat/form) */
-            if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
-            if (e.target.closest('.rsvp-form, .chat-container')) return;
-            if (dx < 0) goToScene(currentIndex + 1);
-            else goToScene(currentIndex - 1);
-        }, { passive: true });
-
-        /* ==========================================
-           SPLASH
-           ========================================== */
-        function initSplash() {
-            var splash = document.getElementById('splash');
-            var splashText = document.getElementById('splashText');
-            var bgMusic = document.getElementById('bgMusic');
-
-            var sparklesEl = document.getElementById('splashSparkles');
-            for (var i = 0; i < 25; i++) {
-                var spark = document.createElement('div');
-                spark.className = 'splash-sparkle';
-                spark.style.left = Math.random() * 100 + '%';
-                spark.style.top = Math.random() * 100 + '%';
-                sparklesEl.appendChild(spark);
-            }
-
-            animateFn('.splash-sparkle', {
-                opacity: [0, 0.8, 0],
-                scale: [0, 1.5, 0],
-                duration: 2500,
-                delay: staggerFn(80, { from: 'center' }),
-                loop: true,
-                ease: 'inOutQuad'
-            });
-
-            animateFn(splashText, {
-                opacity: [0, 1],
-                translateY: [20, 0],
-                duration: 1200,
-                delay: 500,
-                ease: 'outExpo'
-            });
-
-            splash.addEventListener('click', function() {
-                splash.classList.add('opened');
-                if (bgMusic) {
-                    bgMusic.volume = 0.3;
-                    bgMusic.play().catch(function(){});
-                    showMusicToggle(true);
-                }
-                /* Show nav + dots */
-                document.getElementById('slideNav').classList.add('show');
-                dotsContainer.classList.add('show');
-
-                /* Trigger first scene reveals */
-                setTimeout(function() {
-                    splash.style.display = 'none';
-                    scenes[0].querySelectorAll('.reveal').forEach(function(el) {
-                        el.classList.add('visible');
-                    });
-                }, 800);
-            });
-        }
-
-        /* ==========================================
-           MUSIC TOGGLE
-           ========================================== */
-        function initMusicToggle() {
-            var toggle = document.getElementById('musicToggle');
-            var bgMusic = document.getElementById('bgMusic');
-            var bars = toggle.querySelectorAll('.music-bar');
-
-            toggle.addEventListener('click', function() {
-                if (bgMusic.paused) {
-                    bgMusic.play().catch(function(){});
-                    bars.forEach(function(b) { b.classList.remove('paused'); b.classList.add('playing'); });
-                } else {
-                    bgMusic.pause();
-                    bars.forEach(function(b) { b.classList.remove('playing'); b.classList.add('paused'); });
-                }
-            });
-        }
-
-        function showMusicToggle(playing) {
-            var toggle = document.getElementById('musicToggle');
-            var bars = toggle.querySelectorAll('.music-bar');
-            toggle.classList.add('show');
-            if (playing) bars.forEach(function(b) { b.classList.remove('paused'); b.classList.add('playing'); });
-        }
-
-        /* ==========================================
-           CHAT BUBBLES
-           ========================================== */
-        var chatInitialized = false;
-        var chatIndex = 0;
-
-        function initChatOnce() {
-            if (chatInitialized) return;
-            chatInitialized = true;
-
-            var container = document.getElementById('chatContainer');
-            var hint = document.getElementById('chatTapHint');
-
-            CHAT_MESSAGES.forEach(function(msg) {
-                var wrapper = document.createElement('div');
-                wrapper.className = 'chat-wrapper';
-                wrapper.style.alignSelf = msg.side === 'left' ? 'flex-start' : 'flex-end';
-                wrapper.style.maxWidth = '80%';
-
-                var label = document.createElement('div');
-                label.className = 'chat-label' + (msg.side === 'right' ? ' chat-label-right' : '');
-                label.textContent = msg.label;
-
-                var bubble = document.createElement('div');
-                bubble.className = 'chat-bubble chat-' + msg.side;
-                bubble.textContent = msg.text;
-
-                wrapper.appendChild(label);
-                wrapper.appendChild(bubble);
-                container.appendChild(wrapper);
-            });
-
-            showNextBubbles(3);
-
-            hint.addEventListener('click', function() { showNextBubbles(2); });
-            container.addEventListener('click', function(e) {
-                if (e.target.closest('.chat-wrapper')) return;
-                showNextBubbles(2);
-            });
-
-            function showNextBubbles(count) {
-                var wrappers = container.querySelectorAll('.chat-wrapper');
-                var bubbles = container.querySelectorAll('.chat-bubble');
-                for (var i = 0; i < count && chatIndex < bubbles.length; i++, chatIndex++) {
-                    (function(idx) {
-                        setTimeout(function() {
-                            wrappers[idx].classList.add('shown');
-                            bubbles[idx].classList.add('visible');
-                            /* Auto-scroll container to latest bubble */
-                            setTimeout(function() {
-                                wrappers[idx].scrollIntoView({ block: 'end', behavior: 'smooth' });
-                            }, 100);
-                        }, i * 300);
-                    })(chatIndex);
-                }
-                if (chatIndex >= bubbles.length) hint.style.display = 'none';
-            }
-        }
-
-        /* ==========================================
-           HEART TAP
-           ========================================== */
-        function initHeartTap() {
-            var photo = document.getElementById('officialPhoto');
-            photo.addEventListener('click', function(e) {
-                var hearts = ['❤️', '💕', '💖', '💗', '🥰', '✨'];
-                for (var i = 0; i < 5; i++) {
-                    (function(idx) {
-                        setTimeout(function() {
-                            var heart = document.createElement('div');
-                            heart.className = 'fly-heart';
-                            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                            heart.style.left = (e.clientX - 10 + (Math.random() - 0.5) * 40) + 'px';
-                            heart.style.top = (e.clientY - 10) + 'px';
-                            document.body.appendChild(heart);
-                            setTimeout(function() { heart.remove(); }, 1500);
-                        }, idx * 100);
-                    })(i);
-                }
-            });
-        }
-
-        /* ==========================================
-           PROPOSAL
-           ========================================== */
-        function initProposal() {
-            var tapEl = document.getElementById('proposalTap');
-            var answerEl = document.getElementById('proposalAnswer');
-            var revealed = false;
-
-            tapEl.addEventListener('click', function() {
-                if (revealed) return;
-                revealed = true;
-                tapEl.style.display = 'none';
-                answerEl.classList.add('revealed');
-
-                animateFn('.answer-text', {
-                    scale: [0, 1],
-                    opacity: [0, 1],
-                    duration: 800,
-                    ease: 'outBack'
-                });
-                createConfetti();
-                animateFn('.sparkle-ring', {
-                    opacity: [0, 1],
-                    scale: [0.5, 1.2, 1],
-                    duration: 1000,
-                    ease: 'outElastic(1, 0.5)'
-                });
-            });
-        }
-
-        /* ==========================================
-           GROOM REVEAL — tap to unblur
-           ========================================== */
-        function initGroomReveal() {
-            var wrapper = document.getElementById('groomPhotoWrapper');
-            var photo = document.getElementById('groomPhoto');
-            var overlay = document.getElementById('groomOverlay');
-            var hint = document.getElementById('groomTapHint');
-            var nameReveal = document.getElementById('groomNameReveal');
-            var revealed = false;
-
-            function doReveal() {
-                if (revealed) return;
-                revealed = true;
-                photo.classList.remove('blurred');
-                photo.classList.add('revealed');
-                overlay.classList.add('hidden');
-                hint.style.display = 'none';
-                nameReveal.style.display = 'block';
-                nameReveal.classList.add('visible');
-                createConfetti();
-            }
-
-            wrapper.addEventListener('click', doReveal);
-            hint.addEventListener('click', doReveal);
-        }
-
-        /* ==========================================
-           CONFETTI
-           ========================================== */
-        function createConfetti() {
-            var container = document.getElementById('confettiContainer');
-            var colors = ['#FF8B7A', '#FFB4A8', '#E85D75', '#D4AF37', '#FFB5C2', '#C8B6FF', '#FF6B6B'];
-
-            for (var i = 0; i < 50; i++) {
-                var piece = document.createElement('div');
-                piece.className = 'confetti-piece';
-                piece.style.left = Math.random() * 100 + '%';
-                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-                piece.style.width = (6 + Math.random() * 8) + 'px';
-                piece.style.height = (6 + Math.random() * 8) + 'px';
-                container.appendChild(piece);
-            }
-
-            animateFn('.confetti-piece', {
-                translateY: [0, function() { return 300 + Math.random() * 500; }],
-                translateX: function() { return (Math.random() - 0.5) * 300; },
-                rotate: function() { return Math.random() * 720; },
-                opacity: [1, 0],
-                duration: function() { return 1500 + Math.random() * 1500; },
-                delay: staggerFn(20),
-                ease: 'outQuad'
-            });
-
-            setTimeout(function() { container.innerHTML = ''; }, 4000);
-        }
-
-        /* ==========================================
-           FLOATING HEARTS
-           ========================================== */
-        var heartsStarted = false;
-        function startFloatingHearts() {
-            if (heartsStarted) return;
-            heartsStarted = true;
-
-            var container = document.getElementById('floatingHearts');
-            var heartEmojis = ['💕', '💗', '🤍', '💖', '🩷'];
-
-            function spawn() {
-                if (currentIndex !== scenes.length - 1) return;
-                var heart = document.createElement('div');
-                heart.className = 'float-heart';
-                heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDuration = (4 + Math.random() * 4) + 's';
-                heart.style.opacity = 0.3 + Math.random() * 0.3;
-                heart.style.fontSize = (0.8 + Math.random() * 0.5) + 'rem';
-                container.appendChild(heart);
-                setTimeout(function() { heart.remove(); }, 8000);
-                setTimeout(spawn, 700 + Math.random() * 800);
-            }
-            spawn();
-        }
-
-        /* ==========================================
-           PETALS — falling on wedding photos scene
-           ========================================== */
-        var petalsSpawned = false;
-        function spawnPetals() {
-            if (petalsSpawned) return;
-            petalsSpawned = true;
-            var scene = document.getElementById('scene-wedding-photos');
-            var petals = ['🌸', '🩷', '✿', '❀', '🌷'];
-            for (var i = 0; i < 15; i++) {
-                (function(idx) {
-                    setTimeout(function() {
-                        var petal = document.createElement('div');
-                        petal.textContent = petals[Math.floor(Math.random() * petals.length)];
-                        petal.style.cssText = 'position:absolute;top:-20px;left:' + (Math.random()*100) + '%;font-size:' + (0.8+Math.random()*0.6) + 'rem;opacity:0.6;pointer-events:none;z-index:0;animation:petalFall ' + (3+Math.random()*4) + 's linear forwards;';
-                        scene.appendChild(petal);
-                        setTimeout(function() { petal.remove(); }, 7000);
-                    }, idx * 300);
-                })(i);
-            }
-        }
-
-        /* ==========================================
-           RSVP
-           ========================================== */
-        function initRSVP() {
-            var form = document.getElementById('rsvpForm');
-            var success = document.getElementById('rsvpSuccess');
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var formData = new FormData(form);
-                var data = {
-                    name: formData.get('name'),
-                    wish: formData.get('wish'),
-                    timestamp: new Date().toISOString()
-                };
-                var wishes = JSON.parse(localStorage.getItem('wedding_wishes') || '[]');
-                wishes.push(data);
-                localStorage.setItem('wedding_wishes', JSON.stringify(wishes));
-                form.style.display = 'none';
-                success.classList.add('show');
-            });
-        }
-
-        /* ==========================================
-           INIT
-           ========================================== */
-        document.addEventListener('DOMContentLoaded', function() {
-            initSplash();
-            initMusicToggle();
-            initHeartTap();
-            initProposal();
-            initGroomReveal();
-            initRSVP();
-        });
-    })();
-    </script>
-</body>
-</html>
+<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Câu Chuyện Của Chúng Mình</title><meta name="description" content="Hành trình yêu thương — từ ngày đầu đến ngày cưới"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"><script src="https://cdn.jsdelivr.net/npm/animejs@4.0.2/lib/anime.iife.min.js"></script><style>
+/* ============================================
+CSS VARIABLES & RESET
+============================================ */
+:root {
+--primary: #FF8B7A;
+--primary-soft: #FFB4A8;
+--secondary: #F4C7AB;
+--accent: #E85D75;
+--accent-warm: #FF6B6B;
+--bg: #FFF5F0;
+--bg-warm: #FFFAF7;
+--bg-cream: #FFF8F2;
+--bg-dark: #2D1B14;
+--bg-romantic: #1a0a15;
+--text: #2D1B14;
+--text-sub: #6B5147;
+--text-light: #9B8A82;
+--gold: #D4AF37;
+--gold-soft: #E8D5A3;
+--pink: #FFB5C2;
+--pink-soft: #FFD6DE;
+--lavender: #C8B6FF;
+--font-script: 'Caveat', cursive;
+--font-heading: 'Cormorant Garamond', serif;
+--font-body: 'Quicksand', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+width: 100%;
+height: 100%;
+overflow: hidden;
+font-family: var(--font-body);
+color: var(--text);
+background: var(--bg);
+-webkit-font-smoothing: antialiased;
+}
+/* ============================================
+SLIDE SYSTEM — full viewport, no scroll
+============================================ */
+.slides-wrapper {
+position: relative;
+width: 100%;
+height: 100%;
+height: 100dvh;
+}
+.scene {
+position: absolute;
+top: 0; left: 0;
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 2rem 1.5rem 4.5rem;
+overflow: hidden;
+opacity: 0;
+transform: translateX(100%);
+transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+pointer-events: none;
+z-index: 1;
+}
+.scene.active {
+opacity: 1;
+transform: translateX(0);
+pointer-events: auto;
+z-index: 2;
+}
+.scene.exit-left {
+opacity: 0;
+transform: translateX(-100%);
+}
+.scene.exit-right {
+opacity: 0;
+transform: translateX(100%);
+}
+/* Prepare enter from left (for "prev" navigation) */
+.scene.enter-left {
+transform: translateX(-100%);
+opacity: 0;
+}
+.scene-content {
+max-width: 500px;
+width: 100%;
+text-align: center;
+position: relative;
+z-index: 2;
+padding-right: 30px; /* space for chapter dots */
+}
+/* ============================================
+TEXT STYLES
+============================================ */
+.narrator {
+font-family: var(--font-body);
+font-size: clamp(1rem, 4vw, 1.15rem);
+font-weight: 400;
+color: var(--text-sub);
+line-height: 1.8;
+margin-bottom: 1rem;
+}
+.narrator strong { color: var(--text); font-weight: 600; }
+.narrator em { color: var(--accent); font-style: normal; font-weight: 500; }
+.script-text {
+font-family: var(--font-script);
+font-size: clamp(1.4rem, 5vw, 2rem);
+color: var(--text);
+line-height: 1.4;
+}
+.couple-name {
+font-family: var(--font-heading);
+font-size: clamp(1.4rem, 6vw, 3rem);
+font-weight: 600;
+white-space: nowrap;
+color: var(--text);
+}
+/* Reveal animation */
+.reveal {
+opacity: 0;
+transform: translateY(25px);
+transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+opacity: 1;
+transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+.reveal-delay-4 { transition-delay: 0.6s; }
+.reveal-delay-5 { transition-delay: 0.75s; }
+@keyframes breathe {
+0%, 100% { opacity: 0.4; }
+50% { opacity: 0.8; }
+}
+/* ============================================
+NAV BUTTONS — Prev / Next (cute pill style)
+============================================ */
+.slide-nav {
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+z-index: 500;
+display: none;
+justify-content: space-between;
+align-items: center;
+padding: 14px 16px;
+background: linear-gradient(transparent 0%, rgba(255,245,240,0.9) 40%);
+}
+.slide-nav.show { display: flex; }
+.nav-btn {
+display: flex;
+align-items: center;
+gap: 5px;
+padding: 10px 20px;
+font-family: var(--font-script);
+font-size: 1.05rem;
+font-weight: 500;
+color: var(--text-sub);
+background: white;
+border: 1.5px solid var(--pink-soft);
+border-radius: 50px;
+cursor: pointer;
+transition: all 0.3s ease;
+box-shadow: 0 3px 12px rgba(255,181,194,0.2);
+}
+.nav-btn:hover {
+background: var(--pink-soft);
+color: var(--accent);
+box-shadow: 0 5px 18px rgba(255,181,194,0.35);
+transform: translateY(-2px);
+}
+.nav-btn:active { transform: translateY(0) scale(0.97); }
+.nav-btn:disabled {
+opacity: 0;
+pointer-events: none;
+}
+.nav-btn-icon { font-size: 0.9rem; }
+/* Dark scene nav override */
+.slide-nav.dark-mode {
+background: linear-gradient(transparent 0%, rgba(26,10,21,0.9) 40%);
+}
+.slide-nav.dark-mode .nav-btn {
+background: rgba(255,181,194,0.12);
+color: var(--pink-soft);
+border-color: rgba(255,214,222,0.2);
+}
+.slide-nav.dark-mode .nav-btn:hover {
+background: rgba(255,181,194,0.25);
+}
+/* ============================================
+CHAPTER DOTS — right side menu
+============================================ */
+.chapter-dots {
+position: fixed;
+right: -20px;
+top: 50%;
+transform: translateY(-50%);
+z-index: 500;
+display: none;
+flex-direction: column;
+gap: 3px;
+align-items: flex-end;
+}
+.chapter-dots.show { display: flex; }
+.dot-item {
+display: flex;
+align-items: center;
+gap: 6px;
+cursor: pointer;
+padding: 2px 0;
+flex-direction: row-reverse;
+}
+.dot-icon {
+width: 20px;
+height: 20px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.5rem;
+background: rgba(255,255,255,0.85);
+border: 1.5px solid rgba(155,138,130,0.25);
+transition: all 0.3s ease;
+box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+flex-shrink: 0;
+}
+.dot-label {
+font-family: var(--font-body);
+font-size: 0.6rem;
+font-weight: 500;
+color: var(--text-light);
+white-space: nowrap;
+opacity: 0;
+transform: translateX(6px);
+transition: opacity 0.25s, transform 0.25s;
+pointer-events: none;
+background: white;
+padding: 2px 6px;
+border-radius: 8px;
+box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.dot-item:hover .dot-label {
+opacity: 1;
+transform: translateX(0);
+}
+.dot-item.active .dot-icon {
+background: var(--accent);
+border-color: var(--accent);
+transform: scale(1.25);
+box-shadow: 0 2px 10px rgba(232,93,117,0.4);
+}
+.dot-item.active .dot-icon span { filter: brightness(10); }
+.dot-item.visited .dot-icon {
+border-color: var(--primary-soft);
+background: var(--bg-warm);
+}
+/* Dark scene dots override */
+.chapter-dots.dark-mode .dot-icon {
+background: rgba(255,255,255,0.1);
+border-color: rgba(255,214,222,0.2);
+}
+.chapter-dots.dark-mode .dot-label {
+background: rgba(26,10,21,0.9);
+color: var(--pink-soft);
+}
+.chapter-dots.dark-mode .dot-item.active .dot-icon {
+background: var(--primary);
+border-color: var(--primary);
+}
+/* ============================================
+SCENE 0: SPLASH
+============================================ */
+#splash {
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+z-index: 9999;
+background: linear-gradient(135deg, #1a0a15 0%, #2D1B14 50%, #1a1525 100%);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+transition: opacity 1s ease, transform 1s ease;
+}
+#splash.opened {
+opacity: 0;
+transform: scale(1.05);
+pointer-events: none;
+}
+.splash-text {
+font-family: var(--font-script);
+font-size: clamp(1.5rem, 6vw, 2.2rem);
+color: #FFD6DE;
+opacity: 0;
+text-align: center;
+line-height: 1.6;
+}
+.splash-hint {
+font-family: var(--font-body);
+font-size: 0.85rem;
+color: rgba(255,214,222,0.5);
+margin-top: 2rem;
+letter-spacing: 0.15em;
+animation: breathe 2.5s ease-in-out infinite;
+}
+.splash-sparkles {
+position: absolute;
+width: 100%; height: 100%;
+pointer-events: none;
+}
+.splash-sparkle {
+position: absolute;
+width: 4px; height: 4px;
+background: var(--gold-soft);
+border-radius: 50%;
+opacity: 0;
+}
+/* ============================================
+SCENE 1: HELLO
+============================================ */
+#scene-hello { background: var(--bg-warm); }
+.polaroid {
+width: 200px;
+background: white;
+padding: 10px 10px 40px;
+box-shadow: 0 8px 30px rgba(45,27,20,0.12);
+transform: rotate(-3deg);
+margin: 0 auto 2rem;
+transition: transform 0.4s ease;
+}
+.polaroid:hover { transform: rotate(0deg) scale(1.03); }
+.polaroid img { width: 100%; height: 180px; object-fit: cover; display: block; }
+.polaroid-caption {
+font-family: var(--font-script);
+font-size: 1rem;
+color: var(--text-sub);
+margin-top: 8px;
+text-align: center;
+}
+#scene-hello::before, #scene-hello::after {
+content: '';
+position: absolute;
+width: 200px; height: 200px;
+border-radius: 50%;
+opacity: 0.15;
+z-index: 0;
+}
+#scene-hello::before { background: var(--pink); top: 10%; left: -50px; }
+#scene-hello::after { background: var(--lavender); bottom: 10%; right: -50px; }
+/* ============================================
+SCENE 2: FIRST MEET (vintage)
+============================================ */
+#scene-firstmeet { background: var(--bg-cream); }
+.film-frame {
+position: relative;
+width: 240px;
+margin: 0 auto 2rem;
+padding: 12px;
+background: white;
+box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.film-frame img { width: 100%; height: 200px; object-fit: cover; filter: sepia(0.15) contrast(1.05); }
+.film-date {
+position: absolute;
+bottom: 18px; right: 18px;
+font-family: 'Courier New', monospace;
+font-size: 0.7rem;
+color: #D4AF37;
+background: rgba(0,0,0,0.5);
+padding: 2px 6px;
+letter-spacing: 0.1em;
+}
+#scene-firstmeet::before {
+content: '';
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+opacity: 0.04;
+z-index: 1;
+pointer-events: none;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+/* ============================================
+SCENE 3: FLIRTING (chat bubbles)
+============================================ */
+#scene-flirt { background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-warm) 100%); }
+.chat-container {
+max-width: 340px;
+margin: 1rem auto;
+display: flex;
+flex-direction: column;
+gap: 8px;
+max-height: 40vh;
+overflow-y: auto;
+scroll-behavior: smooth;
+}
+/* Hide chat wrapper until bubble inside is visible */
+.chat-wrapper {
+display: none;
+}
+.chat-wrapper.shown {
+display: flex;
+flex-direction: column;
+}
+.chat-bubble {
+max-width: 80%;
+padding: 10px 16px;
+border-radius: 18px;
+font-size: 0.9rem;
+line-height: 1.5;
+opacity: 0;
+transform: scale(0.8);
+transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.chat-bubble.visible { opacity: 1; transform: scale(1); }
+.chat-left {
+align-self: flex-start;
+background: white;
+color: var(--text);
+border-bottom-left-radius: 4px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.chat-right {
+align-self: flex-end;
+background: var(--primary);
+color: white;
+border-bottom-right-radius: 4px;
+}
+.chat-label { font-size: 0.7rem; color: var(--text-light); margin-bottom: 2px; }
+.chat-label-right { text-align: right; color: rgba(255,255,255,0.7); }
+.chat-tap-hint {
+font-family: var(--font-body);
+font-size: 0.8rem;
+color: var(--text-light);
+margin-top: 0.5rem;
+animation: breathe 2.5s ease-in-out infinite;
+cursor: pointer;
+}
+/* ============================================
+SCENE 4: OFFICIAL
+============================================ */
+#scene-official { background: linear-gradient(180deg, var(--bg-warm) 0%, #FFF0F3 100%); }
+.big-date {
+font-family: var(--font-heading);
+font-size: clamp(1.2rem, 4vw, 1.6rem);
+font-weight: 400;
+font-style: italic;
+color: var(--accent);
+margin: 0.5rem 0 1rem;
+letter-spacing: 0.05em;
+}
+.heart-photo {
+width: 180px; height: 180px;
+border-radius: 50%;
+object-fit: cover;
+border: 4px solid white;
+box-shadow: 0 8px 30px rgba(232,93,117,0.2);
+margin: 0 auto 1rem;
+display: block;
+cursor: pointer;
+transition: transform 0.3s ease;
+}
+.heart-photo:hover { transform: scale(1.05); }
+.fly-heart {
+position: fixed;
+font-size: 1.2rem;
+pointer-events: none;
+z-index: 10;
+animation: flyUp 1.5s ease-out forwards;
+}
+@keyframes flyUp {
+0% { opacity: 1; transform: translateY(0) scale(1); }
+100% { opacity: 0; transform: translateY(-120px) scale(0.5) rotate(20deg); }
+}
+/* ============================================
+SCENE 5: TOGETHER (scrapbook)
+============================================ */
+#scene-together { background: var(--bg-cream); }
+.scrapbook {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+max-width: 340px;
+margin: 1rem auto;
+}
+.scrap-item {
+position: relative;
+background: white;
+padding: 5px;
+box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+.scrap-item:nth-child(odd) { transform: rotate(-2deg); }
+.scrap-item:nth-child(even) { transform: rotate(1.5deg); }
+.scrap-item:nth-child(3) { transform: rotate(3deg); }
+.scrap-item img { width: 100%; height: 120px; object-fit: cover; display: block; }
+.scrap-item::before {
+content: '';
+position: absolute;
+top: -5px; left: 50%;
+transform: translateX(-50%) rotate(-2deg);
+width: 45px; height: 12px;
+background: rgba(255, 228, 196, 0.7);
+z-index: 2;
+}
+.scrap-caption {
+font-family: var(--font-script);
+font-size: 0.8rem;
+color: var(--text-sub);
+text-align: center;
+padding: 3px 0 1px;
+}
+/* ============================================
+SCENE 6: PROPOSAL (dark, suspense)
+============================================ */
+#scene-proposal { background: var(--bg-romantic); color: #FFD6DE; }
+#scene-proposal .narrator { color: rgba(255,214,222,0.75); }
+.proposal-question {
+font-family: var(--font-heading);
+font-size: clamp(1.3rem, 4.5vw, 1.8rem);
+font-weight: 400;
+font-style: italic;
+color: var(--gold-soft);
+margin: 1.5rem 0;
+}
+.proposal-tap {
+font-size: 0.85rem;
+color: rgba(255,214,222,0.4);
+animation: breathe 2s ease-in-out infinite;
+cursor: pointer;
+padding: 1rem;
+}
+.proposal-answer { display: none; }
+.proposal-answer.revealed { display: block; }
+.answer-text {
+font-family: var(--font-script);
+font-size: clamp(3rem, 12vw, 5rem);
+font-weight: 700;
+color: var(--primary);
+text-shadow: 0 0 40px rgba(255,139,122,0.4);
+}
+.sparkle-ring { width: 60px; height: 60px; margin: 1rem auto; opacity: 0; }
+/* ============================================
+SCENE 7: GROOM REVEAL
+============================================ */
+#scene-groom { background: var(--bg-warm); }
+.groom-reveal { text-align: center; }
+.groom-photo-wrapper {
+position: relative;
+width: 180px;
+height: 220px;
+margin: 0 auto 0.8rem;
+border-radius: 16px;
+overflow: hidden;
+box-shadow: 0 8px 25px rgba(45,27,20,0.12);
+cursor: pointer;
+}
+.groom-photo {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: filter 0.8s ease;
+}
+.groom-photo.blurred {
+filter: blur(20px) brightness(0.9);
+}
+.groom-photo.revealed {
+filter: none;
+}
+.groom-overlay {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+background: rgba(45,27,20,0.3);
+transition: opacity 0.6s ease;
+}
+.groom-overlay span {
+font-family: var(--font-script);
+font-size: 3rem;
+color: white;
+text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+animation: breathe 2s ease-in-out infinite;
+}
+.groom-overlay.hidden {
+opacity: 0;
+pointer-events: none;
+}
+.groom-tap-hint {
+font-size: 0.8rem;
+color: var(--text-light);
+animation: breathe 2.5s ease-in-out infinite;
+cursor: pointer;
+}
+/* ============================================
+SCENE 8: WEDDING PHOTOS
+============================================ */
+#scene-wedding-photos { background: var(--bg-cream); }
+.wedding-gallery {
+max-width: 320px;
+margin: 0 auto;
+}
+.wedding-photo-main {
+border-radius: 14px;
+overflow: hidden;
+box-shadow: 0 6px 20px rgba(45,27,20,0.1);
+margin-bottom: 8px;
+}
+.wedding-photo-main img {
+width: 100%;
+height: 240px;
+object-fit: cover;
+display: block;
+}
+.wedding-photo-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 8px;
+}
+.wedding-photo-small {
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 3px 12px rgba(45,27,20,0.08);
+}
+.wedding-photo-small img {
+width: 100%;
+height: 110px;
+object-fit: cover;
+display: block;
+}
+@keyframes petalFall {
+0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.7; }
+50% { transform: translateY(45vh) rotate(180deg) translateX(30px); opacity: 0.5; }
+100% { transform: translateY(95vh) rotate(360deg) translateX(-20px); opacity: 0; }
+}
+/* Wedding photo animations */
+.wedding-photo-anim {
+animation: weddingPhotoIn 0.8s ease both;
+}
+@keyframes weddingPhotoIn {
+from { opacity: 0; transform: scale(0.9) translateY(15px); }
+to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.wedding-photo-main { position: relative; }
+.wedding-photo-main::after {
+content: '';
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+background: linear-gradient(135deg,
+rgba(255,181,194,0.15) 0%,
+transparent 40%,
+transparent 60%,
+rgba(200,182,255,0.1) 100%);
+pointer-events: none;
+border-radius: 14px;
+}
+.wedding-photo-small {
+transition: transform 0.3s ease;
+}
+.wedding-photo-small:hover {
+transform: scale(1.03) rotate(-1deg);
+}
+/* ============================================
+SCENE 9: TRANSITION
+============================================ */
+#scene-transition { background: var(--bg-warm); }
+/* ============================================
+SCENE 8: INVITATION
+============================================ */
+#scene-invite { background: linear-gradient(180deg, var(--bg-warm) 0%, #FFF0EC 50%, var(--bg-warm) 100%); }
+.invite-card {
+background: white;
+border: 1px solid rgba(212,175,55,0.3);
+border-radius: 16px;
+padding: clamp(1.5rem, 5vw, 2.5rem);
+max-width: 400px;
+margin: 0 auto;
+box-shadow: 0 12px 40px rgba(45,27,20,0.08);
+position: relative;
+}
+.invite-card::before, .invite-card::after {
+content: '❦';
+position: absolute;
+font-size: 1.2rem;
+color: var(--gold);
+opacity: 0.4;
+}
+.invite-card::before { top: 10px; left: 14px; }
+.invite-card::after { bottom: 10px; right: 14px; transform: rotate(180deg); }
+.invite-ornament { font-size: 1.5rem; color: var(--gold); margin-bottom: 0.5rem; }
+.invite-label {
+font-size: 0.8rem;
+color: var(--text-light);
+letter-spacing: 0.2em;
+text-transform: uppercase;
+margin-bottom: 0.75rem;
+}
+.invite-couple {
+font-family: var(--font-heading);
+font-size: clamp(1.6rem, 6vw, 2.4rem);
+font-weight: 600;
+white-space: nowrap;
+margin-bottom: 1rem;
+}
+.invite-divider { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 1rem; opacity: 0.5; }
+.invite-detail {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+font-size: 0.95rem;
+color: var(--text-sub);
+margin-bottom: 0.6rem;
+}
+.invite-detail-icon { flex-shrink: 0; width: 20px; text-align: center; color: var(--primary); }
+.invite-closing {
+font-family: var(--font-script);
+font-size: clamp(1.1rem, 4vw, 1.4rem);
+color: var(--accent);
+margin-top: 1.2rem;
+}
+/* ============================================
+SCENE 9: RSVP
+============================================ */
+#scene-rsvp { background: var(--bg); }
+.rsvp-form {
+max-width: 360px;
+margin: 1rem auto 0;
+text-align: left;
+}
+.rsvp-input, .rsvp-textarea {
+width: 100%;
+font-family: var(--font-body);
+font-size: 0.9rem;
+padding: 12px 16px;
+border: 1px solid rgba(212,175,55,0.3);
+border-radius: 12px;
+background: white;
+color: var(--text);
+outline: none;
+margin-bottom: 10px;
+transition: border-color 0.3s;
+}
+.rsvp-input:focus, .rsvp-textarea:focus { border-color: var(--primary); }
+.rsvp-textarea { height: 80px; resize: none; }
+.rsvp-btn {
+width: 100%;
+padding: 12px;
+font-family: var(--font-body);
+font-size: 0.95rem;
+font-weight: 600;
+color: white;
+background: linear-gradient(135deg, var(--primary), var(--accent));
+border: none;
+border-radius: 30px;
+cursor: pointer;
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.rsvp-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(232,93,117,0.3); }
+.rsvp-success { display: none; text-align: center; padding: 1.5rem 0; }
+.rsvp-success.show { display: block; }
+/* ============================================
+SCENE 10: CLOSING
+============================================ */
+#scene-closing { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%); }
+.closing-photo {
+width: 160px; height: 160px;
+border-radius: 50%;
+object-fit: cover;
+border: 3px solid white;
+box-shadow: 0 8px 30px rgba(45,27,20,0.1);
+margin: 0 auto 1.5rem;
+display: block;
+}
+.floating-hearts {
+position: absolute;
+bottom: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none;
+z-index: 0;
+overflow: hidden;
+}
+.float-heart {
+position: absolute;
+bottom: -30px;
+font-size: 1rem;
+opacity: 0.5;
+animation: floatHeart linear infinite;
+}
+@keyframes floatHeart {
+0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+50% { opacity: 0.8; }
+100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+/* ============================================
+CONFETTI
+============================================ */
+.confetti-container {
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none;
+z-index: 100;
+overflow: hidden;
+}
+.confetti-piece {
+position: absolute;
+top: -10px;
+width: 10px; height: 10px;
+opacity: 0;
+}
+/* ============================================
+MUSIC TOGGLE
+============================================ */
+.music-toggle {
+position: fixed;
+bottom: 60px;
+right: 12px;
+z-index: 1000;
+width: 40px; height: 40px;
+border-radius: 50%;
+background: white;
+border: 1px solid rgba(212,175,55,0.3);
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0;
+transition: opacity 0.5s;
+}
+.music-toggle.show { opacity: 1; }
+.music-bars { display: flex; gap: 2px; align-items: flex-end; height: 14px; }
+.music-bar { width: 3px; background: var(--primary); border-radius: 1px; }
+.music-bar.playing { animation: musicPulse 0.8s ease-in-out infinite alternate; }
+.music-bar:nth-child(1) { height: 7px; animation-delay: 0s; }
+.music-bar:nth-child(2) { height: 12px; animation-delay: 0.15s; }
+.music-bar:nth-child(3) { height: 9px; animation-delay: 0.3s; }
+.music-bar:nth-child(4) { height: 14px; animation-delay: 0.1s; }
+.music-bar.paused { animation: none !important; height: 5px !important; }
+@keyframes musicPulse { 0% { height: 3px; } 100% { height: 14px; } }
+/* ============================================
+PROGRESS BAR (top)
+============================================ */
+.slide-progress {
+position: fixed;
+top: 0; left: 0;
+height: 3px;
+background: linear-gradient(90deg, var(--primary), var(--accent));
+z-index: 9998;
+width: 0%;
+transition: width 0.5s ease;
+}
+/* ============================================
+RESPONSIVE
+============================================ */
+@media (max-width: 480px) {
+.polaroid { width: 160px; }
+.polaroid img { height: 140px; }
+.film-frame { width: 190px; }
+.film-frame img { height: 160px; }
+.scrap-item img { height: 95px; }
+.heart-photo { width: 150px; height: 150px; }
+.closing-photo { width: 130px; height: 130px; }
+.chapter-dots { right: -20px; gap: 2px; }
+.dot-icon { width: 18px; height: 18px; font-size: 0.45rem; }
+}
+@media (max-height: 700px) {
+.scene { padding: 1.5rem 1.5rem 4rem; }
+.narrator { font-size: 0.9rem; margin-bottom: 0.6rem; }
+.polaroid { width: 140px; margin-bottom: 1rem; }
+.polaroid img { height: 120px; }
+.heart-photo { width: 130px; height: 130px; }
+.scrap-item img { height: 80px; }
+}
+</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x7a\x49\x79\x4d\x6c\x39\x73\x62\x33\x5a\x6c\x4c\x58\x4e\x30\x62\x33\x4a\x35\x4c\x58\x4e\x73\x61\x57\x52\x6c\x4c\x57\x6c\x75\x64\x47\x56\x79\x59\x57\x4e\x30\x61\x58\x5a\x6c\x66\x44\x49\x77\x4d\x6a\x59\x74\x4d\x44\x4d\x74\x4d\x6a\x6c\x38\x63\x47\x68\x31\x62\x32\x4e\x77\x64\x44\x6b\x34'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><div class="slide-progress" id="slideProgress"></div><audio id="bgMusic" loop preload="auto"><source src="../../../shared/music/romantic/Everyday I Love You.mp3" type="audio/mpeg"></audio><div class="music-toggle" id="musicToggle"><div class="music-bars"><div class="music-bar paused"></div><div class="music-bar paused"></div><div class="music-bar paused"></div><div class="music-bar paused"></div></div></div><nav class="chapter-dots" id="chapterDots"></nav><div class="slide-nav" id="slideNav"><button class="nav-btn" id="btnPrev" disabled><span class="nav-btn-icon">🌿</span> Quay lại
+</button><button class="nav-btn" id="btnNext">
+Tiếp nè <span class="nav-btn-icon">🌸</span></button></div><div id="splash"><div class="splash-sparkles" id="splashSparkles"></div><div class="splash-text" id="splashText">Psst... có chuyện muốn kể nè</div><div class="splash-hint">nhấn vào đây đi...</div></div><div class="slides-wrapper" id="slidesWrapper"><section class="scene active" id="scene-hello" data-chapter="Xin chào" data-icon="👋" data-dark="false"><div class="scene-content"><div class="polaroid reveal"><img src="../../../shared/images/wedding/viet-trang-hoa/629214346_1496741812453630_740612148984566707_n.webp" alt="Bouquet"><div class="polaroid-caption">đoán xem tụi mình là ai ~</div></div><p class="narrator reveal reveal-delay-1">Chào bạn!</p><p class="narrator reveal reveal-delay-2">
+Mình là <strong id="brideName1">Thuỳ Linh</strong>
+— còn người kia ư? <em>Bí mật!</em></p><p class="narrator reveal reveal-delay-3">
+Ừm... nếu bạn nhận được cái này,<br>
+nghĩa là bạn <em>đặc biệt lắm</em> đó!
+</p><p class="narrator reveal reveal-delay-4">
+Ngồi xuống đi, mình kể chuyện cho nghe nè~
+</p></div></section><section class="scene" id="scene-firstmeet" data-chapter="Ngày đó" data-icon="🌸" data-dark="false"><div class="scene-content"><p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 1</p><p class="script-text reveal reveal-delay-1" style="margin-bottom: 1.5rem;">"Ngày đó..."</p><div class="film-frame reveal reveal-delay-2"><img src="../../../shared/images/wedding/viet-trang-hoa/628264245_1496742449120233_4645514456825061638_n.webp" alt="Bride solo" style="object-position: center 20%;"><div class="film-date">2020</div></div><p class="narrator reveal reveal-delay-3">Chuyện bắt đầu từ một ngày<br>rất bình thường...</p><p class="narrator reveal reveal-delay-4"><span id="groomName2">Đức Anh</span> lúc đó còn chẳng biết
+<span id="brideName2">Thuỳ Linh</span> là ai
+</p><p class="narrator reveal reveal-delay-5">Nhưng mà ông trời xếp cho gặp<br>thì phải gặp thôi!</p></div></section><section class="scene" id="scene-flirt" data-chapter="Thả thính" data-icon="💬" data-dark="false"><div class="scene-content"><p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 2</p><p class="script-text reveal reveal-delay-1" style="margin-bottom: 0.5rem;">"Thế là..."</p><p class="narrator reveal reveal-delay-2" style="margin-bottom: 0.5rem; font-size: 0.9rem;">
+Tin nhắn ngày càng nhiều...<br>
+Cuộc gọi ngày càng dài...
+</p><div class="chat-container" id="chatContainer"></div><p class="chat-tap-hint reveal reveal-delay-3" id="chatTapHint">nhấn để xem thêm tin nhắn...</p></div></section><section class="scene" id="scene-official" data-chapter="Yêu nhau" data-icon="💕" data-dark="false"><div class="scene-content"><p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 3</p><p class="script-text reveal reveal-delay-1">"Và rồi... TADA!"</p><img class="heart-photo reveal reveal-delay-2" id="officialPhoto"
+src="../../../shared/images/wedding/viet-trang-hoa/627789060_1496741912453620_3108546600317143173_n.webp"
+alt="Bride with bouquet" style="object-position: center 20%"><p class="big-date reveal reveal-delay-3" id="officialDate">Ngày 14 tháng 02 năm 2021</p><p class="narrator reveal reveal-delay-4">Chính thức về một nhà!</p><p class="narrator reveal reveal-delay-5" style="font-size: 0.85rem; color: var(--text-light);">
+(Ý là về một nhà... yêu nhau ấy, chưa cưới đâu, từ từ)
+</p></div></section><section class="scene" id="scene-together" data-chapter="Bên nhau" data-icon="📸" data-dark="false"><div class="scene-content"><p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 4</p><p class="script-text reveal reveal-delay-1" style="margin-bottom: 0.5rem;">"Những ngày bên nhau"</p><p class="narrator reveal reveal-delay-2" style="margin-bottom: 0.5rem; font-size: 0.9rem;">
+Từ đó thì... đi khắp nơi cùng nhau!
+</p><div class="scrapbook reveal reveal-delay-3"><div class="scrap-item"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=300&h=200&fit=crop" alt="Food"><div class="scrap-caption">ăn cùng nhau</div></div><div class="scrap-item"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&h=200&fit=crop" alt="Beach"><div class="scrap-caption">đi hết thế giới</div></div><div class="scrap-item"><img src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=300&h=200&fit=crop" alt="Concert"><div class="scrap-caption">quẩy cùng nhau</div></div><div class="scrap-item"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=300&h=200&fit=crop" alt="Coffee"><div class="scrap-caption">cà phê cuối tuần</div></div></div><p class="narrator reveal reveal-delay-4" style="margin-top: 0.5rem; font-size: 0.9rem;">
+Và đi hết những chuyến đi mà hai đứa hứa
+</p></div></section><section class="scene" id="scene-proposal" data-chapter="Cầu hôn" data-icon="💍" data-dark="true"><div class="scene-content"><p class="narrator reveal" style="color: rgba(255,214,222,0.5); font-style: italic;">Chương 5</p><p class="narrator reveal reveal-delay-1">Rồi một ngày...</p><p class="proposal-question reveal reveal-delay-2">"Lấy anh nhé?"</p><div class="sparkle-ring reveal reveal-delay-3"><svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="34" r="14" stroke="#D4AF37" stroke-width="2.5" fill="none"/><path d="M30 20 L26 28 L30 24 L34 28 Z" fill="#D4AF37"/><circle cx="30" cy="18" r="3" fill="#E8D5A3"/></svg></div><p class="narrator reveal reveal-delay-3">Và câu trả lời là...</p><div class="proposal-tap reveal reveal-delay-4" id="proposalTap">nhấn để biết câu trả lời...</div><div class="proposal-answer" id="proposalAnswer"><p class="answer-text">CÓ!</p><p class="narrator" style="color: rgba(255,214,222,0.8); margin-top: 0.5rem;">(hehe, bạn cũng biết mà)</p></div></div></section><section class="scene" id="scene-groom" data-chapter="Người ấy" data-icon="🤵" data-dark="false"><div class="scene-content"><p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 6</p><p class="script-text reveal reveal-delay-1" style="margin-bottom: 1rem;">
+"Mà khoan... người ấy là ai?"
+</p><p class="narrator reveal reveal-delay-2" style="margin-bottom: 1rem;">
+Kể từ đầu giờ chưa thấy mặt người ta nhỉ?<br>
+Đến lúc lộ diện rồi đó!
+</p><div class="groom-reveal reveal reveal-delay-3" id="groomReveal"><div class="groom-photo-wrapper" id="groomPhotoWrapper"><img class="groom-photo blurred" id="groomPhoto"
+src="../../../shared/images/wedding/viet-trang-hoa/628232532_1496741939120284_2188543106842202943_n.webp"
+alt="Groom" style="object-position: center 15%"><div class="groom-overlay" id="groomOverlay"><span>?</span></div></div><p class="groom-tap-hint" id="groomTapHint">nhấn để lộ mặt anh ấy...</p></div><p class="narrator reveal reveal-delay-4 groom-name-reveal" id="groomNameReveal" style="display:none; font-weight: 600; color: var(--accent);">
+Xin giới thiệu — Đức Anh đây ạ!
+</p></div></section><section class="scene" id="scene-wedding-photos" data-chapter="Ảnh cưới" data-icon="📷" data-dark="false"><div class="scene-content"><p class="narrator reveal" style="font-style: italic; color: var(--text-light);">Chương 7</p><p class="script-text reveal reveal-delay-1" style="margin-bottom: 0.8rem;">
+"Ngày mà hai đứa chụp ảnh cưới"
+</p><p class="narrator reveal reveal-delay-2" style="margin-bottom: 0.8rem; font-size: 0.9rem;">
+Đẹp nhất đời luôn á... (tự khen tí)
+</p><div class="wedding-gallery reveal reveal-delay-3"><div class="wedding-photo-main wedding-photo-anim"><img src="../../../shared/images/wedding/viet-trang-hoa/628267914_1496742209120257_3178729502643930985_n.webp" alt="Couple standing" style="object-position: center 15%"></div><div class="wedding-photo-row"><div class="wedding-photo-small wedding-photo-anim" style="animation-delay: 0.2s"><img src="../../../shared/images/wedding/viet-trang-hoa/628427200_1496742375786907_1068531846115830906_n.webp" alt="Couple laughing" style="object-position: center 20%"></div><div class="wedding-photo-small wedding-photo-anim" style="animation-delay: 0.4s"><img src="../../../shared/images/wedding/viet-trang-hoa/629235467_1496742385786906_5916049160219901503_n.webp" alt="Couple exchanging" style="object-position: center 15%"></div></div></div><p class="narrator reveal reveal-delay-4" style="font-size: 0.85rem; margin-top: 0.5rem;">
+(bạn thấy đẹp đôi không? nói thiệt nha!)
+</p></div></section><section class="scene" id="scene-transition" data-chapter="Hé lộ" data-icon="🤫" data-dark="false"><div class="scene-content"><p class="script-text reveal" style="margin-bottom: 1rem;">Kể xong rồi nè!</p><p class="narrator reveal reveal-delay-1">Cảm ơn bạn đã nghe nha~</p><p class="narrator reveal reveal-delay-2">À mà... có một việc muốn nhờ bạn nè...</p><p class="narrator reveal reveal-delay-3" style="color: var(--primary); font-weight: 500;">
+Nhấn "Tiếp" để biết nha!
+</p></div></section><section class="scene" id="scene-invite" data-chapter="Lời mời" data-icon="💌" data-dark="false"><div class="scene-content"><p class="script-text reveal" style="margin-bottom: 1rem;">Hai đứa mình sắp cưới!</p><div class="invite-card reveal reveal-delay-1"><div class="invite-ornament">❦</div><div class="invite-label">Trân trọng kính mời</div><div class="invite-couple" id="inviteCouple">Đức Anh & Thuỳ Linh</div><div class="invite-divider"></div><div class="invite-detail"><span class="invite-detail-icon">📅</span><span id="inviteDate">Chủ Nhật, 15 tháng 11 năm 2026</span></div><div class="invite-detail"><span class="invite-detail-icon">🕐</span><span id="inviteTime">17:30</span></div><div class="invite-detail"><span class="invite-detail-icon">📍</span><span id="inviteVenue">Nhà hàng White Palace, Q.1, TP.HCM</span></div><p class="invite-closing">Đám cưới mà thiếu bạn thì buồn lắm...<br>Đến nha!</p></div></div></section><section class="scene" id="scene-rsvp" data-chapter="Lời nhắn" data-icon="✏️" data-dark="false"><div class="scene-content"><p class="script-text reveal" style="margin-bottom: 0.5rem;">Gửi lời nhắn cho tụi mình nhé!</p><p class="narrator reveal reveal-delay-1" style="font-size: 0.9rem;">
+Không cần dài, một chữ "Có!" là vui rồi
+</p><form class="rsvp-form reveal reveal-delay-2" id="rsvpForm"><input class="rsvp-input" type="text" name="name" placeholder="Tên bạn" required><textarea class="rsvp-textarea" name="wish" placeholder="Lời nhắn gửi đến cô dâu chú rể..."></textarea><button class="rsvp-btn" type="submit">Gửi lời chúc</button></form><div class="rsvp-success" id="rsvpSuccess"><p class="script-text" style="color: var(--primary); font-size: 1.8rem;">Cảm ơn bạn!</p><p class="narrator" style="margin-top: 0.5rem;">Tụi mình nhận được rồi nè~</p></div></div></section><section class="scene" id="scene-closing" data-chapter="Cảm ơn" data-icon="💗" data-dark="false"><div class="scene-content"><img class="closing-photo reveal"
+src="../../../shared/images/wedding/viet-trang-hoa/629214346_1496741812453630_740612148984566707_n.webp"
+alt="Bouquet" style="object-position: center 30%"><p class="narrator reveal reveal-delay-1">Cảm ơn bạn đã dành thời gian<br>nghe câu chuyện tụi mình</p><p class="script-text reveal reveal-delay-2" style="color: var(--primary); margin: 0.8rem 0;">
+Hẹn gặp bạn ở đám cưới nha!
+</p><p class="couple-name reveal reveal-delay-3" id="closingCouple">Đức Anh & Thuỳ Linh</p><p class="narrator reveal reveal-delay-4" style="font-size: 0.8rem; color: var(--text-light); margin-top: 1.5rem;">
+Made with love
+</p></div><div class="floating-hearts" id="floatingHearts"></div></section></div><div class="confetti-container" id="confettiContainer"></div><script>(function() { '\x75\x73\x65\x20\x73\x74\x72\x69\x63\x74'; var animeLib = anime; var animateFn = animeLib.animate; var staggerFn = animeLib.stagger; var GROOM = { display: 'Đức Anh', full: 'Trần Đức Anh' }; var BRIDE = { display: 'Thuỳ Linh', full: 'Nguyễn Thuỳ Linh' }; var CHAT_MESSAGES = [ { side: '\x6c\x65\x66\x74', label: BRIDE.display, text: 'Ê, hôm nay trời đẹp ghê!' }, { side: '\x72\x69\x67\x68\x74', label: GROOM.display, text: 'Ừ, đẹp gần bằng bạn' }, { side: '\x6c\x65\x66\x74', label: BRIDE.display, text: '...' }, { side: '\x6c\x65\x66\x74', label: BRIDE.display, text: 'Bạn flirt hả?? 😂' }, { side: '\x72\x69\x67\x68\x74', label: GROOM.display, text: 'Hông! Mình nói thật mà 🫣' }, { side: '\x6c\x65\x66\x74', label: BRIDE.display, text: 'Hmm thôi cho qua lần này 😏' }, { side: '\x72\x69\x67\x68\x74', label: GROOM.display, text: 'Cuối tuần này rảnh không?' }, { side: '\x6c\x65\x66\x74', label: BRIDE.display, text: 'Để xem...' }, { side: '\x6c\x65\x66\x74', label: BRIDE.display, text: 'Rảnh nè! Đi đâu?' }, { side: '\x72\x69\x67\x68\x74', label: GROOM.display, text: 'Bí mật 🤫' }, ]; var scenes = Array.from(document.querySelectorAll('.scene')); var currentIndex = 0; var isTransitioning = false; var visitedScenes = new Set([0]); var dotsContainer = document.getElementById('\x63\x68\x61\x70\x74\x65\x72\x44\x6f\x74\x73'); scenes.forEach(function(scene, i) { var dot = document.createElement('\x64\x69\x76'); dot.className = '\x64\x6f\x74\x2d\x69\x74\x65\x6d' + (i === 0 ? '\x20\x61\x63\x74\x69\x76\x65' : ''); dot.innerHTML = '<span class="dot-label">' + scene.dataset.chapter + '</span>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<span class="dot-icon"><span>' + scene.dataset.icon + '</span></span>'; dot.addEventListener('click', function() { goToScene(i); }); dotsContainer.appendChild(dot); }); function goToScene(targetIndex) { if (targetIndex === currentIndex || isTransitioning) return; if (targetIndex < 0 || targetIndex >= scenes.length) return; isTransitioning = true; var direction = targetIndex > currentIndex ? 'next' : 'prev'; var oldScene = scenes[currentIndex]; var newScene = scenes[targetIndex]; var reveals = newScene.querySelectorAll('.reveal'); reveals.forEach(function(el) { el.classList.remove('visible'); }); newScene.style.transition = 'none'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x69\x66\x20\x28\x64\x69\x72\x65\x63\x74\x69\x6f\x6e\x20\x3d\x3d\x3d\x20'next') { newScene.classList.remove('exit-left', '\x65\x78\x69\x74\x2d\x72\x69\x67\x68\x74', '\x65\x6e\x74\x65\x72\x2d\x6c\x65\x66\x74'); newScene.style.transform = '\x74\x72\x61\x6e\x73\x6c\x61\x74\x65\x58\x28\x31\x30\x30\x25\x29'; } else { newScene.classList.remove('\x65\x78\x69\x74\x2d\x6c\x65\x66\x74', '\x65\x78\x69\x74\x2d\x72\x69\x67\x68\x74'); newScene.classList.add('\x65\x6e\x74\x65\x72\x2d\x6c\x65\x66\x74'); newScene.style.transform = '\x74\x72\x61\x6e\x73\x6c\x61\x74\x65\x58\x28\x2d\x31\x30\x30\x25\x29'; } newScene.style.opacity = '0'; void newScene.offsetWidth; newScene.style.transition = ''; oldScene.classList.remove('active'); oldScene.classList.add(direction === 'next'\x20\x3f\x20'exit-left' : 'exit-right'); newScene.classList.remove('enter-left', '\x65\x78\x69\x74\x2d\x6c\x65\x66\x74', '\x65\x78\x69\x74\x2d\x72\x69\x67\x68\x74'); newScene.style.transform = ''; newScene.style.opacity = ''; newScene.classList.add('active'); currentIndex = targetIndex; visitedScenes.add(currentIndex); updateUI(); setTimeout(function() { reveals.forEach(function(el) { el.classList.add('visible'); }); onSceneEnter(currentIndex); isTransitioning = false; }, 350); } function updateUI() { document.getElementById('btnPrev').disabled = currentIndex === 0; document.getElementById('btnNext').disabled = currentIndex === scenes.length - 1; var progress = ((currentIndex + 1) / scenes.length) * 100; document.getElementById('slideProgress').style.width = progress + '%'; var dots = dotsContainer.querySelectorAll('.dot-item'); dots.forEach(function(d, i) { d.classList.remove('active'); if (i === currentIndex) d.classList.add('active'); if (visitedScenes.has(i) && i !== currentIndex) d.classList.add('visited'); }); var isDark = scenes[currentIndex].dataset.dark === 'true'; document.getElementById('slideNav').classList.toggle('dark-mode', isDark); dotsContainer.classList.toggle('dark-mode', isDark); } function onSceneEnter(index) { var sceneId = scenes[index].id; if (sceneId === 'scene-flirt'\x29\x20\x69\x6e\x69\x74\x43\x68\x61\x74\x4f\x6e\x63\x65\x28\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x69\x66\x20\x28\x73\x63\x65\x6e\x65\x49\x64\x20\x3d\x3d\x3d\x20'scene-wedding-photos'\x29\x20\x73\x70\x61\x77\x6e\x50\x65\x74\x61\x6c\x73\x28\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x69\x66\x20\x28\x73\x63\x65\x6e\x65\x49\x64\x20\x3d\x3d\x3d\x20'scene-closing') startFloatingHearts(); } document.getElementById('btnPrev').addEventListener('click', function() { goToScene(currentIndex - 1); }); document.getElementById('btnNext').addEventListener('click', function() { goToScene(currentIndex + 1); }); document.addEventListener('keydown', function(e) { if (document.getElementById('splash').style.display !== 'none') return; if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goToScene(currentIndex + 1); } if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goToScene(currentIndex - 1); } }); var touchStartX = 0; var touchStartY = 0; document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; }, { passive: true }); document.addEventListener('touchend', function(e) { if (document.getElementById('splash').style.display !== 'none') return; var dx = e.changedTouches[0].clientX - touchStartX; var dy = e.changedTouches[0].clientY - touchStartY; if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return; if (e.target.closest('.rsvp-form, .chat-container')) return; if (dx < 0) goToScene(currentIndex + 1); else goToScene(currentIndex - 1); }, { passive: true }); function initSplash() { var splash = document.getElementById('splash'); var splashText = document.getElementById('splashText'); var bgMusic = document.getElementById('bgMusic'); var sparklesEl = document.getElementById('splashSparkles'); for (var i = 0; i < 25; i++) { var spark = document.createElement('div'); spark.className = 'splash-sparkle'; spark.style.left = Math.random() * 100 + '%'; spark.style.top = Math.random() * 100 + '%'; sparklesEl.appendChild(spark); } animateFn('.splash-sparkle', { opacity: [0, 0.8, 0], scale: [0, 1.5, 0], duration: 2500, delay: staggerFn(80, { from: 'center' }), loop: true, ease: 'inOutQuad' }); animateFn(splashText, { opacity: [0, 1], translateY: [20, 0], duration: 1200, delay: 500, ease: 'outExpo' }); splash.addEventListener('click', function() { splash.classList.add('opened'); if (bgMusic) { bgMusic.volume = 0.3; bgMusic.play().catch(function(){}); showMusicToggle(true); } document.getElementById('slideNav').classList.add('show'); dotsContainer.classList.add('show'); setTimeout(function() { splash.style.display = 'none'; scenes[0].querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); }); }, 800); }); } function initMusicToggle() { var toggle = document.getElementById('musicToggle'); var bgMusic = document.getElementById('bgMusic'); var bars = toggle.querySelectorAll('.music-bar'); toggle.addEventListener('click', function() { if (bgMusic.paused) { bgMusic.play().catch(function(){}); bars.forEach(function(b) { b.classList.remove('paused'); b.classList.add('playing'); }); } else { bgMusic.pause(); bars.forEach(function(b) { b.classList.remove('playing'); b.classList.add('paused'); }); } }); } function showMusicToggle(playing) { var toggle = document.getElementById('musicToggle'); var bars = toggle.querySelectorAll('.music-bar'); toggle.classList.add('show'); if (playing) bars.forEach(function(b) { b.classList.remove('paused'); b.classList.add('playing'); }); } var chatInitialized = false; var chatIndex = 0; function initChatOnce() { if (chatInitialized) return; chatInitialized = true; var container = document.getElementById('chatContainer'); var hint = document.getElementById('chatTapHint'); CHAT_MESSAGES.forEach(function(msg) { var wrapper = document.createElement('div'); wrapper.className = 'chat-wrapper'; wrapper.style.alignSelf = msg.side === 'left'\x20\x3f\x20'flex-start' : 'flex-end'; wrapper.style.maxWidth = '80%'; var label = document.createElement('div'); label.className = 'chat-label' + (msg.side === 'right'\x20\x3f\x20' chat-label-right' : ''); label.textContent = msg.label; var bubble = document.createElement('div'); bubble.className = 'chat-bubble chat-' + msg.side; bubble.textContent = msg.text; wrapper.appendChild(label); wrapper.appendChild(bubble); container.appendChild(wrapper); }); showNextBubbles(3); hint.addEventListener('click', function() { showNextBubbles(2); }); container.addEventListener('click', function(e) { if (e.target.closest('.chat-wrapper')) return; showNextBubbles(2); }); function showNextBubbles(count) { var wrappers = container.querySelectorAll('.chat-wrapper'); var bubbles = container.querySelectorAll('.chat-bubble'); for (var i = 0; i < count && chatIndex < bubbles.length; i++, chatIndex++) { (function(idx) { setTimeout(function() { wrappers[idx].classList.add('shown'); bubbles[idx].classList.add('visible'); setTimeout(function() { wrappers[idx].scrollIntoView({ block: 'end', behavior: 'smooth' }); }, 100); }, i * 300); })(chatIndex); } if (chatIndex >= bubbles.length) hint.style.display = 'none'; } } function initHeartTap() { var photo = document.getElementById('officialPhoto'); photo.addEventListener('click'\x2c\x20\x66\x75\x6e\x63\x74\x69\x6f\x6e\x28\x65\x29\x20\x7b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x76\x61\x72\x20\x68\x65\x61\x72\x74\x73\x20\x3d\x20\x5b'❤️', '💕', '💖', '💗', '🥰', '✨']; for (var i = 0; i < 5; i++) { (function(idx) { setTimeout(function() { var heart = document.createElement('div'); heart.className = 'fly-heart'; heart.textContent = hearts[Math.floor(Math.random() * hearts.length)]; heart.style.left = (e.clientX - 10 + (Math.random() - 0.5) * 40) + 'px'; heart.style.top = (e.clientY - 10) + 'px'; document.body.appendChild(heart); setTimeout(function() { heart.remove(); }, 1500); }, idx * 100); })(i); } }); } function initProposal() { var tapEl = document.getElementById('proposalTap'); var answerEl = document.getElementById('proposalAnswer'); var revealed = false; tapEl.addEventListener('click', function() { if (revealed) return; revealed = true; tapEl.style.display = 'none'; answerEl.classList.add('revealed'\x29\x3b\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x61\x6e\x69\x6d\x61\x74\x65\x46\x6e\x28'.answer-text', { scale: [0, 1], opacity: [0, 1], duration: 800, ease: 'outBack'\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x7d\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x63\x72\x65\x61\x74\x65\x43\x6f\x6e\x66\x65\x74\x74\x69\x28\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x61\x6e\x69\x6d\x61\x74\x65\x46\x6e\x28'.sparkle-ring', { opacity: [0, 1], scale: [0.5, 1.2, 1], duration: 1000, ease: 'outElastic(1, 0.5)' }); }); } function initGroomReveal() { var wrapper = document.getElementById('groomPhotoWrapper'); var photo = document.getElementById('groomPhoto'); var overlay = document.getElementById('groomOverlay'); var hint = document.getElementById('groomTapHint'); var nameReveal = document.getElementById('groomNameReveal'); var revealed = false; function doReveal() { if (revealed) return; revealed = true; photo.classList.remove('blurred'); photo.classList.add('revealed'); overlay.classList.add('hidden'); hint.style.display = 'none'; nameReveal.style.display = 'block'; nameReveal.classList.add('visible'); createConfetti(); } wrapper.addEventListener('click', doReveal); hint.addEventListener('click', doReveal); } function createConfetti() { var container = document.getElementById('confettiContainer'\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x76\x61\x72\x20\x63\x6f\x6c\x6f\x72\x73\x20\x3d\x20\x5b'#FF8B7A', '#FFB4A8', '#E85D75', '#D4AF37', '#FFB5C2', '#C8B6FF', '#FF6B6B']; for (var i = 0; i < 50; i++) { var piece = document.createElement('\x64\x69\x76'); piece.className = '\x63\x6f\x6e\x66\x65\x74\x74\x69\x2d\x70\x69\x65\x63\x65'; piece.style.left = Math.random() * 100 + '%'; piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px'; piece.style.width = (6 + Math.random() * 8) + 'px'; piece.style.height = (6 + Math.random() * 8) + 'px'; container.appendChild(piece); } animateFn('.confetti-piece', { translateY: [0, function() { return 300 + Math.random() * 500; }], translateX: function() { return (Math.random() - 0.5) * 300; }, rotate: function() { return Math.random() * 720; }, opacity: [1, 0], duration: function() { return 1500 + Math.random() * 1500; }, delay: staggerFn(20), ease: 'outQuad' }); setTimeout(function() { container.innerHTML = ''; }, 4000); } var heartsStarted = false; function startFloatingHearts() { if (heartsStarted) return; heartsStarted = true; var container = document.getElementById('floatingHearts'\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x76\x61\x72\x20\x68\x65\x61\x72\x74\x45\x6d\x6f\x6a\x69\x73\x20\x3d\x20\x5b'💕', '💗', '🤍', '💖', '🩷']; function spawn() { if (currentIndex !== scenes.length - 1) return; var heart = document.createElement('div'); heart.className = 'float-heart'; heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)]; heart.style.left = Math.random() * 100 + '%'; heart.style.animationDuration = (4 + Math.random() * 4) + 's'; heart.style.opacity = 0.3 + Math.random() * 0.3; heart.style.fontSize = (0.8 + Math.random() * 0.5) + 'rem'; container.appendChild(heart); setTimeout(function() { heart.remove(); }, 8000); setTimeout(spawn, 700 + Math.random() * 800); } spawn(); } var petalsSpawned = false; function spawnPetals() { if (petalsSpawned) return; petalsSpawned = true; var scene = document.getElementById('scene-wedding-photos'\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x76\x61\x72\x20\x70\x65\x74\x61\x6c\x73\x20\x3d\x20\x5b'🌸', '🩷', '✿', '❀', '🌷']; for (var i = 0; i < 15; i++) { (function(idx) { setTimeout(function() { var petal = document.createElement('div'); petal.textContent = petals[Math.floor(Math.random() * petals.length)]; petal.style.cssText = 'position:absolute;top:-20px;left:' + (Math.random()*100) + '%;font-size:' + (0.8+Math.random()*0.6) + 'rem;opacity:0.6;pointer-events:none;z-index:0;animation:petalFall ' + (3+Math.random()*4) + 's linear forwards;'; scene.appendChild(petal); setTimeout(function() { petal.remove(); }, 7000); }, idx * 300); })(i); } } function initRSVP() { var form = document.getElementById('rsvpForm'); var success = document.getElementById('rsvpSuccess'); form.addEventListener('submit', function(e) { e.preventDefault(); var formData = new FormData(form); var data = { name: formData.get('name'), wish: formData.get('wish'), timestamp: new Date().toISOString() }; var wishes = JSON.parse(localStorage.getItem('wedding_wishes'\x29\x20\x7c\x7c\x20'[]'); wishes.push(data); localStorage.setItem('wedding_wishes', JSON.stringify(wishes)); form.style.display = 'none'; success.classList.add('show'); }); } document.addEventListener('DOMContentLoaded', function() { initSplash(); initMusicToggle(); initHeartTap(); initProposal(); initGroomReveal(); initRSVP(); }); })();</script></body></html>

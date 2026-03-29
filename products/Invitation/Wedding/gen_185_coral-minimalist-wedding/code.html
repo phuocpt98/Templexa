@@ -1,1428 +1,911 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation - Văn Minh & Thị Ngọc</title>
-    <meta name="description" content="Thiệp mời đám cưới Văn Minh & Thị Ngọc - Coral Minimalist">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Quicksand:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        /* ========== VARIABLES ========== */
-        :root {
-            --coral: #ee8584;
-            --coral-light: #f4a8a7;
-            --coral-soft: #fce8e8;
-            --coral-dark: #d97070;
-            --white: #ffffff;
-            --gray-bg: #f9f9f9;
-            --text: #333333;
-            --text-light: #666666;
-            --text-faint: #999999;
-            --border: #eee;
-            --font-script: 'Great Vibes', cursive;
-            --font-serif: 'Cormorant Garamond', serif;
-            --font-body: 'Quicksand', sans-serif;
-        }
-
-        /* ========== RESET ========== */
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--font-body);
-            font-weight: 300;
-            color: var(--text);
-            background: var(--white);
-            line-height: 1.7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-        img { max-width: 100%; display: block; }
-        a { text-decoration: none; color: inherit; }
-
-        /* ========== TYPOGRAPHY ========== */
-        .section-label {
-            font-family: var(--font-body);
-            font-size: 0.65rem;
-            letter-spacing: 0.35em;
-            text-transform: uppercase;
-            color: var(--text-faint);
-            margin-bottom: 0.5rem;
-        }
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: clamp(1.4rem, 4vw, 2rem);
-            font-weight: 500;
-            color: var(--text);
-            font-style: italic;
-            line-height: 1.3;
-        }
-        .section-title-script {
-            font-family: var(--font-script);
-            font-size: clamp(2rem, 6vw, 3rem);
-            color: var(--text);
-        }
-
-        /* ========== GEOMETRIC ORNAMENT SVG ========== */
-        .ornament-svg {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1.2rem 0;
-        }
-        .ornament-svg svg { width: 120px; height: 20px; }
-
-        /* ========== SCROLL REVEAL ========== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
-                        transform 0.8s cubic-bezier(0.16,1,0.3,1);
-        }
-        .reveal.visible { opacity: 1; transform: none; }
-        .reveal.d1 { transition-delay: 0.1s; }
-        .reveal.d2 { transition-delay: 0.2s; }
-        .reveal.d3 { transition-delay: 0.3s; }
-        .reveal.d4 { transition-delay: 0.4s; }
-
-        /* ========== ENVELOPE ========== */
-        .envelope-overlay {
-            position: fixed; inset: 0; z-index: 9999;
-            background: linear-gradient(160deg, var(--coral) 0%, var(--coral-dark) 100%);
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            cursor: pointer;
-            transition: opacity 0.8s, transform 0.8s;
-        }
-        .envelope-overlay.opened {
-            opacity: 0; pointer-events: none;
-            transform: scale(1.05);
-        }
-        .envelope-label {
-            font-family: var(--font-body);
-            font-size: 0.6rem;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.7);
-            margin-bottom: 0.8rem;
-        }
-        .envelope-names {
-            font-family: var(--font-script);
-            font-size: clamp(2.8rem, 10vw, 4.5rem);
-            color: var(--white);
-            line-height: 1.2;
-        }
-        .envelope-amp {
-            font-family: var(--font-serif);
-            font-size: 0.4em;
-            font-style: italic;
-            color: rgba(255,255,255,0.8);
-        }
-        .envelope-date {
-            font-family: var(--font-serif);
-            font-size: 1.1rem;
-            letter-spacing: 0.3em;
-            color: rgba(255,255,255,0.85);
-            margin-top: 0.5rem;
-        }
-        .envelope-invite {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.7);
-            margin-top: 1.5rem;
-            letter-spacing: 0.1em;
-        }
-        .guest-name-display {
-            font-family: var(--font-script);
-            font-size: 1.6rem;
-            color: var(--white);
-            margin-top: 0.3rem;
-            min-height: 2rem;
-        }
-        .envelope-peek {
-            display: flex;
-            justify-content: center;
-            margin-top: 2rem;
-        }
-        .envelope-peek-img {
-            width: 70px; height: 70px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid rgba(255,255,255,0.4);
-        }
-        .envelope-peek-img:first-child { transform: rotate(-6deg); margin-right: -12px; z-index: 1; }
-        .envelope-peek-img:last-child { transform: rotate(5deg); margin-left: -12px; }
-        .envelope-peek-img img { width: 100%; height: 100%; object-fit: cover; }
-        .envelope-tap {
-            margin-top: 2.5rem;
-            text-align: center;
-        }
-        .envelope-tap-icon {
-            font-size: 1.4rem;
-            color: var(--white);
-            animation: tapPulse 1.8s ease-in-out infinite;
-        }
-        .envelope-tap p {
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.6);
-            letter-spacing: 0.15em;
-            margin-top: 0.3rem;
-        }
-        @keyframes tapPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-        }
-
-        /* ========== HERO ========== */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-            overflow: hidden;
-        }
-        .hero-bg {
-            position: absolute; inset: 0;
-            background: url('../../../shared/images/wedding/coral-minimalist/hero_bg.webp') center/cover no-repeat;
-        }
-        .hero-bg::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: rgba(0,0,0,0.35);
-        }
-        .hero-content {
-            position: relative; z-index: 2;
-            padding: 2rem;
-        }
-        .hero-label {
-            font-family: var(--font-body);
-            font-size: 0.6rem;
-            letter-spacing: 0.5em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 1rem;
-            opacity: 0; transform: translateY(20px);
-            animation: heroIn 1s 0.3s forwards;
-        }
-        .hero-names {
-            font-family: var(--font-script);
-            font-size: clamp(2.4rem, 9vw, 4.5rem);
-            color: var(--white);
-            line-height: 1.15;
-            opacity: 0; transform: translateY(20px);
-            animation: heroIn 1s 0.5s forwards;
-        }
-        .hero-names .amp {
-            font-family: var(--font-serif);
-            font-size: 0.4em;
-            font-style: italic;
-            color: var(--coral-light);
-            display: inline-block;
-            margin: 0 0.3em;
-        }
-        .hero-date {
-            font-family: var(--font-serif);
-            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-            letter-spacing: 0.3em;
-            color: rgba(255,255,255,0.85);
-            margin-top: 1rem;
-            opacity: 0; transform: translateY(20px);
-            animation: heroIn 1s 0.7s forwards;
-        }
-        .hero-invite-text {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.7);
-            margin-top: 1.5rem;
-            letter-spacing: 0.1em;
-            opacity: 0; transform: translateY(20px);
-            animation: heroIn 1s 0.9s forwards;
-        }
-        .hero-guest {
-            font-family: var(--font-script);
-            font-size: 1.5rem;
-            color: var(--white);
-            margin-top: 0.3rem;
-            min-height: 2rem;
-            opacity: 0; transform: translateY(20px);
-            animation: heroIn 1s 1.1s forwards;
-        }
-        .hero-deco {
-            position: absolute;
-            border: 1px solid rgba(255,255,255,0.15);
-            pointer-events: none;
-        }
-        .hero-deco-1 {
-            width: 200px; height: 200px;
-            top: 10%; left: -60px;
-            transform: rotate(45deg);
-        }
-        .hero-deco-2 {
-            width: 150px; height: 150px;
-            bottom: 15%; right: -40px;
-            border-radius: 50%;
-        }
-        @keyframes heroIn {
-            to { opacity: 1; transform: none; }
-        }
-
-        /* ========== COUPLE ========== */
-        .couple-section {
-            padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
-            text-align: center;
-            background: var(--white);
-        }
-        .couple-grid {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: clamp(1.5rem, 4vw, 3rem);
-            margin-top: 2.5rem;
-            flex-wrap: wrap;
-        }
-        .couple-card {
-            flex: 0 1 240px;
-            text-align: center;
-        }
-        .couple-photo {
-            width: 200px; height: 200px;
-            margin: 0 auto 1rem;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        }
-        .couple-photo img { width: 100%; height: 100%; object-fit: cover; }
-        .couple-name {
-            font-family: var(--font-script);
-            font-size: 1.8rem;
-            color: var(--text);
-            margin-bottom: 0.3rem;
-        }
-        .couple-role {
-            font-size: 0.65rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--text-faint);
-            margin-bottom: 0.6rem;
-        }
-        .couple-bio {
-            font-size: 0.82rem;
-            color: var(--text-light);
-            line-height: 1.6;
-            max-width: 220px;
-            margin: 0 auto;
-        }
-        .couple-divider {
-            align-self: center;
-            margin-top: 2.5rem;
-        }
-        .couple-divider svg { width: 40px; height: 40px; }
-
-        /* ========== LOVE STORY TIMELINE ========== */
-        .story-section {
-            padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
-            background: var(--gray-bg);
-        }
-        .story-section .text-center { text-align: center; }
-        .timeline {
-            position: relative;
-            max-width: 700px;
-            margin: 3rem auto 0;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0; bottom: 0;
-            width: 1px;
-            background: var(--coral-light);
-            transform: translateX(-50%);
-        }
-        .timeline-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        .timeline-item:nth-child(odd) { flex-direction: row; }
-        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            top: 1.5rem;
-            width: 12px; height: 12px;
-            border-radius: 50%;
-            background: var(--coral);
-            transform: translateX(-50%);
-            z-index: 2;
-            border: 3px solid var(--white);
-        }
-        .timeline-content {
-            width: 42%;
-            padding: 0 1.5rem;
-        }
-        .timeline-item:nth-child(odd) .timeline-content { text-align: right; }
-        .timeline-item:nth-child(even) .timeline-content { text-align: left; }
-        .timeline-photo {
-            width: 42%;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-        }
-        .timeline-photo img { width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; }
-        .timeline-date {
-            font-family: var(--font-serif);
-            font-size: 0.85rem;
-            color: var(--coral);
-            letter-spacing: 0.15em;
-            margin-bottom: 0.3rem;
-        }
-        .timeline-title {
-            font-family: var(--font-serif);
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 0.4rem;
-        }
-        .timeline-desc {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        /* ========== PHOTO STRIP / BANNER ========== */
-        .photo-strip {
-            position: relative;
-            height: 320px;
-            overflow: hidden;
-        }
-        .photo-strip img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-        }
-        .photo-strip::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: rgba(0,0,0,0.4);
-        }
-        .photo-strip-quote {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
-            text-align: center;
-            padding: 2rem;
-        }
-        .photo-strip-quote p {
-            font-family: var(--font-serif);
-            font-size: clamp(1rem, 3vw, 1.4rem);
-            font-style: italic;
-            color: var(--white);
-            max-width: 500px;
-            line-height: 1.8;
-        }
-        .photo-strip-quote span {
-            font-family: var(--font-body);
-            font-size: 0.7rem;
-            color: rgba(255,255,255,0.7);
-            margin-top: 0.8rem;
-            letter-spacing: 0.2em;
-            display: block;
-        }
-
-        /* ========== EVENT INFO / INVITATION CARD ========== */
-        .event-info-section {
-            position: relative;
-            padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
-            text-align: center;
-            overflow: hidden;
-        }
-        .event-info-bg {
-            position: absolute; inset: 0;
-            background: url('../../../shared/images/wedding/coral-minimalist/large_bg.webp') center/cover no-repeat;
-        }
-        .event-info-bg::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: rgba(255,255,255,0.88);
-        }
-        .event-info-content {
-            position: relative; z-index: 2;
-            max-width: 550px;
-            margin: 0 auto;
-        }
-        .event-info-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: clamp(2rem, 5vw, 3.5rem);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
-            margin-top: 2rem;
-        }
-        .event-detail {
-            font-family: var(--font-serif);
-            font-size: 1.1rem;
-            color: var(--text);
-            margin-bottom: 0.3rem;
-        }
-        .event-detail-big {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 8vw, 4rem);
-            font-weight: 600;
-            color: var(--coral);
-            line-height: 1;
-            margin: 0.5rem 0;
-        }
-        .event-address {
-            font-size: 0.82rem;
-            color: var(--text-light);
-            margin-top: 1rem;
-            line-height: 1.6;
-        }
-        .btn-rsvp {
-            display: inline-block;
-            margin-top: 1.5rem;
-            padding: 0.7rem 2rem;
-            background: var(--coral);
-            color: var(--white);
-            border: none;
-            border-radius: 30px;
-            font-family: var(--font-body);
-            font-size: 0.78rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .btn-rsvp:hover { background: var(--coral-dark); }
-
-        /* ========== WEDDING EVENTS (2 cards) ========== */
-        .events-section {
-            padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
-            background: var(--white);
-            text-align: center;
-        }
-        .events-grid {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2.5rem;
-            flex-wrap: wrap;
-        }
-        .event-card {
-            flex: 0 1 300px;
-            background: var(--gray-bg);
-            border-radius: 12px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-        }
-        .event-card-photo {
-            width: 130px; height: 130px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 1.2rem;
-            border: 4px solid var(--coral-soft);
-        }
-        .event-card-photo img { width: 100%; height: 100%; object-fit: cover; }
-        .event-card-title {
-            font-family: var(--font-serif);
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 0.8rem;
-        }
-        .event-card-detail {
-            font-size: 0.82rem;
-            color: var(--text-light);
-            margin-bottom: 0.3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-        }
-        .event-card-detail i { width: 14px; height: 14px; color: var(--coral); }
-
-        /* ========== COUNTDOWN ========== */
-        .countdown-section {
-            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
-            background: var(--gray-bg);
-            text-align: center;
-        }
-        .countdown-boxes {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        .countdown-box {
-            width: 75px;
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1rem 0.5rem;
-            text-align: center;
-        }
-        .countdown-num {
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--coral);
-            line-height: 1;
-        }
-        .countdown-label {
-            font-size: 0.6rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-faint);
-            margin-top: 0.3rem;
-        }
-
-        /* ========== CALENDAR ========== */
-        .calendar-section {
-            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
-            background: var(--white);
-            text-align: center;
-        }
-        .calendar-grid {
-            max-width: 320px;
-            margin: 1.5rem auto 0;
-        }
-        .calendar-header {
-            font-family: var(--font-serif);
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 0.8rem;
-        }
-        .calendar-weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-            margin-bottom: 4px;
-        }
-        .calendar-weekdays span {
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: var(--text-faint);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 6px 0;
-        }
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-        }
-        .calendar-day {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            padding: 8px 0;
-            border-radius: 50%;
-            transition: all 0.2s;
-        }
-        .calendar-day.empty { visibility: hidden; }
-        .calendar-day.wedding {
-            background: var(--coral);
-            color: var(--white);
-            font-weight: 700;
-            box-shadow: 0 2px 10px rgba(238,133,132,0.3);
-        }
-
-        /* ========== GALLERY ========== */
-        .gallery-section {
-            padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
-            background: var(--gray-bg);
-            text-align: center;
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.8rem;
-            max-width: 700px;
-            margin: 2rem auto 0;
-        }
-        .gallery-item {
-            border-radius: 8px;
-            overflow: hidden;
-            aspect-ratio: 1;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .gallery-item:hover { transform: scale(1.03); }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* ========== RSVP / WISHES FORM ========== */
-        .rsvp-section {
-            background: linear-gradient(var(--white) 50%, var(--coral) 50%);
-            padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
-            text-align: center;
-        }
-        .rsvp-card {
-            max-width: 460px;
-            margin: 2rem auto 0;
-            background: var(--white);
-            border-radius: 16px;
-            padding: clamp(2rem, 5vw, 3rem);
-            box-shadow: 0 12px 50px rgba(0,0,0,0.1);
-        }
-        .rsvp-card label {
-            display: block;
-            text-align: left;
-            font-size: 0.72rem;
-            font-weight: 500;
-            color: var(--text-light);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 0.3rem;
-            margin-top: 1rem;
-        }
-        .rsvp-card label:first-child { margin-top: 0; }
-        .rsvp-card input, .rsvp-card textarea {
-            width: 100%;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 0.7rem 0.9rem;
-            font-family: var(--font-body);
-            font-size: 0.85rem;
-            color: var(--text);
-            background: var(--gray-bg);
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .rsvp-card input:focus, .rsvp-card textarea:focus {
-            border-color: var(--coral);
-        }
-        .rsvp-card textarea { resize: vertical; min-height: 80px; }
-        .wish-presets {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin: 1rem 0 0.5rem;
-        }
-        .wish-preset {
-            background: var(--coral-soft);
-            border: 1px solid transparent;
-            border-radius: 20px;
-            padding: 0.35rem 0.8rem;
-            font-size: 0.72rem;
-            color: var(--coral-dark);
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: var(--font-body);
-        }
-        .wish-preset:hover, .wish-preset.active {
-            background: var(--coral);
-            color: var(--white);
-        }
-        .rsvp-submit {
-            width: 100%;
-            margin-top: 1.2rem;
-            padding: 0.75rem;
-            background: var(--coral);
-            color: var(--white);
-            border: none;
-            border-radius: 30px;
-            font-family: var(--font-body);
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .rsvp-submit:hover { background: var(--coral-dark); }
-        .rsvp-ok {
-            display: none;
-            text-align: center;
-            padding: 1.5rem 0;
-        }
-        .rsvp-ok.show { display: block; }
-        .rsvp-ok .chk { width: 48px; height: 48px; color: var(--coral); margin: 0 auto 0.8rem; }
-
-        /* ========== WISHES LIST ========== */
-        .wishes-section {
-            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
-            background: var(--white);
-            text-align: center;
-        }
-        .wishes-list {
-            max-width: 500px;
-            margin: 2rem auto 0;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .wish-item {
-            background: var(--gray-bg);
-            border-radius: 10px;
-            padding: 1rem 1.2rem;
-            text-align: left;
-        }
-        .wish-item-name {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text);
-            margin-bottom: 0.2rem;
-        }
-        .wish-item-msg {
-            font-size: 0.82rem;
-            color: var(--text-light);
-            line-height: 1.5;
-        }
-
-        /* ========== GIFT / QR ========== */
-        .gift-section {
-            position: relative;
-            padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
-            text-align: center;
-            overflow: hidden;
-        }
-        .gift-bg {
-            position: absolute; inset: 0;
-            background: url('../../../shared/images/wedding/coral-minimalist/large_bg.webp') center/cover no-repeat;
-        }
-        .gift-bg::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: rgba(0,0,0,0.5);
-        }
-        .gift-content {
-            position: relative; z-index: 2;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        .gift-quote {
-            font-family: var(--font-serif);
-            font-size: clamp(1rem, 3vw, 1.3rem);
-            font-style: italic;
-            color: var(--white);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-        .gift-qr-grid {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .gift-qr-card {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 12px;
-            padding: 1.5rem;
-            min-width: 160px;
-        }
-        .gift-qr-placeholder {
-            width: 120px; height: 120px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 8px;
-            margin: 0 auto 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.7rem;
-        }
-        .gift-qr-label {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.8);
-            letter-spacing: 0.1em;
-        }
-
-        /* ========== THANK YOU / FOOTER ========== */
-        .footer-section {
-            padding: clamp(4rem, 8vw, 6rem) 2rem;
-            text-align: center;
-            background: var(--gray-bg);
-        }
-        .footer-names {
-            font-family: var(--font-script);
-            font-size: clamp(2rem, 7vw, 3.5rem);
-            color: var(--coral);
-        }
-        .footer-date {
-            font-family: var(--font-serif);
-            font-size: 0.9rem;
-            letter-spacing: 0.3em;
-            color: var(--text-faint);
-            margin-top: 0.5rem;
-        }
-        .footer-hearts {
-            margin-top: 1rem;
-            color: var(--coral-light);
-            font-size: 1.2rem;
-            letter-spacing: 0.3em;
-        }
-        .footer-msg {
-            font-size: 0.75rem;
-            color: var(--text-faint);
-            margin-top: 1.5rem;
-        }
-
-        /* ========== MUSIC TOGGLE ========== */
-        .music-toggle {
-            position: fixed;
-            bottom: 20px; right: 20px;
-            z-index: 999;
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            background: var(--coral);
-            color: var(--white);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(238,133,132,0.35);
-            transition: transform 0.2s;
-        }
-        .music-toggle:hover { transform: scale(1.1); }
-        .music-toggle.playing { animation: spin 3s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ========== FALLING PETALS ========== */
-        .petal {
-            position: fixed;
-            top: -30px;
-            font-size: 16px;
-            z-index: 998;
-            pointer-events: none;
-            animation: petalFall linear forwards;
-            opacity: 0.6;
-        }
-        @keyframes petalFall {
-            0% { transform: translateX(0) rotate(0deg); opacity: 0.7; }
-            25% { transform: translateX(30px) rotate(90deg); }
-            50% { transform: translateX(-20px) rotate(180deg); opacity: 0.5; }
-            75% { transform: translateX(40px) rotate(270deg); }
-            100% { transform: translateX(-10px) rotate(360deg); opacity: 0; }
-        }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 768px) {
-            .timeline::before { left: 20px; }
-            .timeline-item,
-            .timeline-item:nth-child(even) {
-                flex-direction: column;
-                padding-left: 45px;
-            }
-            .timeline-dot { left: 20px; top: 0; }
-            .timeline-content,
-            .timeline-photo { width: 100%; }
-            .timeline-item:nth-child(odd) .timeline-content,
-            .timeline-item:nth-child(even) .timeline-content {
-                text-align: left;
-            }
-            .timeline-photo { margin-top: 0.8rem; }
-            .couple-photo { width: 160px; height: 160px; }
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-            .events-grid { flex-direction: column; align-items: center; }
-            .photo-strip { height: 240px; }
-            .hero { clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%); }
-        }
-        @media (max-width: 480px) {
-            .couple-grid { flex-direction: column; align-items: center; }
-            .couple-divider { order: -1; margin-top: 0; margin-bottom: 1rem; }
-            .countdown-boxes { gap: 0.6rem; }
-            .countdown-box { width: 65px; }
-            .gallery-grid { grid-template-columns: 1fr 1fr; }
-            .gift-qr-grid { flex-direction: column; align-items: center; }
-            .envelope-names { font-size: 2.5rem; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- ========== ENVELOPE ========== -->
-    <div class="envelope-overlay" id="envelope" onclick="openEnvelope()">
-        <p class="envelope-label">Save the Date</p>
-        <h2 class="envelope-names">Văn Minh<br><span class="envelope-amp">&</span><br>Thị Ngọc</h2>
-        <p class="envelope-date">25 . 01 . 2026</p>
-        <p class="envelope-invite guest-invite-text">Nhà trai trân trọng kính mời</p>
-        <p class="guest-name-display"></p>
-        <div class="envelope-peek">
-            <div class="envelope-peek-img"><img src="../../../shared/images/wedding/coral-minimalist/groom.webp" alt="Chú rể"></div>
-            <div class="envelope-peek-img"><img src="../../../shared/images/wedding/coral-minimalist/bride.webp" alt="Cô dâu"></div>
-        </div>
-        <div class="envelope-tap">
-            <div class="envelope-tap-icon">♥</div>
-            <p>Chạm để mở thiệp</p>
-        </div>
-    </div>
-
-    <!-- ========== HERO ========== -->
-    <section class="hero" id="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-deco hero-deco-1"></div>
-        <div class="hero-deco hero-deco-2"></div>
-        <div class="hero-content">
-            <p class="hero-label">Save the Date</p>
-            <h1 class="hero-names">Văn Minh<br><span class="amp">&</span><br>Thị Ngọc</h1>
-            <p class="hero-date">25 · 01 · 2026</p>
-            <p class="hero-invite-text guest-invite-text">Nhà Trai Trân Trọng Kính Mời</p>
-            <p class="hero-guest guest-name-display"></p>
-        </div>
-    </section>
-
-    <!-- ========== COUPLE ========== -->
-    <section class="couple-section">
-        <p class="section-label reveal">Chúng Mình</p>
-        <h2 class="section-title-script reveal d1">Cô Dâu & Chú Rể</h2>
-        <div class="ornament-svg reveal d2">
-            <svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="10" x2="45" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-                <polygon points="60,2 66,10 60,18 54,10" fill="none" stroke="#ee8584" stroke-width="0.8"/>
-                <line x1="75" y1="10" x2="120" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-            </svg>
-        </div>
-        <div class="couple-grid">
-            <div class="couple-card reveal d2">
-                <div class="couple-photo">
-                    <img src="../../../shared/images/wedding/coral-minimalist/groom.webp" alt="Chú rể - Minh">
-                </div>
-                <h3 class="couple-name">Trần Văn Minh</h3>
-                <p class="couple-role">Chú Rể</p>
-                <p class="couple-bio">Con trai ông Trần Văn Hùng<br>và bà Nguyễn Thị Mai</p>
-            </div>
-            <div class="couple-divider reveal d3">
-                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="8" y="8" width="24" height="24" rx="2" stroke="#ee8584" stroke-width="0.8" transform="rotate(45 20 20)"/>
-                    <circle cx="20" cy="20" r="4" fill="#ee8584" opacity="0.3"/>
-                </svg>
-            </div>
-            <div class="couple-card reveal d4">
-                <div class="couple-photo">
-                    <img src="../../../shared/images/wedding/coral-minimalist/bride.webp" alt="Cô dâu - Ngọc">
-                </div>
-                <h3 class="couple-name">Lê Thị Ngọc</h3>
-                <p class="couple-role">Cô Dâu</p>
-                <p class="couple-bio">Con gái ông Lê Văn Đức<br>và bà Phạm Thị Hoa</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== LOVE STORY ========== -->
-    <section class="story-section">
-        <div class="text-center">
-            <p class="section-label reveal">Love Story</p>
-            <h2 class="section-title-script reveal d1">Chuyện Chúng Mình</h2>
-            <div class="ornament-svg reveal d2">
-                <svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="0" y1="10" x2="40" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-                    <circle cx="50" cy="10" r="3" fill="none" stroke="#ee8584" stroke-width="0.8"/>
-                    <circle cx="60" cy="10" r="5" fill="none" stroke="#ee8584" stroke-width="0.8"/>
-                    <circle cx="70" cy="10" r="3" fill="none" stroke="#ee8584" stroke-width="0.8"/>
-                    <line x1="80" y1="10" x2="120" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-                </svg>
-            </div>
-        </div>
-        <div class="timeline">
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <p class="timeline-date">Tháng 6, 2020</p>
-                    <h3 class="timeline-title">Lần Đầu Gặp Gỡ</h3>
-                    <p class="timeline-desc">Chúng mình gặp nhau tại buổi họp nhóm của công ty. Ánh mắt đầu tiên đã khiến cả hai không thể quên.</p>
-                </div>
-                <div class="timeline-photo">
-                    <img src="../../../shared/images/wedding/coral-minimalist/story_1.webp" alt="Lần đầu gặp gỡ">
-                </div>
-            </div>
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <p class="timeline-date">Tháng 12, 2021</p>
-                    <h3 class="timeline-title">Tình Yêu Nở Hoa</h3>
-                    <p class="timeline-desc">Sau bao lần hẹn hò, chúng mình chính thức yêu nhau trong một đêm Giáng Sinh lãng mạn.</p>
-                </div>
-                <div class="timeline-photo">
-                    <img src="../../../shared/images/wedding/coral-minimalist/story_2.webp" alt="Tình yêu nở hoa">
-                </div>
-            </div>
-            <div class="timeline-item reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <p class="timeline-date">Tháng 8, 2025</p>
-                    <h3 class="timeline-title">Lời Cầu Hôn</h3>
-                    <p class="timeline-desc">Dưới bầu trời đầy sao, anh đã quỳ gối và nói: "Em sẽ đồng hành cùng anh chứ?"</p>
-                </div>
-                <div class="timeline-photo">
-                    <img src="../../../shared/images/wedding/coral-minimalist/story_3.webp" alt="Lời cầu hôn">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== PHOTO STRIP ========== -->
-    <section class="photo-strip reveal">
-        <img src="../../../shared/images/wedding/coral-minimalist/banner.webp" alt="Banner">
-        <div class="photo-strip-quote">
-            <p>"Tình yêu không phải là nhìn nhau,<br>mà là cùng nhau nhìn về một hướng."</p>
-            <span>— Antoine de Saint-Exupéry —</span>
-        </div>
-    </section>
-
-    <!-- ========== EVENT INFO ========== -->
-    <section class="event-info-section">
-        <div class="event-info-bg"></div>
-        <div class="event-info-content">
-            <p class="section-label reveal">Trân trọng kính mời</p>
-            <h2 class="section-title-script reveal d1">Lễ Thành Hôn</h2>
-            <div class="event-info-card reveal d2">
-                <div class="ornament-svg">
-                    <svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <line x1="10" y1="10" x2="45" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-                        <rect x="52" y="4" width="16" height="12" rx="1" fill="none" stroke="#ee8584" stroke-width="0.8"/>
-                        <line x1="75" y1="10" x2="110" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-                    </svg>
-                </div>
-                <p class="event-detail">Chủ Nhật</p>
-                <p class="event-detail-big">25</p>
-                <p class="event-detail">Tháng 01, 2026</p>
-                <p class="event-detail" style="margin-top:0.8rem;">Nhằm ngày 05 tháng 12 năm Ất Tỵ</p>
-                <p class="event-address">
-                    <i data-lucide="map-pin" style="display:inline;width:14px;height:14px;vertical-align:middle;"></i>
-                    Trung tâm Tiệc cưới Diamond Palace<br>
-                    123 Nguyễn Huệ, Quận 1, TP.HCM
-                </p>
-                <a href="#rsvp" class="btn-rsvp">Xác nhận tham dự</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== WEDDING EVENTS ========== -->
-    <section class="events-section">
-        <p class="section-label reveal">Sự Kiện</p>
-        <h2 class="section-title-script reveal d1">Chương Trình</h2>
-        <div class="ornament-svg reveal d2">
-            <svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="10" x2="42" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-                <path d="M52 4 L60 10 L52 16" fill="none" stroke="#ee8584" stroke-width="0.8"/>
-                <path d="M68 4 L60 10 L68 16" fill="none" stroke="#ee8584" stroke-width="0.8"/>
-                <line x1="78" y1="10" x2="120" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-            </svg>
-        </div>
-        <div class="events-grid">
-            <div class="event-card reveal d2">
-                <div class="event-card-photo">
-                    <img src="../../../shared/images/wedding/coral-minimalist/event_1.webp" alt="Lễ thành hôn">
-                </div>
-                <h3 class="event-card-title">Lễ Thành Hôn</h3>
-                <p class="event-card-detail"><i data-lucide="clock"></i> 10:00 — 11:30</p>
-                <p class="event-card-detail"><i data-lucide="calendar"></i> Chủ Nhật, 25/01/2026</p>
-                <p class="event-card-detail"><i data-lucide="map-pin"></i> Tư gia nhà trai</p>
-            </div>
-            <div class="event-card reveal d3">
-                <div class="event-card-photo">
-                    <img src="../../../shared/images/wedding/coral-minimalist/event_2.webp" alt="Tiệc chiều">
-                </div>
-                <h3 class="event-card-title">Tiệc Chiều</h3>
-                <p class="event-card-detail"><i data-lucide="clock"></i> 17:30 — 20:00</p>
-                <p class="event-card-detail"><i data-lucide="calendar"></i> Chủ Nhật, 25/01/2026</p>
-                <p class="event-card-detail"><i data-lucide="map-pin"></i> Diamond Palace, Q.1</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== COUNTDOWN ========== -->
-    <section class="countdown-section">
-        <p class="section-label reveal">Đếm Ngược</p>
-        <h2 class="section-title-script reveal d1">Ngày Trọng Đại</h2>
-        <div class="countdown-boxes reveal d2">
-            <div class="countdown-box">
-                <div class="countdown-num" id="cdDays">00</div>
-                <div class="countdown-label">Ngày</div>
-            </div>
-            <div class="countdown-box">
-                <div class="countdown-num" id="cdHours">00</div>
-                <div class="countdown-label">Giờ</div>
-            </div>
-            <div class="countdown-box">
-                <div class="countdown-num" id="cdMins">00</div>
-                <div class="countdown-label">Phút</div>
-            </div>
-            <div class="countdown-box">
-                <div class="countdown-num" id="cdSecs">00</div>
-                <div class="countdown-label">Giây</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== CALENDAR ========== -->
-    <section class="calendar-section">
-        <p class="section-label reveal">Tháng 01, 2026</p>
-        <h2 class="section-title reveal d1" style="font-style:normal;">Lịch Cưới</h2>
-        <div class="calendar-grid reveal d2">
-            <div class="calendar-header">Tháng 1 — 2026</div>
-            <div class="calendar-weekdays">
-                <span>CN</span><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span>
-            </div>
-            <div class="calendar-days" id="calendarDays"></div>
-        </div>
-    </section>
-
-    <!-- ========== GALLERY ========== -->
-    <section class="gallery-section">
-        <p class="section-label reveal">Album</p>
-        <h2 class="section-title-script reveal d1">Khoảnh Khắc Đẹp</h2>
-        <div class="ornament-svg reveal d2">
-            <svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="10" x2="38" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-                <rect x="46" y="6" width="8" height="8" fill="none" stroke="#ee8584" stroke-width="0.8" transform="rotate(45 50 10)"/>
-                <circle cx="60" cy="10" r="2" fill="#ee8584" opacity="0.5"/>
-                <rect x="66" y="6" width="8" height="8" fill="none" stroke="#ee8584" stroke-width="0.8" transform="rotate(45 70 10)"/>
-                <line x1="82" y1="10" x2="120" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-            </svg>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item reveal d1"><img src="../../../shared/images/wedding/coral-minimalist/album_1.webp" alt="Album 1"></div>
-            <div class="gallery-item reveal d2"><img src="../../../shared/images/wedding/coral-minimalist/album_2.webp" alt="Album 2"></div>
-            <div class="gallery-item reveal d3"><img src="../../../shared/images/wedding/coral-minimalist/album_3.webp" alt="Album 3"></div>
-        </div>
-    </section>
-
-    <!-- ========== RSVP FORM ========== -->
-    <section class="rsvp-section" id="rsvp">
-        <p class="section-label reveal">Gửi Lời Chúc</p>
-        <h2 class="section-title-script reveal d1">Sổ Lưu Bút</h2>
-        <div class="rsvp-card reveal d2">
-            <form id="wishForm" onsubmit="return submitWish(event)">
-                <label>Họ và tên</label>
-                <input type="text" id="wishName" placeholder="Nhập họ tên..." required>
-                <label>Lời chúc</label>
-                <div class="wish-presets">
-                    <button type="button" class="wish-preset" onclick="selectPreset(this)">Trăm năm hạnh phúc! 💕</button>
-                    <button type="button" class="wish-preset" onclick="selectPreset(this)">Chúc mừng hạnh phúc! 🎉</button>
-                    <button type="button" class="wish-preset" onclick="selectPreset(this)">Sống bên nhau trọn đời 💍</button>
-                    <button type="button" class="wish-preset" onclick="selectPreset(this)">Hạnh phúc viên mãn! 🌸</button>
-                    <button type="button" class="wish-preset" onclick="selectPreset(this)">Yêu thương mãi mãi ❤️</button>
-                </div>
-                <textarea id="wishMsg" placeholder="Viết lời chúc..." rows="3" required></textarea>
-                <button type="submit" class="rsvp-submit">GỬI LỜI CHÚC</button>
-            </form>
-            <div class="rsvp-ok" id="rsvpOk">
-                <svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                <p style="font-size:0.95rem;font-weight:500;">Cảm ơn bạn!</p>
-                <p style="font-size:0.8rem;color:var(--text-light);margin-top:0.3rem;">Lời chúc đã được gửi đến cô dâu chú rể.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== WISHES DISPLAY ========== -->
-    <section class="wishes-section" id="wishes">
-        <p class="section-label reveal">Lời Chúc</p>
-        <h2 class="section-title-script reveal d1">Từ Quan Khách</h2>
-        <div class="wishes-list" id="wishesList"></div>
-    </section>
-
-    <!-- ========== GIFT / QR ========== -->
-    <section class="gift-section">
-        <div class="gift-bg"></div>
-        <div class="gift-content">
-            <p class="section-label reveal" style="color:rgba(255,255,255,0.6);">Mừng Cưới</p>
-            <h2 class="section-title-script reveal d1" style="color:var(--white);">Hộp Mừng Cưới</h2>
-            <p class="gift-quote reveal d2">"Sự hiện diện của bạn là món quà tuyệt vời nhất.<br>Nếu muốn gửi thêm lời chúc phúc, xin dùng mã QR bên dưới."</p>
-            <div class="gift-qr-grid reveal d3">
-                <div class="gift-qr-card">
-                    <div class="gift-qr-placeholder">QR Code</div>
-                    <p class="gift-qr-label">Chú Rể</p>
-                </div>
-                <div class="gift-qr-card">
-                    <div class="gift-qr-placeholder">QR Code</div>
-                    <p class="gift-qr-label">Cô Dâu</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== THANK YOU / FOOTER ========== -->
-    <section class="footer-section">
-        <div class="ornament-svg reveal">
-            <svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="10" x2="45" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-                <polygon points="60,3 65,10 60,17 55,10" fill="#ee8584" opacity="0.2" stroke="#ee8584" stroke-width="0.5"/>
-                <line x1="75" y1="10" x2="120" y2="10" stroke="#ee8584" stroke-width="0.5"/>
-            </svg>
-        </div>
-        <p class="section-label reveal">Cảm ơn bạn</p>
-        <h2 class="footer-names reveal d1">Văn Minh & Thị Ngọc</h2>
-        <p class="footer-date reveal d2">25 · 01 · 2026</p>
-        <p class="footer-hearts reveal d3">♥ ♥ ♥</p>
-        <p class="footer-msg reveal d4">Sự hiện diện của bạn là niềm hạnh phúc của chúng mình.</p>
-    </section>
-
-    <!-- ========== MUSIC ========== -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="../../../shared/music/wedding/A Thousand Years.mp3" type="audio/mpeg">
-    </audio>
-    <button class="music-toggle" id="musicToggle" onclick="toggleMusic()">
-        <i data-lucide="music" style="width:20px;height:20px;"></i>
-    </button>
-
-    <script>
-        /* ========== GUEST PERSONALIZATION ========== */
-        (function() {
-            const params = new URLSearchParams(window.location.search);
-            const guest = params.get('guest') || params.get('name') || '';
-            const invite = params.get('invite') || '';
-            if (guest) {
-                document.querySelectorAll('.guest-name-display').forEach(el => {
-                    el.textContent = guest;
-                });
-            }
-            if (invite) {
-                document.querySelectorAll('.guest-invite-text').forEach(el => {
-                    el.textContent = invite;
-                });
-            }
-        })();
-
-        /* ========== ENVELOPE ========== */
-        let envelopeOpened = false;
-        function openEnvelope() {
-            if (envelopeOpened) return;
-            envelopeOpened = true;
-            document.getElementById('envelope').classList.add('opened');
-            document.body.style.overflow = '';
-            playMusic();
-            setTimeout(() => {
-                document.getElementById('envelope').style.display = 'none';
-            }, 900);
-        }
-        document.body.style.overflow = 'hidden';
-
-        /* ========== MUSIC ========== */
-        let isPlaying = false;
-        const audio = document.getElementById('bgMusic');
-        const musicBtn = document.getElementById('musicToggle');
-
-        function playMusic() {
-            audio.play().then(() => {
-                isPlaying = true;
-                musicBtn.classList.add('playing');
-            }).catch(() => {});
-        }
-        function toggleMusic() {
-            if (isPlaying) {
-                audio.pause();
-                isPlaying = false;
-                musicBtn.classList.remove('playing');
-            } else {
-                playMusic();
-            }
-        }
-
-        // Auto-play on load
-        audio.play().then(() => { isPlaying = true; musicBtn.classList.add('playing'); }).catch(() => {
-            document.addEventListener('click', function autoPlay() {
-                audio.play().then(() => { isPlaying = true; musicBtn.classList.add('playing'); }).catch(() => {});
-                document.removeEventListener('click', autoPlay);
-            }, { once: true });
-        });
-
-        /* ========== SCROLL REVEAL ========== */
-        const revealObs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    revealObs.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.15 });
-        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-        /* ========== COUNTDOWN ========== */
-        const weddingDate = new Date('2026-01-25T10:00:00+07:00');
-        function updateCountdown() {
-            const now = new Date();
-            let diff = weddingDate - now;
-            if (diff < 0) diff = 0;
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            const m = Math.floor((diff / (1000 * 60)) % 60);
-            const s = Math.floor((diff / 1000) % 60);
-            document.getElementById('cdDays').textContent = String(d).padStart(2, '0');
-            document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
-            document.getElementById('cdMins').textContent = String(m).padStart(2, '0');
-            document.getElementById('cdSecs').textContent = String(s).padStart(2, '0');
-        }
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-        /* ========== CALENDAR ========== */
-        (function() {
-            const container = document.getElementById('calendarDays');
-            // January 2026: starts on Thursday (index 4), 31 days
-            const firstDay = 4; // 0=Sun
-            const totalDays = 31;
-            const weddingDay = 25;
-            let html = '';
-            for (let i = 0; i < firstDay; i++) {
-                html += '<div class="calendar-day empty"></div>';
-            }
-            for (let d = 1; d <= totalDays; d++) {
-                const cls = d === weddingDay ? 'calendar-day wedding' : 'calendar-day';
-                html += '<div class="' + cls + '">' + d + '</div>';
-            }
-            container.innerHTML = html;
-        })();
-
-        /* ========== WISHES ========== */
-        let wishes = [
-            { name: 'Nguyễn Thanh Tùng', msg: 'Chúc hai bạn trăm năm hạnh phúc, bên nhau trọn đời! 💕' },
-            { name: 'Phạm Thị Hương', msg: 'Chúc mừng đám cưới! Hạnh phúc mãi mãi nhé! 🎉' }
-        ];
-
-        function renderWishes() {
-            const list = document.getElementById('wishesList');
-            list.innerHTML = wishes.map(w =>
-                '<div class="wish-item"><div class="wish-item-name">' + w.name + '</div><div class="wish-item-msg">' + w.msg + '</div></div>'
-            ).join('');
-        }
-        renderWishes();
-
-        function selectPreset(btn) {
-            document.querySelectorAll('.wish-preset').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById('wishMsg').value = btn.textContent;
-        }
-
-        function submitWish(e) {
-            e.preventDefault();
-            const name = document.getElementById('wishName').value.trim();
-            const msg = document.getElementById('wishMsg').value.trim();
-            if (!name || !msg) return false;
-            wishes.unshift({ name, msg });
-            renderWishes();
-            document.getElementById('wishForm').style.display = 'none';
-            document.getElementById('rsvpOk').classList.add('show');
-            return false;
-        }
-
-        /* ========== FALLING PETALS ========== */
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.classList.add('petal');
-            petal.textContent = '🌸';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.fontSize = (12 + Math.random() * 10) + 'px';
-            petal.style.animationDuration = (5 + Math.random() * 5) + 's';
-            petal.style.opacity = 0.3 + Math.random() * 0.4;
-            document.body.appendChild(petal);
-            setTimeout(() => petal.remove(), 10000);
-        }
-        setInterval(createPetal, 2500);
-
-        /* ========== LUCIDE ICONS ========== */
-        document.addEventListener('DOMContentLoaded', () => {
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-        });
-    </script>
-</body>
-</html>
+<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Wedding Invitation - Văn Minh & Thị Ngọc</title><meta name="description" content="Thiệp mời đám cưới Văn Minh & Thị Ngọc - Coral Minimalist"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Quicksand:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@latest"></script><style>
+/* ========== VARIABLES ========== */
+:root {
+--coral: #ee8584;
+--coral-light: #f4a8a7;
+--coral-soft: #fce8e8;
+--coral-dark: #d97070;
+--white: #ffffff;
+--gray-bg: #f9f9f9;
+--text: #333333;
+--text-light: #666666;
+--text-faint: #999999;
+--border: #eee;
+--font-script: 'Great Vibes', cursive;
+--font-serif: 'Cormorant Garamond', serif;
+--font-body: 'Quicksand', sans-serif;
+}
+/* ========== RESET ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+font-family: var(--font-body);
+font-weight: 300;
+color: var(--text);
+background: var(--white);
+line-height: 1.7;
+overflow-x: hidden;
+-webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+/* ========== TYPOGRAPHY ========== */
+.section-label {
+font-family: var(--font-body);
+font-size: 0.65rem;
+letter-spacing: 0.35em;
+text-transform: uppercase;
+color: var(--text-faint);
+margin-bottom: 0.5rem;
+}
+.section-title {
+font-family: var(--font-serif);
+font-size: clamp(1.4rem, 4vw, 2rem);
+font-weight: 500;
+color: var(--text);
+font-style: italic;
+line-height: 1.3;
+}
+.section-title-script {
+font-family: var(--font-script);
+font-size: clamp(2rem, 6vw, 3rem);
+color: var(--text);
+}
+/* ========== GEOMETRIC ORNAMENT SVG ========== */
+.ornament-svg {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 1.2rem 0;
+}
+.ornament-svg svg { width: 120px; height: 20px; }
+/* ========== SCROLL REVEAL ========== */
+.reveal {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.3s; }
+.reveal.d4 { transition-delay: 0.4s; }
+/* ========== ENVELOPE ========== */
+.envelope-overlay {
+position: fixed; inset: 0; z-index: 9999;
+background: linear-gradient(160deg, var(--coral) 0%, var(--coral-dark) 100%);
+display: flex; flex-direction: column;
+justify-content: center; align-items: center;
+cursor: pointer;
+transition: opacity 0.8s, transform 0.8s;
+}
+.envelope-overlay.opened {
+opacity: 0; pointer-events: none;
+transform: scale(1.05);
+}
+.envelope-label {
+font-family: var(--font-body);
+font-size: 0.6rem;
+letter-spacing: 0.4em;
+text-transform: uppercase;
+color: rgba(255,255,255,0.7);
+margin-bottom: 0.8rem;
+}
+.envelope-names {
+font-family: var(--font-script);
+font-size: clamp(2.8rem, 10vw, 4.5rem);
+color: var(--white);
+line-height: 1.2;
+}
+.envelope-amp {
+font-family: var(--font-serif);
+font-size: 0.4em;
+font-style: italic;
+color: rgba(255,255,255,0.8);
+}
+.envelope-date {
+font-family: var(--font-serif);
+font-size: 1.1rem;
+letter-spacing: 0.3em;
+color: rgba(255,255,255,0.85);
+margin-top: 0.5rem;
+}
+.envelope-invite {
+font-size: 0.75rem;
+color: rgba(255,255,255,0.7);
+margin-top: 1.5rem;
+letter-spacing: 0.1em;
+}
+.guest-name-display {
+font-family: var(--font-script);
+font-size: 1.6rem;
+color: var(--white);
+margin-top: 0.3rem;
+min-height: 2rem;
+}
+.envelope-peek {
+display: flex;
+justify-content: center;
+margin-top: 2rem;
+}
+.envelope-peek-img {
+width: 70px; height: 70px;
+border-radius: 50%;
+overflow: hidden;
+border: 3px solid rgba(255,255,255,0.4);
+}
+.envelope-peek-img:first-child { transform: rotate(-6deg); margin-right: -12px; z-index: 1; }
+.envelope-peek-img:last-child { transform: rotate(5deg); margin-left: -12px; }
+.envelope-peek-img img { width: 100%; height: 100%; object-fit: cover; }
+.envelope-tap {
+margin-top: 2.5rem;
+text-align: center;
+}
+.envelope-tap-icon {
+font-size: 1.4rem;
+color: var(--white);
+animation: tapPulse 1.8s ease-in-out infinite;
+}
+.envelope-tap p {
+font-size: 0.7rem;
+color: rgba(255,255,255,0.6);
+letter-spacing: 0.15em;
+margin-top: 0.3rem;
+}
+@keyframes tapPulse {
+0%, 100% { transform: scale(1); opacity: 1; }
+50% { transform: scale(1.2); opacity: 0.7; }
+}
+/* ========== HERO ========== */
+.hero {
+position: relative;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+overflow: hidden;
+}
+.hero-bg {
+position: absolute; inset: 0;
+background: url('../../../shared/images/wedding/coral-minimalist/hero_bg.webp') center/cover no-repeat;
+}
+.hero-bg::after {
+content: '';
+position: absolute; inset: 0;
+background: rgba(0,0,0,0.35);
+}
+.hero-content {
+position: relative; z-index: 2;
+padding: 2rem;
+}
+.hero-label {
+font-family: var(--font-body);
+font-size: 0.6rem;
+letter-spacing: 0.5em;
+text-transform: uppercase;
+color: rgba(255,255,255,0.8);
+margin-bottom: 1rem;
+opacity: 0; transform: translateY(20px);
+animation: heroIn 1s 0.3s forwards;
+}
+.hero-names {
+font-family: var(--font-script);
+font-size: clamp(2.4rem, 9vw, 4.5rem);
+color: var(--white);
+line-height: 1.15;
+opacity: 0; transform: translateY(20px);
+animation: heroIn 1s 0.5s forwards;
+}
+.hero-names .amp {
+font-family: var(--font-serif);
+font-size: 0.4em;
+font-style: italic;
+color: var(--coral-light);
+display: inline-block;
+margin: 0 0.3em;
+}
+.hero-date {
+font-family: var(--font-serif);
+font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+letter-spacing: 0.3em;
+color: rgba(255,255,255,0.85);
+margin-top: 1rem;
+opacity: 0; transform: translateY(20px);
+animation: heroIn 1s 0.7s forwards;
+}
+.hero-invite-text {
+font-size: 0.75rem;
+color: rgba(255,255,255,0.7);
+margin-top: 1.5rem;
+letter-spacing: 0.1em;
+opacity: 0; transform: translateY(20px);
+animation: heroIn 1s 0.9s forwards;
+}
+.hero-guest {
+font-family: var(--font-script);
+font-size: 1.5rem;
+color: var(--white);
+margin-top: 0.3rem;
+min-height: 2rem;
+opacity: 0; transform: translateY(20px);
+animation: heroIn 1s 1.1s forwards;
+}
+.hero-deco {
+position: absolute;
+border: 1px solid rgba(255,255,255,0.15);
+pointer-events: none;
+}
+.hero-deco-1 {
+width: 200px; height: 200px;
+top: 10%; left: -60px;
+transform: rotate(45deg);
+}
+.hero-deco-2 {
+width: 150px; height: 150px;
+bottom: 15%; right: -40px;
+border-radius: 50%;
+}
+@keyframes heroIn {
+to { opacity: 1; transform: none; }
+}
+/* ========== COUPLE ========== */
+.couple-section {
+padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
+text-align: center;
+background: var(--white);
+}
+.couple-grid {
+display: flex;
+justify-content: center;
+align-items: flex-start;
+gap: clamp(1.5rem, 4vw, 3rem);
+margin-top: 2.5rem;
+flex-wrap: wrap;
+}
+.couple-card {
+flex: 0 1 240px;
+text-align: center;
+}
+.couple-photo {
+width: 200px; height: 200px;
+margin: 0 auto 1rem;
+overflow: hidden;
+border-radius: 8px;
+box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+.couple-photo img { width: 100%; height: 100%; object-fit: cover; }
+.couple-name {
+font-family: var(--font-script);
+font-size: 1.8rem;
+color: var(--text);
+margin-bottom: 0.3rem;
+}
+.couple-role {
+font-size: 0.65rem;
+letter-spacing: 0.3em;
+text-transform: uppercase;
+color: var(--text-faint);
+margin-bottom: 0.6rem;
+}
+.couple-bio {
+font-size: 0.82rem;
+color: var(--text-light);
+line-height: 1.6;
+max-width: 220px;
+margin: 0 auto;
+}
+.couple-divider {
+align-self: center;
+margin-top: 2.5rem;
+}
+.couple-divider svg { width: 40px; height: 40px; }
+/* ========== LOVE STORY TIMELINE ========== */
+.story-section {
+padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
+background: var(--gray-bg);
+}
+.story-section .text-center { text-align: center; }
+.timeline {
+position: relative;
+max-width: 700px;
+margin: 3rem auto 0;
+}
+.timeline::before {
+content: '';
+position: absolute;
+left: 50%;
+top: 0; bottom: 0;
+width: 1px;
+background: var(--coral-light);
+transform: translateX(-50%);
+}
+.timeline-item {
+display: flex;
+align-items: flex-start;
+margin-bottom: 3rem;
+position: relative;
+}
+.timeline-item:nth-child(odd) { flex-direction: row; }
+.timeline-item:nth-child(even) { flex-direction: row-reverse; }
+.timeline-dot {
+position: absolute;
+left: 50%;
+top: 1.5rem;
+width: 12px; height: 12px;
+border-radius: 50%;
+background: var(--coral);
+transform: translateX(-50%);
+z-index: 2;
+border: 3px solid var(--white);
+}
+.timeline-content {
+width: 42%;
+padding: 0 1.5rem;
+}
+.timeline-item:nth-child(odd) .timeline-content { text-align: right; }
+.timeline-item:nth-child(even) .timeline-content { text-align: left; }
+.timeline-photo {
+width: 42%;
+border-radius: 8px;
+overflow: hidden;
+box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.timeline-photo img { width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; }
+.timeline-date {
+font-family: var(--font-serif);
+font-size: 0.85rem;
+color: var(--coral);
+letter-spacing: 0.15em;
+margin-bottom: 0.3rem;
+}
+.timeline-title {
+font-family: var(--font-serif);
+font-size: 1.2rem;
+font-weight: 600;
+color: var(--text);
+margin-bottom: 0.4rem;
+}
+.timeline-desc {
+font-size: 0.8rem;
+color: var(--text-light);
+line-height: 1.6;
+}
+/* ========== PHOTO STRIP / BANNER ========== */
+.photo-strip {
+position: relative;
+height: 320px;
+overflow: hidden;
+}
+.photo-strip img {
+width: 100%; height: 100%;
+object-fit: cover;
+}
+.photo-strip::after {
+content: '';
+position: absolute; inset: 0;
+background: rgba(0,0,0,0.4);
+}
+.photo-strip-quote {
+position: absolute;
+inset: 0;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+z-index: 2;
+text-align: center;
+padding: 2rem;
+}
+.photo-strip-quote p {
+font-family: var(--font-serif);
+font-size: clamp(1rem, 3vw, 1.4rem);
+font-style: italic;
+color: var(--white);
+max-width: 500px;
+line-height: 1.8;
+}
+.photo-strip-quote span {
+font-family: var(--font-body);
+font-size: 0.7rem;
+color: rgba(255,255,255,0.7);
+margin-top: 0.8rem;
+letter-spacing: 0.2em;
+display: block;
+}
+/* ========== EVENT INFO / INVITATION CARD ========== */
+.event-info-section {
+position: relative;
+padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
+text-align: center;
+overflow: hidden;
+}
+.event-info-bg {
+position: absolute; inset: 0;
+background: url('../../../shared/images/wedding/coral-minimalist/large_bg.webp') center/cover no-repeat;
+}
+.event-info-bg::after {
+content: '';
+position: absolute; inset: 0;
+background: rgba(255,255,255,0.88);
+}
+.event-info-content {
+position: relative; z-index: 2;
+max-width: 550px;
+margin: 0 auto;
+}
+.event-info-card {
+background: var(--white);
+border: 1px solid var(--border);
+border-radius: 12px;
+padding: clamp(2rem, 5vw, 3.5rem);
+box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+margin-top: 2rem;
+}
+.event-detail {
+font-family: var(--font-serif);
+font-size: 1.1rem;
+color: var(--text);
+margin-bottom: 0.3rem;
+}
+.event-detail-big {
+font-family: var(--font-serif);
+font-size: clamp(2.5rem, 8vw, 4rem);
+font-weight: 600;
+color: var(--coral);
+line-height: 1;
+margin: 0.5rem 0;
+}
+.event-address {
+font-size: 0.82rem;
+color: var(--text-light);
+margin-top: 1rem;
+line-height: 1.6;
+}
+.btn-rsvp {
+display: inline-block;
+margin-top: 1.5rem;
+padding: 0.7rem 2rem;
+background: var(--coral);
+color: var(--white);
+border: none;
+border-radius: 30px;
+font-family: var(--font-body);
+font-size: 0.78rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+cursor: pointer;
+transition: background 0.3s;
+}
+.btn-rsvp:hover { background: var(--coral-dark); }
+/* ========== WEDDING EVENTS (2 cards) ========== */
+.events-section {
+padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
+background: var(--white);
+text-align: center;
+}
+.events-grid {
+display: flex;
+justify-content: center;
+gap: 2rem;
+margin-top: 2.5rem;
+flex-wrap: wrap;
+}
+.event-card {
+flex: 0 1 300px;
+background: var(--gray-bg);
+border-radius: 12px;
+padding: 2rem 1.5rem;
+text-align: center;
+}
+.event-card-photo {
+width: 130px; height: 130px;
+border-radius: 50%;
+overflow: hidden;
+margin: 0 auto 1.2rem;
+border: 4px solid var(--coral-soft);
+}
+.event-card-photo img { width: 100%; height: 100%; object-fit: cover; }
+.event-card-title {
+font-family: var(--font-serif);
+font-size: 1.3rem;
+font-weight: 600;
+color: var(--text);
+margin-bottom: 0.8rem;
+}
+.event-card-detail {
+font-size: 0.82rem;
+color: var(--text-light);
+margin-bottom: 0.3rem;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.4rem;
+}
+.event-card-detail i { width: 14px; height: 14px; color: var(--coral); }
+/* ========== COUNTDOWN ========== */
+.countdown-section {
+padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
+background: var(--gray-bg);
+text-align: center;
+}
+.countdown-boxes {
+display: flex;
+justify-content: center;
+gap: 1rem;
+margin-top: 2rem;
+}
+.countdown-box {
+width: 75px;
+background: var(--white);
+border: 1px solid var(--border);
+border-radius: 10px;
+padding: 1rem 0.5rem;
+text-align: center;
+}
+.countdown-num {
+font-family: var(--font-serif);
+font-size: 1.8rem;
+font-weight: 600;
+color: var(--coral);
+line-height: 1;
+}
+.countdown-label {
+font-size: 0.6rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: var(--text-faint);
+margin-top: 0.3rem;
+}
+/* ========== CALENDAR ========== */
+.calendar-section {
+padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
+background: var(--white);
+text-align: center;
+}
+.calendar-grid {
+max-width: 320px;
+margin: 1.5rem auto 0;
+}
+.calendar-header {
+font-family: var(--font-serif);
+font-size: 1.1rem;
+font-weight: 600;
+color: var(--text);
+margin-bottom: 0.8rem;
+}
+.calendar-weekdays {
+display: grid;
+grid-template-columns: repeat(7, 1fr);
+gap: 2px;
+margin-bottom: 4px;
+}
+.calendar-weekdays span {
+font-size: 0.65rem;
+font-weight: 600;
+color: var(--text-faint);
+text-transform: uppercase;
+letter-spacing: 0.05em;
+padding: 6px 0;
+}
+.calendar-days {
+display: grid;
+grid-template-columns: repeat(7, 1fr);
+gap: 2px;
+}
+.calendar-day {
+font-size: 0.8rem;
+color: var(--text-light);
+padding: 8px 0;
+border-radius: 50%;
+transition: all 0.2s;
+}
+.calendar-day.empty { visibility: hidden; }
+.calendar-day.wedding {
+background: var(--coral);
+color: var(--white);
+font-weight: 700;
+box-shadow: 0 2px 10px rgba(238,133,132,0.3);
+}
+/* ========== GALLERY ========== */
+.gallery-section {
+padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
+background: var(--gray-bg);
+text-align: center;
+}
+.gallery-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 0.8rem;
+max-width: 700px;
+margin: 2rem auto 0;
+}
+.gallery-item {
+border-radius: 8px;
+overflow: hidden;
+aspect-ratio: 1;
+cursor: pointer;
+transition: transform 0.3s;
+}
+.gallery-item:hover { transform: scale(1.03); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+/* ========== RSVP / WISHES FORM ========== */
+.rsvp-section {
+background: linear-gradient(var(--white) 50%, var(--coral) 50%);
+padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
+text-align: center;
+}
+.rsvp-card {
+max-width: 460px;
+margin: 2rem auto 0;
+background: var(--white);
+border-radius: 16px;
+padding: clamp(2rem, 5vw, 3rem);
+box-shadow: 0 12px 50px rgba(0,0,0,0.1);
+}
+.rsvp-card label {
+display: block;
+text-align: left;
+font-size: 0.72rem;
+font-weight: 500;
+color: var(--text-light);
+letter-spacing: 0.1em;
+text-transform: uppercase;
+margin-bottom: 0.3rem;
+margin-top: 1rem;
+}
+.rsvp-card label:first-child { margin-top: 0; }
+.rsvp-card input, .rsvp-card textarea {
+width: 100%;
+border: 1px solid var(--border);
+border-radius: 8px;
+padding: 0.7rem 0.9rem;
+font-family: var(--font-body);
+font-size: 0.85rem;
+color: var(--text);
+background: var(--gray-bg);
+outline: none;
+transition: border-color 0.3s;
+}
+.rsvp-card input:focus, .rsvp-card textarea:focus {
+border-color: var(--coral);
+}
+.rsvp-card textarea { resize: vertical; min-height: 80px; }
+.wish-presets {
+display: flex;
+flex-wrap: wrap;
+gap: 0.4rem;
+margin: 1rem 0 0.5rem;
+}
+.wish-preset {
+background: var(--coral-soft);
+border: 1px solid transparent;
+border-radius: 20px;
+padding: 0.35rem 0.8rem;
+font-size: 0.72rem;
+color: var(--coral-dark);
+cursor: pointer;
+transition: all 0.2s;
+font-family: var(--font-body);
+}
+.wish-preset:hover, .wish-preset.active {
+background: var(--coral);
+color: var(--white);
+}
+.rsvp-submit {
+width: 100%;
+margin-top: 1.2rem;
+padding: 0.75rem;
+background: var(--coral);
+color: var(--white);
+border: none;
+border-radius: 30px;
+font-family: var(--font-body);
+font-size: 0.8rem;
+font-weight: 500;
+letter-spacing: 0.15em;
+cursor: pointer;
+transition: background 0.3s;
+}
+.rsvp-submit:hover { background: var(--coral-dark); }
+.rsvp-ok {
+display: none;
+text-align: center;
+padding: 1.5rem 0;
+}
+.rsvp-ok.show { display: block; }
+.rsvp-ok .chk { width: 48px; height: 48px; color: var(--coral); margin: 0 auto 0.8rem; }
+/* ========== WISHES LIST ========== */
+.wishes-section {
+padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem);
+background: var(--white);
+text-align: center;
+}
+.wishes-list {
+max-width: 500px;
+margin: 2rem auto 0;
+display: flex;
+flex-direction: column;
+gap: 1rem;
+}
+.wish-item {
+background: var(--gray-bg);
+border-radius: 10px;
+padding: 1rem 1.2rem;
+text-align: left;
+}
+.wish-item-name {
+font-family: var(--font-serif);
+font-weight: 600;
+font-size: 0.95rem;
+color: var(--text);
+margin-bottom: 0.2rem;
+}
+.wish-item-msg {
+font-size: 0.82rem;
+color: var(--text-light);
+line-height: 1.5;
+}
+/* ========== GIFT / QR ========== */
+.gift-section {
+position: relative;
+padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 3rem);
+text-align: center;
+overflow: hidden;
+}
+.gift-bg {
+position: absolute; inset: 0;
+background: url('../../../shared/images/wedding/coral-minimalist/large_bg.webp') center/cover no-repeat;
+}
+.gift-bg::after {
+content: '';
+position: absolute; inset: 0;
+background: rgba(0,0,0,0.5);
+}
+.gift-content {
+position: relative; z-index: 2;
+max-width: 500px;
+margin: 0 auto;
+}
+.gift-quote {
+font-family: var(--font-serif);
+font-size: clamp(1rem, 3vw, 1.3rem);
+font-style: italic;
+color: var(--white);
+line-height: 1.8;
+margin-bottom: 2rem;
+}
+.gift-qr-grid {
+display: flex;
+justify-content: center;
+gap: 1.5rem;
+flex-wrap: wrap;
+}
+.gift-qr-card {
+background: rgba(255,255,255,0.12);
+backdrop-filter: blur(8px);
+border: 1px solid rgba(255,255,255,0.2);
+border-radius: 12px;
+padding: 1.5rem;
+min-width: 160px;
+}
+.gift-qr-placeholder {
+width: 120px; height: 120px;
+background: rgba(255,255,255,0.15);
+border-radius: 8px;
+margin: 0 auto 0.8rem;
+display: flex;
+align-items: center;
+justify-content: center;
+color: rgba(255,255,255,0.5);
+font-size: 0.7rem;
+}
+.gift-qr-label {
+font-size: 0.75rem;
+color: rgba(255,255,255,0.8);
+letter-spacing: 0.1em;
+}
+/* ========== THANK YOU / FOOTER ========== */
+.footer-section {
+padding: clamp(4rem, 8vw, 6rem) 2rem;
+text-align: center;
+background: var(--gray-bg);
+}
+.footer-names {
+font-family: var(--font-script);
+font-size: clamp(2rem, 7vw, 3.5rem);
+color: var(--coral);
+}
+.footer-date {
+font-family: var(--font-serif);
+font-size: 0.9rem;
+letter-spacing: 0.3em;
+color: var(--text-faint);
+margin-top: 0.5rem;
+}
+.footer-hearts {
+margin-top: 1rem;
+color: var(--coral-light);
+font-size: 1.2rem;
+letter-spacing: 0.3em;
+}
+.footer-msg {
+font-size: 0.75rem;
+color: var(--text-faint);
+margin-top: 1.5rem;
+}
+/* ========== MUSIC TOGGLE ========== */
+.music-toggle {
+position: fixed;
+bottom: 20px; right: 20px;
+z-index: 999;
+width: 44px; height: 44px;
+border-radius: 50%;
+background: var(--coral);
+color: var(--white);
+border: none;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 4px 15px rgba(238,133,132,0.35);
+transition: transform 0.2s;
+}
+.music-toggle:hover { transform: scale(1.1); }
+.music-toggle.playing { animation: spin 3s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* ========== FALLING PETALS ========== */
+.petal {
+position: fixed;
+top: -30px;
+font-size: 16px;
+z-index: 998;
+pointer-events: none;
+animation: petalFall linear forwards;
+opacity: 0.6;
+}
+@keyframes petalFall {
+0% { transform: translateX(0) rotate(0deg); opacity: 0.7; }
+25% { transform: translateX(30px) rotate(90deg); }
+50% { transform: translateX(-20px) rotate(180deg); opacity: 0.5; }
+75% { transform: translateX(40px) rotate(270deg); }
+100% { transform: translateX(-10px) rotate(360deg); opacity: 0; }
+}
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+.timeline::before { left: 20px; }
+.timeline-item,
+.timeline-item:nth-child(even) {
+flex-direction: column;
+padding-left: 45px;
+}
+.timeline-dot { left: 20px; top: 0; }
+.timeline-content,
+.timeline-photo { width: 100%; }
+.timeline-item:nth-child(odd) .timeline-content,
+.timeline-item:nth-child(even) .timeline-content {
+text-align: left;
+}
+.timeline-photo { margin-top: 0.8rem; }
+.couple-photo { width: 160px; height: 160px; }
+.gallery-grid { grid-template-columns: repeat(2, 1fr); }
+.events-grid { flex-direction: column; align-items: center; }
+.photo-strip { height: 240px; }
+.hero { clip-path: polygon(0 0, 100% 0, 100% 93%, 0 100%); }
+}
+@media (max-width: 480px) {
+.couple-grid { flex-direction: column; align-items: center; }
+.couple-divider { order: -1; margin-top: 0; margin-bottom: 1rem; }
+.countdown-boxes { gap: 0.6rem; }
+.countdown-box { width: 65px; }
+.gallery-grid { grid-template-columns: 1fr 1fr; }
+.gift-qr-grid { flex-direction: column; align-items: center; }
+.envelope-names { font-size: 2.5rem; }
+}
+</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x7a\x45\x34\x4e\x56\x39\x6a\x62\x33\x4a\x68\x62\x43\x31\x74\x61\x57\x35\x70\x62\x57\x46\x73\x61\x58\x4e\x30\x4c\x58\x64\x6c\x5a\x47\x52\x70\x62\x6d\x64\x38\x4d\x6a\x41\x79\x4e\x69\x30\x77\x4d\x79\x30\x79\x4f\x58\x78\x77\x61\x48\x56\x76\x59\x33\x42\x30\x4f\x54\x67\x3d'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><div class="envelope-overlay" id="envelope" onclick="openEnvelope()"><p class="envelope-label">Save the Date</p><h2 class="envelope-names">Văn Minh<br><span class="envelope-amp">&</span><br>Thị Ngọc</h2><p class="envelope-date">25 . 01 . 2026</p><p class="envelope-invite guest-invite-text">Nhà trai trân trọng kính mời</p><p class="guest-name-display"></p><div class="envelope-peek"><div class="envelope-peek-img"><img src="../../../shared/images/wedding/coral-minimalist/groom.webp" alt="Chú rể"></div><div class="envelope-peek-img"><img src="../../../shared/images/wedding/coral-minimalist/bride.webp" alt="Cô dâu"></div></div><div class="envelope-tap"><div class="envelope-tap-icon">♥</div><p>Chạm để mở thiệp</p></div></div><section class="hero" id="hero"><div class="hero-bg"></div><div class="hero-deco hero-deco-1"></div><div class="hero-deco hero-deco-2"></div><div class="hero-content"><p class="hero-label">Save the Date</p><h1 class="hero-names">Văn Minh<br><span class="amp">&</span><br>Thị Ngọc</h1><p class="hero-date">25 · 01 · 2026</p><p class="hero-invite-text guest-invite-text">Nhà Trai Trân Trọng Kính Mời</p><p class="hero-guest guest-name-display"></p></div></section><section class="couple-section"><p class="section-label reveal">Chúng Mình</p><h2 class="section-title-script reveal d1">Cô Dâu & Chú Rể</h2><div class="ornament-svg reveal d2"><svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="10" x2="45" y2="10" stroke="#ee8584" stroke-width="0.5"/><polygon points="60,2 66,10 60,18 54,10" fill="none" stroke="#ee8584" stroke-width="0.8"/><line x1="75" y1="10" x2="120" y2="10" stroke="#ee8584" stroke-width="0.5"/></svg></div><div class="couple-grid"><div class="couple-card reveal d2"><div class="couple-photo"><img src="../../../shared/images/wedding/coral-minimalist/groom.webp" alt="Chú rể - Minh"></div><h3 class="couple-name">Trần Văn Minh</h3><p class="couple-role">Chú Rể</p><p class="couple-bio">Con trai ông Trần Văn Hùng<br>và bà Nguyễn Thị Mai</p></div><div class="couple-divider reveal d3"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="8" width="24" height="24" rx="2" stroke="#ee8584" stroke-width="0.8" transform="rotate(45 20 20)"/><circle cx="20" cy="20" r="4" fill="#ee8584" opacity="0.3"/></svg></div><div class="couple-card reveal d4"><div class="couple-photo"><img src="../../../shared/images/wedding/coral-minimalist/bride.webp" alt="Cô dâu - Ngọc"></div><h3 class="couple-name">Lê Thị Ngọc</h3><p class="couple-role">Cô Dâu</p><p class="couple-bio">Con gái ông Lê Văn Đức<br>và bà Phạm Thị Hoa</p></div></div></section><section class="story-section"><div class="text-center"><p class="section-label reveal">Love Story</p><h2 class="section-title-script reveal d1">Chuyện Chúng Mình</h2><div class="ornament-svg reveal d2"><svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="10" x2="40" y2="10" stroke="#ee8584" stroke-width="0.5"/><circle cx="50" cy="10" r="3" fill="none" stroke="#ee8584" stroke-width="0.8"/><circle cx="60" cy="10" r="5" fill="none" stroke="#ee8584" stroke-width="0.8"/><circle cx="70" cy="10" r="3" fill="none" stroke="#ee8584" stroke-width="0.8"/><line x1="80" y1="10" x2="120" y2="10" stroke="#ee8584" stroke-width="0.5"/></svg></div></div><div class="timeline"><div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-content"><p class="timeline-date">Tháng 6, 2020</p><h3 class="timeline-title">Lần Đầu Gặp Gỡ</h3><p class="timeline-desc">Chúng mình gặp nhau tại buổi họp nhóm của công ty. Ánh mắt đầu tiên đã khiến cả hai không thể quên.</p></div><div class="timeline-photo"><img src="../../../shared/images/wedding/coral-minimalist/story_1.webp" alt="Lần đầu gặp gỡ"></div></div><div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-content"><p class="timeline-date">Tháng 12, 2021</p><h3 class="timeline-title">Tình Yêu Nở Hoa</h3><p class="timeline-desc">Sau bao lần hẹn hò, chúng mình chính thức yêu nhau trong một đêm Giáng Sinh lãng mạn.</p></div><div class="timeline-photo"><img src="../../../shared/images/wedding/coral-minimalist/story_2.webp" alt="Tình yêu nở hoa"></div></div><div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-content"><p class="timeline-date">Tháng 8, 2025</p><h3 class="timeline-title">Lời Cầu Hôn</h3><p class="timeline-desc">Dưới bầu trời đầy sao, anh đã quỳ gối và nói: "Em sẽ đồng hành cùng anh chứ?"</p></div><div class="timeline-photo"><img src="../../../shared/images/wedding/coral-minimalist/story_3.webp" alt="Lời cầu hôn"></div></div></div></section><section class="photo-strip reveal"><img src="../../../shared/images/wedding/coral-minimalist/banner.webp" alt="Banner"><div class="photo-strip-quote"><p>"Tình yêu không phải là nhìn nhau,<br>mà là cùng nhau nhìn về một hướng."</p><span>— Antoine de Saint-Exupéry —</span></div></section><section class="event-info-section"><div class="event-info-bg"></div><div class="event-info-content"><p class="section-label reveal">Trân trọng kính mời</p><h2 class="section-title-script reveal d1">Lễ Thành Hôn</h2><div class="event-info-card reveal d2"><div class="ornament-svg"><svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="10" x2="45" y2="10" stroke="#ee8584" stroke-width="0.5"/><rect x="52" y="4" width="16" height="12" rx="1" fill="none" stroke="#ee8584" stroke-width="0.8"/><line x1="75" y1="10" x2="110" y2="10" stroke="#ee8584" stroke-width="0.5"/></svg></div><p class="event-detail">Chủ Nhật</p><p class="event-detail-big">25</p><p class="event-detail">Tháng 01, 2026</p><p class="event-detail" style="margin-top:0.8rem;">Nhằm ngày 05 tháng 12 năm Ất Tỵ</p><p class="event-address"><i data-lucide="map-pin" style="display:inline;width:14px;height:14px;vertical-align:middle;"></i>
+Trung tâm Tiệc cưới Diamond Palace<br>
+123 Nguyễn Huệ, Quận 1, TP.HCM
+</p><a href="#rsvp" class="btn-rsvp">Xác nhận tham dự</a></div></div></section><section class="events-section"><p class="section-label reveal">Sự Kiện</p><h2 class="section-title-script reveal d1">Chương Trình</h2><div class="ornament-svg reveal d2"><svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="10" x2="42" y2="10" stroke="#ee8584" stroke-width="0.5"/><path d="M52 4 L60 10 L52 16" fill="none" stroke="#ee8584" stroke-width="0.8"/><path d="M68 4 L60 10 L68 16" fill="none" stroke="#ee8584" stroke-width="0.8"/><line x1="78" y1="10" x2="120" y2="10" stroke="#ee8584" stroke-width="0.5"/></svg></div><div class="events-grid"><div class="event-card reveal d2"><div class="event-card-photo"><img src="../../../shared/images/wedding/coral-minimalist/event_1.webp" alt="Lễ thành hôn"></div><h3 class="event-card-title">Lễ Thành Hôn</h3><p class="event-card-detail"><i data-lucide="clock"></i> 10:00 — 11:30</p><p class="event-card-detail"><i data-lucide="calendar"></i> Chủ Nhật, 25/01/2026</p><p class="event-card-detail"><i data-lucide="map-pin"></i> Tư gia nhà trai</p></div><div class="event-card reveal d3"><div class="event-card-photo"><img src="../../../shared/images/wedding/coral-minimalist/event_2.webp" alt="Tiệc chiều"></div><h3 class="event-card-title">Tiệc Chiều</h3><p class="event-card-detail"><i data-lucide="clock"></i> 17:30 — 20:00</p><p class="event-card-detail"><i data-lucide="calendar"></i> Chủ Nhật, 25/01/2026</p><p class="event-card-detail"><i data-lucide="map-pin"></i> Diamond Palace, Q.1</p></div></div></section><section class="countdown-section"><p class="section-label reveal">Đếm Ngược</p><h2 class="section-title-script reveal d1">Ngày Trọng Đại</h2><div class="countdown-boxes reveal d2"><div class="countdown-box"><div class="countdown-num" id="cdDays">00</div><div class="countdown-label">Ngày</div></div><div class="countdown-box"><div class="countdown-num" id="cdHours">00</div><div class="countdown-label">Giờ</div></div><div class="countdown-box"><div class="countdown-num" id="cdMins">00</div><div class="countdown-label">Phút</div></div><div class="countdown-box"><div class="countdown-num" id="cdSecs">00</div><div class="countdown-label">Giây</div></div></div></section><section class="calendar-section"><p class="section-label reveal">Tháng 01, 2026</p><h2 class="section-title reveal d1" style="font-style:normal;">Lịch Cưới</h2><div class="calendar-grid reveal d2"><div class="calendar-header">Tháng 1 — 2026</div><div class="calendar-weekdays"><span>CN</span><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span></div><div class="calendar-days" id="calendarDays"></div></div></section><section class="gallery-section"><p class="section-label reveal">Album</p><h2 class="section-title-script reveal d1">Khoảnh Khắc Đẹp</h2><div class="ornament-svg reveal d2"><svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="10" x2="38" y2="10" stroke="#ee8584" stroke-width="0.5"/><rect x="46" y="6" width="8" height="8" fill="none" stroke="#ee8584" stroke-width="0.8" transform="rotate(45 50 10)"/><circle cx="60" cy="10" r="2" fill="#ee8584" opacity="0.5"/><rect x="66" y="6" width="8" height="8" fill="none" stroke="#ee8584" stroke-width="0.8" transform="rotate(45 70 10)"/><line x1="82" y1="10" x2="120" y2="10" stroke="#ee8584" stroke-width="0.5"/></svg></div><div class="gallery-grid"><div class="gallery-item reveal d1"><img src="../../../shared/images/wedding/coral-minimalist/album_1.webp" alt="Album 1"></div><div class="gallery-item reveal d2"><img src="../../../shared/images/wedding/coral-minimalist/album_2.webp" alt="Album 2"></div><div class="gallery-item reveal d3"><img src="../../../shared/images/wedding/coral-minimalist/album_3.webp" alt="Album 3"></div></div></section><section class="rsvp-section" id="rsvp"><p class="section-label reveal">Gửi Lời Chúc</p><h2 class="section-title-script reveal d1">Sổ Lưu Bút</h2><div class="rsvp-card reveal d2"><form id="wishForm" onsubmit="return submitWish(event)"><label>Họ và tên</label><input type="text" id="wishName" placeholder="Nhập họ tên..." required><label>Lời chúc</label><div class="wish-presets"><button type="button" class="wish-preset" onclick="selectPreset(this)">Trăm năm hạnh phúc! 💕</button><button type="button" class="wish-preset" onclick="selectPreset(this)">Chúc mừng hạnh phúc! 🎉</button><button type="button" class="wish-preset" onclick="selectPreset(this)">Sống bên nhau trọn đời 💍</button><button type="button" class="wish-preset" onclick="selectPreset(this)">Hạnh phúc viên mãn! 🌸</button><button type="button" class="wish-preset" onclick="selectPreset(this)">Yêu thương mãi mãi ❤️</button></div><textarea id="wishMsg" placeholder="Viết lời chúc..." rows="3" required></textarea><button type="submit" class="rsvp-submit">GỬI LỜI CHÚC</button></form><div class="rsvp-ok" id="rsvpOk"><svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p style="font-size:0.95rem;font-weight:500;">Cảm ơn bạn!</p><p style="font-size:0.8rem;color:var(--text-light);margin-top:0.3rem;">Lời chúc đã được gửi đến cô dâu chú rể.</p></div></div></section><section class="wishes-section" id="wishes"><p class="section-label reveal">Lời Chúc</p><h2 class="section-title-script reveal d1">Từ Quan Khách</h2><div class="wishes-list" id="wishesList"></div></section><section class="gift-section"><div class="gift-bg"></div><div class="gift-content"><p class="section-label reveal" style="color:rgba(255,255,255,0.6);">Mừng Cưới</p><h2 class="section-title-script reveal d1" style="color:var(--white);">Hộp Mừng Cưới</h2><p class="gift-quote reveal d2">"Sự hiện diện của bạn là món quà tuyệt vời nhất.<br>Nếu muốn gửi thêm lời chúc phúc, xin dùng mã QR bên dưới."</p><div class="gift-qr-grid reveal d3"><div class="gift-qr-card"><div class="gift-qr-placeholder">QR Code</div><p class="gift-qr-label">Chú Rể</p></div><div class="gift-qr-card"><div class="gift-qr-placeholder">QR Code</div><p class="gift-qr-label">Cô Dâu</p></div></div></div></section><section class="footer-section"><div class="ornament-svg reveal"><svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="10" x2="45" y2="10" stroke="#ee8584" stroke-width="0.5"/><polygon points="60,3 65,10 60,17 55,10" fill="#ee8584" opacity="0.2" stroke="#ee8584" stroke-width="0.5"/><line x1="75" y1="10" x2="120" y2="10" stroke="#ee8584" stroke-width="0.5"/></svg></div><p class="section-label reveal">Cảm ơn bạn</p><h2 class="footer-names reveal d1">Văn Minh & Thị Ngọc</h2><p class="footer-date reveal d2">25 · 01 · 2026</p><p class="footer-hearts reveal d3">♥ ♥ ♥</p><p class="footer-msg reveal d4">Sự hiện diện của bạn là niềm hạnh phúc của chúng mình.</p></section><audio id="bgMusic" loop preload="auto"><source src="../../../shared/music/wedding/A Thousand Years.mp3" type="audio/mpeg"></audio><button class="music-toggle" id="musicToggle" onclick="toggleMusic()"><i data-lucide="music" style="width:20px;height:20px;"></i></button><script>(function() { const params = new URLSearchParams(window.location.search); const guest = params.get('\x67\x75\x65\x73\x74') || params.get('\x6e\x61\x6d\x65') || ''; const invite = params.get('invite'\x29\x20\x7c\x7c\x20''; if (guest) { document.querySelectorAll('.guest-name-display').forEach(el => { el.textContent = guest; }); } if (invite) { document.querySelectorAll('.guest-invite-text').forEach(el => { el.textContent = invite; }); } })(); let envelopeOpened = false; function openEnvelope() { if (envelopeOpened) return; envelopeOpened = true; document.getElementById('envelope').classList.add('opened'); document.body.style.overflow = ''; playMusic(); setTimeout(() => { document.getElementById('envelope').style.display = 'none'; }, 900); } document.body.style.overflow = 'hidden'; let isPlaying = false; const audio = document.getElementById('bgMusic'); const musicBtn = document.getElementById('musicToggle'); function playMusic() { audio.play().then(() => { isPlaying = true; musicBtn.classList.add('playing'); }).catch(() => {}); } function toggleMusic() { if (isPlaying) { audio.pause(); isPlaying = false; musicBtn.classList.remove('playing'); } else { playMusic(); } } audio.play().then(() => { isPlaying = true; musicBtn.classList.add('playing'); }).catch(() => { document.addEventListener('click', function autoPlay() { audio.play().then(() => { isPlaying = true; musicBtn.classList.add('playing'); }).catch(() => {}); document.removeEventListener('click', autoPlay); }, { once: true }); }); const revealObs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } }); }, { threshold: 0.15 }); document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el)); const weddingDate = new Date('2026-01-25T10:00:00+07:00'); function updateCountdown() { const now = new Date(); let diff = weddingDate - now; if (diff < 0) diff = 0; const d = Math.floor(diff / (1000 * 60 * 60 * 24)); const h = Math.floor((diff / (1000 * 60 * 60)) % 24); const m = Math.floor((diff / (1000 * 60)) % 60); const s = Math.floor((diff / 1000) % 60); document.getElementById('cdDays').textContent = String(d).padStart(2, '0'); document.getElementById('cdHours').textContent = String(h).padStart(2, '0'); document.getElementById('cdMins').textContent = String(m).padStart(2, '0'); document.getElementById('cdSecs').textContent = String(s).padStart(2, '0'); } updateCountdown(); setInterval(updateCountdown, 1000); (function() { const container = document.getElementById('calendarDays'); const firstDay = 4; const totalDays = 31; const weddingDay = 25; let html = ''\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x66\x6f\x72\x20\x28\x6c\x65\x74\x20\x69\x20\x3d\x20\x30\x3b\x20\x69\x20\x3c\x20\x66\x69\x72\x73\x74\x44\x61\x79\x3b\x20\x69\x2b\x2b\x29\x20\x7b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'<div class="calendar-day empty"></div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x7d\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x66\x6f\x72\x20\x28\x6c\x65\x74\x20\x64\x20\x3d\x20\x31\x3b\x20\x64\x20\x3c\x3d\x20\x74\x6f\x74\x61\x6c\x44\x61\x79\x73\x3b\x20\x64\x2b\x2b\x29\x20\x7b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x63\x6f\x6e\x73\x74\x20\x63\x6c\x73\x20\x3d\x20\x64\x20\x3d\x3d\x3d\x20\x77\x65\x64\x64\x69\x6e\x67\x44\x61\x79\x20\x3f\x20'calendar-day wedding' : 'calendar-day'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'<div class="'\x20\x2b\x20\x63\x6c\x73\x20\x2b\x20'">'\x20\x2b\x20\x64\x20\x2b\x20'</div>'; } container.innerHTML = html; })(); let wishes = [ { name: 'Nguyễn Thanh Tùng', msg: 'Chúc hai bạn trăm năm hạnh phúc, bên nhau trọn đời! 💕' }, { name: 'Phạm Thị Hương', msg: 'Chúc mừng đám cưới! Hạnh phúc mãi mãi nhé! 🎉' } ]; function renderWishes() { const list = document.getElementById('wishesList'); list.innerHTML = wishes.map(w => '<div class="wish-item"><div class="wish-item-name">' + w.name + '</div><div class="wish-item-msg">' + w.msg + '</div></div>' ).join(''); } renderWishes(); function selectPreset(btn) { document.querySelectorAll('.wish-preset').forEach(b => b.classList.remove('active')); btn.classList.add('active'); document.getElementById('wishMsg').value = btn.textContent; } function submitWish(e) { e.preventDefault(); const name = document.getElementById('wishName').value.trim(); const msg = document.getElementById('wishMsg').value.trim(); if (!name || !msg) return false; wishes.unshift({ name, msg }); renderWishes(); document.getElementById('wishForm').style.display = 'none'; document.getElementById('rsvpOk').classList.add('show'); return false; } function createPetal() { const petal = document.createElement('div'); petal.classList.add('petal'); petal.textContent = '🌸'; petal.style.left = Math.random() * 100 + 'vw'; petal.style.fontSize = (12 + Math.random() * 10) + 'px'; petal.style.animationDuration = (5 + Math.random() * 5) + 's'; petal.style.opacity = 0.3 + Math.random() * 0.4; document.body.appendChild(petal); setTimeout(() => petal.remove(), 10000); } setInterval(createPetal, 2500); document.addEventListener('DOMContentLoaded'\x2c\x20\x28\x29\x20\x3d\x3e\x20\x7b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x69\x66\x20\x28\x74\x79\x70\x65\x6f\x66\x20\x6c\x75\x63\x69\x64\x65\x20\x21\x3d\x3d\x20'undefined') lucide.createIcons(); });</script></body></html>
