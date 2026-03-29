@@ -1,1086 +1,611 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyện Của Đôi Mình — Thiệp Cưới Tươi Sáng</title>
-    <meta name="description" content="Thiệp cưới phong cách tươi sáng mát mẻ — 12 cảnh chuyển động tự động, tone xanh mint pastel, hiệu ứng hiện đại, nhạc nền lãng mạn.">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        :root {
-            --bg: #F0FAFB;
-            --bg-alt: #E6F7F9;
-            --text: #1A3A4A;
-            --text-light: #5A8A9A;
-            --accent: #38BEC9;
-            --accent-dark: #2A9DA8;
-            --mint: #6DD5C0;
-            --sky: #7EC8E3;
-            --pink: #F2A7B8;
-            --lavender: #C5B4E3;
-            --white: #FFFFFF;
-            --glass: rgba(255,255,255,0.7);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { overflow: hidden; }
-        body {
-            font-family: 'Quicksand', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        /* ── Bubble overlay ── */
-        .bubbles-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.12;
-            animation: bubbleFloat linear infinite;
-        }
-        @keyframes bubbleFloat {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 0.12; }
-            90% { opacity: 0.08; }
-            100% { transform: translateY(-100px) scale(1); opacity: 0; }
-        }
-
-        /* ── Progress bar ── */
-        .progress-bar {
-            position: fixed;
-            top: 0; left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--mint), var(--sky), var(--lavender), var(--pink));
-            z-index: 10000;
-            transition: width 0.6s ease;
-            width: 0%;
-        }
-
-        /* ── Scene nav dots ── */
-        .scene-nav {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .scene-dot {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            background: transparent;
-            cursor: pointer;
-            transition: all 0.3s;
-            padding: 0;
-        }
-        .scene-dot.active {
-            background: var(--accent);
-            transform: scale(1.3);
-            box-shadow: 0 0 10px rgba(56,190,201,0.4);
-        }
-        .scene-dot:hover { background: var(--sky); }
-
-        /* ── Scene container ── */
-        .scene-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; }
-        .scene {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            overflow: hidden;
-        }
-        .scene.active { opacity: 1; visibility: visible; }
-        .scene-content {
-            text-align: center;
-            max-width: 700px;
-            padding: 40px 30px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ── Transitions ── */
-        .trans-zoom-in .scene-content { animation: zoomIn 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
-        .trans-fade-black { animation: fadeThruBlack 1.2s ease both; }
-        .trans-film-roll { animation: filmRoll 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
-        .trans-light-leak::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(109,213,192,0.35), rgba(126,200,227,0.3), transparent);
-            animation: lightLeak 1.2s ease-in-out both;
-        }
-        .trans-sparkle { animation: sparkleIn 1s ease both; }
-        .trans-iris .scene-content { animation: irisOpen 0.8s ease both; }
-        .trans-slide-left { animation: slideFromLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
-        .trans-slide-right { animation: slideFromRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
-        .trans-page-turn { animation: pageTurn 0.8s ease both; }
-        .trans-wipe-up { animation: wipeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
-        .trans-morph { animation: morphIn 0.8s ease both; }
-        .trans-fade-white { animation: fadeToWhite 1.5s ease both; }
-
-        @keyframes zoomIn { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes fadeThruBlack { 0% { opacity: 0; background: #0A2A3A; } 40% { opacity: 1; background: #0A2A3A; } 100% { opacity: 1; background: transparent; } }
-        @keyframes filmRoll { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        @keyframes lightLeak { from { left: -100%; } to { left: 200%; } }
-        @keyframes sparkleIn { 0% { opacity: 0; filter: brightness(2) blur(8px); } 50% { filter: brightness(1.3) blur(2px); } 100% { opacity: 1; filter: brightness(1) blur(0); } }
-        @keyframes irisOpen { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(75% at 50% 50%); } }
-        @keyframes slideFromLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideFromRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes pageTurn { from { transform: rotateY(-90deg); opacity: 0; } to { transform: rotateY(0); opacity: 1; } }
-        @keyframes wipeUp { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
-        @keyframes morphIn { from { transform: scale(0.8) rotate(-3deg); opacity: 0; border-radius: 50%; } to { transform: scale(1) rotate(0); opacity: 1; border-radius: 0; } }
-        @keyframes fadeToWhite { 0% { opacity: 1; } 100% { opacity: 1; } }
-
-        /* ── Typography ── */
-        .script-font { font-family: 'Dancing Script', cursive; color: var(--accent); }
-        .display-font { font-family: 'Cormorant Garamond', Georgia, serif; }
-        .scene-label {
-            font-family: 'Quicksand', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--text-light);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-        .scene-title {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: clamp(1.6rem, 4vw, 2.8rem);
-            font-weight: 600;
-            line-height: 1.3;
-            margin-bottom: 20px;
-            color: var(--text);
-        }
-        .scene-quote {
-            font-family: 'Quicksand', sans-serif;
-            font-size: clamp(0.95rem, 2.3vw, 1.15rem);
-            line-height: 1.9;
-            color: var(--text-light);
-            max-width: 550px;
-            margin: 0 auto;
-            font-weight: 500;
-        }
-
-        /* ── Decorative ── */
-        .ornament { display: block; margin: 20px auto; color: var(--accent); font-size: 1.5rem; }
-        .ornament-line {
-            width: 60px; height: 2px;
-            background: linear-gradient(90deg, var(--mint), var(--sky));
-            margin: 16px auto;
-            border-radius: 2px;
-        }
-
-        /* ── Scene BG ── */
-        .scene-bg {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 0;
-        }
-        .scene-bg img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-        }
-        .scene-bg-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 1;
-        }
-
-        /* ── Scene 1: Envelope ── */
-        .envelope-wrap {
-            position: relative;
-            width: 260px; height: 190px;
-            margin: 0 auto 30px;
-        }
-        .envelope {
-            width: 100%; height: 100%;
-            background: linear-gradient(145deg, #E0F5F7, #D0EEF3);
-            border-radius: 16px;
-            position: relative;
-            box-shadow: 0 12px 40px rgba(56,190,201,0.12);
-        }
-        .envelope-flap {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 50%;
-            background: linear-gradient(180deg, #CCF0F5, #D0EEF3);
-            clip-path: polygon(0 0, 50% 100%, 100% 0);
-            transform-origin: top center;
-            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 3;
-            border-radius: 16px 16px 0 0;
-        }
-        .envelope-flap.open { transform: rotateX(180deg); }
-        .envelope-seal {
-            position: absolute;
-            top: 40%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px; height: 50px;
-            background: linear-gradient(135deg, var(--mint), var(--sky));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 4;
-            transition: opacity 0.5s 0.8s;
-        }
-        .envelope-seal i { color: #fff; }
-        .envelope-letter {
-            position: absolute;
-            bottom: 12px; left: 50%;
-            transform: translateX(-50%);
-            width: 80%; height: 55px;
-            background: #fff;
-            border-radius: 10px;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
-            z-index: 2;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-        }
-        .envelope-flap.open ~ .envelope-letter { transform: translateX(-50%) translateY(-115px); }
-
-        /* ── Floating leaves ── */
-        .leaves-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 5;
-            overflow: hidden;
-        }
-        .leaf {
-            position: absolute;
-            top: -30px;
-            font-size: 16px;
-            animation: leafFall linear infinite;
-        }
-        @keyframes leafFall {
-            0% { transform: translateY(-30px) rotate(0deg) translateX(0); opacity: 0.7; }
-            50% { transform: translateY(50vh) rotate(180deg) translateX(40px); }
-            100% { transform: translateY(100vh) rotate(360deg) translateX(-20px); opacity: 0; }
-        }
-
-        /* ── Scene 2: Polaroid ── */
-        .polaroid {
-            background: #fff;
-            padding: 12px 12px 40px;
-            box-shadow: 0 8px 30px rgba(56,190,201,0.12);
-            border-radius: 4px;
-            transform: rotate(-1.5deg);
-            display: inline-block;
-            margin-bottom: 24px;
-        }
-        .polaroid img { width: 230px; height: 230px; object-fit: cover; border-radius: 2px; }
-        .polaroid-caption {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.1rem;
-            color: var(--text-light);
-            margin-top: 8px;
-        }
-
-        /* ── Scene 3: Photo gallery ── */
-        .photo-gallery {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-        .gallery-photo {
-            width: 135px; height: 135px;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(56,190,201,0.1);
-            border: 3px solid #fff;
-        }
-        .gallery-photo img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* ── Scene 5: Ring ── */
-        .ring-icon {
-            width: 100px; height: 100px;
-            margin: 0 auto 24px;
-            background: linear-gradient(135deg, var(--mint), var(--sky));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: pulseGlow 2.5s ease-in-out infinite;
-        }
-        .ring-icon i { color: #fff; width: 44px; height: 44px; }
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(56,190,201,0.2); }
-            50% { box-shadow: 0 0 50px rgba(56,190,201,0.4); }
-        }
-
-        /* ── Sparkles ── */
-        .sparkles {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 3;
-        }
-        .sparkle {
-            position: absolute;
-            width: 5px; height: 5px;
-            background: var(--sky);
-            border-radius: 50%;
-            animation: sparkleFloat 3s ease-in-out infinite;
-        }
-        @keyframes sparkleFloat {
-            0%, 100% { opacity: 0; transform: scale(0) translateY(0); }
-            50% { opacity: 1; transform: scale(1) translateY(-25px); }
-        }
-
-        /* ── Scene 6: Save the Date badge ── */
-        .save-date-badge {
-            display: inline-block;
-            padding: 14px 40px;
-            border: 2px solid var(--accent);
-            border-radius: 40px;
-            margin-bottom: 20px;
-            letter-spacing: 5px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        /* ── Profile cards ── */
-        .profile-card { display: inline-block; text-align: center; }
-        .profile-img {
-            width: 200px; height: 260px;
-            border-radius: 100px;
-            overflow: hidden;
-            margin: 0 auto 20px;
-            border: 4px solid #fff;
-            box-shadow: 0 12px 40px rgba(56,190,201,0.15);
-        }
-        .profile-img img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-role {
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.4rem;
-            color: var(--accent);
-            margin-bottom: 6px;
-        }
-        .profile-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        .profile-desc { color: var(--text-light); font-size: 0.95rem; }
-
-        /* ── Event card ── */
-        .event-card {
-            background: var(--white);
-            border-radius: 24px;
-            padding: 36px 30px;
-            max-width: 500px;
-            margin: 0 auto;
-            box-shadow: 0 12px 40px rgba(56,190,201,0.08);
-        }
-        .event-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 16px;
-            text-align: left;
-        }
-        .event-icon {
-            width: 48px; height: 48px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, var(--mint), var(--sky));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .event-icon i { color: #fff; width: 22px; height: 22px; }
-        .event-text { font-size: 1rem; }
-        .event-text strong {
-            display: block;
-            font-size: 0.72rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-light);
-            margin-bottom: 2px;
-        }
-
-        /* ── Timeline ── */
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            max-width: 400px;
-            margin: 0 auto 24px;
-        }
-        .timeline-item { display: flex; align-items: center; gap: 16px; }
-        .timeline-time {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            min-width: 60px;
-            color: var(--accent);
-        }
-        .timeline-dot {
-            width: 14px; height: 14px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--mint), var(--sky));
-            flex-shrink: 0;
-            box-shadow: 0 0 0 4px rgba(56,190,201,0.15);
-        }
-        .timeline-desc { font-size: 0.95rem; text-align: left; }
-        .dress-code { display: flex; gap: 12px; justify-content: center; margin-top: 16px; }
-        .color-swatch {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        /* ── RSVP ── */
-        .rsvp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 36px;
-            background: linear-gradient(135deg, var(--accent), var(--sky));
-            color: #fff;
-            border: none;
-            border-radius: 30px;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 8px 25px rgba(56,190,201,0.25);
-            margin-bottom: 20px;
-        }
-        .rsvp-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(56,190,201,0.35);
-        }
-        .qr-placeholder { display: flex; gap: 24px; justify-content: center; margin-top: 20px; }
-        .qr-box { text-align: center; }
-        .qr-box-inner {
-            width: 100px; height: 100px;
-            background: var(--white);
-            border: 2px dashed var(--accent);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 6px;
-        }
-        .qr-box-inner i { color: var(--text-light); }
-        .qr-label { font-size: 0.75rem; color: var(--text-light); font-weight: 600; }
-
-        /* ── Outro ── */
-        .outro-names {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-        .happily {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            font-size: 1rem;
-            letter-spacing: 3px;
-            color: var(--text-light);
-            opacity: 0;
-            animation: fadeInSlow 2s ease 1s both;
-        }
-        @keyframes fadeInSlow { from { opacity: 0; transform: translateY(10px); } to { opacity: 0.7; transform: translateY(0); } }
-
-        /* ── Controls ── */
-        .controls {
-            position: fixed;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 9999;
-            display: flex;
-            gap: 14px;
-            align-items: center;
-        }
-        .ctrl-btn {
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            border: none;
-            background: var(--glass);
-            color: var(--text);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-        }
-        .ctrl-btn:hover {
-            background: var(--accent);
-            color: #fff;
-            box-shadow: 0 6px 20px rgba(56,190,201,0.3);
-        }
-        .ctrl-btn i { width: 18px; height: 18px; }
-        .scene-counter {
-            font-family: 'Quicksand', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-light);
-            min-width: 50px;
-            text-align: center;
-        }
-
-        /* ── Music ── */
-        .music-toggle {
-            position: fixed;
-            bottom: 50px;
-            right: 20px;
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            border: none;
-            background: var(--glass);
-            color: var(--text);
-            cursor: pointer;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-        }
-        .music-toggle:hover { background: var(--accent); color: #fff; }
-        .music-toggle i { width: 18px; height: 18px; }
-        .music-toggle .music-icon-off { display: none; }
-        .music-toggle.muted .music-icon-on { display: none; }
-        .music-toggle.muted .music-icon-off { display: block; }
-
-        /* ── Reveal ── */
-        .reveal { opacity: 0; transform: translateY(20px); }
-        .scene.active .reveal { animation: revealUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
-        .scene.active .reveal.d1 { animation-delay: 0.15s; }
-        .scene.active .reveal.d2 { animation-delay: 0.3s; }
-        .scene.active .reveal.d3 { animation-delay: 0.45s; }
-        .scene.active .reveal.d4 { animation-delay: 0.6s; }
-        .scene.active .reveal.d5 { animation-delay: 0.75s; }
-        @keyframes revealUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* ── Auto indicator ── */
-        .auto-indicator {
-            position: fixed;
-            bottom: 105px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-light);
-            opacity: 0.4;
-            z-index: 9999;
-            font-weight: 600;
-        }
-        .auto-indicator.paused { opacity: 0; }
-
-        /* ── Responsive ── */
-        @media (max-width: 768px) {
-            .scene-nav { right: 10px; gap: 8px; }
-            .scene-dot { width: 8px; height: 8px; }
-            .scene-content { padding: 30px 20px; }
-            .envelope-wrap { width: 210px; height: 155px; }
-            .polaroid img { width: 180px; height: 180px; }
-            .gallery-photo { width: 100px; height: 100px; border-radius: 12px; }
-            .profile-img { width: 160px; height: 210px; }
-            .event-card { padding: 24px 20px; }
-            .qr-placeholder { gap: 16px; }
-            .qr-box-inner { width: 80px; height: 80px; }
-            .controls { bottom: 40px; gap: 12px; }
-            .music-toggle { bottom: 40px; right: 12px; }
-            .auto-indicator { bottom: 90px; }
-        }
-        @media (max-width: 480px) {
-            .scene-nav { display: none; }
-            .scene-content { padding: 24px 16px; }
-            .scene-title { font-size: 1.3rem; }
-            .scene-quote { font-size: 0.88rem; }
-            .photo-gallery { gap: 8px; }
-            .gallery-photo { width: 80px; height: 80px; }
-            .profile-img { width: 140px; height: 190px; }
-            .ctrl-btn { width: 38px; height: 38px; }
-            .music-toggle { width: 38px; height: 38px; bottom: 36px; }
-        }
-    </style>
-</head>
-<body>
-
-<div class="progress-bar" id="progressBar"></div>
-<div class="bubbles-bg" id="bubblesBg"></div>
-<div class="scene-nav" id="sceneNav"></div>
-
-<div class="scene-container">
-
-    <!-- ═══ SCENE 1: The Hook ═══ -->
-    <div class="scene active" id="scene1" data-transition="zoom-in">
-        <div class="scene-bg">
-            <div class="scene-bg-overlay" style="background: linear-gradient(160deg, #E8F8FA, #F0FAFB 40%, #E6F3F8);"></div>
-        </div>
-        <div class="leaves-container" id="leaves"></div>
-        <div class="scene-content">
-            <div class="envelope-wrap reveal d1">
-                <div class="envelope">
-                    <div class="envelope-flap" id="envFlap"></div>
-                    <div class="envelope-body">
-                        <div class="envelope-seal"><i data-lucide="heart" style="width:22px;height:22px;"></i></div>
-                    </div>
-                    <div class="envelope-letter" id="envLetter"></div>
-                </div>
-            </div>
-            <p class="scene-quote reveal d2">"Mọi câu chuyện tình yêu đều đẹp, nhưng câu chuyện của chúng mình là câu chuyện mà chúng mình yêu thích nhất..."</p>
-            <div class="ornament-line reveal d3"></div>
-            <p class="scene-label reveal d4">Chuyện Của Đôi Mình</p>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 2: The Meeting ═══ -->
-    <div class="scene" id="scene2" data-transition="fade-black">
-        <div class="scene-bg">
-            <img src="https://images.unsplash.com/photo-1529456837632-7db76c3f3b2e?w=1920&q=80" alt="Meeting">
-            <div class="scene-bg-overlay" style="background: linear-gradient(180deg, rgba(240,250,251,0.88), rgba(26,58,74,0.35));"></div>
-        </div>
-        <div class="scene-content">
-            <div class="polaroid reveal d1">
-                <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=500&q=80" alt="First photo">
-                <p class="polaroid-caption">Ngày đầu tiên...</p>
-            </div>
-            <p class="scene-label reveal d2">Chương 1</p>
-            <h2 class="scene-title reveal d3">[Tên Chú Rể] & [Tên Cô Dâu]</h2>
-            <p class="scene-quote reveal d4">Ngày ta nhận ra nhau<br><span class="script-font" style="font-size:1.4rem;">01 . 01 . 2020</span></p>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 3: The Memories ═══ -->
-    <div class="scene" id="scene3" data-transition="film-roll">
-        <div class="scene-bg">
-            <div class="scene-bg-overlay" style="background: var(--bg-alt);"></div>
-        </div>
-        <div class="scene-content">
-            <p class="scene-label reveal d1">Những Khoảnh Khắc Đẹp</p>
-            <div class="photo-gallery reveal d2">
-                <div class="gallery-photo"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=400&q=80" alt="Memory 1"></div>
-                <div class="gallery-photo"><img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&q=80" alt="Memory 2"></div>
-                <div class="gallery-photo"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=400&q=80" alt="Memory 3"></div>
-                <div class="gallery-photo"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=400&q=80" alt="Memory 4"></div>
-            </div>
-            <p class="scene-quote reveal d3">"Từ những ánh mắt ngập ngừng,<br>đến những cái nắm tay đi qua bao mùa mưa nắng..."</p>
-            <div class="ornament-line reveal d4"></div>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 4: The Milestone ═══ -->
-    <div class="scene" id="scene4" data-transition="light-leak">
-        <div class="scene-bg">
-            <img src="https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=1920&q=80" alt="Milestone">
-            <div class="scene-bg-overlay" style="background: linear-gradient(180deg, rgba(240,250,251,0.85), rgba(109,213,192,0.2));"></div>
-        </div>
-        <div class="scene-content">
-            <p class="scene-label reveal d1">Cột Mốc Đáng Nhớ</p>
-            <div class="ornament reveal d2">✦</div>
-            <p class="scene-quote reveal d3">"Chúng ta đã cùng nhau trưởng thành,<br>cùng nhau chia sẻ những điều nhỏ bé<br>và lớn lao nhất."</p>
-            <div class="ornament-line reveal d4"></div>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 5: The Proposal ═══ -->
-    <div class="scene" id="scene5" data-transition="sparkle">
-        <div class="scene-bg">
-            <div class="scene-bg-overlay" style="background: linear-gradient(135deg, var(--bg), #E0F5F7);"></div>
-        </div>
-        <div class="sparkles" id="sparkles"></div>
-        <div class="scene-content">
-            <div class="ring-icon reveal d1">
-                <i data-lucide="gem"></i>
-            </div>
-            <p class="scene-quote reveal d2" style="font-size: clamp(1.05rem, 2.5vw, 1.3rem);">
-                Và rồi, anh hỏi...<br>
-                <span class="script-font" style="font-size: clamp(1.8rem, 4vw, 2.5rem); display: block; margin: 12px 0;">"Làm vợ anh nhé?"</span>
-                Em nói...<br>
-                <span class="display-font" style="font-weight: 600; color: var(--accent); font-size: 1.3rem;">"Em đồng ý!"</span>
-            </p>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 6: Save the Date ═══ -->
-    <div class="scene" id="scene6" data-transition="iris">
-        <div class="scene-bg">
-            <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1920&q=80" alt="Wedding">
-            <div class="scene-bg-overlay" style="background: radial-gradient(ellipse at center, rgba(240,250,251,0.72), rgba(240,250,251,0.92));"></div>
-        </div>
-        <div class="scene-content">
-            <div class="save-date-badge reveal d1">Save the Date</div>
-            <h2 class="scene-title reveal d2" style="font-size: clamp(1.8rem, 4.5vw, 3rem);">
-                Chúng mình chính thức<br>về chung một nhà
-            </h2>
-            <p class="reveal d3" style="font-size: 1.2rem; color: var(--accent);">
-                <span class="script-font" style="font-size: 2rem;">20 . 12 . 2025</span>
-            </p>
-            <div class="ornament-line reveal d4"></div>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 7: Groom ═══ -->
-    <div class="scene" id="scene7" data-transition="slide-left">
-        <div class="scene-bg">
-            <div class="scene-bg-overlay" style="background: linear-gradient(135deg, var(--bg), var(--bg-alt));"></div>
-        </div>
-        <div class="scene-content">
-            <div class="profile-card reveal d1">
-                <div class="profile-img">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Groom">
-                </div>
-                <p class="profile-role reveal d2">Chú Rể</p>
-                <h2 class="profile-name reveal d3">[Tên Chú Rể]</h2>
-                <p class="profile-desc reveal d4">"Người đàn ông hứa sẽ luôn nhường em miếng ngon nhất."</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 8: Bride ═══ -->
-    <div class="scene" id="scene8" data-transition="slide-right">
-        <div class="scene-bg">
-            <div class="scene-bg-overlay" style="background: linear-gradient(135deg, #E8F8FA, var(--bg));"></div>
-        </div>
-        <div class="scene-content">
-            <div class="profile-card reveal d1">
-                <div class="profile-img">
-                    <img src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=600&q=80" alt="Bride">
-                </div>
-                <p class="profile-role reveal d2">Cô Dâu</p>
-                <h2 class="profile-name reveal d3">[Tên Cô Dâu]</h2>
-                <p class="profile-desc reveal d4">"Cô gái hứa sẽ luôn cằn nhằn nhưng yêu anh vô điều kiện."</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 9: Event Info ═══ -->
-    <div class="scene" id="scene9" data-transition="page-turn">
-        <div class="scene-bg">
-            <div class="scene-bg-overlay" style="background: var(--bg);"></div>
-        </div>
-        <div class="scene-content">
-            <p class="scene-label reveal d1">Trân Trọng Kính Mời</p>
-            <h2 class="scene-title reveal d2" style="font-size: 1.4rem;">Gia đình & Những người bạn thương quý</h2>
-            <div class="event-card reveal d3">
-                <div class="event-item">
-                    <div class="event-icon"><i data-lucide="map-pin"></i></div>
-                    <div class="event-text">
-                        <strong>Địa điểm</strong>
-                        [Tên nhà hàng / Địa chỉ]
-                    </div>
-                </div>
-                <div class="event-item">
-                    <div class="event-icon"><i data-lucide="calendar"></i></div>
-                    <div class="event-text">
-                        <strong>Thời gian</strong>
-                        17:30 — Thứ Bảy, 20/12/2025
-                    </div>
-                </div>
-                <div class="event-item" style="margin-bottom:0;">
-                    <div class="event-icon"><i data-lucide="heart"></i></div>
-                    <div class="event-text">
-                        <strong>Chúng tôi</strong>
-                        Rất mong được đón tiếp bạn!
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 10: Timeline & Dress Code ═══ -->
-    <div class="scene" id="scene10" data-transition="wipe-up">
-        <div class="scene-bg">
-            <div class="scene-bg-overlay" style="background: #E8F8FA;"></div>
-        </div>
-        <div class="scene-content">
-            <p class="scene-label reveal d1">Lịch Trình</p>
-            <div class="timeline reveal d2">
-                <div class="timeline-item">
-                    <span class="timeline-time">17:30</span>
-                    <span class="timeline-dot"></span>
-                    <span class="timeline-desc">Đón khách & Chụp hình lưu niệm</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-time">18:30</span>
-                    <span class="timeline-dot"></span>
-                    <span class="timeline-desc">Cử hành hôn lễ</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-time">19:00</span>
-                    <span class="timeline-dot"></span>
-                    <span class="timeline-desc">Nhập tiệc & Chúc mừng</span>
-                </div>
-            </div>
-            <p class="scene-label reveal d3" style="margin-top: 24px;">Dress Code</p>
-            <div class="dress-code reveal d4">
-                <div class="color-swatch" style="background: #FFFFFF;" title="Trắng"></div>
-                <div class="color-swatch" style="background: #B8E6D0;" title="Mint"></div>
-                <div class="color-swatch" style="background: #A8D8EA;" title="Sky Blue"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 11: RSVP ═══ -->
-    <div class="scene" id="scene11" data-transition="morph">
-        <div class="scene-bg">
-            <div class="scene-bg-overlay" style="background: linear-gradient(180deg, var(--bg), var(--bg-alt));"></div>
-        </div>
-        <div class="scene-content">
-            <p class="scene-label reveal d1">Phản Hồi & Lời Chúc</p>
-            <p class="scene-quote reveal d2">"Sự hiện diện của bạn là món quà tuyệt vời nhất.<br>Vui lòng xác nhận tham dự trước ngày <strong>10/12/2025</strong><br>để chúng mình chuẩn bị chu đáo nhất nhé!"</p>
-            <div style="margin-top: 24px;">
-                <a href="#" class="rsvp-btn reveal d3">
-                    <i data-lucide="send" style="width:18px;height:18px;"></i>
-                    Xác nhận tham dự
-                </a>
-            </div>
-            <div class="qr-placeholder reveal d4">
-                <div class="qr-box">
-                    <div class="qr-box-inner"><i data-lucide="map" style="width:28px;height:28px;"></i></div>
-                    <span class="qr-label">Bản đồ</span>
-                </div>
-                <div class="qr-box">
-                    <div class="qr-box-inner"><i data-lucide="gift" style="width:28px;height:28px;"></i></div>
-                    <span class="qr-label">Mừng cưới</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ═══ SCENE 12: Outro ═══ -->
-    <div class="scene" id="scene12" data-transition="fade-white">
-        <div class="scene-bg">
-            <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1920&q=80" alt="Walking away">
-            <div class="scene-bg-overlay" style="background: radial-gradient(ellipse at center, rgba(240,250,251,0.75), rgba(240,250,251,0.92));"></div>
-        </div>
-        <div class="scene-content">
-            <p class="scene-quote reveal d1">"Hẹn gặp bạn tại ngày vui của chúng mình!"</p>
-            <div class="ornament-line reveal d2"></div>
-            <p class="outro-names reveal d3">[Tên Cô Dâu] & [Tên Chú Rể]</p>
-            <p class="happily reveal d4">✦ Happily Ever After ✦</p>
-        </div>
-    </div>
-
-</div>
-
-<!-- Controls -->
-<p class="auto-indicator" id="autoLabel">Tự động chuyển cảnh</p>
-<div class="controls">
-    <button class="ctrl-btn" id="btnPrev" aria-label="Previous"><i data-lucide="chevron-left"></i></button>
-    <span class="scene-counter" id="sceneCounter">1 / 12</span>
-    <button class="ctrl-btn" id="btnNext" aria-label="Next"><i data-lucide="chevron-right"></i></button>
-    <button class="ctrl-btn" id="btnPlay" aria-label="Play/Pause"><i data-lucide="pause"></i></button>
-</div>
-
-<!-- Music -->
-<button id="musicToggle" class="music-toggle muted" aria-label="Toggle music">
-    <i data-lucide="volume-2" class="music-icon-on"></i>
-    <i data-lucide="volume-x" class="music-icon-off"></i>
-</button>
-<audio id="bgMusic" loop preload="auto">
-    <source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg">
-</audio>
-
-<script>lucide.createIcons();</script>
-<script>
-(function() {
-    const TOTAL = 12;
-    const SCENE_DURATION = 2000;
-    const TRANSITION_MAP = {
-        'zoom-in': 'trans-zoom-in',
-        'fade-black': 'trans-fade-black',
-        'film-roll': 'trans-film-roll',
-        'light-leak': 'trans-light-leak',
-        'sparkle': 'trans-sparkle',
-        'iris': 'trans-iris',
-        'slide-left': 'trans-slide-left',
-        'slide-right': 'trans-slide-right',
-        'page-turn': 'trans-page-turn',
-        'wipe-up': 'trans-wipe-up',
-        'morph': 'trans-morph',
-        'fade-white': 'trans-fade-white',
-    };
-
-    let current = 1;
-    let autoPlay = true;
-    let autoTimer = null;
-    const scenes = [];
-    for (let i = 1; i <= TOTAL; i++) scenes.push(document.getElementById('scene' + i));
-
-    // Bubbles
-    var bubblesBg = document.getElementById('bubblesBg');
-    var colors = ['#6DD5C0', '#7EC8E3', '#C5B4E3', '#F2A7B8', '#38BEC9'];
-    for (var i = 0; i < 12; i++) {
-        var b = document.createElement('div');
-        b.className = 'bubble';
-        b.style.left = Math.random() * 100 + '%';
-        b.style.width = b.style.height = (20 + Math.random() * 50) + 'px';
-        b.style.background = colors[Math.floor(Math.random() * colors.length)];
-        b.style.animationDuration = (8 + Math.random() * 10) + 's';
-        b.style.animationDelay = Math.random() * 8 + 's';
-        bubblesBg.appendChild(b);
-    }
-
-    // Nav dots
-    var nav = document.getElementById('sceneNav');
-    for (var i = 1; i <= TOTAL; i++) {
-        var dot = document.createElement('button');
-        dot.className = 'scene-dot' + (i === 1 ? ' active' : '');
-        dot.dataset.scene = i;
-        dot.addEventListener('click', function() { goTo(+this.dataset.scene); });
-        nav.appendChild(dot);
-    }
-
-    // Leaves
-    var leavesEl = document.getElementById('leaves');
-    var leafEmojis = ['🍃', '🌿', '☘️', '🌱'];
-    for (var i = 0; i < 12; i++) {
-        var l = document.createElement('div');
-        l.className = 'leaf';
-        l.textContent = leafEmojis[Math.floor(Math.random() * leafEmojis.length)];
-        l.style.left = Math.random() * 100 + '%';
-        l.style.animationDuration = (5 + Math.random() * 5) + 's';
-        l.style.animationDelay = Math.random() * 6 + 's';
-        l.style.fontSize = (12 + Math.random() * 10) + 'px';
-        leavesEl.appendChild(l);
-    }
-
-    // Sparkles
-    var sparklesEl = document.getElementById('sparkles');
-    for (var i = 0; i < 20; i++) {
-        var s = document.createElement('div');
-        s.className = 'sparkle';
-        s.style.left = Math.random() * 100 + '%';
-        s.style.top = Math.random() * 100 + '%';
-        s.style.animationDelay = Math.random() * 3 + 's';
-        s.style.animationDuration = (2 + Math.random() * 2) + 's';
-        s.style.background = colors[Math.floor(Math.random() * colors.length)];
-        sparklesEl.appendChild(s);
-    }
-
-    // Envelope
-    setTimeout(function() {
-        var flap = document.getElementById('envFlap');
-        if (flap) flap.classList.add('open');
-    }, 1200);
-
-    function goTo(n) {
-        if (n < 1 || n > TOTAL || n === current) return;
-        var prev = scenes[current - 1];
-        var next = scenes[n - 1];
-        var trans = next.dataset.transition;
-        var transClass = TRANSITION_MAP[trans] || '';
-        Object.values(TRANSITION_MAP).forEach(function(c) {
-            next.classList.remove(c);
-            prev.classList.remove(c);
-        });
-        prev.classList.remove('active');
-        next.classList.add(transClass);
-        next.classList.add('active');
-        current = n;
-        updateUI();
-        resetAutoTimer();
-    }
-
-    function updateUI() {
-        document.getElementById('sceneCounter').textContent = current + ' / ' + TOTAL;
-        document.getElementById('progressBar').style.width = (current / TOTAL * 100) + '%';
-        var dots = nav.querySelectorAll('.scene-dot');
-        dots.forEach(function(d, i) { d.classList.toggle('active', i + 1 === current); });
-    }
-
-    function resetAutoTimer() {
-        clearTimeout(autoTimer);
-        if (autoPlay && current < TOTAL) {
-            autoTimer = setTimeout(function() { goTo(current + 1); }, SCENE_DURATION);
-        }
-    }
-
-    function toggleAutoPlay() {
-        autoPlay = !autoPlay;
-        var icon = document.querySelector('#btnPlay i');
-        if (autoPlay) {
-            icon.setAttribute('data-lucide', 'pause');
-            document.getElementById('autoLabel').classList.remove('paused');
-            resetAutoTimer();
-        } else {
-            icon.setAttribute('data-lucide', 'play');
-            document.getElementById('autoLabel').classList.add('paused');
-            clearTimeout(autoTimer);
-        }
-        lucide.createIcons();
-    }
-
-    document.getElementById('btnPrev').addEventListener('click', function() { goTo(current - 1); });
-    document.getElementById('btnNext').addEventListener('click', function() { goTo(current + 1); });
-    document.getElementById('btnPlay').addEventListener('click', toggleAutoPlay);
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
-        if (e.key === 'ArrowLeft') goTo(current - 1);
-        if (e.key === 'p') toggleAutoPlay();
-    });
-
-    var touchStartX = 0;
-    document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
-    document.addEventListener('touchend', function(e) {
-        var diff = touchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 50) { diff > 0 ? goTo(current + 1) : goTo(current - 1); }
-    }, { passive: true });
-
-    resetAutoTimer();
-
-    // Music
-    var musicBtn = document.getElementById('musicToggle');
-    var bgMusic = document.getElementById('bgMusic');
-    if (musicBtn && bgMusic) {
-        bgMusic.volume = 0.3;
-
-        // Auto-play on load
-        bgMusic.play().then(function() { musicBtn.classList.remove('muted'); }).catch(function() {
-            document.addEventListener('click', function autoPlay() {
-                bgMusic.play().then(function() { musicBtn.classList.remove('muted'); }).catch(function() {});
-                document.removeEventListener('click', autoPlay);
-            }, { once: true });
-        });
-
-        musicBtn.addEventListener('click', function() {
-            if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('muted'); }
-            else { bgMusic.pause(); musicBtn.classList.add('muted'); }
-        });
-    }
-})();
-</script>
-</body>
-</html>
+<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Chuyện Của Đôi Mình — Thiệp Cưới Tươi Sáng</title><meta name="description" content="Thiệp cưới phong cách tươi sáng mát mẻ — 12 cảnh chuyển động tự động, tone xanh mint pastel, hiệu ứng hiện đại, nhạc nền lãng mạn."><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@latest"></script><style>
+:root {
+--bg: #F0FAFB;
+--bg-alt: #E6F7F9;
+--text: #1A3A4A;
+--text-light: #5A8A9A;
+--accent: #38BEC9;
+--accent-dark: #2A9DA8;
+--mint: #6DD5C0;
+--sky: #7EC8E3;
+--pink: #F2A7B8;
+--lavender: #C5B4E3;
+--white: #FFFFFF;
+--glass: rgba(255,255,255,0.7);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { overflow: hidden; }
+body {
+font-family: 'Quicksand', sans-serif;
+background: var(--bg);
+color: var(--text);
+overflow: hidden;
+height: 100vh;
+}
+/* ── Bubble overlay ── */
+.bubbles-bg {
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none;
+z-index: 0;
+overflow: hidden;
+}
+.bubble {
+position: absolute;
+border-radius: 50%;
+opacity: 0.12;
+animation: bubbleFloat linear infinite;
+}
+@keyframes bubbleFloat {
+0% { transform: translateY(100vh) scale(0); opacity: 0; }
+10% { opacity: 0.12; }
+90% { opacity: 0.08; }
+100% { transform: translateY(-100px) scale(1); opacity: 0; }
+}
+/* ── Progress bar ── */
+.progress-bar {
+position: fixed;
+top: 0; left: 0;
+height: 3px;
+background: linear-gradient(90deg, var(--mint), var(--sky), var(--lavender), var(--pink));
+z-index: 10000;
+transition: width 0.6s ease;
+width: 0%;
+}
+/* ── Scene nav dots ── */
+.scene-nav {
+position: fixed;
+right: 20px;
+top: 50%;
+transform: translateY(-50%);
+z-index: 9999;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+.scene-dot {
+width: 10px; height: 10px;
+border-radius: 50%;
+border: 2px solid var(--accent);
+background: transparent;
+cursor: pointer;
+transition: all 0.3s;
+padding: 0;
+}
+.scene-dot.active {
+background: var(--accent);
+transform: scale(1.3);
+box-shadow: 0 0 10px rgba(56,190,201,0.4);
+}
+.scene-dot:hover { background: var(--sky); }
+/* ── Scene container ── */
+.scene-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; }
+.scene {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0;
+visibility: hidden;
+overflow: hidden;
+}
+.scene.active { opacity: 1; visibility: visible; }
+.scene-content {
+text-align: center;
+max-width: 700px;
+padding: 40px 30px;
+position: relative;
+z-index: 2;
+}
+/* ── Transitions ── */
+.trans-zoom-in .scene-content { animation: zoomIn 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.trans-fade-black { animation: fadeThruBlack 1.2s ease both; }
+.trans-film-roll { animation: filmRoll 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.trans-light-leak::after {
+content: '';
+position: absolute;
+top: 0; left: -100%;
+width: 100%; height: 100%;
+background: linear-gradient(90deg, transparent, rgba(109,213,192,0.35), rgba(126,200,227,0.3), transparent);
+animation: lightLeak 1.2s ease-in-out both;
+}
+.trans-sparkle { animation: sparkleIn 1s ease both; }
+.trans-iris .scene-content { animation: irisOpen 0.8s ease both; }
+.trans-slide-left { animation: slideFromLeft 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.trans-slide-right { animation: slideFromRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.trans-page-turn { animation: pageTurn 0.8s ease both; }
+.trans-wipe-up { animation: wipeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.trans-morph { animation: morphIn 0.8s ease both; }
+.trans-fade-white { animation: fadeToWhite 1.5s ease both; }
+@keyframes zoomIn { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes fadeThruBlack { 0% { opacity: 0; background: #0A2A3A; } 40% { opacity: 1; background: #0A2A3A; } 100% { opacity: 1; background: transparent; } }
+@keyframes filmRoll { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes lightLeak { from { left: -100%; } to { left: 200%; } }
+@keyframes sparkleIn { 0% { opacity: 0; filter: brightness(2) blur(8px); } 50% { filter: brightness(1.3) blur(2px); } 100% { opacity: 1; filter: brightness(1) blur(0); } }
+@keyframes irisOpen { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(75% at 50% 50%); } }
+@keyframes slideFromLeft { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slideFromRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes pageTurn { from { transform: rotateY(-90deg); opacity: 0; } to { transform: rotateY(0); opacity: 1; } }
+@keyframes wipeUp { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes morphIn { from { transform: scale(0.8) rotate(-3deg); opacity: 0; border-radius: 50%; } to { transform: scale(1) rotate(0); opacity: 1; border-radius: 0; } }
+@keyframes fadeToWhite { 0% { opacity: 1; } 100% { opacity: 1; } }
+/* ── Typography ── */
+.script-font { font-family: 'Dancing Script', cursive; color: var(--accent); }
+.display-font { font-family: 'Cormorant Garamond', Georgia, serif; }
+.scene-label {
+font-family: 'Quicksand', sans-serif;
+font-size: 0.7rem;
+letter-spacing: 4px;
+text-transform: uppercase;
+color: var(--text-light);
+margin-bottom: 20px;
+font-weight: 600;
+}
+.scene-title {
+font-family: 'Cormorant Garamond', Georgia, serif;
+font-size: clamp(1.6rem, 4vw, 2.8rem);
+font-weight: 600;
+line-height: 1.3;
+margin-bottom: 20px;
+color: var(--text);
+}
+.scene-quote {
+font-family: 'Quicksand', sans-serif;
+font-size: clamp(0.95rem, 2.3vw, 1.15rem);
+line-height: 1.9;
+color: var(--text-light);
+max-width: 550px;
+margin: 0 auto;
+font-weight: 500;
+}
+/* ── Decorative ── */
+.ornament { display: block; margin: 20px auto; color: var(--accent); font-size: 1.5rem; }
+.ornament-line {
+width: 60px; height: 2px;
+background: linear-gradient(90deg, var(--mint), var(--sky));
+margin: 16px auto;
+border-radius: 2px;
+}
+/* ── Scene BG ── */
+.scene-bg {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+z-index: 0;
+}
+.scene-bg img {
+width: 100%; height: 100%;
+object-fit: cover;
+}
+.scene-bg-overlay {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+z-index: 1;
+}
+/* ── Scene 1: Envelope ── */
+.envelope-wrap {
+position: relative;
+width: 260px; height: 190px;
+margin: 0 auto 30px;
+}
+.envelope {
+width: 100%; height: 100%;
+background: linear-gradient(145deg, #E0F5F7, #D0EEF3);
+border-radius: 16px;
+position: relative;
+box-shadow: 0 12px 40px rgba(56,190,201,0.12);
+}
+.envelope-flap {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 50%;
+background: linear-gradient(180deg, #CCF0F5, #D0EEF3);
+clip-path: polygon(0 0, 50% 100%, 100% 0);
+transform-origin: top center;
+transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+z-index: 3;
+border-radius: 16px 16px 0 0;
+}
+.envelope-flap.open { transform: rotateX(180deg); }
+.envelope-seal {
+position: absolute;
+top: 40%; left: 50%;
+transform: translate(-50%, -50%);
+width: 50px; height: 50px;
+background: linear-gradient(135deg, var(--mint), var(--sky));
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 4;
+transition: opacity 0.5s 0.8s;
+}
+.envelope-seal i { color: #fff; }
+.envelope-letter {
+position: absolute;
+bottom: 12px; left: 50%;
+transform: translateX(-50%);
+width: 80%; height: 55px;
+background: #fff;
+border-radius: 10px;
+transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+z-index: 2;
+box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.envelope-flap.open ~ .envelope-letter { transform: translateX(-50%) translateY(-115px); }
+/* ── Floating leaves ── */
+.leaves-container {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none;
+z-index: 5;
+overflow: hidden;
+}
+.leaf {
+position: absolute;
+top: -30px;
+font-size: 16px;
+animation: leafFall linear infinite;
+}
+@keyframes leafFall {
+0% { transform: translateY(-30px) rotate(0deg) translateX(0); opacity: 0.7; }
+50% { transform: translateY(50vh) rotate(180deg) translateX(40px); }
+100% { transform: translateY(100vh) rotate(360deg) translateX(-20px); opacity: 0; }
+}
+/* ── Scene 2: Polaroid ── */
+.polaroid {
+background: #fff;
+padding: 12px 12px 40px;
+box-shadow: 0 8px 30px rgba(56,190,201,0.12);
+border-radius: 4px;
+transform: rotate(-1.5deg);
+display: inline-block;
+margin-bottom: 24px;
+}
+.polaroid img { width: 230px; height: 230px; object-fit: cover; border-radius: 2px; }
+.polaroid-caption {
+font-family: 'Dancing Script', cursive;
+font-size: 1.1rem;
+color: var(--text-light);
+margin-top: 8px;
+}
+/* ── Scene 3: Photo gallery ── */
+.photo-gallery {
+display: flex;
+gap: 14px;
+justify-content: center;
+flex-wrap: wrap;
+margin-bottom: 24px;
+}
+.gallery-photo {
+width: 135px; height: 135px;
+border-radius: 16px;
+overflow: hidden;
+box-shadow: 0 6px 20px rgba(56,190,201,0.1);
+border: 3px solid #fff;
+}
+.gallery-photo img { width: 100%; height: 100%; object-fit: cover; }
+/* ── Scene 5: Ring ── */
+.ring-icon {
+width: 100px; height: 100px;
+margin: 0 auto 24px;
+background: linear-gradient(135deg, var(--mint), var(--sky));
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+animation: pulseGlow 2.5s ease-in-out infinite;
+}
+.ring-icon i { color: #fff; width: 44px; height: 44px; }
+@keyframes pulseGlow {
+0%, 100% { box-shadow: 0 0 20px rgba(56,190,201,0.2); }
+50% { box-shadow: 0 0 50px rgba(56,190,201,0.4); }
+}
+/* ── Sparkles ── */
+.sparkles {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+pointer-events: none;
+z-index: 3;
+}
+.sparkle {
+position: absolute;
+width: 5px; height: 5px;
+background: var(--sky);
+border-radius: 50%;
+animation: sparkleFloat 3s ease-in-out infinite;
+}
+@keyframes sparkleFloat {
+0%, 100% { opacity: 0; transform: scale(0) translateY(0); }
+50% { opacity: 1; transform: scale(1) translateY(-25px); }
+}
+/* ── Scene 6: Save the Date badge ── */
+.save-date-badge {
+display: inline-block;
+padding: 14px 40px;
+border: 2px solid var(--accent);
+border-radius: 40px;
+margin-bottom: 20px;
+letter-spacing: 5px;
+font-size: 0.8rem;
+text-transform: uppercase;
+color: var(--accent);
+font-weight: 700;
+}
+/* ── Profile cards ── */
+.profile-card { display: inline-block; text-align: center; }
+.profile-img {
+width: 200px; height: 260px;
+border-radius: 100px;
+overflow: hidden;
+margin: 0 auto 20px;
+border: 4px solid #fff;
+box-shadow: 0 12px 40px rgba(56,190,201,0.15);
+}
+.profile-img img { width: 100%; height: 100%; object-fit: cover; }
+.profile-role {
+font-family: 'Dancing Script', cursive;
+font-size: 1.4rem;
+color: var(--accent);
+margin-bottom: 6px;
+}
+.profile-name {
+font-family: 'Cormorant Garamond', serif;
+font-size: 1.6rem;
+font-weight: 600;
+margin-bottom: 10px;
+}
+.profile-desc { color: var(--text-light); font-size: 0.95rem; }
+/* ── Event card ── */
+.event-card {
+background: var(--white);
+border-radius: 24px;
+padding: 36px 30px;
+max-width: 500px;
+margin: 0 auto;
+box-shadow: 0 12px 40px rgba(56,190,201,0.08);
+}
+.event-item {
+display: flex;
+align-items: center;
+gap: 14px;
+margin-bottom: 16px;
+text-align: left;
+}
+.event-icon {
+width: 48px; height: 48px;
+border-radius: 14px;
+background: linear-gradient(135deg, var(--mint), var(--sky));
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+}
+.event-icon i { color: #fff; width: 22px; height: 22px; }
+.event-text { font-size: 1rem; }
+.event-text strong {
+display: block;
+font-size: 0.72rem;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(--text-light);
+margin-bottom: 2px;
+}
+/* ── Timeline ── */
+.timeline {
+display: flex;
+flex-direction: column;
+gap: 18px;
+max-width: 400px;
+margin: 0 auto 24px;
+}
+.timeline-item { display: flex; align-items: center; gap: 16px; }
+.timeline-time {
+font-family: 'Cormorant Garamond', serif;
+font-weight: 700;
+font-size: 1.1rem;
+min-width: 60px;
+color: var(--accent);
+}
+.timeline-dot {
+width: 14px; height: 14px;
+border-radius: 50%;
+background: linear-gradient(135deg, var(--mint), var(--sky));
+flex-shrink: 0;
+box-shadow: 0 0 0 4px rgba(56,190,201,0.15);
+}
+.timeline-desc { font-size: 0.95rem; text-align: left; }
+.dress-code { display: flex; gap: 12px; justify-content: center; margin-top: 16px; }
+.color-swatch {
+width: 36px; height: 36px;
+border-radius: 50%;
+border: 3px solid #fff;
+box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+/* ── RSVP ── */
+.rsvp-btn {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 14px 36px;
+background: linear-gradient(135deg, var(--accent), var(--sky));
+color: #fff;
+border: none;
+border-radius: 30px;
+font-family: 'Quicksand', sans-serif;
+font-size: 1rem;
+font-weight: 600;
+cursor: pointer;
+text-decoration: none;
+transition: transform 0.2s, box-shadow 0.2s;
+box-shadow: 0 8px 25px rgba(56,190,201,0.25);
+margin-bottom: 20px;
+}
+.rsvp-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 12px 35px rgba(56,190,201,0.35);
+}
+.qr-placeholder { display: flex; gap: 24px; justify-content: center; margin-top: 20px; }
+.qr-box { text-align: center; }
+.qr-box-inner {
+width: 100px; height: 100px;
+background: var(--white);
+border: 2px dashed var(--accent);
+border-radius: 16px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 6px;
+}
+.qr-box-inner i { color: var(--text-light); }
+.qr-label { font-size: 0.75rem; color: var(--text-light); font-weight: 600; }
+/* ── Outro ── */
+.outro-names {
+font-family: 'Dancing Script', cursive;
+font-size: clamp(2rem, 5vw, 3.5rem);
+color: var(--accent);
+margin-bottom: 10px;
+}
+.happily {
+font-family: 'Cormorant Garamond', serif;
+font-style: italic;
+font-size: 1rem;
+letter-spacing: 3px;
+color: var(--text-light);
+opacity: 0;
+animation: fadeInSlow 2s ease 1s both;
+}
+@keyframes fadeInSlow { from { opacity: 0; transform: translateY(10px); } to { opacity: 0.7; transform: translateY(0); } }
+/* ── Controls ── */
+.controls {
+position: fixed;
+bottom: 50px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 9999;
+display: flex;
+gap: 14px;
+align-items: center;
+}
+.ctrl-btn {
+width: 44px; height: 44px;
+border-radius: 50%;
+border: none;
+background: var(--glass);
+color: var(--text);
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.2s;
+backdrop-filter: blur(12px);
+box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+.ctrl-btn:hover {
+background: var(--accent);
+color: #fff;
+box-shadow: 0 6px 20px rgba(56,190,201,0.3);
+}
+.ctrl-btn i { width: 18px; height: 18px; }
+.scene-counter {
+font-family: 'Quicksand', sans-serif;
+font-size: 0.85rem;
+font-weight: 600;
+color: var(--text-light);
+min-width: 50px;
+text-align: center;
+}
+/* ── Music ── */
+.music-toggle {
+position: fixed;
+bottom: 50px;
+right: 20px;
+width: 44px; height: 44px;
+border-radius: 50%;
+border: none;
+background: var(--glass);
+color: var(--text);
+cursor: pointer;
+z-index: 9999;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.2s;
+backdrop-filter: blur(12px);
+box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+.music-toggle:hover { background: var(--accent); color: #fff; }
+.music-toggle i { width: 18px; height: 18px; }
+.music-toggle .music-icon-off { display: none; }
+.music-toggle.muted .music-icon-on { display: none; }
+.music-toggle.muted .music-icon-off { display: block; }
+/* ── Reveal ── */
+.reveal { opacity: 0; transform: translateY(20px); }
+.scene.active .reveal { animation: revealUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.scene.active .reveal.d1 { animation-delay: 0.15s; }
+.scene.active .reveal.d2 { animation-delay: 0.3s; }
+.scene.active .reveal.d3 { animation-delay: 0.45s; }
+.scene.active .reveal.d4 { animation-delay: 0.6s; }
+.scene.active .reveal.d5 { animation-delay: 0.75s; }
+@keyframes revealUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+/* ── Auto indicator ── */
+.auto-indicator {
+position: fixed;
+bottom: 105px;
+left: 50%;
+transform: translateX(-50%);
+font-size: 0.7rem;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(--text-light);
+opacity: 0.4;
+z-index: 9999;
+font-weight: 600;
+}
+.auto-indicator.paused { opacity: 0; }
+/* ── Responsive ── */
+@media (max-width: 768px) {
+.scene-nav { right: 10px; gap: 8px; }
+.scene-dot { width: 8px; height: 8px; }
+.scene-content { padding: 30px 20px; }
+.envelope-wrap { width: 210px; height: 155px; }
+.polaroid img { width: 180px; height: 180px; }
+.gallery-photo { width: 100px; height: 100px; border-radius: 12px; }
+.profile-img { width: 160px; height: 210px; }
+.event-card { padding: 24px 20px; }
+.qr-placeholder { gap: 16px; }
+.qr-box-inner { width: 80px; height: 80px; }
+.controls { bottom: 40px; gap: 12px; }
+.music-toggle { bottom: 40px; right: 12px; }
+.auto-indicator { bottom: 90px; }
+}
+@media (max-width: 480px) {
+.scene-nav { display: none; }
+.scene-content { padding: 24px 16px; }
+.scene-title { font-size: 1.3rem; }
+.scene-quote { font-size: 0.88rem; }
+.photo-gallery { gap: 8px; }
+.gallery-photo { width: 80px; height: 80px; }
+.profile-img { width: 140px; height: 190px; }
+.ctrl-btn { width: 38px; height: 38px; }
+.music-toggle { width: 38px; height: 38px; bottom: 36px; }
+}
+</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x7a\x45\x33\x4e\x6c\x39\x6d\x63\x6d\x56\x7a\x61\x43\x31\x69\x63\x6d\x6c\x6e\x61\x48\x51\x74\x64\x32\x56\x6b\x5a\x47\x6c\x75\x5a\x33\x77\x79\x4d\x44\x49\x32\x4c\x54\x41\x7a\x4c\x54\x49\x35\x66\x48\x42\x6f\x64\x57\x39\x6a\x63\x48\x51\x35\x4f\x41\x3d\x3d'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><div class="progress-bar" id="progressBar"></div><div class="bubbles-bg" id="bubblesBg"></div><div class="scene-nav" id="sceneNav"></div><div class="scene-container"><div class="scene active" id="scene1" data-transition="zoom-in"><div class="scene-bg"><div class="scene-bg-overlay" style="background: linear-gradient(160deg, #E8F8FA, #F0FAFB 40%, #E6F3F8);"></div></div><div class="leaves-container" id="leaves"></div><div class="scene-content"><div class="envelope-wrap reveal d1"><div class="envelope"><div class="envelope-flap" id="envFlap"></div><div class="envelope-body"><div class="envelope-seal"><i data-lucide="heart" style="width:22px;height:22px;"></i></div></div><div class="envelope-letter" id="envLetter"></div></div></div><p class="scene-quote reveal d2">"Mọi câu chuyện tình yêu đều đẹp, nhưng câu chuyện của chúng mình là câu chuyện mà chúng mình yêu thích nhất..."</p><div class="ornament-line reveal d3"></div><p class="scene-label reveal d4">Chuyện Của Đôi Mình</p></div></div><div class="scene" id="scene2" data-transition="fade-black"><div class="scene-bg"><img src="https://images.unsplash.com/photo-1529456837632-7db76c3f3b2e?w=1920&q=80" alt="Meeting"><div class="scene-bg-overlay" style="background: linear-gradient(180deg, rgba(240,250,251,0.88), rgba(26,58,74,0.35));"></div></div><div class="scene-content"><div class="polaroid reveal d1"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=500&q=80" alt="First photo"><p class="polaroid-caption">Ngày đầu tiên...</p></div><p class="scene-label reveal d2">Chương 1</p><h2 class="scene-title reveal d3">[Tên Chú Rể] & [Tên Cô Dâu]</h2><p class="scene-quote reveal d4">Ngày ta nhận ra nhau<br><span class="script-font" style="font-size:1.4rem;">01 . 01 . 2020</span></p></div></div><div class="scene" id="scene3" data-transition="film-roll"><div class="scene-bg"><div class="scene-bg-overlay" style="background: var(--bg-alt);"></div></div><div class="scene-content"><p class="scene-label reveal d1">Những Khoảnh Khắc Đẹp</p><div class="photo-gallery reveal d2"><div class="gallery-photo"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=400&q=80" alt="Memory 1"></div><div class="gallery-photo"><img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&q=80" alt="Memory 2"></div><div class="gallery-photo"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=400&q=80" alt="Memory 3"></div><div class="gallery-photo"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=400&q=80" alt="Memory 4"></div></div><p class="scene-quote reveal d3">"Từ những ánh mắt ngập ngừng,<br>đến những cái nắm tay đi qua bao mùa mưa nắng..."</p><div class="ornament-line reveal d4"></div></div></div><div class="scene" id="scene4" data-transition="light-leak"><div class="scene-bg"><img src="https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=1920&q=80" alt="Milestone"><div class="scene-bg-overlay" style="background: linear-gradient(180deg, rgba(240,250,251,0.85), rgba(109,213,192,0.2));"></div></div><div class="scene-content"><p class="scene-label reveal d1">Cột Mốc Đáng Nhớ</p><div class="ornament reveal d2">✦</div><p class="scene-quote reveal d3">"Chúng ta đã cùng nhau trưởng thành,<br>cùng nhau chia sẻ những điều nhỏ bé<br>và lớn lao nhất."</p><div class="ornament-line reveal d4"></div></div></div><div class="scene" id="scene5" data-transition="sparkle"><div class="scene-bg"><div class="scene-bg-overlay" style="background: linear-gradient(135deg, var(--bg), #E0F5F7);"></div></div><div class="sparkles" id="sparkles"></div><div class="scene-content"><div class="ring-icon reveal d1"><i data-lucide="gem"></i></div><p class="scene-quote reveal d2" style="font-size: clamp(1.05rem, 2.5vw, 1.3rem);">
+Và rồi, anh hỏi...<br><span class="script-font" style="font-size: clamp(1.8rem, 4vw, 2.5rem); display: block; margin: 12px 0;">"Làm vợ anh nhé?"</span>
+Em nói...<br><span class="display-font" style="font-weight: 600; color: var(--accent); font-size: 1.3rem;">"Em đồng ý!"</span></p></div></div><div class="scene" id="scene6" data-transition="iris"><div class="scene-bg"><img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1920&q=80" alt="Wedding"><div class="scene-bg-overlay" style="background: radial-gradient(ellipse at center, rgba(240,250,251,0.72), rgba(240,250,251,0.92));"></div></div><div class="scene-content"><div class="save-date-badge reveal d1">Save the Date</div><h2 class="scene-title reveal d2" style="font-size: clamp(1.8rem, 4.5vw, 3rem);">
+Chúng mình chính thức<br>về chung một nhà
+</h2><p class="reveal d3" style="font-size: 1.2rem; color: var(--accent);"><span class="script-font" style="font-size: 2rem;">20 . 12 . 2025</span></p><div class="ornament-line reveal d4"></div></div></div><div class="scene" id="scene7" data-transition="slide-left"><div class="scene-bg"><div class="scene-bg-overlay" style="background: linear-gradient(135deg, var(--bg), var(--bg-alt));"></div></div><div class="scene-content"><div class="profile-card reveal d1"><div class="profile-img"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&q=80" alt="Groom"></div><p class="profile-role reveal d2">Chú Rể</p><h2 class="profile-name reveal d3">[Tên Chú Rể]</h2><p class="profile-desc reveal d4">"Người đàn ông hứa sẽ luôn nhường em miếng ngon nhất."</p></div></div></div><div class="scene" id="scene8" data-transition="slide-right"><div class="scene-bg"><div class="scene-bg-overlay" style="background: linear-gradient(135deg, #E8F8FA, var(--bg));"></div></div><div class="scene-content"><div class="profile-card reveal d1"><div class="profile-img"><img src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=600&q=80" alt="Bride"></div><p class="profile-role reveal d2">Cô Dâu</p><h2 class="profile-name reveal d3">[Tên Cô Dâu]</h2><p class="profile-desc reveal d4">"Cô gái hứa sẽ luôn cằn nhằn nhưng yêu anh vô điều kiện."</p></div></div></div><div class="scene" id="scene9" data-transition="page-turn"><div class="scene-bg"><div class="scene-bg-overlay" style="background: var(--bg);"></div></div><div class="scene-content"><p class="scene-label reveal d1">Trân Trọng Kính Mời</p><h2 class="scene-title reveal d2" style="font-size: 1.4rem;">Gia đình & Những người bạn thương quý</h2><div class="event-card reveal d3"><div class="event-item"><div class="event-icon"><i data-lucide="map-pin"></i></div><div class="event-text"><strong>Địa điểm</strong>
+[Tên nhà hàng / Địa chỉ]
+</div></div><div class="event-item"><div class="event-icon"><i data-lucide="calendar"></i></div><div class="event-text"><strong>Thời gian</strong>
+17:30 — Thứ Bảy, 20/12/2025
+</div></div><div class="event-item" style="margin-bottom:0;"><div class="event-icon"><i data-lucide="heart"></i></div><div class="event-text"><strong>Chúng tôi</strong>
+Rất mong được đón tiếp bạn!
+</div></div></div></div></div><div class="scene" id="scene10" data-transition="wipe-up"><div class="scene-bg"><div class="scene-bg-overlay" style="background: #E8F8FA;"></div></div><div class="scene-content"><p class="scene-label reveal d1">Lịch Trình</p><div class="timeline reveal d2"><div class="timeline-item"><span class="timeline-time">17:30</span><span class="timeline-dot"></span><span class="timeline-desc">Đón khách & Chụp hình lưu niệm</span></div><div class="timeline-item"><span class="timeline-time">18:30</span><span class="timeline-dot"></span><span class="timeline-desc">Cử hành hôn lễ</span></div><div class="timeline-item"><span class="timeline-time">19:00</span><span class="timeline-dot"></span><span class="timeline-desc">Nhập tiệc & Chúc mừng</span></div></div><p class="scene-label reveal d3" style="margin-top: 24px;">Dress Code</p><div class="dress-code reveal d4"><div class="color-swatch" style="background: #FFFFFF;" title="Trắng"></div><div class="color-swatch" style="background: #B8E6D0;" title="Mint"></div><div class="color-swatch" style="background: #A8D8EA;" title="Sky Blue"></div></div></div></div><div class="scene" id="scene11" data-transition="morph"><div class="scene-bg"><div class="scene-bg-overlay" style="background: linear-gradient(180deg, var(--bg), var(--bg-alt));"></div></div><div class="scene-content"><p class="scene-label reveal d1">Phản Hồi & Lời Chúc</p><p class="scene-quote reveal d2">"Sự hiện diện của bạn là món quà tuyệt vời nhất.<br>Vui lòng xác nhận tham dự trước ngày <strong>10/12/2025</strong><br>để chúng mình chuẩn bị chu đáo nhất nhé!"</p><div style="margin-top: 24px;"><a href="#" class="rsvp-btn reveal d3"><i data-lucide="send" style="width:18px;height:18px;"></i>
+Xác nhận tham dự
+</a></div><div class="qr-placeholder reveal d4"><div class="qr-box"><div class="qr-box-inner"><i data-lucide="map" style="width:28px;height:28px;"></i></div><span class="qr-label">Bản đồ</span></div><div class="qr-box"><div class="qr-box-inner"><i data-lucide="gift" style="width:28px;height:28px;"></i></div><span class="qr-label">Mừng cưới</span></div></div></div></div><div class="scene" id="scene12" data-transition="fade-white"><div class="scene-bg"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1920&q=80" alt="Walking away"><div class="scene-bg-overlay" style="background: radial-gradient(ellipse at center, rgba(240,250,251,0.75), rgba(240,250,251,0.92));"></div></div><div class="scene-content"><p class="scene-quote reveal d1">"Hẹn gặp bạn tại ngày vui của chúng mình!"</p><div class="ornament-line reveal d2"></div><p class="outro-names reveal d3">[Tên Cô Dâu] & [Tên Chú Rể]</p><p class="happily reveal d4">✦ Happily Ever After ✦</p></div></div></div><p class="auto-indicator" id="autoLabel">Tự động chuyển cảnh</p><div class="controls"><button class="ctrl-btn" id="btnPrev" aria-label="Previous"><i data-lucide="chevron-left"></i></button><span class="scene-counter" id="sceneCounter">1 / 12</span><button class="ctrl-btn" id="btnNext" aria-label="Next"><i data-lucide="chevron-right"></i></button><button class="ctrl-btn" id="btnPlay" aria-label="Play/Pause"><i data-lucide="pause"></i></button></div><button id="musicToggle" class="music-toggle muted" aria-label="Toggle music"><i data-lucide="volume-2" class="music-icon-on"></i><i data-lucide="volume-x" class="music-icon-off"></i></button><audio id="bgMusic" loop preload="auto"><source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg"></audio><script>lucide.createIcons();</script><script>(function() { const TOTAL = 12; const SCENE_DURATION = 2000; const TRANSITION_MAP = { '\x7a\x6f\x6f\x6d\x2d\x69\x6e': '\x74\x72\x61\x6e\x73\x2d\x7a\x6f\x6f\x6d\x2d\x69\x6e', '\x66\x61\x64\x65\x2d\x62\x6c\x61\x63\x6b': '\x74\x72\x61\x6e\x73\x2d\x66\x61\x64\x65\x2d\x62\x6c\x61\x63\x6b', '\x66\x69\x6c\x6d\x2d\x72\x6f\x6c\x6c': '\x74\x72\x61\x6e\x73\x2d\x66\x69\x6c\x6d\x2d\x72\x6f\x6c\x6c', '\x6c\x69\x67\x68\x74\x2d\x6c\x65\x61\x6b': '\x74\x72\x61\x6e\x73\x2d\x6c\x69\x67\x68\x74\x2d\x6c\x65\x61\x6b', '\x73\x70\x61\x72\x6b\x6c\x65': '\x74\x72\x61\x6e\x73\x2d\x73\x70\x61\x72\x6b\x6c\x65', '\x69\x72\x69\x73': '\x74\x72\x61\x6e\x73\x2d\x69\x72\x69\x73', '\x73\x6c\x69\x64\x65\x2d\x6c\x65\x66\x74': '\x74\x72\x61\x6e\x73\x2d\x73\x6c\x69\x64\x65\x2d\x6c\x65\x66\x74', '\x73\x6c\x69\x64\x65\x2d\x72\x69\x67\x68\x74': '\x74\x72\x61\x6e\x73\x2d\x73\x6c\x69\x64\x65\x2d\x72\x69\x67\x68\x74', '\x70\x61\x67\x65\x2d\x74\x75\x72\x6e': '\x74\x72\x61\x6e\x73\x2d\x70\x61\x67\x65\x2d\x74\x75\x72\x6e', '\x77\x69\x70\x65\x2d\x75\x70': '\x74\x72\x61\x6e\x73\x2d\x77\x69\x70\x65\x2d\x75\x70', '\x6d\x6f\x72\x70\x68': '\x74\x72\x61\x6e\x73\x2d\x6d\x6f\x72\x70\x68', '\x66\x61\x64\x65\x2d\x77\x68\x69\x74\x65': '\x74\x72\x61\x6e\x73\x2d\x66\x61\x64\x65\x2d\x77\x68\x69\x74\x65', }; let current = 1; let autoPlay = true; let autoTimer = null; const scenes = []; for (let i = 1; i <= TOTAL; i++) scenes.push(document.getElementById('\x73\x63\x65\x6e\x65' + i)); var bubblesBg = document.getElementById('\x62\x75\x62\x62\x6c\x65\x73\x42\x67'); var colors = ['#6DD5C0', '#7EC8E3', '#C5B4E3', '#F2A7B8', '#38BEC9']; for (var i = 0; i < 12; i++) { var b = document.createElement('\x64\x69\x76'); b.className = '\x62\x75\x62\x62\x6c\x65'; b.style.left = Math.random() * 100 + '%'; b.style.width = b.style.height = (20 + Math.random() * 50) + 'px'; b.style.background = colors[Math.floor(Math.random() * colors.length)]; b.style.animationDuration = (8 + Math.random() * 10) + 's'; b.style.animationDelay = Math.random() * 8 + 's'; bubblesBg.appendChild(b); } var nav = document.getElementById('sceneNav'); for (var i = 1; i <= TOTAL; i++) { var dot = document.createElement('button'); dot.className = 'scene-dot'\x20\x2b\x20\x28\x69\x20\x3d\x3d\x3d\x20\x31\x20\x3f\x20' active' : ''); dot.dataset.scene = i; dot.addEventListener('click', function() { goTo(+this.dataset.scene); }); nav.appendChild(dot); } var leavesEl = document.getElementById('leaves'\x29\x3b\x0a\x20\x20\x20\x20\x76\x61\x72\x20\x6c\x65\x61\x66\x45\x6d\x6f\x6a\x69\x73\x20\x3d\x20\x5b'🍃', '🌿', '☘️', '🌱']; for (var i = 0; i < 12; i++) { var l = document.createElement('div'); l.className = 'leaf'; l.textContent = leafEmojis[Math.floor(Math.random() * leafEmojis.length)]; l.style.left = Math.random() * 100 + '%'; l.style.animationDuration = (5 + Math.random() * 5) + 's'; l.style.animationDelay = Math.random() * 6 + 's'; l.style.fontSize = (12 + Math.random() * 10) + 'px'; leavesEl.appendChild(l); } var sparklesEl = document.getElementById('sparkles'); for (var i = 0; i < 20; i++) { var s = document.createElement('div'); s.className = 'sparkle'; s.style.left = Math.random() * 100 + '%'; s.style.top = Math.random() * 100 + '%'; s.style.animationDelay = Math.random() * 3 + 's'; s.style.animationDuration = (2 + Math.random() * 2) + 's'; s.style.background = colors[Math.floor(Math.random() * colors.length)]; sparklesEl.appendChild(s); } setTimeout(function() { var flap = document.getElementById('envFlap'); if (flap) flap.classList.add('open'); }, 1200); function goTo(n) { if (n < 1 || n > TOTAL || n === current) return; var prev = scenes[current - 1]; var next = scenes[n - 1]; var trans = next.dataset.transition; var transClass = TRANSITION_MAP[trans] || ''; Object.values(TRANSITION_MAP).forEach(function(c) { next.classList.remove(c); prev.classList.remove(c); }); prev.classList.remove('active'); next.classList.add(transClass); next.classList.add('active'); current = n; updateUI(); resetAutoTimer(); } function updateUI() { document.getElementById('sceneCounter').textContent = current + ' / ' + TOTAL; document.getElementById('progressBar').style.width = (current / TOTAL * 100) + '%'; var dots = nav.querySelectorAll('.scene-dot'); dots.forEach(function(d, i) { d.classList.toggle('active', i + 1 === current); }); } function resetAutoTimer() { clearTimeout(autoTimer); if (autoPlay && current < TOTAL) { autoTimer = setTimeout(function() { goTo(current + 1); }, SCENE_DURATION); } } function toggleAutoPlay() { autoPlay = !autoPlay; var icon = document.querySelector('#btnPlay i'); if (autoPlay) { icon.setAttribute('data-lucide', '\x70\x61\x75\x73\x65'); document.getElementById('\x61\x75\x74\x6f\x4c\x61\x62\x65\x6c').classList.remove('\x70\x61\x75\x73\x65\x64'); resetAutoTimer(); } else { icon.setAttribute('\x64\x61\x74\x61\x2d\x6c\x75\x63\x69\x64\x65', '\x70\x6c\x61\x79'); document.getElementById('\x61\x75\x74\x6f\x4c\x61\x62\x65\x6c').classList.add('\x70\x61\x75\x73\x65\x64'); clearTimeout(autoTimer); } lucide.createIcons(); } document.getElementById('\x62\x74\x6e\x50\x72\x65\x76').addEventListener('\x63\x6c\x69\x63\x6b', function() { goTo(current - 1); }); document.getElementById('\x62\x74\x6e\x4e\x65\x78\x74').addEventListener('\x63\x6c\x69\x63\x6b', function() { goTo(current + 1); }); document.getElementById('\x62\x74\x6e\x50\x6c\x61\x79').addEventListener('\x63\x6c\x69\x63\x6b', toggleAutoPlay); document.addEventListener('\x6b\x65\x79\x64\x6f\x77\x6e', function(e) { if (e.key === '\x41\x72\x72\x6f\x77\x52\x69\x67\x68\x74' || e.key === ' ') { e.preventDefault(); goTo(current + 1); } if (e.key === 'ArrowLeft') goTo(current - 1); if (e.key === 'p') toggleAutoPlay(); }); var touchStartX = 0; document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true }); document.addEventListener('touchend', function(e) { var diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) { diff > 0 ? goTo(current + 1) : goTo(current - 1); } }, { passive: true }); resetAutoTimer(); var musicBtn = document.getElementById('musicToggle'); var bgMusic = document.getElementById('bgMusic'); if (musicBtn && bgMusic) { bgMusic.volume = 0.3; bgMusic.play().then(function() { musicBtn.classList.remove('muted'); }).catch(function() { document.addEventListener('click', function autoPlay() { bgMusic.play().then(function() { musicBtn.classList.remove('muted'); }).catch(function() {}); document.removeEventListener('click', autoPlay); }, { once: true }); }); musicBtn.addEventListener('click', function() { if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('muted'); } else { bgMusic.pause(); musicBtn.classList.add('muted'); } }); } })();</script></body></html>
