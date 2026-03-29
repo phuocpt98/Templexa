@@ -44,11 +44,16 @@ Argument: $ARGUMENTS — mô tả yêu cầu, URL/ảnh tham khảo, hoặc fold
 
 ## PHASE 1: Design Intelligence
 
-### 1A. Nếu user cung cấp ảnh/screenshot tham khảo
+### 1A. Nếu user cung cấp URL/ảnh/screenshot tham khảo
 
-Dùng kỹ thuật **Design Extraction** từ `/frontend-design`:
+**Nếu có URL** → dùng **agent-browser** mở trang web thật:
+1. Navigate đến URL → scroll toàn trang → chụp screenshot từng section (mobile 390px)
+2. Lấy snapshot DOM → phân tích HTML structure, CSS classes, animation triggers
+3. Extract computed styles: fonts, colors, spacing, border-radius, shadows
 
-1. **Phân tích ảnh tham khảo** — extract:
+**Nếu có ảnh/screenshot** → dùng kỹ thuật **Design Extraction** từ `/frontend-design`:
+
+1. **Phân tích tham khảo** — extract:
    - Color palette: hex codes chính xác (primary, secondary, accent, background, text)
    - Typography: font family, weight, size hierarchy, letter-spacing
    - Layout pattern: grid, overlap, stagger, spacing rhythm
