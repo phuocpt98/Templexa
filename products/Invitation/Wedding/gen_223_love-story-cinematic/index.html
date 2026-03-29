@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hành Trình Của Chúng Mình</title>
+    <meta name="description" content="Câu chuyện tình yêu — từ ngày đầu đến ngày cưới">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/animejs@4.0.2/lib/anime.iife.min.js"></script>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-soft: #E8D5A3;
+            --warm: #FFF5F0;
+            --cream: #FFF8F2;
+            --text: #2D1B14;
+            --text-sub: #6B5147;
+            --text-light: #9B8A82;
+            --pink: #FFB5C2;
+            --accent: #E85D75;
+            --primary: #FF8B7A;
+            --font-script: 'Caveat', cursive;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Quicksand', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; overflow: hidden; font-family: var(--font-body); color: white; -webkit-font-smoothing: antialiased; }
+
+        /* === SLIDE SYSTEM === */
+        .scene {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 0 1.5rem 3rem;
+            opacity: 0; pointer-events: none; z-index: 1;
+            transition: opacity 0.8s ease;
+        }
+        .scene.active { opacity: 1; pointer-events: auto; z-index: 2; }
+
+        /* Full-screen background image */
+        .scene-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            z-index: 0;
+            transform: scale(1);
+            transition: transform 8s ease-out;
+        }
+        .scene.active .scene-bg { transform: scale(1.06); }
+
+        /* Dark gradient overlay at bottom for text readability */
+        .scene-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.65) 100%);
+            z-index: 1;
+        }
+
+        .scene-content {
+            position: relative; z-index: 2;
+            max-width: 500px; width: 100%;
+            text-align: center;
+            padding-bottom: 0.5rem;
+        }
+
+        /* === TEXT STYLES === */
+        .date-stamp {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            color: var(--gold-soft);
+            margin-bottom: 0.4rem;
+            opacity: 0;
+        }
+        .milestone-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            font-weight: 500;
+            font-style: italic;
+            color: white;
+            margin-bottom: 0.6rem;
+            opacity: 0;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.4);
+        }
+        .caption {
+            font-family: var(--font-body);
+            font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+            font-weight: 300;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.7;
+            opacity: 0;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+        }
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-d1 { transition-delay: 0.2s; }
+        .reveal-d2 { transition-delay: 0.5s; }
+        .reveal-d3 { transition-delay: 0.9s; }
+        .reveal-d4 { transition-delay: 1.3s; }
+
+        @keyframes breathe { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
+
+        /* === SPLASH === */
+        #splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;
+            background: linear-gradient(135deg, #0a0a14 0%, #1a0a15 50%, #0a1020 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; transition: opacity 1s ease;
+        }
+        #splash.opened { opacity: 0; pointer-events: none; }
+        .splash-text { font-family: var(--font-heading); font-size: clamp(1.2rem, 5vw, 1.6rem); color: rgba(255,255,255,0.7); font-style: italic; opacity: 0; text-align: center; line-height: 1.8; }
+        .splash-hint { font-family: var(--font-body); font-size: 0.75rem; color: rgba(255,255,255,0.3); margin-top: 2rem; letter-spacing: 0.2em; animation: breathe 2.5s ease-in-out infinite; }
+        .splash-sparkle { position: absolute; width: 3px; height: 3px; background: var(--gold-soft); border-radius: 50%; opacity: 0; }
+
+        /* === GOLD DUST PARTICLES === */
+        .dust { position: absolute; width: 2px; height: 2px; background: var(--gold-soft); border-radius: 50%; opacity: 0; z-index: 3; pointer-events: none; animation: dustDrift 6s linear infinite; }
+        @keyframes dustDrift { 0%{transform:translateY(0) translateX(0);opacity:0} 20%{opacity:0.4} 80%{opacity:0.3} 100%{transform:translateY(-100vh) translateX(30px);opacity:0} }
+
+        /* === RAIN (sad scene) === */
+        .rain-drop { position: absolute; width: 1px; background: linear-gradient(transparent, rgba(174,194,224,0.5)); z-index: 3; pointer-events: none; animation: rainFall linear infinite; }
+        @keyframes rainFall { 0%{transform:translateY(-10px);opacity:0} 10%{opacity:0.6} 100%{transform:translateY(100vh);opacity:0} }
+
+        /* === CLOUD/FOG === */
+        .fog-layer { position: absolute; width: 200%; height: 30%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); z-index: 3; pointer-events: none; animation: fogDrift 15s linear infinite; }
+        @keyframes fogDrift { 0%{transform:translateX(-50%)} 100%{transform:translateX(0%)} }
+
+        /* === SCRAPBOOK (scene 5) === */
+        .scrapbook { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-width: 300px; margin: 0 auto 1rem; }
+        .scrap-item { position: relative; background: white; padding: 4px; box-shadow: 0 3px 12px rgba(0,0,0,0.15); border-radius: 2px; }
+        .scrap-item:nth-child(odd) { transform: rotate(-2deg); }
+        .scrap-item:nth-child(even) { transform: rotate(1.5deg); }
+        .scrap-item img { width: 100%; height: 90px; object-fit: cover; display: block; }
+        .scrap-item::before { content:''; position:absolute; top:-4px; left:50%; transform:translateX(-50%) rotate(-2deg); width:40px; height:10px; background:rgba(255,228,196,0.7); z-index:2; }
+        .scrap-caption { font-family: var(--font-script); font-size: 0.7rem; color: var(--text-sub); text-align: center; padding: 2px 0; }
+
+        /* Scene 5 special: light bg for scrapbook */
+        #scene-memories .scene-overlay { background: rgba(255,248,242,0.95); }
+        #scene-memories .milestone-title, #scene-memories .caption { color: var(--text); text-shadow: none; }
+        #scene-memories .date-stamp { color: var(--gold); }
+
+        /* === PROPOSAL TAP === */
+        .proposal-tap { font-size: 0.8rem; color: rgba(255,255,255,0.4); animation: breathe 2s ease-in-out infinite; cursor: pointer; padding: 1rem; }
+        .proposal-answer { display: none; }
+        .proposal-answer.revealed { display: block; }
+        .answer-text { font-family: var(--font-script); font-size: clamp(3rem, 12vw, 5rem); font-weight: 700; color: var(--primary); text-shadow: 0 0 40px rgba(255,139,122,0.4); }
+
+        /* === WEDDING GALLERY (scene 13) === */
+        #scene-wedding .scene-overlay { background: rgba(255,248,242,0.95); }
+        #scene-wedding .milestone-title, #scene-wedding .caption { color: var(--text); text-shadow: none; }
+        #scene-wedding .date-stamp { color: var(--gold); }
+        .wedding-gallery { max-width: 300px; margin: 0 auto 0.8rem; }
+        .wedding-photo-main { border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.1); margin-bottom: 6px; }
+        .wedding-photo-main img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .wedding-photo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .wedding-photo-small { border-radius: 8px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+        .wedding-photo-small img { width: 100%; height: 95px; object-fit: cover; display: block; }
+
+        /* === GUEST NAME SHIMMER === */
+        #scene-invite .scene-overlay { background: linear-gradient(135deg, rgba(26,10,21,0.92), rgba(45,27,20,0.92)); }
+        .guest-name {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--gold), #FFF8DC, var(--gold), #FFF8DC, var(--gold));
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+            margin: 1rem 0;
+            line-height: 1.3;
+        }
+        @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
+
+        /* === VENUE (scene 15) === */
+        .venue-info {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+        }
+        .venue-row { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; margin-bottom: 0.5rem; justify-content: center; }
+        .venue-row:last-child { margin-bottom: 0; }
+
+        /* === CLOSING hearts === */
+        .float-heart { position: absolute; bottom: -20px; font-size: 0.9rem; opacity: 0.4; animation: floatH linear infinite; pointer-events: none; z-index: 0; }
+        @keyframes floatH { 0%{transform:translateY(0);opacity:0.4} 50%{opacity:0.6} 100%{transform:translateY(-100vh);opacity:0} }
+
+        /* === MOUNTAIN BADGE === */
+        .peak-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
+        }
+
+        /* === CONFETTI === */
+        .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; overflow: hidden; }
+        .confetti-piece { position: absolute; top: -10px; width: 8px; height: 8px; opacity: 0; }
+
+        /* === NAV === */
+        .slide-nav {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 500;
+            display: none; justify-content: space-between; padding: 12px 16px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.4));
+        }
+        .slide-nav.show { display: flex; }
+        .nav-btn {
+            display: flex; align-items: center; gap: 5px;
+            padding: 9px 18px; font-family: var(--font-script); font-size: 1rem;
+            color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 50px;
+            cursor: pointer; transition: all 0.3s; backdrop-filter: blur(4px);
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.2); }
+        .nav-btn:active { transform: scale(0.97); }
+        .nav-btn:disabled { opacity: 0; pointer-events: none; }
+
+        /* === CHAPTER DOTS === */
+        .chapter-dots {
+            position: fixed; right: -18px; top: 50%; transform: translateY(-50%);
+            z-index: 500; display: none; flex-direction: column; gap: 3px; align-items: flex-end;
+        }
+        .chapter-dots.show { display: flex; }
+        .dot-item { display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 2px 0; flex-direction: row-reverse; }
+        .dot-icon {
+            width: 18px; height: 18px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.45rem; background: rgba(255,255,255,0.2);
+            border: 1.5px solid rgba(255,255,255,0.25);
+            transition: all 0.3s; flex-shrink: 0;
+        }
+        .dot-label {
+            font-family: var(--font-body); font-size: 0.55rem; font-weight: 500;
+            color: rgba(255,255,255,0.7); white-space: nowrap;
+            opacity: 0; transform: translateX(6px); transition: opacity 0.25s, transform 0.25s;
+            pointer-events: none; background: rgba(0,0,0,0.6); padding: 2px 6px;
+            border-radius: 8px; backdrop-filter: blur(4px);
+        }
+        .dot-item:hover .dot-label { opacity: 1; transform: translateX(0); }
+        .dot-item.active .dot-icon { background: var(--accent); border-color: var(--accent); transform: scale(1.3); box-shadow: 0 0 10px rgba(232,93,117,0.4); }
+        .dot-item.visited .dot-icon { border-color: var(--gold-soft); }
+
+        /* === MUSIC === */
+        .music-toggle {
+            position: fixed; bottom: 58px; right: 8px; z-index: 1000;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.5s;
+        }
+        .music-toggle.show { opacity: 1; }
+        .music-bars { display: flex; gap: 2px; align-items: flex-end; height: 12px; }
+        .music-bar { width: 2px; background: var(--gold-soft); border-radius: 1px; }
+        .music-bar.playing { animation: mp 0.8s ease-in-out infinite alternate; }
+        .music-bar:nth-child(1){height:6px;animation-delay:0s} .music-bar:nth-child(2){height:10px;animation-delay:.15s}
+        .music-bar:nth-child(3){height:8px;animation-delay:.3s} .music-bar:nth-child(4){height:12px;animation-delay:.1s}
+        .music-bar.paused { animation: none !important; height: 4px !important; }
+        @keyframes mp { 0%{height:3px} 100%{height:12px} }
+
+        /* === PROGRESS === */
+        .slide-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--primary)); z-index: 9998; width: 0%; transition: width 0.5s ease; }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 480px) {
+            .scene { padding: 0 1.2rem 3rem; }
+            .scrap-item img { height: 75px; }
+            .wedding-photo-main img { height: 170px; }
+            .wedding-photo-small img { height: 80px; }
+            .chapter-dots { right: -20px; }
+        }
+        @media (max-height: 700px) {
+            .scene { padding-bottom: 3rem; }
+            .milestone-title { font-size: clamp(1.2rem, 4vw, 1.6rem); }
+            .scrap-item img { height: 65px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-progress" id="slideProgress"></div>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/romantic/Everyday I Love You.mp3" type="audio/mpeg">
+    </audio>
+    <div class="music-toggle" id="musicToggle">
+        <div class="music-bars"><div class="music-bar paused"></div><div class="music-bar paused"></div><div class="music-bar paused"></div><div class="music-bar paused"></div></div>
+    </div>
+    <nav class="chapter-dots" id="chapterDots"></nav>
+    <div class="slide-nav" id="slideNav">
+        <button class="nav-btn" id="btnPrev" disabled><span>🌿</span> Quay lại</button>
+        <button class="nav-btn" id="btnNext">Tiếp nè <span>🌸</span></button>
+    </div>
+
+    <!-- SPLASH -->
+    <div id="splash">
+        <div id="splashSparkles"></div>
+        <div class="splash-text" id="splashText">Có một câu chuyện...<br>mà tụi mình muốn kể cho bạn nghe</div>
+        <div class="splash-hint">chạm để bắt đầu ✦</div>
+    </div>
+
+    <div class="slides-wrapper" id="slidesWrapper">
+
+        <!-- 1: LẦN ĐẦU GẶP -->
+        <section class="scene active" id="scene-meet" data-chapter="Gặp nhau" data-icon="🌸">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=900&h=1400&fit=crop&crop=entropy');background-position:center 40%"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content">
+                <div class="date-stamp reveal">15 . 03 . 2020</div>
+                <div class="milestone-title reveal reveal-d1">Lần đầu gặp nhau</div>
+                <div class="caption reveal reveal-d2">Quán cà phê nhỏ đường Nguyễn Huệ</div>
+                <div class="caption reveal reveal-d3" style="margin-top:0.5rem;font-style:italic;opacity:0">
+                    "Hôm đó chỉ là tình cờ...<br>nhưng ông trời thì không"
+                </div>
+            </div>
+        </section>
+
+        <!-- 2: HẸN HÒ ĐẦU -->
+        <section class="scene" id="scene-firstdate" data-chapter="Hẹn hò" data-icon="☕">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=900&h=1400&fit=crop');background-position:center"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content">
+                <div class="date-stamp reveal">28 . 04 . 2020</div>
+                <div class="milestone-title reveal reveal-d1">Buổi hẹn đầu tiên</div>
+                <div class="caption reveal reveal-d2">
+                    "Run đến mức gọi nhầm cả đồ uống...<br>nhưng nụ cười ấy thì đúng người rồi"
+                </div>
+            </div>
+        </section>
+
+        <!-- 3: CHÍNH THỨC YÊU -->
+        <section class="scene" id="scene-official" data-chapter="Yêu nhau" data-icon="💕">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=900&h=1400&fit=crop');background-position:center"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content">
+                <div class="date-stamp reveal">14 . 06 . 2020</div>
+                <div class="milestone-title reveal reveal-d1">Chính thức bên nhau</div>
+                <div class="caption reveal reveal-d2">
+                    "Ba chữ 'anh thích em'<br>mà mất 3 tháng mới dám nói"
+                </div>
+            </div>
+        </section>
+
+        <!-- 4: CHUYẾN ĐI ĐẦU -->
+        <section class="scene" id="scene-firsttrip" data-chapter="Đà Lạt" data-icon="🌄">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&h=1400&fit=crop');background-position:center"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content">
+                <div class="date-stamp reveal">08 . 2020</div>
+                <div class="milestone-title reveal reveal-d1">Chuyến đi đầu tiên</div>
+                <div class="caption reveal reveal-d2" style="font-size:0.8rem;letter-spacing:0.1em">— Đà Lạt —</div>
+                <div class="caption reveal reveal-d3" style="margin-top:0.5rem">
+                    "Đi đâu cũng được,<br>miễn là cùng nhau"
+                </div>
+            </div>
+        </section>
+
+        <!-- 5: NHỮNG NGÀY VUI -->
+        <section class="scene" id="scene-memories" data-chapter="Kỷ niệm" data-icon="📸">
+            <div class="scene-bg" style="background:var(--cream)"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content">
+                <div class="date-stamp reveal">2020 — 2021</div>
+                <div class="milestone-title reveal reveal-d1">Những ngày bên nhau</div>
+                <div class="scrapbook reveal reveal-d2">
+                    <div class="scrap-item"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=300&h=200&fit=crop" alt="Food"><div class="scrap-caption">ăn cùng nhau</div></div>
+                    <div class="scrap-item"><img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=300&h=200&fit=crop" alt="Party"><div class="scrap-caption">quẩy cùng nhau</div></div>
+                    <div class="scrap-item"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=300&h=200&fit=crop" alt="Walk"><div class="scrap-caption">dạo phố chiều</div></div>
+                    <div class="scrap-item"><img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=300&h=200&fit=crop" alt="Dinner"><div class="scrap-caption">kỷ niệm ngày yêu</div></div>
+                </div>
+                <div class="caption reveal reveal-d3">"Ăn cùng, đi cùng, cười cùng, khóc cùng..."</div>
+            </div>
+        </section>
+
+        <!-- 6: EM ỐM -->
+        <section class="scene" id="scene-sick" data-chapter="Em ốm" data-icon="🤒">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=900&h=1400&fit=crop');background-position:center;filter:sepia(0.1) brightness(0.85)"></div>
+            <div class="scene-overlay" style="background:linear-gradient(to bottom,rgba(30,20,10,0.2) 0%,rgba(30,20,10,0.6) 100%)"></div>
+            <div class="scene-content">
+                <div class="date-stamp reveal">01 . 2021</div>
+                <div class="milestone-title reveal reveal-d1">Lần đầu em ốm</div>
+                <div class="caption reveal reveal-d2">"Sốt 39 độ... sợ lắm"</div>
+                <div class="caption reveal reveal-d3" style="margin-top:0.5rem">
+                    "Nhưng có người thức cả đêm<br>nấu cháo, đắp khăn, canh giấc ngủ"
+                </div>
+                <div class="caption reveal reveal-d4" style="margin-top:0.5rem;color:var(--gold-soft);font-style:italic">
+                    "Lúc đó mới biết — đây là người mình cần"
+                </div>
+            </div>
+        </section>
+
+        <!-- 7: GIẬN DỖI -->
+        <section class="scene" id="scene-fight" data-chapter="Xa cách" data-icon="🌧️">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1428592953211-077101b2021b?w=900&h=1400&fit=crop');background-position:center;filter:saturate(0.5)"></div>
+            <div class="scene-overlay" style="background:linear-gradient(to bottom,rgba(20,25,35,0.3) 0%,rgba(20,25,35,0.7) 100%)"></div>
+            <div id="rainContainer"></div>
+            <div class="scene-content">
+                <div class="date-stamp reveal" style="color:rgba(174,194,224,0.6)">Tháng 12 . 2020</div>
+                <div class="milestone-title reveal reveal-d1" style="color:rgba(200,210,230,0.9)">Lần cãi nhau to nhất</div>
+                <div class="caption reveal reveal-d2" style="color:rgba(200,210,230,0.7)">
+                    "Tưởng mất nhau rồi..."
+                </div>
+            </div>
+        </section>
+
+        <!-- 8: LÀM LÀNH -->
+        <section class="scene" id="scene-makeup" data-chapter="Làm lành" data-icon="🌈">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=900&h=1400&fit=crop');background-position:center"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content">
+                <div class="milestone-title reveal" style="font-size:clamp(1.2rem,4vw,1.6rem)">...nhưng ai đó gõ cửa<br>với một bó hoa</div>
+                <div class="caption reveal reveal-d2" style="margin-top:0.8rem;color:var(--gold-soft);font-style:italic">
+                    "Và mình biết, người này là người đúng"
+                </div>
+            </div>
+        </section>
+
+        <!-- 9: TÀ NĂNG -->
+        <section class="scene" id="scene-tanang" data-chapter="Leo núi" data-icon="⛰️">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1551632811-561732d1e306?w=900&h=1400&fit=crop');background-position:center"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content">
+                <div class="date-stamp reveal">03 . 2022</div>
+                <div class="milestone-title reveal reveal-d1">Chinh phục Tà Năng</div>
+                <div class="caption reveal reveal-d2">
+                    "50km · 3 ngày · chân phồng rộp"
+                </div>
+                <div class="caption reveal reveal-d3" style="margin-top:0.4rem;font-style:italic;color:var(--gold-soft)">
+                    "Nhưng nắm tay nhau đi hết con đường —<br>đỉnh nào cũng tới, miễn là cùng nhau"
+                </div>
+            </div>
+        </section>
+
+        <!-- 10: BIỂN -->
+        <section class="scene" id="scene-beach" data-chapter="Ra biển" data-icon="🌊">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&h=1400&fit=crop');background-position:center"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content">
+                <div class="date-stamp reveal">07 . 2023</div>
+                <div class="milestone-title reveal reveal-d1">Biển Phú Quốc</div>
+                <div class="caption reveal reveal-d2">
+                    "Ngồi trên bãi cát, nghe sóng vỗ...<br>lần đầu nói về tương lai cùng nhau"
+                </div>
+                <div class="caption reveal reveal-d3" style="margin-top:0.4rem;font-style:italic;color:var(--gold-soft)">
+                    "Ước gì thời gian dừng lại ở đây"
+                </div>
+            </div>
+        </section>
+
+        <!-- 11: CẦU HÔN — nơi đẹp -->
+        <section class="scene" id="scene-proposal" data-chapter="Cầu hôn" data-icon="💍">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&h=1400&fit=crop');background-position:center"></div>
+            <div class="scene-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.65) 100%)"></div>
+            <div class="scene-content">
+                <div class="date-stamp reveal">14 . 02 . 2025</div>
+                <div class="milestone-title reveal reveal-d1" style="color:var(--gold-soft)">"Lấy anh nhé?"</div>
+                <div class="proposal-tap reveal reveal-d2" id="proposalTap">chạm để biết câu trả lời...</div>
+                <div class="proposal-answer" id="proposalAnswer">
+                    <p class="answer-text">CÓ!</p>
+                    <div class="caption" style="opacity:1;margin-top:0.5rem;color:var(--gold-soft)">"Câu trả lời đẹp nhất đời"</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13: ẢNH CƯỚI -->
+        <section class="scene" id="scene-wedding" data-chapter="Ảnh cưới" data-icon="📷">
+            <div class="scene-bg" style="background:var(--cream)"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content" style="padding-top:1.5rem">
+                <div class="date-stamp reveal">2025</div>
+                <div class="milestone-title reveal reveal-d1">Ngày chụp ảnh cưới</div>
+                <div class="wedding-gallery reveal reveal-d2">
+                    <div class="wedding-photo-main">
+                        <img src="../../../shared/images/wedding/viet-trang-hoa/628267914_1496742209120257_3178729502643930985_n.webp" alt="Couple" style="object-position:center 15%">
+                    </div>
+                    <div class="wedding-photo-row">
+                        <div class="wedding-photo-small">
+                            <img src="../../../shared/images/wedding/viet-trang-hoa/628427200_1496742375786907_1068531846115830906_n.webp" alt="Laughing" style="object-position:center 20%">
+                        </div>
+                        <div class="wedding-photo-small">
+                            <img src="../../../shared/images/wedding/viet-trang-hoa/629235467_1496742385786906_5916049160219901503_n.webp" alt="Exchange" style="object-position:center 15%">
+                        </div>
+                    </div>
+                </div>
+                <div class="caption reveal reveal-d3">"Đẹp đôi quá đi... (tự khen tí nha!)"</div>
+            </div>
+        </section>
+
+        <!-- 14: KÍNH MỜI -->
+        <section class="scene" id="scene-invite" data-chapter="Kính mời" data-icon="💌">
+            <div class="scene-bg" style="background-image:url('../../../shared/images/wedding/viet-trang-hoa/626759978_1496742325786912_8666924174171780533_n.webp');background-position:center 20%"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content">
+                <div class="caption reveal" style="font-size:0.85rem;letter-spacing:0.2em;opacity:0">✦ TRÂN TRỌNG KÍNH MỜI ✦</div>
+                <div class="guest-name reveal reveal-d1" id="guestName">Bạn</div>
+                <div class="caption reveal reveal-d2" style="opacity:0">đến chung vui cùng</div>
+                <div class="milestone-title reveal reveal-d3" style="font-size:clamp(1.4rem,5vw,2rem);margin-top:0.5rem;opacity:0">Đức Anh & Thuỳ Linh</div>
+            </div>
+        </section>
+
+        <!-- 15: ĐỊA ĐIỂM -->
+        <section class="scene" id="scene-venue" data-chapter="Địa điểm" data-icon="📍">
+            <div class="scene-bg" style="background-image:url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=900&h=1400&fit=crop');background-position:center"></div>
+            <div class="scene-overlay"></div>
+            <div class="scene-content">
+                <div class="milestone-title reveal" style="font-size:clamp(1.2rem,4vw,1.5rem)">Hẹn gặp bạn tại</div>
+                <div class="venue-info reveal reveal-d1">
+                    <div class="venue-row">📅 Chủ Nhật, 15 tháng 11 năm 2026</div>
+                    <div class="venue-row">🕐 17:30</div>
+                    <div class="venue-row">📍 Nhà hàng White Palace</div>
+                    <div class="venue-row" style="font-size:0.8rem;opacity:0.7">123 Nguyễn Văn A, Q.1, TP.HCM</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 16: CẢM ƠN -->
+        <section class="scene" id="scene-thanks" data-chapter="Cảm ơn" data-icon="💗">
+            <div class="scene-bg" style="background-image:url('../../../shared/images/wedding/viet-trang-hoa/629235467_1496742385786906_5916049160219901503_n.webp');background-position:center 15%"></div>
+            <div class="scene-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.55) 100%)"></div>
+            <div class="scene-content">
+                <div class="caption reveal" style="font-size:1rem;opacity:0">
+                    "Cảm ơn bạn đã là một phần<br>trong câu chuyện của tụi mình"
+                </div>
+                <div class="caption reveal reveal-d1" style="font-size:1.2rem;color:var(--gold-soft);opacity:0;margin:0.8rem 0">❦</div>
+                <div class="milestone-title reveal reveal-d2" style="font-size:clamp(1.4rem,5vw,2rem)">Đức Anh & Thuỳ Linh</div>
+            </div>
+            <div id="floatingHearts" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden"></div>
+        </section>
+
+    </div>
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <script>
+    (function() {
+        'use strict';
+        var animateFn = anime.animate;
+        var staggerFn = anime.stagger;
+
+        /* === CONFIG === */
+        var GROOM = 'Đức Anh', BRIDE = 'Thuỳ Linh';
+
+        /* === SLIDE CONTROLLER === */
+        var scenes = Array.from(document.querySelectorAll('.scene'));
+        var currentIndex = 0, isTransitioning = false, visitedScenes = new Set([0]);
+        var dotsContainer = document.getElementById('chapterDots');
+
+        /* Build dots */
+        scenes.forEach(function(s, i) {
+            var d = document.createElement('div');
+            d.className = 'dot-item' + (i === 0 ? ' active' : '');
+            d.innerHTML = '<span class="dot-label">' + s.dataset.chapter + '</span><span class="dot-icon"><span>' + s.dataset.icon + '</span></span>';
+            d.addEventListener('click', function() { goToScene(i); });
+            dotsContainer.appendChild(d);
+        });
+
+        function goToScene(idx) {
+            if (idx === currentIndex || isTransitioning || idx < 0 || idx >= scenes.length) return;
+            isTransitioning = true;
+            var oldScene = scenes[currentIndex], newScene = scenes[idx];
+
+            /* Reset reveals */
+            newScene.querySelectorAll('.reveal').forEach(function(el) { el.classList.remove('visible'); });
+            /* Reset ken burns */
+            var oldBg = oldScene.querySelector('.scene-bg');
+            var newBg = newScene.querySelector('.scene-bg');
+            if (newBg) { newBg.style.transition = 'none'; newBg.style.transform = 'scale(1)'; void newBg.offsetWidth; newBg.style.transition = ''; }
+
+            oldScene.classList.remove('active');
+            newScene.classList.add('active');
+            currentIndex = idx;
+            visitedScenes.add(idx);
+            updateUI();
+
+            setTimeout(function() {
+                newScene.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+                onSceneEnter(idx);
+                isTransitioning = false;
+            }, 400);
+        }
+
+        function updateUI() {
+            document.getElementById('btnPrev').disabled = currentIndex === 0;
+            document.getElementById('btnNext').disabled = currentIndex === scenes.length - 1;
+            document.getElementById('slideProgress').style.width = ((currentIndex + 1) / scenes.length * 100) + '%';
+            var dots = dotsContainer.querySelectorAll('.dot-item');
+            dots.forEach(function(d, i) {
+                d.classList.remove('active');
+                if (i === currentIndex) d.classList.add('active');
+                if (visitedScenes.has(i) && i !== currentIndex) d.classList.add('visited');
+            });
+        }
+
+        function onSceneEnter(idx) {
+            var id = scenes[idx].id;
+            if (id === 'scene-fight') startRain();
+            if (id === 'scene-thanks') startFloatingHearts();
+        }
+
+        /* Nav */
+        document.getElementById('btnPrev').addEventListener('click', function() { goToScene(currentIndex - 1); });
+        document.getElementById('btnNext').addEventListener('click', function() { goToScene(currentIndex + 1); });
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('splash').style.display !== 'none') return;
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goToScene(currentIndex + 1); }
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goToScene(currentIndex - 1); }
+        });
+
+        /* Swipe */
+        var tx = 0, ty = 0;
+        document.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+        document.addEventListener('touchend', function(e) {
+            if (document.getElementById('splash').style.display !== 'none') return;
+            var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+            if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+            if (e.target.closest('.rsvp-form,.chat-container')) return;
+            dx < 0 ? goToScene(currentIndex + 1) : goToScene(currentIndex - 1);
+        }, { passive: true });
+
+        /* === SPLASH === */
+        (function() {
+            var splash = document.getElementById('splash'), sparkles = document.getElementById('splashSparkles');
+            for (var i = 0; i < 20; i++) {
+                var s = document.createElement('div'); s.className = 'splash-sparkle';
+                s.style.left = Math.random()*100+'%'; s.style.top = Math.random()*100+'%';
+                sparkles.appendChild(s);
+            }
+            animateFn('.splash-sparkle', { opacity:[0,0.6,0], scale:[0,1.5,0], duration:2500, delay:staggerFn(80,{from:'center'}), loop:true, ease:'inOutQuad' });
+            animateFn('#splashText', { opacity:[0,1], translateY:[20,0], duration:1200, delay:500, ease:'outExpo' });
+
+            splash.addEventListener('click', function() {
+                splash.classList.add('opened');
+                var m = document.getElementById('bgMusic');
+                if (m) { m.volume = 0.3; m.play().catch(function(){}); showMusic(true); }
+                document.getElementById('slideNav').classList.add('show');
+                dotsContainer.classList.add('show');
+                setTimeout(function() {
+                    splash.style.display = 'none';
+                    scenes[0].querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+                }, 800);
+            });
+        })();
+
+        /* === MUSIC === */
+        (function() {
+            var t = document.getElementById('musicToggle'), m = document.getElementById('bgMusic'), bars = t.querySelectorAll('.music-bar');
+            t.addEventListener('click', function() {
+                if (m.paused) { m.play().catch(function(){}); bars.forEach(function(b){b.classList.remove('paused');b.classList.add('playing')}); }
+                else { m.pause(); bars.forEach(function(b){b.classList.remove('playing');b.classList.add('paused')}); }
+            });
+        })();
+        function showMusic(p) {
+            var t = document.getElementById('musicToggle'); t.classList.add('show');
+            if (p) t.querySelectorAll('.music-bar').forEach(function(b){b.classList.remove('paused');b.classList.add('playing')});
+        }
+
+        /* === RAIN === */
+        var rainStarted = false;
+        function startRain() {
+            if (rainStarted) return; rainStarted = true;
+            var c = document.getElementById('rainContainer');
+            for (var i = 0; i < 40; i++) {
+                var d = document.createElement('div'); d.className = 'rain-drop';
+                d.style.left = Math.random()*100+'%'; d.style.height = (15+Math.random()*20)+'px';
+                d.style.animationDuration = (0.5+Math.random()*0.5)+'s'; d.style.animationDelay = Math.random()*2+'s';
+                c.appendChild(d);
+            }
+        }
+
+        /* === PROPOSAL === */
+        (function() {
+            var tap = document.getElementById('proposalTap'), ans = document.getElementById('proposalAnswer'), done = false;
+            tap.addEventListener('click', function() {
+                if (done) return; done = true; tap.style.display = 'none'; ans.classList.add('revealed');
+                animateFn('.answer-text', { scale:[0,1], opacity:[0,1], duration:800, ease:'outBack' });
+                createConfetti();
+            });
+        })();
+
+        /* === CONFETTI === */
+        function createConfetti() {
+            var c = document.getElementById('confettiContainer');
+            var cols = ['#FF8B7A','#FFB4A8','#E85D75','#D4AF37','#FFB5C2','#C8B6FF'];
+            for (var i = 0; i < 50; i++) {
+                var p = document.createElement('div'); p.className = 'confetti-piece';
+                p.style.left = Math.random()*100+'%';
+                p.style.backgroundColor = cols[Math.floor(Math.random()*cols.length)];
+                p.style.borderRadius = Math.random()>0.5?'50%':'2px';
+                p.style.width = (5+Math.random()*7)+'px'; p.style.height = p.style.width;
+                c.appendChild(p);
+            }
+            animateFn('.confetti-piece', {
+                translateY:[0,function(){return 300+Math.random()*500}],
+                translateX:function(){return (Math.random()-0.5)*300},
+                rotate:function(){return Math.random()*720},
+                opacity:[1,0], duration:function(){return 1500+Math.random()*1500},
+                delay:staggerFn(20), ease:'outQuad'
+            });
+            setTimeout(function(){c.innerHTML=''},4000);
+        }
+
+        /* === FLOATING HEARTS === */
+        var heartsOn = false;
+        function startFloatingHearts() {
+            if (heartsOn) return; heartsOn = true;
+            var c = document.getElementById('floatingHearts'), emojis = ['💕','💗','🤍','💖','🩷'];
+            (function spawn() {
+                if (currentIndex !== scenes.length - 1) return;
+                var h = document.createElement('div'); h.className = 'float-heart';
+                h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+                h.style.left = Math.random()*100+'%';
+                h.style.animationDuration = (4+Math.random()*4)+'s';
+                h.style.fontSize = (0.7+Math.random()*0.5)+'rem';
+                c.appendChild(h);
+                setTimeout(function(){h.remove()},8000);
+                setTimeout(spawn, 600+Math.random()*800);
+            })();
+        }
+
+        /* === GUEST NAME FROM URL === */
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var name = params.get('name') || params.get('guest');
+            if (name) document.getElementById('guestName').textContent = decodeURIComponent(name);
+        })();
+
+        /* === GOLD DUST (subtle) === */
+        (function() {
+            var wrapper = document.getElementById('slidesWrapper');
+            setInterval(function() {
+                if (currentIndex < 0) return;
+                var d = document.createElement('div'); d.className = 'dust';
+                d.style.left = Math.random()*100+'%'; d.style.bottom = '0';
+                d.style.animationDuration = (5+Math.random()*4)+'s';
+                d.style.animationDelay = Math.random()*2+'s';
+                scenes[currentIndex].appendChild(d);
+                setTimeout(function(){d.remove()},10000);
+            }, 800);
+        })();
+
+    })();
+    </script>
+</body>
+</html>
