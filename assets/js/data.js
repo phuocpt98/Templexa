@@ -4385,6 +4385,33 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         updatedAt: '2026-03-29',
+    },
+    {
+        id: 222,
+        isPublic: false,
+        name: 'Love Story Slide — Câu Chuyện Của Chúng Mình',
+        slug: 'love-story-slide-cau-chuyen-cua-chung-minh',
+        description: 'Thiệp cưới dạng interactive storytelling slide — kể hành trình yêu nhau qua 10 chương, tone nhí nhảnh Gen Z, chat bubbles, tap reveal, confetti burst, floating hearts, Anime.js v4.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['invitation', 'wedding', 'storytelling', 'interactive', 'slide', 'love-story', 'gen-z', 'animejs', 'confetti', 'chat-bubbles'],
+        price: '',
+        images: [],
+        thumbnail: '',
+        mobileView: '',
+        path: './products/Invitation/Wedding/gen_222_love-story-slide-interactive/',
+        demoUrl: './products/Invitation/Wedding/gen_222_love-story-slide-interactive/index.html',
+        features: [
+            '10 chương storytelling, tone chuyển theo mood, chat bubbles tương tác',
+            'Splash tap-open, proposal tap-reveal + confetti, hearts fly on tap',
+            'Anime.js v4, scroll progress, nhạc nền, RSVP form, floating hearts',
+        ],
+        status: 'new',
+        priority: -2,
+        downloads: 1,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-29',
     }
 ];
 
