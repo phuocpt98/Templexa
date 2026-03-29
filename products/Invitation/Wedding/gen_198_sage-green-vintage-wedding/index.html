@@ -1,735 +1,1335 @@
-<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Quang Huy & Thanh Hằng</title><meta name="description" content="Quang Huy & Thanh Hằng Wedding Invitation"><meta property="og:title" content="Quang Huy & Thanh Hằng"><meta property="og:image" content="https://templexa.vn/products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/customer/og-cover.jpg"><link rel="icon" href="../../../shared/images/icons/favicon.webp"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"><style>
-/* ========== FONTS ========== */
-@font-face { font-family: 'Hastegi'; src: url('../../../shared/fonts/font-hastegi.otf') format('opentype'); font-display: swap; }
-@font-face { font-family: 'Lora'; src: url('../../../shared/fonts/font-lora.ttf') format('truetype'); font-display: swap; font-weight: 400; }
-@font-face { font-family: 'Lora'; src: url('../../../shared/fonts/font-lora-semibold.ttf') format('truetype'); font-display: swap; font-weight: 600; }
-@font-face { font-family: 'BeyondPerfection'; src: url('../../../shared/fonts/font-beyond.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'UVNHoaTay'; src: url('../../../shared/fonts/font-uvn-hoatay.ttf') format('truetype'); font-display: swap; }
-@font-face { font-family: 'Rift'; src: url('../../../shared/fonts/font-rift.ttf') format('truetype'); font-display: swap; }
-/* ========== RESET ========== */
-*, *::before, *::after { margin: 0; padding: 0; border: 0; box-sizing: border-box; }
-html, body { height: 100%; overflow-x: hidden; }
-body {
-font-family: 'Lora', 'Open Sans', sans-serif;
-font-size: 14px;
-background: #fff;
-line-height: 1.4;
--webkit-font-smoothing: antialiased;
-color: rgb(146, 132, 98);
-}
-body.no-scroll { overflow: hidden; }
-img { display: block; max-width: 100%; }
-a { color: inherit; text-decoration: none; }
-.wrapper { width: 100%; max-width: 420px; min-width: 320px; margin: 0 auto; overflow: hidden; }
-/* ========== KEYFRAMES ========== */
-@keyframes fadeInUp { 0% { opacity:0; transform:translateY(20px); } 100% { opacity:1; transform:translateY(0); } }
-@keyframes fadeInDown { 0% { opacity:0; transform:translateY(-20px); } 100% { opacity:1; transform:translateY(0); } }
-@keyframes fadeInLeft { 0% { opacity:0; transform:translateX(-20px); } 100% { opacity:1; transform:translateX(0); } }
-@keyframes fadeInRight { 0% { opacity:0; transform:translateX(40px); } 100% { opacity:1; transform:translateX(0); } }
-@keyframes pulse { 0% { transform:scale(1); } 50% { transform:scale(1.1); } 100% { transform:scale(1); } }
-@keyframes rotateInDownLeft { 0% { transform-origin:left bottom; transform:rotate(-90deg); opacity:0; } 100% { transform-origin:left bottom; transform:rotate(0); opacity:1; } }
-@keyframes rotateInDownRight { 0% { transform-origin:right bottom; transform:rotate(90deg); opacity:0; } 100% { transform-origin:right bottom; transform:rotate(0); opacity:1; } }
-@keyframes bounceIn { 0% { transform:scale(0.3); opacity:0; } 50% { transform:scale(1.05); opacity:1; } 70% { transform:scale(0.9); } 100% { transform:scale(1); } }
-@keyframes sealBreak { 0% { transform:scale(1) rotate(0); } 30% { transform:scale(1.4) rotate(-8deg); } 60% { transform:scale(1.6) rotate(5deg); opacity:1; } 100% { transform:scale(2) rotate(0); opacity:0; } }
-/* Scroll-triggered animation base */
-.anim { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.anim.in-view { opacity: 1; transform: translateY(0); }
-.anim-left { opacity:0; transform:translateX(-30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.anim-left.in-view { opacity:1; transform:translateX(0); }
-.anim-right { opacity:0; transform:translateX(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.anim-right.in-view { opacity:1; transform:translateX(0); }
-/* ============================== */
-/* SCREEN 1 — COVER (SEALED)      */
-/* ============================== */
-.screen-cover {
-position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100;
-display: flex; align-items: center; justify-content: center;
-background: #fff;
-transition: transform 0.9s cubic-bezier(0.4,0,0.2,1), opacity 0.9s cubic-bezier(0.4,0,0.2,1);
-}
-.screen-cover.opening { transform: translateY(-100%); opacity: 0; }
-.screen-cover .wrapper { min-height: auto; }
-.cover-section { position: relative; height: 772px; }
-.cover-section .container { position: relative; height: 100%; }
-.bg-paper {
-position: absolute; width: 419.688px; height: 669.178px;
-background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat left top / cover;
-pointer-events: none;
-}
-.bg-paper-1 { top: 0; left: 0; }
-.bg-paper-2 { top: 108px; left: 0.156px; }
-.cover-header { position: absolute; top: 85px; left: 49px; width: 322px; height: 53px; opacity:0; animation: fadeInUp 1s ease 1s forwards; }
-.cover-header img { width: 100%; height: 100%; object-fit: contain; }
-.cover-envelope { position: absolute; top: 235px; left: 67px; width: 285px; height: 201px; opacity:0; animation: fadeInUp 1s ease 1s forwards; }
-.cover-envelope img { width: 100%; height: 100%; object-fit: cover; }
-.cover-flower-l { position: absolute; top: 174px; left: 35px; width: 101px; height: 186px; opacity:0; animation: fadeInUp 1s ease 2s forwards; }
-.cover-flower-r { position: absolute; top: 287px; left: 254px; width: 153px; height: 302px; opacity:0; animation: fadeInUp 1s ease 2s forwards; }
-.cover-flower-l img, .cover-flower-r img { width: 100%; height: 100%; object-fit: cover; }
-.cover-seal {
-position: absolute; top: 342px; left: 180px; width: 62px; height: 72px;
-cursor: pointer; z-index: 5;
-animation: pulse 1s ease infinite;
-}
-.cover-seal:hover { filter: brightness(1.15); }
-.cover-seal.breaking { animation: sealBreak 0.6s ease forwards !important; pointer-events: none; }
-.cover-seal img { width: 100%; height: 100%; object-fit: cover; }
-.cover-date {
-position: absolute; top: 501px; left: 114px; width: 194px;
-font-family: 'Hastegi', serif; font-size: 34px; line-height: 1.3;
-color: rgb(82,97,62); text-transform: uppercase; letter-spacing: 3px; text-align: center;
-opacity:0; animation: fadeInUp 1s ease 0s forwards;
-}
-.cover-hint {
-position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
-font-family: 'Lora', serif; font-size: 13px; font-style: italic;
-color: rgb(82,97,62); opacity: 0; animation: fadeInUp 1s ease 2.5s forwards;
-text-align: center; letter-spacing: 1px; white-space: nowrap;
-}
-/* ============================== */
-/* SCREEN 2 — MAIN INVITATION     */
-/* ============================== */
-.screen-main { opacity: 0; transition: opacity 0.8s ease 0.5s; }
-.screen-main.visible { opacity: 1; }
-.section { position: relative; overflow: hidden; }
-.s-calendar { overflow: visible; }
-.section .container { position: relative; height: 100%; }
-/* ------ S1: HERO — Card envelope + 2 photos + 2 flowers ------ */
-.s-hero {
-position: relative;
-display: flex; flex-direction: column; align-items: center;
-padding: 50px 0 40px;
-background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
-}
-/* Card container — the envelope is a card, not full bg */
-.hero-card {
-position: relative;
-width: clamp(280px, 81%, 340px);
-margin: 0 auto;
-}
-/* Thiệp 1 (sau) — envelope mở */
-.hero-bg {
-width: 100%; height: auto;
-display: block;
-z-index: 0;
-position: relative;
-}
-/* Thiệp 2 (trước) — đè lên ảnh, cùng cạnh trái/phải/dưới với thiệp 1 */
-.hero-front {
-position: absolute; bottom: 0; left: 0; width: 100%;
-z-index: 3;
-pointer-events: none;
-}
-/* 2 polaroid photos — on top of card */
-.hero-photos {
-position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
-width: 62%; height: 280px; z-index: 2;
-}
-.polaroid {
-position: absolute; width: 52%; max-width: 165px; height: 210px;
-overflow: hidden;
-}
-.polaroid-frame {
-position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-pointer-events: none; z-index: 2;
-}
-.polaroid-photo {
-position: absolute;
-object-fit: cover; z-index: 1; border-radius: 2px;
-}
-/* Frame trái (element_0024_10) — xoay nhẹ phải trong ảnh */
-.polaroid-left .polaroid-photo {
-top: 9%;
-left: 4%;
-/* width: 77%; */
-height: 67%;
-}
-/* Frame phải (element_0023_11) — xoay nhẹ trái trong ảnh */
-.polaroid-right .polaroid-photo {
-top: 7.5%;
-left: 9%;
-/* width: 79%; */
-height: 69%;
-}
-.polaroid-left {
-top: 30px; left: 15px;
-transform: rotate(-6deg);
-opacity: 0;
-z-index: 3;
-}
-.polaroid-right {
-top: 5px; right: -10px;
-transform: rotate(4deg);
-opacity: 0;
-}
-.hero-started .polaroid-left {
-animation: heroPhotoLeft 1.5s ease 0.8s forwards;
-}
-.hero-started .polaroid-right {
-animation: heroPhotoRight 1.5s ease 1.2s forwards;
-}
-@keyframes heroPhotoLeft {
-0% { opacity: 0; transform: rotate(-6deg) translateY(120px); }
-100% { opacity: 1; transform: rotate(-6deg) translateY(0); }
-}
-@keyframes heroPhotoRight {
-0% { opacity: 0; transform: rotate(4deg) translateY(120px); }
-100% { opacity: 1; transform: rotate(4deg) translateY(0); }
-}
-/* Flower vines — pinned to card edges */
-.hero-leaf-left {
-position: absolute; top: 30%; left: -30px; height: 70%; width: auto;
-z-index: 3; pointer-events: none;
-opacity: 0; transform: translateX(-15px);
-}
-.hero-leaf-right {
-position: absolute; top: 35%; right: -30px; height: 85%; width: auto;
-z-index: 3; pointer-events: none;
-opacity: 0; transform: translateX(15px);
-}
-.hero-started .hero-leaf-left {
-animation: heroLeafLeft 1s ease 1.8s forwards;
-}
-.hero-started .hero-leaf-right {
-animation: heroLeafRight 1s ease 2s forwards;
-}
-@keyframes heroLeafLeft {
-0% { opacity: 0; transform: translateX(-15px); }
-100% { opacity: 1; transform: translateX(0); }
-}
-@keyframes heroLeafRight {
-0% { opacity: 0; transform: translateX(15px); }
-100% { opacity: 1; transform: translateX(0); }
-}
-/* Wax seal — on top of card + photos */
-.hero-seal {
-position: absolute; top: 65%; left: 50%;
-width: 80px; height: auto;
-z-index: 5; pointer-events: none;
-opacity: 0;
-}
-.hero-started .hero-seal {
-animation: heroSealIn 0.8s ease 2.4s forwards;
-}
-@keyframes heroSealIn {
-0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
-50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
-70% { transform: translate(-50%, -50%) scale(0.9); }
-100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
-/* "Save our date" — above card */
-.hero-save-date {
-width: 240px; margin-bottom: 15px; z-index: 4;
-opacity: 0; animation: fadeInUp 1s ease 0.3s forwards;
-}
-.hero-save-date img { width: 100%; }
-/* Date + text — below card */
-.hero-date {
-text-align: center; margin-top: 20px;
-font-family: 'Hastegi', serif; font-size: 24px; color: rgb(146,132,98);
-text-transform: uppercase; letter-spacing: 2px;
-opacity: 0; animation: fadeInUp 0.8s ease 2.2s forwards;
-}
-.hero-invite-text {
-text-align: center; margin-top: 10px; padding: 0 20px;
-font-family: 'Lora', serif; font-size: 15px; color: rgb(146,132,98);
-text-transform: uppercase; letter-spacing: 2px; line-height: 1.6;
-opacity: 0; animation: fadeInUp 0.8s ease 2.5s forwards;
-}
-/* ------ Khách mời ------ */
-.khach-moi {
-font-family: 'UVNHoaTay', serif;
-font-size: clamp(22px, 7vw, 30px);
-color: rgb(82, 97, 62);
-text-transform: none;
-letter-spacing: 1px;
-line-height: 1.4;
-margin: 8px 0 4px;
-min-height: 0;
-text-decoration: none;
-font-style: normal;
-}
-.khach-moi:empty { display: none; }
-/* ------ S2: Full-width photo ------ */
-.s-photo-full { height: 280px; }
-.s-photo-full img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
-/* ------ S3: Parents / Names / Date / Venue ------ */
-.s-info {
-min-height: 999px; padding: 60px 30px;
-background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
-text-align: center;
-}
-.info-parents { margin-bottom: 20px; }
-.info-side-label {
-font-family: 'Lora', serif; font-size: 14px; font-weight: 600;
-text-transform: uppercase; letter-spacing: 3px; margin-bottom: 6px;
-}
-.info-side-names {
-font-size: 13px; line-height: 1.6; margin-bottom: 18px;
-}
-.info-couple { margin: 25px 0; }
-.info-couple .name {
-font-family: 'Hastegi', serif; font-size: clamp(40px, 13vw, 55px);
-text-transform: uppercase; letter-spacing: 2px; line-height: 1.1;
-}
-.info-and {
-width: 50px; margin: 8px auto;
-}
-.info-divider { width: 60px; height: 1px; background: rgb(146,132,98); margin: 20px auto; opacity: 0.4; }
-.info-ceremony {
-font-size: 18px; text-transform: uppercase; letter-spacing: 2px; line-height: 1.6; margin: 15px 0;
-}
-/* Tiêu đề lễ chính (Lễ Thành Hôn / Báo Hỷ) */
-.info-ceremony-title {
-font-size: 22px; font-weight: 700; text-transform: uppercase;
-letter-spacing: 4px; line-height: 1.6; margin: 18px 0 8px;
-color: rgb(146,132,98);
-}
-/* Hoa văn ngăn cách 2 lễ */
-.ceremony-ornament {
-display: flex; align-items: center; justify-content: center;
-gap: 10px; margin: 28px auto 24px; width: 80%;
-}
-.ceremony-ornament::before,
-.ceremony-ornament::after {
-content: ''; flex: 1; height: 1px;
-background: linear-gradient(90deg, transparent, rgb(146,132,98), transparent);
-opacity: 0.5;
-}
-.ceremony-ornament img {
-width: 38px; height: 38px; object-fit: contain;
-opacity: 0.7; filter: drop-shadow(0 1px 2px rgba(146,132,98,0.3));
-}
-.info-day {
-font-family: 'Hastegi', serif; font-size: clamp(60px, 19.5vw, 82px); line-height: 1; margin: 10px 0;
-}
-.info-month, .info-year {
-font-size: 19px; text-transform: uppercase; letter-spacing: 3px; line-height: 1.6;
-}
-.info-lunar {
-font-size: 15px; font-style: italic; margin: 10px 0 25px; opacity: 0.8;
-}
-.info-venue { margin-top: 25px; }
-.info-venue-icon { width: 30px; margin: 0 auto 10px; }
-.info-venue-name {
-font-size: 21px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
-}
-.info-venue-addr { font-size: 14px; line-height: 1.5; }
-.info-direction {
-display: inline-block; margin-top: 15px; padding: 8px 20px;
-font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
-border: 2px solid rgb(146,132,98); border-radius: 30px; cursor: pointer;
-animation: pulse 1s ease infinite;
-}
-.info-direction:hover { background: rgb(146,132,98); color: #fff; }
-/* ------ S4: Photo + Quote ------ */
-.s-quote { height: 638px; position: relative; }
-.s-quote .bg-photo { width: 100%; height: 100%; object-fit: cover; }
-.s-quote .overlay {
-position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-background: linear-gradient(rgba(2,2,2,0), rgba(1,1,1,0.6));
-}
-.s-quote .quote-text {
-position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
-font-family: 'BeyondPerfection', serif; font-size: clamp(28px, 8.5vw, 36px); color: #fff;
-text-align: center; width: 90%; max-width: 350px; line-height: 1.3;
-text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-/* ------ S5: Love Story ------ */
-.s-lovestory {
-min-height: 858px; padding: 40px 20px;
-background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
-}
-.ls-title {
-width: 280px; margin: 0 auto 30px;
-filter: sepia(1) saturate(2) hue-rotate(-15deg) brightness(0.6);
-}
-.ls-photos {
-position: relative; width: 100%; height: 500px; margin-bottom: 30px;
-}
-.ls-photo-wrap {
-position: absolute; width: clamp(170px, 55%, 210px); height: clamp(195px, 57%, 240px);
-overflow: hidden;
-}
-.ls-photo-wrap.groom { top: 0; left: 2.5%; }
-.ls-photo-wrap.bride { top: 240px; right: 2.5%; }
-.ls-deco {
-position: absolute; pointer-events: none; z-index: 1;
-}
-.ls-deco-top-left {
-top: -15px; left: -30px; width: 100px; opacity: 0.85;
-}
-.ls-deco-bottom-right {
-bottom: -10px; right: -10px; width: 130px; opacity: 0.85;
-}
-.ls-deco-center {
-top: 48%; left: 50%; transform: translate(-50%, -50%);
-width: 60px; z-index: 5;
-}
-.ls-frame {
-position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-z-index: 2; pointer-events: none;
-}
-.ls-photo {
-position: absolute; z-index: 3; object-fit: cover; border-radius: 2px;
-}
-.ls-photo.bride-photo {
-top: 10%; left: 8%; width: 76%; height: 75%;
-transform: rotate(9deg);
-}
-.ls-photo.groom-photo {
-top: 8%; left: 10%; width: 76%; height: 75%;
-transform: rotate(-10deg);
-}
-.ls-label {
-font-family: 'UVNHoaTay', serif; font-size: 28px; text-align: center;
-margin-top: 3px;
-}
-.ls-name {
-font-family: 'Lora', serif; font-size: 18px; text-align: center;
-text-transform: uppercase; letter-spacing: 2px;
-}
-.ls-text-block { text-align: center; padding: 0 10px; }
-.ls-text-block p {
-font-size: 13px; line-height: 1.8; text-align: justify;
-}
-/* ------ S6: Calendar (March 2026) ------ */
-.s-calendar {
-min-height: 370px; position: relative;
-background: url('../../../shared/images/wedding-elements/calendar-bg.webp') no-repeat center / cover;
-display: flex; flex-direction: column; align-items: center; justify-content: center;
-padding: 40px 20px 30px;
-}
-.s-calendar::before {
-content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-background: rgba(140, 30, 30, 0.25);
-pointer-events: none;
-}
-.cal-month {
-font-family: 'BeyondPerfection', serif; font-size: 41px; color: #fff;
-margin-bottom: 15px; position: relative; z-index: 1;
-margin-top: 10px; line-height: 1.3;
-}
-.cal-grid {
-display: grid; grid-template-columns: repeat(7, 1fr);
-gap: 6px; width: 100%; max-width: 350px; text-align: center;
-position: relative; z-index: 1;
-}
-.cal-day-name {
-font-size: 13px; color: rgba(255,255,255,0.7); text-transform: uppercase;
-padding-bottom: 8px; font-weight: 600;
-}
-.cal-day {
-font-size: 13px; color: #fff; padding: 6px 0; border-radius: 50%;
-width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
-margin: 0 auto;
-}
-.cal-day.empty { visibility: hidden; }
-.cal-day.highlight {
-color: #fff; font-weight: 700;
-width: 44px; height: 44px;
-border-radius: 0;
-background: url('../../../shared/images/wedding-elements/heart-icon.webp') no-repeat center / contain;
-animation: pulse 1.5s ease infinite;
-}
-/* ------ S7: Timeline ------ */
-.s-timeline {
-padding: 50px 20px;
-background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
-}
-.tl-title {
-font-family: 'BeyondPerfection', serif; font-size: 38px;
-text-align: center; margin-bottom: 40px;
-}
-.tl-items { position: relative; padding-left: 60px; }
-.tl-items::before {
-content: ''; position: absolute; left: 28px; top: 0; bottom: 0;
-width: 2px; background: rgba(146,132,98,0.3);
-}
-.tl-item {
-position: relative; margin-bottom: 35px; padding-left: 30px;
-}
-.tl-icon {
-position: absolute; left: -48px; top: 0;
-width: 48px; height: 48px; border-radius: 50%;
-/*background: #fff;*/
-display: flex; align-items: center; justify-content: center;
-/*box-shadow: 0 2px 8px rgba(0,0,0,0.1);*/
-}
-.tl-icon img { width: 32px; height: 32px; object-fit: contain; }
-.tl-item:first-child .tl-icon img {
-width: 40px; height: 40px;
-filter: sepia(1) saturate(3) hue-rotate(-15deg) brightness(0.75);
-}
-.tl-time {
-font-size: 21px; font-weight: 600; margin-bottom: 4px;
-}
-.tl-desc { font-size: 15px; }
-/* ------ S8: Countdown ------ */
-.s-countdown {
-position: relative;
-background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
-text-align: center;
-}
-.header-countdown {
-display: flex; width: 100%; min-height: 200px;
-}
-.background-blank {
-flex: 1;
-background: url('../../../shared/images/wedding-elements/countdown-deco.webp') no-repeat center / cover;
-position: relative;
-}
-.background-blank::after {
-content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-background: rgba(120, 40, 30, 0.4);
-}
-.cd-english {
-flex: 1;
-background: rgb(146,132,98);
-font-family: 'BeyondPerfection', serif; font-size: 13px; color: #fff;
-display: flex; align-items: center; justify-content: center;
-padding: 20px 15px; text-align: center;
-}
-.info-and {
-filter: sepia(1) saturate(2.5) hue-rotate(-15deg) brightness(0.55);
-}
-.count-down-content {
-display: flex; flex-direction: column; align-items: center; justify-content: center;
-padding: 40px 20px;
-}
-.cd-title {
-font-family: 'UVNHoaTay', serif; font-size: clamp(32px, 10vw, 42px); color: rgb(146,132,98);
-margin-bottom: 40px; line-height: 1.2;
-}
-.cd-timer {
-display: flex; align-items: center; gap: 8px;
-}
-.cd-unit { text-align: center; }
-.cd-number {
-font-family: 'Hastegi', serif; font-size: clamp(38px, 12.8vw, 54px); color: rgb(146,132,98);
-min-width: clamp(50px, 16.7vw, 70px); line-height: 1;
-}
-.cd-label {
-font-family: 'Lora', serif; font-size: 12px; color: rgba(146,132,98,0.7);
-text-transform: uppercase; margin-top: 5px;
-}
-.cd-sep {
-font-family: 'Rift', sans-serif; font-size: 30px; color: rgb(146,132,98);
-margin-top: -15px;
-}
-/* ------ S9: Gallery Slider ------ */
-.s-gallery {
-height: 715px;
-background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
-display: flex; flex-direction: column;
-}
-.gal-view {
-flex: 1; overflow: hidden; position: relative;
-}
-.gal-view img {
-width: 100%; height: 100%; object-fit: cover;
-transition: opacity 0.5s ease;
-}
-.gal-btn {
-position: absolute; top: 50%; transform: translateY(-50%);
-width: 40px; height: 40px; border-radius: 50%;
-background: rgba(146,132,98,0.6); color: #fff;
-border: none; cursor: pointer; z-index: 3;
-font-size: 18px; display: flex; align-items: center; justify-content: center;
-transition: background 0.3s;
-}
-.gal-btn:hover { background: rgba(146,132,98,0.9); }
-.gal-btn-prev { left: 10px; }
-.gal-btn-next { right: 10px; }
-.gal-controls {
-height: 90px; display: flex; align-items: center; gap: 8px;
-padding: 5px 10px; overflow-x: auto; overflow-y: hidden;
-}
-.gal-thumb {
-width: 80px; height: 80px; flex-shrink: 0;
-border-radius: 8px; overflow: hidden; cursor: pointer;
-border: 2px solid transparent; transition: border-color 0.3s;
-}
-.gal-thumb.active { border-color: rgb(146,132,98); }
-.gal-thumb img { width: 100%; height: 100%; object-fit: cover; }
-/* ------ S10: RSVP Form ------ */
-.s-rsvp {
-min-height: 665px; padding: 50px 20px;
-background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
-text-align: center;
-}
-.rsvp-text {
-font-size: 16px; line-height: 1.8; margin-bottom: 30px;
-}
-.rsvp-form { max-width: 382px; margin: 0 auto; }
-.rsvp-input, .rsvp-textarea, .rsvp-select {
-width: 100%; padding: 10px 18px; margin-bottom: 14px;
-border: 1px solid rgb(146,132,98); border-radius: 20px;
-font-family: 'Lora', serif; font-size: 14px; color: rgb(146,132,98);
-background: rgba(255,255,255,0.5); outline: none;
-}
-.rsvp-textarea { height: 100px; resize: none; border-radius: 16px; }
-.rsvp-select { appearance: none; cursor: pointer; }
-.rsvp-input::placeholder, .rsvp-textarea::placeholder { color: rgba(146,132,98,0.5); }
-.rsvp-input:focus, .rsvp-textarea:focus { border-color: rgb(82,97,62); }
-.rsvp-btn {
-width: 100%; padding: 12px; margin-top: 10px;
-background: rgb(146,132,98); color: #fff; border-radius: 28px;
-font-family: 'Lora', serif; font-size: 17px; text-transform: uppercase;
-letter-spacing: 2px; cursor: pointer; border: none;
-transition: background 0.3s;
-}
-.rsvp-btn:hover { background: rgb(120,108,78); }
-.rsvp-gift-btn {
-width: 100%; padding: 12px; margin-top: 15px;
-background: transparent; color: rgb(146,132,98); border-radius: 28px;
-font-family: 'Lora', serif; font-size: 17px; text-transform: uppercase;
-letter-spacing: 2px; cursor: pointer;
-border: 2px solid rgb(146,132,98);
-transition: all 0.3s;
-}
-.rsvp-gift-btn:hover { background: rgb(146,132,98); color: #fff; }
-/* ------ S11: Thank You + Footer ------ */
-.s-thankyou {
-height: 674px; position: relative;
-}
-.ty-bg {
-width: 100%; height: 100%; object-fit: cover;
-filter: brightness(78%);
-}
-.ty-overlay {
-position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-display: flex; flex-direction: column; align-items: center; justify-content: center;
-padding: 40px 30px; text-align: center;
-}
-.ty-text {
-font-size: 14px; color: #fff; line-height: 1.8; margin-bottom: 25px;
-}
-.ty-heading {
-font-family: 'BeyondPerfection', serif; font-size: 24px; color: #fff;
-margin-bottom: 30px;
-}
-.ty-social {
-display: flex; gap: 15px; margin-bottom: 30px;
-}
-.ty-social a {
-width: 40px; height: 40px; border-radius: 50%;
-background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center;
-transition: background 0.3s;
-}
-.ty-social a:hover { background: rgba(255,255,255,0.3); }
-.ty-social img { width: 22px; height: 22px; }
-.ty-brand {
-font-size: 13px; color: rgb(90,107,13); margin-top: 20px;
-}
-/* ========== POPUPS ========== */
-.popup-overlay {
-display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-background: rgba(0,0,0,0.5); z-index: 200;
-align-items: center; justify-content: center;
-}
-.popup-overlay.show { display: flex; }
-.popup-overlay { overflow-y: auto; padding: 20px 0; }
-.popup {
-background: #fff; border-radius: 16px; padding: 30px; max-width: 360px; width: 90%;
-text-align: center; position: relative;
-background-image: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp');
-background-size: cover;
-margin: auto;
-max-height: 90vh; overflow-y: auto;
-}
-.popup-close {
-position: absolute; top: 12px; right: 15px;
-font-size: 24px; cursor: pointer; color: rgb(146,132,98);
-background: none; border: none; font-family: sans-serif;
-}
-.popup-thankyou-title {
-font-family: 'BeyondPerfection', serif; font-size: 24px;
-color: rgb(146,132,98); margin-bottom: 15px;
-}
-.popup-thankyou-text {
-font-size: 14px; line-height: 1.6; margin-bottom: 20px;
-}
-.popup-date-big {
-font-family: 'Lora', serif; font-size: 29px; font-weight: 600;
-letter-spacing: 5px; margin-bottom: 10px;
-}
-/* Popup Gift / Banking */
-.popup-gift { max-width: 380px; }
-.popup-gift-photo {
-width: 100%; height: 200px; object-fit: cover; object-position: center 20%;
-border-radius: 12px; margin-bottom: 15px;
-}
-.popup-gift-grid {
-display: flex; flex-direction: column; gap: 20px;
-}
-.popup-gift-card {
-text-align: center;
-}
-.popup-gift-divider {
-width: 60px; height: 1px; background: rgba(146,132,98,0.4);
-margin: 0 auto;
-}
-.popup-gift-label {
-font-family: 'UVNHoaTay', serif; font-size: 30px; margin-bottom: 5px;
-}
-.popup-gift-name {
-font-size: 18px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;
-}
-.popup-gift-qr {
-width: 200px; margin: 0 auto; border-radius: 12px;
-}
-/* ========== MUSIC BUTTON ========== */
-.music-btn {
-position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px;
-border-radius: 50%; background: rgb(146,132,98); color: #fff;
-border: none; cursor: pointer; z-index: 150;
-display: none; align-items: center; justify-content: center;
-box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-.music-btn.show { display: flex; }
-.music-btn.playing { animation: pulse 2s ease infinite; }
-.music-btn svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.music-btn .icon-on { display: none; }
-.music-btn .icon-off { display: block; }
-.music-btn.playing .icon-on { display: block; }
-.music-btn.playing .icon-off { display: none; }
-/* ========== RESPONSIVE ========== */
-@media (max-width: 420px) {
-.cover-section {
-transform-origin: top left;
-transform: scale(calc(100vw / 420));
-height: calc(772px * (100vw / 420));
-}
-.s-photo-full { height: clamp(200px, 66vw, 280px); }
-.s-quote { height: clamp(450px, 152vw, 638px); }
-.s-gallery { height: clamp(500px, 170vw, 715px); }
-.s-calendar { min-height: clamp(320px, 88vw, 370px); height: auto; }
-.header-countdown { min-height: clamp(150px, 47.6vw, 200px); }
-.gal-thumb { width: 65px; height: 65px; }
-.gal-controls { height: 75px; }
-.info-venue-name { font-size: clamp(16px, 5vw, 21px); }
-}
-@media (max-width: 350px) {
-.ls-photos { height: 440px; }
-.ls-photo-wrap.bride { top: 210px; }
-.cd-timer { gap: 4px; }
-.cd-sep { font-size: 24px; }
-}
-</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body class="no-scroll"><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x7a\x45\x35\x4f\x46\x39\x7a\x59\x57\x64\x6c\x4c\x57\x64\x79\x5a\x57\x56\x75\x4c\x58\x5a\x70\x62\x6e\x52\x68\x5a\x32\x55\x74\x64\x32\x56\x6b\x5a\x47\x6c\x75\x5a\x33\x77\x79\x4d\x44\x49\x32\x4c\x54\x41\x7a\x4c\x54\x49\x35\x66\x48\x42\x6f\x64\x57\x39\x6a\x63\x48\x51\x35\x4f\x41\x3d\x3d'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><div class="screen-cover" id="screenCover"><div class="wrapper"><div class="cover-section"><div class="container"><div class="bg-paper bg-paper-1"></div><div class="bg-paper bg-paper-2"></div><div class="cover-header"><img src="../../../shared/images/wedding-elements/thiep-thanh-dat-element_0032_2.webp" alt="A day to remember!"></div><div class="cover-envelope"><img src="../../../shared/images/wedding-elements/thiep-thanh-dat-element_0031_3.webp" alt="Envelope"></div><div class="cover-flower-l"><img src="../../../shared/images/wedding-elements/thiep-thanh-dat-element_0028_6.webp" alt=""></div><div class="cover-flower-r"><img src="../../../shared/images/wedding-elements/thiep-thanh-dat-element_0029_5.webp" alt=""></div><div class="cover-seal" id="waxSeal"><img src="../../../shared/images/wedding-elements/thiep-thanh-dat-element_0030_4.webp" alt="Mở thiệp"></div><div class="cover-date">29.03.2026</div></div></div></div></div><div class="screen-main" id="screenMain"><div class="wrapper"><div class="section s-hero" id="sHero"><div class="hero-save-date"><img src="../../../shared/images/wedding-elements/element_0027_7.webp" alt="Save our date"></div><div class="hero-card"><img class="hero-bg" src="../../../shared/images/wedding-elements/element_0025_9.webp" alt=""><img class="hero-front" src="../../../shared/images/wedding-elements/element_0021_13.webp" alt=""><div class="hero-photos"><div class="polaroid polaroid-left"><img class="polaroid-frame" src="../../../shared/images/wedding-elements/element_0024_10.webp" alt=""><img class="polaroid-photo" src="./customer/hinh-doi-1.webp" alt="Couple photo 1"></div><div class="polaroid polaroid-right"><img class="polaroid-frame" src="../../../shared/images/wedding-elements/element_0023_11.webp" alt=""><img class="polaroid-photo" src="./customer/hinh-doi-2.webp" alt="Couple photo 2"></div></div><img class="hero-leaf-left" src="../../../shared/images/wedding-elements/group-16.webp" alt=""><img class="hero-leaf-right" src="../../../shared/images/wedding-elements/leaf-left.webp" alt=""><img class="hero-seal" src="../../../shared/images/wedding-elements/small-element.webp" alt=""></div><div class="hero-date">29.03.2026</div><div class="hero-invite-text">Trân trọng kính mời
-<div class="khach-moi"></div><br>
-tới dự bữa cơm thân mật<br>chung vui cùng gia đình <span style="white-space:nowrap;">chúng tôi</span></div></div><div class="section s-photo-full"><img src="./customer/anh-cuoi-rong.jpg" alt="Couple photo" class="anim"></div><div class="section s-info"><div class="info-parents anim"><div class="info-side-label">Nhà trai</div><div class="info-side-names">Ông: Nguyễn Trọng Hưng<br>Bà: Lê Thị Kim Dung</div><div class="info-side-label">Nhà gái</div><div class="info-side-names">Ông: Ngô Ngọc Sơn<br>Bà: Nguyễn Thị Thu Hồng</div></div><div class="info-couple anim"><div class="name">Quang Huy</div><img class="info-and" src="../../../shared/images/wedding-elements/and-symbol.webp" alt="&"><div class="name">Thanh Hằng</div></div><div class="info-divider"></div><div class="info-ceremony-title anim">Lễ Thành Hôn</div><div class="info-day anim">29</div><div class="info-month anim">Tháng 3</div><div class="info-year anim">Năm 2026</div><div class="info-lunar anim">(Tức ngày 11 tháng 02 năm Bính Ngọ)</div><div class="info-ceremony anim" style="font-size:15px;">Vào hồi 11:00, Chủ Nhật</div><div class="info-venue anim"><img class="info-venue-icon" src="../../../shared/images/icons/map-pin.webp" alt=""><div class="info-venue-name">Hội trường Hoa Ban</div><div class="info-venue-addr">Trung tâm Xúc tiến Đầu tư Thương mại & Du lịch tỉnh Điện Biên<br>(Cạnh hầm Đờ Cát)</div></div><div class="ceremony-ornament anim"><img src="../../../shared/images/wedding-elements/small-flower.webp" alt=""></div><div class="info-ceremony-title anim">Tiệc Báo Hỷ</div><div class="info-day anim">03</div><div class="info-month anim">Tháng 4</div><div class="info-year anim">Năm 2026</div><div class="info-lunar anim">(Tức ngày 16 tháng 02 năm Bính Ngọ)</div><div class="info-ceremony anim" style="font-size:15px;">Vào hồi 18:30, Thứ Sáu</div><div class="info-venue anim"><img class="info-venue-icon" src="../../../shared/images/icons/map-pin.webp" alt=""><div class="info-venue-name">Nhà hàng Trống Đồng Palace Mễ Trì</div><div class="info-venue-addr">Phòng Lotus 3 - Tầng 2<br>52 Miếu Đàm - Mễ Trì - Hà Nội</div></div></div><div class="section s-quote"><img class="bg-photo" src="./customer/nen-loi-yeu.webp" alt=""><div class="overlay"></div><div class="quote-text anim">All of me loves all of you</div></div><div class="section s-lovestory"><img class="ls-title anim" src="../../../shared/images/wedding-elements/love-story-ornament.webp" alt="Our story"><div class="ls-photos"><img class="ls-deco ls-deco-top-left" src="../../../shared/images/wedding-elements/group-16.webp" alt=""><img class="ls-deco ls-deco-bottom-right" src="../../../shared/images/wedding-elements/leaf-left.webp" alt=""><img class="ls-deco ls-deco-center" src="../../../shared/images/wedding-elements/small-element.webp" alt=""><div class="ls-photo-wrap groom anim-left"><img class="ls-frame" src="../../../shared/images/wedding-elements/groom-frame.webp" alt=""><img class="ls-photo groom-photo" src="./customer/chu_re.webp" alt="Chú rể"></div><div class="ls-label" style="position:absolute;top:80px;right:15px;width:160px;z-index:3;">Chú rể</div><div class="ls-name" style="position:absolute;top:110px;right:15px;width:160px;z-index:3;">Quang Huy</div><div class="ls-photo-wrap bride anim-right"><img class="ls-frame" src="../../../shared/images/wedding-elements/bride-frame.webp" alt=""><img class="ls-photo bride-photo" src="./customer/co-dau.jpg" alt="Cô dâu"></div><div class="ls-label" style="position:absolute;top:320px;left:15px;width:160px;z-index:3;">Cô dâu</div><div class="ls-name" style="position:absolute;top:350px;left:15px;width:160px;z-index:3;">Thanh Hằng</div></div><div class="ls-text-block anim"><p>
-Tuy cùng lớn lên trong một thành phố, nhưng phải hơn 20 năm sau chúng tôi mới tìm thấy nhau. Ngay từ lần gặp đầu tiên, cả hai đã nhận ra đây chính là tri kỷ của đời mình.
-</p></br><p>
-Từ đó, chúng tôi cùng nhau viết nên câu chuyện tình yêu riêng. Dẫu có những thử thách, nhưng càng khiến chúng tôi thêm trân trọng nhau hơn.
-</p></br><p>
-Và hôm nay, chúng tôi sẵn sàng bước vào chương mới - cùng nhau xây dựng một mái ấm tràn đầy yêu thương.
-</p></div></div><div class="section s-calendar"><div class="cal-month anim">March</div><div class="cal-grid anim"><div class="cal-day-name">Mon</div><div class="cal-day-name">Tue</div><div class="cal-day-name">Wed</div><div class="cal-day-name">Thur</div><div class="cal-day-name">Fri</div><div class="cal-day-name">Sat</div><div class="cal-day-name">Sun</div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day highlight">29</div><div class="cal-day">30</div><div class="cal-day">31</div></div></div><div class="section s-countdown"><div class="header-countdown"><div class="background-blank"></div><div class="cd-english anim">Every moment with you feels painted in gentle light.</div></div><div class="count-down-content" ><div class="cd-title anim">Đếm ngược tới ngày trọng đại</div><div class="cd-timer anim"><div class="cd-unit"><div class="cd-number" id="cdDays">--</div><div class="cd-label">Ngày</div></div><div class="cd-sep">:</div><div class="cd-unit"><div class="cd-number" id="cdHours">--</div><div class="cd-label">Giờ</div></div><div class="cd-sep">:</div><div class="cd-unit"><div class="cd-number" id="cdMins">--</div><div class="cd-label">Phút</div></div><div class="cd-sep">:</div><div class="cd-unit"><div class="cd-number" id="cdSecs">--</div><div class="cd-label">Giây</div></div></div></div></div><div class="section s-gallery"><div class="gal-view"><img id="galView" src="./customer/album-1.webp" alt="Gallery"><button class="gal-btn gal-btn-prev" id="galPrev">&#10094;</button><button class="gal-btn gal-btn-next" id="galNext">&#10095;</button></div><div class="gal-controls" id="galControls"><div class="gal-thumb active" data-src="./customer/album-2.jpg"><img src="./customer/album-2.jpg" alt=""></div><div class="gal-thumb" data-src="./customer/album-4.jpg"><img src="./customer/album-4.jpg" alt=""></div><div class="gal-thumb" data-src="./customer/album-8.webp"><img src="./customer/album-8.webp" alt=""></div><div class="gal-thumb" data-src="./customer/album-3.webp"><img src="./customer/album-3.webp" alt=""></div><div class="gal-thumb" data-src="./customer/album-7.webp"><img src="./customer/album-7.webp" alt=""></div><div class="gal-thumb" data-src="./customer/album-11.jpg"><img src="./customer/album-11.jpg" alt=""></div></div></div><div class="section s-rsvp"><div class="rsvp-text anim">
-Hãy xác nhận sự có mặt của bạn<br>
-để chúng tôi chuẩn bị chu đáo nhất.<br>
-Trân trọng!
-</div><form class="rsvp-form anim" id="rsvpForm"><input class="rsvp-input" type="text" name="name" placeholder="Họ và tên" required><textarea class="rsvp-textarea" name="message" placeholder="Lời nhắn gửi..."></textarea><select class="rsvp-select" name="attendance"><option value="">-- Xác nhận tham dự --</option><option value="yes">Tôi sẽ tham dự</option><option value="no">Tôi không thể tham dự</option></select><input class="rsvp-input" type="tel" name="phone" placeholder="Số điện thoại"><button class="rsvp-btn" type="submit">Gửi lời nhắn & xác nhận</button></form><button class="rsvp-gift-btn anim" id="btnGift">Gửi quà mừng cưới</button></div><div class="section s-thankyou"><img class="ty-bg" src="./customer/nen-cam-on.webp" alt=""><div class="ty-overlay"><div class="ty-text anim">
-Cảm ơn bạn đã dành thời gian<br>
-đọc thiệp mời của chúng tôi.<br>
-Sự hiện diện của bạn là niềm vinh hạnh<br>
-lớn lao cho gia đình chúng tôi.
-</div><div class="ty-heading anim">Thank you!</div><div class="ty-social anim"><a href="https://www.facebook.com/messages/t/linh.pi.359" target="_blank"><img src="../../../shared/images/icons/fb-icon.webp" alt="Facebook"></a><a href="https://www.tiktok.com/@templexa" target="_blank"><img src="../../../shared/images/icons/tiktok-icon.webp" alt="TikTok"></a><a href="https://zalo.me/0334884895" target="_blank"><img src="../../../shared/images/icons/zalo-icon.webp" alt="Zalo"></a></div><div class="ty-brand anim"><a href="https://templexa.vn/" target="_blank">Templexa.vn Wedding Invitation</a></div></div></div></div></div><div class="popup-overlay" id="popupThankyou"><div class="popup"><button class="popup-close" id="closeThankyou">&times;</button><div class="popup-thankyou-title">Thank you!</div><div class="popup-thankyou-text">Cảm ơn bạn đã dành thời gian phản hồi.<br>Chúng tôi rất mong được gặp bạn!</div></div></div><div class="popup-overlay" id="popupGift"><div class="popup popup-gift"><button class="popup-close" id="closeGift">&times;</button><img class="popup-gift-photo" src="./customer/nha_qua.webp" alt=""><div class="popup-gift-grid"><div class="popup-gift-card"><div class="popup-gift-label">Chú rể</div><div class="popup-gift-name">Phạm Quang Huy</div><img class="popup-gift-qr" src="./customer/qr_nam.webp" alt="QR Chú rể"></div><div class="popup-gift-divider"></div><div class="popup-gift-card"><div class="popup-gift-label">Cô dâu</div><div class="popup-gift-name">Trần Thanh Hằng</div><img class="popup-gift-qr" src="./customer/qr_nu.webp" alt="QR Cô dâu"></div></div></div></div><script src="./customer/data.js"></script><script src="../../../shared/wedding/wishes-api.js"></script><button class="music-btn" id="musicBtn" title="Bật/tắt nhạc"><svg class="icon-on" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg><svg class="icon-off" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button><audio id="bgMusic" loop preload="auto"><source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg"></audio><script>(function () { if (typeof WEDDING_DATA === '\x75\x6e\x64\x65\x66\x69\x6e\x65\x64' || !WEDDING_DATA.guests) return; var params = new URLSearchParams(window.location.search); var rawId = params.get('id'); if (rawId === null) return; var guestId = parseInt(rawId, 10); var guest = null; for (var i = 0; i < WEDDING_DATA.guests.length; i++) { if (WEDDING_DATA.guests[i].id === guestId) { guest = WEDDING_DATA.guests[i]; break; } } if (!guest) return; var el = document.querySelector('.khach-moi'); if (el) el.textContent = guest.name; })(); (function () { var cover = document.getElementById('screenCover'); var main = document.getElementById('screenMain'); var seal = document.getElementById('waxSeal'); var musicBtn = document.getElementById('musicBtn'); var bgMusic = document.getElementById('bgMusic'); seal.addEventListener('click', function () { seal.classList.add('breaking'); setTimeout(function () { cover.classList.add('opening'); main.classList.add('visible'); document.body.classList.remove('no-scroll'); document.querySelector('.hero-card').classList.add('hero-started'); musicBtn.classList.add('show'); bgMusic.play().then(function() { musicBtn.classList.add('playing'); }).catch(function() {}); }, 500); setTimeout(function () { cover.style.display = 'none'; }, 3000); }); musicBtn.addEventListener('click', function () { if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.add('playing'); } else { bgMusic.pause(); musicBtn.classList.remove('playing'); } }); var animEls = document.querySelectorAll('.anim, .anim-left, .anim-right'); var observer = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('in-view'); observer.unobserve(entry.target); } }); }, { threshold: 0.15 }); animEls.forEach(function (el) { observer.observe(el); }); var target = new Date('2026-03-29T11:00:00+07:00').getTime(); function updateCountdown() { var now = Date.now(); var diff = target - now; if (diff <= 0) { diff = 0; } var d = Math.floor(diff / 86400000); var h = Math.floor((diff % 86400000) / 3600000); var m = Math.floor((diff % 3600000) / 60000); var s = Math.floor((diff % 60000) / 1000); document.getElementById('cdDays').textContent = d < 10 ? '0' + d : d; document.getElementById('cdHours').textContent = h < 10 ? '0' + h : h; document.getElementById('cdMins').textContent = m < 10 ? '0' + m : m; document.getElementById('cdSecs').textContent = s < 10 ? '0' + s : s; } updateCountdown(); setInterval(updateCountdown, 1000); var galView = document.getElementById('galView'); var thumbs = document.querySelectorAll('.gal-thumb'); var galIndex = 0; var galAuto; function galGoTo(i) { galIndex = (i + thumbs.length) % thumbs.length; thumbs.forEach(function (t) { t.classList.remove('active'); }); thumbs[galIndex].classList.add('active'); galView.style.opacity = 0; setTimeout(function () { galView.src = thumbs[galIndex].getAttribute('data-src'); galView.style.opacity = 1; }, 300); } function galStartAuto() { galAuto = setInterval(function () { galGoTo(galIndex + 1); }, 3000); } function galStopAuto() { clearInterval(galAuto); } document.getElementById('galPrev').addEventListener('click', function () { galStopAuto(); galGoTo(galIndex - 1); galStartAuto(); }); document.getElementById('galNext').addEventListener('click', function () { galStopAuto(); galGoTo(galIndex + 1); galStartAuto(); }); thumbs.forEach(function (thumb, idx) { thumb.addEventListener('click', function () { galStopAuto(); galGoTo(idx); galStartAuto(); }); }); galStartAuto(); var SHEET_ID = '3'; var rsvpForm = document.getElementById('rsvpForm'); var rsvpBtn = rsvpForm.querySelector('.rsvp-btn'); rsvpForm.addEventListener('submit', function (e) { e.preventDefault(); var name = rsvpForm.name.value.trim(); var message = rsvpForm.message.value.trim(); var attendance = rsvpForm.attendance.value; var phone = rsvpForm.phone.value.trim(); if (!name) return; rsvpBtn.disabled = true; rsvpBtn.textContent = 'Đang gửi...'; var now = new Date(); var time = now.toLocaleDateString('vi-VN'\x29\x20\x2b\x20' ' + now.toLocaleTimeString('vi-VN'); sheetsAPI.post(SHEET_ID, { A: name, B: phone, C: attendance === 'yes'\x20\x3f\x20'Tham dự' : attendance === 'no'\x20\x3f\x20'Không tham dự' : '', D: message, E: time }).then(function () { rsvpBtn.textContent = 'Đã gửi!'; document.getElementById('popupThankyou').classList.add('show'); rsvpForm.reset(); setTimeout(function () { rsvpBtn.disabled = false; rsvpBtn.textContent = 'Gửi lời nhắn & xác nhận'; }, 3000); }).catch(function () { rsvpBtn.disabled = false; rsvpBtn.textContent = 'Gửi lời nhắn & xác nhận'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x61\x6c\x65\x72\x74\x28'Gửi thất bại, vui lòng thử lại!'); }); }); document.getElementById('btnGift').addEventListener('click', function () { document.getElementById('popupGift').classList.add('show'); }); document.getElementById('closeThankyou').addEventListener('click', function () { document.getElementById('popupThankyou').classList.remove('show'); }); document.getElementById('closeGift').addEventListener('click', function () { document.getElementById('popupGift').classList.remove('show'); }); document.querySelectorAll('.popup-overlay').forEach(function (overlay) { overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.classList.remove('show'); }); }); })();</script></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quang Huy & Thanh Hằng</title>
+    <meta name="description" content="Quang Huy & Thanh Hằng Wedding Invitation">
+    <meta property="og:title" content="Quang Huy & Thanh Hằng">
+    <meta property="og:image" content="https://templexa.vn/products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/customer/og-cover.jpg">
+    <link rel="icon" href="../../../shared/images/icons/favicon.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ========== FONTS ========== */
+        @font-face { font-family: 'Hastegi'; src: url('../../../shared/fonts/font-hastegi.otf') format('opentype'); font-display: swap; }
+        @font-face { font-family: 'Lora'; src: url('../../../shared/fonts/font-lora.ttf') format('truetype'); font-display: swap; font-weight: 400; }
+        @font-face { font-family: 'Lora'; src: url('../../../shared/fonts/font-lora-semibold.ttf') format('truetype'); font-display: swap; font-weight: 600; }
+        @font-face { font-family: 'BeyondPerfection'; src: url('../../../shared/fonts/font-beyond.ttf') format('truetype'); font-display: swap; }
+        @font-face { font-family: 'UVNHoaTay'; src: url('../../../shared/fonts/font-uvn-hoatay.ttf') format('truetype'); font-display: swap; }
+        @font-face { font-family: 'Rift'; src: url('../../../shared/fonts/font-rift.ttf') format('truetype'); font-display: swap; }
+
+        /* ========== RESET ========== */
+        *, *::before, *::after { margin: 0; padding: 0; border: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
+        body {
+            font-family: 'Lora', 'Open Sans', sans-serif;
+            font-size: 14px;
+            background: #fff;
+            line-height: 1.4;
+            -webkit-font-smoothing: antialiased;
+            color: rgb(146, 132, 98);
+        }
+        body.no-scroll { overflow: hidden; }
+        img { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+
+        .wrapper { width: 100%; max-width: 420px; min-width: 320px; margin: 0 auto; overflow: hidden; }
+
+        /* ========== KEYFRAMES ========== */
+        @keyframes fadeInUp { 0% { opacity:0; transform:translateY(20px); } 100% { opacity:1; transform:translateY(0); } }
+        @keyframes fadeInDown { 0% { opacity:0; transform:translateY(-20px); } 100% { opacity:1; transform:translateY(0); } }
+        @keyframes fadeInLeft { 0% { opacity:0; transform:translateX(-20px); } 100% { opacity:1; transform:translateX(0); } }
+        @keyframes fadeInRight { 0% { opacity:0; transform:translateX(40px); } 100% { opacity:1; transform:translateX(0); } }
+        @keyframes pulse { 0% { transform:scale(1); } 50% { transform:scale(1.1); } 100% { transform:scale(1); } }
+        @keyframes rotateInDownLeft { 0% { transform-origin:left bottom; transform:rotate(-90deg); opacity:0; } 100% { transform-origin:left bottom; transform:rotate(0); opacity:1; } }
+        @keyframes rotateInDownRight { 0% { transform-origin:right bottom; transform:rotate(90deg); opacity:0; } 100% { transform-origin:right bottom; transform:rotate(0); opacity:1; } }
+        @keyframes bounceIn { 0% { transform:scale(0.3); opacity:0; } 50% { transform:scale(1.05); opacity:1; } 70% { transform:scale(0.9); } 100% { transform:scale(1); } }
+        @keyframes sealBreak { 0% { transform:scale(1) rotate(0); } 30% { transform:scale(1.4) rotate(-8deg); } 60% { transform:scale(1.6) rotate(5deg); opacity:1; } 100% { transform:scale(2) rotate(0); opacity:0; } }
+
+        /* Scroll-triggered animation base */
+        .anim { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .anim.in-view { opacity: 1; transform: translateY(0); }
+        .anim-left { opacity:0; transform:translateX(-30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .anim-left.in-view { opacity:1; transform:translateX(0); }
+        .anim-right { opacity:0; transform:translateX(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .anim-right.in-view { opacity:1; transform:translateX(0); }
+
+        /* ============================== */
+        /* SCREEN 1 — COVER (SEALED)      */
+        /* ============================== */
+        .screen-cover {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+            background: #fff;
+            transition: transform 0.9s cubic-bezier(0.4,0,0.2,1), opacity 0.9s cubic-bezier(0.4,0,0.2,1);
+        }
+        .screen-cover.opening { transform: translateY(-100%); opacity: 0; }
+        .screen-cover .wrapper { min-height: auto; }
+
+        .cover-section { position: relative; height: 772px; }
+        .cover-section .container { position: relative; height: 100%; }
+
+        .bg-paper {
+            position: absolute; width: 419.688px; height: 669.178px;
+            background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat left top / cover;
+            pointer-events: none;
+        }
+        .bg-paper-1 { top: 0; left: 0; }
+        .bg-paper-2 { top: 108px; left: 0.156px; }
+
+        .cover-header { position: absolute; top: 85px; left: 49px; width: 322px; height: 53px; opacity:0; animation: fadeInUp 1s ease 1s forwards; }
+        .cover-header img { width: 100%; height: 100%; object-fit: contain; }
+
+        .cover-envelope { position: absolute; top: 235px; left: 67px; width: 285px; height: 201px; opacity:0; animation: fadeInUp 1s ease 1s forwards; }
+        .cover-envelope img { width: 100%; height: 100%; object-fit: cover; }
+
+        .cover-flower-l { position: absolute; top: 174px; left: 35px; width: 101px; height: 186px; opacity:0; animation: fadeInUp 1s ease 2s forwards; }
+        .cover-flower-r { position: absolute; top: 287px; left: 254px; width: 153px; height: 302px; opacity:0; animation: fadeInUp 1s ease 2s forwards; }
+        .cover-flower-l img, .cover-flower-r img { width: 100%; height: 100%; object-fit: cover; }
+
+        .cover-seal {
+            position: absolute; top: 342px; left: 180px; width: 62px; height: 72px;
+            cursor: pointer; z-index: 5;
+            animation: pulse 1s ease infinite;
+        }
+        .cover-seal:hover { filter: brightness(1.15); }
+        .cover-seal.breaking { animation: sealBreak 0.6s ease forwards !important; pointer-events: none; }
+        .cover-seal img { width: 100%; height: 100%; object-fit: cover; }
+
+        .cover-date {
+            position: absolute; top: 501px; left: 114px; width: 194px;
+            font-family: 'Hastegi', serif; font-size: 34px; line-height: 1.3;
+            color: rgb(82,97,62); text-transform: uppercase; letter-spacing: 3px; text-align: center;
+            opacity:0; animation: fadeInUp 1s ease 0s forwards;
+        }
+
+        .cover-hint {
+            position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+            font-family: 'Lora', serif; font-size: 13px; font-style: italic;
+            color: rgb(82,97,62); opacity: 0; animation: fadeInUp 1s ease 2.5s forwards;
+            text-align: center; letter-spacing: 1px; white-space: nowrap;
+        }
+
+        /* ============================== */
+        /* SCREEN 2 — MAIN INVITATION     */
+        /* ============================== */
+        .screen-main { opacity: 0; transition: opacity 0.8s ease 0.5s; }
+        .screen-main.visible { opacity: 1; }
+
+        .section { position: relative; overflow: hidden; }
+        .s-calendar { overflow: visible; }
+        .section .container { position: relative; height: 100%; }
+
+        /* ------ S1: HERO — Card envelope + 2 photos + 2 flowers ------ */
+        .s-hero {
+            position: relative;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 50px 0 40px;
+            background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
+        }
+
+        /* Card container — the envelope is a card, not full bg */
+        .hero-card {
+            position: relative;
+            width: clamp(280px, 81%, 340px);
+            margin: 0 auto;
+        }
+
+        /* Thiệp 1 (sau) — envelope mở */
+        .hero-bg {
+            width: 100%; height: auto;
+            display: block;
+            z-index: 0;
+            position: relative;
+        }
+
+        /* Thiệp 2 (trước) — đè lên ảnh, cùng cạnh trái/phải/dưới với thiệp 1 */
+        .hero-front {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* 2 polaroid photos — on top of card */
+        .hero-photos {
+            position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+            width: 62%; height: 280px; z-index: 2;
+        }
+        .polaroid {
+            position: absolute; width: 52%; max-width: 165px; height: 210px;
+            overflow: hidden;
+        }
+        .polaroid-frame {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 2;
+        }
+        .polaroid-photo {
+            position: absolute;
+            object-fit: cover; z-index: 1; border-radius: 2px;
+        }
+        /* Frame trái (element_0024_10) — xoay nhẹ phải trong ảnh */
+        .polaroid-left .polaroid-photo {
+            top: 9%;
+            left: 4%;
+            /* width: 77%; */
+            height: 67%;
+        }
+        /* Frame phải (element_0023_11) — xoay nhẹ trái trong ảnh */
+        .polaroid-right .polaroid-photo {
+            top: 7.5%;
+            left: 9%;
+            /* width: 79%; */
+            height: 69%;
+        }
+        .polaroid-left {
+            top: 30px; left: 15px;
+            transform: rotate(-6deg);
+            opacity: 0;
+            z-index: 3;
+        }
+        .polaroid-right {
+            top: 5px; right: -10px;
+            transform: rotate(4deg);
+            opacity: 0;
+        }
+        .hero-started .polaroid-left {
+            animation: heroPhotoLeft 1.5s ease 0.8s forwards;
+        }
+        .hero-started .polaroid-right {
+            animation: heroPhotoRight 1.5s ease 1.2s forwards;
+        }
+
+        @keyframes heroPhotoLeft {
+            0% { opacity: 0; transform: rotate(-6deg) translateY(120px); }
+            100% { opacity: 1; transform: rotate(-6deg) translateY(0); }
+        }
+        @keyframes heroPhotoRight {
+            0% { opacity: 0; transform: rotate(4deg) translateY(120px); }
+            100% { opacity: 1; transform: rotate(4deg) translateY(0); }
+        }
+
+        /* Flower vines — pinned to card edges */
+        .hero-leaf-left {
+            position: absolute; top: 30%; left: -30px; height: 70%; width: auto;
+            z-index: 3; pointer-events: none;
+            opacity: 0; transform: translateX(-15px);
+        }
+        .hero-leaf-right {
+            position: absolute; top: 35%; right: -30px; height: 85%; width: auto;
+            z-index: 3; pointer-events: none;
+            opacity: 0; transform: translateX(15px);
+        }
+        .hero-started .hero-leaf-left {
+            animation: heroLeafLeft 1s ease 1.8s forwards;
+        }
+        .hero-started .hero-leaf-right {
+            animation: heroLeafRight 1s ease 2s forwards;
+        }
+        @keyframes heroLeafLeft {
+            0% { opacity: 0; transform: translateX(-15px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes heroLeafRight {
+            0% { opacity: 0; transform: translateX(15px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Wax seal — on top of card + photos */
+        .hero-seal {
+            position: absolute; top: 65%; left: 50%;
+            width: 80px; height: auto;
+            z-index: 5; pointer-events: none;
+            opacity: 0;
+        }
+        .hero-started .hero-seal {
+            animation: heroSealIn 0.8s ease 2.4s forwards;
+        }
+        @keyframes heroSealIn {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+            70% { transform: translate(-50%, -50%) scale(0.9); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* "Save our date" — above card */
+        .hero-save-date {
+            width: 240px; margin-bottom: 15px; z-index: 4;
+            opacity: 0; animation: fadeInUp 1s ease 0.3s forwards;
+        }
+        .hero-save-date img { width: 100%; }
+
+        /* Date + text — below card */
+        .hero-date {
+            text-align: center; margin-top: 20px;
+            font-family: 'Hastegi', serif; font-size: 24px; color: rgb(146,132,98);
+            text-transform: uppercase; letter-spacing: 2px;
+            opacity: 0; animation: fadeInUp 0.8s ease 2.2s forwards;
+        }
+        .hero-invite-text {
+            text-align: center; margin-top: 10px; padding: 0 20px;
+            font-family: 'Lora', serif; font-size: 15px; color: rgb(146,132,98);
+            text-transform: uppercase; letter-spacing: 2px; line-height: 1.6;
+            opacity: 0; animation: fadeInUp 0.8s ease 2.5s forwards;
+        }
+
+        /* ------ Khách mời ------ */
+        .khach-moi {
+            font-family: 'UVNHoaTay', serif;
+            font-size: clamp(22px, 7vw, 30px);
+            color: rgb(82, 97, 62);
+            text-transform: none;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            margin: 8px 0 4px;
+            min-height: 0;
+            text-decoration: none;
+            font-style: normal;
+        }
+        .khach-moi:empty { display: none; }
+
+        /* ------ S2: Full-width photo ------ */
+        .s-photo-full { height: 280px; }
+        .s-photo-full img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+
+        /* ------ S3: Parents / Names / Date / Venue ------ */
+        .s-info {
+            min-height: 999px; padding: 60px 30px;
+            background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
+            text-align: center;
+        }
+        .info-parents { margin-bottom: 20px; }
+        .info-side-label {
+            font-family: 'Lora', serif; font-size: 14px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 6px;
+        }
+        .info-side-names {
+            font-size: 13px; line-height: 1.6; margin-bottom: 18px;
+        }
+        .info-couple { margin: 25px 0; }
+        .info-couple .name {
+            font-family: 'Hastegi', serif; font-size: clamp(40px, 13vw, 55px);
+            text-transform: uppercase; letter-spacing: 2px; line-height: 1.1;
+        }
+        .info-and {
+            width: 50px; margin: 8px auto;
+        }
+
+        .info-divider { width: 60px; height: 1px; background: rgb(146,132,98); margin: 20px auto; opacity: 0.4; }
+
+        .info-ceremony {
+            font-size: 18px; text-transform: uppercase; letter-spacing: 2px; line-height: 1.6; margin: 15px 0;
+        }
+        /* Tiêu đề lễ chính (Lễ Thành Hôn / Báo Hỷ) */
+        .info-ceremony-title {
+            font-size: 22px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 4px; line-height: 1.6; margin: 18px 0 8px;
+            color: rgb(146,132,98);
+        }
+        /* Hoa văn ngăn cách 2 lễ */
+        .ceremony-ornament {
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; margin: 28px auto 24px; width: 80%;
+        }
+        .ceremony-ornament::before,
+        .ceremony-ornament::after {
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(90deg, transparent, rgb(146,132,98), transparent);
+            opacity: 0.5;
+        }
+        .ceremony-ornament img {
+            width: 38px; height: 38px; object-fit: contain;
+            opacity: 0.7; filter: drop-shadow(0 1px 2px rgba(146,132,98,0.3));
+        }
+        .info-day {
+            font-family: 'Hastegi', serif; font-size: clamp(60px, 19.5vw, 82px); line-height: 1; margin: 10px 0;
+        }
+        .info-month, .info-year {
+            font-size: 19px; text-transform: uppercase; letter-spacing: 3px; line-height: 1.6;
+        }
+        .info-lunar {
+            font-size: 15px; font-style: italic; margin: 10px 0 25px; opacity: 0.8;
+        }
+
+        .info-venue { margin-top: 25px; }
+        .info-venue-icon { width: 30px; margin: 0 auto 10px; }
+        .info-venue-name {
+            font-size: 21px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
+        }
+        .info-venue-addr { font-size: 14px; line-height: 1.5; }
+        .info-direction {
+            display: inline-block; margin-top: 15px; padding: 8px 20px;
+            font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            border: 2px solid rgb(146,132,98); border-radius: 30px; cursor: pointer;
+            animation: pulse 1s ease infinite;
+        }
+        .info-direction:hover { background: rgb(146,132,98); color: #fff; }
+
+        /* ------ S4: Photo + Quote ------ */
+        .s-quote { height: 638px; position: relative; }
+        .s-quote .bg-photo { width: 100%; height: 100%; object-fit: cover; }
+        .s-quote .overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(2,2,2,0), rgba(1,1,1,0.6));
+        }
+        .s-quote .quote-text {
+            position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+            font-family: 'BeyondPerfection', serif; font-size: clamp(28px, 8.5vw, 36px); color: #fff;
+            text-align: center; width: 90%; max-width: 350px; line-height: 1.3;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* ------ S5: Love Story ------ */
+        .s-lovestory {
+            min-height: 858px; padding: 40px 20px;
+            background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
+        }
+        .ls-title {
+            width: 280px; margin: 0 auto 30px;
+            filter: sepia(1) saturate(2) hue-rotate(-15deg) brightness(0.6);
+        }
+        .ls-photos {
+            position: relative; width: 100%; height: 500px; margin-bottom: 30px;
+        }
+        .ls-photo-wrap {
+            position: absolute; width: clamp(170px, 55%, 210px); height: clamp(195px, 57%, 240px);
+            overflow: hidden;
+        }
+        .ls-photo-wrap.groom { top: 0; left: 2.5%; }
+        .ls-photo-wrap.bride { top: 240px; right: 2.5%; }
+        .ls-deco {
+            position: absolute; pointer-events: none; z-index: 1;
+        }
+        .ls-deco-top-left {
+            top: -15px; left: -30px; width: 100px; opacity: 0.85;
+        }
+        .ls-deco-bottom-right {
+            bottom: -10px; right: -10px; width: 130px; opacity: 0.85;
+        }
+        .ls-deco-center {
+            top: 48%; left: 50%; transform: translate(-50%, -50%);
+            width: 60px; z-index: 5;
+        }
+        .ls-frame {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; pointer-events: none;
+        }
+        .ls-photo {
+            position: absolute; z-index: 3; object-fit: cover; border-radius: 2px;
+        }
+        .ls-photo.bride-photo {
+            top: 10%; left: 8%; width: 76%; height: 75%;
+            transform: rotate(9deg);
+        }
+        .ls-photo.groom-photo {
+            top: 8%; left: 10%; width: 76%; height: 75%;
+            transform: rotate(-10deg);
+        }
+        .ls-label {
+            font-family: 'UVNHoaTay', serif; font-size: 28px; text-align: center;
+            margin-top: 3px;
+        }
+        .ls-name {
+            font-family: 'Lora', serif; font-size: 18px; text-align: center;
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        .ls-text-block { text-align: center; padding: 0 10px; }
+        .ls-text-block p {
+            font-size: 13px; line-height: 1.8; text-align: justify;
+        }
+
+        /* ------ S6: Calendar (March 2026) ------ */
+        .s-calendar {
+            min-height: 370px; position: relative;
+            background: url('../../../shared/images/wedding-elements/calendar-bg.webp') no-repeat center / cover;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px 20px 30px;
+        }
+        .s-calendar::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(140, 30, 30, 0.25);
+            pointer-events: none;
+        }
+        .cal-month {
+            font-family: 'BeyondPerfection', serif; font-size: 41px; color: #fff;
+            margin-bottom: 15px; position: relative; z-index: 1;
+            margin-top: 10px; line-height: 1.3;
+        }
+        .cal-grid {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            gap: 6px; width: 100%; max-width: 350px; text-align: center;
+            position: relative; z-index: 1;
+        }
+        .cal-day-name {
+            font-size: 13px; color: rgba(255,255,255,0.7); text-transform: uppercase;
+            padding-bottom: 8px; font-weight: 600;
+        }
+        .cal-day {
+            font-size: 13px; color: #fff; padding: 6px 0; border-radius: 50%;
+            width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto;
+        }
+        .cal-day.empty { visibility: hidden; }
+        .cal-day.highlight {
+            color: #fff; font-weight: 700;
+            width: 44px; height: 44px;
+            border-radius: 0;
+            background: url('../../../shared/images/wedding-elements/heart-icon.webp') no-repeat center / contain;
+            animation: pulse 1.5s ease infinite;
+        }
+
+        /* ------ S7: Timeline ------ */
+        .s-timeline {
+             padding: 50px 20px;
+            background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
+        }
+        .tl-title {
+            font-family: 'BeyondPerfection', serif; font-size: 38px;
+            text-align: center; margin-bottom: 40px;
+        }
+        .tl-items { position: relative; padding-left: 60px; }
+        .tl-items::before {
+            content: ''; position: absolute; left: 28px; top: 0; bottom: 0;
+            width: 2px; background: rgba(146,132,98,0.3);
+        }
+        .tl-item {
+            position: relative; margin-bottom: 35px; padding-left: 30px;
+        }
+        .tl-icon {
+            position: absolute; left: -48px; top: 0;
+            width: 48px; height: 48px; border-radius: 50%;
+            /*background: #fff;*/
+            display: flex; align-items: center; justify-content: center;
+            /*box-shadow: 0 2px 8px rgba(0,0,0,0.1);*/
+        }
+        .tl-icon img { width: 32px; height: 32px; object-fit: contain; }
+        .tl-item:first-child .tl-icon img {
+            width: 40px; height: 40px;
+            filter: sepia(1) saturate(3) hue-rotate(-15deg) brightness(0.75);
+        }
+        .tl-time {
+            font-size: 21px; font-weight: 600; margin-bottom: 4px;
+        }
+        .tl-desc { font-size: 15px; }
+
+        /* ------ S8: Countdown ------ */
+        .s-countdown {
+            position: relative;
+            background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
+            text-align: center;
+        }
+        .header-countdown {
+            display: flex; width: 100%; min-height: 200px;
+        }
+        .background-blank {
+            flex: 1;
+            background: url('../../../shared/images/wedding-elements/countdown-deco.webp') no-repeat center / cover;
+            position: relative;
+        }
+        .background-blank::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(120, 40, 30, 0.4);
+        }
+        .cd-english {
+            flex: 1;
+            background: rgb(146,132,98);
+            font-family: 'BeyondPerfection', serif; font-size: 13px; color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px 15px; text-align: center;
+        }
+        .info-and {
+            filter: sepia(1) saturate(2.5) hue-rotate(-15deg) brightness(0.55);
+        }
+        .count-down-content {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px 20px;
+        }
+        .cd-title {
+            font-family: 'UVNHoaTay', serif; font-size: clamp(32px, 10vw, 42px); color: rgb(146,132,98);
+            margin-bottom: 40px; line-height: 1.2;
+        }
+        .cd-timer {
+            display: flex; align-items: center; gap: 8px;
+        }
+        .cd-unit { text-align: center; }
+        .cd-number {
+            font-family: 'Hastegi', serif; font-size: clamp(38px, 12.8vw, 54px); color: rgb(146,132,98);
+            min-width: clamp(50px, 16.7vw, 70px); line-height: 1;
+        }
+        .cd-label {
+            font-family: 'Lora', serif; font-size: 12px; color: rgba(146,132,98,0.7);
+            text-transform: uppercase; margin-top: 5px;
+        }
+        .cd-sep {
+            font-family: 'Rift', sans-serif; font-size: 30px; color: rgb(146,132,98);
+            margin-top: -15px;
+        }
+
+        /* ------ S9: Gallery Slider ------ */
+        .s-gallery {
+            height: 715px;
+            background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
+            display: flex; flex-direction: column;
+        }
+        .gal-view {
+            flex: 1; overflow: hidden; position: relative;
+        }
+        .gal-view img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: opacity 0.5s ease;
+        }
+        .gal-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(146,132,98,0.6); color: #fff;
+            border: none; cursor: pointer; z-index: 3;
+            font-size: 18px; display: flex; align-items: center; justify-content: center;
+            transition: background 0.3s;
+        }
+        .gal-btn:hover { background: rgba(146,132,98,0.9); }
+        .gal-btn-prev { left: 10px; }
+        .gal-btn-next { right: 10px; }
+        .gal-controls {
+            height: 90px; display: flex; align-items: center; gap: 8px;
+            padding: 5px 10px; overflow-x: auto; overflow-y: hidden;
+        }
+        .gal-thumb {
+            width: 80px; height: 80px; flex-shrink: 0;
+            border-radius: 8px; overflow: hidden; cursor: pointer;
+            border: 2px solid transparent; transition: border-color 0.3s;
+        }
+        .gal-thumb.active { border-color: rgb(146,132,98); }
+        .gal-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* ------ S10: RSVP Form ------ */
+        .s-rsvp {
+            min-height: 665px; padding: 50px 20px;
+            background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
+            text-align: center;
+        }
+        .rsvp-text {
+            font-size: 16px; line-height: 1.8; margin-bottom: 30px;
+        }
+        .rsvp-form { max-width: 382px; margin: 0 auto; }
+        .rsvp-input, .rsvp-textarea, .rsvp-select {
+            width: 100%; padding: 10px 18px; margin-bottom: 14px;
+            border: 1px solid rgb(146,132,98); border-radius: 20px;
+            font-family: 'Lora', serif; font-size: 14px; color: rgb(146,132,98);
+            background: rgba(255,255,255,0.5); outline: none;
+        }
+        .rsvp-textarea { height: 100px; resize: none; border-radius: 16px; }
+        .rsvp-select { appearance: none; cursor: pointer; }
+        .rsvp-input::placeholder, .rsvp-textarea::placeholder { color: rgba(146,132,98,0.5); }
+        .rsvp-input:focus, .rsvp-textarea:focus { border-color: rgb(82,97,62); }
+
+        .rsvp-btn {
+            width: 100%; padding: 12px; margin-top: 10px;
+            background: rgb(146,132,98); color: #fff; border-radius: 28px;
+            font-family: 'Lora', serif; font-size: 17px; text-transform: uppercase;
+            letter-spacing: 2px; cursor: pointer; border: none;
+            transition: background 0.3s;
+        }
+        .rsvp-btn:hover { background: rgb(120,108,78); }
+        .rsvp-gift-btn {
+            width: 100%; padding: 12px; margin-top: 15px;
+            background: transparent; color: rgb(146,132,98); border-radius: 28px;
+            font-family: 'Lora', serif; font-size: 17px; text-transform: uppercase;
+            letter-spacing: 2px; cursor: pointer;
+            border: 2px solid rgb(146,132,98);
+            transition: all 0.3s;
+        }
+        .rsvp-gift-btn:hover { background: rgb(146,132,98); color: #fff; }
+
+        /* ------ S11: Thank You + Footer ------ */
+        .s-thankyou {
+            height: 674px; position: relative;
+        }
+        .ty-bg {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: brightness(78%);
+        }
+        .ty-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px 30px; text-align: center;
+        }
+        .ty-text {
+            font-size: 14px; color: #fff; line-height: 1.8; margin-bottom: 25px;
+        }
+        .ty-heading {
+            font-family: 'BeyondPerfection', serif; font-size: 24px; color: #fff;
+            margin-bottom: 30px;
+        }
+        .ty-social {
+            display: flex; gap: 15px; margin-bottom: 30px;
+        }
+        .ty-social a {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center;
+            transition: background 0.3s;
+        }
+        .ty-social a:hover { background: rgba(255,255,255,0.3); }
+        .ty-social img { width: 22px; height: 22px; }
+        .ty-brand {
+            font-size: 13px; color: rgb(90,107,13); margin-top: 20px;
+        }
+
+        /* ========== POPUPS ========== */
+        .popup-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 200;
+            align-items: center; justify-content: center;
+        }
+        .popup-overlay.show { display: flex; }
+        .popup-overlay { overflow-y: auto; padding: 20px 0; }
+        .popup {
+            background: #fff; border-radius: 16px; padding: 30px; max-width: 360px; width: 90%;
+            text-align: center; position: relative;
+            background-image: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp');
+            background-size: cover;
+            margin: auto;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .popup-close {
+            position: absolute; top: 12px; right: 15px;
+            font-size: 24px; cursor: pointer; color: rgb(146,132,98);
+            background: none; border: none; font-family: sans-serif;
+        }
+        .popup-thankyou-title {
+            font-family: 'BeyondPerfection', serif; font-size: 24px;
+            color: rgb(146,132,98); margin-bottom: 15px;
+        }
+        .popup-thankyou-text {
+            font-size: 14px; line-height: 1.6; margin-bottom: 20px;
+        }
+        .popup-date-big {
+            font-family: 'Lora', serif; font-size: 29px; font-weight: 600;
+            letter-spacing: 5px; margin-bottom: 10px;
+        }
+
+        /* Popup Gift / Banking */
+        .popup-gift { max-width: 380px; }
+        .popup-gift-photo {
+            width: 100%; height: 200px; object-fit: cover; object-position: center 20%;
+            border-radius: 12px; margin-bottom: 15px;
+        }
+        .popup-gift-grid {
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .popup-gift-card {
+            text-align: center;
+        }
+        .popup-gift-divider {
+            width: 60px; height: 1px; background: rgba(146,132,98,0.4);
+            margin: 0 auto;
+        }
+        .popup-gift-label {
+            font-family: 'UVNHoaTay', serif; font-size: 30px; margin-bottom: 5px;
+        }
+        .popup-gift-name {
+            font-size: 18px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;
+        }
+        .popup-gift-qr {
+            width: 200px; margin: 0 auto; border-radius: 12px;
+        }
+
+        /* ========== MUSIC BUTTON ========== */
+        .music-btn {
+            position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px;
+            border-radius: 50%; background: rgb(146,132,98); color: #fff;
+            border: none; cursor: pointer; z-index: 150;
+            display: none; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .music-btn.show { display: flex; }
+        .music-btn.playing { animation: pulse 2s ease infinite; }
+        .music-btn svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .music-btn .icon-on { display: none; }
+        .music-btn .icon-off { display: block; }
+        .music-btn.playing .icon-on { display: block; }
+        .music-btn.playing .icon-off { display: none; }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 420px) {
+            .cover-section {
+                transform-origin: top left;
+                transform: scale(calc(100vw / 420));
+                height: calc(772px * (100vw / 420));
+            }
+            .s-photo-full { height: clamp(200px, 66vw, 280px); }
+            .s-quote { height: clamp(450px, 152vw, 638px); }
+            .s-gallery { height: clamp(500px, 170vw, 715px); }
+            .s-calendar { min-height: clamp(320px, 88vw, 370px); height: auto; }
+            .header-countdown { min-height: clamp(150px, 47.6vw, 200px); }
+            .gal-thumb { width: 65px; height: 65px; }
+            .gal-controls { height: 75px; }
+            .info-venue-name { font-size: clamp(16px, 5vw, 21px); }
+        }
+        @media (max-width: 350px) {
+            .ls-photos { height: 440px; }
+            .ls-photo-wrap.bride { top: 210px; }
+            .cd-timer { gap: 4px; }
+            .cd-sep { font-size: 24px; }
+        }
+    </style>
+</head>
+<body class="no-scroll">
+
+<!-- ======================== -->
+<!-- SCREEN 1 — SEALED COVER -->
+<!-- ======================== -->
+<div class="screen-cover" id="screenCover">
+    <div class="wrapper">
+        <div class="cover-section">
+            <div class="container">
+                <div class="bg-paper bg-paper-1"></div>
+                <div class="bg-paper bg-paper-2"></div>
+                <div class="cover-header"><img src="../../../shared/images/wedding-elements/thiep-thanh-dat-element_0032_2.webp" alt="A day to remember!"></div>
+                <div class="cover-envelope"><img src="../../../shared/images/wedding-elements/thiep-thanh-dat-element_0031_3.webp" alt="Envelope"></div>
+                <div class="cover-flower-l"><img src="../../../shared/images/wedding-elements/thiep-thanh-dat-element_0028_6.webp" alt=""></div>
+                <div class="cover-flower-r"><img src="../../../shared/images/wedding-elements/thiep-thanh-dat-element_0029_5.webp" alt=""></div>
+                <div class="cover-seal" id="waxSeal"><img src="../../../shared/images/wedding-elements/thiep-thanh-dat-element_0030_4.webp" alt="Mở thiệp"></div>
+                <div class="cover-date">29.03.2026</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================== -->
+<!-- SCREEN 2 — MAIN         -->
+<!-- ======================== -->
+<div class="screen-main" id="screenMain">
+<div class="wrapper">
+
+    <!-- S1: Hero — Card envelope + 2 photos + flowers at card edges -->
+    <div class="section s-hero" id="sHero">
+
+        <!-- "Save our date" above card -->
+        <div class="hero-save-date"><img src="../../../shared/images/wedding-elements/element_0027_7.webp" alt="Save our date"></div>
+
+        <!-- Card wrapper -->
+        <div class="hero-card">
+            <!-- Thiệp 1 (sau) — envelope mở -->
+            <img class="hero-bg" src="../../../shared/images/wedding-elements/element_0025_9.webp" alt="">
+
+            <!-- Thiệp 2 (trước) — đè lên ảnh, cùng cạnh với thiệp 1 -->
+            <img class="hero-front" src="../../../shared/images/wedding-elements/element_0021_13.webp" alt="">
+
+            <!-- 2 polaroid photos giữa 2 lớp thiệp -->
+            <div class="hero-photos">
+                <div class="polaroid polaroid-left">
+                    <img class="polaroid-frame" src="../../../shared/images/wedding-elements/element_0024_10.webp" alt="">
+                    <img class="polaroid-photo" src="./customer/hinh-doi-1.webp" alt="Couple photo 1">
+                </div>
+                <div class="polaroid polaroid-right">
+                    <img class="polaroid-frame" src="../../../shared/images/wedding-elements/element_0023_11.webp" alt="">
+                    <img class="polaroid-photo" src="./customer/hinh-doi-2.webp" alt="Couple photo 2">
+                </div>
+            </div>
+
+            <!-- Flower vines pinned to card edges -->
+            <img class="hero-leaf-left" src="../../../shared/images/wedding-elements/group-16.webp" alt="">
+            <img class="hero-leaf-right" src="../../../shared/images/wedding-elements/leaf-left.webp" alt="">
+
+            <!-- Wax seal on top of everything -->
+            <img class="hero-seal" src="../../../shared/images/wedding-elements/small-element.webp" alt="">
+        </div>
+
+        <!-- Date + text below card -->
+        <div class="hero-date">29.03.2026</div>
+        <div class="hero-invite-text">Trân trọng kính mời
+
+            <div class="khach-moi"></div>
+            <br>
+
+            tới dự bữa cơm thân mật<br>chung vui cùng gia đình <span style="white-space:nowrap;">chúng tôi</span></div>
+    </div>
+
+    <!-- S2: Full-width photo -->
+    <div class="section s-photo-full">
+        <img src="./customer/anh-cuoi-rong.jpg" alt="Couple photo" class="anim">
+    </div>
+
+    <!-- S3: Parents / Names / Date / Venue -->
+    <div class="section s-info">
+        <div class="info-parents anim">
+            <div class="info-side-label">Nhà trai</div>
+            <div class="info-side-names">Ông: Nguyễn Trọng Hưng<br>Bà: Lê Thị Kim Dung</div>
+            <div class="info-side-label">Nhà gái</div>
+            <div class="info-side-names">Ông: Ngô Ngọc Sơn<br>Bà: Nguyễn Thị Thu Hồng</div>
+        </div>
+
+        <div class="info-couple anim">
+            <div class="name">Quang Huy</div>
+            <img class="info-and" src="../../../shared/images/wedding-elements/and-symbol.webp" alt="&">
+            <div class="name">Thanh Hằng</div>
+        </div>
+
+        <div class="info-divider"></div>
+
+        <!-- Lễ Thành Hôn -->
+        <div class="info-ceremony-title anim">Lễ Thành Hôn</div>
+
+        <div class="info-day anim">29</div>
+        <div class="info-month anim">Tháng 3</div>
+        <div class="info-year anim">Năm 2026</div>
+        <div class="info-lunar anim">(Tức ngày 11 tháng 02 năm Bính Ngọ)</div>
+        <div class="info-ceremony anim" style="font-size:15px;">Vào hồi 11:00, Chủ Nhật</div>
+
+        <div class="info-venue anim">
+            <img class="info-venue-icon" src="../../../shared/images/icons/map-pin.webp" alt="">
+            <div class="info-venue-name">Hội trường Hoa Ban</div>
+            <div class="info-venue-addr">Trung tâm Xúc tiến Đầu tư Thương mại & Du lịch tỉnh Điện Biên<br>(Cạnh hầm Đờ Cát)</div>
+        </div>
+
+        <!-- Hoa văn ngăn cách 2 lễ -->
+        <div class="ceremony-ornament anim">
+            <img src="../../../shared/images/wedding-elements/small-flower.webp" alt="">
+        </div>
+
+        <!-- Thiệp Báo Hỷ -->
+        <div class="info-ceremony-title anim">Tiệc Báo Hỷ</div>
+
+        <div class="info-day anim">03</div>
+        <div class="info-month anim">Tháng 4</div>
+        <div class="info-year anim">Năm 2026</div>
+        <div class="info-lunar anim">(Tức ngày 16 tháng 02 năm Bính Ngọ)</div>
+        <div class="info-ceremony anim" style="font-size:15px;">Vào hồi 18:30, Thứ Sáu</div>
+
+        <div class="info-venue anim">
+            <img class="info-venue-icon" src="../../../shared/images/icons/map-pin.webp" alt="">
+            <div class="info-venue-name">Nhà hàng Trống Đồng Palace Mễ Trì</div>
+            <div class="info-venue-addr">Phòng Lotus 3 - Tầng 2<br>52 Miếu Đàm - Mễ Trì - Hà Nội</div>
+        </div>
+    </div>
+
+    <!-- S4: Photo + Quote -->
+    <div class="section s-quote">
+        <img class="bg-photo" src="./customer/nen-loi-yeu.webp" alt="">
+        <div class="overlay"></div>
+        <div class="quote-text anim">All of me loves all of you</div>
+    </div>
+
+    <!-- S5: Love Story -->
+    <div class="section s-lovestory">
+        <img class="ls-title anim" src="../../../shared/images/wedding-elements/love-story-ornament.webp" alt="Our story">
+
+        <div class="ls-photos">
+            <!-- Hoa trang trí -->
+            <img class="ls-deco ls-deco-top-left" src="../../../shared/images/wedding-elements/group-16.webp" alt="">
+            <img class="ls-deco ls-deco-bottom-right" src="../../../shared/images/wedding-elements/leaf-left.webp" alt="">
+            <img class="ls-deco ls-deco-center" src="../../../shared/images/wedding-elements/small-element.webp" alt="">
+
+            <!-- Chú rể: ảnh trên-trái, text bên phải -->
+            <div class="ls-photo-wrap groom anim-left">
+                <img class="ls-frame" src="../../../shared/images/wedding-elements/groom-frame.webp" alt="">
+                <img class="ls-photo groom-photo" src="./customer/chu_re.webp" alt="Chú rể">
+            </div>
+            <div class="ls-label" style="position:absolute;top:80px;right:15px;width:160px;z-index:3;">Chú rể</div>
+            <div class="ls-name" style="position:absolute;top:110px;right:15px;width:160px;z-index:3;">Quang Huy</div>
+
+            <!-- Cô dâu: ảnh dưới-phải, text bên trái -->
+            <div class="ls-photo-wrap bride anim-right">
+                <img class="ls-frame" src="../../../shared/images/wedding-elements/bride-frame.webp" alt="">
+                <img class="ls-photo bride-photo" src="./customer/co-dau.jpg" alt="Cô dâu">
+            </div>
+            <div class="ls-label" style="position:absolute;top:320px;left:15px;width:160px;z-index:3;">Cô dâu</div>
+            <div class="ls-name" style="position:absolute;top:350px;left:15px;width:160px;z-index:3;">Thanh Hằng</div>
+        </div>
+
+        <div class="ls-text-block anim">
+            <p>
+                Tuy cùng lớn lên trong một thành phố, nhưng phải hơn 20 năm sau chúng tôi mới tìm thấy nhau. Ngay từ lần gặp đầu tiên, cả hai đã nhận ra đây chính là tri kỷ của đời mình.
+            </p></br><p>
+                Từ đó, chúng tôi cùng nhau viết nên câu chuyện tình yêu riêng. Dẫu có những thử thách, nhưng càng khiến chúng tôi thêm trân trọng nhau hơn.
+        </p></br><p>
+                Và hôm nay, chúng tôi sẵn sàng bước vào chương mới - cùng nhau xây dựng một mái ấm tràn đầy yêu thương.
+            </p></div>
+    </div>
+
+    <!-- S6: Calendar -->
+    <div class="section s-calendar">
+        <div class="cal-month anim">March</div>
+        <div class="cal-grid anim">
+            <div class="cal-day-name">Mon</div><div class="cal-day-name">Tue</div><div class="cal-day-name">Wed</div>
+            <div class="cal-day-name">Thur</div><div class="cal-day-name">Fri</div><div class="cal-day-name">Sat</div>
+            <div class="cal-day-name">Sun</div>
+            <!-- Week 1 -->
+            <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day empty"></div>
+            <div class="cal-day empty"></div><div class="cal-day empty"></div><div class="cal-day">1</div>
+            <div class="cal-day">2</div>
+            <!-- Week 2 -->
+            <div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div>
+            <div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div>
+            <div class="cal-day">9</div>
+            <!-- Week 3 -->
+            <div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div>
+            <div class="cal-day">13</div><div class="cal-day">14</div><div class="cal-day">15</div>
+            <div class="cal-day">16</div>
+            <!-- Week 4 -->
+            <div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div>
+            <div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div>
+            <div class="cal-day">23</div>
+            <!-- Week 5 -->
+            <div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div>
+            <div class="cal-day">27</div><div class="cal-day">28</div>
+            <div class="cal-day highlight">29</div>
+            <div class="cal-day">30</div>
+            <!-- Week 6 -->
+            <div class="cal-day">31</div>
+        </div>
+    </div>
+
+    <!-- S7: Timeline -->
+<!--    <div class="section s-timeline">-->
+<!--        <div class="tl-title anim">Timeline</div>-->
+<!--        <div class="tl-items">-->
+<!--            <div class="tl-item anim">-->
+<!--                <div class="tl-icon"><img src="../../../shared/images/wedding-elements/timeline-4.webp" alt=""></div>-->
+<!--                <div class="tl-time">08:00</div>-->
+<!--                <div class="tl-desc">Rước dâu</div>-->
+<!--            </div>-->
+<!--            <div class="tl-item anim">-->
+<!--                <div class="tl-icon"><img src="../../../shared/images/wedding-elements/timeline-2.webp" alt=""></div>-->
+<!--                <div class="tl-time">10:30</div>-->
+<!--                <div class="tl-desc">Đón khách tại Hội trường Hoa Ban</div>-->
+<!--            </div>-->
+<!--            <div class="tl-item anim">-->
+<!--                <div class="tl-icon"><img src="../../../shared/images/wedding-elements/timeline-1.webp" alt=""></div>-->
+<!--                <div class="tl-time">11:00</div>-->
+<!--                <div class="tl-desc">Lễ Thành Hôn</div>-->
+<!--            </div>-->
+<!--            <div class="tl-item anim">-->
+<!--                <div class="tl-icon"><img src="../../../shared/images/wedding-elements/timeline-3.webp" alt=""></div>-->
+<!--                <div class="tl-time">11:30</div>-->
+<!--                <div class="tl-desc">Khai tiệc</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <!-- S8: Countdown -->
+    <div class="section s-countdown">
+        <div class="header-countdown">
+            <div class="background-blank"></div>
+        <div class="cd-english anim">Every moment with you feels painted in gentle light.</div>
+        </div>
+        <div class="count-down-content" >
+        <div class="cd-title anim">Đếm ngược tới ngày trọng đại</div>
+        <div class="cd-timer anim">
+            <div class="cd-unit">
+                <div class="cd-number" id="cdDays">--</div>
+                <div class="cd-label">Ngày</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+                <div class="cd-number" id="cdHours">--</div>
+                <div class="cd-label">Giờ</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+                <div class="cd-number" id="cdMins">--</div>
+                <div class="cd-label">Phút</div>
+            </div>
+            <div class="cd-sep">:</div>
+            <div class="cd-unit">
+                <div class="cd-number" id="cdSecs">--</div>
+                <div class="cd-label">Giây</div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- S9: Gallery Slider -->
+    <div class="section s-gallery">
+        <div class="gal-view">
+            <img id="galView" src="./customer/album-1.webp" alt="Gallery">
+            <button class="gal-btn gal-btn-prev" id="galPrev">&#10094;</button>
+            <button class="gal-btn gal-btn-next" id="galNext">&#10095;</button>
+        </div>
+        <div class="gal-controls" id="galControls">
+            <div class="gal-thumb active" data-src="./customer/album-2.jpg"><img src="./customer/album-2.jpg" alt=""></div>
+
+            <div class="gal-thumb" data-src="./customer/album-4.jpg"><img src="./customer/album-4.jpg" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/album-8.webp"><img src="./customer/album-8.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/album-3.webp"><img src="./customer/album-3.webp" alt=""></div>
+
+            <div class="gal-thumb" data-src="./customer/album-7.webp"><img src="./customer/album-7.webp" alt=""></div>
+
+            <div class="gal-thumb" data-src="./customer/album-11.jpg"><img src="./customer/album-11.jpg" alt=""></div>
+        </div>
+    </div>
+
+    <!-- S10: RSVP Form -->
+    <div class="section s-rsvp">
+        <div class="rsvp-text anim">
+            Hãy xác nhận sự có mặt của bạn<br>
+            để chúng tôi chuẩn bị chu đáo nhất.<br>
+            Trân trọng!
+        </div>
+        <form class="rsvp-form anim" id="rsvpForm">
+            <input class="rsvp-input" type="text" name="name" placeholder="Họ và tên" required>
+            <textarea class="rsvp-textarea" name="message" placeholder="Lời nhắn gửi..."></textarea>
+            <select class="rsvp-select" name="attendance">
+                <option value="">-- Xác nhận tham dự --</option>
+                <option value="yes">Tôi sẽ tham dự</option>
+                <option value="no">Tôi không thể tham dự</option>
+            </select>
+            <input class="rsvp-input" type="tel" name="phone" placeholder="Số điện thoại">
+            <button class="rsvp-btn" type="submit">Gửi lời nhắn & xác nhận</button>
+        </form>
+        <button class="rsvp-gift-btn anim" id="btnGift">Gửi quà mừng cưới</button>
+    </div>
+
+    <!-- S11: Thank You + Social -->
+    <div class="section s-thankyou">
+        <img class="ty-bg" src="./customer/nen-cam-on.webp" alt="">
+        <div class="ty-overlay">
+            <div class="ty-text anim">
+                Cảm ơn bạn đã dành thời gian<br>
+                đọc thiệp mời của chúng tôi.<br>
+                Sự hiện diện của bạn là niềm vinh hạnh<br>
+                lớn lao cho gia đình chúng tôi.
+            </div>
+            <div class="ty-heading anim">Thank you!</div>
+            <div class="ty-social anim">
+                <a href="https://www.facebook.com/messages/t/linh.pi.359" target="_blank"><img src="../../../shared/images/icons/fb-icon.webp" alt="Facebook"></a>
+                <a href="https://www.tiktok.com/@templexa" target="_blank"><img src="../../../shared/images/icons/tiktok-icon.webp" alt="TikTok"></a>
+                <a href="https://zalo.me/0334884895" target="_blank"><img src="../../../shared/images/icons/zalo-icon.webp" alt="Zalo"></a>
+            </div>
+            <div class="ty-brand anim">   <a href="https://templexa.vn/" target="_blank">Templexa.vn Wedding Invitation</a></div>
+        </div>
+    </div>
+
+</div><!-- .wrapper -->
+</div><!-- .screen-main -->
+
+<!-- ========== POPUP: Thank You ========== -->
+<div class="popup-overlay" id="popupThankyou">
+    <div class="popup">
+        <button class="popup-close" id="closeThankyou">&times;</button>
+        <div class="popup-thankyou-title">Thank you!</div>
+        <div class="popup-thankyou-text">Cảm ơn bạn đã dành thời gian phản hồi.<br>Chúng tôi rất mong được gặp bạn!</div>
+<!--        <div class="popup-date-big">29 . 03 . 2026</div>-->
+    </div>
+</div>
+
+<!-- ========== POPUP: Gift / Banking ========== -->
+<div class="popup-overlay" id="popupGift">
+    <div class="popup popup-gift">
+        <button class="popup-close" id="closeGift">&times;</button>
+        <img class="popup-gift-photo" src="./customer/nha_qua.webp" alt="">
+        <div class="popup-gift-grid">
+            <div class="popup-gift-card">
+                <div class="popup-gift-label">Chú rể</div>
+                <div class="popup-gift-name">Phạm Quang Huy</div>
+                <img class="popup-gift-qr" src="./customer/qr_nam.webp" alt="QR Chú rể">
+            </div>
+            <div class="popup-gift-divider"></div>
+            <div class="popup-gift-card">
+                <div class="popup-gift-label">Cô dâu</div>
+                <div class="popup-gift-name">Trần Thanh Hằng</div>
+                <img class="popup-gift-qr" src="./customer/qr_nu.webp" alt="QR Cô dâu">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== DATA ========== -->
+<script src="./customer/data.js"></script>
+
+<!-- ========== SHEETS API ========== -->
+<script src="../../../shared/wedding/wishes-api.js"></script>
+
+<!-- ========== MUSIC ========== -->
+<button class="music-btn" id="musicBtn" title="Bật/tắt nhạc">
+    <svg class="icon-on" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+    <svg class="icon-off" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+</button>
+<audio id="bgMusic" loop preload="auto">
+    <source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* === Guest Personalization === */
+(function () {
+    if (typeof WEDDING_DATA === 'undefined' || !WEDDING_DATA.guests) return;
+    var params = new URLSearchParams(window.location.search);
+    var rawId = params.get('id');
+    if (rawId === null) return;
+    var guestId = parseInt(rawId, 10);
+    var guest = null;
+    for (var i = 0; i < WEDDING_DATA.guests.length; i++) {
+        if (WEDDING_DATA.guests[i].id === guestId) { guest = WEDDING_DATA.guests[i]; break; }
+    }
+    if (!guest) return;
+    var el = document.querySelector('.khach-moi');
+    if (el) el.textContent = guest.name;
+})();
+
+(function () {
+    /* === Cover → Main transition === */
+    var cover = document.getElementById('screenCover');
+    var main = document.getElementById('screenMain');
+    var seal = document.getElementById('waxSeal');
+    var musicBtn = document.getElementById('musicBtn');
+    var bgMusic = document.getElementById('bgMusic');
+
+    seal.addEventListener('click', function () {
+        seal.classList.add('breaking');
+        setTimeout(function () {
+            cover.classList.add('opening');
+            main.classList.add('visible');
+            document.body.classList.remove('no-scroll');
+            document.querySelector('.hero-card').classList.add('hero-started');
+            musicBtn.classList.add('show');
+            // Auto-play music
+            bgMusic.play().then(function() {
+                musicBtn.classList.add('playing');
+            }).catch(function() {});
+        }, 500);
+        setTimeout(function () {
+            cover.style.display = 'none';
+        }, 3000);
+    });
+
+    /* === Music toggle === */
+    musicBtn.addEventListener('click', function () {
+        if (bgMusic.paused) {
+            bgMusic.play();
+            musicBtn.classList.add('playing');
+        } else {
+            bgMusic.pause();
+            musicBtn.classList.remove('playing');
+        }
+    });
+
+    /* === Scroll animations (IntersectionObserver) === */
+    var animEls = document.querySelectorAll('.anim, .anim-left, .anim-right');
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    animEls.forEach(function (el) { observer.observe(el); });
+
+    /* === Countdown timer === */
+    var target = new Date('2026-03-29T11:00:00+07:00').getTime();
+    function updateCountdown() {
+        var now = Date.now();
+        var diff = target - now;
+        if (diff <= 0) { diff = 0; }
+        var d = Math.floor(diff / 86400000);
+        var h = Math.floor((diff % 86400000) / 3600000);
+        var m = Math.floor((diff % 3600000) / 60000);
+        var s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('cdDays').textContent = d < 10 ? '0' + d : d;
+        document.getElementById('cdHours').textContent = h < 10 ? '0' + h : h;
+        document.getElementById('cdMins').textContent = m < 10 ? '0' + m : m;
+        document.getElementById('cdSecs').textContent = s < 10 ? '0' + s : s;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* === Gallery Slider === */
+    var galView = document.getElementById('galView');
+    var thumbs = document.querySelectorAll('.gal-thumb');
+    var galIndex = 0;
+    var galAuto;
+
+    function galGoTo(i) {
+        galIndex = (i + thumbs.length) % thumbs.length;
+        thumbs.forEach(function (t) { t.classList.remove('active'); });
+        thumbs[galIndex].classList.add('active');
+        galView.style.opacity = 0;
+        setTimeout(function () {
+            galView.src = thumbs[galIndex].getAttribute('data-src');
+            galView.style.opacity = 1;
+        }, 300);
+    }
+
+    function galStartAuto() {
+        galAuto = setInterval(function () { galGoTo(galIndex + 1); }, 3000);
+    }
+    function galStopAuto() { clearInterval(galAuto); }
+
+    document.getElementById('galPrev').addEventListener('click', function () {
+        galStopAuto(); galGoTo(galIndex - 1); galStartAuto();
+    });
+    document.getElementById('galNext').addEventListener('click', function () {
+        galStopAuto(); galGoTo(galIndex + 1); galStartAuto();
+    });
+    thumbs.forEach(function (thumb, idx) {
+        thumb.addEventListener('click', function () {
+            galStopAuto(); galGoTo(idx); galStartAuto();
+        });
+    });
+    galStartAuto();
+
+    /* === RSVP form → Google Sheets === */
+    var SHEET_ID = '3';
+    var rsvpForm = document.getElementById('rsvpForm');
+    var rsvpBtn = rsvpForm.querySelector('.rsvp-btn');
+
+    rsvpForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = rsvpForm.name.value.trim();
+        var message = rsvpForm.message.value.trim();
+        var attendance = rsvpForm.attendance.value;
+        var phone = rsvpForm.phone.value.trim();
+
+        if (!name) return;
+
+        rsvpBtn.disabled = true;
+        rsvpBtn.textContent = 'Đang gửi...';
+
+        var now = new Date();
+        var time = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN');
+
+        sheetsAPI.post(SHEET_ID, {
+            A: name,
+            B: phone,
+            C: attendance === 'yes' ? 'Tham dự' : attendance === 'no' ? 'Không tham dự' : '',
+            D: message,
+            E: time
+        }).then(function () {
+            rsvpBtn.textContent = 'Đã gửi!';
+            document.getElementById('popupThankyou').classList.add('show');
+            rsvpForm.reset();
+            setTimeout(function () {
+                rsvpBtn.disabled = false;
+                rsvpBtn.textContent = 'Gửi lời nhắn & xác nhận';
+            }, 3000);
+        }).catch(function () {
+            rsvpBtn.disabled = false;
+            rsvpBtn.textContent = 'Gửi lời nhắn & xác nhận';
+            alert('Gửi thất bại, vui lòng thử lại!');
+        });
+    });
+
+    /* === Gift popup === */
+    document.getElementById('btnGift').addEventListener('click', function () {
+        document.getElementById('popupGift').classList.add('show');
+    });
+
+    /* === Close popups === */
+    document.getElementById('closeThankyou').addEventListener('click', function () {
+        document.getElementById('popupThankyou').classList.remove('show');
+    });
+    document.getElementById('closeGift').addEventListener('click', function () {
+        document.getElementById('popupGift').classList.remove('show');
+    });
+    // Close popup on overlay click
+    document.querySelectorAll('.popup-overlay').forEach(function (overlay) {
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) overlay.classList.remove('show');
+        });
+    });
+})();
+</script>
+</body>
+</html>

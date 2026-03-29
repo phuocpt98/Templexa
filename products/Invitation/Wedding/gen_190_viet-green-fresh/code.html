@@ -1,1687 +1,2466 @@
-<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Thiệp Cưới - Hoàng Tài & Thuý Lanh</title><meta name="description" content="Thiệp mời đám cưới phong cách xanh lá tươi trẻ, hiện đại"><link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@latest"></script><style>
-:root {
---font-heading: 'Dancing Script', cursive;
---font-body: 'Quicksand', sans-serif;
---font-accent: 'Cormorant Garamond', serif;
---accent: #4A9E6F;
---accent-dark: #357A52;
---accent-light: #B8E0CC;
---accent-glow: rgba(74, 158, 111, 0.25);
---bg-primary: #F2F9F5;
---bg-secondary: #E8F5ED;
---text-primary: #1A3328;
---text-secondary: #4A6B58;
---text-tertiary: #7A9B88;
---btn-bg: linear-gradient(135deg, #4A9E6F, #357A52);
---btn-text: #FFFFFF;
---envelope-bg: linear-gradient(135deg, #E8F5ED 0%, #D4EDDF 50%, #C1E5D1 100%);
---divider-color: rgba(74, 158, 111, 0.35);
---gold: #C9A84C;
---blush: #E8B4A2;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-font-family: var(--font-body);
-font-weight: 300;
-color: var(--text-primary);
-background: var(--bg-primary);
-overflow-x: hidden;
-line-height: 1.6;
-}
-/* Body subtle texture */
-body::before {
-content: '';
-position: fixed;
-inset: 0;
-z-index: -1;
-pointer-events: none;
-background:
-radial-gradient(circle at 15% 25%, rgba(74, 158, 111, 0.04), transparent 50%),
-radial-gradient(circle at 85% 75%, rgba(200, 168, 76, 0.03), transparent 50%),
-radial-gradient(circle at 50% 50%, rgba(232, 180, 162, 0.02), transparent 60%);
-}
-img { max-width: 100%; height: auto; }
-/* ==================== ENVELOPE ==================== */
-.envelope {
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 100%;
-z-index: 9999;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: opacity 1s ease, transform 1s ease;
-text-align: center;
-padding: 1.5rem;
-overflow: hidden;
-}
-/* Background image + overlay */
-.envelope-bg {
-position: absolute;
-inset: 0;
-z-index: 0;
-}
-.envelope-bg img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-filter: blur(6px) brightness(0.85);
-}
-.envelope-bg::after {
-content: '';
-position: absolute;
-inset: 0;
-background: linear-gradient(
-135deg,
-rgba(232, 245, 237, 0.88) 0%,
-rgba(212, 237, 223, 0.82) 50%,
-rgba(193, 229, 209, 0.88) 100%
-);
-}
-/* Floating botanical elements on bg */
-.envelope-deco {
-position: absolute;
-pointer-events: none;
-z-index: 1;
-opacity: 0.15;
-font-size: 3rem;
-}
-.envelope-deco-1 { top: 8%; left: 5%; animation: env-float-1 6s ease-in-out infinite; }
-.envelope-deco-2 { top: 12%; right: 8%; animation: env-float-2 7s ease-in-out infinite; font-size: 2.5rem; }
-.envelope-deco-3 { bottom: 15%; left: 10%; animation: env-float-1 8s ease-in-out infinite 1s; font-size: 2rem; }
-.envelope-deco-4 { bottom: 10%; right: 6%; animation: env-float-2 6s ease-in-out infinite 0.5s; }
-@keyframes env-float-1 {
-0%, 100% { transform: translateY(0) rotate(0deg); }
-50% { transform: translateY(-12px) rotate(8deg); }
-}
-@keyframes env-float-2 {
-0%, 100% { transform: translateY(0) rotate(0deg); }
-50% { transform: translateY(-10px) rotate(-6deg); }
-}
-.envelope.opened {
-opacity: 0;
-transform: scale(1.08);
-pointer-events: none;
-}
-/* Main card frame */
-.envelope-card {
-position: relative;
-z-index: 2;
-max-width: 440px;
-width: 100%;
-background: rgba(255, 255, 255, 0.65);
-backdrop-filter: blur(16px);
--webkit-backdrop-filter: blur(16px);
-border-radius: 24px;
-padding: clamp(2.5rem, 6vw, 3.5rem) clamp(2rem, 5vw, 3rem);
-box-shadow:
-0 20px 60px rgba(26, 51, 40, 0.12),
-0 0 0 1px rgba(74, 158, 111, 0.12);
-animation: env-card-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-}
-@keyframes env-card-in {
-from { opacity: 0; transform: translateY(40px) scale(0.96); }
-to { opacity: 1; transform: translateY(0) scale(1); }
-}
-/* Decorative double border inside card */
-.envelope-card::before {
-content: '';
-position: absolute;
-inset: 10px;
-border: 1px solid rgba(74, 158, 111, 0.2);
-border-radius: 18px;
-pointer-events: none;
-}
-.envelope-card::after {
-content: '';
-position: absolute;
-inset: 16px;
-border: 1px dashed rgba(74, 158, 111, 0.12);
-border-radius: 14px;
-pointer-events: none;
-}
-/* Corner ornaments */
-.envelope-corner {
-position: absolute;
-width: 28px;
-height: 28px;
-z-index: 3;
-color: var(--accent);
-opacity: 0.35;
-font-size: 1rem;
-}
-.envelope-corner-tl { top: 20px; left: 20px; }
-.envelope-corner-tr { top: 20px; right: 20px; transform: scaleX(-1); }
-.envelope-corner-bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
-.envelope-corner-br { bottom: 20px; right: 20px; transform: scale(-1); }
-/* Content stagger animations */
-.envelope-ornament {
-font-size: 2rem;
-color: var(--accent);
-margin-bottom: 1.25rem;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both,
-pulse-gentle 2.5s ease-in-out 1.5s infinite;
-}
-@keyframes pulse-gentle {
-0%, 100% { transform: scale(1); opacity: 1; }
-50% { transform: scale(1.08); opacity: 0.8; }
-}
-.envelope-line {
-width: 50px;
-height: 1px;
-background: linear-gradient(90deg, transparent, var(--accent), transparent);
-margin: 0 auto 1.25rem;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-}
-.envelope-couple-name {
-font-family: var(--font-heading);
-font-size: clamp(2.2rem, 7vw, 3.5rem);
-color: var(--accent-dark);
-letter-spacing: 0.02em;
-margin-bottom: 0.75rem;
-line-height: 1.2;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
-}
-.envelope-date {
-font-family: var(--font-accent);
-font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-color: var(--text-secondary);
-letter-spacing: 0.2em;
-text-transform: uppercase;
-margin-bottom: 0.5rem;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both;
-}
-.envelope-invite-text {
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 1rem;
-color: var(--text-tertiary);
-margin-bottom: 2rem;
-letter-spacing: 0.08em;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s both;
-}
-/* ---- RIBBON BOW ---- */
-.ribbon-bow {
-position: relative;
-width: 120px;
-height: 90px;
-margin: 0 auto;
-cursor: pointer;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
-transition: transform 0.3s;
--webkit-tap-highlight-color: transparent;
-}
-.ribbon-bow:hover { transform: scale(1.08); }
-/* Center knot */
-.bow-knot {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 22px;
-height: 18px;
-background: var(--accent-dark);
-border-radius: 4px;
-z-index: 5;
-box-shadow: 0 2px 6px rgba(53, 122, 82, 0.3);
-transition: transform 0.6s, opacity 0.6s;
-}
-.bow-knot::after {
-content: '';
-position: absolute;
-inset: 2px;
-border: 1px solid rgba(255,255,255,0.25);
-border-radius: 3px;
-}
-/* Loop left */
-.bow-loop {
-position: absolute;
-top: 50%;
-width: 48px;
-height: 36px;
-border-radius: 50%;
-border: 4px solid var(--accent);
-background: rgba(74, 158, 111, 0.12);
-transform-origin: center right;
-transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-opacity 0.5s 0.3s;
-}
-.bow-loop-left {
-right: 50%;
-margin-top: -18px;
-margin-right: 5px;
-transform: rotate(-8deg);
-transform-origin: right center;
-}
-.bow-loop-right {
-left: 50%;
-margin-top: -18px;
-margin-left: 5px;
-transform: rotate(8deg);
-transform-origin: left center;
-}
-/* Shine highlight on loops */
-.bow-loop::before {
-content: '';
-position: absolute;
-top: 4px;
-width: 60%;
-height: 35%;
-border-radius: 50%;
-background: rgba(255,255,255,0.25);
-}
-.bow-loop-left::before { left: 8px; }
-.bow-loop-right::before { right: 8px; }
-/* Tails */
-.bow-tail {
-position: absolute;
-top: 50%;
-width: 4px;
-height: 40px;
-border-radius: 0 0 3px 3px;
-background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
-transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-opacity 0.5s 0.3s;
-}
-.bow-tail-left {
-left: calc(50% - 12px);
-margin-top: 5px;
-transform: rotate(12deg);
-transform-origin: top center;
-}
-.bow-tail-right {
-left: calc(50% + 8px);
-margin-top: 5px;
-transform: rotate(-12deg);
-transform-origin: top center;
-}
-/* V-cut at tail bottom */
-.bow-tail::after {
-content: '';
-position: absolute;
-bottom: -5px;
-left: 50%;
-transform: translateX(-50%);
-width: 0;
-height: 0;
-border-left: 4px solid transparent;
-border-right: 4px solid transparent;
-border-top: 6px solid var(--accent-dark);
-}
-/* Hint text */
-.bow-hint {
-position: absolute;
-bottom: -24px;
-left: 50%;
-transform: translateX(-50%);
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 0.8rem;
-color: var(--text-tertiary);
-white-space: nowrap;
-letter-spacing: 0.05em;
-opacity: 0.7;
-transition: opacity 0.3s;
-animation: bow-hint-pulse 2s ease-in-out infinite;
-}
-@keyframes bow-hint-pulse {
-0%, 100% { opacity: 0.5; }
-50% { opacity: 0.9; }
-}
-/* Gentle bounce on the whole bow */
-.ribbon-bow::before {
-content: '';
-position: absolute;
-inset: -15px;
-border-radius: 50%;
-background: radial-gradient(circle, var(--accent-glow), transparent 70%);
-opacity: 0;
-transition: opacity 0.3s;
-}
-.ribbon-bow:hover::before { opacity: 1; }
-/* ---- UNTIE ANIMATION ---- */
-.ribbon-bow.untying .bow-loop-left {
-transform: rotate(-70deg) scale(0.6);
-opacity: 0;
-}
-.ribbon-bow.untying .bow-loop-right {
-transform: rotate(70deg) scale(0.6);
-opacity: 0;
-}
-.ribbon-bow.untying .bow-tail-left {
-transform: rotate(50deg) translateY(15px) scale(0.5);
-opacity: 0;
-}
-.ribbon-bow.untying .bow-tail-right {
-transform: rotate(-50deg) translateY(15px) scale(0.5);
-opacity: 0;
-}
-.ribbon-bow.untying .bow-knot {
-transform: translate(-50%, -50%) scale(0) rotate(180deg);
-opacity: 0;
-}
-.ribbon-bow.untying .bow-hint {
-opacity: 0;
-}
-/* Sparkle particles on untie */
-.bow-sparkle {
-position: absolute;
-pointer-events: none;
-font-size: 12px;
-opacity: 0;
-}
-.ribbon-bow.untying .bow-sparkle {
-animation: bow-sparkle-burst 0.8s ease-out forwards;
-}
-@keyframes bow-sparkle-burst {
-0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
-100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(1.2) rotate(180deg); }
-}
-/* Peek photos */
-.envelope-peek-photos {
-margin-top: 2rem;
-display: flex;
-justify-content: center;
-gap: 0;
-position: relative;
-height: 75px;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.3s both;
-}
-.envelope-peek-photo {
-width: 90px;
-height: 65px;
-border-radius: 8px;
-overflow: hidden;
-box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-border: 3px solid white;
-position: absolute;
-}
-.envelope-peek-photo:nth-child(1) {
-left: calc(50% - 100px);
-transform: rotate(-6deg);
-z-index: 1;
-}
-.envelope-peek-photo:nth-child(2) {
-left: calc(50% + 10px);
-transform: rotate(4deg);
-top: 5px;
-}
-.envelope-peek-photo img { width: 100%; height: 100%; object-fit: cover; }
-@media (max-width: 480px) {
-.envelope-card {
-padding: 2rem 1.5rem;
-border-radius: 20px;
-}
-.envelope-card::before { inset: 8px; border-radius: 15px; }
-.envelope-card::after { inset: 13px; border-radius: 12px; }
-.envelope-corner { display: none; }
-.envelope-deco { font-size: 2rem; opacity: 0.1; }
-.envelope-peek-photo { width: 80px; height: 58px; }
-.envelope-peek-photo:nth-child(1) { left: calc(50% - 88px); }
-}
-/* ==================== NAV ==================== */
-.nav {
-position: fixed;
-top: 0;
-width: 100%;
-z-index: 100;
-background: rgba(242, 249, 245, 0.85);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-border-bottom: 1px solid rgba(74, 158, 111, 0.1);
-transition: box-shadow 0.3s;
-}
-.nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
-.nav-inner {
-max-width: 900px;
-margin: 0 auto;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: clamp(1rem, 3vw, 2rem);
-padding: 12px 1rem;
-flex-wrap: wrap;
-}
-.nav-link {
-font-family: var(--font-body);
-font-size: 0.75rem;
-font-weight: 500;
-color: var(--text-secondary);
-text-decoration: none;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-transition: color 0.3s;
-padding: 4px 0;
-}
-.nav-link:hover, .nav-link.active { color: var(--accent); }
-.nav-monogram {
-font-family: var(--font-heading);
-font-size: 1.4rem;
-color: var(--accent);
-padding: 0 0.5rem;
-}
-@media (max-width: 480px) {
-.nav-inner { gap: 0.6rem; }
-.nav-link { font-size: 0.65rem; letter-spacing: 0.08em; }
-}
-/* ==================== HERO ==================== */
-.hero {
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-position: relative;
-overflow: hidden;
-padding: clamp(6rem, 15vw, 8rem) 1.5rem clamp(4rem, 10vw, 6rem);
-}
-.hero-bg {
-position: absolute;
-inset: 0;
-z-index: -2;
-}
-.hero-bg img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-object-position: center top;
-}
-.hero-bg::after {
-content: '';
-position: absolute;
-inset: 0;
-background: linear-gradient(
-to bottom,
-rgba(242, 249, 245, 0.3) 0%,
-rgba(242, 249, 245, 0.1) 30%,
-rgba(242, 249, 245, 0.5) 70%,
-rgba(242, 249, 245, 0.95) 100%
-);
-}
-.hero-subtitle {
-font-family: var(--font-accent);
-font-size: 0.8rem;
-letter-spacing: 0.3em;
-text-transform: uppercase;
-color: var(--accent);
-margin-bottom: 1rem;
-animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-}
-.hero-title {
-font-family: var(--font-heading);
-font-size: clamp(3.5rem, 12vw, 6rem);
-color: var(--accent-dark);
-line-height: 1.1;
-margin-bottom: 0.75rem;
-animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
-position: relative;
-}
-.hero-ampersand {
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 0.6em;
-color: var(--gold);
-display: inline-block;
-margin: 0 0.15em;
-}
-.hero-date {
-font-family: var(--font-accent);
-font-size: clamp(1rem, 2.5vw, 1.3rem);
-color: var(--text-secondary);
-letter-spacing: 0.2em;
-text-transform: uppercase;
-margin-bottom: 0.5rem;
-animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-}
-.hero-invite {
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 1.1rem;
-color: var(--text-tertiary);
-animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
-}
-@keyframes slide-up-hero {
-from { opacity: 0; transform: translateY(30px); }
-to { opacity: 1; transform: translateY(0); }
-}
-/* Scroll indicator */
-.scroll-indicator {
-position: absolute;
-bottom: 30px;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 6px;
-color: var(--text-tertiary);
-font-size: 0.7rem;
-letter-spacing: 0.15em;
-animation: scroll-bounce 2s ease-in-out infinite;
-}
-@keyframes scroll-bounce {
-0%, 100% { transform: translateX(-50%) translateY(0); }
-50% { transform: translateX(-50%) translateY(8px); }
-}
-/* ==================== SECTIONS SHARED ==================== */
-.section {
-padding: clamp(4rem, 10vw, 6rem) clamp(1rem, 5vw, 2rem);
-}
-.section--breathe {
-padding: clamp(5rem, 12vw, 7rem) 1.5rem;
-}
-.section--compact {
-padding: clamp(2rem, 5vw, 3.5rem) 1.5rem;
-}
-.section-heading {
-text-align: center;
-margin-bottom: clamp(2rem, 5vw, 3rem);
-}
-.section-subtitle {
-font-family: var(--font-accent);
-font-size: 0.8rem;
-color: var(--accent);
-letter-spacing: 0.25em;
-text-transform: uppercase;
-margin-bottom: 0.5rem;
-}
-.section-title {
-font-family: var(--font-heading);
-font-size: clamp(1.8rem, 5vw, 3rem);
-color: var(--accent-dark);
-margin-bottom: 0.75rem;
-}
-.section-desc {
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 1rem;
-color: var(--text-secondary);
-max-width: 500px;
-margin: 0 auto;
-line-height: 1.7;
-}
-/* Ornament divider */
-.divider-ornament {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 1rem;
-padding: clamp(1rem, 3vw, 2rem) 0;
-}
-.divider-ornament::before,
-.divider-ornament::after {
-content: '';
-height: 1px;
-width: clamp(40px, 15vw, 100px);
-background: var(--divider-color);
-}
-.divider-ornament-icon {
-color: var(--accent);
-font-size: 1rem;
-}
-/* ==================== COUNTDOWN ==================== */
-.countdown-section {
-background: var(--bg-secondary);
-position: relative;
-}
-.countdown-section::before {
-content: '';
-position: absolute;
-top: -30px; left: 0; right: 0;
-height: 60px;
-background: var(--bg-secondary);
-clip-path: ellipse(55% 100% at 50% 100%);
-}
-.countdown {
-display: flex;
-justify-content: center;
-gap: clamp(12px, 3vw, 24px);
-}
-.countdown-item {
-text-align: center;
-min-width: clamp(65px, 16vw, 100px);
-background: rgba(255, 255, 255, 0.7);
-border: 1px solid rgba(74, 158, 111, 0.15);
-border-radius: 16px;
-padding: clamp(14px, 3vw, 24px) clamp(8px, 2vw, 16px);
-backdrop-filter: blur(8px);
-}
-.countdown-number {
-font-family: var(--font-heading);
-font-size: clamp(2rem, 6vw, 3.5rem);
-font-weight: 700;
-color: var(--accent-dark);
-line-height: 1;
-display: block;
-}
-.countdown-label {
-font-family: var(--font-body);
-font-size: clamp(0.6rem, 1.8vw, 0.8rem);
-color: var(--text-tertiary);
-text-transform: uppercase;
-letter-spacing: 0.15em;
-margin-top: 6px;
-font-weight: 400;
-}
-.countdown-done {
-text-align: center;
-font-family: var(--font-heading);
-font-size: clamp(1.2rem, 3vw, 1.8rem);
-color: var(--accent);
-padding: 2rem;
-}
-/* ==================== COUPLE PHOTOS FLY-IN ==================== */
-.couple-fly {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 0;
-max-width: 500px;
-margin: 0 auto;
-position: relative;
-}
-.couple-fly-img {
-width: clamp(150px, 35vw, 220px);
-height: clamp(200px, 45vw, 280px);
-border-radius: 120px 120px 20px 20px;
-object-fit: cover;
-border: 4px solid white;
-box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-}
-.couple-fly-img:first-child {
-margin-right: -25px;
-transform: rotate(-2deg);
-z-index: 1;
-}
-.couple-fly-img:last-child {
-margin-left: -25px;
-margin-top: 30px;
-transform: rotate(1.5deg);
-}
-.couple-fly-heart {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-z-index: 2;
-width: 48px;
-height: 48px;
-background: var(--accent);
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-color: white;
-font-size: 1.2rem;
-box-shadow: 0 4px 15px var(--accent-glow);
-animation: heartbeat 1.5s ease-in-out infinite;
-}
-@keyframes heartbeat {
-0%, 100% { transform: translate(-50%, -50%) scale(1); }
-25% { transform: translate(-50%, -50%) scale(1.15); }
-50% { transform: translate(-50%, -50%) scale(1); }
-75% { transform: translate(-50%, -50%) scale(1.1); }
-}
-/* ==================== LOVE STORY TIMELINE ==================== */
-.timeline {
-position: relative;
-max-width: 800px;
-margin: 0 auto;
-padding: 2rem 0;
-}
-.timeline::before {
-content: '';
-position: absolute;
-left: 50%;
-top: 0; bottom: 0;
-width: 2px;
-background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-transform: translateX(-50%);
-}
-.timeline-item {
-position: relative;
-width: 50%;
-padding: 1rem 2rem;
-opacity: 0;
-transform: translateY(20px);
-transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.timeline-item.is-visible {
-opacity: 1;
-transform: translateY(0);
-}
-.timeline-item:nth-child(odd) {
-left: 0;
-text-align: right;
-padding-right: 3rem;
-}
-.timeline-item:nth-child(even) {
-left: 50%;
-text-align: left;
-padding-left: 3rem;
-}
-.timeline-dot {
-position: absolute;
-top: 1.5rem;
-width: 14px;
-height: 14px;
-border-radius: 50%;
-background: var(--accent);
-border: 3px solid var(--bg-primary);
-box-shadow: 0 0 0 3px var(--accent);
-z-index: 1;
-}
-.timeline-item:nth-child(odd) .timeline-dot { right: -7px; }
-.timeline-item:nth-child(even) .timeline-dot { left: -7px; }
-.timeline-date {
-font-family: var(--font-accent);
-font-size: 0.85rem;
-color: var(--accent);
-letter-spacing: 0.1em;
-text-transform: uppercase;
-margin-bottom: 0.5rem;
-}
-.timeline-title {
-font-family: var(--font-heading);
-font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-color: var(--text-primary);
-margin-bottom: 0.5rem;
-}
-.timeline-desc {
-font-family: var(--font-accent);
-font-size: 0.95rem;
-color: var(--text-secondary);
-line-height: 1.6;
-}
-.timeline-icon {
-font-size: 1.5rem;
-margin-bottom: 0.5rem;
-}
-@media (max-width: 768px) {
-.timeline::before { left: 20px; }
-.timeline-item,
-.timeline-item:nth-child(odd),
-.timeline-item:nth-child(even) {
-width: 100%;
-left: 0;
-text-align: left;
-padding-left: 50px;
-padding-right: 1rem;
-}
-.timeline-item:nth-child(odd) .timeline-dot,
-.timeline-item:nth-child(even) .timeline-dot {
-left: 13px;
-right: auto;
-}
-}
-/* ==================== EVENT CARD ==================== */
-.event-section {
-background: var(--bg-secondary);
-position: relative;
-}
-.event-grid {
-max-width: 480px;
-margin: 0 auto;
-}
-.event-card {
-background: rgba(255, 255, 255, 0.7);
-border: 1px solid rgba(74, 158, 111, 0.2);
-border-radius: 20px;
-padding: clamp(2rem, 5vw, 3rem);
-text-align: center;
-backdrop-filter: blur(10px);
-position: relative;
-overflow: hidden;
-}
-.event-card::before {
-content: '';
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 3px;
-background: linear-gradient(90deg, var(--accent), var(--gold));
-}
-.event-card-icon {
-font-size: 2.5rem;
-margin-bottom: 1rem;
-}
-.event-card-type {
-font-family: var(--font-body);
-font-size: 0.75rem;
-font-weight: 500;
-color: var(--accent);
-letter-spacing: 0.25em;
-text-transform: uppercase;
-margin-bottom: 0.75rem;
-}
-.event-card-name {
-font-family: var(--font-heading);
-font-size: clamp(1.4rem, 3.5vw, 1.8rem);
-color: var(--text-primary);
-margin-bottom: 1.25rem;
-}
-.event-card-detail {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-font-family: var(--font-accent);
-font-size: 1rem;
-color: var(--text-secondary);
-margin-bottom: 0.5rem;
-line-height: 1.5;
-}
-.event-card-detail svg {
-width: 18px;
-height: 18px;
-flex-shrink: 0;
-color: var(--accent);
-}
-.event-card-address {
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 0.9rem;
-color: var(--text-tertiary);
-margin-top: 0.5rem;
-line-height: 1.5;
-}
-.event-card-parents {
-margin-top: 1.5rem;
-padding-top: 1rem;
-border-top: 1px solid rgba(74, 158, 111, 0.15);
-font-family: var(--font-accent);
-font-size: 0.9rem;
-color: var(--text-secondary);
-line-height: 1.8;
-}
-.event-card-parents strong { color: var(--text-primary); }
-/* ==================== CALENDAR MONTH ==================== */
-.cal-section { text-align: center; }
-.cal-month { max-width: 420px; margin: 0 auto; }
-.cal-header {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 12px;
-margin-bottom: 1.25rem;
-}
-.cal-month-name {
-font-family: var(--font-heading);
-font-size: 1.4rem;
-font-weight: 600;
-}
-.cal-year { font-size: 0.85rem; opacity: 0.5; font-weight: 400; }
-.cal-grid {
-display: grid;
-grid-template-columns: repeat(7, 1fr);
-gap: 0;
-}
-.cal-dow {
-font-size: 0.7rem;
-font-weight: 600;
-text-transform: uppercase;
-letter-spacing: 0.1em;
-padding: 8px 0;
-opacity: 0.5;
-}
-.cal-day {
-position: relative;
-aspect-ratio: 1;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 0.9rem;
-cursor: default;
-transition: background 0.2s;
-}
-.cal-day.empty { pointer-events: none; }
-.cal-day.today { font-weight: 700; }
-.cal-day.marked { color: #fff; font-weight: 700; z-index: 1; }
-.cal-events {
-margin-top: 1.25rem;
-display: flex;
-flex-direction: column;
-gap: 0.5rem;
-max-width: 420px;
-margin-left: auto;
-margin-right: auto;
-}
-.cal-event {
-display: flex;
-align-items: center;
-gap: 10px;
-font-size: 0.85rem;
-text-align: left;
-}
-.cal-event-dot {
-width: 10px;
-height: 10px;
-border-radius: 50%;
-flex-shrink: 0;
-}
-.cal-event-date { font-weight: 600; white-space: nowrap; min-width: 40px; }
-.cal-event-text { opacity: 0.75; }
-/* Elegant variant */
-.cal-elegant .cal-day {
-font-family: var(--font-heading);
-font-size: 0.95rem;
-}
-.cal-elegant .cal-day.marked::before {
-content: '';
-position: absolute;
-width: 36px; height: 36px;
-border: 2px solid var(--cal-accent, var(--accent));
-border-radius: 50%;
-z-index: -1;
-}
-.cal-elegant .cal-day.marked {
-color: var(--cal-accent, var(--accent));
-font-weight: 700;
-}
-.cal-elegant .cal-month-name {
-letter-spacing: 0.15em;
-text-transform: uppercase;
-font-size: 1.1rem;
-}
-.cal-elegant .cal-dow {
-font-family: var(--font-heading);
-font-size: 0.65rem;
-letter-spacing: 0.15em;
-}
-.cal-elegant .cal-event-dot {
-background: transparent;
-border: 2px solid var(--cal-accent, var(--accent));
-}
-@media (max-width: 480px) {
-.cal-month { max-width: 340px; }
-.cal-day { font-size: 0.8rem; }
-.cal-elegant .cal-day { font-size: 0.85rem; }
-.cal-elegant .cal-day.marked::before { width: 30px; height: 30px; }
-}
-/* ==================== GALLERY ==================== */
-.gallery-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: clamp(8px, 2vw, 14px);
-max-width: 900px;
-margin: 0 auto;
-}
-.gallery-item {
-position: relative;
-overflow: hidden;
-border-radius: 14px;
-cursor: pointer;
-aspect-ratio: 4/5;
-}
-.gallery-item img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-transition: transform 0.5s ease;
-}
-.gallery-item:hover img { transform: scale(1.08); }
-.gallery-overlay {
-position: absolute;
-inset: 0;
-background: rgba(0, 0, 0, 0);
-display: flex;
-align-items: center;
-justify-content: center;
-transition: background 0.3s ease;
-}
-.gallery-item:hover .gallery-overlay {
-background: rgba(26, 51, 40, 0.25);
-}
-.gallery-overlay-icon {
-color: white;
-opacity: 0;
-transform: scale(0.8);
-transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.gallery-item:hover .gallery-overlay-icon {
-opacity: 1;
-transform: scale(1);
-}
-@media (max-width: 768px) {
-.gallery-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 480px) {
-.gallery-grid { grid-template-columns: 1fr; max-width: 320px; }
-}
-/* Lightbox */
-.lightbox {
-position: fixed;
-inset: 0;
-z-index: 10000;
-background: rgba(0, 0, 0, 0.9);
-display: flex;
-align-items: center;
-justify-content: center;
-opacity: 0;
-pointer-events: none;
-transition: opacity 0.3s ease;
-}
-.lightbox.active {
-opacity: 1;
-pointer-events: all;
-}
-.lightbox img {
-max-width: 90%;
-max-height: 90vh;
-object-fit: contain;
-border-radius: 8px;
-animation: lightbox-zoom-in 0.3s ease;
-}
-@keyframes lightbox-zoom-in {
-from { transform: scale(0.9); opacity: 0; }
-to { transform: scale(1); opacity: 1; }
-}
-.lightbox-close {
-position: absolute;
-top: 20px; right: 20px;
-width: 44px; height: 44px;
-border-radius: 50%;
-border: none;
-background: rgba(255, 255, 255, 0.15);
-color: white;
-font-size: 1.5rem;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
-.lightbox-nav {
-position: absolute;
-top: 50%;
-transform: translateY(-50%);
-width: 48px; height: 48px;
-border-radius: 50%;
-border: none;
-background: rgba(255, 255, 255, 0.15);
-color: white;
-font-size: 1.5rem;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.lightbox-nav:hover { background: rgba(255, 255, 255, 0.3); }
-.lightbox-prev { left: 20px; }
-.lightbox-next { right: 20px; }
-/* ==================== QUOTE ==================== */
-.blessing-quote {
-max-width: 600px;
-margin: 0 auto;
-text-align: center;
-position: relative;
-}
-.blessing-quote blockquote {
-font-family: var(--font-accent);
-font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-font-style: italic;
-color: var(--text-secondary);
-line-height: 1.8;
-position: relative;
-padding: 0 2rem;
-}
-.blessing-quote blockquote::before {
-content: '\201C';
-position: absolute;
-top: -0.5rem;
-left: 0;
-font-size: 3.5rem;
-color: var(--accent-light);
-font-style: normal;
-line-height: 1;
-}
-.blessing-quote cite {
-display: block;
-margin-top: 1rem;
-font-family: var(--font-body);
-font-size: 0.85rem;
-font-style: normal;
-color: var(--accent);
-letter-spacing: 0.1em;
-font-weight: 500;
-}
-/* ==================== RSVP ==================== */
-.rsvp-section {
-background: var(--bg-secondary);
-position: relative;
-}
-.rsvp-section::before {
-content: '';
-position: absolute;
-top: -30px; left: 0; right: 0;
-height: 60px;
-background: var(--bg-secondary);
-clip-path: ellipse(55% 100% at 50% 100%);
-}
-.rsvp-form {
-max-width: 480px;
-margin: 0 auto;
-display: flex;
-flex-direction: column;
-gap: 1rem;
-}
-.rsvp-input,
-.rsvp-select,
-.rsvp-textarea {
-width: 100%;
-padding: 14px 20px;
-font-family: var(--font-body);
-font-size: 0.95rem;
-font-weight: 400;
-color: var(--text-primary);
-background: rgba(255, 255, 255, 0.8);
-border: 1px solid rgba(74, 158, 111, 0.2);
-border-radius: 12px;
-outline: none;
-transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.rsvp-input:focus,
-.rsvp-select:focus,
-.rsvp-textarea:focus {
-border-color: var(--accent);
-box-shadow: 0 0 0 3px rgba(74, 158, 111, 0.1);
-}
-.rsvp-textarea {
-resize: vertical;
-min-height: 100px;
-}
-.rsvp-input::placeholder,
-.rsvp-textarea::placeholder {
-color: var(--text-tertiary);
-}
-.rsvp-row {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 1rem;
-}
-@media (max-width: 480px) {
-.rsvp-row { grid-template-columns: 1fr; }
-}
-.rsvp-submit {
-padding: 14px 48px;
-font-family: var(--font-body);
-font-size: 0.95rem;
-font-weight: 600;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-color: var(--btn-text);
-background: var(--btn-bg);
-border: none;
-border-radius: 50px;
-cursor: pointer;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-box-shadow: 0 4px 20px var(--accent-glow);
-margin-top: 0.5rem;
-}
-.rsvp-submit:hover {
-transform: translateY(-2px);
-box-shadow: 0 8px 30px var(--accent-glow);
-}
-.rsvp-success {
-display: none;
-text-align: center;
-padding: 2rem;
-animation: fade-up 0.5s ease;
-}
-.rsvp-success.show { display: block; }
-.rsvp-success-icon { font-size: 3rem; margin-bottom: 1rem; }
-.rsvp-success-text {
-font-family: var(--font-heading);
-font-size: 1.3rem;
-color: var(--text-primary);
-}
-@keyframes fade-up {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
-}
-/* ==================== GUESTBOOK / WISHES ==================== */
-.guestbook-section {
-text-align: center;
-}
-.guestbook-form {
-max-width: 480px;
-margin: 0 auto 2rem;
-display: flex;
-flex-direction: column;
-gap: 1rem;
-}
-.guestbook-messages {
-max-width: 600px;
-margin: 0 auto;
-display: flex;
-flex-direction: column;
-gap: 1rem;
-}
-.guestbook-message {
-background: rgba(255, 255, 255, 0.6);
-border: 1px solid rgba(74, 158, 111, 0.12);
-border-radius: 14px;
-padding: 1.25rem;
-text-align: left;
-animation: fade-up 0.4s ease;
-}
-.guestbook-message-header {
-display: flex;
-align-items: center;
-gap: 10px;
-margin-bottom: 0.5rem;
-}
-.guestbook-avatar {
-width: 36px; height: 36px;
-border-radius: 50%;
-background: var(--accent);
-color: white;
-display: flex;
-align-items: center;
-justify-content: center;
-font-family: var(--font-heading);
-font-size: 0.9rem;
-font-weight: 600;
-flex-shrink: 0;
-}
-.guestbook-name {
-font-family: var(--font-body);
-font-size: 0.95rem;
-color: var(--text-primary);
-font-weight: 600;
-}
-.guestbook-text {
-font-family: var(--font-accent);
-font-size: 0.95rem;
-color: var(--text-secondary);
-line-height: 1.6;
-font-style: italic;
-}
-/* ==================== FLOATING WISHES ==================== */
-.floating-wishes-box {
-position: fixed;
-bottom: 80px;
-left: 16px;
-width: 300px;
-height: 0;
-z-index: 999;
-pointer-events: none;
-}
-.floating-wish {
-position: absolute;
-bottom: 0; left: 0;
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 6px 14px;
-border-radius: 20px;
-background: var(--fw-bg, rgba(74, 158, 111, 0.3));
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-box-shadow: 0 2px 12px var(--fw-shadow, rgba(74, 158, 111, 0.15));
-color: var(--fw-text, #fff);
-font-size: 0.8rem;
-line-height: 1.3;
-max-width: 100%;
-width: fit-content;
-animation: wish-float-up 7s linear forwards;
-pointer-events: auto;
-will-change: transform, opacity;
-}
-.fw-c1 { --fw-bg: rgba(74, 158, 111, 0.82); --fw-avatar: #4A9E6F; --fw-shadow: rgba(74,158,111,0.25); }
-.fw-c2 { --fw-bg: rgba(30, 80, 160, 0.78); --fw-avatar: #60A5FA; --fw-shadow: rgba(30,80,160,0.25); }
-.fw-c3 { --fw-bg: rgba(201, 168, 76, 0.82); --fw-avatar: #C9A84C; --fw-shadow: rgba(201,168,76,0.25); }
-.fw-c4 { --fw-bg: rgba(255, 255, 255, 0.85); --fw-text: #1A3328; --fw-avatar: #7A9B88; --fw-shadow: rgba(0,0,0,0.1); }
-.fw-c5 { --fw-bg: rgba(232, 180, 162, 0.80); --fw-avatar: #C98B70; --fw-shadow: rgba(232,180,162,0.25); }
-.floating-wish-avatar {
-width: 24px; height: 24px;
-border-radius: 50%;
-background: var(--fw-avatar, var(--accent));
-color: #fff;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 0.65rem;
-font-weight: 700;
-flex-shrink: 0;
-}
-.floating-wish-name {
-font-weight: 600;
-margin-right: 2px;
-white-space: nowrap;
-}
-.floating-wish-text {
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-max-width: 190px;
-}
-@keyframes wish-float-up {
-0%   { opacity: 0; transform: translateY(0); }
-5%   { opacity: 1; }
-65%  { opacity: 0.7; }
-88%  { opacity: 0.2; }
-100% { opacity: 0; transform: translateY(-300px); }
-}
-.floating-wishes-box.hidden-wishes { display: none; }
-@media (max-width: 480px) {
-.floating-wishes-box { width: 260px; bottom: 72px; left: 10px; }
-.floating-wish { font-size: 0.74rem; padding: 5px 12px; }
-.floating-wish-avatar { width: 20px; height: 20px; font-size: 0.6rem; }
-.floating-wish-text { max-width: 150px; }
-}
-/* ==================== MUSIC TOGGLE ==================== */
-.music-toggle {
-position: fixed;
-bottom: 24px;
-right: 24px;
-width: 48px; height: 48px;
-border-radius: 50%;
-border: none;
-background: var(--accent);
-color: white;
-cursor: pointer;
-z-index: 1000;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0 4px 15px var(--accent-glow);
-transition: transform 0.2s, box-shadow 0.2s;
-}
-.music-toggle:hover {
-transform: scale(1.1);
-box-shadow: 0 6px 20px var(--accent-glow);
-}
-.music-toggle .music-icon-off { display: none; }
-.music-toggle.muted .music-icon-on { display: none; }
-.music-toggle.muted .music-icon-off { display: block; }
-/* Wishes toggle */
-.wishes-toggle {
-position: fixed;
-bottom: 80px;
-right: 24px;
-width: 40px; height: 40px;
-border-radius: 50%;
-border: none;
-background: var(--accent);
-color: white;
-cursor: pointer;
-z-index: 1000;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-opacity: 0.85;
-}
-.wishes-toggle:hover {
-transform: scale(1.1);
-opacity: 1;
-}
-.wishes-toggle svg { width: 18px; height: 18px; }
-.wishes-toggle .wishes-icon-off { display: none; }
-.wishes-toggle.hidden .wishes-icon-on { display: none; }
-.wishes-toggle.hidden .wishes-icon-off { display: block; }
-/* ==================== CALENDAR BUTTON ==================== */
-.calendar-btn {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 10px 24px;
-font-family: var(--font-body);
-font-size: 0.85rem;
-font-weight: 500;
-letter-spacing: 0.1em;
-color: var(--accent);
-background: transparent;
-border: 1px solid var(--accent);
-border-radius: 50px;
-cursor: pointer;
-text-decoration: none;
-transition: all 0.3s ease;
-}
-.calendar-btn:hover {
-background: var(--accent);
-color: white;
-}
-.calendar-btn svg { width: 16px; height: 16px; }
-/* ==================== FOOTER ==================== */
-.footer {
-text-align: center;
-padding: clamp(3rem, 8vw, 5rem) 1.5rem;
-position: relative;
-overflow: hidden;
-}
-.footer-bg {
-position: absolute;
-inset: 0;
-z-index: -1;
-}
-.footer-bg img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-opacity: 0.08;
-filter: blur(3px);
-}
-.footer-bg::after {
-content: '';
-position: absolute;
-inset: 0;
-background: rgba(242, 249, 245, 0.88);
-}
-.footer-couple {
-font-family: var(--font-heading);
-font-size: clamp(2rem, 6vw, 3.5rem);
-color: var(--accent-dark);
-margin-bottom: 0.5rem;
-}
-.footer-date {
-font-family: var(--font-accent);
-font-size: 1rem;
-color: var(--text-secondary);
-letter-spacing: 0.15em;
-margin-bottom: 1rem;
-}
-.footer-hearts {
-display: flex;
-justify-content: center;
-gap: 8px;
-margin: 1rem 0;
-}
-.footer-heart {
-font-size: 0.8rem;
-color: var(--accent);
-animation: heartbeat-footer 1.5s ease-in-out infinite;
-}
-.footer-heart:nth-child(2) { animation-delay: 0.15s; }
-.footer-heart:nth-child(3) { animation-delay: 0.3s; }
-@keyframes heartbeat-footer {
-0%, 100% { transform: scale(1); }
-25% { transform: scale(1.2); }
-50% { transform: scale(1); }
-75% { transform: scale(1.1); }
-}
-.footer-made {
-font-family: var(--font-body);
-font-size: 0.75rem;
-color: var(--text-tertiary);
-font-weight: 300;
-margin-top: 1rem;
-}
-/* ==================== FALLING EFFECTS ==================== */
-.petal {
-position: fixed;
-top: -30px;
-z-index: 9999;
-pointer-events: none;
-animation: petal-fall linear forwards;
-}
-@keyframes petal-fall {
-0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
-25% { transform: translateY(27vh) rotate(180deg) translateX(30px); }
-50% { transform: translateY(55vh) rotate(360deg) translateX(-20px); }
-75% { transform: translateY(82vh) rotate(540deg) translateX(25px); }
-100% { transform: translateY(110vh) rotate(720deg) translateX(-10px); opacity: 0; }
-}
-.floating-heart {
-position: fixed;
-bottom: -30px;
-z-index: 9998;
-pointer-events: none;
-animation: heart-float ease-out forwards;
-}
-@keyframes heart-float {
-0% { transform: translateY(0) scale(1); opacity: 1; }
-50% { transform: translateY(-50vh) scale(1.2); opacity: 0.8; }
-100% { transform: translateY(-110vh) scale(0.8); opacity: 0; }
-}
-.sparkle {
-position: fixed;
-z-index: 9998;
-pointer-events: none;
-animation: sparkle-fade 2s ease-out forwards;
-}
-@keyframes sparkle-fade {
-0% { opacity: 0; transform: scale(0) rotate(0deg); }
-30% { opacity: 1; transform: scale(1) rotate(90deg); }
-100% { opacity: 0; transform: scale(0.3) rotate(180deg); }
-}
-/* ==================== DECORATIVE ==================== */
-.deco {
-position: absolute;
-pointer-events: none;
-z-index: 0;
-user-select: none;
-}
-.deco-front { z-index: 3; }
-.deco-heart-beat::after {
-content: '♥';
-font-size: var(--deco-size, 1.5rem);
-color: var(--deco-color, #4A9E6F);
-animation: deco-hb 1.5s ease-in-out infinite;
-filter: drop-shadow(0 2px 4px rgba(74,158,111,0.3));
-}
-@keyframes deco-hb {
-0%, 100% { transform: scale(1); }
-15% { transform: scale(1.25); }
-30% { transform: scale(1); }
-45% { transform: scale(1.15); }
-}
-.deco-heart-float::after {
-content: '♡';
-font-size: var(--deco-size, 1.2rem);
-color: var(--deco-color, var(--accent-light));
-animation: deco-fl 4s ease-in-out infinite;
-opacity: 0.6;
-}
-@keyframes deco-fl {
-0%, 100% { transform: translateY(0) rotate(0deg); }
-25% { transform: translateY(-8px) rotate(5deg); }
-75% { transform: translateY(5px) rotate(-3deg); }
-}
-.deco-rose-bloom::after {
-content: '🌿';
-font-size: var(--deco-size, 1.3rem);
-animation: deco-bl 3s ease-in-out infinite;
-opacity: 0.7;
-}
-@keyframes deco-bl {
-0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
-50% { transform: scale(1.1) rotate(10deg); opacity: 0.8; }
-}
-.deco-butterfly::after {
-content: '🦋';
-font-size: var(--deco-size, 1.2rem);
-animation: deco-bf 5s ease-in-out infinite;
-opacity: 0.5;
-}
-@keyframes deco-bf {
-0%, 100% { transform: translate(0, 0) rotate(0deg) scaleX(1); }
-20% { transform: translate(8px, -10px) rotate(5deg) scaleX(0.9); }
-40% { transform: translate(15px, -5px) rotate(-3deg) scaleX(1); }
-60% { transform: translate(8px, 3px) rotate(5deg) scaleX(0.9); }
-80% { transform: translate(-3px, -3px) rotate(-2deg) scaleX(1); }
-}
-.deco-sparkle::after {
-content: '✨';
-font-size: var(--deco-size, 1rem);
-animation: deco-tw 1.8s ease-in-out infinite;
-}
-@keyframes deco-tw {
-0%, 100% { opacity: 0.3; transform: scale(0.8); }
-50% { opacity: 1; transform: scale(1.2); }
-}
-.deco-sm { --deco-size: 1rem; }
-.deco-md { --deco-size: 1.5rem; }
-.deco-lg { --deco-size: 2rem; }
-/* ==================== PHOTO STRIP BETWEEN SECTIONS ==================== */
-.photo-strip {
-width: 100%;
-height: clamp(180px, 25vw, 250px);
-overflow: hidden;
-position: relative;
-}
-.photo-strip img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-object-position: center;
-}
-.photo-strip::after {
-content: '';
-position: absolute;
-inset: 0;
-background: linear-gradient(
-to bottom,
-var(--bg-primary) 0%,
-transparent 15%,
-transparent 85%,
-var(--bg-primary) 100%
-);
-}
-/* ==================== GROUP ANIMATIONS ==================== */
-.animate-fade-up {
-opacity: 0;
-transform: translateY(20px);
-transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.animate-fade-up.is-visible {
-opacity: 1;
-transform: translateY(0);
-}
-/* ==================== IMAGE BACKGROUND SECTIONS ==================== */
-.bg-image-section {
-position: relative;
-overflow: hidden;
-}
-.bg-image-section .bg-img {
-position: absolute;
-inset: 0;
-z-index: -1;
-}
-.bg-image-section .bg-img img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-opacity: 0.06;
-filter: blur(2px);
-}
-.bg-image-section .bg-img::after {
-content: '';
-position: absolute;
-inset: 0;
-background: rgba(242, 249, 245, 0.87);
-}
-</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x7a\x45\x35\x4d\x46\x39\x32\x61\x57\x56\x30\x4c\x57\x64\x79\x5a\x57\x56\x75\x4c\x57\x5a\x79\x5a\x58\x4e\x6f\x66\x44\x49\x77\x4d\x6a\x59\x74\x4d\x44\x4d\x74\x4d\x6a\x6c\x38\x63\x47\x68\x31\x62\x32\x4e\x77\x64\x44\x6b\x34'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><div id="envelope" class="envelope"><div class="envelope-bg"><img src="../../../shared/images/wedding/viet-green/bia_1.webp" alt=""></div><span class="envelope-deco envelope-deco-1">🌿</span><span class="envelope-deco envelope-deco-2">🍃</span><span class="envelope-deco envelope-deco-3">☘️</span><span class="envelope-deco envelope-deco-4">🌸</span><div class="envelope-card"><span class="envelope-corner envelope-corner-tl">❦</span><span class="envelope-corner envelope-corner-tr">❦</span><span class="envelope-corner envelope-corner-bl">❦</span><span class="envelope-corner envelope-corner-br">❦</span><div class="envelope-ornament">🌿</div><div class="envelope-line"></div><h1 class="envelope-couple-name">Hoàng Tài<br>&<br>Thuý Lanh</h1><p class="envelope-date">20 . 12 . 2026</p><p class="envelope-invite-text">Nhà trai trân trọng kính mời</p><div id="envelopeOpenBtn" class="ribbon-bow" role="button" tabindex="0" aria-label="Mở thiệp"><div class="bow-loop bow-loop-left"></div><div class="bow-loop bow-loop-right"></div><div class="bow-knot"></div><div class="bow-tail bow-tail-left"></div><div class="bow-tail bow-tail-right"></div><span class="bow-sparkle" style="top:30%;left:20%;--sx:-25px;--sy:-20px;">✨</span><span class="bow-sparkle" style="top:30%;right:20%;--sx:25px;--sy:-20px;">✨</span><span class="bow-sparkle" style="top:50%;left:10%;--sx:-30px;--sy:5px;">🌿</span><span class="bow-sparkle" style="top:50%;right:10%;--sx:30px;--sy:5px;">🍃</span><span class="bow-sparkle" style="top:70%;left:30%;--sx:-15px;--sy:20px;">💚</span><span class="bow-sparkle" style="top:70%;right:30%;--sx:15px;--sy:20px;">💚</span><span class="bow-hint">cởi nơ để mở thiệp</span></div><div class="envelope-peek-photos"><div class="envelope-peek-photo"><img src="../../../shared/images/wedding/viet-green/cap_doi_2.webp" alt=""></div><div class="envelope-peek-photo"><img src="../../../shared/images/wedding/viet-green/anh cap doi.webp" alt=""></div></div></div></div><nav class="nav" id="mainNav"><div class="nav-inner"><a href="#hero" class="nav-link">Trang chủ</a><a href="#story" class="nav-link">Chuyện tình</a><span class="nav-monogram">T & L</span><a href="#gallery" class="nav-link">Album</a><a href="#rsvp" class="nav-link">Xác nhận</a><a href="#wishes" class="nav-link">Lời chúc</a></div></nav><section class="hero" id="hero"><div class="hero-bg"><img src="../../../shared/images/wedding/viet-green/bia_1.webp" alt="Wedding hero"></div><p class="hero-subtitle">Save the Date</p><h1 class="hero-title" style="position: relative;">
-Hoàng Tài<br><span class="hero-ampersand">&</span><br>Thuý Lanh
-<span class="deco deco-front deco-heart-beat deco-md" style="top: -10px; right: -30px;"></span></h1><p class="hero-date">20 . 12 . 2026</p><p class="hero-invite">Nhà trai trân trọng kính mời</p><div class="scroll-indicator"><span>Cuộn xuống</span><i data-lucide="chevron-down"></i></div></section><section class="section--breathe animate-fade-up" style="position: relative;"><div class="couple-fly"><img class="couple-fly-img" src="../../../shared/images/wedding/viet-green/chu re.webp" alt="Chú rể"><img class="couple-fly-img" src="../../../shared/images/wedding/viet-green/co-dau.webp" alt="Cô dâu"><div class="couple-fly-heart">♥</div></div><span class="deco deco-butterfly deco-lg" style="top: 15%; left: 10%;"></span><span class="deco deco-heart-float deco-sm" style="bottom: 20%; right: 8%;"></span></section><section class="section countdown-section animate-fade-up" id="countdown"><div class="section-heading"><p class="section-subtitle">Đếm Ngược</p><h2 class="section-title">Ngày Trọng Đại</h2></div><div class="countdown" id="countdownTimer"><div class="countdown-item"><span class="countdown-number" id="days">00</span><span class="countdown-label">Ngày</span></div><div class="countdown-item"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Giờ</span></div><div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Phút</span></div><div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Giây</span></div></div></section><section class="section cal-section animate-fade-up" id="calendar-month"><div class="section-heading"><p class="section-subtitle">Save The Date</p><h2 class="section-title">Tháng 12, 2026</h2></div><div id="weddingCalendar"></div><div style="text-align: center; margin-top: 1.5rem;"><button class="calendar-btn" onclick="downloadICS()"><i data-lucide="calendar-plus"></i>
-Thêm vào lịch
-</button></div></section><div class="divider-ornament"><span class="divider-ornament-icon">❦</span></div><div class="photo-strip"><img src="../../../shared/images/wedding/viet-green/2 line .webp" alt=""></div><section class="section--breathe bg-image-section" id="story" style="position: relative;"><div class="bg-img"><img src="../../../shared/images/wedding/viet-green/anh doi.webp" alt=""></div><div class="section-heading"><p class="section-subtitle">Our Love Story</p><h2 class="section-title">Chuyện Của Chúng Mình</h2></div><div class="timeline"><div class="timeline-item animate-fade-up"><div class="timeline-dot"></div><div class="timeline-icon">💫</div><div class="timeline-date">Tháng 3, 2020</div><div class="timeline-title">Lần Đầu Gặp Nhau</div><div class="timeline-desc">Một buổi chiều mùa xuân, chúng mình vô tình gặp nhau tại quán cà phê quen thuộc. Ánh mắt đầu tiên đã khắc sâu trong tim.</div></div><div class="timeline-item animate-fade-up"><div class="timeline-dot"></div><div class="timeline-icon">🌸</div><div class="timeline-date">Tháng 8, 2020</div><div class="timeline-title">Bắt Đầu Hẹn Hò</div><div class="timeline-desc">Sau nhiều lần trò chuyện, chúng mình quyết định cùng nhau bước đi trên con đường tình yêu.</div></div><div class="timeline-item animate-fade-up"><div class="timeline-dot"></div><div class="timeline-icon">💍</div><div class="timeline-date">Tháng 6, 2026</div><div class="timeline-title">Lời Cầu Hôn</div><div class="timeline-desc">Dưới ánh hoàng hôn rực rỡ, anh quỳ gối cầu hôn và em đã nói "Đồng ý!"</div></div><div class="timeline-item animate-fade-up"><div class="timeline-dot"></div><div class="timeline-icon">💒</div><div class="timeline-date">Tháng 12, 2026</div><div class="timeline-title">Ngày Trọng Đại</div><div class="timeline-desc">Và bây giờ, chúng mình sẵn sàng cùng nhau viết tiếp câu chuyện tình yêu — mãi mãi bên nhau.</div></div></div><span class="deco deco-rose-bloom deco-md" style="top: 8%; right: 5%;"></span><span class="deco deco-sparkle deco-sm" style="bottom: 10%; left: 8%;"></span></section><div class="divider-ornament"><span class="divider-ornament-icon">✿</span></div><section class="section event-section animate-fade-up" id="event" style="position: relative;"><div class="section-heading"><p class="section-subtitle">Wedding Ceremony</p><h2 class="section-title">Lễ Thành Hôn</h2></div><div class="event-grid"><div class="event-card"><div class="event-card-icon">💒</div><div class="event-card-type">Tiệc Cưới</div><div class="event-card-name">Lễ Thành Hôn</div><div class="event-card-detail"><i data-lucide="calendar"></i><span>Chủ Nhật, 20/12/2026</span></div><div class="event-card-detail"><i data-lucide="clock"></i><span>17:00 — 21:00</span></div><div class="event-card-detail"><i data-lucide="map-pin"></i><span>Nhà hàng Tiệc Cưới ABC</span></div><div class="event-card-address">123 Đường Nguyễn Huệ, Quận 1, TP.HCM</div><div class="event-card-parents"><strong>Trân trọng kính mời</strong>
-Ông Nguyễn Văn A & Bà Trần Thị B
-</div></div></div><span class="deco deco-heart-beat deco-sm" style="top: 20%; left: 5%;"></span></section><section class="section--breathe bg-image-section animate-fade-up" style="position: relative;"><div class="bg-img"><img src="../../../shared/images/wedding/viet-green/anh cap doi.webp" alt=""></div><div class="blessing-quote"><blockquote>
-Tình yêu không phải là nhìn nhau, mà là cùng nhau nhìn về một hướng.
-</blockquote><cite>— Antoine de Saint-Exupéry</cite></div></section><section class="section" id="gallery" style="position: relative;"><div class="section-heading"><p class="section-subtitle">Our Gallery</p><h2 class="section-title">Khoảnh Khắc Đẹp</h2></div><div class="gallery-grid" id="galleryGrid"><div class="gallery-item" data-index="0"><img src="../../../shared/images/wedding/viet-green/3.webp" alt="Wedding photo 1"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div><div class="gallery-item" data-index="1"><img src="../../../shared/images/wedding/viet-green/4.webp" alt="Wedding photo 2"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div><div class="gallery-item" data-index="2"><img src="../../../shared/images/wedding/viet-green/5.webp" alt="Wedding photo 3"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div><div class="gallery-item" data-index="3"><img src="../../../shared/images/wedding/viet-green/2 anh loon.webp" alt="Wedding photo 4"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div><div class="gallery-item" data-index="4"><img src="../../../shared/images/wedding/viet-green/3 anh doc.webp" alt="Wedding photo 5"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div><div class="gallery-item" data-index="5"><img src="../../../shared/images/wedding/viet-green/hoa cuoi.webp" alt="Wedding photo 6"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div></div><span class="deco deco-sparkle deco-md" style="top: 5%; right: 10%;"></span><span class="deco deco-butterfly deco-sm" style="bottom: 8%; left: 5%;"></span></section><div class="lightbox" id="lightbox"><button class="lightbox-close" id="lightboxClose">✕</button><button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button><img id="lightboxImg" src="" alt="Lightbox"><button class="lightbox-nav lightbox-next" id="lightboxNext">›</button></div><div class="divider-ornament"><span class="divider-ornament-icon">♡</span></div><section class="section rsvp-section animate-fade-up" id="rsvp"><div class="section-heading"><p class="section-subtitle">RSVP</p><h2 class="section-title">Xác Nhận Tham Dự</h2><p class="section-desc">Sự hiện diện của bạn là niềm hạnh phúc lớn nhất của chúng mình</p></div><form class="rsvp-form" id="rsvpForm" onsubmit="return handleRSVP(event)"><input type="text" class="rsvp-input" placeholder="Họ và tên *" required><div class="rsvp-row"><input type="tel" class="rsvp-input" placeholder="Số điện thoại"><select class="rsvp-select"><option value="1">1 khách</option><option value="2">2 khách</option><option value="3">3 khách</option><option value="4">4 khách</option><option value="5">5 khách</option></select></div><textarea class="rsvp-textarea" placeholder="Lời nhắn gửi đến cô dâu chú rể..."></textarea><button type="submit" class="rsvp-submit">Xác Nhận</button></form><div class="rsvp-success" id="rsvpSuccess"><div class="rsvp-success-icon">🎉</div><div class="rsvp-success-text">Cảm ơn bạn đã xác nhận!</div></div></section><section class="section guestbook-section animate-fade-up" id="wishes" style="position: relative;"><div class="section-heading"><p class="section-subtitle">Guestbook</p><h2 class="section-title">Lời Chúc Phúc</h2><p class="section-desc">Gửi lời chúc tốt đẹp đến cặp đôi</p></div><form class="guestbook-form" id="wishForm" onsubmit="return handleWish(event)"><input type="text" class="rsvp-input" id="wishName" placeholder="Tên của bạn *" required><textarea class="rsvp-textarea" id="wishMessage" placeholder="Lời chúc của bạn..." required></textarea><button type="submit" class="rsvp-submit">Gửi Lời Chúc</button></form><div class="guestbook-messages" id="wishList"></div><span class="deco deco-heart-float deco-lg" style="top: 5%; right: 8%;"></span></section><div class="photo-strip"><img src="../../../shared/images/wedding/viet-green/hoa cuoi 2.webp" alt=""></div><footer class="footer" id="footer"><div class="footer-bg"><img src="../../../shared/images/wedding/viet-green/anh doi.webp" alt=""></div><div class="footer-couple">Hoàng Tài & Thuý Lanh</div><div class="footer-date">20 . 12 . 2026</div><div class="footer-hearts"><span class="footer-heart">♥</span><span class="footer-heart">♥</span><span class="footer-heart">♥</span></div><div class="footer-made">Made with ♥ by Templexa</div></footer><div class="floating-wishes-box" id="floatingWishesBox"></div><button id="wishesToggle" class="wishes-toggle" aria-label="Toggle wishes"><i data-lucide="message-circle" class="wishes-icon-on"></i><i data-lucide="message-circle-off" class="wishes-icon-off"></i></button><button id="musicToggle" class="music-toggle" aria-label="Toggle music"><i data-lucide="volume-2" class="music-icon-on"></i><i data-lucide="volume-x" class="music-icon-off"></i></button><audio id="bgMusic" loop preload="auto"><source src="../../../shared/music/romantic/Everyday I Love You.mp3" type="audio/mpeg"></audio><script>
-lucide.createIcons();
-</script><script>document.addEventListener('\x44\x4f\x4d\x43\x6f\x6e\x74\x65\x6e\x74\x4c\x6f\x61\x64\x65\x64', function () { var envelope = document.getElementById('\x65\x6e\x76\x65\x6c\x6f\x70\x65'); var openBtn = document.getElementById('\x65\x6e\x76\x65\x6c\x6f\x70\x65\x4f\x70\x65\x6e\x42\x74\x6e'); var bgMusic = document.getElementById('\x62\x67\x4d\x75\x73\x69\x63'); var bowUntied = false; if (openBtn) { openBtn.addEventListener('\x63\x6c\x69\x63\x6b', function () { if (bowUntied) return; bowUntied = true; openBtn.classList.add('\x75\x6e\x74\x79\x69\x6e\x67'); setTimeout(function () { envelope.classList.add('\x6f\x70\x65\x6e\x65\x64'); if (bgMusic) { bgMusic.volume = 0.3; bgMusic.play().catch(function(){}); } }, 700); setTimeout(function () { envelope.style.display = '\x6e\x6f\x6e\x65'; }, 1700); }); openBtn.addEventListener('\x6b\x65\x79\x64\x6f\x77\x6e', function (e) { if (e.key === '\x45\x6e\x74\x65\x72' || e.key === ' ') { e.preventDefault(); openBtn.click(); } }); } function updateCountdown() { var weddingDate = new Date('2026-12-20T17:00:00').getTime(); var now = new Date().getTime(); var diff = weddingDate - now; if (diff <= 0) { document.getElementById('countdownTimer').innerHTML = '<div class="countdown-done">🎉 Hôn lễ đã diễn ra! 🎉</div>'; return; } var d = Math.floor(diff / (1000 * 60 * 60 * 24)); var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); var s = Math.floor((diff % (1000 * 60)) / 1000); document.getElementById('days').textContent = String(d).padStart(2, '0'); document.getElementById('hours').textContent = String(h).padStart(2, '0'); document.getElementById('minutes').textContent = String(m).padStart(2, '0'); document.getElementById('seconds').textContent = String(s).padStart(2, '0'); } updateCountdown(); setInterval(updateCountdown, 1000); initCalendarMonth({ containerId: 'weddingCalendar', month: 12, year: 2026, variant: 'elegant', accentColor: '#4A9E6F', events: [ { day: 20, color: '#4A9E6F', label: '17:00 — Lễ Thành Hôn' } ] }); function initCalendarMonth(config) { var container = document.getElementById(config.containerId); if (!container) return; var month = config.month; var year = config.year; var variant = config.variant || 'classic'; var accentColor = config.accentColor || '#C41E3A'; var events = config.events || []; var monthNames = ['', 'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12']; var dows = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']; var markedDays = {}; events.forEach(function(e) { markedDays[e.day] = e.color || accentColor; }); var firstDay = new Date(year, month - 1, 1).getDay(); var daysInMonth = new Date(year, month, 0).getDate(); var today = new Date(); var isThisMonth = (today.getFullYear() === year && today.getMonth() + 1 === month); var todayDate = today.getDate(); var html = '<div class="cal-month cal-'\x20\x2b\x20\x76\x61\x72\x69\x61\x6e\x74\x20\x2b\x20'" style="--cal-accent:'\x20\x2b\x20\x61\x63\x63\x65\x6e\x74\x43\x6f\x6c\x6f\x72\x20\x2b\x20'">'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'<div class="cal-header"><span class="cal-month-name">'\x20\x2b\x20\x6d\x6f\x6e\x74\x68\x4e\x61\x6d\x65\x73\x5b\x6d\x6f\x6e\x74\x68\x5d\x20\x2b\x20'</span><span class="cal-year">'\x20\x2b\x20\x79\x65\x61\x72\x20\x2b\x20'</span></div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'<div class="cal-grid">'; dows.forEach(function(d) { html += '<div class="cal-dow">'\x20\x2b\x20\x64\x20\x2b\x20'</div>'\x3b\x20\x7d\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x66\x6f\x72\x20\x28\x76\x61\x72\x20\x69\x20\x3d\x20\x30\x3b\x20\x69\x20\x3c\x20\x66\x69\x72\x73\x74\x44\x61\x79\x3b\x20\x69\x2b\x2b\x29\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'<div class="cal-day empty"></div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x66\x6f\x72\x20\x28\x76\x61\x72\x20\x64\x20\x3d\x20\x31\x3b\x20\x64\x20\x3c\x3d\x20\x64\x61\x79\x73\x49\x6e\x4d\x6f\x6e\x74\x68\x3b\x20\x64\x2b\x2b\x29\x20\x7b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x76\x61\x72\x20\x63\x6c\x73\x20\x3d\x20'cal-day'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x69\x66\x20\x28\x69\x73\x54\x68\x69\x73\x4d\x6f\x6e\x74\x68\x20\x26\x26\x20\x64\x20\x3d\x3d\x3d\x20\x74\x6f\x64\x61\x79\x44\x61\x74\x65\x29\x20\x63\x6c\x73\x20\x2b\x3d\x20' today'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x69\x66\x20\x28\x6d\x61\x72\x6b\x65\x64\x44\x61\x79\x73\x5b\x64\x5d\x29\x20\x63\x6c\x73\x20\x2b\x3d\x20' marked'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'<div class="'\x20\x2b\x20\x63\x6c\x73\x20\x2b\x20'">'\x20\x2b\x20\x64\x20\x2b\x20'</div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x7d\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'</div>'; if (events.length) { html += '<div class="cal-events">'; events.forEach(function(e) { html += '<div class="cal-event"><div class="cal-event-dot" style="background:' + (e.color || accentColor) + '"></div><span class="cal-event-date">' + e.day + '/'\x20\x2b\x20\x6d\x6f\x6e\x74\x68\x20\x2b\x20'</span><span class="cal-event-text">' + e.label + '</span></div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x7d\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'</div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x7d\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'</div>'; container.innerHTML = html; } var musicBtn = document.getElementById('musicToggle'); if (musicBtn && bgMusic) { var musicStarted = false; musicBtn.addEventListener('click', function () { if (!musicStarted) { bgMusic.play().catch(function(){}); musicStarted = true; musicBtn.classList.remove('muted'); } else if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('muted'); } else { bgMusic.pause(); musicBtn.classList.add('muted'); } }); } var observer = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) entry.target.classList.add('is-visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }); document.querySelectorAll('.animate-fade-up, .timeline-item').forEach(function (el) { observer.observe(el); }); var nav = document.getElementById('mainNav'); window.addEventListener('scroll', function () { if (window.scrollY > 50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); }); document.querySelectorAll('.nav-link').forEach(function (link) { link.addEventListener('click', function (e) { e.preventDefault(); var target = document.querySelector(this.getAttribute('href')); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); }); var galleryImages = []; document.querySelectorAll('.gallery-item img').forEach(function(img) { galleryImages.push(img.src); }); var lightbox = document.getElementById('lightbox'); var lightboxImg = document.getElementById('lightboxImg'); var currentLightboxIndex = 0; document.querySelectorAll('.gallery-item').forEach(function (item) { item.addEventListener('click', function () { currentLightboxIndex = parseInt(item.dataset.index) || 0; lightboxImg.src = galleryImages[currentLightboxIndex]; lightbox.classList.add('active'); }); }); document.getElementById('lightboxClose').addEventListener('click', function () { lightbox.classList.remove('active'); }); document.getElementById('lightboxPrev').addEventListener('click', function () { currentLightboxIndex = (currentLightboxIndex - 1 + galleryImages.length) % galleryImages.length; lightboxImg.src = galleryImages[currentLightboxIndex]; }); document.getElementById('lightboxNext').addEventListener('click', function () { currentLightboxIndex = (currentLightboxIndex + 1) % galleryImages.length; lightboxImg.src = galleryImages[currentLightboxIndex]; }); lightbox.addEventListener('click', function (e) { if (e.target === lightbox) lightbox.classList.remove('active'); }); window.handleRSVP = function (e) { e.preventDefault(); document.getElementById('rsvpForm').style.display = 'none'; document.getElementById('rsvpSuccess').classList.add('show'); return false; }; var LOCAL_WISHES_KEY = 'viet_green_wishes'; var defaultWishes = [ { name: 'Ngoạ Long', message: 'Chúc hai bạn trăm năm hạnh phúc, sớm có tin vui nha! 🎉' }, { name: 'Phượng Sồ', message: 'Happy Wedding! Mong hai bạn luôn yêu thương nhau mãi mãi 💕' }, { name: 'Doremon', message: 'Chúc mừng đám cưới! Ước gì mình có túi thần kỳ tặng hai bạn 🤖' }, { name: 'Pikachu', message: 'Pika pika! Chúc anh chị hạnh phúc viên mãn, vạn sự như ý ⚡' }, { name: 'Kabibara', message: 'Chúc đôi uyên ương sống bên nhau trọn đời, yêu thương mỗi ngày 🧡' } ]; function getStoredWishes() { try { var stored = JSON.parse(localStorage.getItem(LOCAL_WISHES_KEY)); return Array.isArray(stored) ? stored : []; } catch (e) { return []; } } function saveWishes(arr) { localStorage.setItem(LOCAL_WISHES_KEY, JSON.stringify(arr)); } var storedWishes = getStoredWishes(); var allWishes = defaultWishes.concat(storedWishes); function renderWishes() { var list = document.getElementById('wishList'); list.innerHTML = ''; allWishes.forEach(function (w) { var div = document.createElement('div'); div.className = 'guestbook-message'; div.innerHTML = '<div class="guestbook-message-header">'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<div class="guestbook-avatar">' + w.name.charAt(0).toUpperCase() + '</div>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<div class="guestbook-name">' + w.name + '</div>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'</div>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<div class="guestbook-text">' + w.message + '</div>'; list.appendChild(div); }); } renderWishes(); window.handleWish = function (e) { e.preventDefault(); var nameEl = document.getElementById('wishName'); var msgEl = document.getElementById('wishMessage'); var name = nameEl.value.trim(); var message = msgEl.value.trim(); if (!name || !message) return false; var wish = { name: name, message: message }; allWishes.push(wish); storedWishes.push(wish); saveWishes(storedWishes); renderWishes(); if (typeof floatingWishesLocal !== 'undefined' && floatingWishesLocal) { floatingWishesLocal.addWish(name, message); } nameEl.value = ''; msgEl.value = ''; return false; }; var floatingWishesLocal = (function () { var wishPool = allWishes.slice(); var currentIndex = 0; var maxVisible = 5; var interval = 1200; var duration = 7000; var container = document.getElementById('floatingWishesBox'); var colorCount = 5; function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; } function createBubble(name, message) { var el = document.createElement('div'); el.className = 'floating-wish fw-c' + (Math.floor(Math.random() * colorCount) + 1); el.style.animationDuration = duration + 'ms'; el.innerHTML = '<div class="floating-wish-avatar">' + esc(name).charAt(0).toUpperCase() + '</div>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<span class="floating-wish-name">'\x20\x2b\x20\x65\x73\x63\x28\x6e\x61\x6d\x65\x29\x20\x2b\x20':</span>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<span class="floating-wish-text">'\x20\x2b\x20\x65\x73\x63\x28\x6d\x65\x73\x73\x61\x67\x65\x29\x20\x2b\x20'</span>'; container.appendChild(el); while (container.children.length > maxVisible) { container.removeChild(container.firstChild); } setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, duration); } function showNext() { if (wishPool.length === 0) return; var wish = wishPool[currentIndex % wishPool.length]; createBubble(wish.name, wish.message); currentIndex++; } setTimeout(function () { showNext(); setInterval(showNext, interval); }, 500); return { addWish: function (name, message) { if (name && message) { wishPool.push({ name: name, message: message }); createBubble(name, message); } } }; })(); var wishesBtn = document.getElementById('wishesToggle'); var wishesBox = document.getElementById('floatingWishesBox'); if (wishesBtn && wishesBox) { wishesBtn.addEventListener('click', function () { var isHidden = wishesBtn.classList.toggle('hidden'); wishesBox.classList.toggle('hidden-wishes', isHidden); }); } function createPetal() { var petal = document.createElement('div'); petal.classList.add('petal'); petal.style.left = Math.random() * 100 + 'vw'; petal.style.animationDuration = (Math.random() * 3 + 5) + 's'; petal.style.opacity = Math.random() * 0.5 + 0.2; petal.style.fontSize = (Math.random() * 8 + 12) + 'px'; petal.innerHTML = ['🍃', '🌿', '☘️', '🌸'][Math.floor(Math.random() * 4)]; document.body.appendChild(petal); setTimeout(function () { petal.remove(); }, 8000); } setInterval(createPetal, 1200); function createHeart() { var heart = document.createElement('div'); heart.classList.add('floating-heart'); heart.style.left = Math.random() * 100 + 'vw'; heart.innerHTML = ['💚', '💕', '🤍', '💛'][Math.floor(Math.random() * 4)]; heart.style.fontSize = (Math.random() * 8 + 10) + 'px'; heart.style.animationDuration = (Math.random() * 3 + 5) + 's'; document.body.appendChild(heart); setTimeout(function () { heart.remove(); }, 8000); } setInterval(createHeart, 2500); function createSparkle() { var sparkle = document.createElement('div'); sparkle.classList.add('sparkle'); sparkle.style.left = Math.random() * 100 + 'vw'; sparkle.style.top = Math.random() * 100 + 'vh'; sparkle.innerHTML = '✨'; sparkle.style.fontSize = (Math.random() * 6 + 8) + 'px'; document.body.appendChild(sparkle); setTimeout(function () { sparkle.remove(); }, 2000); } setInterval(createSparkle, 1500); window.downloadICS = function () { var ics = [ 'BEGIN:VCALENDAR'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'VERSION:2.0'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'PRODID:- ].join('\r\n'); var blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' }); var link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'cuoi-tai-lanh.ics'; link.click(); }; });</script></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới - Hoàng Tài & Thuý Lanh</title>
+    <meta name="description" content="Thiệp mời đám cưới phong cách xanh lá tươi trẻ, hiện đại">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --font-heading: 'Dancing Script', cursive;
+            --font-body: 'Quicksand', sans-serif;
+            --font-accent: 'Cormorant Garamond', serif;
+            --accent: #4A9E6F;
+            --accent-dark: #357A52;
+            --accent-light: #B8E0CC;
+            --accent-glow: rgba(74, 158, 111, 0.25);
+            --bg-primary: #F2F9F5;
+            --bg-secondary: #E8F5ED;
+            --text-primary: #1A3328;
+            --text-secondary: #4A6B58;
+            --text-tertiary: #7A9B88;
+            --btn-bg: linear-gradient(135deg, #4A9E6F, #357A52);
+            --btn-text: #FFFFFF;
+            --envelope-bg: linear-gradient(135deg, #E8F5ED 0%, #D4EDDF 50%, #C1E5D1 100%);
+            --divider-color: rgba(74, 158, 111, 0.35);
+            --gold: #C9A84C;
+            --blush: #E8B4A2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 300;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Body subtle texture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 15% 25%, rgba(74, 158, 111, 0.04), transparent 50%),
+                radial-gradient(circle at 85% 75%, rgba(200, 168, 76, 0.03), transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(232, 180, 162, 0.02), transparent 60%);
+        }
+
+        img { max-width: 100%; height: auto; }
+
+        /* ==================== ENVELOPE ==================== */
+        .envelope {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, transform 1s ease;
+            text-align: center;
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+        /* Background image + overlay */
+        .envelope-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .envelope-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(6px) brightness(0.85);
+        }
+        .envelope-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(232, 245, 237, 0.88) 0%,
+                rgba(212, 237, 223, 0.82) 50%,
+                rgba(193, 229, 209, 0.88) 100%
+            );
+        }
+        /* Floating botanical elements on bg */
+        .envelope-deco {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.15;
+            font-size: 3rem;
+        }
+        .envelope-deco-1 { top: 8%; left: 5%; animation: env-float-1 6s ease-in-out infinite; }
+        .envelope-deco-2 { top: 12%; right: 8%; animation: env-float-2 7s ease-in-out infinite; font-size: 2.5rem; }
+        .envelope-deco-3 { bottom: 15%; left: 10%; animation: env-float-1 8s ease-in-out infinite 1s; font-size: 2rem; }
+        .envelope-deco-4 { bottom: 10%; right: 6%; animation: env-float-2 6s ease-in-out infinite 0.5s; }
+        @keyframes env-float-1 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(8deg); }
+        }
+        @keyframes env-float-2 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(-6deg); }
+        }
+
+        .envelope.opened {
+            opacity: 0;
+            transform: scale(1.08);
+            pointer-events: none;
+        }
+
+        /* Main card frame */
+        .envelope-card {
+            position: relative;
+            z-index: 2;
+            max-width: 440px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: clamp(2.5rem, 6vw, 3.5rem) clamp(2rem, 5vw, 3rem);
+            box-shadow:
+                0 20px 60px rgba(26, 51, 40, 0.12),
+                0 0 0 1px rgba(74, 158, 111, 0.12);
+            animation: env-card-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+        @keyframes env-card-in {
+            from { opacity: 0; transform: translateY(40px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        /* Decorative double border inside card */
+        .envelope-card::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(74, 158, 111, 0.2);
+            border-radius: 18px;
+            pointer-events: none;
+        }
+        .envelope-card::after {
+            content: '';
+            position: absolute;
+            inset: 16px;
+            border: 1px dashed rgba(74, 158, 111, 0.12);
+            border-radius: 14px;
+            pointer-events: none;
+        }
+        /* Corner ornaments */
+        .envelope-corner {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            z-index: 3;
+            color: var(--accent);
+            opacity: 0.35;
+            font-size: 1rem;
+        }
+        .envelope-corner-tl { top: 20px; left: 20px; }
+        .envelope-corner-tr { top: 20px; right: 20px; transform: scaleX(-1); }
+        .envelope-corner-bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+        .envelope-corner-br { bottom: 20px; right: 20px; transform: scale(-1); }
+
+        /* Content stagger animations */
+        .envelope-ornament {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both,
+                       pulse-gentle 2.5s ease-in-out 1.5s infinite;
+        }
+        @keyframes pulse-gentle {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.8; }
+        }
+        .envelope-line {
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 0 auto 1.25rem;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+        .envelope-couple-name {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 7vw, 3.5rem);
+            color: var(--accent-dark);
+            letter-spacing: 0.02em;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+        }
+        .envelope-date {
+            font-family: var(--font-accent);
+            font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both;
+        }
+        .envelope-invite-text {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--text-tertiary);
+            margin-bottom: 2rem;
+            letter-spacing: 0.08em;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s both;
+        }
+        /* ---- RIBBON BOW ---- */
+        .ribbon-bow {
+            position: relative;
+            width: 120px;
+            height: 90px;
+            margin: 0 auto;
+            cursor: pointer;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
+            transition: transform 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .ribbon-bow:hover { transform: scale(1.08); }
+
+        /* Center knot */
+        .bow-knot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 22px;
+            height: 18px;
+            background: var(--accent-dark);
+            border-radius: 4px;
+            z-index: 5;
+            box-shadow: 0 2px 6px rgba(53, 122, 82, 0.3);
+            transition: transform 0.6s, opacity 0.6s;
+        }
+        .bow-knot::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 3px;
+        }
+
+        /* Loop left */
+        .bow-loop {
+            position: absolute;
+            top: 50%;
+            width: 48px;
+            height: 36px;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            background: rgba(74, 158, 111, 0.12);
+            transform-origin: center right;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.5s 0.3s;
+        }
+        .bow-loop-left {
+            right: 50%;
+            margin-top: -18px;
+            margin-right: 5px;
+            transform: rotate(-8deg);
+            transform-origin: right center;
+        }
+        .bow-loop-right {
+            left: 50%;
+            margin-top: -18px;
+            margin-left: 5px;
+            transform: rotate(8deg);
+            transform-origin: left center;
+        }
+        /* Shine highlight on loops */
+        .bow-loop::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            width: 60%;
+            height: 35%;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+        }
+        .bow-loop-left::before { left: 8px; }
+        .bow-loop-right::before { right: 8px; }
+
+        /* Tails */
+        .bow-tail {
+            position: absolute;
+            top: 50%;
+            width: 4px;
+            height: 40px;
+            border-radius: 0 0 3px 3px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.5s 0.3s;
+        }
+        .bow-tail-left {
+            left: calc(50% - 12px);
+            margin-top: 5px;
+            transform: rotate(12deg);
+            transform-origin: top center;
+        }
+        .bow-tail-right {
+            left: calc(50% + 8px);
+            margin-top: 5px;
+            transform: rotate(-12deg);
+            transform-origin: top center;
+        }
+        /* V-cut at tail bottom */
+        .bow-tail::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 6px solid var(--accent-dark);
+        }
+
+        /* Hint text */
+        .bow-hint {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            animation: bow-hint-pulse 2s ease-in-out infinite;
+        }
+        @keyframes bow-hint-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.9; }
+        }
+
+        /* Gentle bounce on the whole bow */
+        .ribbon-bow::before {
+            content: '';
+            position: absolute;
+            inset: -15px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .ribbon-bow:hover::before { opacity: 1; }
+
+        /* ---- UNTIE ANIMATION ---- */
+        .ribbon-bow.untying .bow-loop-left {
+            transform: rotate(-70deg) scale(0.6);
+            opacity: 0;
+        }
+        .ribbon-bow.untying .bow-loop-right {
+            transform: rotate(70deg) scale(0.6);
+            opacity: 0;
+        }
+        .ribbon-bow.untying .bow-tail-left {
+            transform: rotate(50deg) translateY(15px) scale(0.5);
+            opacity: 0;
+        }
+        .ribbon-bow.untying .bow-tail-right {
+            transform: rotate(-50deg) translateY(15px) scale(0.5);
+            opacity: 0;
+        }
+        .ribbon-bow.untying .bow-knot {
+            transform: translate(-50%, -50%) scale(0) rotate(180deg);
+            opacity: 0;
+        }
+        .ribbon-bow.untying .bow-hint {
+            opacity: 0;
+        }
+
+        /* Sparkle particles on untie */
+        .bow-sparkle {
+            position: absolute;
+            pointer-events: none;
+            font-size: 12px;
+            opacity: 0;
+        }
+        .ribbon-bow.untying .bow-sparkle {
+            animation: bow-sparkle-burst 0.8s ease-out forwards;
+        }
+        @keyframes bow-sparkle-burst {
+            0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
+            100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(1.2) rotate(180deg); }
+        }
+
+        /* Peek photos */
+        .envelope-peek-photos {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            position: relative;
+            height: 75px;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.3s both;
+        }
+        .envelope-peek-photo {
+            width: 90px;
+            height: 65px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 3px solid white;
+            position: absolute;
+        }
+        .envelope-peek-photo:nth-child(1) {
+            left: calc(50% - 100px);
+            transform: rotate(-6deg);
+            z-index: 1;
+        }
+        .envelope-peek-photo:nth-child(2) {
+            left: calc(50% + 10px);
+            transform: rotate(4deg);
+            top: 5px;
+        }
+        .envelope-peek-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+        @media (max-width: 480px) {
+            .envelope-card {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+            .envelope-card::before { inset: 8px; border-radius: 15px; }
+            .envelope-card::after { inset: 13px; border-radius: 12px; }
+            .envelope-corner { display: none; }
+            .envelope-deco { font-size: 2rem; opacity: 0.1; }
+            .envelope-peek-photo { width: 80px; height: 58px; }
+            .envelope-peek-photo:nth-child(1) { left: calc(50% - 88px); }
+        }
+
+        /* ==================== NAV ==================== */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(242, 249, 245, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(74, 158, 111, 0.1);
+            transition: box-shadow 0.3s;
+        }
+        .nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 2rem);
+            padding: 12px 1rem;
+            flex-wrap: wrap;
+        }
+        .nav-link {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            padding: 4px 0;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--accent); }
+        .nav-monogram {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--accent);
+            padding: 0 0.5rem;
+        }
+        @media (max-width: 480px) {
+            .nav-inner { gap: 0.6rem; }
+            .nav-link { font-size: 0.65rem; letter-spacing: 0.08em; }
+        }
+
+        /* ==================== HERO ==================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: clamp(6rem, 15vw, 8rem) 1.5rem clamp(4rem, 10vw, 6rem);
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(242, 249, 245, 0.3) 0%,
+                rgba(242, 249, 245, 0.1) 30%,
+                rgba(242, 249, 245, 0.5) 70%,
+                rgba(242, 249, 245, 0.95) 100%
+            );
+        }
+        .hero-subtitle {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(3.5rem, 12vw, 6rem);
+            color: var(--accent-dark);
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+            position: relative;
+        }
+        .hero-ampersand {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 0.6em;
+            color: var(--gold);
+            display: inline-block;
+            margin: 0 0.15em;
+        }
+        .hero-date {
+            font-family: var(--font-accent);
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+        .hero-invite {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-tertiary);
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+        }
+        @keyframes slide-up-hero {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-tertiary);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            animation: scroll-bounce 2s ease-in-out infinite;
+        }
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ==================== SECTIONS SHARED ==================== */
+        .section {
+            padding: clamp(4rem, 10vw, 6rem) clamp(1rem, 5vw, 2rem);
+        }
+        .section--breathe {
+            padding: clamp(5rem, 12vw, 7rem) 1.5rem;
+        }
+        .section--compact {
+            padding: clamp(2rem, 5vw, 3.5rem) 1.5rem;
+        }
+        .section-heading {
+            text-align: center;
+            margin-bottom: clamp(2rem, 5vw, 3rem);
+        }
+        .section-subtitle {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            color: var(--accent-dark);
+            margin-bottom: 0.75rem;
+        }
+        .section-desc {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Ornament divider */
+        .divider-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: clamp(1rem, 3vw, 2rem) 0;
+        }
+        .divider-ornament::before,
+        .divider-ornament::after {
+            content: '';
+            height: 1px;
+            width: clamp(40px, 15vw, 100px);
+            background: var(--divider-color);
+        }
+        .divider-ornament-icon {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        /* ==================== COUNTDOWN ==================== */
+        .countdown-section {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+        .countdown-section::before {
+            content: '';
+            position: absolute;
+            top: -30px; left: 0; right: 0;
+            height: 60px;
+            background: var(--bg-secondary);
+            clip-path: ellipse(55% 100% at 50% 100%);
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: clamp(12px, 3vw, 24px);
+        }
+        .countdown-item {
+            text-align: center;
+            min-width: clamp(65px, 16vw, 100px);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(74, 158, 111, 0.15);
+            border-radius: 16px;
+            padding: clamp(14px, 3vw, 24px) clamp(8px, 2vw, 16px);
+            backdrop-filter: blur(8px);
+        }
+        .countdown-number {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            color: var(--accent-dark);
+            line-height: 1;
+            display: block;
+        }
+        .countdown-label {
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 1.8vw, 0.8rem);
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+        .countdown-done {
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--accent);
+            padding: 2rem;
+        }
+
+        /* ==================== COUPLE PHOTOS FLY-IN ==================== */
+        .couple-fly {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .couple-fly-img {
+            width: clamp(150px, 35vw, 220px);
+            height: clamp(200px, 45vw, 280px);
+            border-radius: 120px 120px 20px 20px;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        .couple-fly-img:first-child {
+            margin-right: -25px;
+            transform: rotate(-2deg);
+            z-index: 1;
+        }
+        .couple-fly-img:last-child {
+            margin-left: -25px;
+            margin-top: 30px;
+            transform: rotate(1.5deg);
+        }
+        .couple-fly-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            25% { transform: translate(-50%, -50%) scale(1.15); }
+            50% { transform: translate(-50%, -50%) scale(1); }
+            75% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* ==================== LOVE STORY TIMELINE ==================== */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 1rem 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .timeline-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 3rem;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+            padding-left: 3rem;
+        }
+        .timeline-dot {
+            position: absolute;
+            top: 1.5rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 3px var(--accent);
+            z-index: 1;
+        }
+        .timeline-item:nth-child(odd) .timeline-dot { right: -7px; }
+        .timeline-item:nth-child(even) .timeline-dot { left: -7px; }
+        .timeline-date {
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .timeline-desc {
+            font-family: var(--font-accent);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .timeline-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .timeline::before { left: 20px; }
+            .timeline-item,
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                width: 100%;
+                left: 0;
+                text-align: left;
+                padding-left: 50px;
+                padding-right: 1rem;
+            }
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 13px;
+                right: auto;
+            }
+        }
+
+        /* ==================== EVENT CARD ==================== */
+        .event-section {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+        .event-grid {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .event-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(74, 158, 111, 0.2);
+            border-radius: 20px;
+            padding: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+        }
+        .event-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .event-card-type {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .event-card-name {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+            color: var(--text-primary);
+            margin-bottom: 1.25rem;
+        }
+        .event-card-detail {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font-accent);
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        .event-card-detail svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+        .event-card-address {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+        .event-card-parents {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(74, 158, 111, 0.15);
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .event-card-parents strong { color: var(--text-primary); }
+
+        /* ==================== CALENDAR MONTH ==================== */
+        .cal-section { text-align: center; }
+        .cal-month { max-width: 420px; margin: 0 auto; }
+        .cal-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 1.25rem;
+        }
+        .cal-month-name {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        .cal-year { font-size: 0.85rem; opacity: 0.5; font-weight: 400; }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0;
+        }
+        .cal-dow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 8px 0;
+            opacity: 0.5;
+        }
+        .cal-day {
+            position: relative;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: default;
+            transition: background 0.2s;
+        }
+        .cal-day.empty { pointer-events: none; }
+        .cal-day.today { font-weight: 700; }
+        .cal-day.marked { color: #fff; font-weight: 700; z-index: 1; }
+        .cal-events {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cal-event {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+        .cal-event-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .cal-event-date { font-weight: 600; white-space: nowrap; min-width: 40px; }
+        .cal-event-text { opacity: 0.75; }
+        /* Elegant variant */
+        .cal-elegant .cal-day {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+        }
+        .cal-elegant .cal-day.marked::before {
+            content: '';
+            position: absolute;
+            width: 36px; height: 36px;
+            border: 2px solid var(--cal-accent, var(--accent));
+            border-radius: 50%;
+            z-index: -1;
+        }
+        .cal-elegant .cal-day.marked {
+            color: var(--cal-accent, var(--accent));
+            font-weight: 700;
+        }
+        .cal-elegant .cal-month-name {
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+        .cal-elegant .cal-dow {
+            font-family: var(--font-heading);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+        }
+        .cal-elegant .cal-event-dot {
+            background: transparent;
+            border: 2px solid var(--cal-accent, var(--accent));
+        }
+        @media (max-width: 480px) {
+            .cal-month { max-width: 340px; }
+            .cal-day { font-size: 0.8rem; }
+            .cal-elegant .cal-day { font-size: 0.85rem; }
+            .cal-elegant .cal-day.marked::before { width: 30px; height: 30px; }
+        }
+
+        /* ==================== GALLERY ==================== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(8px, 2vw, 14px);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            cursor: pointer;
+            aspect-ratio: 4/5;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            background: rgba(26, 51, 40, 0.25);
+        }
+        .gallery-overlay-icon {
+            color: white;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; max-width: 320px; }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            animation: lightbox-zoom-in 0.3s ease;
+        }
+        @keyframes lightbox-zoom-in {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-nav:hover { background: rgba(255, 255, 255, 0.3); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        /* ==================== QUOTE ==================== */
+        .blessing-quote {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        .blessing-quote blockquote {
+            font-family: var(--font-accent);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            position: relative;
+            padding: 0 2rem;
+        }
+        .blessing-quote blockquote::before {
+            content: '\201C';
+            position: absolute;
+            top: -0.5rem;
+            left: 0;
+            font-size: 3.5rem;
+            color: var(--accent-light);
+            font-style: normal;
+            line-height: 1;
+        }
+        .blessing-quote cite {
+            display: block;
+            margin-top: 1rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-style: normal;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        /* ==================== RSVP ==================== */
+        .rsvp-section {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+        .rsvp-section::before {
+            content: '';
+            position: absolute;
+            top: -30px; left: 0; right: 0;
+            height: 60px;
+            background: var(--bg-secondary);
+            clip-path: ellipse(55% 100% at 50% 100%);
+        }
+        .rsvp-form {
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .rsvp-input,
+        .rsvp-select,
+        .rsvp-textarea {
+            width: 100%;
+            padding: 14px 20px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(74, 158, 111, 0.2);
+            border-radius: 12px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .rsvp-input:focus,
+        .rsvp-select:focus,
+        .rsvp-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(74, 158, 111, 0.1);
+        }
+        .rsvp-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .rsvp-input::placeholder,
+        .rsvp-textarea::placeholder {
+            color: var(--text-tertiary);
+        }
+        .rsvp-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        @media (max-width: 480px) {
+            .rsvp-row { grid-template-columns: 1fr; }
+        }
+        .rsvp-submit {
+            padding: 14px 48px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--btn-text);
+            background: var(--btn-bg);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px var(--accent-glow);
+            margin-top: 0.5rem;
+        }
+        .rsvp-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+        .rsvp-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            animation: fade-up 0.5s ease;
+        }
+        .rsvp-success.show { display: block; }
+        .rsvp-success-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .rsvp-success-text {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--text-primary);
+        }
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==================== GUESTBOOK / WISHES ==================== */
+        .guestbook-section {
+            text-align: center;
+        }
+        .guestbook-form {
+            max-width: 480px;
+            margin: 0 auto 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .guestbook-messages {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .guestbook-message {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(74, 158, 111, 0.12);
+            border-radius: 14px;
+            padding: 1.25rem;
+            text-align: left;
+            animation: fade-up 0.4s ease;
+        }
+        .guestbook-message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+        }
+        .guestbook-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .guestbook-name {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .guestbook-text {
+            font-family: var(--font-accent);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* ==================== FLOATING WISHES ==================== */
+        .floating-wishes-box {
+            position: fixed;
+            bottom: 80px;
+            left: 16px;
+            width: 300px;
+            height: 0;
+            z-index: 999;
+            pointer-events: none;
+        }
+        .floating-wish {
+            position: absolute;
+            bottom: 0; left: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--fw-bg, rgba(74, 158, 111, 0.3));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 12px var(--fw-shadow, rgba(74, 158, 111, 0.15));
+            color: var(--fw-text, #fff);
+            font-size: 0.8rem;
+            line-height: 1.3;
+            max-width: 100%;
+            width: fit-content;
+            animation: wish-float-up 7s linear forwards;
+            pointer-events: auto;
+            will-change: transform, opacity;
+        }
+        .fw-c1 { --fw-bg: rgba(74, 158, 111, 0.82); --fw-avatar: #4A9E6F; --fw-shadow: rgba(74,158,111,0.25); }
+        .fw-c2 { --fw-bg: rgba(30, 80, 160, 0.78); --fw-avatar: #60A5FA; --fw-shadow: rgba(30,80,160,0.25); }
+        .fw-c3 { --fw-bg: rgba(201, 168, 76, 0.82); --fw-avatar: #C9A84C; --fw-shadow: rgba(201,168,76,0.25); }
+        .fw-c4 { --fw-bg: rgba(255, 255, 255, 0.85); --fw-text: #1A3328; --fw-avatar: #7A9B88; --fw-shadow: rgba(0,0,0,0.1); }
+        .fw-c5 { --fw-bg: rgba(232, 180, 162, 0.80); --fw-avatar: #C98B70; --fw-shadow: rgba(232,180,162,0.25); }
+        .floating-wish-avatar {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: var(--fw-avatar, var(--accent));
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .floating-wish-name {
+            font-weight: 600;
+            margin-right: 2px;
+            white-space: nowrap;
+        }
+        .floating-wish-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 190px;
+        }
+        @keyframes wish-float-up {
+            0%   { opacity: 0; transform: translateY(0); }
+            5%   { opacity: 1; }
+            65%  { opacity: 0.7; }
+            88%  { opacity: 0.2; }
+            100% { opacity: 0; transform: translateY(-300px); }
+        }
+        .floating-wishes-box.hidden-wishes { display: none; }
+        @media (max-width: 480px) {
+            .floating-wishes-box { width: 260px; bottom: 72px; left: 10px; }
+            .floating-wish { font-size: 0.74rem; padding: 5px 12px; }
+            .floating-wish-avatar { width: 20px; height: 20px; font-size: 0.6rem; }
+            .floating-wish-text { max-width: 150px; }
+        }
+
+        /* ==================== MUSIC TOGGLE ==================== */
+        .music-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: var(--accent);
+            color: white;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* Wishes toggle */
+        .wishes-toggle {
+            position: fixed;
+            bottom: 80px;
+            right: 24px;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--accent);
+            color: white;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+            opacity: 0.85;
+        }
+        .wishes-toggle:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        .wishes-toggle svg { width: 18px; height: 18px; }
+        .wishes-toggle .wishes-icon-off { display: none; }
+        .wishes-toggle.hidden .wishes-icon-on { display: none; }
+        .wishes-toggle.hidden .wishes-icon-off { display: block; }
+
+        /* ==================== CALENDAR BUTTON ==================== */
+        .calendar-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .calendar-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+        .calendar-btn svg { width: 16px; height: 16px; }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            text-align: center;
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+        .footer-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.08;
+            filter: blur(3px);
+        }
+        .footer-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(242, 249, 245, 0.88);
+        }
+        .footer-couple {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--accent-dark);
+            margin-bottom: 0.5rem;
+        }
+        .footer-date {
+            font-family: var(--font-accent);
+            font-size: 1rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+        .footer-hearts {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 1rem 0;
+        }
+        .footer-heart {
+            font-size: 0.8rem;
+            color: var(--accent);
+            animation: heartbeat-footer 1.5s ease-in-out infinite;
+        }
+        .footer-heart:nth-child(2) { animation-delay: 0.15s; }
+        .footer-heart:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes heartbeat-footer {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+        }
+        .footer-made {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 300;
+            margin-top: 1rem;
+        }
+
+        /* ==================== FALLING EFFECTS ==================== */
+        .petal {
+            position: fixed;
+            top: -30px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: petal-fall linear forwards;
+        }
+        @keyframes petal-fall {
+            0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+            25% { transform: translateY(27vh) rotate(180deg) translateX(30px); }
+            50% { transform: translateY(55vh) rotate(360deg) translateX(-20px); }
+            75% { transform: translateY(82vh) rotate(540deg) translateX(25px); }
+            100% { transform: translateY(110vh) rotate(720deg) translateX(-10px); opacity: 0; }
+        }
+        .floating-heart {
+            position: fixed;
+            bottom: -30px;
+            z-index: 9998;
+            pointer-events: none;
+            animation: heart-float ease-out forwards;
+        }
+        @keyframes heart-float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-50vh) scale(1.2); opacity: 0.8; }
+            100% { transform: translateY(-110vh) scale(0.8); opacity: 0; }
+        }
+        .sparkle {
+            position: fixed;
+            z-index: 9998;
+            pointer-events: none;
+            animation: sparkle-fade 2s ease-out forwards;
+        }
+        @keyframes sparkle-fade {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            30% { opacity: 1; transform: scale(1) rotate(90deg); }
+            100% { opacity: 0; transform: scale(0.3) rotate(180deg); }
+        }
+
+        /* ==================== DECORATIVE ==================== */
+        .deco {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
+        }
+        .deco-front { z-index: 3; }
+        .deco-heart-beat::after {
+            content: '♥';
+            font-size: var(--deco-size, 1.5rem);
+            color: var(--deco-color, #4A9E6F);
+            animation: deco-hb 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(74,158,111,0.3));
+        }
+        @keyframes deco-hb {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.25); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+        }
+        .deco-heart-float::after {
+            content: '♡';
+            font-size: var(--deco-size, 1.2rem);
+            color: var(--deco-color, var(--accent-light));
+            animation: deco-fl 4s ease-in-out infinite;
+            opacity: 0.6;
+        }
+        @keyframes deco-fl {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(5deg); }
+            75% { transform: translateY(5px) rotate(-3deg); }
+        }
+        .deco-rose-bloom::after {
+            content: '🌿';
+            font-size: var(--deco-size, 1.3rem);
+            animation: deco-bl 3s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        @keyframes deco-bl {
+            0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.1) rotate(10deg); opacity: 0.8; }
+        }
+        .deco-butterfly::after {
+            content: '🦋';
+            font-size: var(--deco-size, 1.2rem);
+            animation: deco-bf 5s ease-in-out infinite;
+            opacity: 0.5;
+        }
+        @keyframes deco-bf {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scaleX(1); }
+            20% { transform: translate(8px, -10px) rotate(5deg) scaleX(0.9); }
+            40% { transform: translate(15px, -5px) rotate(-3deg) scaleX(1); }
+            60% { transform: translate(8px, 3px) rotate(5deg) scaleX(0.9); }
+            80% { transform: translate(-3px, -3px) rotate(-2deg) scaleX(1); }
+        }
+        .deco-sparkle::after {
+            content: '✨';
+            font-size: var(--deco-size, 1rem);
+            animation: deco-tw 1.8s ease-in-out infinite;
+        }
+        @keyframes deco-tw {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .deco-sm { --deco-size: 1rem; }
+        .deco-md { --deco-size: 1.5rem; }
+        .deco-lg { --deco-size: 2rem; }
+
+        /* ==================== PHOTO STRIP BETWEEN SECTIONS ==================== */
+        .photo-strip {
+            width: 100%;
+            height: clamp(180px, 25vw, 250px);
+            overflow: hidden;
+            position: relative;
+        }
+        .photo-strip img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .photo-strip::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                var(--bg-primary) 0%,
+                transparent 15%,
+                transparent 85%,
+                var(--bg-primary) 100%
+            );
+        }
+
+        /* ==================== GROUP ANIMATIONS ==================== */
+        .animate-fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .animate-fade-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==================== IMAGE BACKGROUND SECTIONS ==================== */
+        .bg-image-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .bg-image-section .bg-img {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+        .bg-image-section .bg-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.06;
+            filter: blur(2px);
+        }
+        .bg-image-section .bg-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(242, 249, 245, 0.87);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== ENVELOPE ==================== -->
+    <div id="envelope" class="envelope">
+        <!-- Background blurred image -->
+        <div class="envelope-bg">
+            <img src="../../../shared/images/wedding/viet-green/bia_1.webp" alt="">
+        </div>
+        <!-- Floating botanical decorations -->
+        <span class="envelope-deco envelope-deco-1">🌿</span>
+        <span class="envelope-deco envelope-deco-2">🍃</span>
+        <span class="envelope-deco envelope-deco-3">☘️</span>
+        <span class="envelope-deco envelope-deco-4">🌸</span>
+
+        <!-- Main card -->
+        <div class="envelope-card">
+            <!-- Corner ornaments -->
+            <span class="envelope-corner envelope-corner-tl">❦</span>
+            <span class="envelope-corner envelope-corner-tr">❦</span>
+            <span class="envelope-corner envelope-corner-bl">❦</span>
+            <span class="envelope-corner envelope-corner-br">❦</span>
+
+            <div class="envelope-ornament">🌿</div>
+            <div class="envelope-line"></div>
+            <h1 class="envelope-couple-name">Hoàng Tài<br>&<br>Thuý Lanh</h1>
+            <p class="envelope-date">20 . 12 . 2026</p>
+            <p class="envelope-invite-text">Nhà trai trân trọng kính mời</p>
+            <!-- Ribbon Bow — click to untie & open -->
+            <div id="envelopeOpenBtn" class="ribbon-bow" role="button" tabindex="0" aria-label="Mở thiệp">
+                <div class="bow-loop bow-loop-left"></div>
+                <div class="bow-loop bow-loop-right"></div>
+                <div class="bow-knot"></div>
+                <div class="bow-tail bow-tail-left"></div>
+                <div class="bow-tail bow-tail-right"></div>
+                <!-- Sparkles -->
+                <span class="bow-sparkle" style="top:30%;left:20%;--sx:-25px;--sy:-20px;">✨</span>
+                <span class="bow-sparkle" style="top:30%;right:20%;--sx:25px;--sy:-20px;">✨</span>
+                <span class="bow-sparkle" style="top:50%;left:10%;--sx:-30px;--sy:5px;">🌿</span>
+                <span class="bow-sparkle" style="top:50%;right:10%;--sx:30px;--sy:5px;">🍃</span>
+                <span class="bow-sparkle" style="top:70%;left:30%;--sx:-15px;--sy:20px;">💚</span>
+                <span class="bow-sparkle" style="top:70%;right:30%;--sx:15px;--sy:20px;">💚</span>
+                <span class="bow-hint">cởi nơ để mở thiệp</span>
+            </div>
+            <div class="envelope-peek-photos">
+                <div class="envelope-peek-photo"><img src="../../../shared/images/wedding/viet-green/cap_doi_2.webp" alt=""></div>
+                <div class="envelope-peek-photo"><img src="../../../shared/images/wedding/viet-green/anh cap doi.webp" alt=""></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== NAV ==================== -->
+    <nav class="nav" id="mainNav">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-link">Trang chủ</a>
+            <a href="#story" class="nav-link">Chuyện tình</a>
+            <span class="nav-monogram">T & L</span>
+            <a href="#gallery" class="nav-link">Album</a>
+            <a href="#rsvp" class="nav-link">Xác nhận</a>
+            <a href="#wishes" class="nav-link">Lời chúc</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="../../../shared/images/wedding/viet-green/bia_1.webp" alt="Wedding hero">
+        </div>
+        <p class="hero-subtitle">Save the Date</p>
+        <h1 class="hero-title" style="position: relative;">
+            Hoàng Tài<br><span class="hero-ampersand">&</span><br>Thuý Lanh
+            <span class="deco deco-front deco-heart-beat deco-md" style="top: -10px; right: -30px;"></span>
+        </h1>
+        <p class="hero-date">20 . 12 . 2026</p>
+        <p class="hero-invite">Nhà trai trân trọng kính mời</p>
+        <div class="scroll-indicator">
+            <span>Cuộn xuống</span>
+            <i data-lucide="chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ==================== COUPLE PHOTOS ==================== -->
+    <section class="section--breathe animate-fade-up" style="position: relative;">
+        <div class="couple-fly">
+            <img class="couple-fly-img" src="../../../shared/images/wedding/viet-green/chu re.webp" alt="Chú rể">
+            <img class="couple-fly-img" src="../../../shared/images/wedding/viet-green/co-dau.webp" alt="Cô dâu">
+            <div class="couple-fly-heart">♥</div>
+        </div>
+        <span class="deco deco-butterfly deco-lg" style="top: 15%; left: 10%;"></span>
+        <span class="deco deco-heart-float deco-sm" style="bottom: 20%; right: 8%;"></span>
+    </section>
+
+    <!-- ==================== COUNTDOWN ==================== -->
+    <section class="section countdown-section animate-fade-up" id="countdown">
+        <div class="section-heading">
+            <p class="section-subtitle">Đếm Ngược</p>
+            <h2 class="section-title">Ngày Trọng Đại</h2>
+        </div>
+        <div class="countdown" id="countdownTimer">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Ngày</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Giờ</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Phút</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Giây</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CALENDAR MONTH ==================== -->
+    <section class="section cal-section animate-fade-up" id="calendar-month">
+        <div class="section-heading">
+            <p class="section-subtitle">Save The Date</p>
+            <h2 class="section-title">Tháng 12, 2026</h2>
+        </div>
+        <div id="weddingCalendar"></div>
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <button class="calendar-btn" onclick="downloadICS()">
+                <i data-lucide="calendar-plus"></i>
+                Thêm vào lịch
+            </button>
+        </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="divider-ornament"><span class="divider-ornament-icon">❦</span></div>
+
+    <!-- ==================== PHOTO STRIP ==================== -->
+    <div class="photo-strip">
+        <img src="../../../shared/images/wedding/viet-green/2 line .webp" alt="">
+    </div>
+
+    <!-- ==================== LOVE STORY ==================== -->
+    <section class="section--breathe bg-image-section" id="story" style="position: relative;">
+        <div class="bg-img"><img src="../../../shared/images/wedding/viet-green/anh doi.webp" alt=""></div>
+        <div class="section-heading">
+            <p class="section-subtitle">Our Love Story</p>
+            <h2 class="section-title">Chuyện Của Chúng Mình</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item animate-fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-icon">💫</div>
+                <div class="timeline-date">Tháng 3, 2020</div>
+                <div class="timeline-title">Lần Đầu Gặp Nhau</div>
+                <div class="timeline-desc">Một buổi chiều mùa xuân, chúng mình vô tình gặp nhau tại quán cà phê quen thuộc. Ánh mắt đầu tiên đã khắc sâu trong tim.</div>
+            </div>
+            <div class="timeline-item animate-fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-icon">🌸</div>
+                <div class="timeline-date">Tháng 8, 2020</div>
+                <div class="timeline-title">Bắt Đầu Hẹn Hò</div>
+                <div class="timeline-desc">Sau nhiều lần trò chuyện, chúng mình quyết định cùng nhau bước đi trên con đường tình yêu.</div>
+            </div>
+            <div class="timeline-item animate-fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-icon">💍</div>
+                <div class="timeline-date">Tháng 6, 2026</div>
+                <div class="timeline-title">Lời Cầu Hôn</div>
+                <div class="timeline-desc">Dưới ánh hoàng hôn rực rỡ, anh quỳ gối cầu hôn và em đã nói "Đồng ý!"</div>
+            </div>
+            <div class="timeline-item animate-fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-icon">💒</div>
+                <div class="timeline-date">Tháng 12, 2026</div>
+                <div class="timeline-title">Ngày Trọng Đại</div>
+                <div class="timeline-desc">Và bây giờ, chúng mình sẵn sàng cùng nhau viết tiếp câu chuyện tình yêu — mãi mãi bên nhau.</div>
+            </div>
+        </div>
+        <span class="deco deco-rose-bloom deco-md" style="top: 8%; right: 5%;"></span>
+        <span class="deco deco-sparkle deco-sm" style="bottom: 10%; left: 8%;"></span>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="divider-ornament"><span class="divider-ornament-icon">✿</span></div>
+
+    <!-- ==================== EVENT INFO ==================== -->
+    <section class="section event-section animate-fade-up" id="event" style="position: relative;">
+        <div class="section-heading">
+            <p class="section-subtitle">Wedding Ceremony</p>
+            <h2 class="section-title">Lễ Thành Hôn</h2>
+        </div>
+        <div class="event-grid">
+            <div class="event-card">
+                <div class="event-card-icon">💒</div>
+                <div class="event-card-type">Tiệc Cưới</div>
+                <div class="event-card-name">Lễ Thành Hôn</div>
+                <div class="event-card-detail">
+                    <i data-lucide="calendar"></i>
+                    <span>Chủ Nhật, 20/12/2026</span>
+                </div>
+                <div class="event-card-detail">
+                    <i data-lucide="clock"></i>
+                    <span>17:00 — 21:00</span>
+                </div>
+                <div class="event-card-detail">
+                    <i data-lucide="map-pin"></i>
+                    <span>Nhà hàng Tiệc Cưới ABC</span>
+                </div>
+                <div class="event-card-address">123 Đường Nguyễn Huệ, Quận 1, TP.HCM</div>
+                <div class="event-card-parents">
+                    <strong>Trân trọng kính mời</strong>
+                    Ông Nguyễn Văn A & Bà Trần Thị B
+                </div>
+            </div>
+        </div>
+        <span class="deco deco-heart-beat deco-sm" style="top: 20%; left: 5%;"></span>
+    </section>
+
+    <!-- ==================== QUOTE ==================== -->
+    <section class="section--breathe bg-image-section animate-fade-up" style="position: relative;">
+        <div class="bg-img"><img src="../../../shared/images/wedding/viet-green/anh cap doi.webp" alt=""></div>
+        <div class="blessing-quote">
+            <blockquote>
+                Tình yêu không phải là nhìn nhau, mà là cùng nhau nhìn về một hướng.
+            </blockquote>
+            <cite>— Antoine de Saint-Exupéry</cite>
+        </div>
+    </section>
+
+    <!-- ==================== GALLERY ==================== -->
+    <section class="section" id="gallery" style="position: relative;">
+        <div class="section-heading">
+            <p class="section-subtitle">Our Gallery</p>
+            <h2 class="section-title">Khoảnh Khắc Đẹp</h2>
+        </div>
+        <div class="gallery-grid" id="galleryGrid">
+            <div class="gallery-item" data-index="0">
+                <img src="../../../shared/images/wedding/viet-green/3.webp" alt="Wedding photo 1">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+            <div class="gallery-item" data-index="1">
+                <img src="../../../shared/images/wedding/viet-green/4.webp" alt="Wedding photo 2">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+            <div class="gallery-item" data-index="2">
+                <img src="../../../shared/images/wedding/viet-green/5.webp" alt="Wedding photo 3">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+            <div class="gallery-item" data-index="3">
+                <img src="../../../shared/images/wedding/viet-green/2 anh loon.webp" alt="Wedding photo 4">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+            <div class="gallery-item" data-index="4">
+                <img src="../../../shared/images/wedding/viet-green/3 anh doc.webp" alt="Wedding photo 5">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+            <div class="gallery-item" data-index="5">
+                <img src="../../../shared/images/wedding/viet-green/hoa cuoi.webp" alt="Wedding photo 6">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+        </div>
+        <span class="deco deco-sparkle deco-md" style="top: 5%; right: 10%;"></span>
+        <span class="deco deco-butterfly deco-sm" style="bottom: 8%; left: 5%;"></span>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">✕</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+        <img id="lightboxImg" src="" alt="Lightbox">
+        <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="divider-ornament"><span class="divider-ornament-icon">♡</span></div>
+
+    <!-- ==================== RSVP ==================== -->
+    <section class="section rsvp-section animate-fade-up" id="rsvp">
+        <div class="section-heading">
+            <p class="section-subtitle">RSVP</p>
+            <h2 class="section-title">Xác Nhận Tham Dự</h2>
+            <p class="section-desc">Sự hiện diện của bạn là niềm hạnh phúc lớn nhất của chúng mình</p>
+        </div>
+        <form class="rsvp-form" id="rsvpForm" onsubmit="return handleRSVP(event)">
+            <input type="text" class="rsvp-input" placeholder="Họ và tên *" required>
+            <div class="rsvp-row">
+                <input type="tel" class="rsvp-input" placeholder="Số điện thoại">
+                <select class="rsvp-select">
+                    <option value="1">1 khách</option>
+                    <option value="2">2 khách</option>
+                    <option value="3">3 khách</option>
+                    <option value="4">4 khách</option>
+                    <option value="5">5 khách</option>
+                </select>
+            </div>
+            <textarea class="rsvp-textarea" placeholder="Lời nhắn gửi đến cô dâu chú rể..."></textarea>
+            <button type="submit" class="rsvp-submit">Xác Nhận</button>
+        </form>
+        <div class="rsvp-success" id="rsvpSuccess">
+            <div class="rsvp-success-icon">🎉</div>
+            <div class="rsvp-success-text">Cảm ơn bạn đã xác nhận!</div>
+        </div>
+    </section>
+
+    <!-- ==================== WISHES / GUESTBOOK ==================== -->
+    <section class="section guestbook-section animate-fade-up" id="wishes" style="position: relative;">
+        <div class="section-heading">
+            <p class="section-subtitle">Guestbook</p>
+            <h2 class="section-title">Lời Chúc Phúc</h2>
+            <p class="section-desc">Gửi lời chúc tốt đẹp đến cặp đôi</p>
+        </div>
+        <form class="guestbook-form" id="wishForm" onsubmit="return handleWish(event)">
+            <input type="text" class="rsvp-input" id="wishName" placeholder="Tên của bạn *" required>
+            <textarea class="rsvp-textarea" id="wishMessage" placeholder="Lời chúc của bạn..." required></textarea>
+            <button type="submit" class="rsvp-submit">Gửi Lời Chúc</button>
+        </form>
+        <div class="guestbook-messages" id="wishList"></div>
+        <span class="deco deco-heart-float deco-lg" style="top: 5%; right: 8%;"></span>
+    </section>
+
+    <!-- ==================== PHOTO STRIP ==================== -->
+    <div class="photo-strip">
+        <img src="../../../shared/images/wedding/viet-green/hoa cuoi 2.webp" alt="">
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer" id="footer">
+        <div class="footer-bg">
+            <img src="../../../shared/images/wedding/viet-green/anh doi.webp" alt="">
+        </div>
+        <div class="footer-couple">Hoàng Tài & Thuý Lanh</div>
+        <div class="footer-date">20 . 12 . 2026</div>
+        <div class="footer-hearts">
+            <span class="footer-heart">♥</span>
+            <span class="footer-heart">♥</span>
+            <span class="footer-heart">♥</span>
+        </div>
+        <div class="footer-made">Made with ♥ by Templexa</div>
+    </footer>
+
+    <!-- ==================== FLOATING WISHES BOX ==================== -->
+    <div class="floating-wishes-box" id="floatingWishesBox"></div>
+
+    <!-- ==================== WISHES TOGGLE ==================== -->
+    <button id="wishesToggle" class="wishes-toggle" aria-label="Toggle wishes">
+        <i data-lucide="message-circle" class="wishes-icon-on"></i>
+        <i data-lucide="message-circle-off" class="wishes-icon-off"></i>
+    </button>
+
+    <!-- ==================== MUSIC ==================== -->
+    <button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+        <i data-lucide="volume-2" class="music-icon-on"></i>
+        <i data-lucide="volume-x" class="music-icon-off"></i>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/romantic/Everyday I Love You.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        lucide.createIcons();
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // === ENVELOPE — Ribbon Bow Untie ===
+        var envelope = document.getElementById('envelope');
+        var openBtn = document.getElementById('envelopeOpenBtn');
+        var bgMusic = document.getElementById('bgMusic');
+        var bowUntied = false;
+        if (openBtn) {
+            openBtn.addEventListener('click', function () {
+                if (bowUntied) return;
+                bowUntied = true;
+
+                // 1. Untie animation
+                openBtn.classList.add('untying');
+
+                // 2. After bow vanishes → open envelope
+                setTimeout(function () {
+                    envelope.classList.add('opened');
+                    if (bgMusic) {
+                        bgMusic.volume = 0.3;
+                        bgMusic.play().catch(function(){});
+                    }
+                }, 700);
+
+                setTimeout(function () { envelope.style.display = 'none'; }, 1700);
+            });
+            // Keyboard support
+            openBtn.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openBtn.click();
+                }
+            });
+        }
+
+        // === COUNTDOWN ===
+        function updateCountdown() {
+            var weddingDate = new Date('2026-12-20T17:00:00').getTime();
+            var now = new Date().getTime();
+            var diff = weddingDate - now;
+            if (diff <= 0) {
+                document.getElementById('countdownTimer').innerHTML = '<div class="countdown-done">🎉 Hôn lễ đã diễn ra! 🎉</div>';
+                return;
+            }
+            var d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            var s = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('days').textContent = String(d).padStart(2, '0');
+            document.getElementById('hours').textContent = String(h).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // === CALENDAR MONTH ===
+        initCalendarMonth({
+            containerId: 'weddingCalendar',
+            month: 12,
+            year: 2026,
+            variant: 'elegant',
+            accentColor: '#4A9E6F',
+            events: [
+                { day: 20, color: '#4A9E6F', label: '17:00 — Lễ Thành Hôn' }
+            ]
+        });
+
+        function initCalendarMonth(config) {
+            var container = document.getElementById(config.containerId);
+            if (!container) return;
+            var month = config.month;
+            var year = config.year;
+            var variant = config.variant || 'classic';
+            var accentColor = config.accentColor || '#C41E3A';
+            var events = config.events || [];
+            var monthNames = ['', 'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+            var dows = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+            var markedDays = {};
+            events.forEach(function(e) { markedDays[e.day] = e.color || accentColor; });
+            var firstDay = new Date(year, month - 1, 1).getDay();
+            var daysInMonth = new Date(year, month, 0).getDate();
+            var today = new Date();
+            var isThisMonth = (today.getFullYear() === year && today.getMonth() + 1 === month);
+            var todayDate = today.getDate();
+            var html = '<div class="cal-month cal-' + variant + '" style="--cal-accent:' + accentColor + '">';
+            html += '<div class="cal-header"><span class="cal-month-name">' + monthNames[month] + '</span><span class="cal-year">' + year + '</span></div>';
+            html += '<div class="cal-grid">';
+            dows.forEach(function(d) { html += '<div class="cal-dow">' + d + '</div>'; });
+            for (var i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+            for (var d = 1; d <= daysInMonth; d++) {
+                var cls = 'cal-day';
+                if (isThisMonth && d === todayDate) cls += ' today';
+                if (markedDays[d]) cls += ' marked';
+                html += '<div class="' + cls + '">' + d + '</div>';
+            }
+            html += '</div>';
+            if (events.length) {
+                html += '<div class="cal-events">';
+                events.forEach(function(e) {
+                    html += '<div class="cal-event"><div class="cal-event-dot" style="background:' + (e.color || accentColor) + '"></div><span class="cal-event-date">' + e.day + '/' + month + '</span><span class="cal-event-text">' + e.label + '</span></div>';
+                });
+                html += '</div>';
+            }
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // === MUSIC TOGGLE ===
+        var musicBtn = document.getElementById('musicToggle');
+        if (musicBtn && bgMusic) {
+            var musicStarted = false;
+            musicBtn.addEventListener('click', function () {
+                if (!musicStarted) {
+                    bgMusic.play().catch(function(){});
+                    musicStarted = true;
+                    musicBtn.classList.remove('muted');
+                } else if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicBtn.classList.remove('muted');
+                } else {
+                    bgMusic.pause();
+                    musicBtn.classList.add('muted');
+                }
+            });
+        }
+
+        // === SCROLL REVEAL ===
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) entry.target.classList.add('is-visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.animate-fade-up, .timeline-item').forEach(function (el) { observer.observe(el); });
+
+        // === NAV SCROLL ===
+        var nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+        // Smooth scroll nav links
+        document.querySelectorAll('.nav-link').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // === GALLERY LIGHTBOX ===
+        var galleryImages = [];
+        document.querySelectorAll('.gallery-item img').forEach(function(img) { galleryImages.push(img.src); });
+        var lightbox = document.getElementById('lightbox');
+        var lightboxImg = document.getElementById('lightboxImg');
+        var currentLightboxIndex = 0;
+        document.querySelectorAll('.gallery-item').forEach(function (item) {
+            item.addEventListener('click', function () {
+                currentLightboxIndex = parseInt(item.dataset.index) || 0;
+                lightboxImg.src = galleryImages[currentLightboxIndex];
+                lightbox.classList.add('active');
+            });
+        });
+        document.getElementById('lightboxClose').addEventListener('click', function () { lightbox.classList.remove('active'); });
+        document.getElementById('lightboxPrev').addEventListener('click', function () {
+            currentLightboxIndex = (currentLightboxIndex - 1 + galleryImages.length) % galleryImages.length;
+            lightboxImg.src = galleryImages[currentLightboxIndex];
+        });
+        document.getElementById('lightboxNext').addEventListener('click', function () {
+            currentLightboxIndex = (currentLightboxIndex + 1) % galleryImages.length;
+            lightboxImg.src = galleryImages[currentLightboxIndex];
+        });
+        lightbox.addEventListener('click', function (e) { if (e.target === lightbox) lightbox.classList.remove('active'); });
+
+        // === RSVP FORM (UI-only) ===
+        window.handleRSVP = function (e) {
+            e.preventDefault();
+            document.getElementById('rsvpForm').style.display = 'none';
+            document.getElementById('rsvpSuccess').classList.add('show');
+            return false;
+        };
+
+        // === WISHES / GUESTBOOK (localStorage) ===
+        var LOCAL_WISHES_KEY = 'viet_green_wishes';
+        var defaultWishes = [
+            { name: 'Ngoạ Long', message: 'Chúc hai bạn trăm năm hạnh phúc, sớm có tin vui nha! 🎉' },
+            { name: 'Phượng Sồ', message: 'Happy Wedding! Mong hai bạn luôn yêu thương nhau mãi mãi 💕' },
+            { name: 'Doremon', message: 'Chúc mừng đám cưới! Ước gì mình có túi thần kỳ tặng hai bạn 🤖' },
+            { name: 'Pikachu', message: 'Pika pika! Chúc anh chị hạnh phúc viên mãn, vạn sự như ý ⚡' },
+            { name: 'Kabibara', message: 'Chúc đôi uyên ương sống bên nhau trọn đời, yêu thương mỗi ngày 🧡' }
+        ];
+
+        function getStoredWishes() {
+            try {
+                var stored = JSON.parse(localStorage.getItem(LOCAL_WISHES_KEY));
+                return Array.isArray(stored) ? stored : [];
+            } catch (e) { return []; }
+        }
+        function saveWishes(arr) {
+            localStorage.setItem(LOCAL_WISHES_KEY, JSON.stringify(arr));
+        }
+
+        var storedWishes = getStoredWishes();
+        var allWishes = defaultWishes.concat(storedWishes);
+
+        function renderWishes() {
+            var list = document.getElementById('wishList');
+            list.innerHTML = '';
+            allWishes.forEach(function (w) {
+                var div = document.createElement('div');
+                div.className = 'guestbook-message';
+                div.innerHTML =
+                    '<div class="guestbook-message-header">' +
+                        '<div class="guestbook-avatar">' + w.name.charAt(0).toUpperCase() + '</div>' +
+                        '<div class="guestbook-name">' + w.name + '</div>' +
+                    '</div>' +
+                    '<div class="guestbook-text">' + w.message + '</div>';
+                list.appendChild(div);
+            });
+        }
+        renderWishes();
+
+        window.handleWish = function (e) {
+            e.preventDefault();
+            var nameEl = document.getElementById('wishName');
+            var msgEl = document.getElementById('wishMessage');
+            var name = nameEl.value.trim();
+            var message = msgEl.value.trim();
+            if (!name || !message) return false;
+
+            var wish = { name: name, message: message };
+            allWishes.push(wish);
+            storedWishes.push(wish);
+            saveWishes(storedWishes);
+            renderWishes();
+
+            // Add to floating wishes
+            if (typeof floatingWishesLocal !== 'undefined' && floatingWishesLocal) {
+                floatingWishesLocal.addWish(name, message);
+            }
+
+            nameEl.value = '';
+            msgEl.value = '';
+            return false;
+        };
+
+        // === FLOATING WISHES (LOCAL — no API) ===
+        var floatingWishesLocal = (function () {
+            var wishPool = allWishes.slice();
+            var currentIndex = 0;
+            var maxVisible = 5;
+            var interval = 1200;
+            var duration = 7000;
+            var container = document.getElementById('floatingWishesBox');
+            var colorCount = 5;
+
+            function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+            function createBubble(name, message) {
+                var el = document.createElement('div');
+                el.className = 'floating-wish fw-c' + (Math.floor(Math.random() * colorCount) + 1);
+                el.style.animationDuration = duration + 'ms';
+                el.innerHTML =
+                    '<div class="floating-wish-avatar">' + esc(name).charAt(0).toUpperCase() + '</div>' +
+                    '<span class="floating-wish-name">' + esc(name) + ':</span>' +
+                    '<span class="floating-wish-text">' + esc(message) + '</span>';
+                container.appendChild(el);
+                while (container.children.length > maxVisible) {
+                    container.removeChild(container.firstChild);
+                }
+                setTimeout(function () {
+                    if (el.parentNode) el.parentNode.removeChild(el);
+                }, duration);
+            }
+
+            function showNext() {
+                if (wishPool.length === 0) return;
+                var wish = wishPool[currentIndex % wishPool.length];
+                createBubble(wish.name, wish.message);
+                currentIndex++;
+            }
+
+            // Start after 0.5s delay
+            setTimeout(function () {
+                showNext();
+                setInterval(showNext, interval);
+            }, 500);
+
+            return {
+                addWish: function (name, message) {
+                    if (name && message) {
+                        wishPool.push({ name: name, message: message });
+                        createBubble(name, message);
+                    }
+                }
+            };
+        })();
+
+        // === WISHES TOGGLE ===
+        var wishesBtn = document.getElementById('wishesToggle');
+        var wishesBox = document.getElementById('floatingWishesBox');
+        if (wishesBtn && wishesBox) {
+            wishesBtn.addEventListener('click', function () {
+                var isHidden = wishesBtn.classList.toggle('hidden');
+                wishesBox.classList.toggle('hidden-wishes', isHidden);
+            });
+        }
+
+        // === FALLING PETALS ===
+        function createPetal() {
+            var petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            petal.style.opacity = Math.random() * 0.5 + 0.2;
+            petal.style.fontSize = (Math.random() * 8 + 12) + 'px';
+            petal.innerHTML = ['🍃', '🌿', '☘️', '🌸'][Math.floor(Math.random() * 4)];
+            document.body.appendChild(petal);
+            setTimeout(function () { petal.remove(); }, 8000);
+        }
+        setInterval(createPetal, 1200);
+
+        // === FLOATING HEARTS ===
+        function createHeart() {
+            var heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.innerHTML = ['💚', '💕', '🤍', '💛'][Math.floor(Math.random() * 4)];
+            heart.style.fontSize = (Math.random() * 8 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            document.body.appendChild(heart);
+            setTimeout(function () { heart.remove(); }, 8000);
+        }
+        setInterval(createHeart, 2500);
+
+        // === SPARKLES ===
+        function createSparkle() {
+            var sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.innerHTML = '✨';
+            sparkle.style.fontSize = (Math.random() * 6 + 8) + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(function () { sparkle.remove(); }, 2000);
+        }
+        setInterval(createSparkle, 1500);
+
+        // === CALENDAR EXPORT (.ics) ===
+        window.downloadICS = function () {
+            var ics = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Templexa//Wedding//VI',
+                'BEGIN:VEVENT',
+                'DTSTART:20261220T100000',
+                'DTEND:20261220T140000',
+                'SUMMARY:Lễ Thành Hôn - Hoàng Tài & Thuý Lanh',
+                'DESCRIPTION:Trân trọng kính mời quý khách đến dự lễ thành hôn',
+                'LOCATION:Nhà hàng Tiệc Cưới ABC\\, 123 Đường Nguyễn Huệ\\, Quận 1\\, TP.HCM',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\r\n');
+            var blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'cuoi-tai-lanh.ics';
+            link.click();
+        };
+
+    });
+    </script>
+</body>
+</html>

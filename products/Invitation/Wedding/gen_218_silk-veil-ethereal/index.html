@@ -1,783 +1,1205 @@
-<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Thiệp Cưới — Silk Veil Ethereal</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Quicksand:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet"><style>
-/* ===== ROOT VARIABLES ===== */
-:root {
---lavender-mist: #E8E0F0;
---pearl: #F5F0E8;
---soft-lilac: #B8A9D4;
---lilac-light: rgba(184, 169, 212, 0.3);
---veil-white: #FAFAFE;
---text-dark: #2D2B3A;
---text-muted: #7B7590;
---warm-white: #FFFCF9;
---font-heading: 'Cormorant Infant', serif;
---font-script: 'Great Vibes', cursive;
---font-body: 'Quicksand', sans-serif;
---max-width: 520px;
-}
-/* ===== RESET ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-font-family: var(--font-body);
-background: var(--veil-white);
-color: var(--text-dark);
-line-height: 1.6;
-overflow-x: hidden;
--webkit-font-smoothing: antialiased;
-}
-img { max-width: 100%; height: auto; display: block; }
-/* ===== SHARED ===== */
-.section {
-max-width: var(--max-width);
-margin: 0 auto;
-padding: 4rem 1.5rem;
-position: relative;
-}
-.section-label {
-font-family: var(--font-body);
-font-size: 0.65rem;
-font-weight: 500;
-letter-spacing: 0.3em;
-text-transform: uppercase;
-color: var(--soft-lilac);
-text-align: center;
-margin-bottom: 0.5rem;
-}
-.section-title {
-font-family: var(--font-heading);
-font-size: 1.6rem;
-font-weight: 400;
-font-style: italic;
-text-align: center;
-color: var(--text-dark);
-margin-bottom: 2rem;
-}
-.thin-rule {
-width: 50px;
-height: 1px;
-background: var(--soft-lilac);
-margin: 1rem auto;
-opacity: 0.5;
-}
-/* ===== SCROLL REVEAL ===== */
-.reveal {
-opacity: 0;
-transform: translateY(25px);
-transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal.vis {
-opacity: 1;
-transform: translateY(0);
-}
-/* ===== ENVELOPE ===== */
-.envelope {
-position: fixed;
-inset: 0;
-z-index: 9999;
-cursor: pointer;
-overflow: hidden;
-}
-.envelope.fading {
-transition: opacity 1.8s ease;
-opacity: 0;
-pointer-events: none;
-}
-.envelope.gone { display: none; }
-/* Hero photo as background — blurred + purple tint */
-.envelope-photo {
-position: absolute;
-inset: 0;
-}
-.envelope-photo img {
-width: 100%; height: 100%;
-object-fit: cover;
-opacity: 0.5;
-filter: blur(6px);
-}
-.envelope-frame {
-position: absolute;
-inset: 0;
-z-index: 1;
-background: url('../../../shared/images/wedding/backgrounds/floral-lineart/bg-floral-lineart-beige-corner-dual.webp') center/cover no-repeat;
-opacity: 0.5;
-pointer-events: none;
-}
-.envelope-photo::after {
-content: '';
-position: absolute;
-inset: 0;
-background: rgba(180, 160, 210, 0.55);
-}
-/* Flower — center */
-.envelope-flower {
-position: absolute;
-top: 55%; left: 50%;
-transform: translate(-50%, -50%);
-z-index: 3;
-pointer-events: none;
-animation: btnFloat 3s ease-in-out infinite;
-}
-.envelope-flower img {
-width: 130px; height: 130px;
-object-fit: contain;
-filter: drop-shadow(0 6px 20px rgba(184,169,212,0.5));
-}
-@keyframes btnFloat {
-0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-50% { transform: translate(-50%, -50%) translateY(-8px); }
-}
-/* Sparkles */
-.sparkle {
-position: absolute;
-border-radius: 50%;
-background: white;
-pointer-events: none;
-z-index: 2;
-animation: sparkleAnim ease-in-out infinite;
-}
-.sparkle.star {
-background: none;
-}
-.sparkle.star::before, .sparkle.star::after {
-content: '';
-position: absolute;
-top: 50%; left: 50%;
-background: rgba(255,255,255,0.9);
-border-radius: 1px;
-}
-.sparkle.star::before {
-width: 1px; height: 100%;
-transform: translate(-50%, -50%);
-}
-.sparkle.star::after {
-width: 100%; height: 1px;
-transform: translate(-50%, -50%);
-}
-@keyframes sparkleAnim {
-0%, 100% { opacity: 0; transform: scale(0.3); }
-50% { opacity: 1; transform: scale(1); }
-}
-/* Bubbles */
-.bubble {
-position: absolute;
-border-radius: 50%;
-border: 1px solid rgba(255,255,255,0.45);
-background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 70%);
-pointer-events: none;
-z-index: 2;
-animation: bubbleFloat linear infinite;
-}
-@keyframes bubbleFloat {
-0% { transform: translateY(0) scale(1); opacity: 0; }
-10% { opacity: 0.6; }
-80% { opacity: 0.3; }
-100% { transform: translateY(-50vh) scale(0.5); opacity: 0; }
-}
-/* Text */
-.envelope-text {
-position: absolute;
-top: 22%; left: 50%;
-transform: translateX(-50%);
-z-index: 2;
-text-align: center;
-pointer-events: none;
-width: 90%;
-}
-.envelope-label {
-font-family: var(--font-body);
-font-size: 0.6rem;
-letter-spacing: 0.4em;
-text-transform: uppercase;
-color: rgba(255,255,255,0.7);
-margin-bottom: 1rem;
-}
-.envelope-names {
-font-family: var(--font-heading);
-font-size: 2rem;
-font-weight: 300;
-font-style: italic;
-color: rgba(255,255,255,0.85);
-line-height: 1.3;
-text-shadow: 0 2px 15px rgba(184,169,212,0.4);
-}
-.envelope-names .amp {
-font-family: var(--font-script);
-font-size: 1.4rem;
-color: rgba(255,255,255,0.5);
-display: block;
-margin: 0.3rem 0;
-}
-.envelope-date {
-font-family: var(--font-body);
-font-size: 0.75rem;
-letter-spacing: 0.25em;
-color: rgba(255,255,255,0.5);
-margin-top: 1rem;
-}
-/* Decorative corner SVGs on envelope */
-.env-corner {
-position: absolute;
-width: 60px; height: 60px;
-opacity: 0.15;
-color: var(--soft-lilac);
-}
-.env-corner.tl { top: 24px; left: 24px; }
-.env-corner.tr { top: 24px; right: 24px; transform: scaleX(-1); }
-.env-corner.bl { bottom: 60px; left: 24px; transform: scaleY(-1); }
-.env-corner.br { bottom: 60px; right: 24px; transform: scale(-1); }
-/* ===== MUSIC TOGGLE ===== */
-.music-toggle {
-position: fixed;
-top: 16px; right: 16px;
-z-index: 9000;
-width: 40px; height: 40px;
-border-radius: 50%;
-background: rgba(255,255,255,0.85);
-backdrop-filter: blur(6px);
-border: 1px solid var(--lilac-light);
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.music-toggle .bar {
-width: 2px;
-background: var(--soft-lilac);
-border-radius: 1px;
-margin: 0 1.5px;
-animation: musicBar 0.8s ease-in-out infinite alternate;
-}
-.music-toggle .bar:nth-child(1) { height: 8px; animation-delay: 0s; }
-.music-toggle .bar:nth-child(2) { height: 14px; animation-delay: 0.15s; }
-.music-toggle .bar:nth-child(3) { height: 10px; animation-delay: 0.3s; }
-.music-toggle .bar:nth-child(4) { height: 16px; animation-delay: 0.1s; }
-.music-toggle.paused .bar { animation: none; height: 3px; }
-@keyframes musicBar {
-0% { transform: scaleY(0.3); }
-100% { transform: scaleY(1); }
-}
-/* ===== HERO — MIST REVEAL ===== */
-.hero {
-position: relative;
-min-height: 100vh;
-min-height: 100dvh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-}
-.hero-bg {
-position: absolute;
-inset: 0;
-z-index: 0;
-}
-.hero-bg img {
-width: 100%; height: 100%;
-object-fit: cover;
-}
-.hero-bg::after {
-content: '';
-position: absolute;
-inset: 0;
-background: linear-gradient(
-to bottom,
-rgba(250,250,254,0.25) 0%,
-rgba(232,224,240,0.45) 50%,
-rgba(250,250,254,0.7) 100%
-);
-}
-.hero-text {
-position: relative;
-z-index: 2;
-text-align: center;
-padding: 2rem 1.5rem;
-}
-.hero-pretitle {
-font-family: var(--font-body);
-font-size: 0.6rem;
-letter-spacing: 0.4em;
-text-transform: uppercase;
-color: var(--soft-lilac);
-margin-bottom: 1rem;
-opacity: 0;
-}
-.hero-names {
-font-family: var(--font-heading);
-font-weight: 300;
-font-style: italic;
-font-size: clamp(1.5rem, 7vw, 3.5rem);
-line-height: 1.15;
-color: var(--text-dark);
-filter: blur(12px);
-letter-spacing: 0.3em;
-opacity: 0;
-white-space: nowrap;
-}
-@keyframes mistReveal {
-to {
-filter: blur(0);
-letter-spacing: 0.02em;
-opacity: 1;
-}
-}
-.hero-names .amp {
-font-family: var(--font-script);
-font-size: clamp(1.5rem, 5vw, 2.2rem);
-color: var(--soft-lilac);
-display: block;
-margin: 0.3rem 0;
-filter: blur(10px);
-opacity: 0;
-}
-.hero-date {
-font-family: var(--font-body);
-font-size: 0.75rem;
-letter-spacing: 0.25em;
-color: var(--text-muted);
-margin-top: 1.5rem;
-opacity: 0;
-}
-.hero-scroll {
-position: absolute;
-bottom: 2rem;
-left: 50%;
-transform: translateX(-50%);
-z-index: 2;
-opacity: 0;
-}
-/* Trigger animations only after envelope opened */
-.hero.revealed .hero-pretitle {
-animation: fadeIn 1s ease 0.3s forwards;
-}
-.hero.revealed .hero-names {
-animation: mistReveal 2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
-}
-.hero.revealed .hero-names .amp {
-animation: mistReveal 1.5s ease 1.2s forwards;
-}
-.hero.revealed .hero-date {
-animation: fadeIn 1s ease 2s forwards;
-}
-.hero.revealed .hero-scroll {
-animation: fadeIn 1s ease 2.5s forwards, gentleBounce 2s ease-in-out 3.5s infinite;
-}
-.hero-scroll svg { color: var(--soft-lilac); opacity: 0.5; }
-@keyframes fadeIn { to { opacity: 1; } }
-@keyframes gentleBounce {
-0%, 100% { transform: translateX(-50%) translateY(0); }
-50% { transform: translateX(-50%) translateY(6px); }
-}
-/* ===== INTRO ===== */
-.intro {
-text-align: center;
-padding: 3rem 1.5rem;
-max-width: var(--max-width);
-margin: 0 auto;
-}
-.intro-text {
-font-family: var(--font-heading);
-font-size: 1.05rem;
-font-weight: 300;
-font-style: italic;
-line-height: 1.8;
-color: var(--text-muted);
-}
-.intro-signature {
-font-family: var(--font-script);
-font-size: 1.1rem;
-color: var(--soft-lilac);
-margin-top: 1.5rem;
-opacity: 0.7;
-}
-/* ===== FAMILY — SILK RIBBON CONNECT ===== */
-.family-section {
-background: var(--pearl);
-padding: 4rem 0;
-}
-.family-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 1.5rem;
-max-width: var(--max-width);
-margin: 0 auto;
-padding: 0 1.5rem;
-position: relative;
-}
-.family-side { text-align: center; }
-.family-side-label {
-font-family: var(--font-body);
-font-size: 0.55rem;
-letter-spacing: 0.3em;
-text-transform: uppercase;
-color: var(--soft-lilac);
-margin-bottom: 1rem;
-}
-.family-parent-name {
-font-family: var(--font-heading);
-font-size: 1rem;
-font-weight: 500;
-color: var(--text-dark);
-margin-bottom: 0.2rem;
-}
-.family-role {
-font-size: 0.7rem;
-color: var(--text-muted);
-margin-bottom: 1rem;
-}
-/* SVG ribbon connector */
-.ribbon-svg {
-position: absolute;
-top: 50%; left: 50%;
-transform: translate(-50%, -50%);
-width: 40px; height: 120px;
-z-index: 2;
-}
-.ribbon-path {
-stroke: var(--soft-lilac);
-stroke-width: 1.5;
-fill: none;
-opacity: 0.5;
-stroke-dasharray: 200;
-stroke-dashoffset: 200;
-transition: stroke-dashoffset 1.5s ease;
-}
-.family-grid.vis .ribbon-path {
-stroke-dashoffset: 0;
-}
-/* ===== LOVE STORY — SILK THREAD PATH ===== */
-.timeline-section {
-background: var(--veil-white);
-padding: 4rem 0;
-}
-.timeline {
-position: relative;
-max-width: 400px;
-margin: 0 auto;
-padding: 2rem 1.5rem;
-}
-/* SVG curved path behind items */
-.timeline-path-svg {
-position: absolute;
-top: 0; left: 50%;
-transform: translateX(-50%);
-width: 80px;
-height: 100%;
-z-index: 0;
-overflow: visible;
-}
-.timeline-thread {
-stroke: var(--soft-lilac);
-stroke-width: 1;
-fill: none;
-opacity: 0.4;
-stroke-dasharray: 1000;
-stroke-dashoffset: 1000;
-transition: stroke-dashoffset 3s ease;
-}
-.timeline-section.vis .timeline-thread {
-stroke-dashoffset: 0;
-}
-.timeline-item {
-position: relative;
-z-index: 1;
-margin-bottom: 2.5rem;
-padding: 0 0 0 0;
-}
-.timeline-item:nth-child(odd) {
-text-align: right;
-padding-right: calc(50% + 24px);
-}
-.timeline-item:nth-child(even) {
-text-align: left;
-padding-left: calc(50% + 24px);
-}
-.timeline-dot {
-position: absolute;
-left: 50%;
-top: 4px;
-transform: translateX(-50%);
-width: 10px; height: 10px;
-border-radius: 50%;
-border: 2px solid var(--soft-lilac);
-background: var(--veil-white);
-}
-.timeline-year {
-font-family: var(--font-heading);
-font-size: 0.8rem;
-color: var(--soft-lilac);
-letter-spacing: 0.1em;
-margin-bottom: 0.2rem;
-}
-.timeline-title {
-font-family: var(--font-heading);
-font-size: 1rem;
-font-weight: 500;
-font-style: italic;
-color: var(--text-dark);
-margin-bottom: 0.3rem;
-}
-.timeline-desc {
-font-size: 0.75rem;
-font-weight: 300;
-color: var(--text-muted);
-line-height: 1.5;
-}
-/* ===== EVENTS — CARD STACK ===== */
-.events-section {
-background: var(--pearl);
-padding: 4rem 0;
-}
-.event-stack {
-position: relative;
-max-width: 360px;
-margin: 0 auto;
-padding: 0 1.5rem;
-min-height: 320px;
-}
-.event-card {
-background: white;
-border-radius: 16px;
-padding: 2rem 1.5rem;
-text-align: center;
-border: 1px solid var(--lilac-light);
-box-shadow: 0 4px 20px rgba(184,169,212,0.12);
-transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-cursor: pointer;
-}
-.event-card.card-back {
-position: absolute;
-top: 12px; left: 1.5rem; right: 1.5rem;
-transform: rotate(-2deg);
-z-index: 1;
-}
-.event-card.card-front {
-position: relative;
-z-index: 2;
-transform: rotate(2deg);
-}
-.event-card.card-front.shifted {
-transform: translateX(75%) rotate(5deg);
-opacity: 0.6;
-}
-.event-type {
-font-family: var(--font-body);
-font-size: 0.55rem;
-letter-spacing: 0.3em;
-text-transform: uppercase;
-color: var(--soft-lilac);
-margin-bottom: 0.8rem;
-}
-.event-date-big {
-font-family: var(--font-script);
-font-size: 1.8rem;
-color: var(--text-dark);
-margin-bottom: 0.3rem;
-}
-.event-time {
-font-size: 0.8rem;
-color: var(--text-muted);
-margin-bottom: 0.8rem;
-}
-.event-venue {
-font-family: var(--font-heading);
-font-size: 1rem;
-font-weight: 500;
-font-style: italic;
-color: var(--text-dark);
-margin-bottom: 0.2rem;
-}
-.event-address {
-font-size: 0.7rem;
-color: var(--text-muted);
-line-height: 1.4;
-margin-bottom: 1rem;
-}
-.event-map-btn {
-display: inline-flex;
-align-items: center;
-gap: 4px;
-font-size: 0.65rem;
-letter-spacing: 0.15em;
-color: var(--soft-lilac);
-text-decoration: none;
-border-bottom: 1px solid var(--lilac-light);
-padding-bottom: 2px;
-}
-.event-hint {
-text-align: center;
-margin-top: 1rem;
-font-size: 0.6rem;
-color: var(--text-muted);
-opacity: 0.6;
-}
-/* ===== PHOTO SPREADS ===== */
-.photo-spread {
-max-width: var(--max-width);
-margin: 0 auto 2rem;
-padding: 0 1.5rem;
-}
-.photo-spread img {
-width: 100%;
-border-radius: 8px;
-}
-.photo-duo {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 8px;
-}
-.photo-single img {
-border-radius: 12px;
-box-shadow: 0 8px 30px rgba(184,169,212,0.15);
-}
-/* ===== DRESSCODE ===== */
-.dresscode-section { text-align: center; }
-.dresscode-desc {
-font-family: var(--font-heading);
-font-size: 0.9rem;
-font-weight: 300;
-font-style: italic;
-color: var(--text-muted);
-margin-bottom: 1.5rem;
-line-height: 1.6;
-}
-.dresscode-colors {
-display: flex;
-justify-content: center;
-gap: 10px;
-margin-bottom: 1rem;
-}
-.dresscode-swatch {
-width: 38px; height: 38px;
-border-radius: 50%;
-box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-transition: transform 0.3s ease;
-}
-.dresscode-swatch:hover { transform: scale(1.15); }
-.dresscode-note {
-font-size: 0.65rem;
-letter-spacing: 0.2em;
-color: var(--text-muted);
-opacity: 0.6;
-}
-/* ===== GALLERY — SCATTERED POLAROIDS ===== */
-.gallery-section {
-background: linear-gradient(to bottom, var(--veil-white), var(--pearl));
-padding: 4rem 0;
-overflow: hidden;
-}
-.gallery-scatter {
-position: relative;
-max-width: var(--max-width);
-margin: 0 auto;
-padding: 0 1rem;
-min-height: 600px;
-}
-.polaroid {
-position: absolute;
-background: white;
-padding: 6px 6px 24px;
-box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-cursor: pointer;
-transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s;
-}
-.polaroid img {
-width: 100%;
-display: block;
-}
-.polaroid.focused {
-transform: rotate(0deg) scale(1.4) translateY(-10%) !important;
-z-index: 10;
-box-shadow: 0 12px 40px rgba(184,169,212,0.3);
-}
-/* ===== CLOSING — VEIL DESCEND ===== */
-.closing {
-text-align: center;
-padding: 5rem 1.5rem;
-max-width: var(--max-width);
-margin: 0 auto;
-position: relative;
-}
-.closing-label {
-font-family: var(--font-body);
-font-size: 0.6rem;
-letter-spacing: 0.3em;
-text-transform: uppercase;
-color: var(--soft-lilac);
-margin-bottom: 0.5rem;
-}
-.closing-names {
-font-family: var(--font-script);
-font-size: clamp(1.4rem, 6vw, 3rem);
-color: var(--text-dark);
-margin-bottom: 1rem;
-white-space: nowrap;
-}
-.closing-thanks {
-font-family: var(--font-heading);
-font-size: 0.95rem;
-font-weight: 300;
-font-style: italic;
-color: var(--text-muted);
-line-height: 1.7;
-}
-.closing-photo {
-width: 100px; height: 100px;
-border-radius: 50%;
-object-fit: cover;
-border: 3px solid white;
-box-shadow: 0 4px 20px rgba(184,169,212,0.2);
-margin: 0 auto 1.5rem;
-}
-.footer-credit {
-text-align: center;
-font-size: 0.6rem;
-color: var(--text-muted);
-opacity: 0.4;
-padding: 2rem 0;
-letter-spacing: 0.15em;
-}
-/* ===== AMBIENT — SILK THREADS ===== */
-.silk-thread {
-position: fixed;
-height: 1px;
-pointer-events: none;
-z-index: 1;
-background: linear-gradient(to right, transparent, rgba(184,169,212,0.3), transparent);
-opacity: 0;
-animation: threadDrift linear infinite;
-}
-@keyframes threadDrift {
-0% { transform: translateX(-100vw) translateY(0); opacity: 0; }
-10% { opacity: 1; }
-90% { opacity: 1; }
-100% { transform: translateX(100vw) translateY(20px); opacity: 0; }
-}
-/* ===== RESPONSIVE ===== */
-@media (max-width: 400px) {
-.hero-names { font-size: 2rem; }
-.polaroid { padding: 4px 4px 18px; }
-.event-card { padding: 1.5rem 1rem; }
-.timeline-item:nth-child(odd) { padding-right: calc(50% + 16px); }
-.timeline-item:nth-child(even) { padding-left: calc(50% + 16px); }
-}
-/* ===== REDUCED MOTION ===== */
-@media (prefers-reduced-motion: reduce) {
-*, *::before, *::after {
-animation-duration: 0.01ms !important;
-transition-duration: 0.01ms !important;
-}
-.silk-thread { display: none; }
-}
-</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x7a\x49\x78\x4f\x46\x39\x7a\x61\x57\x78\x72\x4c\x58\x5a\x6c\x61\x57\x77\x74\x5a\x58\x52\x6f\x5a\x58\x4a\x6c\x59\x57\x78\x38\x4d\x6a\x41\x79\x4e\x69\x30\x77\x4d\x79\x30\x79\x4f\x58\x78\x77\x61\x48\x56\x76\x59\x33\x42\x30\x4f\x54\x67\x3d'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><audio id="bgMusic" loop preload="auto"><source src="../../../shared/music/wedding/A Thousand Years.mp3" type="audio/mpeg"></audio><div class="envelope" id="envelope"><div class="envelope-photo"><img src="../../../shared/images/wedding/douple-white/603914498_1331862165410171_3022616823752295767_n.webp" alt=""></div><div class="envelope-frame"></div><div class="envelope-text"><div class="envelope-label">Wedding Invitation</div><div class="envelope-names"><span>Hoàng Minh</span><span class="amp">and</span><span>Thùy Linh</span></div><div class="envelope-date">15 · 06 · 2026</div></div><div class="envelope-flower"><img src="../../../shared/images/wedding/icons/lavender-watercolor.webp" alt=""></div></div><button class="music-toggle paused" id="musicToggle" aria-label="Toggle music"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></button><section class="hero"><div class="hero-bg"><img src="../../../shared/images/wedding/douple-white/603914498_1331862165410171_3022616823752295767_n.webp" alt="Couple"></div><div class="hero-text"><div class="hero-pretitle">The Wedding of</div><h1 class="hero-names"><span>Hoàng Minh</span><span class="amp">&</span><span>Thùy Linh</span></h1><div class="hero-date">Chủ Nhật · 15 Tháng 06 · 2026</div></div><div class="hero-scroll"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div></section><section class="intro reveal"><p class="intro-text">
-Từ khoảnh khắc đầu tiên ánh mắt chạm nhau,<br>
-chúng mình đã biết — đây là câu chuyện<br>
-mà cả hai muốn viết cùng nhau,<br>
-cho đến mãi về sau.
-</p><div class="intro-signature">— our story begins ♡</div></section><div class="photo-spread photo-duo reveal"><img src="../../../shared/images/wedding/douple-white/606602793_1331862275410160_5701144232807313035_n.webp" alt="Couple 1" loading="lazy"><img src="../../../shared/images/wedding/douple-white/603873414_1331862168743504_3645323546598127494_n.webp" alt="Couple 2" loading="lazy"></div><section class="family-section"><div class="section" style="padding-top:2rem;padding-bottom:2rem"><div class="section-label reveal">Gia Đình</div><div class="section-title reveal">Thành Kính Báo Tin</div></div><div class="family-grid reveal" id="familyGrid"><svg class="ribbon-svg" viewBox="0 0 40 120"><path class="ribbon-path" d="M20 0 Q35 30 20 60 Q5 90 20 120"/></svg><div class="family-side"><div class="family-side-label">Nhà Trai</div><div class="family-parent-name">Ông Nguyễn Văn An</div><div class="family-parent-name">Bà Trần Thị Hoa</div></div><div class="family-side"><div class="family-side-label">Nhà Gái</div><div class="family-parent-name">Ông Lê Thanh Bình</div><div class="family-parent-name">Bà Phạm Thị Mai</div></div></div></section><div class="photo-spread photo-single reveal" style="margin-top:2rem"><img src="../../../shared/images/wedding/douple-white/602328651_1331862278743493_1151116216256333353_n.webp" alt="Couple portrait" loading="lazy"></div><section class="timeline-section" id="timelineSection"><div class="section" style="padding-bottom:0"><div class="section-label reveal">Chuyện Của Chúng Mình</div><div class="section-title reveal">Hành Trình Yêu Thương</div></div><div class="timeline reveal"><svg class="timeline-path-svg" viewBox="0 0 80 500" preserveAspectRatio="none"><path class="timeline-thread" d="M40 0 Q60 60 40 120 Q20 180 40 240 Q60 300 40 360 Q20 420 40 500"/></svg><div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-year">2020</div><div class="timeline-title">Lần Đầu Gặp Gỡ</div><div class="timeline-desc">Một buổi chiều nắng vàng, chúng mình tình cờ gặp nhau qua một người bạn chung.</div></div><div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-year">2021</div><div class="timeline-title">Hẹn Hò Đầu Tiên</div><div class="timeline-desc">Ly cà phê chiều cuối tuần, câu chuyện kéo dài đến tận hoàng hôn.</div></div><div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-year">2023</div><div class="timeline-title">Cùng Nhau Trải Nghiệm</div><div class="timeline-desc">Những chuyến đi xa, những khoảnh khắc bình yên bên nhau.</div></div><div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-year">2025</div><div class="timeline-title">Lời Cầu Hôn</div><div class="timeline-desc">Dưới bầu trời đầy sao, anh quỳ gối và nói: "Em có muốn cùng anh đi hết cuộc đời này không?"</div></div><div class="timeline-item reveal"><div class="timeline-dot"></div><div class="timeline-year">2026</div><div class="timeline-title">Về Chung Một Nhà</div><div class="timeline-desc">Và bây giờ, chúng mình sẽ viết tiếp câu chuyện ấy — cùng nhau, mãi mãi.</div></div></div></section><div class="photo-spread photo-duo reveal"><img src="../../../shared/images/wedding/douple-white/607061618_1331862058743515_3809251618093354628_n.webp" alt="Couple 3" loading="lazy"><img src="../../../shared/images/wedding/douple-white/605540026_1331862062076848_4992061354907044589_n.webp" alt="Couple 4" loading="lazy"></div><section class="events-section"><div class="section" style="padding-bottom:0"><div class="section-label reveal">Lễ Cưới</div><div class="section-title reveal">Trân Trọng Kính Mời</div></div><div class="event-stack reveal" id="eventStack"><div class="event-card card-back"><div class="event-type">Tiệc Cưới</div><div class="event-date-big">15 · 06 · 2026</div><div class="event-time">17:30 Chiều</div><div class="thin-rule"></div><div class="event-venue">White Palace</div><div class="event-address">194 Hoàng Văn Thụ<br>Phú Nhuận, TP. Hồ Chí Minh</div><a class="event-map-btn" href="#" target="_blank">↗ Xem bản đồ</a></div><div class="event-card card-front" id="cardFront"><div class="event-type">Lễ Vu Quy</div><div class="event-date-big">15 · 06 · 2026</div><div class="event-time">09:00 Sáng</div><div class="thin-rule"></div><div class="event-venue">Tư Gia Nhà Gái</div><div class="event-address">123 Đường Nguyễn Huệ<br>Quận 1, TP. Hồ Chí Minh</div><a class="event-map-btn" href="#" target="_blank">↗ Xem bản đồ</a></div></div><div class="event-hint reveal">Nhấn vào thiệp để xem thêm</div></section><section class="section dresscode-section reveal"><div class="section-label">Dress Code</div><div class="section-title">Trang Phục Gợi Ý</div><p class="dresscode-desc">Chúng mình rất vui nếu bạn đến trong tông màu nhẹ nhàng, trang nhã.</p><div class="dresscode-colors"><div class="dresscode-swatch" style="background:#F5F0E8" title="Pearl"></div><div class="dresscode-swatch" style="background:#E8E0F0" title="Lavender"></div><div class="dresscode-swatch" style="background:#D4C5E2" title="Lilac"></div><div class="dresscode-swatch" style="background:#C5D4CB" title="Sage"></div><div class="dresscode-swatch" style="background:#F2E0D6" title="Blush"></div><div class="dresscode-swatch" style="background:#FFFFFF; border:1px solid #E8E0F0" title="White"></div></div><p class="dresscode-note">Pastel · Nhã nhặn · Thanh lịch</p></section><section class="gallery-section"><div class="section" style="padding-bottom:0"><div class="section-label reveal">Khoảnh Khắc</div><div class="section-title reveal">Album Của Chúng Mình</div></div><div class="gallery-scatter reveal" id="galleryScatter"></div></section><section class="closing reveal"><img class="closing-photo"
-src="../../../shared/images/wedding/douple-white/607493520_1331862048743516_5482248151926306777_n.webp"
-alt="Couple" loading="lazy"><div class="closing-label">With Love</div><div class="closing-names">Hoàng Minh & Thùy Linh</div><div class="thin-rule"></div><p class="closing-thanks">
-Cảm ơn bạn đã dành thời gian đọc thiệp.<br>
-Sự hiện diện của bạn là niềm hạnh phúc<br>
-lớn nhất trong ngày vui của chúng mình.
-</p></section><div class="footer-credit">Made with love · Templexa</div><div id="silkThreads" aria-hidden="true"></div><script src="../../../shared/wedding/wishes-api.js"></script><script>(function() { '\x75\x73\x65\x20\x73\x74\x72\x69\x63\x74'; var envelope = document.getElementById('\x65\x6e\x76\x65\x6c\x6f\x70\x65'); var music = document.getElementById('\x62\x67\x4d\x75\x73\x69\x63'); var opened = false; if (envelope) { for (var s = 0; s < 25; s++) { var sp = document.createElement('\x64\x69\x76'); sp.className = s % 3 === 0 ? '\x73\x70\x61\x72\x6b\x6c\x65\x20\x73\x74\x61\x72' : '\x73\x70\x61\x72\x6b\x6c\x65'; sp.style.left = (5 + Math.random() * 90) + '%'; sp.style.top = (5 + Math.random() * 90) + '%'; var sz = s % 3 === 0 ? (6 + Math.random() * 8) : (2 + Math.random() * 4); sp.style.width = sz + 'px'; sp.style.height = sz + 'px'; sp.style.animationDuration = (1.5 + Math.random() * 2.5) + 's'; sp.style.animationDelay = (Math.random() * 4) + 's'; envelope.appendChild(sp); } for (var b = 0; b < 10; b++) { var bb = document.createElement('div'); bb.className = 'bubble'; var bSize = 6 + Math.random() * 24; bb.style.width = bb.style.height = bSize + 'px'; bb.style.left = (5 + Math.random() * 90) + '%'; bb.style.bottom = (-10 + Math.random() * 40) + '%'; bb.style.animationDuration = (4 + Math.random() * 7) + 's'; bb.style.animationDelay = (Math.random() * 6) + 's'; envelope.appendChild(bb); } envelope.addEventListener('click', function() { if (opened) return; opened = true; if (music) { music.volume = 0.3; music.play().catch(function(){}); } document.getElementById('musicToggle').classList.remove('paused'); envelope.classList.add('fading'); var hero = document.querySelector('.hero'); if (hero) hero.classList.add('revealed'); setTimeout(function() { envelope.classList.add('gone'); document.body.style.overflow = ''; }, 2000); }); document.body.style.overflow = 'hidden'; } var musicBtn = document.getElementById('musicToggle'); if (musicBtn && music) { music.volume = 0.3; musicBtn.addEventListener('click', function() { if (music.paused) { music.play().then(function() { musicBtn.classList.remove('paused'); }).catch(function(){}); } else { music.pause(); musicBtn.classList.add('paused'); } }); } var revealObs = new IntersectionObserver(function(entries) { entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('vis'); revealObs.unobserve(e.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }); document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el); }); var cardFront = document.getElementById('cardFront'); if (cardFront) { var shifted = false; cardFront.addEventListener('click', function() { shifted = !shifted; cardFront.classList.toggle('shifted', shifted); }); } var scatterEl = document.getElementById('galleryScatter'\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x76\x61\x72\x20\x67\x61\x6c\x49\x6d\x61\x67\x65\x73\x20\x3d\x20\x5b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'../../../shared/images/wedding/douple-white/602340650_1331862162076838_2193853185398485556_n.webp'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'../../../shared/images/wedding/douple-white/607702565_1331862258743495_8933236249510191128_n.webp'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'../../../shared/images/wedding/douple-white/602328651_1331862278743493_1151116216256333353_n.webp'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'../../../shared/images/wedding/douple-white/605540026_1331862062076848_4992061354907044589_n.webp'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'../../../shared/images/wedding/douple-white/607061618_1331862058743515_3809251618093354628_n.webp'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'../../../shared/images/wedding/douple-white/603873414_1331862168743504_3645323546598127494_n.webp' ]; if (scatterEl) { var positions = [ { top: '0%', left: '5%', rot: -6, w: 42 }, { top: '2%', left: '52%', rot: 4, w: 44 }, { top: '34%', left: '10%', rot: 3, w: 40 }, { top: '32%', left: '55%', rot: -5, w: 42 }, { top: '62%', left: '2%', rot: 5, w: 44 }, { top: '64%', left: '48%', rot: -3, w: 43 } ]; galImages.forEach(function(src, i) { var p = positions[i]; var div = document.createElement('div'); div.className = 'polaroid'; div.style.top = p.top; div.style.left = p.left; div.style.width = p.w + '%'; div.style.transform = 'rotate(' + p.rot + 'deg)'; div.setAttribute('data-rot', p.rot); var img = document.createElement('img'); img.src = src; img.alt = 'Ảnh cưới ' + (i + 1); img.loading = 'lazy'; div.appendChild(img); div.addEventListener('click', function() { var wasFocused = div.classList.contains('focused'); scatterEl.querySelectorAll('.polaroid').forEach(function(el) { el.classList.remove('focused'); el.style.transform = 'rotate(' + el.getAttribute('data-rot'\x29\x20\x2b\x20'deg)'; }); if (!wasFocused) { div.classList.add('focused'); } }); scatterEl.appendChild(div); }); } var threadContainer = document.getElementById('silkThreads'); if (threadContainer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) { for (var t = 0; t < 6; t++) { var thread = document.createElement('div'); thread.className = 'silk-thread'; var w = 60 + Math.random() * 100; thread.style.width = w + 'px'; thread.style.top = (10 + Math.random() * 80) + '%'; thread.style.animationDuration = (18 + Math.random() * 12) + 's'; thread.style.animationDelay = (Math.random() * 15) + 's'; threadContainer.appendChild(thread); } } var tlSection = document.getElementById('timelineSection'); if (tlSection) { var tlObs = new IntersectionObserver(function(entries) { entries.forEach(function(e) { if (e.isIntersecting) { tlSection.classList.add('vis'); tlObs.unobserve(tlSection); } }); }, { threshold: 0.2 }); tlObs.observe(tlSection); } })();</script></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới — Silk Veil Ethereal</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Quicksand:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== ROOT VARIABLES ===== */
+        :root {
+            --lavender-mist: #E8E0F0;
+            --pearl: #F5F0E8;
+            --soft-lilac: #B8A9D4;
+            --lilac-light: rgba(184, 169, 212, 0.3);
+            --veil-white: #FAFAFE;
+            --text-dark: #2D2B3A;
+            --text-muted: #7B7590;
+            --warm-white: #FFFCF9;
+
+            --font-heading: 'Cormorant Infant', serif;
+            --font-script: 'Great Vibes', cursive;
+            --font-body: 'Quicksand', sans-serif;
+
+            --max-width: 520px;
+        }
+
+        /* ===== RESET ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--veil-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* ===== SHARED ===== */
+        .section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+            position: relative;
+        }
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--soft-lilac);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 400;
+            font-style: italic;
+            text-align: center;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+        }
+        .thin-rule {
+            width: 50px;
+            height: 1px;
+            background: var(--soft-lilac);
+            margin: 1rem auto;
+            opacity: 0.5;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.vis {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== ENVELOPE ===== */
+        .envelope {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .envelope.fading {
+            transition: opacity 1.8s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .envelope.gone { display: none; }
+        /* Hero photo as background — blurred + purple tint */
+        .envelope-photo {
+            position: absolute;
+            inset: 0;
+        }
+        .envelope-photo img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            filter: blur(6px);
+        }
+        .envelope-frame {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: url('../../../shared/images/wedding/backgrounds/floral-lineart/bg-floral-lineart-beige-corner-dual.webp') center/cover no-repeat;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .envelope-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(180, 160, 210, 0.55);
+        }
+        /* Flower — center */
+        .envelope-flower {
+            position: absolute;
+            top: 55%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            pointer-events: none;
+            animation: btnFloat 3s ease-in-out infinite;
+        }
+        .envelope-flower img {
+            width: 130px; height: 130px;
+            object-fit: contain;
+            filter: drop-shadow(0 6px 20px rgba(184,169,212,0.5));
+        }
+        @keyframes btnFloat {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-8px); }
+        }
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            pointer-events: none;
+            z-index: 2;
+            animation: sparkleAnim ease-in-out infinite;
+        }
+        .sparkle.star {
+            background: none;
+        }
+        .sparkle.star::before, .sparkle.star::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            background: rgba(255,255,255,0.9);
+            border-radius: 1px;
+        }
+        .sparkle.star::before {
+            width: 1px; height: 100%;
+            transform: translate(-50%, -50%);
+        }
+        .sparkle.star::after {
+            width: 100%; height: 1px;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes sparkleAnim {
+            0%, 100% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        /* Bubbles */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.45);
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 70%);
+            pointer-events: none;
+            z-index: 2;
+            animation: bubbleFloat linear infinite;
+        }
+        @keyframes bubbleFloat {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            10% { opacity: 0.6; }
+            80% { opacity: 0.3; }
+            100% { transform: translateY(-50vh) scale(0.5); opacity: 0; }
+        }
+        /* Text */
+        .envelope-text {
+            position: absolute;
+            top: 22%; left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            text-align: center;
+            pointer-events: none;
+            width: 90%;
+        }
+        .envelope-label {
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1rem;
+        }
+        .envelope-names {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 300;
+            font-style: italic;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.3;
+            text-shadow: 0 2px 15px rgba(184,169,212,0.4);
+        }
+        .envelope-names .amp {
+            font-family: var(--font-script);
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.5);
+            display: block;
+            margin: 0.3rem 0;
+        }
+        .envelope-date {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            color: rgba(255,255,255,0.5);
+            margin-top: 1rem;
+        }
+        /* Decorative corner SVGs on envelope */
+        .env-corner {
+            position: absolute;
+            width: 60px; height: 60px;
+            opacity: 0.15;
+            color: var(--soft-lilac);
+        }
+        .env-corner.tl { top: 24px; left: 24px; }
+        .env-corner.tr { top: 24px; right: 24px; transform: scaleX(-1); }
+        .env-corner.bl { bottom: 60px; left: 24px; transform: scaleY(-1); }
+        .env-corner.br { bottom: 60px; right: 24px; transform: scale(-1); }
+
+        /* ===== MUSIC TOGGLE ===== */
+        .music-toggle {
+            position: fixed;
+            top: 16px; right: 16px;
+            z-index: 9000;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--lilac-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .music-toggle .bar {
+            width: 2px;
+            background: var(--soft-lilac);
+            border-radius: 1px;
+            margin: 0 1.5px;
+            animation: musicBar 0.8s ease-in-out infinite alternate;
+        }
+        .music-toggle .bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+        .music-toggle .bar:nth-child(2) { height: 14px; animation-delay: 0.15s; }
+        .music-toggle .bar:nth-child(3) { height: 10px; animation-delay: 0.3s; }
+        .music-toggle .bar:nth-child(4) { height: 16px; animation-delay: 0.1s; }
+        .music-toggle.paused .bar { animation: none; height: 3px; }
+        @keyframes musicBar {
+            0% { transform: scaleY(0.3); }
+            100% { transform: scaleY(1); }
+        }
+
+        /* ===== HERO — MIST REVEAL ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-bg img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(250,250,254,0.25) 0%,
+                rgba(232,224,240,0.45) 50%,
+                rgba(250,250,254,0.7) 100%
+            );
+        }
+        .hero-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+        .hero-pretitle {
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--soft-lilac);
+            margin-bottom: 1rem;
+            opacity: 0;
+        }
+        .hero-names {
+            font-family: var(--font-heading);
+            font-weight: 300;
+            font-style: italic;
+            font-size: clamp(1.5rem, 7vw, 3.5rem);
+            line-height: 1.15;
+            color: var(--text-dark);
+            filter: blur(12px);
+            letter-spacing: 0.3em;
+            opacity: 0;
+            white-space: nowrap;
+        }
+        @keyframes mistReveal {
+            to {
+                filter: blur(0);
+                letter-spacing: 0.02em;
+                opacity: 1;
+            }
+        }
+        .hero-names .amp {
+            font-family: var(--font-script);
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            color: var(--soft-lilac);
+            display: block;
+            margin: 0.3rem 0;
+            filter: blur(10px);
+            opacity: 0;
+        }
+        .hero-date {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            opacity: 0;
+        }
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            opacity: 0;
+        }
+        /* Trigger animations only after envelope opened */
+        .hero.revealed .hero-pretitle {
+            animation: fadeIn 1s ease 0.3s forwards;
+        }
+        .hero.revealed .hero-names {
+            animation: mistReveal 2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+        }
+        .hero.revealed .hero-names .amp {
+            animation: mistReveal 1.5s ease 1.2s forwards;
+        }
+        .hero.revealed .hero-date {
+            animation: fadeIn 1s ease 2s forwards;
+        }
+        .hero.revealed .hero-scroll {
+            animation: fadeIn 1s ease 2.5s forwards, gentleBounce 2s ease-in-out 3.5s infinite;
+        }
+        .hero-scroll svg { color: var(--soft-lilac); opacity: 0.5; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        /* ===== INTRO ===== */
+        .intro {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .intro-text {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+        .intro-signature {
+            font-family: var(--font-script);
+            font-size: 1.1rem;
+            color: var(--soft-lilac);
+            margin-top: 1.5rem;
+            opacity: 0.7;
+        }
+
+        /* ===== FAMILY — SILK RIBBON CONNECT ===== */
+        .family-section {
+            background: var(--pearl);
+            padding: 4rem 0;
+        }
+        .family-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+        }
+        .family-side { text-align: center; }
+        .family-side-label {
+            font-family: var(--font-body);
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--soft-lilac);
+            margin-bottom: 1rem;
+        }
+        .family-parent-name {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+        .family-role {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        /* SVG ribbon connector */
+        .ribbon-svg {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px; height: 120px;
+            z-index: 2;
+        }
+        .ribbon-path {
+            stroke: var(--soft-lilac);
+            stroke-width: 1.5;
+            fill: none;
+            opacity: 0.5;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 1.5s ease;
+        }
+        .family-grid.vis .ribbon-path {
+            stroke-dashoffset: 0;
+        }
+
+        /* ===== LOVE STORY — SILK THREAD PATH ===== */
+        .timeline-section {
+            background: var(--veil-white);
+            padding: 4rem 0;
+        }
+        .timeline {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        /* SVG curved path behind items */
+        .timeline-path-svg {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 100%;
+            z-index: 0;
+            overflow: visible;
+        }
+        .timeline-thread {
+            stroke: var(--soft-lilac);
+            stroke-width: 1;
+            fill: none;
+            opacity: 0.4;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 3s ease;
+        }
+        .timeline-section.vis .timeline-thread {
+            stroke-dashoffset: 0;
+        }
+        .timeline-item {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 2.5rem;
+            padding: 0 0 0 0;
+        }
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+            padding-right: calc(50% + 24px);
+        }
+        .timeline-item:nth-child(even) {
+            text-align: left;
+            padding-left: calc(50% + 24px);
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 4px;
+            transform: translateX(-50%);
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--soft-lilac);
+            background: var(--veil-white);
+        }
+        .timeline-year {
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            color: var(--soft-lilac);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.2rem;
+        }
+        .timeline-title {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+        .timeline-desc {
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== EVENTS — CARD STACK ===== */
+        .events-section {
+            background: var(--pearl);
+            padding: 4rem 0;
+        }
+        .event-stack {
+            position: relative;
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            min-height: 320px;
+        }
+        .event-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 1px solid var(--lilac-light);
+            box-shadow: 0 4px 20px rgba(184,169,212,0.12);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .event-card.card-back {
+            position: absolute;
+            top: 12px; left: 1.5rem; right: 1.5rem;
+            transform: rotate(-2deg);
+            z-index: 1;
+        }
+        .event-card.card-front {
+            position: relative;
+            z-index: 2;
+            transform: rotate(2deg);
+        }
+        .event-card.card-front.shifted {
+            transform: translateX(75%) rotate(5deg);
+            opacity: 0.6;
+        }
+        .event-type {
+            font-family: var(--font-body);
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--soft-lilac);
+            margin-bottom: 0.8rem;
+        }
+        .event-date-big {
+            font-family: var(--font-script);
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+        .event-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+        }
+        .event-venue {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+        .event-address {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+        .event-map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            color: var(--soft-lilac);
+            text-decoration: none;
+            border-bottom: 1px solid var(--lilac-light);
+            padding-bottom: 2px;
+        }
+        .event-hint {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        /* ===== PHOTO SPREADS ===== */
+        .photo-spread {
+            max-width: var(--max-width);
+            margin: 0 auto 2rem;
+            padding: 0 1.5rem;
+        }
+        .photo-spread img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .photo-duo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .photo-single img {
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(184,169,212,0.15);
+        }
+
+        /* ===== DRESSCODE ===== */
+        .dresscode-section { text-align: center; }
+        .dresscode-desc {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .dresscode-colors {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        .dresscode-swatch {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease;
+        }
+        .dresscode-swatch:hover { transform: scale(1.15); }
+        .dresscode-note {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        /* ===== GALLERY — SCATTERED POLAROIDS ===== */
+        .gallery-section {
+            background: linear-gradient(to bottom, var(--veil-white), var(--pearl));
+            padding: 4rem 0;
+            overflow: hidden;
+        }
+        .gallery-scatter {
+            position: relative;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1rem;
+            min-height: 600px;
+        }
+        .polaroid {
+            position: absolute;
+            background: white;
+            padding: 6px 6px 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s;
+        }
+        .polaroid img {
+            width: 100%;
+            display: block;
+        }
+        .polaroid.focused {
+            transform: rotate(0deg) scale(1.4) translateY(-10%) !important;
+            z-index: 10;
+            box-shadow: 0 12px 40px rgba(184,169,212,0.3);
+        }
+
+        /* ===== CLOSING — VEIL DESCEND ===== */
+        .closing {
+            text-align: center;
+            padding: 5rem 1.5rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            position: relative;
+        }
+        .closing-label {
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--soft-lilac);
+            margin-bottom: 0.5rem;
+        }
+        .closing-names {
+            font-family: var(--font-script);
+            font-size: clamp(1.4rem, 6vw, 3rem);
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            white-space: nowrap;
+        }
+        .closing-thanks {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .closing-photo {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: 0 4px 20px rgba(184,169,212,0.2);
+            margin: 0 auto 1.5rem;
+        }
+        .footer-credit {
+            text-align: center;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            opacity: 0.4;
+            padding: 2rem 0;
+            letter-spacing: 0.15em;
+        }
+
+        /* ===== AMBIENT — SILK THREADS ===== */
+        .silk-thread {
+            position: fixed;
+            height: 1px;
+            pointer-events: none;
+            z-index: 1;
+            background: linear-gradient(to right, transparent, rgba(184,169,212,0.3), transparent);
+            opacity: 0;
+            animation: threadDrift linear infinite;
+        }
+        @keyframes threadDrift {
+            0% { transform: translateX(-100vw) translateY(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(100vw) translateY(20px); opacity: 0; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 400px) {
+            .hero-names { font-size: 2rem; }
+            .polaroid { padding: 4px 4px 18px; }
+            .event-card { padding: 1.5rem 1rem; }
+            .timeline-item:nth-child(odd) { padding-right: calc(50% + 16px); }
+            .timeline-item:nth-child(even) { padding-left: calc(50% + 16px); }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            .silk-thread { display: none; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== AUDIO ===== -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/wedding/A Thousand Years.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ===== ENVELOPE — SILK VEIL ===== -->
+    <div class="envelope" id="envelope">
+        <div class="envelope-photo">
+            <img src="../../../shared/images/wedding/douple-white/603914498_1331862165410171_3022616823752295767_n.webp" alt="">
+        </div>
+        <div class="envelope-frame"></div>
+        <div class="envelope-text">
+            <div class="envelope-label">Wedding Invitation</div>
+            <div class="envelope-names">
+                <span>Hoàng Minh</span>
+                <span class="amp">and</span>
+                <span>Thùy Linh</span>
+            </div>
+            <div class="envelope-date">15 · 06 · 2026</div>
+        </div>
+        <div class="envelope-flower">
+            <img src="../../../shared/images/wedding/icons/lavender-watercolor.webp" alt="">
+        </div>
+    </div>
+
+    <!-- ===== MUSIC TOGGLE ===== -->
+    <button class="music-toggle paused" id="musicToggle" aria-label="Toggle music">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="../../../shared/images/wedding/douple-white/603914498_1331862165410171_3022616823752295767_n.webp" alt="Couple">
+        </div>
+        <div class="hero-text">
+            <div class="hero-pretitle">The Wedding of</div>
+            <h1 class="hero-names">
+                <span>Hoàng Minh</span>
+                <span class="amp">&</span>
+                <span>Thùy Linh</span>
+            </h1>
+            <div class="hero-date">Chủ Nhật · 15 Tháng 06 · 2026</div>
+        </div>
+        <div class="hero-scroll">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </div>
+    </section>
+
+    <!-- ===== INTRO ===== -->
+    <section class="intro reveal">
+        <p class="intro-text">
+            Từ khoảnh khắc đầu tiên ánh mắt chạm nhau,<br>
+            chúng mình đã biết — đây là câu chuyện<br>
+            mà cả hai muốn viết cùng nhau,<br>
+            cho đến mãi về sau.
+        </p>
+        <div class="intro-signature">— our story begins ♡</div>
+    </section>
+
+    <!-- ===== PHOTO SPREAD 1 ===== -->
+    <div class="photo-spread photo-duo reveal">
+        <img src="../../../shared/images/wedding/douple-white/606602793_1331862275410160_5701144232807313035_n.webp" alt="Couple 1" loading="lazy">
+        <img src="../../../shared/images/wedding/douple-white/603873414_1331862168743504_3645323546598127494_n.webp" alt="Couple 2" loading="lazy">
+    </div>
+
+    <!-- ===== FAMILY ===== -->
+    <section class="family-section">
+        <div class="section" style="padding-top:2rem;padding-bottom:2rem">
+            <div class="section-label reveal">Gia Đình</div>
+            <div class="section-title reveal">Thành Kính Báo Tin</div>
+        </div>
+        <div class="family-grid reveal" id="familyGrid">
+            <!-- SVG ribbon connector -->
+            <svg class="ribbon-svg" viewBox="0 0 40 120">
+                <path class="ribbon-path" d="M20 0 Q35 30 20 60 Q5 90 20 120"/>
+            </svg>
+            <div class="family-side">
+                <div class="family-side-label">Nhà Trai</div>
+                <div class="family-parent-name">Ông Nguyễn Văn An</div>
+                <div class="family-parent-name">Bà Trần Thị Hoa</div>
+            </div>
+            <div class="family-side">
+                <div class="family-side-label">Nhà Gái</div>
+                <div class="family-parent-name">Ông Lê Thanh Bình</div>
+                <div class="family-parent-name">Bà Phạm Thị Mai</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PHOTO SPREAD 2 ===== -->
+    <div class="photo-spread photo-single reveal" style="margin-top:2rem">
+        <img src="../../../shared/images/wedding/douple-white/602328651_1331862278743493_1151116216256333353_n.webp" alt="Couple portrait" loading="lazy">
+    </div>
+
+    <!-- ===== LOVE STORY ===== -->
+    <section class="timeline-section" id="timelineSection">
+        <div class="section" style="padding-bottom:0">
+            <div class="section-label reveal">Chuyện Của Chúng Mình</div>
+            <div class="section-title reveal">Hành Trình Yêu Thương</div>
+        </div>
+        <div class="timeline reveal">
+            <svg class="timeline-path-svg" viewBox="0 0 80 500" preserveAspectRatio="none">
+                <path class="timeline-thread" d="M40 0 Q60 60 40 120 Q20 180 40 240 Q60 300 40 360 Q20 420 40 500"/>
+            </svg>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2020</div>
+                <div class="timeline-title">Lần Đầu Gặp Gỡ</div>
+                <div class="timeline-desc">Một buổi chiều nắng vàng, chúng mình tình cờ gặp nhau qua một người bạn chung.</div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2021</div>
+                <div class="timeline-title">Hẹn Hò Đầu Tiên</div>
+                <div class="timeline-desc">Ly cà phê chiều cuối tuần, câu chuyện kéo dài đến tận hoàng hôn.</div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2023</div>
+                <div class="timeline-title">Cùng Nhau Trải Nghiệm</div>
+                <div class="timeline-desc">Những chuyến đi xa, những khoảnh khắc bình yên bên nhau.</div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2025</div>
+                <div class="timeline-title">Lời Cầu Hôn</div>
+                <div class="timeline-desc">Dưới bầu trời đầy sao, anh quỳ gối và nói: "Em có muốn cùng anh đi hết cuộc đời này không?"</div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2026</div>
+                <div class="timeline-title">Về Chung Một Nhà</div>
+                <div class="timeline-desc">Và bây giờ, chúng mình sẽ viết tiếp câu chuyện ấy — cùng nhau, mãi mãi.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PHOTO SPREAD 3 ===== -->
+    <div class="photo-spread photo-duo reveal">
+        <img src="../../../shared/images/wedding/douple-white/607061618_1331862058743515_3809251618093354628_n.webp" alt="Couple 3" loading="lazy">
+        <img src="../../../shared/images/wedding/douple-white/605540026_1331862062076848_4992061354907044589_n.webp" alt="Couple 4" loading="lazy">
+    </div>
+
+    <!-- ===== EVENTS ===== -->
+    <section class="events-section">
+        <div class="section" style="padding-bottom:0">
+            <div class="section-label reveal">Lễ Cưới</div>
+            <div class="section-title reveal">Trân Trọng Kính Mời</div>
+        </div>
+        <div class="event-stack reveal" id="eventStack">
+            <div class="event-card card-back">
+                <div class="event-type">Tiệc Cưới</div>
+                <div class="event-date-big">15 · 06 · 2026</div>
+                <div class="event-time">17:30 Chiều</div>
+                <div class="thin-rule"></div>
+                <div class="event-venue">White Palace</div>
+                <div class="event-address">194 Hoàng Văn Thụ<br>Phú Nhuận, TP. Hồ Chí Minh</div>
+                <a class="event-map-btn" href="#" target="_blank">↗ Xem bản đồ</a>
+            </div>
+            <div class="event-card card-front" id="cardFront">
+                <div class="event-type">Lễ Vu Quy</div>
+                <div class="event-date-big">15 · 06 · 2026</div>
+                <div class="event-time">09:00 Sáng</div>
+                <div class="thin-rule"></div>
+                <div class="event-venue">Tư Gia Nhà Gái</div>
+                <div class="event-address">123 Đường Nguyễn Huệ<br>Quận 1, TP. Hồ Chí Minh</div>
+                <a class="event-map-btn" href="#" target="_blank">↗ Xem bản đồ</a>
+            </div>
+        </div>
+        <div class="event-hint reveal">Nhấn vào thiệp để xem thêm</div>
+    </section>
+
+    <!-- ===== DRESSCODE ===== -->
+    <section class="section dresscode-section reveal">
+        <div class="section-label">Dress Code</div>
+        <div class="section-title">Trang Phục Gợi Ý</div>
+        <p class="dresscode-desc">Chúng mình rất vui nếu bạn đến trong tông màu nhẹ nhàng, trang nhã.</p>
+        <div class="dresscode-colors">
+            <div class="dresscode-swatch" style="background:#F5F0E8" title="Pearl"></div>
+            <div class="dresscode-swatch" style="background:#E8E0F0" title="Lavender"></div>
+            <div class="dresscode-swatch" style="background:#D4C5E2" title="Lilac"></div>
+            <div class="dresscode-swatch" style="background:#C5D4CB" title="Sage"></div>
+            <div class="dresscode-swatch" style="background:#F2E0D6" title="Blush"></div>
+            <div class="dresscode-swatch" style="background:#FFFFFF; border:1px solid #E8E0F0" title="White"></div>
+        </div>
+        <p class="dresscode-note">Pastel · Nhã nhặn · Thanh lịch</p>
+    </section>
+
+    <!-- ===== GALLERY — SCATTERED POLAROIDS ===== -->
+    <section class="gallery-section">
+        <div class="section" style="padding-bottom:0">
+            <div class="section-label reveal">Khoảnh Khắc</div>
+            <div class="section-title reveal">Album Của Chúng Mình</div>
+        </div>
+        <div class="gallery-scatter reveal" id="galleryScatter">
+            <!-- Polaroids positioned by JS -->
+        </div>
+    </section>
+
+    <!-- ===== CLOSING ===== -->
+    <section class="closing reveal">
+        <img class="closing-photo"
+             src="../../../shared/images/wedding/douple-white/607493520_1331862048743516_5482248151926306777_n.webp"
+             alt="Couple" loading="lazy">
+        <div class="closing-label">With Love</div>
+        <div class="closing-names">Hoàng Minh & Thùy Linh</div>
+        <div class="thin-rule"></div>
+        <p class="closing-thanks">
+            Cảm ơn bạn đã dành thời gian đọc thiệp.<br>
+            Sự hiện diện của bạn là niềm hạnh phúc<br>
+            lớn nhất trong ngày vui của chúng mình.
+        </p>
+    </section>
+
+    <div class="footer-credit">Made with love · Templexa</div>
+
+    <!-- ===== SILK THREAD AMBIENT ===== -->
+    <div id="silkThreads" aria-hidden="true"></div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="../../../shared/wedding/wishes-api.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        /* ===== ENVELOPE ===== */
+        var envelope = document.getElementById('envelope');
+        var music = document.getElementById('bgMusic');
+        var opened = false;
+
+        if (envelope) {
+            /* Create sparkles — mix of dots and star shapes */
+            for (var s = 0; s < 25; s++) {
+                var sp = document.createElement('div');
+                sp.className = s % 3 === 0 ? 'sparkle star' : 'sparkle';
+                sp.style.left = (5 + Math.random() * 90) + '%';
+                sp.style.top = (5 + Math.random() * 90) + '%';
+                var sz = s % 3 === 0 ? (6 + Math.random() * 8) : (2 + Math.random() * 4);
+                sp.style.width = sz + 'px';
+                sp.style.height = sz + 'px';
+                sp.style.animationDuration = (1.5 + Math.random() * 2.5) + 's';
+                sp.style.animationDelay = (Math.random() * 4) + 's';
+                envelope.appendChild(sp);
+            }
+            /* Create bubbles */
+            for (var b = 0; b < 10; b++) {
+                var bb = document.createElement('div');
+                bb.className = 'bubble';
+                var bSize = 6 + Math.random() * 24;
+                bb.style.width = bb.style.height = bSize + 'px';
+                bb.style.left = (5 + Math.random() * 90) + '%';
+                bb.style.bottom = (-10 + Math.random() * 40) + '%';
+                bb.style.animationDuration = (4 + Math.random() * 7) + 's';
+                bb.style.animationDelay = (Math.random() * 6) + 's';
+                envelope.appendChild(bb);
+            }
+
+            /* Click anywhere to fade out */
+            envelope.addEventListener('click', function() {
+                if (opened) return;
+                opened = true;
+                if (music) { music.volume = 0.3; music.play().catch(function(){}); }
+                document.getElementById('musicToggle').classList.remove('paused');
+                envelope.classList.add('fading');
+                /* Trigger hero text animations */
+                var hero = document.querySelector('.hero');
+                if (hero) hero.classList.add('revealed');
+                setTimeout(function() {
+                    envelope.classList.add('gone');
+                    document.body.style.overflow = '';
+                }, 2000);
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        /* ===== MUSIC TOGGLE ===== */
+        var musicBtn = document.getElementById('musicToggle');
+        if (musicBtn && music) {
+            music.volume = 0.3;
+            musicBtn.addEventListener('click', function() {
+                if (music.paused) {
+                    music.play().then(function() { musicBtn.classList.remove('paused'); }).catch(function(){});
+                } else {
+                    music.pause();
+                    musicBtn.classList.add('paused');
+                }
+            });
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        var revealObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add('vis');
+                    revealObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el); });
+
+        /* ===== EVENT CARD STACK ===== */
+        var cardFront = document.getElementById('cardFront');
+        if (cardFront) {
+            var shifted = false;
+            cardFront.addEventListener('click', function() {
+                shifted = !shifted;
+                cardFront.classList.toggle('shifted', shifted);
+            });
+        }
+
+        /* ===== GALLERY — SCATTERED POLAROIDS ===== */
+        var scatterEl = document.getElementById('galleryScatter');
+        var galImages = [
+            '../../../shared/images/wedding/douple-white/602340650_1331862162076838_2193853185398485556_n.webp',
+            '../../../shared/images/wedding/douple-white/607702565_1331862258743495_8933236249510191128_n.webp',
+            '../../../shared/images/wedding/douple-white/602328651_1331862278743493_1151116216256333353_n.webp',
+            '../../../shared/images/wedding/douple-white/605540026_1331862062076848_4992061354907044589_n.webp',
+            '../../../shared/images/wedding/douple-white/607061618_1331862058743515_3809251618093354628_n.webp',
+            '../../../shared/images/wedding/douple-white/603873414_1331862168743504_3645323546598127494_n.webp'
+        ];
+
+        if (scatterEl) {
+            /* Layout positions for scattered look */
+            var positions = [
+                { top: '0%', left: '5%', rot: -6, w: 42 },
+                { top: '2%', left: '52%', rot: 4, w: 44 },
+                { top: '34%', left: '10%', rot: 3, w: 40 },
+                { top: '32%', left: '55%', rot: -5, w: 42 },
+                { top: '62%', left: '2%', rot: 5, w: 44 },
+                { top: '64%', left: '48%', rot: -3, w: 43 }
+            ];
+
+            galImages.forEach(function(src, i) {
+                var p = positions[i];
+                var div = document.createElement('div');
+                div.className = 'polaroid';
+                div.style.top = p.top;
+                div.style.left = p.left;
+                div.style.width = p.w + '%';
+                div.style.transform = 'rotate(' + p.rot + 'deg)';
+                div.setAttribute('data-rot', p.rot);
+
+                var img = document.createElement('img');
+                img.src = src;
+                img.alt = 'Ảnh cưới ' + (i + 1);
+                img.loading = 'lazy';
+                div.appendChild(img);
+
+                div.addEventListener('click', function() {
+                    var wasFocused = div.classList.contains('focused');
+                    /* Remove focus from all */
+                    scatterEl.querySelectorAll('.polaroid').forEach(function(el) {
+                        el.classList.remove('focused');
+                        el.style.transform = 'rotate(' + el.getAttribute('data-rot') + 'deg)';
+                    });
+                    if (!wasFocused) {
+                        div.classList.add('focused');
+                    }
+                });
+
+                scatterEl.appendChild(div);
+            });
+        }
+
+        /* ===== SILK THREAD AMBIENT ===== */
+        var threadContainer = document.getElementById('silkThreads');
+        if (threadContainer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            for (var t = 0; t < 6; t++) {
+                var thread = document.createElement('div');
+                thread.className = 'silk-thread';
+                var w = 60 + Math.random() * 100;
+                thread.style.width = w + 'px';
+                thread.style.top = (10 + Math.random() * 80) + '%';
+                thread.style.animationDuration = (18 + Math.random() * 12) + 's';
+                thread.style.animationDelay = (Math.random() * 15) + 's';
+                threadContainer.appendChild(thread);
+            }
+        }
+
+        /* ===== TIMELINE PATH ANIMATION ===== */
+        var tlSection = document.getElementById('timelineSection');
+        if (tlSection) {
+            var tlObs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting) {
+                        tlSection.classList.add('vis');
+                        tlObs.unobserve(tlSection);
+                    }
+                });
+            }, { threshold: 0.2 });
+            tlObs.observe(tlSection);
+        }
+
+    })();
+    </script>
+</body>
+</html>

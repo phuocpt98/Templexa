@@ -1,728 +1,1237 @@
-<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cuốn Phim Ký Ức — Thiệp Cưới Vintage</title><meta name="description" content="Thiệp cưới phong cách vintage pha hiện đại — 12 cảnh chuyển động tự động kể câu chuyện tình yêu, tone beige ấm áp, nhạc nền lãng mạn."><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@latest"></script><style>
-:root {
---bg: #FAF6F0;
---bg-dark: #F0EAE0;
---text: #3D2E1F;
---text-light: #7A6855;
---accent: #C9956B;
---accent-dark: #A67A52;
---gold: #D4A96A;
---rose: #D4A0A0;
---cream: #FFF8F0;
---film-border: #2C2017;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html {
-scroll-behavior: smooth;
-overflow: hidden;
-}
-body {
-font-family: 'Lora', Georgia, serif;
-background: var(--bg);
-color: var(--text);
-overflow: hidden;
-height: 100vh;
-cursor: default;
-}
-/* ── Film grain overlay ── */
-body::before {
-content: '';
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 100%;
-pointer-events: none;
-z-index: 9998;
-opacity: 0.03;
-background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
-/* ── Progress bar ── */
-.progress-bar {
-position: fixed;
-top: 0; left: 0;
-height: 3px;
-background: linear-gradient(90deg, var(--accent), var(--gold), var(--rose));
-z-index: 10000;
-transition: width 0.6s ease;
-width: 0%;
-}
-/* ── Scene navigation dots ── */
-.scene-nav {
-position: fixed;
-right: 20px;
-top: 50%;
-transform: translateY(-50%);
-z-index: 9999;
-display: flex;
-flex-direction: column;
-gap: 10px;
-}
-.scene-dot {
-width: 10px; height: 10px;
-border-radius: 50%;
-border: 2px solid var(--accent);
-background: transparent;
-cursor: pointer;
-transition: all 0.3s;
-padding: 0;
-}
-.scene-dot.active {
-background: var(--accent);
-transform: scale(1.3);
-}
-.scene-dot:hover { background: var(--gold); }
-/* ── Scene container ── */
-.scene-container {
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 100%;
-}
-.scene {
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
-opacity: 0;
-visibility: hidden;
-transition: none;
-overflow: hidden;
-}
-.scene.active {
-opacity: 1;
-visibility: visible;
-}
-.scene-content {
-text-align: center;
-max-width: 700px;
-padding: 40px 30px;
-position: relative;
-z-index: 2;
-}
-/* ── Transition classes ── */
-.trans-zoom-in .scene-content { animation: zoomIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.trans-fade-black { animation: fadeThruBlack 1.5s ease both; }
-.trans-film-roll { animation: filmRoll 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.trans-light-leak::after {
-content: '';
-position: absolute;
-top: 0; left: -100%;
-width: 100%; height: 100%;
-background: linear-gradient(90deg, transparent, rgba(212,169,106,0.4), rgba(212,160,160,0.3), transparent);
-animation: lightLeak 1.5s ease-in-out both;
-}
-.trans-sparkle { animation: sparkleIn 1.2s ease both; }
-.trans-iris .scene-content { animation: irisOpen 1s ease both; }
-.trans-slide-left { animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.trans-slide-right { animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.trans-page-turn { animation: pageTurn 1s ease both; perspective: 1200px; }
-.trans-wipe-up { animation: wipeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.trans-morph { animation: morphIn 1s ease both; }
-.trans-fade-white { animation: fadeToWhite 2s ease both; }
-@keyframes zoomIn {
-from { transform: scale(0.3); opacity: 0; }
-to { transform: scale(1); opacity: 1; }
-}
-@keyframes fadeThruBlack {
-0% { opacity: 0; background: #000; }
-40% { opacity: 1; background: #000; }
-100% { opacity: 1; background: transparent; }
-}
-@keyframes filmRoll {
-from { transform: translateX(100%); }
-to { transform: translateX(0); }
-}
-@keyframes lightLeak {
-from { left: -100%; }
-to { left: 200%; }
-}
-@keyframes sparkleIn {
-0% { opacity: 0; filter: brightness(2) blur(10px); }
-50% { filter: brightness(1.5) blur(3px); }
-100% { opacity: 1; filter: brightness(1) blur(0); }
-}
-@keyframes irisOpen {
-from { clip-path: circle(0% at 50% 50%); }
-to { clip-path: circle(75% at 50% 50%); }
-}
-@keyframes slideFromLeft {
-from { transform: translateX(-100%); opacity: 0; }
-to { transform: translateX(0); opacity: 1; }
-}
-@keyframes slideFromRight {
-from { transform: translateX(100%); opacity: 0; }
-to { transform: translateX(0); opacity: 1; }
-}
-@keyframes pageTurn {
-from { transform: rotateY(-90deg); opacity: 0; transform-origin: left center; }
-to { transform: rotateY(0); opacity: 1; transform-origin: left center; }
-}
-@keyframes wipeUp {
-from { clip-path: inset(100% 0 0 0); }
-to { clip-path: inset(0 0 0 0); }
-}
-@keyframes morphIn {
-from { transform: scale(0.8) rotate(-3deg); opacity: 0; border-radius: 50%; }
-to { transform: scale(1) rotate(0); opacity: 1; border-radius: 0; }
-}
-@keyframes fadeToWhite {
-0% { opacity: 1; }
-100% { opacity: 1; }
-}
-/* ── Typography ── */
-.script-font {
-font-family: 'Great Vibes', cursive;
-color: var(--accent);
-}
-.display-font {
-font-family: 'Playfair Display', Georgia, serif;
-}
-.scene-label {
-font-family: 'Lora', serif;
-font-size: 0.7rem;
-letter-spacing: 4px;
-text-transform: uppercase;
-color: var(--text-light);
-margin-bottom: 20px;
-opacity: 0.7;
-}
-.scene-title {
-font-family: 'Playfair Display', Georgia, serif;
-font-size: clamp(1.6rem, 4vw, 2.8rem);
-font-weight: 600;
-line-height: 1.3;
-margin-bottom: 20px;
-color: var(--text);
-}
-.scene-quote {
-font-family: 'Lora', serif;
-font-style: italic;
-font-size: clamp(1rem, 2.5vw, 1.25rem);
-line-height: 1.8;
-color: var(--text-light);
-max-width: 550px;
-margin: 0 auto;
-}
-/* ── Decorative elements ── */
-.ornament {
-display: block;
-margin: 20px auto;
-color: var(--gold);
-font-size: 1.5rem;
-opacity: 0.6;
-}
-.ornament-line {
-width: 60px;
-height: 1px;
-background: var(--gold);
-margin: 16px auto;
-opacity: 0.5;
-}
-.film-strip-top, .film-strip-bottom {
-position: fixed;
-left: 0; width: 100%;
-height: 30px;
-background: var(--film-border);
-z-index: 9997;
-display: flex;
-align-items: center;
-gap: 18px;
-padding: 0 10px;
-}
-.film-strip-top { top: 3px; }
-.film-strip-bottom { bottom: 0; }
-.film-hole {
-width: 12px; height: 9px;
-border-radius: 2px;
-background: var(--bg);
-opacity: 0.3;
-flex-shrink: 0;
-}
-/* ── Scene-specific backgrounds ── */
-.scene-bg {
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 100%;
-z-index: 0;
-}
-.scene-bg img {
-width: 100%; height: 100%;
-object-fit: cover;
-filter: sepia(0.15) brightness(0.95);
-}
-.scene-bg-overlay {
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 100%;
-z-index: 1;
-}
-/* ── Scene 1: Envelope ── */
-.envelope-wrap {
-position: relative;
-width: 280px;
-height: 200px;
-margin: 0 auto 30px;
-}
-.envelope {
-width: 100%; height: 100%;
-background: linear-gradient(145deg, #E8D5BC, #D4C0A8);
-border-radius: 4px;
-position: relative;
-box-shadow: 0 8px 30px rgba(60,40,20,0.15);
-}
-.envelope-flap {
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 50%;
-background: linear-gradient(180deg, #DDC9B0, #D4C0A8);
-clip-path: polygon(0 0, 50% 100%, 100% 0);
-transform-origin: top center;
-transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-z-index: 3;
-}
-.envelope-flap.open { transform: rotateX(180deg); }
-.envelope-seal {
-position: absolute;
-top: 40%; left: 50%;
-transform: translate(-50%, -50%);
-width: 50px; height: 50px;
-background: var(--rose);
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-z-index: 4;
-transition: opacity 0.5s 0.8s;
-}
-.envelope-flap.open + .envelope-body .envelope-seal { opacity: 0; }
-.envelope-seal i { color: #fff; }
-.envelope-letter {
-position: absolute;
-bottom: 10px; left: 50%;
-transform: translateX(-50%);
-width: 80%;
-height: 60px;
-background: var(--cream);
-border-radius: 3px;
-transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
-z-index: 2;
-box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-.envelope-flap.open ~ .envelope-letter { transform: translateX(-50%) translateY(-120px); }
-/* ── Falling petals ── */
-.petals-container {
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 100%;
-pointer-events: none;
-z-index: 5;
-overflow: hidden;
-}
-.petal {
-position: absolute;
-top: -20px;
-width: 12px; height: 12px;
-background: var(--rose);
-border-radius: 50% 0 50% 50%;
-opacity: 0.5;
-animation: petalFall linear infinite;
-}
-@keyframes petalFall {
-0% { transform: translateY(-20px) rotate(0deg); opacity: 0.6; }
-100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
-/* ── Scene 2: Polaroid ── */
-.polaroid {
-background: #fff;
-padding: 12px 12px 40px;
-box-shadow: 0 6px 25px rgba(0,0,0,0.12);
-transform: rotate(-2deg);
-display: inline-block;
-margin-bottom: 24px;
-}
-.polaroid img {
-width: 240px; height: 240px;
-object-fit: cover;
-filter: sepia(0.2);
-}
-.polaroid-caption {
-font-family: 'Great Vibes', cursive;
-font-size: 1.1rem;
-color: var(--text-light);
-margin-top: 8px;
-}
-/* ── Scene 3: Film strip gallery ── */
-.film-gallery {
-display: flex;
-gap: 16px;
-justify-content: center;
-flex-wrap: wrap;
-margin-bottom: 24px;
-}
-.film-photo {
-width: 140px; height: 140px;
-border: 3px solid var(--film-border);
-border-radius: 2px;
-overflow: hidden;
-box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-.film-photo img {
-width: 100%; height: 100%;
-object-fit: cover;
-filter: sepia(0.15) contrast(1.05);
-}
-/* ── Scene 5: Ring focus ── */
-.ring-icon {
-width: 100px; height: 100px;
-margin: 0 auto 24px;
-background: linear-gradient(135deg, var(--gold), var(--accent));
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-animation: pulseGlow 2s ease-in-out infinite;
-}
-.ring-icon i { color: #fff; width: 44px; height: 44px; }
-@keyframes pulseGlow {
-0%, 100% { box-shadow: 0 0 20px rgba(212,169,106,0.3); }
-50% { box-shadow: 0 0 40px rgba(212,169,106,0.6); }
-}
-/* ── Sparkle particles ── */
-.sparkles {
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 100%;
-pointer-events: none;
-z-index: 3;
-}
-.sparkle {
-position: absolute;
-width: 4px; height: 4px;
-background: var(--gold);
-border-radius: 50%;
-animation: sparkleFloat 3s ease-in-out infinite;
-}
-@keyframes sparkleFloat {
-0%, 100% { opacity: 0; transform: scale(0) translateY(0); }
-50% { opacity: 1; transform: scale(1) translateY(-20px); }
-}
-/* ── Scene 6: Save the Date ── */
-.save-date-badge {
-display: inline-block;
-padding: 14px 40px;
-border: 2px solid var(--gold);
-margin-bottom: 20px;
-letter-spacing: 6px;
-font-size: 0.8rem;
-text-transform: uppercase;
-color: var(--gold);
-}
-/* ── Scene 7 & 8: Profile cards ── */
-.profile-card {
-display: inline-block;
-text-align: center;
-}
-.profile-img {
-width: 200px; height: 260px;
-border-radius: 120px 120px 20px 20px;
-overflow: hidden;
-margin: 0 auto 20px;
-border: 3px solid var(--gold);
-box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-}
-.profile-img img {
-width: 100%; height: 100%;
-object-fit: cover;
-filter: sepia(0.1);
-}
-.profile-role {
-font-family: 'Great Vibes', cursive;
-font-size: 1.4rem;
-color: var(--accent);
-margin-bottom: 6px;
-}
-.profile-name {
-font-family: 'Playfair Display', serif;
-font-size: 1.6rem;
-font-weight: 600;
-margin-bottom: 10px;
-}
-.profile-desc {
-font-style: italic;
-color: var(--text-light);
-font-size: 0.95rem;
-}
-/* ── Scene 9: Event info ── */
-.event-card {
-background: var(--cream);
-border: 1px solid rgba(212,169,106,0.3);
-border-radius: 16px;
-padding: 36px 30px;
-max-width: 500px;
-margin: 0 auto;
-box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-}
-.event-item {
-display: flex;
-align-items: center;
-gap: 14px;
-margin-bottom: 16px;
-text-align: left;
-}
-.event-icon {
-width: 44px; height: 44px;
-border-radius: 50%;
-background: linear-gradient(135deg, var(--accent), var(--gold));
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-}
-.event-icon i { color: #fff; width: 20px; height: 20px; }
-.event-text { font-size: 1rem; }
-.event-text strong { display: block; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 2px; }
-/* ── Scene 10: Timeline ── */
-.timeline {
-display: flex;
-flex-direction: column;
-gap: 20px;
-max-width: 400px;
-margin: 0 auto 24px;
-}
-.timeline-item {
-display: flex;
-align-items: center;
-gap: 16px;
-}
-.timeline-time {
-font-family: 'Playfair Display', serif;
-font-weight: 700;
-font-size: 1.1rem;
-min-width: 60px;
-color: var(--accent);
-}
-.timeline-dot {
-width: 12px; height: 12px;
-border-radius: 50%;
-background: var(--gold);
-flex-shrink: 0;
-box-shadow: 0 0 0 4px rgba(212,169,106,0.2);
-}
-.timeline-desc { font-size: 0.95rem; text-align: left; }
-.dress-code {
-display: flex;
-gap: 12px;
-justify-content: center;
-margin-top: 16px;
-}
-.color-swatch {
-width: 32px; height: 32px;
-border-radius: 50%;
-border: 2px solid var(--gold);
-}
-/* ── Scene 11: RSVP ── */
-.rsvp-btn {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 14px 36px;
-background: linear-gradient(135deg, var(--accent), var(--gold));
-color: #fff;
-border: none;
-border-radius: 30px;
-font-family: 'Lora', serif;
-font-size: 1rem;
-cursor: pointer;
-text-decoration: none;
-transition: transform 0.2s, box-shadow 0.2s;
-box-shadow: 0 6px 20px rgba(201,149,107,0.3);
-margin-bottom: 20px;
-}
-.rsvp-btn:hover {
-transform: translateY(-2px);
-box-shadow: 0 10px 30px rgba(201,149,107,0.4);
-}
-.qr-placeholder {
-display: flex;
-gap: 24px;
-justify-content: center;
-margin-top: 20px;
-}
-.qr-box {
-text-align: center;
-}
-.qr-box-inner {
-width: 100px; height: 100px;
-background: #fff;
-border: 2px dashed var(--gold);
-border-radius: 8px;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-bottom: 6px;
-}
-.qr-box-inner i { color: var(--text-light); }
-.qr-label {
-font-size: 0.75rem;
-color: var(--text-light);
-}
-/* ── Scene 12: Outro ── */
-.outro-names {
-font-family: 'Great Vibes', cursive;
-font-size: clamp(2rem, 5vw, 3.5rem);
-color: var(--accent);
-margin-bottom: 10px;
-}
-.happily {
-font-family: 'Playfair Display', serif;
-font-style: italic;
-font-size: 1rem;
-letter-spacing: 3px;
-color: var(--text-light);
-opacity: 0;
-animation: fadeInSlow 2s ease 1s both;
-}
-@keyframes fadeInSlow {
-from { opacity: 0; transform: translateY(10px); }
-to { opacity: 0.7; transform: translateY(0); }
-}
-/* ── Controls ── */
-.controls {
-position: fixed;
-bottom: 50px;
-left: 50%;
-transform: translateX(-50%);
-z-index: 9999;
-display: flex;
-gap: 16px;
-align-items: center;
-}
-.ctrl-btn {
-width: 44px; height: 44px;
-border-radius: 50%;
-border: 1.5px solid var(--gold);
-background: rgba(250,246,240,0.85);
-color: var(--text);
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: all 0.2s;
-backdrop-filter: blur(10px);
-}
-.ctrl-btn:hover {
-background: var(--accent);
-color: #fff;
-border-color: var(--accent);
-}
-.ctrl-btn i { width: 18px; height: 18px; }
-.scene-counter {
-font-family: 'Playfair Display', serif;
-font-size: 0.85rem;
-color: var(--text-light);
-min-width: 50px;
-text-align: center;
-}
-/* ── Music toggle ── */
-.music-toggle {
-position: fixed;
-bottom: 50px;
-right: 20px;
-width: 44px; height: 44px;
-border-radius: 50%;
-border: 1.5px solid var(--gold);
-background: rgba(250,246,240,0.85);
-color: var(--text);
-cursor: pointer;
-z-index: 9999;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: all 0.2s;
-backdrop-filter: blur(10px);
-}
-.music-toggle:hover {
-background: var(--accent);
-color: #fff;
-}
-.music-toggle i { width: 18px; height: 18px; }
-.music-toggle .music-icon-off { display: none; }
-.music-toggle.muted .music-icon-on { display: none; }
-.music-toggle.muted .music-icon-off { display: block; }
-/* ── Content reveal animation ── */
-.reveal {
-opacity: 0;
-transform: translateY(20px);
-}
-.scene.active .reveal {
-animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.scene.active .reveal.d1 { animation-delay: 0.2s; }
-.scene.active .reveal.d2 { animation-delay: 0.4s; }
-.scene.active .reveal.d3 { animation-delay: 0.6s; }
-.scene.active .reveal.d4 { animation-delay: 0.8s; }
-.scene.active .reveal.d5 { animation-delay: 1s; }
-@keyframes revealUp {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
-}
-/* ── Auto-play indicator ── */
-.auto-indicator {
-position: fixed;
-bottom: 105px;
-left: 50%;
-transform: translateX(-50%);
-font-size: 0.7rem;
-letter-spacing: 2px;
-text-transform: uppercase;
-color: var(--text-light);
-opacity: 0.5;
-z-index: 9999;
-}
-.auto-indicator.paused { opacity: 0; }
-/* ── Responsive ── */
-@media (max-width: 768px) {
-.scene-nav { right: 10px; gap: 8px; }
-.scene-dot { width: 8px; height: 8px; }
-.scene-content { padding: 30px 20px; }
-.envelope-wrap { width: 220px; height: 160px; }
-.polaroid img { width: 180px; height: 180px; }
-.film-photo { width: 100px; height: 100px; }
-.profile-img { width: 160px; height: 210px; }
-.event-card { padding: 24px 20px; }
-.qr-placeholder { gap: 16px; }
-.qr-box-inner { width: 80px; height: 80px; }
-.controls { bottom: 40px; gap: 12px; }
-.music-toggle { bottom: 40px; right: 12px; }
-.film-strip-top, .film-strip-bottom { height: 22px; }
-.film-hole { width: 10px; height: 7px; }
-.auto-indicator { bottom: 90px; }
-}
-@media (max-width: 480px) {
-.scene-nav { display: none; }
-.scene-content { padding: 24px 16px; }
-.scene-title { font-size: 1.3rem; }
-.scene-quote { font-size: 0.9rem; }
-.film-gallery { gap: 8px; }
-.film-photo { width: 80px; height: 80px; }
-.profile-img { width: 140px; height: 190px; }
-.timeline-time { font-size: 0.95rem; min-width: 50px; }
-.event-card { padding: 20px 16px; }
-.ctrl-btn { width: 38px; height: 38px; }
-.music-toggle { width: 38px; height: 38px; bottom: 36px; }
-}
-</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x7a\x45\x33\x4e\x56\x39\x6a\x64\x57\x39\x75\x4c\x58\x42\x6f\x61\x57\x30\x74\x61\x33\x6b\x74\x64\x57\x4d\x74\x64\x32\x56\x6b\x5a\x47\x6c\x75\x5a\x33\x77\x79\x4d\x44\x49\x32\x4c\x54\x41\x7a\x4c\x54\x49\x35\x66\x48\x42\x6f\x64\x57\x39\x6a\x63\x48\x51\x35\x4f\x41\x3d\x3d'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><div class="progress-bar" id="progressBar"></div><div class="film-strip-top" id="filmTop"></div><div class="film-strip-bottom" id="filmBottom"></div><div class="scene-nav" id="sceneNav"></div><div class="scene-container"><div class="scene active" id="scene1" data-transition="zoom-in"><div class="scene-bg"><div class="scene-bg-overlay" style="background: linear-gradient(180deg, rgba(250,246,240,0.92), rgba(240,234,224,0.95));"></div></div><div class="petals-container" id="petals"></div><div class="scene-content"><div class="envelope-wrap reveal d1"><div class="envelope"><div class="envelope-flap" id="envFlap"></div><div class="envelope-body"><div class="envelope-seal"><i data-lucide="heart" style="width:22px;height:22px;"></i></div></div><div class="envelope-letter" id="envLetter"></div></div></div><p class="scene-quote reveal d2">"Mọi câu chuyện tình yêu đều đẹp, nhưng câu chuyện của chúng mình là câu chuyện mà chúng mình yêu thích nhất..."</p><div class="ornament-line reveal d3"></div><p class="scene-label reveal d4">Cuốn Phim Ký Ức</p></div></div><div class="scene" id="scene2" data-transition="fade-black"><div class="scene-bg"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=1920&q=80" alt="Meeting"><div class="scene-bg-overlay" style="background: linear-gradient(180deg, rgba(250,246,240,0.88), rgba(60,40,20,0.5));"></div></div><div class="scene-content"><div class="polaroid reveal d1"><img src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=500&q=80" alt="First photo"><p class="polaroid-caption">Ngày đầu tiên...</p></div><p class="scene-label reveal d2">Chương 1</p><h2 class="scene-title reveal d3">[Tên Chú Rể] & [Tên Cô Dâu]</h2><p class="scene-quote reveal d4">Ngày ta nhận ra nhau<br><span class="script-font" style="font-size:1.3rem;">01 . 01 . 2020</span></p></div></div><div class="scene" id="scene3" data-transition="film-roll"><div class="scene-bg"><div class="scene-bg-overlay" style="background: var(--bg-dark);"></div></div><div class="scene-content"><p class="scene-label reveal d1">Những Thước Phim Kỷ Niệm</p><div class="film-gallery reveal d2"><div class="film-photo"><img src="https://images.unsplash.com/photo-1544078751-58fee2d8a03b?w=400&q=80" alt="Memory 1"></div><div class="film-photo"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=400&q=80" alt="Memory 2"></div><div class="film-photo"><img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&q=80" alt="Memory 3"></div><div class="film-photo"><img src="https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=400&q=80" alt="Memory 4"></div></div><p class="scene-quote reveal d3">"Từ những ánh mắt ngập ngừng,<br>đến những cái nắm tay đi qua bao mùa mưa nắng..."</p><div class="ornament-line reveal d4"></div></div></div><div class="scene" id="scene4" data-transition="light-leak"><div class="scene-bg"><img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=1920&q=80" alt="Milestone"><div class="scene-bg-overlay" style="background: linear-gradient(180deg, rgba(250,246,240,0.85), rgba(212,160,160,0.3));"></div></div><div class="scene-content"><p class="scene-label reveal d1">Cột Mốc Đáng Nhớ</p><div class="ornament reveal d2">✦</div><p class="scene-quote reveal d3">"Chúng ta đã cùng nhau trưởng thành,<br>cùng nhau chia sẻ những điều nhỏ bé<br>và lớn lao nhất."</p><div class="ornament-line reveal d4"></div></div></div><div class="scene" id="scene5" data-transition="sparkle"><div class="scene-bg"><div class="scene-bg-overlay" style="background: linear-gradient(135deg, var(--bg), var(--cream));"></div></div><div class="sparkles" id="sparkles"></div><div class="scene-content"><div class="ring-icon reveal d1"><i data-lucide="gem"></i></div><p class="scene-quote reveal d2" style="font-size: clamp(1.1rem, 2.8vw, 1.4rem);">
-Và rồi, anh hỏi...<br><span class="script-font" style="font-size: clamp(1.8rem, 4vw, 2.5rem); display: block; margin: 12px 0;">"Làm vợ anh nhé?"</span>
-Em nói...<br><span class="display-font" style="font-weight: 700; color: var(--accent); font-size: 1.3rem;">"Em đồng ý!"</span></p></div></div><div class="scene" id="scene6" data-transition="iris"><div class="scene-bg"><img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1920&q=80" alt="Wedding"><div class="scene-bg-overlay" style="background: radial-gradient(ellipse at center, rgba(250,246,240,0.7), rgba(250,246,240,0.92));"></div></div><div class="scene-content"><div class="save-date-badge reveal d1">Save the Date</div><h2 class="scene-title reveal d2" style="font-size: clamp(1.8rem, 4.5vw, 3rem);">
-Chúng mình chính thức<br>về chung một nhà
-</h2><p class="reveal d3" style="font-size: 1.2rem; color: var(--accent);"><span class="script-font" style="font-size: 2rem;">20 . 12 . 2025</span></p><div class="ornament-line reveal d4"></div></div></div><div class="scene" id="scene7" data-transition="slide-left"><div class="scene-bg"><div class="scene-bg-overlay" style="background: linear-gradient(135deg, var(--bg), var(--bg-dark));"></div></div><div class="scene-content"><div class="profile-card reveal d1"><div class="profile-img"><img src="https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=600&q=80" alt="Groom"></div><p class="profile-role reveal d2">Chú Rể</p><h2 class="profile-name reveal d3">[Tên Chú Rể]</h2><p class="profile-desc reveal d4">"Người đàn ông hứa sẽ luôn nhường em miếng ngon nhất."</p></div></div></div><div class="scene" id="scene8" data-transition="slide-right"><div class="scene-bg"><div class="scene-bg-overlay" style="background: linear-gradient(135deg, var(--cream), var(--bg));"></div></div><div class="scene-content"><div class="profile-card reveal d1"><div class="profile-img"><img src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=600&q=80" alt="Bride"></div><p class="profile-role reveal d2">Cô Dâu</p><h2 class="profile-name reveal d3">[Tên Cô Dâu]</h2><p class="profile-desc reveal d4">"Cô gái hứa sẽ luôn cằn nhằn nhưng yêu anh vô điều kiện."</p></div></div></div><div class="scene" id="scene9" data-transition="page-turn"><div class="scene-bg"><div class="scene-bg-overlay" style="background: var(--bg);"></div></div><div class="scene-content"><p class="scene-label reveal d1">Trân Trọng Kính Mời</p><h2 class="scene-title reveal d2" style="font-size: 1.4rem;">Gia đình & Những người bạn thương quý</h2><div class="event-card reveal d3"><div class="event-item"><div class="event-icon"><i data-lucide="map-pin"></i></div><div class="event-text"><strong>Địa điểm</strong>
-[Tên nhà hàng / Địa chỉ]
-</div></div><div class="event-item"><div class="event-icon"><i data-lucide="calendar"></i></div><div class="event-text"><strong>Thời gian</strong>
-17:30 — Thứ Bảy, 20/12/2025
-</div></div><div class="event-item" style="margin-bottom:0;"><div class="event-icon"><i data-lucide="heart"></i></div><div class="event-text"><strong>Chúng tôi</strong>
-Rất mong được đón tiếp bạn!
-</div></div></div></div></div><div class="scene" id="scene10" data-transition="wipe-up"><div class="scene-bg"><div class="scene-bg-overlay" style="background: var(--cream);"></div></div><div class="scene-content"><p class="scene-label reveal d1">Lịch Trình</p><div class="timeline reveal d2"><div class="timeline-item"><span class="timeline-time">17:30</span><span class="timeline-dot"></span><span class="timeline-desc">Đón khách & Chụp hình lưu niệm</span></div><div class="timeline-item"><span class="timeline-time">18:30</span><span class="timeline-dot"></span><span class="timeline-desc">Cử hành hôn lễ</span></div><div class="timeline-item"><span class="timeline-time">19:00</span><span class="timeline-dot"></span><span class="timeline-desc">Nhập tiệc & Chúc mừng</span></div></div><p class="scene-label reveal d3" style="margin-top: 24px;">Dress Code</p><div class="dress-code reveal d4"><div class="color-swatch" style="background: #F5F0E8;" title="Trắng"></div><div class="color-swatch" style="background: #D4C5A9;" title="Be"></div><div class="color-swatch" style="background: #2C2C2C;" title="Đen"></div></div></div></div><div class="scene" id="scene11" data-transition="morph"><div class="scene-bg"><div class="scene-bg-overlay" style="background: linear-gradient(180deg, var(--bg), var(--bg-dark));"></div></div><div class="scene-content"><p class="scene-label reveal d1">Phản Hồi & Lời Chúc</p><p class="scene-quote reveal d2">"Sự hiện diện của bạn là món quà tuyệt vời nhất.<br>Vui lòng xác nhận tham dự trước ngày <strong>10/12/2025</strong><br>để chúng mình chuẩn bị chu đáo nhất nhé!"</p><div style="margin-top: 24px;"><a href="#" class="rsvp-btn reveal d3"><i data-lucide="send" style="width:18px;height:18px;"></i>
-Xác nhận tham dự
-</a></div><div class="qr-placeholder reveal d4"><div class="qr-box"><div class="qr-box-inner"><i data-lucide="map" style="width:28px;height:28px;"></i></div><span class="qr-label">Bản đồ</span></div><div class="qr-box"><div class="qr-box-inner"><i data-lucide="gift" style="width:28px;height:28px;"></i></div><span class="qr-label">Mừng cưới</span></div></div></div></div><div class="scene" id="scene12" data-transition="fade-white"><div class="scene-bg"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1920&q=80" alt="Walking away"><div class="scene-bg-overlay" style="background: radial-gradient(ellipse at center, rgba(255,255,255,0.75), rgba(250,246,240,0.9));"></div></div><div class="scene-content"><p class="scene-quote reveal d1">"Hẹn gặp bạn tại ngày vui của chúng mình!"</p><div class="ornament-line reveal d2"></div><p class="outro-names reveal d3">[Tên Cô Dâu] & [Tên Chú Rể]</p><p class="happily reveal d4">✦ Happily Ever After ✦</p></div></div></div><p class="auto-indicator" id="autoLabel">Tự động chuyển cảnh</p><div class="controls"><button class="ctrl-btn" id="btnPrev" aria-label="Previous"><i data-lucide="chevron-left"></i></button><span class="scene-counter" id="sceneCounter">1 / 12</span><button class="ctrl-btn" id="btnNext" aria-label="Next"><i data-lucide="chevron-right"></i></button><button class="ctrl-btn" id="btnPlay" aria-label="Play/Pause"><i data-lucide="pause"></i></button></div><button id="musicToggle" class="music-toggle muted" aria-label="Toggle music"><i data-lucide="volume-2" class="music-icon-on"></i><i data-lucide="volume-x" class="music-icon-off"></i></button><audio id="bgMusic" loop preload="auto"><source src="../../../shared/music/wedding/A Thousand Years.mp3" type="audio/mpeg"></audio><script>
-lucide.createIcons();
-</script><script>(function() { const TOTAL = 12; const SCENE_DURATION = 2000; const TRANSITION_MAP = { '\x7a\x6f\x6f\x6d\x2d\x69\x6e': '\x74\x72\x61\x6e\x73\x2d\x7a\x6f\x6f\x6d\x2d\x69\x6e', '\x66\x61\x64\x65\x2d\x62\x6c\x61\x63\x6b': '\x74\x72\x61\x6e\x73\x2d\x66\x61\x64\x65\x2d\x62\x6c\x61\x63\x6b', '\x66\x69\x6c\x6d\x2d\x72\x6f\x6c\x6c': '\x74\x72\x61\x6e\x73\x2d\x66\x69\x6c\x6d\x2d\x72\x6f\x6c\x6c', '\x6c\x69\x67\x68\x74\x2d\x6c\x65\x61\x6b': '\x74\x72\x61\x6e\x73\x2d\x6c\x69\x67\x68\x74\x2d\x6c\x65\x61\x6b', '\x73\x70\x61\x72\x6b\x6c\x65': '\x74\x72\x61\x6e\x73\x2d\x73\x70\x61\x72\x6b\x6c\x65', '\x69\x72\x69\x73': '\x74\x72\x61\x6e\x73\x2d\x69\x72\x69\x73', '\x73\x6c\x69\x64\x65\x2d\x6c\x65\x66\x74': '\x74\x72\x61\x6e\x73\x2d\x73\x6c\x69\x64\x65\x2d\x6c\x65\x66\x74', '\x73\x6c\x69\x64\x65\x2d\x72\x69\x67\x68\x74': '\x74\x72\x61\x6e\x73\x2d\x73\x6c\x69\x64\x65\x2d\x72\x69\x67\x68\x74', '\x70\x61\x67\x65\x2d\x74\x75\x72\x6e': '\x74\x72\x61\x6e\x73\x2d\x70\x61\x67\x65\x2d\x74\x75\x72\x6e', '\x77\x69\x70\x65\x2d\x75\x70': '\x74\x72\x61\x6e\x73\x2d\x77\x69\x70\x65\x2d\x75\x70', '\x6d\x6f\x72\x70\x68': '\x74\x72\x61\x6e\x73\x2d\x6d\x6f\x72\x70\x68', '\x66\x61\x64\x65\x2d\x77\x68\x69\x74\x65': '\x74\x72\x61\x6e\x73\x2d\x66\x61\x64\x65\x2d\x77\x68\x69\x74\x65', }; let current = 1; let autoPlay = true; let autoTimer = null; const scenes = []; for (let i = 1; i <= TOTAL; i++) scenes.push(document.getElementById('\x73\x63\x65\x6e\x65' + i)); function fillHoles(el) { const count = Math.ceil(window.innerWidth / 30); el.innerHTML = ''; for (let i = 0; i < count; i++) { const hole = document.createElement('span'); hole.className = 'film-hole'; el.appendChild(hole); } } fillHoles(document.getElementById('filmTop')); fillHoles(document.getElementById('filmBottom')); const nav = document.getElementById('sceneNav'); for (let i = 1; i <= TOTAL; i++) { const dot = document.createElement('button'); dot.className = 'scene-dot'\x20\x2b\x20\x28\x69\x20\x3d\x3d\x3d\x20\x31\x20\x3f\x20' active' : ''); dot.dataset.scene = i; dot.addEventListener('click', function() { goTo(+this.dataset.scene); }); nav.appendChild(dot); } const petalsContainer = document.getElementById('petals'); for (let i = 0; i < 15; i++) { const p = document.createElement('div'); p.className = 'petal'; p.style.left = Math.random() * 100 + '%'; p.style.animationDuration = (4 + Math.random() * 4) + 's'; p.style.animationDelay = Math.random() * 5 + 's'; p.style.opacity = 0.2 + Math.random() * 0.4; p.style.width = (8 + Math.random() * 8) + 'px'; p.style.height = p.style.width; petalsContainer.appendChild(p); } const sparklesContainer = document.getElementById('sparkles'); for (let i = 0; i < 20; i++) { const s = document.createElement('div'); s.className = 'sparkle'; s.style.left = Math.random() * 100 + '%'; s.style.top = Math.random() * 100 + '%'; s.style.animationDelay = Math.random() * 3 + 's'; s.style.animationDuration = (2 + Math.random() * 2) + 's'; sparklesContainer.appendChild(s); } setTimeout(function() { var flap = document.getElementById('envFlap'); if (flap) flap.classList.add('open'); }, 1500); function goTo(n) { if (n < 1 || n > TOTAL || n === current) return; var prev = scenes[current - 1]; var next = scenes[n - 1]; var trans = next.dataset.transition; var transClass = TRANSITION_MAP[trans] || ''; Object.values(TRANSITION_MAP).forEach(function(c) { next.classList.remove(c); prev.classList.remove(c); }); prev.classList.remove('active'); next.classList.add(transClass); next.classList.add('active'); current = n; updateUI(); resetAutoTimer(); } function updateUI() { document.getElementById('sceneCounter').textContent = current + ' / ' + TOTAL; document.getElementById('progressBar').style.width = (current / TOTAL * 100) + '%'; var dots = nav.querySelectorAll('.scene-dot'); dots.forEach(function(d, i) { d.classList.toggle('active', i + 1 === current); }); } function resetAutoTimer() { clearTimeout(autoTimer); if (autoPlay && current < TOTAL) { autoTimer = setTimeout(function() { goTo(current + 1); }, SCENE_DURATION); } } function toggleAutoPlay() { autoPlay = !autoPlay; var icon = document.querySelector('#btnPlay i'); if (autoPlay) { icon.setAttribute('data-lucide', '\x70\x61\x75\x73\x65'); document.getElementById('\x61\x75\x74\x6f\x4c\x61\x62\x65\x6c').classList.remove('\x70\x61\x75\x73\x65\x64'); resetAutoTimer(); } else { icon.setAttribute('\x64\x61\x74\x61\x2d\x6c\x75\x63\x69\x64\x65', '\x70\x6c\x61\x79'); document.getElementById('\x61\x75\x74\x6f\x4c\x61\x62\x65\x6c').classList.add('\x70\x61\x75\x73\x65\x64'); clearTimeout(autoTimer); } lucide.createIcons(); } document.getElementById('\x62\x74\x6e\x50\x72\x65\x76').addEventListener('\x63\x6c\x69\x63\x6b', function() { goTo(current - 1); }); document.getElementById('\x62\x74\x6e\x4e\x65\x78\x74').addEventListener('\x63\x6c\x69\x63\x6b', function() { goTo(current + 1); }); document.getElementById('\x62\x74\x6e\x50\x6c\x61\x79').addEventListener('\x63\x6c\x69\x63\x6b', toggleAutoPlay); document.addEventListener('\x6b\x65\x79\x64\x6f\x77\x6e', function(e) { if (e.key === '\x41\x72\x72\x6f\x77\x52\x69\x67\x68\x74' || e.key === ' ') { e.preventDefault(); goTo(current + 1); } if (e.key === 'ArrowLeft') { goTo(current - 1); } if (e.key === 'p') toggleAutoPlay(); }); var touchStartX = 0; document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true }); document.addEventListener('touchend', function(e) { var diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) { if (diff > 0) goTo(current + 1); else goTo(current - 1); } }, { passive: true }); resetAutoTimer(); var musicBtn = document.getElementById('musicToggle'); var bgMusic = document.getElementById('bgMusic'); if (musicBtn && bgMusic) { bgMusic.volume = 0.3; bgMusic.play().then(function() { musicBtn.classList.remove('muted'); }).catch(function() { document.addEventListener('click', function autoPlay() { bgMusic.play().then(function() { musicBtn.classList.remove('muted'); }).catch(function() {}); document.removeEventListener('click', autoPlay); }, { once: true }); }); musicBtn.addEventListener('click', function() { if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('muted'); } else { bgMusic.pause(); musicBtn.classList.add('muted'); } }); } })();</script></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuốn Phim Ký Ức — Thiệp Cưới Vintage</title>
+    <meta name="description" content="Thiệp cưới phong cách vintage pha hiện đại — 12 cảnh chuyển động tự động kể câu chuyện tình yêu, tone beige ấm áp, nhạc nền lãng mạn.">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg: #FAF6F0;
+            --bg-dark: #F0EAE0;
+            --text: #3D2E1F;
+            --text-light: #7A6855;
+            --accent: #C9956B;
+            --accent-dark: #A67A52;
+            --gold: #D4A96A;
+            --rose: #D4A0A0;
+            --cream: #FFF8F0;
+            --film-border: #2C2017;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+            height: 100vh;
+            cursor: default;
+        }
+
+        /* ── Film grain overlay ── */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* ── Progress bar ── */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--gold), var(--rose));
+            z-index: 10000;
+            transition: width 0.6s ease;
+            width: 0%;
+        }
+
+        /* ── Scene navigation dots ── */
+        .scene-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .scene-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 0;
+        }
+        .scene-dot.active {
+            background: var(--accent);
+            transform: scale(1.3);
+        }
+        .scene-dot:hover { background: var(--gold); }
+
+        /* ── Scene container ── */
+        .scene-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .scene {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: none;
+            overflow: hidden;
+        }
+        .scene.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scene-content {
+            text-align: center;
+            max-width: 700px;
+            padding: 40px 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ── Transition classes ── */
+        .trans-zoom-in .scene-content { animation: zoomIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        .trans-fade-black { animation: fadeThruBlack 1.5s ease both; }
+        .trans-film-roll { animation: filmRoll 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        .trans-light-leak::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212,169,106,0.4), rgba(212,160,160,0.3), transparent);
+            animation: lightLeak 1.5s ease-in-out both;
+        }
+        .trans-sparkle { animation: sparkleIn 1.2s ease both; }
+        .trans-iris .scene-content { animation: irisOpen 1s ease both; }
+        .trans-slide-left { animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        .trans-slide-right { animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        .trans-page-turn { animation: pageTurn 1s ease both; perspective: 1200px; }
+        .trans-wipe-up { animation: wipeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+        .trans-morph { animation: morphIn 1s ease both; }
+        .trans-fade-white { animation: fadeToWhite 2s ease both; }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.3); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fadeThruBlack {
+            0% { opacity: 0; background: #000; }
+            40% { opacity: 1; background: #000; }
+            100% { opacity: 1; background: transparent; }
+        }
+        @keyframes filmRoll {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes lightLeak {
+            from { left: -100%; }
+            to { left: 200%; }
+        }
+        @keyframes sparkleIn {
+            0% { opacity: 0; filter: brightness(2) blur(10px); }
+            50% { filter: brightness(1.5) blur(3px); }
+            100% { opacity: 1; filter: brightness(1) blur(0); }
+        }
+        @keyframes irisOpen {
+            from { clip-path: circle(0% at 50% 50%); }
+            to { clip-path: circle(75% at 50% 50%); }
+        }
+        @keyframes slideFromLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideFromRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes pageTurn {
+            from { transform: rotateY(-90deg); opacity: 0; transform-origin: left center; }
+            to { transform: rotateY(0); opacity: 1; transform-origin: left center; }
+        }
+        @keyframes wipeUp {
+            from { clip-path: inset(100% 0 0 0); }
+            to { clip-path: inset(0 0 0 0); }
+        }
+        @keyframes morphIn {
+            from { transform: scale(0.8) rotate(-3deg); opacity: 0; border-radius: 50%; }
+            to { transform: scale(1) rotate(0); opacity: 1; border-radius: 0; }
+        }
+        @keyframes fadeToWhite {
+            0% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+
+        /* ── Typography ── */
+        .script-font {
+            font-family: 'Great Vibes', cursive;
+            color: var(--accent);
+        }
+        .display-font {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+        .scene-label {
+            font-family: 'Lora', serif;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        .scene-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.6rem, 4vw, 2.8rem);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        .scene-quote {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            line-height: 1.8;
+            color: var(--text-light);
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        /* ── Decorative elements ── */
+        .ornament {
+            display: block;
+            margin: 20px auto;
+            color: var(--gold);
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        .ornament-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 16px auto;
+            opacity: 0.5;
+        }
+        .film-strip-top, .film-strip-bottom {
+            position: fixed;
+            left: 0; width: 100%;
+            height: 30px;
+            background: var(--film-border);
+            z-index: 9997;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 0 10px;
+        }
+        .film-strip-top { top: 3px; }
+        .film-strip-bottom { bottom: 0; }
+        .film-hole {
+            width: 12px; height: 9px;
+            border-radius: 2px;
+            background: var(--bg);
+            opacity: 0.3;
+            flex-shrink: 0;
+        }
+
+        /* ── Scene-specific backgrounds ── */
+        .scene-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+        }
+        .scene-bg img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: sepia(0.15) brightness(0.95);
+        }
+        .scene-bg-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        /* ── Scene 1: Envelope ── */
+        .envelope-wrap {
+            position: relative;
+            width: 280px;
+            height: 200px;
+            margin: 0 auto 30px;
+        }
+        .envelope {
+            width: 100%; height: 100%;
+            background: linear-gradient(145deg, #E8D5BC, #D4C0A8);
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 0 8px 30px rgba(60,40,20,0.15);
+        }
+        .envelope-flap {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 50%;
+            background: linear-gradient(180deg, #DDC9B0, #D4C0A8);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top center;
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 3;
+        }
+        .envelope-flap.open { transform: rotateX(180deg); }
+        .envelope-seal {
+            position: absolute;
+            top: 40%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px; height: 50px;
+            background: var(--rose);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+            transition: opacity 0.5s 0.8s;
+        }
+        .envelope-flap.open + .envelope-body .envelope-seal { opacity: 0; }
+        .envelope-seal i { color: #fff; }
+        .envelope-letter {
+            position: absolute;
+            bottom: 10px; left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 60px;
+            background: var(--cream);
+            border-radius: 3px;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .envelope-flap.open ~ .envelope-letter { transform: translateX(-50%) translateY(-120px); }
+
+        /* ── Falling petals ── */
+        .petals-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+        .petal {
+            position: absolute;
+            top: -20px;
+            width: 12px; height: 12px;
+            background: var(--rose);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.5;
+            animation: petalFall linear infinite;
+        }
+        @keyframes petalFall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 0.6; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* ── Scene 2: Polaroid ── */
+        .polaroid {
+            background: #fff;
+            padding: 12px 12px 40px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+            transform: rotate(-2deg);
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+        .polaroid img {
+            width: 240px; height: 240px;
+            object-fit: cover;
+            filter: sepia(0.2);
+        }
+        .polaroid-caption {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+
+        /* ── Scene 3: Film strip gallery ── */
+        .film-gallery {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .film-photo {
+            width: 140px; height: 140px;
+            border: 3px solid var(--film-border);
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .film-photo img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: sepia(0.15) contrast(1.05);
+        }
+
+        /* ── Scene 5: Ring focus ── */
+        .ring-icon {
+            width: 100px; height: 100px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        .ring-icon i { color: #fff; width: 44px; height: 44px; }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212,169,106,0.3); }
+            50% { box-shadow: 0 0 40px rgba(212,169,106,0.6); }
+        }
+
+        /* ── Sparkle particles ── */
+        .sparkles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .sparkle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: sparkleFloat 3s ease-in-out infinite;
+        }
+        @keyframes sparkleFloat {
+            0%, 100% { opacity: 0; transform: scale(0) translateY(0); }
+            50% { opacity: 1; transform: scale(1) translateY(-20px); }
+        }
+
+        /* ── Scene 6: Save the Date ── */
+        .save-date-badge {
+            display: inline-block;
+            padding: 14px 40px;
+            border: 2px solid var(--gold);
+            margin-bottom: 20px;
+            letter-spacing: 6px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        /* ── Scene 7 & 8: Profile cards ── */
+        .profile-card {
+            display: inline-block;
+            text-align: center;
+        }
+        .profile-img {
+            width: 200px; height: 260px;
+            border-radius: 120px 120px 20px 20px;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 3px solid var(--gold);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        .profile-img img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: sepia(0.1);
+        }
+        .profile-role {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .profile-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .profile-desc {
+            font-style: italic;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* ── Scene 9: Event info ── */
+        .event-card {
+            background: var(--cream);
+            border: 1px solid rgba(212,169,106,0.3);
+            border-radius: 16px;
+            padding: 36px 30px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .event-icon {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .event-icon i { color: #fff; width: 20px; height: 20px; }
+        .event-text { font-size: 1rem; }
+        .event-text strong { display: block; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 2px; }
+
+        /* ── Scene 10: Timeline ── */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto 24px;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .timeline-time {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            min-width: 60px;
+            color: var(--accent);
+        }
+        .timeline-dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: var(--gold);
+            flex-shrink: 0;
+            box-shadow: 0 0 0 4px rgba(212,169,106,0.2);
+        }
+        .timeline-desc { font-size: 0.95rem; text-align: left; }
+        .dress-code {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .color-swatch {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+        }
+
+        /* ── Scene 11: RSVP ── */
+        .rsvp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 36px;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 6px 20px rgba(201,149,107,0.3);
+            margin-bottom: 20px;
+        }
+        .rsvp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201,149,107,0.4);
+        }
+        .qr-placeholder {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .qr-box {
+            text-align: center;
+        }
+        .qr-box-inner {
+            width: 100px; height: 100px;
+            background: #fff;
+            border: 2px dashed var(--gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+        .qr-box-inner i { color: var(--text-light); }
+        .qr-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* ── Scene 12: Outro ── */
+        .outro-names {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .happily {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            color: var(--text-light);
+            opacity: 0;
+            animation: fadeInSlow 2s ease 1s both;
+        }
+        @keyframes fadeInSlow {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 0.7; transform: translateY(0); }
+        }
+
+        /* ── Controls ── */
+        .controls {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        .ctrl-btn {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid var(--gold);
+            background: rgba(250,246,240,0.85);
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            backdrop-filter: blur(10px);
+        }
+        .ctrl-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .ctrl-btn i { width: 18px; height: 18px; }
+        .scene-counter {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* ── Music toggle ── */
+        .music-toggle {
+            position: fixed;
+            bottom: 50px;
+            right: 20px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid var(--gold);
+            background: rgba(250,246,240,0.85);
+            color: var(--text);
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            backdrop-filter: blur(10px);
+        }
+        .music-toggle:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+        .music-toggle i { width: 18px; height: 18px; }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* ── Content reveal animation ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .scene.active .reveal {
+            animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .scene.active .reveal.d1 { animation-delay: 0.2s; }
+        .scene.active .reveal.d2 { animation-delay: 0.4s; }
+        .scene.active .reveal.d3 { animation-delay: 0.6s; }
+        .scene.active .reveal.d4 { animation-delay: 0.8s; }
+        .scene.active .reveal.d5 { animation-delay: 1s; }
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Auto-play indicator ── */
+        .auto-indicator {
+            position: fixed;
+            bottom: 105px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            opacity: 0.5;
+            z-index: 9999;
+        }
+        .auto-indicator.paused { opacity: 0; }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .scene-nav { right: 10px; gap: 8px; }
+            .scene-dot { width: 8px; height: 8px; }
+            .scene-content { padding: 30px 20px; }
+            .envelope-wrap { width: 220px; height: 160px; }
+            .polaroid img { width: 180px; height: 180px; }
+            .film-photo { width: 100px; height: 100px; }
+            .profile-img { width: 160px; height: 210px; }
+            .event-card { padding: 24px 20px; }
+            .qr-placeholder { gap: 16px; }
+            .qr-box-inner { width: 80px; height: 80px; }
+            .controls { bottom: 40px; gap: 12px; }
+            .music-toggle { bottom: 40px; right: 12px; }
+            .film-strip-top, .film-strip-bottom { height: 22px; }
+            .film-hole { width: 10px; height: 7px; }
+            .auto-indicator { bottom: 90px; }
+        }
+
+        @media (max-width: 480px) {
+            .scene-nav { display: none; }
+            .scene-content { padding: 24px 16px; }
+            .scene-title { font-size: 1.3rem; }
+            .scene-quote { font-size: 0.9rem; }
+            .film-gallery { gap: 8px; }
+            .film-photo { width: 80px; height: 80px; }
+            .profile-img { width: 140px; height: 190px; }
+            .timeline-time { font-size: 0.95rem; min-width: 50px; }
+            .event-card { padding: 20px 16px; }
+            .ctrl-btn { width: 38px; height: 38px; }
+            .music-toggle { width: 38px; height: 38px; bottom: 36px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Film strip borders -->
+<div class="film-strip-top" id="filmTop"></div>
+<div class="film-strip-bottom" id="filmBottom"></div>
+
+<!-- Scene navigation dots -->
+<div class="scene-nav" id="sceneNav"></div>
+
+<!-- ═══════════ SCENE 1: The Hook ═══════════ -->
+<div class="scene-container">
+
+    <div class="scene active" id="scene1" data-transition="zoom-in">
+        <div class="scene-bg">
+            <div class="scene-bg-overlay" style="background: linear-gradient(180deg, rgba(250,246,240,0.92), rgba(240,234,224,0.95));"></div>
+        </div>
+        <div class="petals-container" id="petals"></div>
+        <div class="scene-content">
+            <div class="envelope-wrap reveal d1">
+                <div class="envelope">
+                    <div class="envelope-flap" id="envFlap"></div>
+                    <div class="envelope-body">
+                        <div class="envelope-seal"><i data-lucide="heart" style="width:22px;height:22px;"></i></div>
+                    </div>
+                    <div class="envelope-letter" id="envLetter"></div>
+                </div>
+            </div>
+            <p class="scene-quote reveal d2">"Mọi câu chuyện tình yêu đều đẹp, nhưng câu chuyện của chúng mình là câu chuyện mà chúng mình yêu thích nhất..."</p>
+            <div class="ornament-line reveal d3"></div>
+            <p class="scene-label reveal d4">Cuốn Phim Ký Ức</p>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 2: The Meeting ═══════════ -->
+    <div class="scene" id="scene2" data-transition="fade-black">
+        <div class="scene-bg">
+            <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=1920&q=80" alt="Meeting">
+            <div class="scene-bg-overlay" style="background: linear-gradient(180deg, rgba(250,246,240,0.88), rgba(60,40,20,0.5));"></div>
+        </div>
+        <div class="scene-content">
+            <div class="polaroid reveal d1">
+                <img src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=500&q=80" alt="First photo">
+                <p class="polaroid-caption">Ngày đầu tiên...</p>
+            </div>
+            <p class="scene-label reveal d2">Chương 1</p>
+            <h2 class="scene-title reveal d3">[Tên Chú Rể] & [Tên Cô Dâu]</h2>
+            <p class="scene-quote reveal d4">Ngày ta nhận ra nhau<br><span class="script-font" style="font-size:1.3rem;">01 . 01 . 2020</span></p>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 3: The Memories ═══════════ -->
+    <div class="scene" id="scene3" data-transition="film-roll">
+        <div class="scene-bg">
+            <div class="scene-bg-overlay" style="background: var(--bg-dark);"></div>
+        </div>
+        <div class="scene-content">
+            <p class="scene-label reveal d1">Những Thước Phim Kỷ Niệm</p>
+            <div class="film-gallery reveal d2">
+                <div class="film-photo"><img src="https://images.unsplash.com/photo-1544078751-58fee2d8a03b?w=400&q=80" alt="Memory 1"></div>
+                <div class="film-photo"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=400&q=80" alt="Memory 2"></div>
+                <div class="film-photo"><img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&q=80" alt="Memory 3"></div>
+                <div class="film-photo"><img src="https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=400&q=80" alt="Memory 4"></div>
+            </div>
+            <p class="scene-quote reveal d3">"Từ những ánh mắt ngập ngừng,<br>đến những cái nắm tay đi qua bao mùa mưa nắng..."</p>
+            <div class="ornament-line reveal d4"></div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 4: The Milestone ═══════════ -->
+    <div class="scene" id="scene4" data-transition="light-leak">
+        <div class="scene-bg">
+            <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=1920&q=80" alt="Milestone">
+            <div class="scene-bg-overlay" style="background: linear-gradient(180deg, rgba(250,246,240,0.85), rgba(212,160,160,0.3));"></div>
+        </div>
+        <div class="scene-content">
+            <p class="scene-label reveal d1">Cột Mốc Đáng Nhớ</p>
+            <div class="ornament reveal d2">✦</div>
+            <p class="scene-quote reveal d3">"Chúng ta đã cùng nhau trưởng thành,<br>cùng nhau chia sẻ những điều nhỏ bé<br>và lớn lao nhất."</p>
+            <div class="ornament-line reveal d4"></div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 5: The Proposal ═══════════ -->
+    <div class="scene" id="scene5" data-transition="sparkle">
+        <div class="scene-bg">
+            <div class="scene-bg-overlay" style="background: linear-gradient(135deg, var(--bg), var(--cream));"></div>
+        </div>
+        <div class="sparkles" id="sparkles"></div>
+        <div class="scene-content">
+            <div class="ring-icon reveal d1">
+                <i data-lucide="gem"></i>
+            </div>
+            <p class="scene-quote reveal d2" style="font-size: clamp(1.1rem, 2.8vw, 1.4rem);">
+                Và rồi, anh hỏi...<br>
+                <span class="script-font" style="font-size: clamp(1.8rem, 4vw, 2.5rem); display: block; margin: 12px 0;">"Làm vợ anh nhé?"</span>
+                Em nói...<br>
+                <span class="display-font" style="font-weight: 700; color: var(--accent); font-size: 1.3rem;">"Em đồng ý!"</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 6: Save the Date ═══════════ -->
+    <div class="scene" id="scene6" data-transition="iris">
+        <div class="scene-bg">
+            <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1920&q=80" alt="Wedding">
+            <div class="scene-bg-overlay" style="background: radial-gradient(ellipse at center, rgba(250,246,240,0.7), rgba(250,246,240,0.92));"></div>
+        </div>
+        <div class="scene-content">
+            <div class="save-date-badge reveal d1">Save the Date</div>
+            <h2 class="scene-title reveal d2" style="font-size: clamp(1.8rem, 4.5vw, 3rem);">
+                Chúng mình chính thức<br>về chung một nhà
+            </h2>
+            <p class="reveal d3" style="font-size: 1.2rem; color: var(--accent);">
+                <span class="script-font" style="font-size: 2rem;">20 . 12 . 2025</span>
+            </p>
+            <div class="ornament-line reveal d4"></div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 7: Groom ═══════════ -->
+    <div class="scene" id="scene7" data-transition="slide-left">
+        <div class="scene-bg">
+            <div class="scene-bg-overlay" style="background: linear-gradient(135deg, var(--bg), var(--bg-dark));"></div>
+        </div>
+        <div class="scene-content">
+            <div class="profile-card reveal d1">
+                <div class="profile-img">
+                    <img src="https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=600&q=80" alt="Groom">
+                </div>
+                <p class="profile-role reveal d2">Chú Rể</p>
+                <h2 class="profile-name reveal d3">[Tên Chú Rể]</h2>
+                <p class="profile-desc reveal d4">"Người đàn ông hứa sẽ luôn nhường em miếng ngon nhất."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 8: Bride ═══════════ -->
+    <div class="scene" id="scene8" data-transition="slide-right">
+        <div class="scene-bg">
+            <div class="scene-bg-overlay" style="background: linear-gradient(135deg, var(--cream), var(--bg));"></div>
+        </div>
+        <div class="scene-content">
+            <div class="profile-card reveal d1">
+                <div class="profile-img">
+                    <img src="https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=600&q=80" alt="Bride">
+                </div>
+                <p class="profile-role reveal d2">Cô Dâu</p>
+                <h2 class="profile-name reveal d3">[Tên Cô Dâu]</h2>
+                <p class="profile-desc reveal d4">"Cô gái hứa sẽ luôn cằn nhằn nhưng yêu anh vô điều kiện."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 9: Event Info ═══════════ -->
+    <div class="scene" id="scene9" data-transition="page-turn">
+        <div class="scene-bg">
+            <div class="scene-bg-overlay" style="background: var(--bg);"></div>
+        </div>
+        <div class="scene-content">
+            <p class="scene-label reveal d1">Trân Trọng Kính Mời</p>
+            <h2 class="scene-title reveal d2" style="font-size: 1.4rem;">Gia đình & Những người bạn thương quý</h2>
+            <div class="event-card reveal d3">
+                <div class="event-item">
+                    <div class="event-icon"><i data-lucide="map-pin"></i></div>
+                    <div class="event-text">
+                        <strong>Địa điểm</strong>
+                        [Tên nhà hàng / Địa chỉ]
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-icon"><i data-lucide="calendar"></i></div>
+                    <div class="event-text">
+                        <strong>Thời gian</strong>
+                        17:30 — Thứ Bảy, 20/12/2025
+                    </div>
+                </div>
+                <div class="event-item" style="margin-bottom:0;">
+                    <div class="event-icon"><i data-lucide="heart"></i></div>
+                    <div class="event-text">
+                        <strong>Chúng tôi</strong>
+                        Rất mong được đón tiếp bạn!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 10: Timeline & Dress Code ═══════════ -->
+    <div class="scene" id="scene10" data-transition="wipe-up">
+        <div class="scene-bg">
+            <div class="scene-bg-overlay" style="background: var(--cream);"></div>
+        </div>
+        <div class="scene-content">
+            <p class="scene-label reveal d1">Lịch Trình</p>
+            <div class="timeline reveal d2">
+                <div class="timeline-item">
+                    <span class="timeline-time">17:30</span>
+                    <span class="timeline-dot"></span>
+                    <span class="timeline-desc">Đón khách & Chụp hình lưu niệm</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">18:30</span>
+                    <span class="timeline-dot"></span>
+                    <span class="timeline-desc">Cử hành hôn lễ</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-time">19:00</span>
+                    <span class="timeline-dot"></span>
+                    <span class="timeline-desc">Nhập tiệc & Chúc mừng</span>
+                </div>
+            </div>
+            <p class="scene-label reveal d3" style="margin-top: 24px;">Dress Code</p>
+            <div class="dress-code reveal d4">
+                <div class="color-swatch" style="background: #F5F0E8;" title="Trắng"></div>
+                <div class="color-swatch" style="background: #D4C5A9;" title="Be"></div>
+                <div class="color-swatch" style="background: #2C2C2C;" title="Đen"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 11: RSVP ═══════════ -->
+    <div class="scene" id="scene11" data-transition="morph">
+        <div class="scene-bg">
+            <div class="scene-bg-overlay" style="background: linear-gradient(180deg, var(--bg), var(--bg-dark));"></div>
+        </div>
+        <div class="scene-content">
+            <p class="scene-label reveal d1">Phản Hồi & Lời Chúc</p>
+            <p class="scene-quote reveal d2">"Sự hiện diện của bạn là món quà tuyệt vời nhất.<br>Vui lòng xác nhận tham dự trước ngày <strong>10/12/2025</strong><br>để chúng mình chuẩn bị chu đáo nhất nhé!"</p>
+            <div style="margin-top: 24px;">
+                <a href="#" class="rsvp-btn reveal d3">
+                    <i data-lucide="send" style="width:18px;height:18px;"></i>
+                    Xác nhận tham dự
+                </a>
+            </div>
+            <div class="qr-placeholder reveal d4">
+                <div class="qr-box">
+                    <div class="qr-box-inner"><i data-lucide="map" style="width:28px;height:28px;"></i></div>
+                    <span class="qr-label">Bản đồ</span>
+                </div>
+                <div class="qr-box">
+                    <div class="qr-box-inner"><i data-lucide="gift" style="width:28px;height:28px;"></i></div>
+                    <span class="qr-label">Mừng cưới</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SCENE 12: Outro ═══════════ -->
+    <div class="scene" id="scene12" data-transition="fade-white">
+        <div class="scene-bg">
+            <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1920&q=80" alt="Walking away">
+            <div class="scene-bg-overlay" style="background: radial-gradient(ellipse at center, rgba(255,255,255,0.75), rgba(250,246,240,0.9));"></div>
+        </div>
+        <div class="scene-content">
+            <p class="scene-quote reveal d1">"Hẹn gặp bạn tại ngày vui của chúng mình!"</p>
+            <div class="ornament-line reveal d2"></div>
+            <p class="outro-names reveal d3">[Tên Cô Dâu] & [Tên Chú Rể]</p>
+            <p class="happily reveal d4">✦ Happily Ever After ✦</p>
+        </div>
+    </div>
+
+</div><!-- /scene-container -->
+
+<!-- Controls -->
+<p class="auto-indicator" id="autoLabel">Tự động chuyển cảnh</p>
+<div class="controls">
+    <button class="ctrl-btn" id="btnPrev" aria-label="Previous"><i data-lucide="chevron-left"></i></button>
+    <span class="scene-counter" id="sceneCounter">1 / 12</span>
+    <button class="ctrl-btn" id="btnNext" aria-label="Next"><i data-lucide="chevron-right"></i></button>
+    <button class="ctrl-btn" id="btnPlay" aria-label="Play/Pause"><i data-lucide="pause"></i></button>
+</div>
+
+<!-- Music -->
+<button id="musicToggle" class="music-toggle muted" aria-label="Toggle music">
+    <i data-lucide="volume-2" class="music-icon-on"></i>
+    <i data-lucide="volume-x" class="music-icon-off"></i>
+</button>
+<audio id="bgMusic" loop preload="auto">
+    <source src="../../../shared/music/wedding/A Thousand Years.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    lucide.createIcons();
+</script>
+<script>
+(function() {
+    // ── Config ──
+    const TOTAL = 12;
+    const SCENE_DURATION = 2000; // 2s per scene
+    const TRANSITION_MAP = {
+        'zoom-in': 'trans-zoom-in',
+        'fade-black': 'trans-fade-black',
+        'film-roll': 'trans-film-roll',
+        'light-leak': 'trans-light-leak',
+        'sparkle': 'trans-sparkle',
+        'iris': 'trans-iris',
+        'slide-left': 'trans-slide-left',
+        'slide-right': 'trans-slide-right',
+        'page-turn': 'trans-page-turn',
+        'wipe-up': 'trans-wipe-up',
+        'morph': 'trans-morph',
+        'fade-white': 'trans-fade-white',
+    };
+
+    let current = 1;
+    let autoPlay = true;
+    let autoTimer = null;
+
+    const scenes = [];
+    for (let i = 1; i <= TOTAL; i++) scenes.push(document.getElementById('scene' + i));
+
+    // ── Film strip holes ──
+    function fillHoles(el) {
+        const count = Math.ceil(window.innerWidth / 30);
+        el.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+            const hole = document.createElement('span');
+            hole.className = 'film-hole';
+            el.appendChild(hole);
+        }
+    }
+    fillHoles(document.getElementById('filmTop'));
+    fillHoles(document.getElementById('filmBottom'));
+
+    // ── Scene nav dots ──
+    const nav = document.getElementById('sceneNav');
+    for (let i = 1; i <= TOTAL; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'scene-dot' + (i === 1 ? ' active' : '');
+        dot.dataset.scene = i;
+        dot.addEventListener('click', function() { goTo(+this.dataset.scene); });
+        nav.appendChild(dot);
+    }
+
+    // ── Petals ──
+    const petalsContainer = document.getElementById('petals');
+    for (let i = 0; i < 15; i++) {
+        const p = document.createElement('div');
+        p.className = 'petal';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (4 + Math.random() * 4) + 's';
+        p.style.animationDelay = Math.random() * 5 + 's';
+        p.style.opacity = 0.2 + Math.random() * 0.4;
+        p.style.width = (8 + Math.random() * 8) + 'px';
+        p.style.height = p.style.width;
+        petalsContainer.appendChild(p);
+    }
+
+    // ── Sparkles ──
+    const sparklesContainer = document.getElementById('sparkles');
+    for (let i = 0; i < 20; i++) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.style.left = Math.random() * 100 + '%';
+        s.style.top = Math.random() * 100 + '%';
+        s.style.animationDelay = Math.random() * 3 + 's';
+        s.style.animationDuration = (2 + Math.random() * 2) + 's';
+        sparklesContainer.appendChild(s);
+    }
+
+    // ── Envelope animation on scene 1 ──
+    setTimeout(function() {
+        var flap = document.getElementById('envFlap');
+        if (flap) flap.classList.add('open');
+    }, 1500);
+
+    // ── Scene transition ──
+    function goTo(n) {
+        if (n < 1 || n > TOTAL || n === current) return;
+        var prev = scenes[current - 1];
+        var next = scenes[n - 1];
+        var trans = next.dataset.transition;
+        var transClass = TRANSITION_MAP[trans] || '';
+
+        // Remove all transition classes
+        Object.values(TRANSITION_MAP).forEach(function(c) {
+            next.classList.remove(c);
+            prev.classList.remove(c);
+        });
+
+        prev.classList.remove('active');
+        next.classList.add(transClass);
+        next.classList.add('active');
+
+        current = n;
+        updateUI();
+        resetAutoTimer();
+    }
+
+    function updateUI() {
+        // Counter
+        document.getElementById('sceneCounter').textContent = current + ' / ' + TOTAL;
+        // Progress
+        document.getElementById('progressBar').style.width = (current / TOTAL * 100) + '%';
+        // Dots
+        var dots = nav.querySelectorAll('.scene-dot');
+        dots.forEach(function(d, i) {
+            d.classList.toggle('active', i + 1 === current);
+        });
+    }
+
+    // ── Auto-play ──
+    function resetAutoTimer() {
+        clearTimeout(autoTimer);
+        if (autoPlay && current < TOTAL) {
+            autoTimer = setTimeout(function() { goTo(current + 1); }, SCENE_DURATION);
+        }
+    }
+
+    function toggleAutoPlay() {
+        autoPlay = !autoPlay;
+        var icon = document.querySelector('#btnPlay i');
+        if (autoPlay) {
+            icon.setAttribute('data-lucide', 'pause');
+            document.getElementById('autoLabel').classList.remove('paused');
+            resetAutoTimer();
+        } else {
+            icon.setAttribute('data-lucide', 'play');
+            document.getElementById('autoLabel').classList.add('paused');
+            clearTimeout(autoTimer);
+        }
+        lucide.createIcons();
+    }
+
+    // ── Controls ──
+    document.getElementById('btnPrev').addEventListener('click', function() { goTo(current - 1); });
+    document.getElementById('btnNext').addEventListener('click', function() { goTo(current + 1); });
+    document.getElementById('btnPlay').addEventListener('click', toggleAutoPlay);
+
+    // Keyboard
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft') { goTo(current - 1); }
+        if (e.key === 'p') toggleAutoPlay();
+    });
+
+    // Touch swipe
+    var touchStartX = 0;
+    document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', function(e) {
+        var diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) goTo(current + 1);
+            else goTo(current - 1);
+        }
+    }, { passive: true });
+
+    // Start auto-play
+    resetAutoTimer();
+
+    // ── Music ──
+    var musicBtn = document.getElementById('musicToggle');
+    var bgMusic = document.getElementById('bgMusic');
+    if (musicBtn && bgMusic) {
+        bgMusic.volume = 0.3;
+
+        // Auto-play on load
+        bgMusic.play().then(function() { musicBtn.classList.remove('muted'); }).catch(function() {
+            document.addEventListener('click', function autoPlay() {
+                bgMusic.play().then(function() { musicBtn.classList.remove('muted'); }).catch(function() {});
+                document.removeEventListener('click', autoPlay);
+            }, { once: true });
+        });
+
+        musicBtn.addEventListener('click', function() {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.classList.remove('muted');
+            } else {
+                bgMusic.pause();
+                musicBtn.classList.add('muted');
+            }
+        });
+    }
+})();
+</script>
+</body>
+</html>
