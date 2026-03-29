@@ -518,7 +518,7 @@
     }
 
     function render() {
-        perPage = currentType === 'invitation' ? 12 : 9;
+        perPage = currentType === 'invitation' ? 16 : 9;
 
         // Toggle invitation theme trước khi render
         if (currentType === 'invitation') {
