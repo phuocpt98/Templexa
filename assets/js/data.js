@@ -4354,6 +4354,33 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         updatedAt: '2026-03-27',
+    },
+    {
+        id: 221,
+        isPublic: false,
+        name: 'Thiệp Cưới Sage Green Emboss — Giấy Hoa Nổi',
+        slug: 'thiep-cuoi-sage-green-emboss-giay-hoa-noi',
+        description: 'Thiệp cưới phong cách giấy emboss hoa nổi — nền giấy kem hoạ tiết in nổi, ảnh xếp hình trái tim, botanical eucalyptus corners, sage green accent, countdown, gallery lightbox.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'sage-green', 'emboss', 'paper', 'botanical', 'heart-collage', 'elegant'],
+        price: '',
+        images: [],
+        thumbnail: '',
+        mobileView: '',
+        path: './products/Invitation/Wedding/gen_221_sage-green-emboss-paper/',
+        demoUrl: './products/Invitation/Wedding/gen_221_sage-green-emboss-paper/index.html',
+        features: [
+            'Nền giấy emboss hoa nổi, ảnh xếp hình trái tim, botanical corners',
+            'Envelope tap-to-open, countdown, falling petals, stagger animation',
+            'RSVP form, gallery lightbox, nhạc nền, responsive mobile',
+        ],
+        status: 'new',
+        priority: -1,
+        downloads: 1,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-03-29',
     }
 ];
 
