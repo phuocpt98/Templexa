@@ -53,6 +53,36 @@
 - Dresscode + Timeline bữa tiệc = 2 section mới hữu ích
 - **CSS shapes phức tạp (cổng, cột) dễ thô nếu chỉ border/pseudo → dùng SVG inline hoặc background image**
 
+## Thiệp #221 — Sage Green Emboss Paper (clone wedinvite.online/thiep1)
+
+**Quy trình mới áp dụng thành công:**
+- agent-browser mở URL tham khảo → screenshot từng section → phân tích design spec → clone layout
+- Gemini gen nền giấy embossed (prompt tiếng Việt) → convert WebP → dùng làm background
+
+**Bài học layout:**
+- **Khung chữ nhật**: body nền trắng + `.invitation-frame` max-width centered với nền giấy → giống thiệp thật
+- **Hero fit 1 màn**: bỏ `min-height: 100vh`, dùng `padding-top: 10vh`, giảm font/spacing để fit 844px
+- **`.corners` div với `inset: 0`** trong flex container → kéo section ra cực lớn. Fix: bỏ hoặc thêm `height: 0; overflow: visible`
+- **`#hero > * { position: relative }` blanket rule** → gây spacing sai. Chỉ set z-index cho element cần thiết
+
+**Bài học ảnh corner:**
+- Ảnh corner có khoảng trắng thừa → flip `scaleX(-1)` trông giống nhau. **PHẢI trim trước** bằng `magick -trim +repage`
+- Ảnh PNG từ Gemini có checkered pattern **baked vào pixels** (không phải alpha thật) → không xoá nền tự động được. Dùng ảnh có sẵn trong thư viện hoặc gen lại với prompt rõ ràng "white background, NO transparency grid"
+- Corner 4 góc: TL giữ gốc, TR `scaleX(-1)`, BL `scaleY(-1)`, BR `scale(-1,-1)` — **hoặc đảo ngược** tuỳ hướng hoa muốn (hướng vào trong hay ra ngoài)
+- `env-corner` sát mép: dùng `top/left/right/bottom: -10px`
+
+**Bài học animation:**
+- Mỗi section NÊN có animation riêng (không dùng chung 1 `reveal` fade-up)
+- Các variant hiệu quả: `reveal-left/right` (family 2 cột), `reveal-pop` (gallery stagger), `reveal-bounce` (countdown boxes), `reveal-flip` (ngày 3D), `reveal-zoom` (ảnh cinematic), `reveal-glow` (text blur→clear), `shimmer-text` (golden sweep)
+- Stagger delay: 80-120ms giữa các item gallery, 100-300ms giữa countdown boxes
+- Heart collage: `nth-child` CSS bị lệch nếu có element khác (SVG, img) trước các `.heart-item` → đặt decoration SAU items
+
+**Bài học Gemini prompt nền giấy:**
+- Prompt tiếng Việt hiệu quả, dễ chỉnh biến thể
+- Keyword quan trọng: "mật độ THƯA/VỪA/DÀY", "relief NHẸ/RÕ", "khoảng cách RỘNG/VỪA"
+- Prompt 1 gen quá đậm → thêm "chỉ 4-5 bông" + "relief RẤT NHẸ" để fix
+- Luôn nói "Không có chữ, không có người, không có khung viền" ở cuối
+
 ## Review Checklist
 
 - [ ] Responsive mobile (max-width: 420px)
@@ -60,3 +90,7 @@
 - [ ] Font pairing đúng mood
 - [ ] Animations smooth, prefers-reduced-motion
 - [ ] ≥2 điểm khác biệt so với 3 thiệp gần nhất
+- [ ] Corner images trimmed (không thừa whitespace)
+- [ ] Hero fit 1 màn mobile (không scroll để thấy tên)
+- [ ] Mỗi section có animation riêng (không chung reveal)
+- [ ] Ảnh trang trí không có checkered/nền trắng lộ
