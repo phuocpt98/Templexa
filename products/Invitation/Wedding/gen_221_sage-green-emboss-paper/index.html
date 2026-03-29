@@ -154,11 +154,11 @@ section { position: relative; }
   pointer-events: none;
   z-index: 1;
 }
-/* Ảnh gốc: hoa ở top-left, dây leo rũ xuống phải */
-.env-tl { top: -10px; left: -10px; transform: rotate(-5deg); }
-.env-tr { top: -10px; right: -10px; transform: scaleX(-1) rotate(-5deg); }
-.env-bl { bottom: -10px; left: -10px; transform: scaleY(-1) rotate(-5deg); }
-.env-br { bottom: -10px; right: -10px; transform: scale(-1,-1) rotate(-5deg); }
+/* TL: hoa hướng phải (flip ngang), TR: hoa hướng trái (gốc) */
+.env-tl { top: -10px; left: -10px; transform: scaleX(-1); }
+.env-tr { top: -10px; right: -10px; }
+.env-bl { bottom: -10px; left: -10px; transform: scale(-1,-1); }
+.env-br { bottom: -10px; right: -10px; transform: scaleY(-1); }
 .envelope-inner {
   text-align: center;
   display: flex;
@@ -226,7 +226,7 @@ section { position: relative; }
 }
 
 /* =========================================
-   SCROLL REVEAL
+   SCROLL REVEAL — Base + WOW variants
    ========================================= */
 .reveal {
   opacity: 0;
@@ -237,6 +237,76 @@ section { position: relative; }
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Slide from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-left.revealed { opacity: 1; transform: translateX(0); }
+
+/* Slide from right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-right.revealed { opacity: 1; transform: translateX(0); }
+
+/* Scale up + rotate */
+.reveal-pop {
+  opacity: 0;
+  transform: scale(0.5) rotate(-8deg);
+  transition: opacity 0.6s cubic-bezier(0.34,1.56,0.64,1), transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+.reveal-pop.revealed { opacity: 1; transform: scale(1) rotate(0deg); }
+
+/* Zoom out (start big) */
+.reveal-zoom {
+  opacity: 0;
+  transform: scale(1.3);
+  transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+.reveal-zoom.revealed { opacity: 1; transform: scale(1); }
+
+/* Bounce in */
+.reveal-bounce {
+  opacity: 0;
+  transform: translateY(40px) scale(0.8);
+  transition: opacity 0.5s cubic-bezier(0.34,1.56,0.64,1), transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+.reveal-bounce.revealed { opacity: 1; transform: translateY(0) scale(1); }
+
+/* Flip 3D */
+.reveal-flip {
+  opacity: 0;
+  transform: perspective(600px) rotateY(90deg);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal-flip.revealed { opacity: 1; transform: perspective(600px) rotateY(0deg); }
+
+/* Golden shimmer text */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer-text.revealed {
+  background: linear-gradient(90deg, var(--forest) 30%, var(--gold-accent) 50%, var(--forest) 70%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out 0.5s;
+}
+
+/* Glow in */
+.reveal-glow {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(8px);
+  transition: opacity 1s ease, transform 1s ease, filter 1s ease;
+}
+.reveal-glow.revealed { opacity: 1; transform: translateY(0); filter: blur(0); }
 
 /* =========================================
    SECTION SHARED
@@ -1206,9 +1276,9 @@ section { position: relative; }
       <h2 class="family-title">Thông Tin Hai Gia Đình</h2>
     </div>
 
-    <div class="family-grid reveal" style="transition-delay:0.1s;">
-      <!-- NHÀ GÁI -->
-      <div class="family-col">
+    <div class="family-grid">
+      <!-- NHÀ GÁI — slide from left -->
+      <div class="family-col reveal-left">
         <span class="family-side-label">Nhà Gái</span>
         <div class="family-parents">
           <p class="family-parent-name">Ông Trần Văn Hùng</p>
@@ -1218,8 +1288,8 @@ section { position: relative; }
         <div class="family-person-name">Khánh Vy</div>
       </div>
 
-      <!-- CENTER -->
-      <div class="family-center">
+      <!-- CENTER — pop scale -->
+      <div class="family-center reveal-pop" style="transition-delay:0.2s">
         <div class="family-center-divider"></div>
         <div class="family-chibi-small">
           <img src="../../../shared/images/wedding/icons/couple-chibi.webp" alt="Chibi" loading="lazy">
@@ -1228,8 +1298,8 @@ section { position: relative; }
         <div class="family-center-divider"></div>
       </div>
 
-      <!-- NHÀ TRAI -->
-      <div class="family-col">
+      <!-- NHÀ TRAI — slide from right -->
+      <div class="family-col reveal-right" style="transition-delay:0.1s">
         <span class="family-side-label">Nhà Trai</span>
         <div class="family-parents">
           <p class="family-parent-name">Ông Hoàng Văn Dũng</p>
@@ -1244,7 +1314,7 @@ section { position: relative; }
   <!-- ======== SECTION 3: BANNER MỜI ======== -->
   <section id="banner">
     <div class="banner-divider-line"></div>
-    <p class="banner-text">
+    <p class="banner-text reveal-glow shimmer-text">
       TRÂN TRỌNG KÍNH MỜI QUÝ KHÁCH<br>
       THAM DỰ LỄ CƯỚI<br>
       <span class="banner-names-bold">Khánh Vy &amp; Minh Khang</span>
@@ -1254,7 +1324,7 @@ section { position: relative; }
 
   <!-- ======== SECTION 4: BỮA CƠM THÂN MẬT ======== -->
   <section id="dinner">
-    <div class="event-photo reveal">
+    <div class="event-photo reveal-zoom">
       <img src="../../../shared/images/wedding/viet-green/anh cap doi.webp" alt="Cặp đôi ngoài trời" loading="lazy">
     </div>
 
@@ -1293,7 +1363,7 @@ section { position: relative; }
       <div class="section-divider"></div>
       <h2 class="ceremony-title">Lễ Vu Quy</h2>
 
-      <div class="date-separator">
+      <div class="date-separator reveal-flip" style="transition-delay:0.15s">
         <span class="date-part">Tháng 08</span>
         <div class="date-pipe"></div>
         <span class="date-part date-day-large">15</span>
@@ -1323,19 +1393,19 @@ section { position: relative; }
       <div class="section-divider"></div>
       <h2 class="countdown-title">Đếm Ngược</h2>
       <div class="countdown-boxes">
-        <div class="cd-box">
+        <div class="cd-box reveal-bounce" style="transition-delay:0s">
           <span class="cd-number" id="cd-days">--</span>
           <span class="cd-label">Ngày</span>
         </div>
-        <div class="cd-box">
+        <div class="cd-box reveal-bounce" style="transition-delay:0.1s">
           <span class="cd-number" id="cd-hours">--</span>
           <span class="cd-label">Giờ</span>
         </div>
-        <div class="cd-box">
+        <div class="cd-box reveal-bounce" style="transition-delay:0.2s">
           <span class="cd-number" id="cd-minutes">--</span>
           <span class="cd-label">Phút</span>
         </div>
-        <div class="cd-box">
+        <div class="cd-box reveal-bounce" style="transition-delay:0.3s">
           <span class="cd-number" id="cd-seconds">--</span>
           <span class="cd-label">Giây</span>
         </div>
@@ -1389,21 +1459,21 @@ section { position: relative; }
   <!-- ======== SECTION 8: ALBUM HÌNH CƯỚI ======== -->
   <section id="album">
     <h2 class="album-title reveal">Album Hình Cưới</h2>
-    <div class="album-grid reveal" style="transition-delay:0.1s;">
-      <div class="album-item" data-index="0"><img src="../../../shared/images/wedding/viet-green/bia_1.webp" alt="Ảnh 1" loading="lazy"></div>
-      <div class="album-item" data-index="1"><img src="../../../shared/images/wedding/viet-green/anh cap doi.webp" alt="Ảnh 2" loading="lazy"></div>
-      <div class="album-item" data-index="2"><img src="../../../shared/images/wedding/viet-green/co-dau.webp" alt="Cô dâu" loading="lazy"></div>
-      <div class="album-item wide" data-index="3"><img src="../../../shared/images/wedding/viet-green/2 anh loon.webp" alt="Ảnh đôi lớn" loading="lazy"></div>
-      <div class="album-item" data-index="4"><img src="../../../shared/images/wedding/viet-green/chu re.webp" alt="Chú rể" loading="lazy"></div>
-      <div class="album-item" data-index="5"><img src="../../../shared/images/wedding/viet-green/anh doi.webp" alt="Ảnh đôi" loading="lazy"></div>
-      <div class="album-item" data-index="6"><img src="../../../shared/images/wedding/viet-green/cap_doi_2.webp" alt="Cặp đôi 2" loading="lazy"></div>
-      <div class="album-item wide" data-index="7"><img src="../../../shared/images/wedding/viet-green/2 line .webp" alt="Ảnh bên nhau" loading="lazy"></div>
-      <div class="album-item" data-index="8"><img src="../../../shared/images/wedding/viet-green/hoa cuoi.webp" alt="Hoa cưới" loading="lazy"></div>
-      <div class="album-item" data-index="9"><img src="../../../shared/images/wedding/viet-green/3.webp" alt="Ảnh 3" loading="lazy"></div>
-      <div class="album-item" data-index="10"><img src="../../../shared/images/wedding/viet-green/4.webp" alt="Ảnh 4" loading="lazy"></div>
-      <div class="album-item wide" data-index="11"><img src="../../../shared/images/wedding/viet-green/3 anh doc.webp" alt="Bộ 3 ảnh" loading="lazy"></div>
-      <div class="album-item" data-index="12"><img src="../../../shared/images/wedding/viet-green/5.webp" alt="Ảnh 5" loading="lazy"></div>
-      <div class="album-item" data-index="13"><img src="../../../shared/images/wedding/viet-green/hoa cuoi 2.webp" alt="Hoa cưới 2" loading="lazy"></div>
+    <div class="album-grid">
+      <div class="album-item reveal-pop" style="transition-delay:0s" data-index="0"><img src="../../../shared/images/wedding/viet-green/bia_1.webp" alt="Ảnh 1" loading="lazy"></div>
+      <div class="album-item reveal-pop" style="transition-delay:0.08s" data-index="1"><img src="../../../shared/images/wedding/viet-green/anh cap doi.webp" alt="Ảnh 2" loading="lazy"></div>
+      <div class="album-item reveal-pop" style="transition-delay:0.16s" data-index="2"><img src="../../../shared/images/wedding/viet-green/co-dau.webp" alt="Cô dâu" loading="lazy"></div>
+      <div class="album-item wide reveal-pop" style="transition-delay:0.24s" data-index="3"><img src="../../../shared/images/wedding/viet-green/2 anh loon.webp" alt="Ảnh đôi lớn" loading="lazy"></div>
+      <div class="album-item reveal-pop" style="transition-delay:0.32s" data-index="4"><img src="../../../shared/images/wedding/viet-green/chu re.webp" alt="Chú rể" loading="lazy"></div>
+      <div class="album-item reveal-pop" style="transition-delay:0.1s" data-index="5"><img src="../../../shared/images/wedding/viet-green/anh doi.webp" alt="Ảnh đôi" loading="lazy"></div>
+      <div class="album-item reveal-pop" style="transition-delay:0.18s" data-index="6"><img src="../../../shared/images/wedding/viet-green/cap_doi_2.webp" alt="Cặp đôi 2" loading="lazy"></div>
+      <div class="album-item wide reveal-pop" style="transition-delay:0.26s" data-index="7"><img src="../../../shared/images/wedding/viet-green/2 line .webp" alt="Ảnh bên nhau" loading="lazy"></div>
+      <div class="album-item reveal-pop" style="transition-delay:0.34s" data-index="8"><img src="../../../shared/images/wedding/viet-green/hoa cuoi.webp" alt="Hoa cưới" loading="lazy"></div>
+      <div class="album-item reveal-pop" style="transition-delay:0.12s" data-index="9"><img src="../../../shared/images/wedding/viet-green/3.webp" alt="Ảnh 3" loading="lazy"></div>
+      <div class="album-item reveal-pop" style="transition-delay:0.2s" data-index="10"><img src="../../../shared/images/wedding/viet-green/4.webp" alt="Ảnh 4" loading="lazy"></div>
+      <div class="album-item wide reveal-pop" style="transition-delay:0.28s" data-index="11"><img src="../../../shared/images/wedding/viet-green/3 anh doc.webp" alt="Bộ 3 ảnh" loading="lazy"></div>
+      <div class="album-item reveal-pop" style="transition-delay:0.36s" data-index="12"><img src="../../../shared/images/wedding/viet-green/5.webp" alt="Ảnh 5" loading="lazy"></div>
+      <div class="album-item reveal-pop" style="transition-delay:0.14s" data-index="13"><img src="../../../shared/images/wedding/viet-green/hoa cuoi 2.webp" alt="Hoa cưới 2" loading="lazy"></div>
     </div>
   </section>
 
@@ -1411,7 +1481,7 @@ section { position: relative; }
   <section id="thankyou">
     <div class="thankyou-bg"></div>
     <div class="thankyou-overlay"></div>
-    <div class="thankyou-inner reveal">
+    <div class="thankyou-inner reveal-glow">
       <p style="font-family:'Be Vietnam Pro',sans-serif;font-size:0.7rem;font-weight:300;color:rgba(255,255,255,0.6);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">— Cảm Ơn —</p>
       <h2 class="thankyou-title">Lời Cảm Ơn</h2>
       <div class="section-divider" style="background:linear-gradient(90deg,transparent,rgba(216,197,154,0.8),transparent);"></div>
@@ -1565,7 +1635,7 @@ function startCountdown() {
    SCROLL REVEAL
    ========================================= */
 function initReveal() {
-  var els = document.querySelectorAll('.reveal');
+  var els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-pop, .reveal-zoom, .reveal-bounce, .reveal-flip, .reveal-glow');
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {

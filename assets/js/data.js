@@ -4365,9 +4365,13 @@ const PRODUCTS = [
         type: 'invitation',
         tags: ['website', 'invitation', 'wedding', 'sage-green', 'emboss', 'paper', 'botanical', 'heart-collage', 'elegant'],
         price: '',
-        images: [],
-        thumbnail: '',
-        mobileView: '',
+        images: [
+            './products/Invitation/Wedding/gen_221_sage-green-emboss-paper/screen_1.webp',
+            './products/Invitation/Wedding/gen_221_sage-green-emboss-paper/screen_2.webp',
+            './products/Invitation/Wedding/gen_221_sage-green-emboss-paper/screen_3.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_221_sage-green-emboss-paper/screen_1.webp',
+        mobileView: './products/Invitation/Wedding/gen_221_sage-green-emboss-paper/mobile.webp',
         path: './products/Invitation/Wedding/gen_221_sage-green-emboss-paper/',
         demoUrl: './products/Invitation/Wedding/gen_221_sage-green-emboss-paper/index.html',
         features: [
