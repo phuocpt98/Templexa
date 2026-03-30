@@ -2441,6 +2441,7 @@ const PRODUCTS = [
     },
     {
         id: 173,
+        isPublic:false,
         name: 'Thiệp Cưới Tương Tác - Hoàng Nam & Ngọc Mai',
         slug: 'thiep-cuoi-tuong-tac-hoang-nam-ngoc-mai',
         description: 'Thiệp cưới tương tác dạng no-scroll, mở phong bì click khám phá từng trang. 8 hiệu ứng chuyển cảnh, album ảnh, QR code, đếm ngược, gửi lời chúc, nhạc nền.',
@@ -2529,6 +2530,13 @@ const PRODUCTS = [
         type: 'invitation',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'traditional', 'red-gold', 'song-long'],
         price: '',
+        images: [
+            './products/Invitation/Wedding/gen_178_traditional-red-wedding/screen.webp',
+            './products/Invitation/Wedding/gen_178_traditional-red-wedding/anh_1.webp',
+            './products/Invitation/Wedding/gen_178_traditional-red-wedding/anh_2.webp',
+            './products/Invitation/Wedding/gen_178_traditional-red-wedding/anh_3.webp',
+            './products/Invitation/Wedding/gen_178_traditional-red-wedding/anh_4.webp',
+        ],
         thumbnail: './products/Invitation/Wedding/gen_178_traditional-red-wedding/screen.webp',
         demoUrl: './products/Invitation/Wedding/gen_178_traditional-red-wedding/code.html',
         features: [
@@ -4027,13 +4035,12 @@ const PRODUCTS = [
         tags: ['website', 'invitation', 'wedding', 'vintage', 'sage-green', 'polaroid', 'envelope'],
         price: '',
         images: [
-            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/screen.png',
-            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/anh_1.png',
-            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/anh_2.png',
-            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/anh_3.png',
-            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/anh_4.png',
+            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/web_1.webp',
+            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/web_2.webp',
+            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/web_3.webp',
+            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/web_4.webp',
         ],
-        thumbnail: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/screen.png',
+        thumbnail: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/web_1.webp',
         path: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/',
         demoUrl: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/index.html',
         features: [
