@@ -4035,12 +4035,12 @@ const PRODUCTS = [
         tags: ['website', 'invitation', 'wedding', 'vintage', 'sage-green', 'polaroid', 'envelope'],
         price: '',
         images: [
-            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/anh_1.webp',
-            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/anh_2.webp',
-            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/anh_3.webp',
-            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/anh_4.webp',
+            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/web_1.webp',
+            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/web_2.webp',
+            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/web_3.webp',
+            './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/web_4.webp',
         ],
-        thumbnail: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/screen.webp',
+        thumbnail: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/web_1.webp',
         path: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/',
         demoUrl: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/index.html',
         features: [
