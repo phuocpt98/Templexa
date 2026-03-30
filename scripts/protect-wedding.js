@@ -20,6 +20,8 @@ const ALLOWED_DOMAINS = [
   'phuocpt98.github.io',
   'templexa.com',
   'www.templexa.com',
+  'templexa.vn',
+  'www.templexa.vn',
   'localhost',
   '127.0.0.1'
 ];
