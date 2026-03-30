@@ -152,9 +152,8 @@ function protectHTML(html, folderName) {
   // Inject sau <body> hoặc sau <body ...>
   let result = html.replace(/(<body[^>]*>)/i, `$1${protectionScript}`);
 
-  // Thêm CSS anti-select
-  const antiSelectCSS = `<style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style>`;
-  result = result.replace('</head>', `${antiSelectCSS}</head>`);
+  // Anti-select handled by JS selectstart event — no CSS needed
+  // (CSS user-select:none can break touch/click on some mobile browsers)
 
   return result;
 }
@@ -222,8 +221,9 @@ function processFolder(folderPath, folderName) {
   // Protect
   let protectedHTML = originalHTML;
   protectedHTML = protectHTML(protectedHTML, folderName);
-  protectedHTML = obfuscateInlineJS(protectedHTML);
-  protectedHTML = minifyHTML(protectedHTML);
+  // Skip obfuscateInlineJS — hex-encoding strings breaks DOM methods
+  // Skip minifyHTML — whitespace removal can break inline text/JS
+  // Protection comes from domain lock + anti-copy + watermark, not obfuscation
 
   // Ghi đè HTML file
   fs.writeFileSync(htmlFile, protectedHTML, 'utf-8');

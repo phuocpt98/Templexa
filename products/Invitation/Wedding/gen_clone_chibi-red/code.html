@@ -1,621 +1,1142 @@
-<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Thiệp Cưới - Quốc Bảo & Ngọc Ánh</title><meta name="description" content="Trân trọng kính mời quý khách tới dự lễ thành hôn của Quốc Bảo & Ngọc Ánh — 23/01/2027"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@latest"></script><style>
-:root {
---font-script: 'Dancing Script', cursive;
---font-heading: 'Cormorant Garamond', serif;
---font-body: 'Be Vietnam Pro', sans-serif;
---font-accent: 'Cormorant Garamond', serif;
---red: #D32F2F;
---red-deep: #B71C1C;
---red-dark: #7f0000;
---red-soft: #EF5350;
---red-light: #FFCDD2;
---red-bg: #FFF5F5;
---pink: #F48FB1;
---pink-light: #FCE4EC;
---gold: #D4AF37;
---gold-light: #F5E6C8;
---cream: #FFFAF0;
---white: #FFFFFF;
---dark: #3E2723;
---dark-soft: #5D4037;
---text-main: #4E342E;
---text-sub: #795548;
---text-faint: #A1887F;
---shadow-soft: 0 4px 20px rgba(183,28,28,0.08);
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-font-family: var(--font-body);
-background: var(--cream);
-color: var(--text-main);
-line-height: 1.7;
-overflow: hidden;
-font-weight: 300;
-}
-body::before {
-content: '';
-position: fixed; inset: 0; z-index: -1; pointer-events: none;
-background:
-radial-gradient(circle at 20% 30%, rgba(211,47,47,0.03) 0%, transparent 50%),
-radial-gradient(circle at 80% 70%, rgba(244,143,177,0.03) 0%, transparent 50%);
-}
-body.envelope-opened { overflow: auto; }
-/* ===== COMMON ===== */
-.section { padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 2rem); position: relative; }
-.section--breathe { padding: clamp(5rem, 12vw, 7rem) clamp(1rem, 5vw, 2rem); position: relative; }
-.section--compact { padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 5vw, 2rem); position: relative; }
-.container { max-width: 680px; margin: 0 auto; }
-.text-center { text-align: center; }
-.section-title {
-font-family: var(--font-heading);
-font-size: clamp(1.1rem, 3vw, 1.4rem);
-font-weight: 500;
-color: var(--red-deep);
-letter-spacing: 0.12em;
-text-transform: uppercase;
-margin-bottom: 0.3rem;
-}
-.section-subtitle {
-font-family: var(--font-accent);
-font-size: clamp(0.75rem, 2vw, 0.85rem);
-font-style: italic;
-color: var(--text-faint);
-letter-spacing: 0.2em;
-text-transform: uppercase;
-margin-bottom: 0.5rem;
-}
-.section-heading { margin-bottom: clamp(2rem, 5vw, 3rem); }
-/* Ornament divider */
-.ornament {
-text-align: center;
-padding: 1.2rem 0;
-color: var(--red);
-font-size: 0.75rem;
-letter-spacing: 0.5em;
-}
-.ornament::before, .ornament::after {
-content: '';
-display: inline-block;
-width: 50px;
-height: 1px;
-background: linear-gradient(90deg, transparent, var(--red-light), transparent);
-vertical-align: middle;
-margin: 0 14px;
-}
-/* Scroll reveal */
-[class*="animate-"] { opacity: 0; transform: translateY(20px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
-[class*="animate-"].is-visible { opacity: 1; transform: translateY(0); }
-.animate-delay-1 { transition-delay: 0.1s; }
-.animate-delay-2 { transition-delay: 0.2s; }
-.animate-delay-3 { transition-delay: 0.3s; }
-.animate-delay-4 { transition-delay: 0.4s; }
-.animate-delay-5 { transition-delay: 0.5s; }
-/* ===== ENVELOPE ===== */
-.envelope {
-position: fixed;
-inset: 0;
-z-index: 9999;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-background: linear-gradient(135deg, #FFF5F5 0%, #FFEBEE 50%, #FFCDD2 100%);
-transition: opacity 0.8s ease, transform 0.8s ease;
-text-align: center;
-padding: 2rem;
-}
-.envelope.opened { opacity: 0; transform: scale(1.1); pointer-events: none; }
-.envelope-decos { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.envelope-decos img { position: absolute; opacity: 0.15; }
-.envelope-decos .deco-tl { top: -20px; left: -20px; width: 180px; transform: rotate(-15deg); }
-.envelope-decos .deco-tr { top: -10px; right: -30px; width: 160px; transform: rotate(20deg); }
-.envelope-decos .deco-bl { bottom: -20px; left: -10px; width: 140px; transform: rotate(10deg); }
-.envelope-decos .deco-br { bottom: -30px; right: -20px; width: 170px; transform: scaleX(-1) rotate(-10deg); }
-.envelope-happiness {
-width: clamp(60px, 15vw, 90px);
-margin-bottom: 1rem;
-animation: pulse-gentle 2.5s ease-in-out infinite;
-filter: drop-shadow(0 4px 12px rgba(211,47,47,0.2));
-}
-@keyframes pulse-gentle { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-.envelope-label {
-font-family: var(--font-accent);
-font-size: clamp(0.8rem, 2vw, 0.95rem);
-color: var(--text-faint);
-letter-spacing: 0.3em;
-text-transform: uppercase;
-margin-bottom: 0.6rem;
-}
-.envelope-names {
-font-family: var(--font-script);
-font-size: clamp(2.5rem, 8vw, 4rem);
-color: var(--red-deep);
-line-height: 1.2;
-margin-bottom: 0.4rem;
-}
-.envelope-date {
-font-family: var(--font-accent);
-font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-color: var(--text-sub);
-letter-spacing: 0.15em;
-margin-bottom: 0.4rem;
-}
-.envelope-invite {
-font-family: var(--font-accent);
-font-size: 1rem;
-color: var(--text-faint);
-letter-spacing: 0.1em;
-margin-bottom: 1.2rem;
-}
-.envelope-chibi {
-width: clamp(180px, 45vw, 280px);
-margin-bottom: 1rem;
-animation: float-gentle 4s ease-in-out infinite;
-filter: drop-shadow(0 8px 24px rgba(0,0,0,0.1));
-}
-@keyframes float-gentle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-/* Peek photos dưới chibi */
-.envelope-peek {
-display: flex;
-justify-content: center;
-gap: 0;
-margin-bottom: 1.5rem;
-position: relative;
-width: 240px;
-height: 70px;
-}
-.envelope-peek-photo {
-width: 95px;
-height: 65px;
-border-radius: 6px;
-overflow: hidden;
-box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-border: 3px solid white;
-position: absolute;
-}
-.envelope-peek-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 30% center; }
-.envelope-peek-photo:first-child { left: 15px; bottom: 0; transform: rotate(-7deg); }
-.envelope-peek-photo:last-child { right: 15px; bottom: 4px; transform: rotate(5deg); }
-.envelope-btn {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 14px 48px;
-font-family: var(--font-heading);
-font-size: 0.85rem;
-letter-spacing: 0.2em;
-text-transform: uppercase;
-color: var(--white);
-background: linear-gradient(135deg, var(--red), var(--red-deep));
-border: none;
-border-radius: 50px;
-cursor: pointer;
-box-shadow: 0 8px 30px rgba(211,47,47,0.35);
-transition: transform 0.3s, box-shadow 0.3s;
-}
-.envelope-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(211,47,47,0.45); }
-.hero-amp {
-font-family: var(--font-accent);
-font-size: clamp(1.5rem, 4vw, 2rem);
-color: var(--red);
-font-style: italic;
-margin: 0 0.3em;
-}
-/* ===== HERO ===== */
-.hero {
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-padding: clamp(3rem, 8vw, 5rem) 1.5rem;
-position: relative;
-background: linear-gradient(180deg, var(--red-bg) 0%, var(--cream) 100%);
-overflow: hidden;
-}
-.hero::before {
-content: '';
-position: absolute; inset: 0;
-background:
-radial-gradient(circle at 15% 20%, rgba(211,47,47,0.06) 0%, transparent 50%),
-radial-gradient(circle at 85% 80%, rgba(244,143,177,0.08) 0%, transparent 50%);
-pointer-events: none;
-}
-.hero-decos { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.hero-decos img { position: absolute; opacity: 0.12; }
-.hero-decos .deco-cherry-tl { top: 20px; left: -30px; width: 220px; transform: rotate(-10deg); }
-.hero-decos .deco-cherry-br { bottom: 40px; right: -40px; width: 200px; transform: scaleX(-1) rotate(5deg); }
-.hero-decos .deco-diamond-l { top: 50%; left: 10px; width: 40px; opacity: 0.08; }
-.hero-decos .deco-diamond-r { top: 30%; right: 15px; width: 35px; opacity: 0.08; }
-.hero-decos .deco-flower-l { bottom: 120px; left: 20px; width: 80px; opacity: 0.1; transform: rotate(-20deg); }
-.hero-decos .deco-flower-r { top: 100px; right: 20px; width: 70px; opacity: 0.1; transform: rotate(15deg); }
-.hero-happiness {
-width: clamp(50px, 12vw, 70px);
-margin-bottom: 1rem;
-filter: drop-shadow(0 2px 8px rgba(211,47,47,0.15));
-animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both;
-}
-.hero-label { font-family: var(--font-accent); font-size: clamp(0.7rem, 2vw, 0.85rem); color: var(--text-faint); letter-spacing: 0.35em; text-transform: uppercase; margin-bottom: 0.8rem; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
-.hero-names { font-family: var(--font-script); font-size: clamp(3rem, 10vw, 5rem); color: var(--red-deep); line-height: 1.15; margin-bottom: 0.3rem; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s both; }
-.hero-ornament-line { width: 80px; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); margin: 0.8rem auto; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both; }
-.hero-title { font-family: var(--font-heading); font-size: clamp(0.65rem, 2vw, 0.8rem); color: var(--text-sub); letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 1rem; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.55s both; }
-.hero-date { font-family: var(--font-accent); font-size: clamp(1rem, 3vw, 1.3rem); color: var(--red); letter-spacing: 0.1em; margin-bottom: 0.5rem; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.6s both; }
-.hero-venue { font-family: var(--font-body); font-size: clamp(0.75rem, 2vw, 0.85rem); color: var(--text-faint); letter-spacing: 0.05em; font-weight: 300; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s both; }
-.hero-chibi { width: clamp(200px, 50vw, 320px); margin-top: 1.5rem; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.1)); animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.8s both; }
-@keyframes suh { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-/* ===== PHOTO STRIP ===== */
-.photo-strip {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 0;
-padding: 2rem 1rem;
-position: relative;
-}
-.photo-strip-item {
-border-radius: 10px;
-overflow: hidden;
-box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-border: 4px solid white;
-flex-shrink: 0;
-}
-.photo-strip-item img { width: 100%; height: 100%; object-fit: cover; object-position: 30% center; display: block; }
-.photo-strip-item:nth-child(1) { width: 130px; height: 170px; transform: rotate(-4deg) translateY(10px); z-index: 1; }
-.photo-strip-item:nth-child(2) { width: 155px; height: 200px; transform: rotate(1deg); margin-left: -15px; z-index: 3; }
-.photo-strip-item:nth-child(3) { width: 120px; height: 155px; transform: rotate(3.5deg) translateY(15px); margin-left: -12px; z-index: 2; }
-@media (max-width: 480px) {
-.photo-strip-item:nth-child(1) { width: 90px; height: 120px; }
-.photo-strip-item:nth-child(2) { width: 110px; height: 145px; }
-.photo-strip-item:nth-child(3) { width: 85px; height: 110px; }
-}
-/* ===== COUPLE / FAMILY ===== */
-.couple-section { background: var(--white); }
-.family-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: clamp(1.2rem, 3vw, 2rem);
-}
-.family-card {
-text-align: center;
-padding: clamp(1.5rem, 4vw, 2rem);
-background: var(--red-bg);
-border-radius: 22px;
-border: 1px solid var(--red-light);
-position: relative;
-transition: transform 0.4s;
-}
-.family-card:first-child { transform: rotate(-1deg); }
-.family-card:last-child { transform: rotate(0.8deg); margin-top: 12px; }
-.family-card:hover { transform: rotate(0deg) translateY(-3px); }
-.family-card::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(90deg, var(--red), var(--gold)); border-radius: 2px; }
-.family-side { font-family: var(--font-heading); font-size: clamp(0.6rem, 1.8vw, 0.7rem); color: var(--red); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.8rem; margin-top: 0.5rem; }
-.family-parent { font-family: var(--font-accent); font-size: clamp(1rem, 2.5vw, 1.15rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
-.family-role { font-size: 0.75rem; color: var(--text-faint); letter-spacing: 0.1em; }
-.family-child { margin-top: 1rem; padding-top: 0.8rem; border-top: 1px dashed var(--red-light); }
-.family-child-name { font-family: var(--font-script); font-size: clamp(1.8rem, 5vw, 2.5rem); color: var(--red-deep); line-height: 1.2; }
-.family-child-role { font-size: 0.72rem; color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; }
-/* Family photos */
-.family-photo {
-width: 80px; height: 80px;
-border-radius: 50%;
-overflow: hidden;
-margin: 0 auto 0.8rem;
-border: 3px solid var(--red-light);
-box-shadow: 0 4px 12px rgba(183,28,28,0.1);
-}
-.family-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 30% top; }
-@media (max-width: 560px) {
-.family-grid { grid-template-columns: 1fr; }
-.family-card:first-child { transform: rotate(-0.5deg); }
-.family-card:last-child { transform: rotate(0.5deg); margin-top: 0; }
-}
-/* ===== COUNTDOWN ===== */
-.countdown-section {
-background: linear-gradient(135deg, var(--red-deep) 0%, var(--red-dark) 100%);
-color: var(--white);
-position: relative;
-overflow: hidden;
-}
-.countdown-section::before {
-content: '';
-position: absolute; inset: 0;
-background: url('../../../shared/images/wedding/korean-studio-gray/couple_2.webp') center/cover no-repeat;
-opacity: 0.06; filter: blur(2px) grayscale(30%);
-pointer-events: none;
-}
-.countdown-section .section-title { color: var(--gold-light); }
-.countdown-section .section-subtitle { color: rgba(255,255,255,0.5); }
-.countdown-grid { display: flex; justify-content: center; gap: clamp(0.8rem, 3vw, 1.5rem); flex-wrap: wrap; }
-.countdown-item {
-text-align: center;
-min-width: 72px;
-background: rgba(255,255,255,0.08);
-backdrop-filter: blur(8px);
-border-radius: 16px;
-padding: clamp(0.8rem, 2vw, 1.2rem) clamp(0.6rem, 2vw, 1rem);
-border: 1px solid rgba(255,255,255,0.1);
-}
-.countdown-item:nth-child(1) { transform: rotate(-1.5deg); }
-.countdown-item:nth-child(3) { transform: translateY(-6px); }
-.countdown-item:nth-child(5) { transform: rotate(1deg); }
-.countdown-item:nth-child(7) { transform: rotate(-0.5deg) translateY(4px); }
-.countdown-num { font-family: var(--font-heading); font-size: clamp(2rem, 6vw, 3rem); font-weight: 600; color: var(--white); line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-.countdown-label { font-family: var(--font-accent); font-size: clamp(0.6rem, 1.5vw, 0.72rem); color: rgba(255,255,255,0.5); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.3rem; }
-.countdown-sep { font-family: var(--font-heading); font-size: clamp(1.5rem, 4vw, 2rem); color: rgba(255,255,255,0.2); align-self: center; }
-/* ===== LOVE STORY ===== */
-.story-section { background: var(--white); position: relative; overflow: hidden; }
-.story-section::before {
-content: '';
-position: absolute; inset: 0;
-background: url('../../../shared/images/wedding/korean-studio-gray/couple_4.webp') center top/cover no-repeat;
-opacity: 0.04; filter: blur(3px);
-pointer-events: none;
-}
-.timeline { position: relative; max-width: 520px; margin: 0 auto; padding-left: 30px; }
-.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--red-light), var(--red), var(--red-light)); }
-.timeline-item { position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem; }
-.timeline-item:last-child { margin-bottom: 0; }
-.timeline-item:nth-child(even) { transform: translateX(6px); }
-.timeline-dot { position: absolute; left: -26px; top: 6px; width: 18px; height: 18px; background: var(--white); border: 3px solid var(--red); border-radius: 50%; z-index: 1; }
-.timeline-dot::after { content: ''; position: absolute; inset: 3px; background: var(--red); border-radius: 50%; }
-.timeline-date { font-family: var(--font-accent); font-size: 0.8rem; color: var(--red); letter-spacing: 0.1em; font-style: italic; margin-bottom: 0.2rem; }
-.timeline-title { font-family: var(--font-accent); font-size: clamp(0.95rem, 2.5vw, 1.15rem); font-weight: 600; color: var(--text-main); letter-spacing: 0.03em; margin-bottom: 0.3rem; }
-.timeline-desc { font-size: clamp(0.8rem, 2vw, 0.88rem); color: var(--text-sub); line-height: 1.6; font-weight: 300; }
-.timeline-photo {
-width: 100%;
-max-width: 280px;
-border-radius: 14px;
-overflow: hidden;
-margin-top: 0.8rem;
-box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-border: 3px solid white;
-}
-.timeline-photo:nth-of-type(odd) { transform: rotate(-1.5deg); }
-.timeline-photo:nth-of-type(even) { transform: rotate(1deg); margin-left: auto; }
-.timeline-photo img { width: 100%; height: auto; display: block; }
-/* ===== EVENT CARDS ===== */
-.event-section { background: var(--red-bg); }
-.event-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 3vw, 1.5rem); }
-.event-card {
-background: var(--white);
-border-radius: 22px;
-padding: clamp(1.5rem, 4vw, 2rem);
-text-align: center;
-box-shadow: var(--shadow-soft);
-border: 1px solid var(--red-light);
-position: relative;
-overflow: hidden;
-transition: transform 0.4s;
-}
-.event-card:first-child { transform: rotate(-0.8deg); }
-.event-card:last-child { transform: rotate(0.5deg); margin-top: 10px; }
-.event-card:hover { transform: rotate(0deg) translateY(-3px); }
-.event-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--red), var(--gold)); }
-.event-icon { width: 50px; height: 50px; border-radius: 50%; background: var(--red-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--red); }
-.event-type { font-family: var(--font-heading); font-size: clamp(0.6rem, 1.8vw, 0.7rem); color: var(--red); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.8rem; }
-.event-date { font-family: var(--font-accent); font-size: clamp(0.95rem, 2.5vw, 1.1rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
-.event-time { font-size: 0.85rem; color: var(--red); font-weight: 500; margin-bottom: 0.5rem; }
-.event-venue { font-family: var(--font-accent); font-size: clamp(0.85rem, 2.2vw, 0.95rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.2rem; }
-.event-address { font-size: 0.78rem; color: var(--text-faint); line-height: 1.5; }
-@media (max-width: 560px) {
-.event-grid { grid-template-columns: 1fr; }
-.event-card:first-child { transform: rotate(-0.5deg); }
-.event-card:last-child { transform: rotate(0.3deg); margin-top: 0; }
-}
-/* ===== CALENDAR MONTH ===== */
-.cal-section { background: var(--white); position: relative; overflow: hidden; }
-.cal-section::before {
-content: '';
-position: absolute; top: 0; left: 0; right: 0; height: 50%;
-background: url('../../../shared/images/wedding/korean-studio-white/couple_1.webp') center top/cover no-repeat;
-opacity: 0.04; mask-image: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 100%); -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 100%);
-pointer-events: none;
-}
-/* ===== FLY PHOTOS ===== */
-.fly-section {
-padding: clamp(2rem, 5vw, 3rem) 1rem;
-position: relative;
-overflow: hidden;
-}
-.fly-wrapper {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 0;
-position: relative;
-max-width: 420px;
-margin: 0 auto;
-}
-.fly-photo {
-border-radius: 14px;
-overflow: hidden;
-box-shadow: 0 8px 28px rgba(0,0,0,0.1);
-border: 4px solid white;
-flex-shrink: 0;
-}
-.fly-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.fly-photo:first-child { width: 150px; height: 200px; transform: rotate(-3deg); z-index: 1; }
-.fly-chibi {
-width: clamp(120px, 30vw, 180px);
-margin: 0 -20px;
-z-index: 3;
-filter: drop-shadow(0 6px 18px rgba(0,0,0,0.1));
-animation: float-gentle 5s ease-in-out infinite;
-}
-.fly-photo:last-child { width: 140px; height: 185px; transform: rotate(2.5deg) translateY(12px); z-index: 1; }
-@media (max-width: 480px) {
-.fly-photo:first-child { width: 100px; height: 135px; }
-.fly-photo:last-child { width: 95px; height: 125px; }
-}
-/* ===== GALLERY — ORGANIC MASONRY ===== */
-.gallery-section { background: var(--red-bg); }
-.gallery-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 10px;
-max-width: 560px;
-margin: 0 auto;
-}
-.gallery-item {
-overflow: hidden;
-cursor: pointer;
-position: relative;
-border-radius: 12px;
-box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-border: 3px solid white;
-transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-}
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; object-position: 30% center; display: block; transition: transform 0.5s; }
-.gallery-item:hover img { transform: scale(1.06); }
-.gallery-item:hover { z-index: 2; }
-/* Organic sizes + rotation */
-.gallery-item:nth-child(1) { aspect-ratio: 0.85; transform: rotate(-1.5deg); }
-.gallery-item:nth-child(2) { aspect-ratio: 1.1; grid-row: span 1; transform: rotate(0.5deg) translateY(8px); }
-.gallery-item:nth-child(3) { aspect-ratio: 0.9; transform: rotate(2deg); }
-.gallery-item:nth-child(4) { aspect-ratio: 1.15; transform: rotate(1deg) translateY(-5px); }
-.gallery-item:nth-child(5) { aspect-ratio: 0.8; transform: rotate(-2deg) translateY(10px); }
-.gallery-item:nth-child(6) { aspect-ratio: 1; transform: rotate(0.8deg); }
-.gallery-item:nth-child(7) { aspect-ratio: 1.05; transform: rotate(-0.5deg) translateY(6px); grid-column: 1 / 2; }
-.gallery-item:nth-child(8) { aspect-ratio: 0.85; transform: rotate(1.5deg); grid-column: 2 / 3; }
-@media (max-width: 480px) {
-.gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-}
-/* Lightbox */
-.lightbox { position: fixed; inset: 0; z-index: 8000; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; padding: 2rem; }
-.lightbox.active { display: flex; }
-.lightbox img { max-width: 90%; max-height: 85vh; object-fit: contain; border-radius: 8px; }
-.lightbox-close { position: absolute; top: 20px; right: 24px; color: white; background: rgba(255,255,255,0.15); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
-.lightbox-close:hover { background: rgba(255,255,255,0.3); }
-.lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); color: white; background: rgba(255,255,255,0.15); border: none; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
-.lightbox-nav:hover { background: rgba(255,255,255,0.3); }
-.lightbox-prev { left: 16px; }
-.lightbox-next { right: 16px; }
-/* ===== RSVP ===== */
-.rsvp-section {
-background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
-color: var(--white);
-position: relative;
-overflow: hidden;
-}
-.rsvp-section::before {
-content: '';
-position: absolute; inset: 0;
-background: url('../../../shared/images/wedding/korean-studio-white/couple_3.webp') center/cover no-repeat;
-opacity: 0.06; filter: blur(3px);
-pointer-events: none;
-}
-.rsvp-section .section-title { color: var(--gold-light); }
-.rsvp-section .section-subtitle { color: rgba(255,255,255,0.5); }
-.rsvp-form { max-width: 440px; margin: 0 auto; position: relative; }
-.rsvp-row { margin-bottom: 1rem; }
-.rsvp-label { display: block; font-size: 0.78rem; color: rgba(255,255,255,0.7); letter-spacing: 0.1em; margin-bottom: 0.3rem; text-align: left; }
-.rsvp-input, .rsvp-select, .rsvp-textarea { width: 100%; padding: 12px 16px; font-family: var(--font-body); font-size: 0.88rem; color: var(--text-main); background: var(--white); border: 2px solid transparent; border-radius: 14px; outline: none; transition: border-color 0.3s; }
-.rsvp-input:focus, .rsvp-select:focus, .rsvp-textarea:focus { border-color: var(--gold); }
-.rsvp-textarea { resize: vertical; min-height: 80px; }
-.rsvp-submit { width: 100%; padding: 14px; font-family: var(--font-heading); font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-deep); background: linear-gradient(135deg, var(--gold), var(--gold-light)); border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 6px 20px rgba(212,175,55,0.3); transition: transform 0.3s; margin-top: 0.5rem; }
-.rsvp-submit:hover { transform: translateY(-2px); }
-/* ===== WISHES ===== */
-.wishes-section { background: var(--white); }
-.wishes-form { max-width: 440px; margin: 0 auto 2rem; }
-.wishes-input, .wishes-textarea { width: 100%; padding: 12px 16px; font-family: var(--font-body); font-size: 0.88rem; color: var(--text-main); background: var(--red-bg); border: 2px solid var(--red-light); border-radius: 14px; outline: none; margin-bottom: 0.8rem; transition: border-color 0.3s; }
-.wishes-input:focus, .wishes-textarea:focus { border-color: var(--red); }
-.wishes-textarea { resize: vertical; min-height: 80px; }
-.wishes-submit { width: 100%; padding: 12px; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); background: linear-gradient(135deg, var(--red), var(--red-deep)); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.3s; }
-.wishes-submit:hover { transform: translateY(-2px); }
-.wishes-list { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
-.wish-card {
-background: var(--red-bg);
-border-radius: 18px;
-padding: 1.2rem 1.5rem;
-border: 1px solid var(--red-light);
-position: relative;
-transition: transform 0.3s;
-}
-.wish-card:nth-child(odd) { transform: rotate(-0.5deg); }
-.wish-card:nth-child(even) { transform: rotate(0.4deg) translateX(8px); }
-.wish-card:hover { transform: rotate(0deg) translateY(-2px); }
-.wish-card::before { content: '\201C'; font-family: var(--font-accent); font-size: 2.5rem; color: var(--red-light); position: absolute; top: 5px; left: 12px; line-height: 1; }
-.wish-text { font-family: var(--font-accent); font-size: 0.95rem; color: var(--text-main); font-style: italic; line-height: 1.6; padding-left: 1rem; }
-.wish-author { font-size: 0.78rem; color: var(--red); font-weight: 500; margin-top: 0.5rem; padding-left: 1rem; }
-/* Small photo accent in wishes */
-.wishes-photo-accent {
-width: 90px; height: 90px;
-border-radius: 50%;
-overflow: hidden;
-margin: 0 auto 1.5rem;
-border: 3px solid var(--red-light);
-box-shadow: 0 4px 16px rgba(183,28,28,0.1);
-}
-.wishes-photo-accent img { width: 100%; height: 100%; object-fit: cover; object-position: 30% top; }
-/* ===== GIFT BOX ===== */
-.gift-section { background: var(--red-bg); }
-.gift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 3vw, 1.5rem); }
-.gift-card {
-background: var(--white);
-border-radius: 22px;
-padding: clamp(1.5rem, 4vw, 2rem);
-text-align: center;
-box-shadow: var(--shadow-soft);
-border: 1px solid var(--red-light);
-transition: transform 0.4s;
-}
-.gift-card:first-child { transform: rotate(-1deg); }
-.gift-card:last-child { transform: rotate(0.6deg); margin-top: 10px; }
-.gift-card:hover { transform: rotate(0deg) translateY(-3px); }
-.gift-bank-icon { width: 50px; height: 50px; border-radius: 14px; background: var(--red-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--red); }
-.gift-bank-name { font-family: var(--font-heading); font-size: clamp(0.65rem, 1.8vw, 0.75rem); color: var(--red); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
-.gift-account-name { font-family: var(--font-accent); font-size: clamp(0.9rem, 2.2vw, 1rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
-.gift-account-num { font-size: 0.85rem; color: var(--text-sub); letter-spacing: 0.05em; margin-bottom: 1rem; }
-.gift-copy-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; font-family: var(--font-body); font-size: 0.75rem; color: var(--red); background: var(--red-bg); border: 1px solid var(--red-light); border-radius: 50px; cursor: pointer; transition: background 0.2s, color 0.2s; }
-.gift-copy-btn:hover { background: var(--red); color: var(--white); }
-@media (max-width: 480px) {
-.gift-grid { grid-template-columns: 1fr; }
-.gift-card:first-child, .gift-card:last-child { transform: none; margin-top: 0; }
-}
-/* ===== THANK YOU ===== */
-.thankyou-section {
-background: linear-gradient(135deg, var(--red-deep) 0%, var(--red-dark) 100%);
-color: var(--white); text-align: center;
-position: relative; overflow: hidden;
-}
-.thankyou-section::before {
-content: ''; position: absolute; inset: 0;
-background: url('../../../shared/images/wedding/korean-studio-gray/couple_1.webp') center/cover no-repeat;
-opacity: 0.06; filter: blur(2px);
-pointer-events: none;
-}
-.thankyou-chibi { width: clamp(160px, 38vw, 250px); margin-bottom: 1.5rem; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.15)); position: relative; }
-.thankyou-text { font-family: var(--font-accent); font-size: clamp(1rem, 2.5vw, 1.2rem); color: rgba(255,255,255,0.8); font-style: italic; line-height: 1.7; max-width: 400px; margin: 0 auto 1.5rem; position: relative; }
-.thankyou-names { font-family: var(--font-script); font-size: clamp(2rem, 6vw, 3rem); color: var(--gold-light); position: relative; }
-/* ===== FOOTER ===== */
-.footer { background: var(--red-dark); color: rgba(255,255,255,0.4); text-align: center; padding: 1.5rem 1rem; font-size: 0.75rem; }
-.footer a { color: var(--gold); text-decoration: none; }
-/* ===== MUSIC ===== */
-.music-toggle { position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--red), var(--red-deep)); color: white; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(183,28,28,0.3); transition: transform 0.2s; }
-.music-toggle:hover { transform: scale(1.1); }
-.music-toggle .music-icon-off { display: none; }
-.music-toggle.muted .music-icon-on { display: none; }
-.music-toggle.muted .music-icon-off { display: block; }
-/* ===== CHERRY BLOSSOM ===== */
-.petal { position: fixed; top: -20px; z-index: 9998; pointer-events: none; animation: petal-fall linear forwards; }
-@keyframes petal-fall {
-0% { opacity: 0.8; transform: translateY(0) rotate(0deg) translateX(0); }
-25% { transform: translateY(27vh) rotate(180deg) translateX(30px); }
-50% { transform: translateY(55vh) rotate(360deg) translateX(-20px); }
-75% { transform: translateY(82vh) rotate(540deg) translateX(25px); }
-100% { opacity: 0; transform: translateY(110vh) rotate(720deg) translateX(-10px); }
-}
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.15); } 50% { transform: scale(1); } 75% { transform: scale(1.1); } }
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-.hero-chibi { width: clamp(170px, 55vw, 260px); }
-.envelope-chibi { width: clamp(150px, 45vw, 230px); }
-}
-@media (max-width: 480px) {
-.section { padding: clamp(2.5rem, 8vw, 3.5rem) 1rem; }
-}
-</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x32\x4e\x73\x62\x32\x35\x6c\x58\x32\x4e\x6f\x61\x57\x4a\x70\x4c\x58\x4a\x6c\x5a\x48\x77\x79\x4d\x44\x49\x32\x4c\x54\x41\x7a\x4c\x54\x49\x35\x66\x48\x42\x6f\x64\x57\x39\x6a\x63\x48\x51\x35\x4f\x41\x3d\x3d'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><div class="envelope" id="envelope"><div class="envelope-decos"><img src="../../../shared/images/wedding/icons/cherry-blossom.webp" class="deco-tl" alt=""><img src="../../../shared/images/wedding/icons/cherry-blossom.webp" class="deco-tr" alt=""><img src="../../../shared/images/wedding/icons/decorative-flowers.webp" class="deco-bl" alt=""><img src="../../../shared/images/wedding/icons/decorative-flowers.webp" class="deco-br" alt=""></div><img src="../../../shared/images/wedding/icons/double-happiness.webp" class="envelope-happiness" alt="Song hỷ"><p class="envelope-label">Trân Trọng Kính Mời</p><h1 class="envelope-names">Quốc Bảo<br><span class="hero-amp">&</span><br>Ngọc Ánh</h1><p class="envelope-date">23 . 01 . 2027</p><p class="envelope-invite">Happy Wedding</p><img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="envelope-chibi" alt="Chibi couple"><div class="envelope-peek"><div class="envelope-peek-photo"><img src="../../../shared/images/wedding/korean-studio-gray/couple_4.webp" alt=""></div><div class="envelope-peek-photo"><img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt=""></div></div><button class="envelope-btn" id="envelopeBtn"><i data-lucide="heart" style="width:16px;height:16px;"></i>
-Mở Thiệp
-</button></div><section class="hero" id="hero"><div class="hero-decos"><img src="../../../shared/images/wedding/icons/cherry-blossom.webp" class="deco-cherry-tl" alt=""><img src="../../../shared/images/wedding/icons/cherry-blossom.webp" class="deco-cherry-br" alt=""><img src="../../../shared/images/wedding/icons/decorative-diamond.webp" class="deco-diamond-l" alt=""><img src="../../../shared/images/wedding/icons/decorative-diamond.webp" class="deco-diamond-r" alt=""><img src="../../../shared/images/wedding/icons/decorative-flowers.webp" class="deco-flower-l" alt=""><img src="../../../shared/images/wedding/icons/decorative-flowers.webp" class="deco-flower-r" alt=""></div><img src="../../../shared/images/wedding/icons/double-happiness.webp" class="hero-happiness" alt=""><p class="hero-label">Trân Trọng Kính Mời</p><h2 class="hero-names">Quốc Bảo<br><span class="hero-amp">&</span><br>Ngọc Ánh</h2><div class="hero-ornament-line"></div><p class="hero-title">Happy Wedding</p><p class="hero-date">23 Tháng 01, 2027</p><p class="hero-venue">Trung Tâm Hội Nghị ABC — Quận 3, TP. HCM</p><img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="hero-chibi" alt="Chibi couple"></section><div class="ornament">❦</div><section class="section couple-section" id="family"><div class="container text-center"><div class="section-heading animate-fade-up"><p class="section-subtitle">Gia Đình Hai Bên</p><h2 class="section-title">Thông Tin Gia Đình</h2></div><div class="family-grid"><div class="family-card animate-fade-up animate-delay-1"><div class="family-photo"><img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt="Chú rể"></div><p class="family-side">Nhà Trai</p><p class="family-parent">Ông Trần Văn Khoa</p><p class="family-role">& Bà Lê Thị Hương</p><div class="family-child"><p class="family-child-role">Chú Rể</p><p class="family-child-name">Trần Thế Bảo</p></div></div><div class="family-card animate-fade-up animate-delay-2"><div class="family-photo"><img src="../../../shared/images/wedding/korean-studio-gray/couple_4.webp" alt="Cô dâu"></div><p class="family-side">Nhà Gái</p><p class="family-parent">Ông Nguyễn Văn Tuấn</p><p class="family-role">& Bà Phạm Thị Kim Oanh</p><div class="family-child"><p class="family-child-role">Cô Dâu</p><p class="family-child-name">Lê Ngọc Ánh</p></div></div></div></div></section><div class="photo-strip animate-fade-up"><div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_2.webp" alt="" loading="lazy"></div><div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_2.webp" alt="" loading="lazy"></div><div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_5.webp" alt="" loading="lazy"></div></div><div class="ornament">✿</div><section class="section countdown-section" id="countdown"><div class="container text-center"><div class="section-heading animate-fade-up"><p class="section-subtitle">Save The Date</p><h2 class="section-title">Cùng Đếm Ngược</h2></div><div class="countdown-grid animate-fade-up animate-delay-1"><div class="countdown-item"><div class="countdown-num" id="days">00</div><div class="countdown-label">Ngày</div></div><div class="countdown-sep">:</div><div class="countdown-item"><div class="countdown-num" id="hours">00</div><div class="countdown-label">Giờ</div></div><div class="countdown-sep">:</div><div class="countdown-item"><div class="countdown-num" id="minutes">00</div><div class="countdown-label">Phút</div></div><div class="countdown-sep">:</div><div class="countdown-item"><div class="countdown-num" id="seconds">00</div><div class="countdown-label">Giây</div></div></div></div></section><section class="section--breathe story-section" id="story"><div class="container text-center"><div class="section-heading animate-fade-up"><p class="section-subtitle">Our Love Story</p><h2 class="section-title">Câu Chuyện Tình Yêu</h2></div></div><div class="container"><div class="timeline"><div class="timeline-item animate-fade-up"><div class="timeline-dot"></div><p class="timeline-date">Tháng 3, 2020</p><h3 class="timeline-title">Lần Đầu Gặp Nhau</h3><p class="timeline-desc">Một buổi chiều nắng đẹp, hai người tình cờ gặp nhau qua lời giới thiệu của bạn bè chung. Ánh mắt đầu tiên là sự rung động khó quên.</p><div class="timeline-photo"><img src="../../../shared/images/wedding/korean-studio-white/couple_4.webp" alt="" loading="lazy"></div></div><div class="timeline-item animate-fade-up animate-delay-1"><div class="timeline-dot"></div><p class="timeline-date">Tháng 9, 2020</p><h3 class="timeline-title">Chính Thức Yêu Nhau</h3><p class="timeline-desc">Sau nửa năm tìm hiểu, Quốc Bảo đã tỏ tình với Ngọc Ánh trong một đêm đầy sao. Từ đó, hai trái tim hoà cùng một nhịp đập.</p></div><div class="timeline-item animate-fade-up animate-delay-2"><div class="timeline-dot"></div><p class="timeline-date">Tháng 6, 2023</p><h3 class="timeline-title">Cùng Nhau Đi Xa</h3><p class="timeline-desc">Chuyến du lịch Đà Lạt — nơi tình yêu được nuôi lớn bởi sương mù, cà phê và những buổi sáng yên bình bên nhau.</p><div class="timeline-photo"><img src="../../../shared/images/wedding/korean-studio-gray/couple_4.webp" alt="" loading="lazy"></div></div><div class="timeline-item animate-fade-up animate-delay-3"><div class="timeline-dot"></div><p class="timeline-date">Tháng 12, 2025</p><h3 class="timeline-title">Lời Cầu Hôn</h3><p class="timeline-desc">Quốc Bảo bất ngờ quỳ gối cầu hôn Ngọc Ánh giữa bãi biển hoàng hôn. Câu trả lời "Có" đã mở ra chương mới hạnh phúc nhất.</p></div></div></div></section><div class="ornament">♡</div><section class="section event-section" id="events"><div class="container text-center"><div class="section-heading animate-fade-up"><p class="section-subtitle">Wedding Ceremony</p><h2 class="section-title">Lễ Cưới</h2></div><div class="event-grid"><div class="event-card animate-fade-up animate-delay-1"><div class="event-icon"><i data-lucide="home" style="width:22px;height:22px;"></i></div><p class="event-type">Lễ Vu Quy</p><p class="event-date">Thứ Bảy, 23/01/2027</p><p class="event-time">09:00 Sáng</p><p class="event-venue">Tư Gia Nhà Gái</p><p class="event-address">123 Nguyễn Huệ, Quận 1, TP. HCM</p></div><div class="event-card animate-fade-up animate-delay-2"><div class="event-icon"><i data-lucide="gem" style="width:22px;height:22px;"></i></div><p class="event-type">Lễ Thành Hôn</p><p class="event-date">Thứ Bảy, 23/01/2027</p><p class="event-time">18:00 Tối</p><p class="event-venue">Trung Tâm Hội Nghị ABC</p><p class="event-address">789 Điện Biên Phủ, Quận 3, TP. HCM</p></div></div></div></section><div class="photo-strip animate-fade-up"><div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt="" loading="lazy"></div><div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_6.webp" alt="" loading="lazy"></div><div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_3.webp" alt="" loading="lazy"></div></div><section class="section cal-section" id="calendar-month"><div class="container text-center"><div class="section-heading animate-fade-up"><p class="section-subtitle">Save The Date</p><h2 class="section-title">Ngày Trọng Đại</h2></div><div id="weddingCalendar" class="animate-fade-up animate-delay-1"></div></div></section><div class="fly-section"><div class="fly-wrapper animate-fade-up"><div class="fly-photo"><img src="../../../shared/images/wedding/korean-studio-white/couple_2.webp" alt="" loading="lazy"></div><img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="fly-chibi" alt="Chibi couple"><div class="fly-photo"><img src="../../../shared/images/wedding/korean-studio-white/couple_5.webp" alt="" loading="lazy"></div></div></div><section class="section gallery-section" id="gallery"><div class="container text-center"><div class="section-heading animate-fade-up"><p class="section-subtitle">Our Moments</p><h2 class="section-title">Album Ảnh Cưới</h2></div><div class="gallery-grid animate-fade-up animate-delay-1"><div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt="Gallery 1" loading="lazy"></div><div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_2.webp" alt="Gallery 2" loading="lazy"></div><div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_3.webp" alt="Gallery 3" loading="lazy"></div><div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_4.webp" alt="Gallery 4" loading="lazy"></div><div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_1.webp" alt="Gallery 5" loading="lazy"></div><div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_3.webp" alt="Gallery 6" loading="lazy"></div><div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_4.webp" alt="Gallery 7" loading="lazy"></div><div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_6.webp" alt="Gallery 8" loading="lazy"></div></div></div></section><div class="ornament">❦</div><section class="section rsvp-section" id="rsvp"><div class="container text-center"><div class="section-heading animate-fade-up"><p class="section-subtitle">RSVP</p><h2 class="section-title">Xác Nhận Tham Dự</h2></div><form class="rsvp-form animate-fade-up animate-delay-1" id="rsvpForm" onsubmit="return false;"><div class="rsvp-row"><label class="rsvp-label">Họ và tên *</label><input type="text" class="rsvp-input" placeholder="Nhập họ tên của bạn" required></div><div class="rsvp-row"><label class="rsvp-label">Số điện thoại</label><input type="tel" class="rsvp-input" placeholder="Nhập số điện thoại"></div><div class="rsvp-row"><label class="rsvp-label">Số khách tham dự</label><select class="rsvp-select"><option value="1">1 người</option><option value="2">2 người</option><option value="3">3 người</option><option value="4">4 người</option><option value="5">5 người</option></select></div><div class="rsvp-row"><label class="rsvp-label">Lời nhắn</label><textarea class="rsvp-textarea" placeholder="Lời nhắn gửi đến cô dâu chú rể..." rows="3"></textarea></div><button type="submit" class="rsvp-submit" id="rsvpSubmitBtn"><i data-lucide="check-circle" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:6px;"></i>Xác Nhận</button></form></div></section><section class="section wishes-section" id="wishes"><div class="container text-center"><div class="section-heading animate-fade-up"><p class="section-subtitle">Guestbook</p><h2 class="section-title">Sổ Lưu Bút</h2></div><div class="wishes-photo-accent animate-fade-up"><img src="../../../shared/images/wedding/korean-studio-gray/couple_2.webp" alt=""></div><form class="wishes-form animate-fade-up animate-delay-1" id="wishesForm" onsubmit="return false;"><input type="text" class="wishes-input" placeholder="Nhập tên của bạn *" id="wishName" required><textarea class="wishes-textarea" placeholder="Nhập lời chúc của bạn *" id="wishMessage" rows="3" required></textarea><button type="submit" class="wishes-submit" id="wishSubmitBtn"><i data-lucide="send" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:6px;"></i>Gửi Lời Chúc</button></form><div class="wishes-list" id="wishesList"><div class="wish-card animate-fade-up"><p class="wish-text">Chúc hai bạn trăm năm hạnh phúc, sớm có tin vui nhé!</p><p class="wish-author">— Minh Anh</p></div><div class="wish-card animate-fade-up animate-delay-1"><p class="wish-text">Congratulations! Wishing you both a lifetime of love and happiness.</p><p class="wish-author">— Thanh Tùng</p></div><div class="wish-card animate-fade-up animate-delay-2"><p class="wish-text">Hạnh phúc mãi mãi bên nhau nha! Thương hai đứa nhiều lắm.</p><p class="wish-author">— Thu Hà</p></div></div></div></section><div class="ornament">✿</div><section class="section gift-section" id="gift"><div class="container text-center"><div class="section-heading animate-fade-up"><p class="section-subtitle">Wedding Gift</p><h2 class="section-title">Hộp Mừng Cưới</h2></div><div class="gift-grid"><div class="gift-card animate-fade-up animate-delay-1"><div class="gift-bank-icon"><i data-lucide="landmark" style="width:24px;height:24px;"></i></div><p class="gift-bank-name">Vietcombank</p><p class="gift-account-name">Lê Ngọc Ánh</p><p class="gift-account-num">0123 4567 8901</p><button class="gift-copy-btn" data-account="0123456789001"><i data-lucide="copy" style="width:14px;height:14px;"></i> Sao chép STK</button></div><div class="gift-card animate-fade-up animate-delay-2"><div class="gift-bank-icon"><i data-lucide="landmark" style="width:24px;height:24px;"></i></div><p class="gift-bank-name">VietinBank</p><p class="gift-account-name">Trần Thế Bảo</p><p class="gift-account-num">9876 5432 1098</p><button class="gift-copy-btn" data-account="9876543210098"><i data-lucide="copy" style="width:14px;height:14px;"></i> Sao chép STK</button></div></div></div></section><section class="section--breathe thankyou-section" id="thankyou"><div class="container text-center"><img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="thankyou-chibi animate-fade-up" alt="Chibi couple"><p class="thankyou-text animate-fade-up animate-delay-1">Sự hiện diện của quý khách là niềm vinh hạnh<br>của gia đình chúng tôi!</p><p class="thankyou-names animate-fade-up animate-delay-2">Quốc Bảo & Ngọc Ánh</p></div></section><footer class="footer"><p>Made with ♥ by <a href="https://templexa.com" target="_blank">Templexa</a></p></footer><button id="musicToggle" class="music-toggle" aria-label="Toggle music"><i data-lucide="volume-2" class="music-icon-on" style="width:20px;height:20px;"></i><i data-lucide="volume-x" class="music-icon-off" style="width:20px;height:20px;"></i></button><audio id="bgMusic" loop preload="auto"><source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg"></audio><div class="lightbox" id="lightbox"><button class="lightbox-close" id="lightboxClose">✕</button><button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button><img src="" alt="Gallery" id="lightboxImg"><button class="lightbox-nav lightbox-next" id="lightboxNext">›</button></div><script>lucide.createIcons(); document.addEventListener('\x44\x4f\x4d\x43\x6f\x6e\x74\x65\x6e\x74\x4c\x6f\x61\x64\x65\x64', function() { var envelope = document.getElementById('\x65\x6e\x76\x65\x6c\x6f\x70\x65'); var envelopeBtn = document.getElementById('\x65\x6e\x76\x65\x6c\x6f\x70\x65\x42\x74\x6e'); var bgMusic = document.getElementById('\x62\x67\x4d\x75\x73\x69\x63'); var musicBtn = document.getElementById('\x6d\x75\x73\x69\x63\x54\x6f\x67\x67\x6c\x65'); var musicStarted = false; if (envelopeBtn && envelope) { envelopeBtn.addEventListener('\x63\x6c\x69\x63\x6b', function() { envelope.classList.add('\x6f\x70\x65\x6e\x65\x64'); document.body.classList.add('\x65\x6e\x76\x65\x6c\x6f\x70\x65\x2d\x6f\x70\x65\x6e\x65\x64'); if (bgMusic) { bgMusic.volume = 0.3; bgMusic.play().catch(function(){}); musicStarted = true; } setTimeout(function() { envelope.style.display = '\x6e\x6f\x6e\x65'; }, 900); }); } if (musicBtn && bgMusic) { bgMusic.volume = 0.3; musicBtn.addEventListener('\x63\x6c\x69\x63\x6b', function() { if (!musicStarted) { bgMusic.play(); musicStarted = true; } else if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('\x6d\x75\x74\x65\x64'); } else { bgMusic.pause(); musicBtn.classList.add('\x6d\x75\x74\x65\x64'); } }); } function updateCountdown() { var wd = new Date('2027-01-23T18:00:00').getTime(), now = Date.now(), diff = wd - now; if (diff <= 0) { document.querySelector('.countdown-grid').innerHTML = '<p style="font-size:1.2rem;color:var(--gold-light)">🎉 Hôn lễ đã diễn ra! 🎉</p>'; return; } var d = Math.floor(diff/864e5), h = Math.floor(diff%864e5/36e5), m = Math.floor(diff%36e5/6e4), s = Math.floor(diff%6e4/1e3); document.getElementById('\x64\x61\x79\x73').textContent = String(d).padStart(2,'0'); document.getElementById('hours').textContent = String(h).padStart(2,'0'); document.getElementById('minutes').textContent = String(m).padStart(2,'0'); document.getElementById('seconds').textContent = String(s).padStart(2,'0'); } updateCountdown(); setInterval(updateCountdown, 1000); var obs = new IntersectionObserver(function(entries) { entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('is-visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }); document.querySelectorAll('[class*="animate-"]').forEach(function(el) { obs.observe(el); }); var gImgs = [], lIdx = 0; document.querySelectorAll('.gallery-item img').forEach(function(img, i) { gImgs.push(img.src); img.addEventListener('click', function() { lIdx = i; showLB(); }); }); function showLB() { document.getElementById('lightboxImg').src = gImgs[lIdx]; document.getElementById('lightbox').classList.add('active'); } document.getElementById('lightboxClose').addEventListener('click', function() { document.getElementById('lightbox').classList.remove('active'); }); document.getElementById('lightboxPrev').addEventListener('click', function() { lIdx = (lIdx - 1 + gImgs.length) % gImgs.length; document.getElementById('lightboxImg').src = gImgs[lIdx]; }); document.getElementById('lightboxNext').addEventListener('click', function() { lIdx = (lIdx + 1) % gImgs.length; document.getElementById('lightboxImg').src = gImgs[lIdx]; }); document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); }); document.getElementById('rsvpForm').addEventListener('submit', function(e) { e.preventDefault(); var btn = document.getElementById('rsvpSubmitBtn'); btn.innerHTML = '✓ Đã gửi xác nhận!'; btn.style.opacity = '0.7'; btn.disabled = true; setTimeout(function() { btn.innerHTML = '<i data-lucide="check-circle" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:6px"></i>Xác Nhận'; btn.style.opacity = '1'; btn.disabled = false; lucide.createIcons(); }, 3000); }); document.getElementById('wishesForm').addEventListener('submit', function(e) { e.preventDefault(); var nm = document.getElementById('wishName').value.trim(), ms = document.getElementById('wishMessage').value.trim(); if (!nm || !ms) return; var c = document.createElement('div'); c.className = 'wish-card'; c.innerHTML = '<p class="wish-text">' + ms.replace(/</g,'&lt;'\x29\x20\x2b\x20'</p><p class="wish-author">— ' + nm.replace(/</g,'&lt;'\x29\x20\x2b\x20'</p>'; var l = document.getElementById('wishesList'); l.insertBefore(c, l.firstChild); document.getElementById('wishName').value = ''; document.getElementById('wishMessage').value = ''; }); document.querySelectorAll('.gift-copy-btn').forEach(function(btn) { btn.addEventListener('click', function() { var a = this.getAttribute('data-account'); navigator.clipboard.writeText(a).then(function() { btn.innerHTML = '<i data-lucide="check" style="width:14px;height:14px"></i> Đã sao chép!'; lucide.createIcons(); setTimeout(function() { btn.innerHTML = '<i data-lucide="copy" style="width:14px;height:14px"></i> Sao chép STK'; lucide.createIcons(); }, 2000); }); }); }); var petals = ['🌸','💮','🩷','✿']; function createPetal() { var p = document.createElement('div'); p.className = 'petal'; p.style.left = Math.random()*100+'vw'; p.style.animationDuration = (Math.random()*3+5)+'s'; p.style.opacity = String(Math.random()*0.5+0.3); p.style.fontSize = (Math.random()*8+10)+'px'; p.textContent = petals[Math.floor(Math.random()*petals.length)]; document.body.appendChild(p); setTimeout(function(){p.remove();},8000); } setInterval(createPetal, 900); function initCal(o) { var c = document.getElementById(o.containerId); if(!c) return; var mo=o.month, yr=o.year, ac=o.accentColor||'#D32F2F', ev=o.events||[]; var ms=['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12']; var ds=['CN','T2','T3','T4','T5','T6','T7']; var fd=new Date(yr,mo-1,1).getDay(), dm=new Date(yr,mo,0).getDate(); var h='<div style="max-width:340px;margin:0 auto;background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(183,28,28,0.08);border:1px solid '\x2b\x61\x63\x2b'22;transform:rotate(-0.5deg)">'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x68\x2b\x3d'<div style="background:'\x2b\x61\x63\x2b';color:white;padding:1rem;text-align:center"><div style="font-family:var(--font-heading);font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;opacity:0.7">'\x2b\x79\x72\x2b'</div><div style="font-family:var(--font-heading);font-size:1.2rem;letter-spacing:0.15em">'+ms[mo-1].toUpperCase()+'</div></div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x68\x2b\x3d'<div style="padding:1rem"><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center">'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x66\x6f\x72\x28\x76\x61\x72\x20\x64\x3d\x30\x3b\x64\x3c\x37\x3b\x64\x2b\x2b\x29\x20\x68\x2b\x3d'<div style="font-size:0.65rem;color:'\x2b\x61\x63\x2b';font-weight:500;padding:4px 0;letter-spacing:0.1em">'\x2b\x64\x73\x5b\x64\x5d\x2b'</div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x66\x6f\x72\x28\x76\x61\x72\x20\x62\x3d\x30\x3b\x62\x3c\x66\x64\x3b\x62\x2b\x2b\x29\x20\x68\x2b\x3d'<div></div>'; for(var day=1;day<=dm;day++){ var e=null; for(var i=0;i<ev.length;i++){if(ev[i].day===day){e=ev[i];break;}} if(e){h+='<div style="position:relative" title="'+(e.label||'')+'"><div style="width:32px;height:32px;border-radius:50%;background:'+(e.color||ac)+';color:white;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:0.8rem;font-weight:600;box-shadow:0 2px 8px '+(e.color||ac)+'\x34\x34\x22\x3e'+day+'</div>';if(e.label)h+='<div style="font-size:0.5rem;color:'+(e.color||ac)+';margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:50px;margin-left:auto;margin-right:auto">'+e.label+'</div>';h+='</div>';} else{var td=(day===new Date().getDate()&&mo===new Date().getMonth()+1&&yr===new Date().getFullYear());h+='<div style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:0.8rem;color:#5D4037;border-radius:50%'+(td?';border:1px solid '+ac+';font-weight:600':'')+'">'\x2b\x20\x64\x61\x79\x2b'</div>'\x3b\x7d\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x7d\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x68\x2b\x3d'</div></div>'; if(ev.length>0){h+='<div style="padding:0 1rem 1rem;border-top:1px solid #f5f5f5;margin-top:0.5rem;padding-top:0.8rem">';for(var j=0;j<ev.length;j++)h+='<div style="display:flex;align-items:center;gap:6px;font-size:0.7rem;color:#795548;margin-bottom:4px"><span style="width:8px;height:8px;border-radius:50%;background:'+(ev[j].color||ac)+';flex-shrink:0"></span><span>'+(ev[j].label||'Ngày '+ev[j].day)+'</span></div>'\x3b\x68\x2b\x3d'</div>'\x3b\x7d\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x68\x2b\x3d'</div>'; c.innerHTML=h; } initCal({ containerId:'weddingCalendar', month:1, year:2027, accentColor:'#D32F2F', events:[{day:23,color:'#D32F2F',label:'18:00 — Lễ Thành Hôn'}] }); });</script></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới - Quốc Bảo & Ngọc Ánh</title>
+    <meta name="description" content="Trân trọng kính mời quý khách tới dự lễ thành hôn của Quốc Bảo & Ngọc Ánh — 23/01/2027">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --font-script: 'Dancing Script', cursive;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Be Vietnam Pro', sans-serif;
+            --font-accent: 'Cormorant Garamond', serif;
+            --red: #D32F2F;
+            --red-deep: #B71C1C;
+            --red-dark: #7f0000;
+            --red-soft: #EF5350;
+            --red-light: #FFCDD2;
+            --red-bg: #FFF5F5;
+            --pink: #F48FB1;
+            --pink-light: #FCE4EC;
+            --gold: #D4AF37;
+            --gold-light: #F5E6C8;
+            --cream: #FFFAF0;
+            --white: #FFFFFF;
+            --dark: #3E2723;
+            --dark-soft: #5D4037;
+            --text-main: #4E342E;
+            --text-sub: #795548;
+            --text-faint: #A1887F;
+            --shadow-soft: 0 4px 20px rgba(183,28,28,0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow: hidden;
+            font-weight: 300;
+        }
+        body::before {
+            content: '';
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(211,47,47,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(244,143,177,0.03) 0%, transparent 50%);
+        }
+        body.envelope-opened { overflow: auto; }
+
+        /* ===== COMMON ===== */
+        .section { padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 2rem); position: relative; }
+        .section--breathe { padding: clamp(5rem, 12vw, 7rem) clamp(1rem, 5vw, 2rem); position: relative; }
+        .section--compact { padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 5vw, 2rem); position: relative; }
+        .container { max-width: 680px; margin: 0 auto; }
+        .text-center { text-align: center; }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-weight: 500;
+            color: var(--red-deep);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+        .section-subtitle {
+            font-family: var(--font-accent);
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            font-style: italic;
+            color: var(--text-faint);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .section-heading { margin-bottom: clamp(2rem, 5vw, 3rem); }
+
+        /* Ornament divider */
+        .ornament {
+            text-align: center;
+            padding: 1.2rem 0;
+            color: var(--red);
+            font-size: 0.75rem;
+            letter-spacing: 0.5em;
+        }
+        .ornament::before, .ornament::after {
+            content: '';
+            display: inline-block;
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red-light), transparent);
+            vertical-align: middle;
+            margin: 0 14px;
+        }
+
+        /* Scroll reveal */
+        [class*="animate-"] { opacity: 0; transform: translateY(20px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        [class*="animate-"].is-visible { opacity: 1; transform: translateY(0); }
+        .animate-delay-1 { transition-delay: 0.1s; }
+        .animate-delay-2 { transition-delay: 0.2s; }
+        .animate-delay-3 { transition-delay: 0.3s; }
+        .animate-delay-4 { transition-delay: 0.4s; }
+        .animate-delay-5 { transition-delay: 0.5s; }
+
+        /* ===== ENVELOPE ===== */
+        .envelope {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #FFF5F5 0%, #FFEBEE 50%, #FFCDD2 100%);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            text-align: center;
+            padding: 2rem;
+        }
+        .envelope.opened { opacity: 0; transform: scale(1.1); pointer-events: none; }
+        .envelope-decos { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+        .envelope-decos img { position: absolute; opacity: 0.15; }
+        .envelope-decos .deco-tl { top: -20px; left: -20px; width: 180px; transform: rotate(-15deg); }
+        .envelope-decos .deco-tr { top: -10px; right: -30px; width: 160px; transform: rotate(20deg); }
+        .envelope-decos .deco-bl { bottom: -20px; left: -10px; width: 140px; transform: rotate(10deg); }
+        .envelope-decos .deco-br { bottom: -30px; right: -20px; width: 170px; transform: scaleX(-1) rotate(-10deg); }
+        .envelope-happiness {
+            width: clamp(60px, 15vw, 90px);
+            margin-bottom: 1rem;
+            animation: pulse-gentle 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 4px 12px rgba(211,47,47,0.2));
+        }
+        @keyframes pulse-gentle { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .envelope-label {
+            font-family: var(--font-accent);
+            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            color: var(--text-faint);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+        .envelope-names {
+            font-family: var(--font-script);
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            color: var(--red-deep);
+            line-height: 1.2;
+            margin-bottom: 0.4rem;
+        }
+        .envelope-date {
+            font-family: var(--font-accent);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: var(--text-sub);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.4rem;
+        }
+        .envelope-invite {
+            font-family: var(--font-accent);
+            font-size: 1rem;
+            color: var(--text-faint);
+            letter-spacing: 0.1em;
+            margin-bottom: 1.2rem;
+        }
+        .envelope-chibi {
+            width: clamp(180px, 45vw, 280px);
+            margin-bottom: 1rem;
+            animation: float-gentle 4s ease-in-out infinite;
+            filter: drop-shadow(0 8px 24px rgba(0,0,0,0.1));
+        }
+        @keyframes float-gentle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* Peek photos dưới chibi */
+        .envelope-peek {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 1.5rem;
+            position: relative;
+            width: 240px;
+            height: 70px;
+        }
+        .envelope-peek-photo {
+            width: 95px;
+            height: 65px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            border: 3px solid white;
+            position: absolute;
+        }
+        .envelope-peek-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 30% center; }
+        .envelope-peek-photo:first-child { left: 15px; bottom: 0; transform: rotate(-7deg); }
+        .envelope-peek-photo:last-child { right: 15px; bottom: 4px; transform: rotate(5deg); }
+
+        .envelope-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 48px;
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--red), var(--red-deep));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(211,47,47,0.35);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .envelope-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(211,47,47,0.45); }
+        .hero-amp {
+            font-family: var(--font-accent);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--red);
+            font-style: italic;
+            margin: 0 0.3em;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            position: relative;
+            background: linear-gradient(180deg, var(--red-bg) 0%, var(--cream) 100%);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(211,47,47,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 85% 80%, rgba(244,143,177,0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-decos { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+        .hero-decos img { position: absolute; opacity: 0.12; }
+        .hero-decos .deco-cherry-tl { top: 20px; left: -30px; width: 220px; transform: rotate(-10deg); }
+        .hero-decos .deco-cherry-br { bottom: 40px; right: -40px; width: 200px; transform: scaleX(-1) rotate(5deg); }
+        .hero-decos .deco-diamond-l { top: 50%; left: 10px; width: 40px; opacity: 0.08; }
+        .hero-decos .deco-diamond-r { top: 30%; right: 15px; width: 35px; opacity: 0.08; }
+        .hero-decos .deco-flower-l { bottom: 120px; left: 20px; width: 80px; opacity: 0.1; transform: rotate(-20deg); }
+        .hero-decos .deco-flower-r { top: 100px; right: 20px; width: 70px; opacity: 0.1; transform: rotate(15deg); }
+
+        .hero-happiness {
+            width: clamp(50px, 12vw, 70px);
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 2px 8px rgba(211,47,47,0.15));
+            animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+        }
+        .hero-label { font-family: var(--font-accent); font-size: clamp(0.7rem, 2vw, 0.85rem); color: var(--text-faint); letter-spacing: 0.35em; text-transform: uppercase; margin-bottom: 0.8rem; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
+        .hero-names { font-family: var(--font-script); font-size: clamp(3rem, 10vw, 5rem); color: var(--red-deep); line-height: 1.15; margin-bottom: 0.3rem; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s both; }
+        .hero-ornament-line { width: 80px; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); margin: 0.8rem auto; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s both; }
+        .hero-title { font-family: var(--font-heading); font-size: clamp(0.65rem, 2vw, 0.8rem); color: var(--text-sub); letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 1rem; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.55s both; }
+        .hero-date { font-family: var(--font-accent); font-size: clamp(1rem, 3vw, 1.3rem); color: var(--red); letter-spacing: 0.1em; margin-bottom: 0.5rem; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.6s both; }
+        .hero-venue { font-family: var(--font-body); font-size: clamp(0.75rem, 2vw, 0.85rem); color: var(--text-faint); letter-spacing: 0.05em; font-weight: 300; animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s both; }
+        .hero-chibi { width: clamp(200px, 50vw, 320px); margin-top: 1.5rem; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.1)); animation: suh 0.8s cubic-bezier(0.16,1,0.3,1) 0.8s both; }
+        @keyframes suh { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== PHOTO STRIP ===== */
+        .photo-strip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+        .photo-strip-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border: 4px solid white;
+            flex-shrink: 0;
+        }
+        .photo-strip-item img { width: 100%; height: 100%; object-fit: cover; object-position: 30% center; display: block; }
+        .photo-strip-item:nth-child(1) { width: 130px; height: 170px; transform: rotate(-4deg) translateY(10px); z-index: 1; }
+        .photo-strip-item:nth-child(2) { width: 155px; height: 200px; transform: rotate(1deg); margin-left: -15px; z-index: 3; }
+        .photo-strip-item:nth-child(3) { width: 120px; height: 155px; transform: rotate(3.5deg) translateY(15px); margin-left: -12px; z-index: 2; }
+        @media (max-width: 480px) {
+            .photo-strip-item:nth-child(1) { width: 90px; height: 120px; }
+            .photo-strip-item:nth-child(2) { width: 110px; height: 145px; }
+            .photo-strip-item:nth-child(3) { width: 85px; height: 110px; }
+        }
+
+        /* ===== COUPLE / FAMILY ===== */
+        .couple-section { background: var(--white); }
+        .family-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1.2rem, 3vw, 2rem);
+        }
+        .family-card {
+            text-align: center;
+            padding: clamp(1.5rem, 4vw, 2rem);
+            background: var(--red-bg);
+            border-radius: 22px;
+            border: 1px solid var(--red-light);
+            position: relative;
+            transition: transform 0.4s;
+        }
+        .family-card:first-child { transform: rotate(-1deg); }
+        .family-card:last-child { transform: rotate(0.8deg); margin-top: 12px; }
+        .family-card:hover { transform: rotate(0deg) translateY(-3px); }
+        .family-card::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(90deg, var(--red), var(--gold)); border-radius: 2px; }
+        .family-side { font-family: var(--font-heading); font-size: clamp(0.6rem, 1.8vw, 0.7rem); color: var(--red); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.8rem; margin-top: 0.5rem; }
+        .family-parent { font-family: var(--font-accent); font-size: clamp(1rem, 2.5vw, 1.15rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
+        .family-role { font-size: 0.75rem; color: var(--text-faint); letter-spacing: 0.1em; }
+        .family-child { margin-top: 1rem; padding-top: 0.8rem; border-top: 1px dashed var(--red-light); }
+        .family-child-name { font-family: var(--font-script); font-size: clamp(1.8rem, 5vw, 2.5rem); color: var(--red-deep); line-height: 1.2; }
+        .family-child-role { font-size: 0.72rem; color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; }
+        /* Family photos */
+        .family-photo {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 0.8rem;
+            border: 3px solid var(--red-light);
+            box-shadow: 0 4px 12px rgba(183,28,28,0.1);
+        }
+        .family-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 30% top; }
+        @media (max-width: 560px) {
+            .family-grid { grid-template-columns: 1fr; }
+            .family-card:first-child { transform: rotate(-0.5deg); }
+            .family-card:last-child { transform: rotate(0.5deg); margin-top: 0; }
+        }
+
+        /* ===== COUNTDOWN ===== */
+        .countdown-section {
+            background: linear-gradient(135deg, var(--red-deep) 0%, var(--red-dark) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .countdown-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url('../../../shared/images/wedding/korean-studio-gray/couple_2.webp') center/cover no-repeat;
+            opacity: 0.06; filter: blur(2px) grayscale(30%);
+            pointer-events: none;
+        }
+        .countdown-section .section-title { color: var(--gold-light); }
+        .countdown-section .section-subtitle { color: rgba(255,255,255,0.5); }
+        .countdown-grid { display: flex; justify-content: center; gap: clamp(0.8rem, 3vw, 1.5rem); flex-wrap: wrap; }
+        .countdown-item {
+            text-align: center;
+            min-width: 72px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            padding: clamp(0.8rem, 2vw, 1.2rem) clamp(0.6rem, 2vw, 1rem);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .countdown-item:nth-child(1) { transform: rotate(-1.5deg); }
+        .countdown-item:nth-child(3) { transform: translateY(-6px); }
+        .countdown-item:nth-child(5) { transform: rotate(1deg); }
+        .countdown-item:nth-child(7) { transform: rotate(-0.5deg) translateY(4px); }
+        .countdown-num { font-family: var(--font-heading); font-size: clamp(2rem, 6vw, 3rem); font-weight: 600; color: var(--white); line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .countdown-label { font-family: var(--font-accent); font-size: clamp(0.6rem, 1.5vw, 0.72rem); color: rgba(255,255,255,0.5); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.3rem; }
+        .countdown-sep { font-family: var(--font-heading); font-size: clamp(1.5rem, 4vw, 2rem); color: rgba(255,255,255,0.2); align-self: center; }
+
+        /* ===== LOVE STORY ===== */
+        .story-section { background: var(--white); position: relative; overflow: hidden; }
+        .story-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url('../../../shared/images/wedding/korean-studio-gray/couple_4.webp') center top/cover no-repeat;
+            opacity: 0.04; filter: blur(3px);
+            pointer-events: none;
+        }
+        .timeline { position: relative; max-width: 520px; margin: 0 auto; padding-left: 30px; }
+        .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--red-light), var(--red), var(--red-light)); }
+        .timeline-item { position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item:nth-child(even) { transform: translateX(6px); }
+        .timeline-dot { position: absolute; left: -26px; top: 6px; width: 18px; height: 18px; background: var(--white); border: 3px solid var(--red); border-radius: 50%; z-index: 1; }
+        .timeline-dot::after { content: ''; position: absolute; inset: 3px; background: var(--red); border-radius: 50%; }
+        .timeline-date { font-family: var(--font-accent); font-size: 0.8rem; color: var(--red); letter-spacing: 0.1em; font-style: italic; margin-bottom: 0.2rem; }
+        .timeline-title { font-family: var(--font-accent); font-size: clamp(0.95rem, 2.5vw, 1.15rem); font-weight: 600; color: var(--text-main); letter-spacing: 0.03em; margin-bottom: 0.3rem; }
+        .timeline-desc { font-size: clamp(0.8rem, 2vw, 0.88rem); color: var(--text-sub); line-height: 1.6; font-weight: 300; }
+        .timeline-photo {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-top: 0.8rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border: 3px solid white;
+        }
+        .timeline-photo:nth-of-type(odd) { transform: rotate(-1.5deg); }
+        .timeline-photo:nth-of-type(even) { transform: rotate(1deg); margin-left: auto; }
+        .timeline-photo img { width: 100%; height: auto; display: block; }
+
+        /* ===== EVENT CARDS ===== */
+        .event-section { background: var(--red-bg); }
+        .event-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 3vw, 1.5rem); }
+        .event-card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: clamp(1.5rem, 4vw, 2rem);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--red-light);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s;
+        }
+        .event-card:first-child { transform: rotate(-0.8deg); }
+        .event-card:last-child { transform: rotate(0.5deg); margin-top: 10px; }
+        .event-card:hover { transform: rotate(0deg) translateY(-3px); }
+        .event-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--red), var(--gold)); }
+        .event-icon { width: 50px; height: 50px; border-radius: 50%; background: var(--red-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--red); }
+        .event-type { font-family: var(--font-heading); font-size: clamp(0.6rem, 1.8vw, 0.7rem); color: var(--red); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.8rem; }
+        .event-date { font-family: var(--font-accent); font-size: clamp(0.95rem, 2.5vw, 1.1rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
+        .event-time { font-size: 0.85rem; color: var(--red); font-weight: 500; margin-bottom: 0.5rem; }
+        .event-venue { font-family: var(--font-accent); font-size: clamp(0.85rem, 2.2vw, 0.95rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.2rem; }
+        .event-address { font-size: 0.78rem; color: var(--text-faint); line-height: 1.5; }
+        @media (max-width: 560px) {
+            .event-grid { grid-template-columns: 1fr; }
+            .event-card:first-child { transform: rotate(-0.5deg); }
+            .event-card:last-child { transform: rotate(0.3deg); margin-top: 0; }
+        }
+
+        /* ===== CALENDAR MONTH ===== */
+        .cal-section { background: var(--white); position: relative; overflow: hidden; }
+        .cal-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 50%;
+            background: url('../../../shared/images/wedding/korean-studio-white/couple_1.webp') center top/cover no-repeat;
+            opacity: 0.04; mask-image: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 100%); -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* ===== FLY PHOTOS ===== */
+        .fly-section {
+            padding: clamp(2rem, 5vw, 3rem) 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .fly-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            position: relative;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        .fly-photo {
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+            border: 4px solid white;
+            flex-shrink: 0;
+        }
+        .fly-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .fly-photo:first-child { width: 150px; height: 200px; transform: rotate(-3deg); z-index: 1; }
+        .fly-chibi {
+            width: clamp(120px, 30vw, 180px);
+            margin: 0 -20px;
+            z-index: 3;
+            filter: drop-shadow(0 6px 18px rgba(0,0,0,0.1));
+            animation: float-gentle 5s ease-in-out infinite;
+        }
+        .fly-photo:last-child { width: 140px; height: 185px; transform: rotate(2.5deg) translateY(12px); z-index: 1; }
+        @media (max-width: 480px) {
+            .fly-photo:first-child { width: 100px; height: 135px; }
+            .fly-photo:last-child { width: 95px; height: 125px; }
+        }
+
+        /* ===== GALLERY — ORGANIC MASONRY ===== */
+        .gallery-section { background: var(--red-bg); }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .gallery-item {
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+            border: 3px solid white;
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; object-position: 30% center; display: block; transition: transform 0.5s; }
+        .gallery-item:hover img { transform: scale(1.06); }
+        .gallery-item:hover { z-index: 2; }
+        /* Organic sizes + rotation */
+        .gallery-item:nth-child(1) { aspect-ratio: 0.85; transform: rotate(-1.5deg); }
+        .gallery-item:nth-child(2) { aspect-ratio: 1.1; grid-row: span 1; transform: rotate(0.5deg) translateY(8px); }
+        .gallery-item:nth-child(3) { aspect-ratio: 0.9; transform: rotate(2deg); }
+        .gallery-item:nth-child(4) { aspect-ratio: 1.15; transform: rotate(1deg) translateY(-5px); }
+        .gallery-item:nth-child(5) { aspect-ratio: 0.8; transform: rotate(-2deg) translateY(10px); }
+        .gallery-item:nth-child(6) { aspect-ratio: 1; transform: rotate(0.8deg); }
+        .gallery-item:nth-child(7) { aspect-ratio: 1.05; transform: rotate(-0.5deg) translateY(6px); grid-column: 1 / 2; }
+        .gallery-item:nth-child(8) { aspect-ratio: 0.85; transform: rotate(1.5deg); grid-column: 2 / 3; }
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        }
+
+        /* Lightbox */
+        .lightbox { position: fixed; inset: 0; z-index: 8000; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; padding: 2rem; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 85vh; object-fit: contain; border-radius: 8px; }
+        .lightbox-close { position: absolute; top: 20px; right: 24px; color: white; background: rgba(255,255,255,0.15); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
+        .lightbox-close:hover { background: rgba(255,255,255,0.3); }
+        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); color: white; background: rgba(255,255,255,0.15); border: none; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+        .lightbox-prev { left: 16px; }
+        .lightbox-next { right: 16px; }
+
+        /* ===== RSVP ===== */
+        .rsvp-section {
+            background: linear-gradient(135deg, var(--red) 0%, var(--red-deep) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .rsvp-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url('../../../shared/images/wedding/korean-studio-white/couple_3.webp') center/cover no-repeat;
+            opacity: 0.06; filter: blur(3px);
+            pointer-events: none;
+        }
+        .rsvp-section .section-title { color: var(--gold-light); }
+        .rsvp-section .section-subtitle { color: rgba(255,255,255,0.5); }
+        .rsvp-form { max-width: 440px; margin: 0 auto; position: relative; }
+        .rsvp-row { margin-bottom: 1rem; }
+        .rsvp-label { display: block; font-size: 0.78rem; color: rgba(255,255,255,0.7); letter-spacing: 0.1em; margin-bottom: 0.3rem; text-align: left; }
+        .rsvp-input, .rsvp-select, .rsvp-textarea { width: 100%; padding: 12px 16px; font-family: var(--font-body); font-size: 0.88rem; color: var(--text-main); background: var(--white); border: 2px solid transparent; border-radius: 14px; outline: none; transition: border-color 0.3s; }
+        .rsvp-input:focus, .rsvp-select:focus, .rsvp-textarea:focus { border-color: var(--gold); }
+        .rsvp-textarea { resize: vertical; min-height: 80px; }
+        .rsvp-submit { width: 100%; padding: 14px; font-family: var(--font-heading); font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-deep); background: linear-gradient(135deg, var(--gold), var(--gold-light)); border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 6px 20px rgba(212,175,55,0.3); transition: transform 0.3s; margin-top: 0.5rem; }
+        .rsvp-submit:hover { transform: translateY(-2px); }
+
+        /* ===== WISHES ===== */
+        .wishes-section { background: var(--white); }
+        .wishes-form { max-width: 440px; margin: 0 auto 2rem; }
+        .wishes-input, .wishes-textarea { width: 100%; padding: 12px 16px; font-family: var(--font-body); font-size: 0.88rem; color: var(--text-main); background: var(--red-bg); border: 2px solid var(--red-light); border-radius: 14px; outline: none; margin-bottom: 0.8rem; transition: border-color 0.3s; }
+        .wishes-input:focus, .wishes-textarea:focus { border-color: var(--red); }
+        .wishes-textarea { resize: vertical; min-height: 80px; }
+        .wishes-submit { width: 100%; padding: 12px; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); background: linear-gradient(135deg, var(--red), var(--red-deep)); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.3s; }
+        .wishes-submit:hover { transform: translateY(-2px); }
+        .wishes-list { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+        .wish-card {
+            background: var(--red-bg);
+            border-radius: 18px;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid var(--red-light);
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .wish-card:nth-child(odd) { transform: rotate(-0.5deg); }
+        .wish-card:nth-child(even) { transform: rotate(0.4deg) translateX(8px); }
+        .wish-card:hover { transform: rotate(0deg) translateY(-2px); }
+        .wish-card::before { content: '\201C'; font-family: var(--font-accent); font-size: 2.5rem; color: var(--red-light); position: absolute; top: 5px; left: 12px; line-height: 1; }
+        .wish-text { font-family: var(--font-accent); font-size: 0.95rem; color: var(--text-main); font-style: italic; line-height: 1.6; padding-left: 1rem; }
+        .wish-author { font-size: 0.78rem; color: var(--red); font-weight: 500; margin-top: 0.5rem; padding-left: 1rem; }
+        /* Small photo accent in wishes */
+        .wishes-photo-accent {
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--red-light);
+            box-shadow: 0 4px 16px rgba(183,28,28,0.1);
+        }
+        .wishes-photo-accent img { width: 100%; height: 100%; object-fit: cover; object-position: 30% top; }
+
+        /* ===== GIFT BOX ===== */
+        .gift-section { background: var(--red-bg); }
+        .gift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 3vw, 1.5rem); }
+        .gift-card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: clamp(1.5rem, 4vw, 2rem);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--red-light);
+            transition: transform 0.4s;
+        }
+        .gift-card:first-child { transform: rotate(-1deg); }
+        .gift-card:last-child { transform: rotate(0.6deg); margin-top: 10px; }
+        .gift-card:hover { transform: rotate(0deg) translateY(-3px); }
+        .gift-bank-icon { width: 50px; height: 50px; border-radius: 14px; background: var(--red-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--red); }
+        .gift-bank-name { font-family: var(--font-heading); font-size: clamp(0.65rem, 1.8vw, 0.75rem); color: var(--red); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .gift-account-name { font-family: var(--font-accent); font-size: clamp(0.9rem, 2.2vw, 1rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
+        .gift-account-num { font-size: 0.85rem; color: var(--text-sub); letter-spacing: 0.05em; margin-bottom: 1rem; }
+        .gift-copy-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; font-family: var(--font-body); font-size: 0.75rem; color: var(--red); background: var(--red-bg); border: 1px solid var(--red-light); border-radius: 50px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+        .gift-copy-btn:hover { background: var(--red); color: var(--white); }
+        @media (max-width: 480px) {
+            .gift-grid { grid-template-columns: 1fr; }
+            .gift-card:first-child, .gift-card:last-child { transform: none; margin-top: 0; }
+        }
+
+        /* ===== THANK YOU ===== */
+        .thankyou-section {
+            background: linear-gradient(135deg, var(--red-deep) 0%, var(--red-dark) 100%);
+            color: var(--white); text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .thankyou-section::before {
+            content: ''; position: absolute; inset: 0;
+            background: url('../../../shared/images/wedding/korean-studio-gray/couple_1.webp') center/cover no-repeat;
+            opacity: 0.06; filter: blur(2px);
+            pointer-events: none;
+        }
+        .thankyou-chibi { width: clamp(160px, 38vw, 250px); margin-bottom: 1.5rem; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.15)); position: relative; }
+        .thankyou-text { font-family: var(--font-accent); font-size: clamp(1rem, 2.5vw, 1.2rem); color: rgba(255,255,255,0.8); font-style: italic; line-height: 1.7; max-width: 400px; margin: 0 auto 1.5rem; position: relative; }
+        .thankyou-names { font-family: var(--font-script); font-size: clamp(2rem, 6vw, 3rem); color: var(--gold-light); position: relative; }
+
+        /* ===== FOOTER ===== */
+        .footer { background: var(--red-dark); color: rgba(255,255,255,0.4); text-align: center; padding: 1.5rem 1rem; font-size: 0.75rem; }
+        .footer a { color: var(--gold); text-decoration: none; }
+
+        /* ===== MUSIC ===== */
+        .music-toggle { position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px; border-radius: 50%; border: none; background: linear-gradient(135deg, var(--red), var(--red-deep)); color: white; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(183,28,28,0.3); transition: transform 0.2s; }
+        .music-toggle:hover { transform: scale(1.1); }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* ===== CHERRY BLOSSOM ===== */
+        .petal { position: fixed; top: -20px; z-index: 9998; pointer-events: none; animation: petal-fall linear forwards; }
+        @keyframes petal-fall {
+            0% { opacity: 0.8; transform: translateY(0) rotate(0deg) translateX(0); }
+            25% { transform: translateY(27vh) rotate(180deg) translateX(30px); }
+            50% { transform: translateY(55vh) rotate(360deg) translateX(-20px); }
+            75% { transform: translateY(82vh) rotate(540deg) translateX(25px); }
+            100% { opacity: 0; transform: translateY(110vh) rotate(720deg) translateX(-10px); }
+        }
+
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.15); } 50% { transform: scale(1); } 75% { transform: scale(1.1); } }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero-chibi { width: clamp(170px, 55vw, 260px); }
+            .envelope-chibi { width: clamp(150px, 45vw, 230px); }
+        }
+        @media (max-width: 480px) {
+            .section { padding: clamp(2.5rem, 8vw, 3.5rem) 1rem; }
+        }
+    </style>
+</head>
+<body><script>
+(function(){
+  var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"];
+  var _h=location.hostname;
+  var _ok=false;
+  for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'+_d[i])){_ok=true;break;}}
+  if(!_ok&&_h!==''){
+    document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https://phuocpt98.github.io/Templexa/" style="color:#7DA06D;">Truy cập Templexa</a></div></div>';
+    throw new Error('Domain not authorized');
+  }
+})();
+(function(){
+  // Chặn right-click
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  // Chặn Ctrl+S, Ctrl+U, Ctrl+Shift+I, F12
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();}
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();}
+    if(e.key==='F12'){e.preventDefault();}
+  });
+  // Chặn drag ảnh
+  document.addEventListener('dragstart',function(e){e.preventDefault();});
+  // Chặn select text (trừ input/textarea)
+  document.addEventListener('selectstart',function(e){
+    if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();}
+  });
+})();
+(function(){
+  var _w=document.createElement('div');
+  _w.setAttribute('data-t','VGVtcGxleGF8Z2VuX2Nsb25lX2NoaWJpLXJlZHwyMDI2LTAzLTMwfHBodW9jcHQ5OA==');
+  _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;';
+  document.body.appendChild(_w);
+})();</script>
+
+<!-- ===== ENVELOPE ===== -->
+<div class="envelope" id="envelope">
+    <div class="envelope-decos">
+        <img src="../../../shared/images/wedding/icons/cherry-blossom.webp" class="deco-tl" alt="">
+        <img src="../../../shared/images/wedding/icons/cherry-blossom.webp" class="deco-tr" alt="">
+        <img src="../../../shared/images/wedding/icons/decorative-flowers.webp" class="deco-bl" alt="">
+        <img src="../../../shared/images/wedding/icons/decorative-flowers.webp" class="deco-br" alt="">
+    </div>
+    <img src="../../../shared/images/wedding/icons/double-happiness.webp" class="envelope-happiness" alt="Song hỷ">
+    <p class="envelope-label">Trân Trọng Kính Mời</p>
+    <h1 class="envelope-names">Quốc Bảo<br><span class="hero-amp">&</span><br>Ngọc Ánh</h1>
+    <p class="envelope-date">23 . 01 . 2027</p>
+    <p class="envelope-invite">Happy Wedding</p>
+    <img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="envelope-chibi" alt="Chibi couple">
+    <!-- Peek photos dưới chibi -->
+    <div class="envelope-peek">
+        <div class="envelope-peek-photo"><img src="../../../shared/images/wedding/korean-studio-gray/couple_4.webp" alt=""></div>
+        <div class="envelope-peek-photo"><img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt=""></div>
+    </div>
+    <button class="envelope-btn" id="envelopeBtn">
+        <i data-lucide="heart" style="width:16px;height:16px;"></i>
+        Mở Thiệp
+    </button>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+    <div class="hero-decos">
+        <img src="../../../shared/images/wedding/icons/cherry-blossom.webp" class="deco-cherry-tl" alt="">
+        <img src="../../../shared/images/wedding/icons/cherry-blossom.webp" class="deco-cherry-br" alt="">
+        <img src="../../../shared/images/wedding/icons/decorative-diamond.webp" class="deco-diamond-l" alt="">
+        <img src="../../../shared/images/wedding/icons/decorative-diamond.webp" class="deco-diamond-r" alt="">
+        <img src="../../../shared/images/wedding/icons/decorative-flowers.webp" class="deco-flower-l" alt="">
+        <img src="../../../shared/images/wedding/icons/decorative-flowers.webp" class="deco-flower-r" alt="">
+    </div>
+    <img src="../../../shared/images/wedding/icons/double-happiness.webp" class="hero-happiness" alt="">
+    <p class="hero-label">Trân Trọng Kính Mời</p>
+    <h2 class="hero-names">Quốc Bảo<br><span class="hero-amp">&</span><br>Ngọc Ánh</h2>
+    <div class="hero-ornament-line"></div>
+    <p class="hero-title">Happy Wedding</p>
+    <p class="hero-date">23 Tháng 01, 2027</p>
+    <p class="hero-venue">Trung Tâm Hội Nghị ABC — Quận 3, TP. HCM</p>
+    <img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="hero-chibi" alt="Chibi couple">
+</section>
+
+<!-- Ornament -->
+<div class="ornament">❦</div>
+
+<!-- ===== COUPLE / FAMILY ===== -->
+<section class="section couple-section" id="family">
+    <div class="container text-center">
+        <div class="section-heading animate-fade-up">
+            <p class="section-subtitle">Gia Đình Hai Bên</p>
+            <h2 class="section-title">Thông Tin Gia Đình</h2>
+        </div>
+        <div class="family-grid">
+            <div class="family-card animate-fade-up animate-delay-1">
+                <div class="family-photo"><img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt="Chú rể"></div>
+                <p class="family-side">Nhà Trai</p>
+                <p class="family-parent">Ông Trần Văn Khoa</p>
+                <p class="family-role">& Bà Lê Thị Hương</p>
+                <div class="family-child">
+                    <p class="family-child-role">Chú Rể</p>
+                    <p class="family-child-name">Trần Thế Bảo</p>
+                </div>
+            </div>
+            <div class="family-card animate-fade-up animate-delay-2">
+                <div class="family-photo"><img src="../../../shared/images/wedding/korean-studio-gray/couple_4.webp" alt="Cô dâu"></div>
+                <p class="family-side">Nhà Gái</p>
+                <p class="family-parent">Ông Nguyễn Văn Tuấn</p>
+                <p class="family-role">& Bà Phạm Thị Kim Oanh</p>
+                <div class="family-child">
+                    <p class="family-child-role">Cô Dâu</p>
+                    <p class="family-child-name">Lê Ngọc Ánh</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Photo strip -->
+<div class="photo-strip animate-fade-up">
+    <div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_2.webp" alt="" loading="lazy"></div>
+    <div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_2.webp" alt="" loading="lazy"></div>
+    <div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_5.webp" alt="" loading="lazy"></div>
+</div>
+
+<!-- Ornament -->
+<div class="ornament">✿</div>
+
+<!-- ===== COUNTDOWN ===== -->
+<section class="section countdown-section" id="countdown">
+    <div class="container text-center">
+        <div class="section-heading animate-fade-up">
+            <p class="section-subtitle">Save The Date</p>
+            <h2 class="section-title">Cùng Đếm Ngược</h2>
+        </div>
+        <div class="countdown-grid animate-fade-up animate-delay-1">
+            <div class="countdown-item"><div class="countdown-num" id="days">00</div><div class="countdown-label">Ngày</div></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-item"><div class="countdown-num" id="hours">00</div><div class="countdown-label">Giờ</div></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-item"><div class="countdown-num" id="minutes">00</div><div class="countdown-label">Phút</div></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-item"><div class="countdown-num" id="seconds">00</div><div class="countdown-label">Giây</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== LOVE STORY ===== -->
+<section class="section--breathe story-section" id="story">
+    <div class="container text-center">
+        <div class="section-heading animate-fade-up">
+            <p class="section-subtitle">Our Love Story</p>
+            <h2 class="section-title">Câu Chuyện Tình Yêu</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="timeline">
+            <div class="timeline-item animate-fade-up">
+                <div class="timeline-dot"></div>
+                <p class="timeline-date">Tháng 3, 2020</p>
+                <h3 class="timeline-title">Lần Đầu Gặp Nhau</h3>
+                <p class="timeline-desc">Một buổi chiều nắng đẹp, hai người tình cờ gặp nhau qua lời giới thiệu của bạn bè chung. Ánh mắt đầu tiên là sự rung động khó quên.</p>
+                <div class="timeline-photo"><img src="../../../shared/images/wedding/korean-studio-white/couple_4.webp" alt="" loading="lazy"></div>
+            </div>
+            <div class="timeline-item animate-fade-up animate-delay-1">
+                <div class="timeline-dot"></div>
+                <p class="timeline-date">Tháng 9, 2020</p>
+                <h3 class="timeline-title">Chính Thức Yêu Nhau</h3>
+                <p class="timeline-desc">Sau nửa năm tìm hiểu, Quốc Bảo đã tỏ tình với Ngọc Ánh trong một đêm đầy sao. Từ đó, hai trái tim hoà cùng một nhịp đập.</p>
+            </div>
+            <div class="timeline-item animate-fade-up animate-delay-2">
+                <div class="timeline-dot"></div>
+                <p class="timeline-date">Tháng 6, 2023</p>
+                <h3 class="timeline-title">Cùng Nhau Đi Xa</h3>
+                <p class="timeline-desc">Chuyến du lịch Đà Lạt — nơi tình yêu được nuôi lớn bởi sương mù, cà phê và những buổi sáng yên bình bên nhau.</p>
+                <div class="timeline-photo"><img src="../../../shared/images/wedding/korean-studio-gray/couple_4.webp" alt="" loading="lazy"></div>
+            </div>
+            <div class="timeline-item animate-fade-up animate-delay-3">
+                <div class="timeline-dot"></div>
+                <p class="timeline-date">Tháng 12, 2025</p>
+                <h3 class="timeline-title">Lời Cầu Hôn</h3>
+                <p class="timeline-desc">Quốc Bảo bất ngờ quỳ gối cầu hôn Ngọc Ánh giữa bãi biển hoàng hôn. Câu trả lời "Có" đã mở ra chương mới hạnh phúc nhất.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ornament -->
+<div class="ornament">♡</div>
+
+<!-- ===== EVENT CARDS ===== -->
+<section class="section event-section" id="events">
+    <div class="container text-center">
+        <div class="section-heading animate-fade-up">
+            <p class="section-subtitle">Wedding Ceremony</p>
+            <h2 class="section-title">Lễ Cưới</h2>
+        </div>
+        <div class="event-grid">
+            <div class="event-card animate-fade-up animate-delay-1">
+                <div class="event-icon"><i data-lucide="home" style="width:22px;height:22px;"></i></div>
+                <p class="event-type">Lễ Vu Quy</p>
+                <p class="event-date">Thứ Bảy, 23/01/2027</p>
+                <p class="event-time">09:00 Sáng</p>
+                <p class="event-venue">Tư Gia Nhà Gái</p>
+                <p class="event-address">123 Nguyễn Huệ, Quận 1, TP. HCM</p>
+            </div>
+            <div class="event-card animate-fade-up animate-delay-2">
+                <div class="event-icon"><i data-lucide="gem" style="width:22px;height:22px;"></i></div>
+                <p class="event-type">Lễ Thành Hôn</p>
+                <p class="event-date">Thứ Bảy, 23/01/2027</p>
+                <p class="event-time">18:00 Tối</p>
+                <p class="event-venue">Trung Tâm Hội Nghị ABC</p>
+                <p class="event-address">789 Điện Biên Phủ, Quận 3, TP. HCM</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Photo strip 2 -->
+<div class="photo-strip animate-fade-up">
+    <div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt="" loading="lazy"></div>
+    <div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_6.webp" alt="" loading="lazy"></div>
+    <div class="photo-strip-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_3.webp" alt="" loading="lazy"></div>
+</div>
+
+<!-- ===== CALENDAR MONTH ===== -->
+<section class="section cal-section" id="calendar-month">
+    <div class="container text-center">
+        <div class="section-heading animate-fade-up">
+            <p class="section-subtitle">Save The Date</p>
+            <h2 class="section-title">Ngày Trọng Đại</h2>
+        </div>
+        <div id="weddingCalendar" class="animate-fade-up animate-delay-1"></div>
+    </div>
+</section>
+
+<!-- ===== FLY PHOTOS + CHIBI ===== -->
+<div class="fly-section">
+    <div class="fly-wrapper animate-fade-up">
+        <div class="fly-photo"><img src="../../../shared/images/wedding/korean-studio-white/couple_2.webp" alt="" loading="lazy"></div>
+        <img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="fly-chibi" alt="Chibi couple">
+        <div class="fly-photo"><img src="../../../shared/images/wedding/korean-studio-white/couple_5.webp" alt="" loading="lazy"></div>
+    </div>
+</div>
+
+<!-- ===== GALLERY ===== -->
+<section class="section gallery-section" id="gallery">
+    <div class="container text-center">
+        <div class="section-heading animate-fade-up">
+            <p class="section-subtitle">Our Moments</p>
+            <h2 class="section-title">Album Ảnh Cưới</h2>
+        </div>
+        <div class="gallery-grid animate-fade-up animate-delay-1">
+            <div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_1.webp" alt="Gallery 1" loading="lazy"></div>
+            <div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_2.webp" alt="Gallery 2" loading="lazy"></div>
+            <div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_3.webp" alt="Gallery 3" loading="lazy"></div>
+            <div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-gray/couple_4.webp" alt="Gallery 4" loading="lazy"></div>
+            <div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_1.webp" alt="Gallery 5" loading="lazy"></div>
+            <div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_3.webp" alt="Gallery 6" loading="lazy"></div>
+            <div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_4.webp" alt="Gallery 7" loading="lazy"></div>
+            <div class="gallery-item"><img src="../../../shared/images/wedding/korean-studio-white/couple_6.webp" alt="Gallery 8" loading="lazy"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Ornament -->
+<div class="ornament">❦</div>
+
+<!-- ===== RSVP ===== -->
+<section class="section rsvp-section" id="rsvp">
+    <div class="container text-center">
+        <div class="section-heading animate-fade-up">
+            <p class="section-subtitle">RSVP</p>
+            <h2 class="section-title">Xác Nhận Tham Dự</h2>
+        </div>
+        <form class="rsvp-form animate-fade-up animate-delay-1" id="rsvpForm" onsubmit="return false;">
+            <div class="rsvp-row"><label class="rsvp-label">Họ và tên *</label><input type="text" class="rsvp-input" placeholder="Nhập họ tên của bạn" required></div>
+            <div class="rsvp-row"><label class="rsvp-label">Số điện thoại</label><input type="tel" class="rsvp-input" placeholder="Nhập số điện thoại"></div>
+            <div class="rsvp-row"><label class="rsvp-label">Số khách tham dự</label><select class="rsvp-select"><option value="1">1 người</option><option value="2">2 người</option><option value="3">3 người</option><option value="4">4 người</option><option value="5">5 người</option></select></div>
+            <div class="rsvp-row"><label class="rsvp-label">Lời nhắn</label><textarea class="rsvp-textarea" placeholder="Lời nhắn gửi đến cô dâu chú rể..." rows="3"></textarea></div>
+            <button type="submit" class="rsvp-submit" id="rsvpSubmitBtn"><i data-lucide="check-circle" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:6px;"></i>Xác Nhận</button>
+        </form>
+    </div>
+</section>
+
+<!-- ===== WISHES ===== -->
+<section class="section wishes-section" id="wishes">
+    <div class="container text-center">
+        <div class="section-heading animate-fade-up">
+            <p class="section-subtitle">Guestbook</p>
+            <h2 class="section-title">Sổ Lưu Bút</h2>
+        </div>
+        <div class="wishes-photo-accent animate-fade-up"><img src="../../../shared/images/wedding/korean-studio-gray/couple_2.webp" alt=""></div>
+        <form class="wishes-form animate-fade-up animate-delay-1" id="wishesForm" onsubmit="return false;">
+            <input type="text" class="wishes-input" placeholder="Nhập tên của bạn *" id="wishName" required>
+            <textarea class="wishes-textarea" placeholder="Nhập lời chúc của bạn *" id="wishMessage" rows="3" required></textarea>
+            <button type="submit" class="wishes-submit" id="wishSubmitBtn"><i data-lucide="send" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:6px;"></i>Gửi Lời Chúc</button>
+        </form>
+        <div class="wishes-list" id="wishesList">
+            <div class="wish-card animate-fade-up"><p class="wish-text">Chúc hai bạn trăm năm hạnh phúc, sớm có tin vui nhé!</p><p class="wish-author">— Minh Anh</p></div>
+            <div class="wish-card animate-fade-up animate-delay-1"><p class="wish-text">Congratulations! Wishing you both a lifetime of love and happiness.</p><p class="wish-author">— Thanh Tùng</p></div>
+            <div class="wish-card animate-fade-up animate-delay-2"><p class="wish-text">Hạnh phúc mãi mãi bên nhau nha! Thương hai đứa nhiều lắm.</p><p class="wish-author">— Thu Hà</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Ornament -->
+<div class="ornament">✿</div>
+
+<!-- ===== GIFT BOX ===== -->
+<section class="section gift-section" id="gift">
+    <div class="container text-center">
+        <div class="section-heading animate-fade-up">
+            <p class="section-subtitle">Wedding Gift</p>
+            <h2 class="section-title">Hộp Mừng Cưới</h2>
+        </div>
+        <div class="gift-grid">
+            <div class="gift-card animate-fade-up animate-delay-1">
+                <div class="gift-bank-icon"><i data-lucide="landmark" style="width:24px;height:24px;"></i></div>
+                <p class="gift-bank-name">Vietcombank</p>
+                <p class="gift-account-name">Lê Ngọc Ánh</p>
+                <p class="gift-account-num">0123 4567 8901</p>
+                <button class="gift-copy-btn" data-account="0123456789001"><i data-lucide="copy" style="width:14px;height:14px;"></i> Sao chép STK</button>
+            </div>
+            <div class="gift-card animate-fade-up animate-delay-2">
+                <div class="gift-bank-icon"><i data-lucide="landmark" style="width:24px;height:24px;"></i></div>
+                <p class="gift-bank-name">VietinBank</p>
+                <p class="gift-account-name">Trần Thế Bảo</p>
+                <p class="gift-account-num">9876 5432 1098</p>
+                <button class="gift-copy-btn" data-account="9876543210098"><i data-lucide="copy" style="width:14px;height:14px;"></i> Sao chép STK</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== THANK YOU ===== -->
+<section class="section--breathe thankyou-section" id="thankyou">
+    <div class="container text-center">
+        <img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="thankyou-chibi animate-fade-up" alt="Chibi couple">
+        <p class="thankyou-text animate-fade-up animate-delay-1">Sự hiện diện của quý khách là niềm vinh hạnh<br>của gia đình chúng tôi!</p>
+        <p class="thankyou-names animate-fade-up animate-delay-2">Quốc Bảo & Ngọc Ánh</p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer"><p>Made with ♥ by <a href="https://templexa.com" target="_blank">Templexa</a></p></footer>
+
+<!-- Music -->
+<button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+    <i data-lucide="volume-2" class="music-icon-on" style="width:20px;height:20px;"></i>
+    <i data-lucide="volume-x" class="music-icon-off" style="width:20px;height:20px;"></i>
+</button>
+<audio id="bgMusic" loop preload="auto"><source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg"></audio>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">✕</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+    <img src="" alt="Gallery" id="lightboxImg">
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+</div>
+
+<script>
+lucide.createIcons();
+document.addEventListener('DOMContentLoaded', function() {
+
+    // === ENVELOPE ===
+    var envelope = document.getElementById('envelope');
+    var envelopeBtn = document.getElementById('envelopeBtn');
+    var bgMusic = document.getElementById('bgMusic');
+    var musicBtn = document.getElementById('musicToggle');
+    var musicStarted = false;
+    if (envelopeBtn && envelope) {
+        envelopeBtn.addEventListener('click', function() {
+            envelope.classList.add('opened');
+            document.body.classList.add('envelope-opened');
+            if (bgMusic) { bgMusic.volume = 0.3; bgMusic.play().catch(function(){}); musicStarted = true; }
+            setTimeout(function() { envelope.style.display = 'none'; }, 900);
+        });
+    }
+
+    // === MUSIC ===
+    if (musicBtn && bgMusic) {
+        bgMusic.volume = 0.3;
+        musicBtn.addEventListener('click', function() {
+            if (!musicStarted) { bgMusic.play(); musicStarted = true; }
+            else if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('muted'); }
+            else { bgMusic.pause(); musicBtn.classList.add('muted'); }
+        });
+    }
+
+    // === COUNTDOWN ===
+    function updateCountdown() {
+        var wd = new Date('2027-01-23T18:00:00').getTime(), now = Date.now(), diff = wd - now;
+        if (diff <= 0) { document.querySelector('.countdown-grid').innerHTML = '<p style="font-size:1.2rem;color:var(--gold-light)">🎉 Hôn lễ đã diễn ra! 🎉</p>'; return; }
+        var d = Math.floor(diff/864e5), h = Math.floor(diff%864e5/36e5), m = Math.floor(diff%36e5/6e4), s = Math.floor(diff%6e4/1e3);
+        document.getElementById('days').textContent = String(d).padStart(2,'0');
+        document.getElementById('hours').textContent = String(h).padStart(2,'0');
+        document.getElementById('minutes').textContent = String(m).padStart(2,'0');
+        document.getElementById('seconds').textContent = String(s).padStart(2,'0');
+    }
+    updateCountdown(); setInterval(updateCountdown, 1000);
+
+    // === SCROLL REVEAL ===
+    var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('[class*="animate-"]').forEach(function(el) { obs.observe(el); });
+
+    // === LIGHTBOX ===
+    var gImgs = [], lIdx = 0;
+    document.querySelectorAll('.gallery-item img').forEach(function(img, i) {
+        gImgs.push(img.src);
+        img.addEventListener('click', function() { lIdx = i; showLB(); });
+    });
+    function showLB() { document.getElementById('lightboxImg').src = gImgs[lIdx]; document.getElementById('lightbox').classList.add('active'); }
+    document.getElementById('lightboxClose').addEventListener('click', function() { document.getElementById('lightbox').classList.remove('active'); });
+    document.getElementById('lightboxPrev').addEventListener('click', function() { lIdx = (lIdx - 1 + gImgs.length) % gImgs.length; document.getElementById('lightboxImg').src = gImgs[lIdx]; });
+    document.getElementById('lightboxNext').addEventListener('click', function() { lIdx = (lIdx + 1) % gImgs.length; document.getElementById('lightboxImg').src = gImgs[lIdx]; });
+    document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); });
+
+    // === RSVP ===
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+        e.preventDefault(); var btn = document.getElementById('rsvpSubmitBtn');
+        btn.innerHTML = '✓ Đã gửi xác nhận!'; btn.style.opacity = '0.7'; btn.disabled = true;
+        setTimeout(function() { btn.innerHTML = '<i data-lucide="check-circle" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:6px"></i>Xác Nhận'; btn.style.opacity = '1'; btn.disabled = false; lucide.createIcons(); }, 3000);
+    });
+
+    // === WISHES ===
+    document.getElementById('wishesForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var nm = document.getElementById('wishName').value.trim(), ms = document.getElementById('wishMessage').value.trim();
+        if (!nm || !ms) return;
+        var c = document.createElement('div'); c.className = 'wish-card';
+        c.innerHTML = '<p class="wish-text">' + ms.replace(/</g,'&lt;') + '</p><p class="wish-author">— ' + nm.replace(/</g,'&lt;') + '</p>';
+        var l = document.getElementById('wishesList'); l.insertBefore(c, l.firstChild);
+        document.getElementById('wishName').value = ''; document.getElementById('wishMessage').value = '';
+    });
+
+    // === GIFT COPY ===
+    document.querySelectorAll('.gift-copy-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var a = this.getAttribute('data-account');
+            navigator.clipboard.writeText(a).then(function() {
+                btn.innerHTML = '<i data-lucide="check" style="width:14px;height:14px"></i> Đã sao chép!'; lucide.createIcons();
+                setTimeout(function() { btn.innerHTML = '<i data-lucide="copy" style="width:14px;height:14px"></i> Sao chép STK'; lucide.createIcons(); }, 2000);
+            });
+        });
+    });
+
+    // === CHERRY BLOSSOM ===
+    var petals = ['🌸','💮','🩷','✿'];
+    function createPetal() {
+        var p = document.createElement('div'); p.className = 'petal';
+        p.style.left = Math.random()*100+'vw'; p.style.animationDuration = (Math.random()*3+5)+'s';
+        p.style.opacity = String(Math.random()*0.5+0.3); p.style.fontSize = (Math.random()*8+10)+'px';
+        p.textContent = petals[Math.floor(Math.random()*petals.length)];
+        document.body.appendChild(p); setTimeout(function(){p.remove();},8000);
+    }
+    setInterval(createPetal, 900);
+
+    // === CALENDAR ===
+    function initCal(o) {
+        var c = document.getElementById(o.containerId); if(!c) return;
+        var mo=o.month, yr=o.year, ac=o.accentColor||'#D32F2F', ev=o.events||[];
+        var ms=['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
+        var ds=['CN','T2','T3','T4','T5','T6','T7'];
+        var fd=new Date(yr,mo-1,1).getDay(), dm=new Date(yr,mo,0).getDate();
+        var h='<div style="max-width:340px;margin:0 auto;background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 20px rgba(183,28,28,0.08);border:1px solid '+ac+'22;transform:rotate(-0.5deg)">';
+        h+='<div style="background:'+ac+';color:white;padding:1rem;text-align:center"><div style="font-family:var(--font-heading);font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;opacity:0.7">'+yr+'</div><div style="font-family:var(--font-heading);font-size:1.2rem;letter-spacing:0.15em">'+ms[mo-1].toUpperCase()+'</div></div>';
+        h+='<div style="padding:1rem"><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center">';
+        for(var d=0;d<7;d++) h+='<div style="font-size:0.65rem;color:'+ac+';font-weight:500;padding:4px 0;letter-spacing:0.1em">'+ds[d]+'</div>';
+        for(var b=0;b<fd;b++) h+='<div></div>';
+        for(var day=1;day<=dm;day++){
+            var e=null; for(var i=0;i<ev.length;i++){if(ev[i].day===day){e=ev[i];break;}}
+            if(e){h+='<div style="position:relative" title="'+(e.label||'')+'"><div style="width:32px;height:32px;border-radius:50%;background:'+(e.color||ac)+';color:white;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:0.8rem;font-weight:600;box-shadow:0 2px 8px '+(e.color||ac)+'44">'+day+'</div>';if(e.label)h+='<div style="font-size:0.5rem;color:'+(e.color||ac)+';margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:50px;margin-left:auto;margin-right:auto">'+e.label+'</div>';h+='</div>';}
+            else{var td=(day===new Date().getDate()&&mo===new Date().getMonth()+1&&yr===new Date().getFullYear());h+='<div style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:0.8rem;color:#5D4037;border-radius:50%'+(td?';border:1px solid '+ac+';font-weight:600':'')+'">'+ day+'</div>';}
+        }
+        h+='</div></div>';
+        if(ev.length>0){h+='<div style="padding:0 1rem 1rem;border-top:1px solid #f5f5f5;margin-top:0.5rem;padding-top:0.8rem">';for(var j=0;j<ev.length;j++)h+='<div style="display:flex;align-items:center;gap:6px;font-size:0.7rem;color:#795548;margin-bottom:4px"><span style="width:8px;height:8px;border-radius:50%;background:'+(ev[j].color||ac)+';flex-shrink:0"></span><span>'+(ev[j].label||'Ngày '+ev[j].day)+'</span></div>';h+='</div>';}
+        h+='</div>'; c.innerHTML=h;
+    }
+    initCal({ containerId:'weddingCalendar', month:1, year:2027, accentColor:'#D32F2F', events:[{day:23,color:'#D32F2F',label:'18:00 — Lễ Thành Hôn'}] });
+
+});
+</script>
+</body>
+</html>

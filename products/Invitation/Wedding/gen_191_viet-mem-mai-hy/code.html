@@ -1,1915 +1,2789 @@
-<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Thiệp Cưới - Thành Long & Thuỳ Linh</title><meta name="description" content="Thiệp mời đám cưới phong cách truyền thống Việt Nam, tông đỏ hồng mềm mại, chữ Hỷ trang trọng"><link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@latest"></script><style>
-:root {
---font-heading: 'Dancing Script', cursive;
---font-body: 'Quicksand', sans-serif;
---font-accent: 'Cormorant Garamond', serif;
---accent: #C41E3A;
---accent-dark: #8B0000;
---accent-light: #E8A0B0;
---accent-glow: rgba(196, 30, 58, 0.25);
---gold: #D4AF37;
---gold-light: #F0D77B;
---bg-primary: #FFF8F0;
---bg-secondary: #FFF0E8;
---text-primary: #2C1810;
---text-secondary: #6B3A20;
---text-tertiary: #9B6B50;
---btn-bg: linear-gradient(135deg, #C41E3A, #8B0000);
---btn-text: #FFFFFF;
---divider-color: rgba(196, 30, 58, 0.3);
---bow-color: #C41E3A;
---bow-color-dark: #8B0000;
---bow-glow: rgba(196, 30, 58, 0.2);
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html {
-scroll-behavior: smooth;
-overflow-x: hidden;
-}
-body {
-font-family: var(--font-body);
-font-weight: 300;
-color: var(--text-primary);
-background: var(--bg-primary);
-overflow-x: hidden;
-max-width: 100vw;
-line-height: 1.6;
-}
-/* Body subtle texture */
-body::before {
-content: '';
-position: fixed;
-inset: 0;
-z-index: -1;
-pointer-events: none;
-background:
-radial-gradient(circle at 15% 25%, rgba(196, 30, 58, 0.04), transparent 50%),
-radial-gradient(circle at 85% 75%, rgba(212, 175, 55, 0.03), transparent 50%),
-radial-gradient(circle at 50% 50%, rgba(232, 160, 176, 0.03), transparent 60%);
-}
-img { max-width: 100%; height: auto; }
-/* ==================== FLYING BIRDS ==================== */
-.flying-bird {
-position: fixed;
-z-index: 9997;
-pointer-events: none;
-font-size: 1.5rem;
-opacity: 0.3;
-animation: bird-fly linear infinite;
-}
-@keyframes bird-fly {
-0% { transform: translate(-100px, 0) scaleX(-1) rotate(-5deg); }
-25% { transform: translate(27vw, -15px) scaleX(-1) rotate(3deg); }
-50% { transform: translate(55vw, 5px) scaleX(-1) rotate(-3deg); }
-75% { transform: translate(82vw, -10px) scaleX(-1) rotate(5deg); }
-100% { transform: translate(110vw, 0) scaleX(-1) rotate(-2deg); }
-}
-/* ==================== ENVELOPE ==================== */
-.envelope {
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 100%;
-z-index: 9999;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: opacity 1s ease, transform 1s ease;
-text-align: center;
-padding: 1.5rem;
-overflow: hidden;
-}
-.envelope-bg {
-position: absolute;
-inset: 0;
-z-index: 0;
-}
-.envelope-bg img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-filter: blur(6px) brightness(0.85);
-}
-.envelope-bg::after {
-content: '';
-position: absolute;
-inset: 0;
-background: linear-gradient(
-135deg,
-rgba(255, 248, 240, 0.88) 0%,
-rgba(255, 240, 232, 0.82) 50%,
-rgba(255, 235, 225, 0.88) 100%
-);
-}
-/* Floating botanical elements on bg */
-.envelope-deco {
-position: absolute;
-pointer-events: none;
-z-index: 1;
-opacity: 0.12;
-font-size: 3rem;
-}
-.envelope-deco-1 { top: 8%; left: 5%; animation: env-float-1 6s ease-in-out infinite; }
-.envelope-deco-2 { top: 12%; right: 8%; animation: env-float-2 7s ease-in-out infinite; font-size: 2.5rem; }
-.envelope-deco-3 { bottom: 15%; left: 10%; animation: env-float-1 8s ease-in-out infinite 1s; font-size: 2rem; }
-.envelope-deco-4 { bottom: 10%; right: 6%; animation: env-float-2 6s ease-in-out infinite 0.5s; }
-.envelope-deco-5 { top: 30%; left: 3%; animation: env-float-2 9s ease-in-out infinite 2s; font-size: 2rem; opacity: 0.08; }
-.envelope-deco-6 { top: 25%; right: 4%; animation: env-float-1 7s ease-in-out infinite 1.5s; font-size: 2.5rem; opacity: 0.1; }
-@keyframes env-float-1 {
-0%, 100% { transform: translateY(0) rotate(0deg); }
-50% { transform: translateY(-12px) rotate(8deg); }
-}
-@keyframes env-float-2 {
-0%, 100% { transform: translateY(0) rotate(0deg); }
-50% { transform: translateY(-10px) rotate(-6deg); }
-}
-.envelope.opened {
-opacity: 0;
-transform: scale(1.08);
-pointer-events: none;
-}
-/* Main card frame */
-.envelope-card {
-position: relative;
-z-index: 2;
-max-width: 440px;
-width: 100%;
-background: rgba(255, 255, 255, 0.65);
-backdrop-filter: blur(16px);
--webkit-backdrop-filter: blur(16px);
-border-radius: 24px;
-padding: clamp(2.5rem, 6vw, 3.5rem) clamp(2rem, 5vw, 3rem);
-box-shadow:
-0 20px 60px rgba(44, 24, 16, 0.12),
-0 0 0 1px rgba(196, 30, 58, 0.12);
-animation: env-card-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-}
-@keyframes env-card-in {
-from { opacity: 0; transform: translateY(40px) scale(0.96); }
-to { opacity: 1; transform: translateY(0) scale(1); }
-}
-/* Decorative double border inside card */
-.envelope-card::before {
-content: '';
-position: absolute;
-inset: 10px;
-border: 1px solid rgba(196, 30, 58, 0.18);
-border-radius: 18px;
-pointer-events: none;
-}
-.envelope-card::after {
-content: '';
-position: absolute;
-inset: 16px;
-border: 1px dashed rgba(196, 30, 58, 0.1);
-border-radius: 14px;
-pointer-events: none;
-}
-/* Corner ornaments */
-.envelope-corner {
-position: absolute;
-width: 28px;
-height: 28px;
-z-index: 3;
-color: var(--accent);
-opacity: 0.35;
-font-size: 1rem;
-}
-.envelope-corner-tl { top: 20px; left: 20px; }
-.envelope-corner-tr { top: 20px; right: 20px; transform: scaleX(-1); }
-.envelope-corner-bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
-.envelope-corner-br { bottom: 20px; right: 20px; transform: scale(-1); }
-/* Corner floral decorations on card */
-.envelope-flower {
-position: absolute;
-z-index: 4;
-font-size: 3rem;
-opacity: 0.18;
-pointer-events: none;
-}
-.envelope-flower-tl { top: -8px; left: -8px; transform: rotate(-15deg); }
-.envelope-flower-br { bottom: -8px; right: -8px; transform: rotate(15deg); }
-/* Xi watermark behind couple name */
-.envelope-xi {
-position: absolute;
-font-size: 15rem;
-color: rgba(196, 30, 58, 0.06);
-font-weight: 900;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-pointer-events: none;
-z-index: 0;
-font-family: serif;
-line-height: 1;
-}
-/* Content stagger animations */
-.envelope-ornament {
-font-size: 2rem;
-color: var(--accent);
-margin-bottom: 1.25rem;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both,
-pulse-gentle 2.5s ease-in-out 1.5s infinite;
-position: relative;
-z-index: 1;
-}
-@keyframes pulse-gentle {
-0%, 100% { transform: scale(1); opacity: 1; }
-50% { transform: scale(1.08); opacity: 0.8; }
-}
-.envelope-line {
-width: 50px;
-height: 1px;
-background: linear-gradient(90deg, transparent, var(--accent), transparent);
-margin: 0 auto 1.25rem;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-}
-.envelope-couple-name {
-font-family: var(--font-heading);
-font-size: clamp(2.2rem, 7vw, 3.5rem);
-color: var(--accent-dark);
-letter-spacing: 0.02em;
-margin-bottom: 0.75rem;
-line-height: 1.2;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
-position: relative;
-z-index: 1;
-}
-.envelope-date {
-font-family: var(--font-accent);
-font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-color: var(--text-secondary);
-letter-spacing: 0.2em;
-text-transform: uppercase;
-margin-bottom: 0.5rem;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both;
-}
-.envelope-invite-text {
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 1rem;
-color: var(--text-tertiary);
-margin-bottom: 2rem;
-letter-spacing: 0.08em;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s both;
-}
-/* ---- PADLOCK — Ổ khoá tình yêu ---- */
-.padlock-wrap {
-position: relative;
-width: 100px;
-height: 130px;
-margin: 0.5rem auto 0;
-cursor: pointer;
--webkit-tap-highlight-color: transparent;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
-}
-.padlock-wrap:hover { filter: brightness(1.08); }
-/* Quai khoá — hình chữ U */
-.padlock-shackle {
-position: absolute;
-top: 0;
-left: 50%;
-transform: translateX(-50%);
-width: 46px;
-height: 36px;
-border: 5px solid var(--gold);
-border-bottom: none;
-border-radius: 23px 23px 0 0;
-transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-opacity 0.5s 0.4s;
-transform-origin: right bottom;
-z-index: 2;
-}
-.padlock-shackle::after {
-content: '';
-position: absolute;
-top: 2px; left: 6px;
-width: 8px; height: 20px;
-border-radius: 4px;
-background: rgba(255, 255, 255, 0.2);
-}
-/* Thân khoá */
-.padlock-body {
-position: absolute;
-top: 30px;
-left: 50%;
-transform: translateX(-50%);
-width: 64px;
-height: 52px;
-background: linear-gradient(145deg, #D4AF37, #B8960B, #D4AF37);
-border-radius: 8px;
-box-shadow: 0 4px 20px rgba(139, 0, 0, 0.25),
-inset 0 2px 4px rgba(255,255,255,0.2);
-z-index: 3;
-transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
-opacity 0.5s 0.6s;
-}
-.padlock-body::before {
-content: '';
-position: absolute;
-inset: 4px;
-border: 1.5px solid rgba(196, 30, 58, 0.3);
-border-radius: 5px;
-}
-/* Lỗ khoá — hình trái tim */
-.padlock-keyhole {
-position: absolute;
-top: 12px;
-left: 50%;
-transform: translateX(-50%);
-width: 14px; height: 14px;
-background: #8B0000;
-border-radius: 50%;
-box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
-}
-.padlock-keyhole::after {
-content: '';
-position: absolute;
-top: 11px;
-left: 50%;
-transform: translateX(-50%);
-width: 6px; height: 12px;
-background: #8B0000;
-border-radius: 0 0 3px 3px;
-}
-.padlock-xi {
-position: absolute;
-bottom: 4px;
-left: 50%;
-transform: translateX(-50%);
-font-size: 0.65rem;
-color: #8B0000;
-font-weight: 900;
-opacity: 0.5;
-}
-/* Chìa khoá — bắt đầu ở bên phải, sẽ bay vào cắm ổ */
-.padlock-key {
-position: absolute;
-top: 48px;
-left: calc(50% + 28px);
-z-index: 4;
-transform: rotate(-30deg);
-transition: none; /* dùng animation thay vì transition */
-}
-.key-shaft {
-width: 4px; height: 28px;
-background: linear-gradient(to bottom, #D4AF37, #C9A84C);
-border-radius: 2px;
-position: relative;
-}
-.key-head {
-position: absolute;
-top: -14px;
-left: 50%;
-transform: translateX(-50%);
-width: 18px; height: 18px;
-border: 3px solid #D4AF37;
-border-radius: 50%;
-background: rgba(212, 175, 55, 0.1);
-}
-/* Trái tim nhỏ trong đầu chìa */
-.key-head::after {
-content: '♥';
-position: absolute;
-top: 50%; left: 50%;
-transform: translate(-50%, -50%);
-font-size: 0.45rem;
-color: #C41E3A;
-}
-.key-teeth {
-position: absolute;
-bottom: 0; left: 4px;
-width: 8px; height: 4px;
-background: #D4AF37;
-border-radius: 0 2px 2px 0;
-}
-.key-teeth::after {
-content: '';
-position: absolute;
-top: -7px; left: 0;
-width: 6px; height: 4px;
-background: #D4AF37;
-border-radius: 0 2px 2px 0;
-}
-/* Hover: chìa lắc nhẹ */
-.padlock-wrap:hover .padlock-key {
-animation: key-wiggle 0.6s ease-in-out;
-}
-@keyframes key-wiggle {
-0%, 100% { transform: rotate(-30deg); }
-25% { transform: rotate(-35deg) translateX(2px); }
-75% { transform: rotate(-25deg) translateX(-2px); }
-}
-.padlock-hint {
-position: absolute;
-bottom: -28px;
-left: 50%;
-transform: translateX(-50%);
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 0.8rem;
-color: var(--text-tertiary);
-white-space: nowrap;
-animation: padlock-pulse 2s ease-in-out infinite;
-}
-@keyframes padlock-pulse {
-0%, 100% { opacity: 0.5; }
-50% { opacity: 0.9; }
-}
-.padlock-sparkle {
-position: absolute;
-pointer-events: none;
-font-size: 14px;
-opacity: 0;
-}
-/* Hover shake */
-.padlock-wrap:hover .padlock-shackle {
-animation: shackle-shake 0.4s ease-in-out;
-}
-@keyframes shackle-shake {
-0%, 100% { transform: translateX(-50%) rotate(0deg); }
-25% { transform: translateX(-50%) rotate(-3deg); }
-75% { transform: translateX(-50%) rotate(3deg); }
-}
-/* ---- UNLOCK — 4 phases ---- */
-/* Phase 1: inserting — chìa bay vào cắm ổ khoá */
-.padlock-wrap.inserting .padlock-key {
-animation: key-insert 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes key-insert {
-0%   { transform: rotate(-30deg); }
-40%  { transform: rotate(0deg) translate(-26px, 0); }
-100% { transform: rotate(0deg) translate(-26px, 5px); /* cắm vào lỗ */ }
-}
-/* Phase 2: turning — xoay chìa trong ổ */
-.padlock-wrap.turning .padlock-key {
-animation: key-turn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes key-turn {
-0%   { transform: rotate(0deg) translate(-26px, 5px); }
-50%  { transform: rotate(45deg) translate(-26px, 5px); }
-100% { transform: rotate(90deg) translate(-26px, 5px); }
-}
-/* Thân khoá rung khi xoay */
-.padlock-wrap.turning .padlock-body {
-animation: body-shake 0.5s ease-in-out;
-}
-@keyframes body-shake {
-0%, 100% { transform: translateX(-50%) rotate(0deg); }
-20% { transform: translateX(-50%) rotate(-2deg); }
-40% { transform: translateX(-50%) rotate(2deg); }
-60% { transform: translateX(-50%) rotate(-1deg); }
-80% { transform: translateX(-50%) rotate(1deg); }
-}
-/* Phase 3: unlocked — quai bật, chìa rút ra rơi, khoá rơi */
-.padlock-wrap.unlocked .padlock-shackle {
-animation: shackle-pop 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes shackle-pop {
-0%   { transform: translateX(-50%) rotate(0deg); }
-40%  { transform: translateX(-50%) rotate(-60deg) translateY(-12px); }
-100% { transform: translateX(-50%) rotate(-120deg) translateY(-30px); opacity: 0; }
-}
-.padlock-wrap.unlocked .padlock-key {
-animation: key-fall 0.8s cubic-bezier(0.5, 0, 1, 1) forwards;
-}
-@keyframes key-fall {
-0%   { transform: rotate(90deg) translate(-26px, 5px); opacity: 1; }
-30%  { transform: rotate(60deg) translate(-20px, -10px); opacity: 1; }
-100% { transform: rotate(140deg) translate(40px, 120px); opacity: 0; }
-}
-.padlock-wrap.unlocked .padlock-body {
-animation: body-fall 0.8s cubic-bezier(0.5, 0, 1, 1) 0.2s forwards;
-}
-@keyframes body-fall {
-0%   { transform: translateX(-50%) rotate(0deg); opacity: 1; }
-40%  { transform: translateX(-50%) rotate(8deg) translateY(10px); opacity: 0.8; }
-100% { transform: translateX(-50%) rotate(20deg) translateY(60px); opacity: 0; }
-}
-.padlock-wrap.unlocked .padlock-hint {
-opacity: 0;
-transition: opacity 0.3s;
-}
-.padlock-wrap.unlocked .padlock-sparkle {
-animation: padlock-burst 0.8s ease-out forwards;
-}
-@keyframes padlock-burst {
-0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
-100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(1.3) rotate(180deg); }
-}
-/* Peek photos */
-.envelope-peek-photos {
-margin-top: 2rem;
-display: flex;
-justify-content: center;
-gap: 0;
-position: relative;
-height: 75px;
-animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.3s both;
-}
-.envelope-peek-photo {
-width: 90px;
-height: 65px;
-border-radius: 8px;
-overflow: hidden;
-box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-border: 3px solid white;
-position: absolute;
-}
-.envelope-peek-photo:nth-child(1) {
-left: calc(50% - 100px);
-transform: rotate(-6deg);
-z-index: 1;
-}
-.envelope-peek-photo:nth-child(2) {
-left: calc(50% + 10px);
-transform: rotate(4deg);
-top: 5px;
-}
-.envelope-peek-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-@media (max-width: 480px) {
-.envelope-card {
-padding: 2rem 1.5rem;
-border-radius: 20px;
-}
-.envelope-card::before { inset: 8px; border-radius: 15px; }
-.envelope-card::after { inset: 13px; border-radius: 12px; }
-.envelope-corner { display: none; }
-.envelope-deco { font-size: 2rem; opacity: 0.1; }
-.envelope-peek-photo { width: 80px; height: 58px; }
-.envelope-peek-photo:nth-child(1) { left: calc(50% - 88px); }
-.envelope-xi { font-size: 10rem; }
-.envelope-flower { font-size: 2rem; }
-}
-/* ==================== NAV ==================== */
-.nav {
-position: fixed;
-top: 0;
-width: 100%;
-z-index: 100;
-background: rgba(255, 248, 240, 0.85);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-border-bottom: 1px solid rgba(196, 30, 58, 0.1);
-transition: box-shadow 0.3s;
-}
-.nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
-.nav-inner {
-max-width: 900px;
-margin: 0 auto;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: clamp(1rem, 3vw, 2rem);
-padding: 12px 1rem;
-flex-wrap: wrap;
-}
-.nav-link {
-font-family: var(--font-body);
-font-size: 0.75rem;
-font-weight: 500;
-color: var(--text-secondary);
-text-decoration: none;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-transition: color 0.3s;
-padding: 4px 0;
-}
-.nav-link:hover, .nav-link.active { color: var(--accent); }
-.nav-monogram {
-font-family: var(--font-heading);
-font-size: 1.4rem;
-color: var(--accent);
-padding: 0 0.5rem;
-}
-@media (max-width: 480px) {
-.nav-inner { gap: 0.6rem; }
-.nav-link { font-size: 0.65rem; letter-spacing: 0.08em; }
-}
-/* ==================== HERO ==================== */
-.hero {
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-text-align: center;
-position: relative;
-overflow: hidden;
-padding: clamp(6rem, 15vw, 8rem) 1.5rem clamp(4rem, 10vw, 6rem);
-}
-.hero-bg {
-position: absolute;
-inset: 0;
-z-index: -2;
-}
-.hero-bg img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-object-position: center top;
-}
-.hero-bg::after {
-content: '';
-position: absolute;
-inset: 0;
-background: linear-gradient(
-to bottom,
-rgba(255, 248, 240, 0.3) 0%,
-rgba(255, 248, 240, 0.1) 30%,
-rgba(255, 248, 240, 0.5) 70%,
-rgba(255, 248, 240, 0.95) 100%
-);
-}
-/* Xi watermark in hero */
-.hero-xi {
-position: absolute;
-font-size: clamp(12rem, 35vw, 20rem);
-color: rgba(196, 30, 58, 0.05);
-font-weight: 900;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-pointer-events: none;
-z-index: -1;
-font-family: serif;
-line-height: 1;
-}
-.hero-subtitle {
-font-family: var(--font-accent);
-font-size: 0.8rem;
-letter-spacing: 0.3em;
-text-transform: uppercase;
-color: var(--accent);
-margin-bottom: 1rem;
-animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-}
-/* Hero couple names — vertical stacked */
-.hero-names {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 0;
-margin-bottom: 1rem;
-position: relative;
-}
-.hero-name {
-font-family: var(--font-heading);
-font-size: clamp(3rem, 10vw, 5rem);
-color: var(--accent-dark);
-line-height: 1;
-position: relative;
-display: inline-block;
-}
-.hero-name-groom {
-animation: name-slide-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-transform-origin: center;
-}
-.hero-name-bride {
-animation: name-slide-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
-}
-@keyframes name-slide-right {
-from { opacity: 0; transform: translateX(-40px); }
-to { opacity: 1; transform: translateX(0); }
-}
-@keyframes name-slide-left {
-from { opacity: 0; transform: translateX(40px); }
-to { opacity: 1; transform: translateX(0); }
-}
-/* Ampersand giữa — to, xoay nhẹ, viền trang trí */
-.hero-ampersand-wrap {
-position: relative;
-margin: 0.3rem 0;
-animation: amp-pop 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
-}
-@keyframes amp-pop {
-from { opacity: 0; transform: scale(0.3) rotate(-20deg); }
-to { opacity: 1; transform: scale(1) rotate(0deg); }
-}
-.hero-ampersand {
-font-family: var(--font-accent);
-font-style: italic;
-font-size: clamp(2rem, 6vw, 3rem);
-color: var(--gold);
-display: flex;
-align-items: center;
-justify-content: center;
-width: 56px;
-height: 56px;
-border: 2px solid rgba(212, 175, 55, 0.35);
-border-radius: 50%;
-position: relative;
-transform: rotate(-5deg);
-}
-/* Vòng ngoài mờ */
-.hero-ampersand::before {
-content: '';
-position: absolute;
-inset: -6px;
-border: 1px dashed rgba(212, 175, 55, 0.2);
-border-radius: 50%;
-animation: amp-spin 20s linear infinite;
-}
-@keyframes amp-spin {
-to { transform: rotate(360deg); }
-}
-/* Decorative lines 2 bên */
-.hero-name-line {
-display: flex;
-align-items: center;
-gap: 12px;
-animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
-}
-.hero-name-line::before,
-.hero-name-line::after {
-content: '';
-width: clamp(30px, 10vw, 60px);
-height: 1px;
-background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
-.hero-name-line-text {
-font-family: var(--font-accent);
-font-size: 0.7rem;
-color: var(--gold);
-letter-spacing: 0.3em;
-text-transform: uppercase;
-}
-.hero-date {
-font-family: var(--font-accent);
-font-size: clamp(1rem, 2.5vw, 1.3rem);
-color: var(--text-secondary);
-letter-spacing: 0.2em;
-text-transform: uppercase;
-margin-bottom: 0.5rem;
-animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
-}
-.hero-invite {
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 1.1rem;
-color: var(--text-tertiary);
-animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
-}
-@keyframes slide-up-hero {
-from { opacity: 0; transform: translateY(30px); }
-to { opacity: 1; transform: translateY(0); }
-}
-.scroll-indicator {
-position: absolute;
-bottom: 30px;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 6px;
-color: var(--text-tertiary);
-font-size: 0.7rem;
-letter-spacing: 0.15em;
-animation: scroll-bounce 2s ease-in-out infinite;
-}
-@keyframes scroll-bounce {
-0%, 100% { transform: translateX(-50%) translateY(0); }
-50% { transform: translateX(-50%) translateY(8px); }
-}
-/* ==================== SECTIONS SHARED ==================== */
-.section {
-padding: clamp(4rem, 10vw, 6rem) clamp(1rem, 5vw, 2rem);
-overflow: hidden;
-position: relative;
-}
-.section--breathe {
-padding: clamp(5rem, 12vw, 7rem) 1.5rem;
-overflow: hidden;
-}
-.section--compact {
-padding: clamp(2rem, 5vw, 3.5rem) 1.5rem;
-}
-.section-heading {
-text-align: center;
-margin-bottom: clamp(2rem, 5vw, 3rem);
-}
-.section-subtitle {
-font-family: var(--font-accent);
-font-size: 0.8rem;
-color: var(--accent);
-letter-spacing: 0.25em;
-text-transform: uppercase;
-margin-bottom: 0.5rem;
-}
-.section-title {
-font-family: var(--font-heading);
-font-size: clamp(1.8rem, 5vw, 3rem);
-color: var(--accent-dark);
-margin-bottom: 0.75rem;
-}
-.section-desc {
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 1rem;
-color: var(--text-secondary);
-max-width: 500px;
-margin: 0 auto;
-line-height: 1.7;
-}
-/* Ornament divider */
-.divider-ornament {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 1rem;
-padding: clamp(1rem, 3vw, 2rem) 0;
-}
-.divider-ornament::before,
-.divider-ornament::after {
-content: '';
-height: 1px;
-width: clamp(40px, 15vw, 100px);
-background: var(--divider-color);
-}
-.divider-ornament-icon {
-color: var(--accent);
-font-size: 1rem;
-}
-/* ==================== COUPLE PHOTOS FLY-IN ==================== */
-.couple-fly {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 0;
-max-width: 500px;
-margin: 0 auto;
-position: relative;
-}
-.couple-fly-img {
-width: clamp(150px, 35vw, 220px);
-height: clamp(200px, 45vw, 280px);
-border-radius: 120px 120px 20px 20px;
-object-fit: cover;
-border: 4px solid white;
-box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-}
-.couple-fly-img:first-child {
-margin-right: -25px;
-transform: rotate(-2deg);
-z-index: 1;
-}
-.couple-fly-img:last-child {
-margin-left: -25px;
-margin-top: 30px;
-transform: rotate(1.5deg);
-}
-.couple-fly-heart {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-z-index: 2;
-width: 48px;
-height: 48px;
-background: var(--accent);
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-color: white;
-font-size: 1.2rem;
-box-shadow: 0 4px 15px var(--accent-glow);
-animation: heartbeat 1.5s ease-in-out infinite;
-}
-@keyframes heartbeat {
-0%, 100% { transform: translate(-50%, -50%) scale(1); }
-25% { transform: translate(-50%, -50%) scale(1.15); }
-50% { transform: translate(-50%, -50%) scale(1); }
-75% { transform: translate(-50%, -50%) scale(1.1); }
-}
-/* ==================== COUNTDOWN ==================== */
-.countdown-section {
-background: var(--bg-secondary);
-position: relative;
-}
-.countdown-section::before {
-content: '';
-position: absolute;
-top: -30px; left: 0; right: 0;
-height: 60px;
-background: var(--bg-secondary);
-clip-path: ellipse(55% 100% at 50% 100%);
-}
-.countdown {
-display: flex;
-justify-content: center;
-gap: clamp(12px, 3vw, 24px);
-}
-.countdown-item {
-text-align: center;
-min-width: clamp(65px, 16vw, 100px);
-background: rgba(255, 255, 255, 0.7);
-border: 1px solid rgba(196, 30, 58, 0.15);
-border-radius: 16px;
-padding: clamp(14px, 3vw, 24px) clamp(8px, 2vw, 16px);
-backdrop-filter: blur(8px);
-}
-.countdown-number {
-font-family: var(--font-heading);
-font-size: clamp(2rem, 6vw, 3.5rem);
-font-weight: 700;
-color: var(--accent-dark);
-line-height: 1;
-display: block;
-}
-.countdown-label {
-font-family: var(--font-body);
-font-size: clamp(0.6rem, 1.8vw, 0.8rem);
-color: var(--text-tertiary);
-text-transform: uppercase;
-letter-spacing: 0.15em;
-margin-top: 6px;
-font-weight: 400;
-}
-.countdown-done {
-text-align: center;
-font-family: var(--font-heading);
-font-size: clamp(1.2rem, 3vw, 1.8rem);
-color: var(--accent);
-padding: 2rem;
-}
-/* ==================== CALENDAR MONTH ==================== */
-.cal-section { text-align: center; }
-.cal-month { max-width: 420px; margin: 0 auto; }
-.cal-header {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 12px;
-margin-bottom: 1.25rem;
-}
-.cal-month-name {
-font-family: var(--font-heading);
-font-size: 1.4rem;
-font-weight: 600;
-}
-.cal-year { font-size: 0.85rem; opacity: 0.5; font-weight: 400; }
-.cal-grid {
-display: grid;
-grid-template-columns: repeat(7, 1fr);
-gap: 0;
-}
-.cal-dow {
-font-size: 0.7rem;
-font-weight: 600;
-text-transform: uppercase;
-letter-spacing: 0.1em;
-padding: 8px 0;
-opacity: 0.5;
-}
-.cal-day {
-position: relative;
-aspect-ratio: 1;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 0.9rem;
-cursor: default;
-transition: background 0.2s;
-}
-.cal-day.empty { pointer-events: none; }
-.cal-day.today { font-weight: 700; }
-.cal-day.marked { color: #fff; font-weight: 700; z-index: 1; }
-.cal-events {
-margin-top: 1.25rem;
-display: flex;
-flex-direction: column;
-gap: 0.5rem;
-max-width: 420px;
-margin-left: auto;
-margin-right: auto;
-}
-.cal-event {
-display: flex;
-align-items: center;
-gap: 10px;
-font-size: 0.85rem;
-text-align: left;
-}
-.cal-event-dot {
-width: 10px;
-height: 10px;
-border-radius: 50%;
-flex-shrink: 0;
-}
-.cal-event-date { font-weight: 600; white-space: nowrap; min-width: 40px; }
-.cal-event-text { opacity: 0.75; }
-/* Classic variant */
-.cal-classic .cal-day {
-font-family: var(--font-accent);
-font-size: 0.95rem;
-}
-.cal-classic .cal-day.marked::before {
-content: '';
-position: absolute;
-width: 36px; height: 36px;
-background: var(--cal-accent, var(--accent));
-border-radius: 50%;
-z-index: -1;
-}
-.cal-classic .cal-month-name {
-letter-spacing: 0.15em;
-text-transform: uppercase;
-font-size: 1.1rem;
-}
-.cal-classic .cal-dow {
-font-family: var(--font-accent);
-font-size: 0.65rem;
-letter-spacing: 0.15em;
-}
-.cal-classic .cal-event-dot {
-background: var(--cal-accent, var(--accent));
-}
-@media (max-width: 480px) {
-.cal-month { max-width: 340px; }
-.cal-day { font-size: 0.8rem; }
-.cal-classic .cal-day { font-size: 0.85rem; }
-.cal-classic .cal-day.marked::before { width: 30px; height: 30px; }
-}
-/* ==================== LOVE STORY TIMELINE ==================== */
-.timeline {
-position: relative;
-max-width: 800px;
-margin: 0 auto;
-padding: 2rem 0;
-}
-.timeline::before {
-content: '';
-position: absolute;
-left: 50%;
-top: 0; bottom: 0;
-width: 2px;
-background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-transform: translateX(-50%);
-}
-.timeline-item {
-position: relative;
-width: 50%;
-padding: 1rem 2rem;
-opacity: 0;
-transform: translateY(20px);
-transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.timeline-item.is-visible {
-opacity: 1;
-transform: translateY(0);
-}
-.timeline-item:nth-child(odd) {
-left: 0;
-text-align: right;
-padding-right: 3rem;
-}
-.timeline-item:nth-child(even) {
-left: 50%;
-text-align: left;
-padding-left: 3rem;
-}
-.timeline-dot {
-position: absolute;
-top: 1.5rem;
-width: 14px;
-height: 14px;
-border-radius: 50%;
-background: var(--accent);
-border: 3px solid var(--bg-primary);
-box-shadow: 0 0 0 3px var(--accent);
-z-index: 1;
-}
-.timeline-item:nth-child(odd) .timeline-dot { right: -7px; }
-.timeline-item:nth-child(even) .timeline-dot { left: -7px; }
-.timeline-date {
-font-family: var(--font-accent);
-font-size: 0.85rem;
-color: var(--accent);
-letter-spacing: 0.1em;
-text-transform: uppercase;
-margin-bottom: 0.5rem;
-}
-.timeline-title {
-font-family: var(--font-heading);
-font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-color: var(--text-primary);
-margin-bottom: 0.5rem;
-}
-.timeline-desc {
-font-family: var(--font-accent);
-font-size: 0.95rem;
-color: var(--text-secondary);
-line-height: 1.6;
-}
-.timeline-icon {
-font-size: 1.5rem;
-margin-bottom: 0.5rem;
-}
-@media (max-width: 768px) {
-.timeline::before { left: 20px; }
-.timeline-item,
-.timeline-item:nth-child(odd),
-.timeline-item:nth-child(even) {
-width: 100%;
-left: 0;
-text-align: left;
-padding-left: 50px;
-padding-right: 1rem;
-}
-.timeline-item:nth-child(odd) .timeline-dot,
-.timeline-item:nth-child(even) .timeline-dot {
-left: 13px;
-right: auto;
-}
-}
-/* ==================== EVENT CARD ==================== */
-.event-section {
-background: var(--bg-secondary);
-position: relative;
-}
-.event-grid {
-max-width: 480px;
-margin: 0 auto;
-}
-.event-card {
-background: rgba(255, 255, 255, 0.7);
-border: 1px solid rgba(196, 30, 58, 0.2);
-border-radius: 20px;
-padding: clamp(2rem, 5vw, 3rem);
-text-align: center;
-backdrop-filter: blur(10px);
-position: relative;
-overflow: hidden;
-}
-.event-card::before {
-content: '';
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 3px;
-background: linear-gradient(90deg, var(--accent), var(--gold));
-}
-.event-card-icon {
-font-size: 2.5rem;
-margin-bottom: 1rem;
-}
-.event-card-type {
-font-family: var(--font-body);
-font-size: 0.75rem;
-font-weight: 500;
-color: var(--accent);
-letter-spacing: 0.25em;
-text-transform: uppercase;
-margin-bottom: 0.75rem;
-}
-.event-card-name {
-font-family: var(--font-heading);
-font-size: clamp(1.4rem, 3.5vw, 1.8rem);
-color: var(--text-primary);
-margin-bottom: 1.25rem;
-}
-.event-card-detail {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-font-family: var(--font-accent);
-font-size: 1rem;
-color: var(--text-secondary);
-margin-bottom: 0.5rem;
-line-height: 1.5;
-}
-.event-card-detail svg {
-width: 18px;
-height: 18px;
-flex-shrink: 0;
-color: var(--accent);
-}
-.event-card-address {
-font-family: var(--font-accent);
-font-style: italic;
-font-size: 0.9rem;
-color: var(--text-tertiary);
-margin-top: 0.5rem;
-line-height: 1.5;
-}
-.event-card-parents {
-margin-top: 1.5rem;
-padding-top: 1rem;
-border-top: 1px solid rgba(196, 30, 58, 0.15);
-font-family: var(--font-accent);
-font-size: 0.9rem;
-color: var(--text-secondary);
-line-height: 1.8;
-}
-.event-card-parents strong { color: var(--text-primary); }
-/* ==================== GALLERY ==================== */
-.gallery-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: clamp(8px, 2vw, 14px);
-max-width: 900px;
-margin: 0 auto;
-}
-.gallery-item {
-position: relative;
-overflow: hidden;
-border-radius: 14px;
-cursor: pointer;
-aspect-ratio: 4/5;
-}
-.gallery-item img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-transition: transform 0.5s ease;
-}
-.gallery-item:hover img { transform: scale(1.08); }
-.gallery-overlay {
-position: absolute;
-inset: 0;
-background: rgba(0, 0, 0, 0);
-display: flex;
-align-items: center;
-justify-content: center;
-transition: background 0.3s ease;
-}
-.gallery-item:hover .gallery-overlay {
-background: rgba(44, 24, 16, 0.25);
-}
-.gallery-overlay-icon {
-color: white;
-opacity: 0;
-transform: scale(0.8);
-transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.gallery-item:hover .gallery-overlay-icon {
-opacity: 1;
-transform: scale(1);
-}
-@media (max-width: 768px) {
-.gallery-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 480px) {
-.gallery-grid { grid-template-columns: 1fr; max-width: 320px; }
-}
-/* Lightbox */
-.lightbox {
-position: fixed;
-inset: 0;
-z-index: 10000;
-background: rgba(0, 0, 0, 0.9);
-display: flex;
-align-items: center;
-justify-content: center;
-opacity: 0;
-pointer-events: none;
-transition: opacity 0.3s ease;
-}
-.lightbox.active {
-opacity: 1;
-pointer-events: all;
-}
-.lightbox img {
-max-width: 90%;
-max-height: 90vh;
-object-fit: contain;
-border-radius: 8px;
-animation: lightbox-zoom-in 0.3s ease;
-}
-@keyframes lightbox-zoom-in {
-from { transform: scale(0.9); opacity: 0; }
-to { transform: scale(1); opacity: 1; }
-}
-.lightbox-close {
-position: absolute;
-top: 20px; right: 20px;
-width: 44px; height: 44px;
-border-radius: 50%;
-border: none;
-background: rgba(255, 255, 255, 0.15);
-color: white;
-font-size: 1.5rem;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
-.lightbox-nav {
-position: absolute;
-top: 50%;
-transform: translateY(-50%);
-width: 48px; height: 48px;
-border-radius: 50%;
-border: none;
-background: rgba(255, 255, 255, 0.15);
-color: white;
-font-size: 1.5rem;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.lightbox-nav:hover { background: rgba(255, 255, 255, 0.3); }
-.lightbox-prev { left: 20px; }
-.lightbox-next { right: 20px; }
-/* ==================== QUOTE ==================== */
-.blessing-quote {
-max-width: 600px;
-margin: 0 auto;
-text-align: center;
-position: relative;
-}
-.blessing-quote blockquote {
-font-family: var(--font-accent);
-font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-font-style: italic;
-color: var(--text-secondary);
-line-height: 1.8;
-position: relative;
-padding: 0 2rem;
-}
-.blessing-quote blockquote::before {
-content: '\201C';
-position: absolute;
-top: -0.5rem;
-left: 0;
-font-size: 3.5rem;
-color: var(--accent-light);
-font-style: normal;
-line-height: 1;
-}
-.blessing-quote cite {
-display: block;
-margin-top: 1rem;
-font-family: var(--font-body);
-font-size: 0.85rem;
-font-style: normal;
-color: var(--accent);
-letter-spacing: 0.1em;
-font-weight: 500;
-}
-/* Xi decoration in quote */
-.quote-xi {
-font-size: 4rem;
-color: rgba(196, 30, 58, 0.08);
-font-weight: 900;
-font-family: serif;
-margin-bottom: 1rem;
-}
-/* ==================== RSVP ==================== */
-.rsvp-section {
-background: var(--bg-secondary);
-position: relative;
-}
-.rsvp-section::before {
-content: '';
-position: absolute;
-top: -30px; left: 0; right: 0;
-height: 60px;
-background: var(--bg-secondary);
-clip-path: ellipse(55% 100% at 50% 100%);
-}
-.rsvp-form {
-max-width: 480px;
-margin: 0 auto;
-display: flex;
-flex-direction: column;
-gap: 1rem;
-}
-.rsvp-input,
-.rsvp-select,
-.rsvp-textarea {
-width: 100%;
-padding: 14px 20px;
-font-family: var(--font-body);
-font-size: 0.95rem;
-font-weight: 400;
-color: var(--text-primary);
-background: rgba(255, 255, 255, 0.8);
-border: 1px solid rgba(196, 30, 58, 0.2);
-border-radius: 12px;
-outline: none;
-transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.rsvp-input:focus,
-.rsvp-select:focus,
-.rsvp-textarea:focus {
-border-color: var(--accent);
-box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
-}
-.rsvp-textarea {
-resize: vertical;
-min-height: 100px;
-}
-.rsvp-input::placeholder,
-.rsvp-textarea::placeholder {
-color: var(--text-tertiary);
-}
-.rsvp-row {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 1rem;
-}
-@media (max-width: 480px) {
-.rsvp-row { grid-template-columns: 1fr; }
-}
-.rsvp-submit {
-padding: 14px 48px;
-font-family: var(--font-body);
-font-size: 0.95rem;
-font-weight: 600;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-color: var(--btn-text);
-background: var(--btn-bg);
-border: none;
-border-radius: 50px;
-cursor: pointer;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
-box-shadow: 0 4px 20px var(--accent-glow);
-margin-top: 0.5rem;
-}
-.rsvp-submit:hover {
-transform: translateY(-2px);
-box-shadow: 0 8px 30px var(--accent-glow);
-}
-.rsvp-success {
-display: none;
-text-align: center;
-padding: 2rem;
-animation: fade-up 0.5s ease;
-}
-.rsvp-success.show { display: block; }
-.rsvp-success-icon { font-size: 3rem; margin-bottom: 1rem; }
-.rsvp-success-text {
-font-family: var(--font-heading);
-font-size: 1.3rem;
-color: var(--text-primary);
-}
-@keyframes fade-up {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
-}
-/* ==================== GUESTBOOK / WISHES ==================== */
-.guestbook-section {
-text-align: center;
-}
-.guestbook-form {
-max-width: 480px;
-margin: 0 auto 2rem;
-display: flex;
-flex-direction: column;
-gap: 1rem;
-}
-.guestbook-messages {
-max-width: 600px;
-margin: 0 auto;
-display: flex;
-flex-direction: column;
-gap: 1rem;
-}
-.guestbook-message {
-background: rgba(255, 255, 255, 0.6);
-border: 1px solid rgba(196, 30, 58, 0.12);
-border-radius: 14px;
-padding: 1.25rem;
-text-align: left;
-animation: fade-up 0.4s ease;
-}
-.guestbook-message-header {
-display: flex;
-align-items: center;
-gap: 10px;
-margin-bottom: 0.5rem;
-}
-.guestbook-avatar {
-width: 36px; height: 36px;
-border-radius: 50%;
-background: var(--accent);
-color: white;
-display: flex;
-align-items: center;
-justify-content: center;
-font-family: var(--font-heading);
-font-size: 0.9rem;
-font-weight: 600;
-flex-shrink: 0;
-}
-.guestbook-name {
-font-family: var(--font-body);
-font-size: 0.95rem;
-color: var(--text-primary);
-font-weight: 600;
-}
-.guestbook-text {
-font-family: var(--font-accent);
-font-size: 0.95rem;
-color: var(--text-secondary);
-line-height: 1.6;
-font-style: italic;
-}
-/* ==================== FLOATING WISHES ==================== */
-.floating-wishes-box {
-position: fixed;
-bottom: 80px;
-left: 16px;
-width: 300px;
-height: 0;
-z-index: 999;
-pointer-events: none;
-}
-.floating-wish {
-position: absolute;
-bottom: 0; left: 0;
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 6px 14px;
-border-radius: 20px;
-background: var(--fw-bg, rgba(196, 30, 58, 0.3));
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-box-shadow: 0 2px 12px var(--fw-shadow, rgba(196, 30, 58, 0.15));
-color: var(--fw-text, #fff);
-font-size: 0.8rem;
-line-height: 1.3;
-max-width: 100%;
-width: fit-content;
-animation: wish-float-up 7s linear forwards;
-pointer-events: auto;
-will-change: transform, opacity;
-}
-.fw-c1 { --fw-bg: rgba(196, 30, 58, 0.82); --fw-avatar: #C41E3A; --fw-shadow: rgba(196,30,58,0.25); }
-.fw-c2 { --fw-bg: rgba(139, 0, 0, 0.78); --fw-avatar: #8B0000; --fw-shadow: rgba(139,0,0,0.25); }
-.fw-c3 { --fw-bg: rgba(212, 175, 55, 0.82); --fw-avatar: #D4AF37; --fw-shadow: rgba(212,175,55,0.25); }
-.fw-c4 { --fw-bg: rgba(255, 255, 255, 0.85); --fw-text: #2C1810; --fw-avatar: #9B6B50; --fw-shadow: rgba(0,0,0,0.1); }
-.fw-c5 { --fw-bg: rgba(232, 160, 176, 0.80); --fw-avatar: #C4788A; --fw-shadow: rgba(232,160,176,0.25); }
-.floating-wish-avatar {
-width: 24px; height: 24px;
-border-radius: 50%;
-background: var(--fw-avatar, var(--accent));
-color: #fff;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 0.65rem;
-font-weight: 700;
-flex-shrink: 0;
-}
-.floating-wish-name {
-font-weight: 600;
-margin-right: 2px;
-white-space: nowrap;
-}
-.floating-wish-text {
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-max-width: 190px;
-}
-@keyframes wish-float-up {
-0%   { opacity: 0; transform: translateY(0); }
-5%   { opacity: 1; }
-65%  { opacity: 0.7; }
-88%  { opacity: 0.2; }
-100% { opacity: 0; transform: translateY(-300px); }
-}
-.floating-wishes-box.hidden-wishes { display: none; }
-@media (max-width: 480px) {
-.floating-wishes-box { width: 260px; bottom: 72px; left: 10px; }
-.floating-wish { font-size: 0.74rem; padding: 5px 12px; }
-.floating-wish-avatar { width: 20px; height: 20px; font-size: 0.6rem; }
-.floating-wish-text { max-width: 150px; }
-}
-/* ==================== MUSIC TOGGLE ==================== */
-.music-toggle {
-position: fixed;
-bottom: 24px;
-right: 24px;
-width: 48px; height: 48px;
-border-radius: 50%;
-border: none;
-background: var(--accent);
-color: white;
-cursor: pointer;
-z-index: 1000;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0 4px 15px var(--accent-glow);
-transition: transform 0.2s, box-shadow 0.2s;
-}
-.music-toggle:hover {
-transform: scale(1.1);
-box-shadow: 0 6px 20px var(--accent-glow);
-}
-.music-toggle .music-icon-off { display: none; }
-.music-toggle.muted .music-icon-on { display: none; }
-.music-toggle.muted .music-icon-off { display: block; }
-/* Wishes toggle */
-.wishes-toggle {
-position: fixed;
-bottom: 80px;
-right: 24px;
-width: 40px; height: 40px;
-border-radius: 50%;
-border: none;
-background: var(--accent);
-color: white;
-cursor: pointer;
-z-index: 1000;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-opacity: 0.85;
-}
-.wishes-toggle:hover {
-transform: scale(1.1);
-opacity: 1;
-}
-.wishes-toggle svg { width: 18px; height: 18px; }
-.wishes-toggle .wishes-icon-off { display: none; }
-.wishes-toggle.hidden .wishes-icon-on { display: none; }
-.wishes-toggle.hidden .wishes-icon-off { display: block; }
-/* ==================== CALENDAR BUTTON ==================== */
-.calendar-btn {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 10px 24px;
-font-family: var(--font-body);
-font-size: 0.85rem;
-font-weight: 500;
-letter-spacing: 0.1em;
-color: var(--accent);
-background: transparent;
-border: 1px solid var(--accent);
-border-radius: 50px;
-cursor: pointer;
-text-decoration: none;
-transition: all 0.3s ease;
-}
-.calendar-btn:hover {
-background: var(--accent);
-color: white;
-}
-.calendar-btn svg { width: 16px; height: 16px; }
-/* ==================== PHOTO STRIP ==================== */
-.photo-strip {
-width: 100%;
-height: clamp(180px, 25vw, 250px);
-overflow: hidden;
-position: relative;
-}
-.photo-strip img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-object-position: center;
-}
-.photo-strip::after {
-content: '';
-position: absolute;
-inset: 0;
-background: linear-gradient(
-to bottom,
-var(--bg-primary) 0%,
-transparent 15%,
-transparent 85%,
-var(--bg-primary) 100%
-);
-}
-/* ==================== FOOTER ==================== */
-.footer {
-text-align: center;
-padding: clamp(3rem, 8vw, 5rem) 1.5rem;
-position: relative;
-overflow: hidden;
-}
-.footer-bg {
-position: absolute;
-inset: 0;
-z-index: -1;
-}
-.footer-bg img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-opacity: 0.14;
-filter: blur(2px);
-}
-.footer-bg::after {
-content: '';
-position: absolute;
-inset: 0;
-background: rgba(255, 248, 240, 0.80);
-}
-.footer-couple {
-font-family: var(--font-heading);
-font-size: clamp(2rem, 6vw, 3.5rem);
-color: var(--accent-dark);
-margin-bottom: 0.5rem;
-}
-.footer-date {
-font-family: var(--font-accent);
-font-size: 1rem;
-color: var(--text-secondary);
-letter-spacing: 0.15em;
-margin-bottom: 1rem;
-}
-.footer-hearts {
-display: flex;
-justify-content: center;
-gap: 8px;
-margin: 1rem 0;
-}
-.footer-heart {
-font-size: 0.8rem;
-color: var(--accent);
-animation: heartbeat-footer 1.5s ease-in-out infinite;
-}
-.footer-heart:nth-child(2) { animation-delay: 0.15s; }
-.footer-heart:nth-child(3) { animation-delay: 0.3s; }
-@keyframes heartbeat-footer {
-0%, 100% { transform: scale(1); }
-25% { transform: scale(1.2); }
-50% { transform: scale(1); }
-75% { transform: scale(1.1); }
-}
-.footer-made {
-font-family: var(--font-body);
-font-size: 0.75rem;
-color: var(--text-tertiary);
-font-weight: 300;
-margin-top: 1rem;
-}
-/* ==================== FALLING EFFECTS ==================== */
-.petal {
-position: fixed;
-top: -30px;
-z-index: 9999;
-pointer-events: none;
-animation: petal-fall linear forwards;
-}
-@keyframes petal-fall {
-0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
-25% { transform: translateY(27vh) rotate(180deg) translateX(30px); }
-50% { transform: translateY(55vh) rotate(360deg) translateX(-20px); }
-75% { transform: translateY(82vh) rotate(540deg) translateX(25px); }
-100% { transform: translateY(110vh) rotate(720deg) translateX(-10px); opacity: 0; }
-}
-.floating-heart {
-position: fixed;
-bottom: -30px;
-z-index: 9998;
-pointer-events: none;
-animation: heart-float ease-out forwards;
-}
-@keyframes heart-float {
-0% { transform: translateY(0) scale(1); opacity: 1; }
-50% { transform: translateY(-50vh) scale(1.2); opacity: 0.8; }
-100% { transform: translateY(-110vh) scale(0.8); opacity: 0; }
-}
-.sparkle {
-position: fixed;
-z-index: 9998;
-pointer-events: none;
-animation: sparkle-fade 2s ease-out forwards;
-}
-@keyframes sparkle-fade {
-0% { opacity: 0; transform: scale(0) rotate(0deg); }
-30% { opacity: 1; transform: scale(1) rotate(90deg); }
-100% { opacity: 0; transform: scale(0.3) rotate(180deg); }
-}
-/* ==================== DECORATIVE ==================== */
-.deco {
-position: absolute;
-pointer-events: none;
-z-index: 0;
-user-select: none;
-}
-.deco-front { z-index: 3; }
-.deco-heart-beat::after {
-content: '\2665';
-font-size: var(--deco-size, 1.5rem);
-color: var(--deco-color, #C41E3A);
-animation: deco-hb 1.5s ease-in-out infinite;
-filter: drop-shadow(0 2px 4px rgba(196,30,58,0.3));
-}
-@keyframes deco-hb {
-0%, 100% { transform: scale(1); }
-15% { transform: scale(1.25); }
-30% { transform: scale(1); }
-45% { transform: scale(1.15); }
-}
-.deco-heart-float::after {
-content: '\2661';
-font-size: var(--deco-size, 1.2rem);
-color: var(--deco-color, var(--accent-light));
-animation: deco-fl 4s ease-in-out infinite;
-opacity: 0.6;
-}
-@keyframes deco-fl {
-0%, 100% { transform: translateY(0) rotate(0deg); }
-25% { transform: translateY(-8px) rotate(5deg); }
-75% { transform: translateY(5px) rotate(-3deg); }
-}
-.deco-rose-bloom::after {
-content: '\1F339';
-font-size: var(--deco-size, 1.3rem);
-animation: deco-bl 3s ease-in-out infinite;
-opacity: 0.7;
-}
-@keyframes deco-bl {
-0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
-50% { transform: scale(1.1) rotate(10deg); opacity: 0.8; }
-}
-.deco-butterfly::after {
-content: '\1F98B';
-font-size: var(--deco-size, 1.2rem);
-animation: deco-bf 5s ease-in-out infinite;
-opacity: 0.5;
-}
-@keyframes deco-bf {
-0%, 100% { transform: translate(0, 0) rotate(0deg) scaleX(1); }
-20% { transform: translate(8px, -10px) rotate(5deg) scaleX(0.9); }
-40% { transform: translate(15px, -5px) rotate(-3deg) scaleX(1); }
-60% { transform: translate(8px, 3px) rotate(5deg) scaleX(0.9); }
-80% { transform: translate(-3px, -3px) rotate(-2deg) scaleX(1); }
-}
-.deco-sparkle::after {
-content: '\2728';
-font-size: var(--deco-size, 1rem);
-animation: deco-tw 1.8s ease-in-out infinite;
-}
-@keyframes deco-tw {
-0%, 100% { opacity: 0.3; transform: scale(0.8); }
-50% { opacity: 1; transform: scale(1.2); }
-}
-.deco-rose::after {
-content: '\1F33A';
-font-size: var(--deco-size, 1.3rem);
-animation: deco-bl 3.5s ease-in-out infinite;
-opacity: 0.6;
-}
-.deco-sm { --deco-size: 1rem; }
-.deco-md { --deco-size: 1.5rem; }
-.deco-lg { --deco-size: 2rem; }
-/* Large flower decorations at section corners */
-.section-flower {
-position: absolute;
-pointer-events: none;
-font-size: 3.5rem;
-opacity: 0.15;
-z-index: 0;
-}
-.section-flower-tl { top: 10px; left: 10px; transform: rotate(-12deg); }
-.section-flower-tr { top: 10px; right: 10px; transform: rotate(15deg); }
-.section-flower-bl { bottom: 10px; left: 10px; transform: rotate(10deg); }
-.section-flower-br { bottom: 10px; right: 10px; transform: rotate(-8deg); }
-/* ==================== IMAGE BACKGROUND SECTIONS ==================== */
-.bg-image-section {
-position: relative;
-overflow: hidden;
-}
-.bg-image-section .bg-img {
-position: absolute;
-inset: 0;
-z-index: -1;
-}
-.bg-image-section .bg-img img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-opacity: 0.28;
-filter: blur(1px);
-}
-.bg-image-section .bg-img::after {
-content: '';
-position: absolute;
-inset: 0;
-background: rgba(255, 248, 240, 0.65);
-}
-/* ==================== GROUP ANIMATIONS ==================== */
-.animate-fade-up {
-opacity: 0;
-transform: translateY(20px);
-transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.animate-fade-up.is-visible {
-opacity: 1;
-transform: translateY(0);
-}
-</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x7a\x45\x35\x4d\x56\x39\x32\x61\x57\x56\x30\x4c\x57\x31\x6c\x62\x53\x31\x74\x59\x57\x6b\x74\x61\x48\x6c\x38\x4d\x6a\x41\x79\x4e\x69\x30\x77\x4d\x79\x30\x79\x4f\x58\x78\x77\x61\x48\x56\x76\x59\x33\x42\x30\x4f\x54\x67\x3d'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><span class="flying-bird" style="top: 12%; animation-duration: 18s; animation-delay: 0s; opacity: 0.25;">🕊️</span><span class="flying-bird" style="top: 25%; animation-duration: 22s; animation-delay: 5s; opacity: 0.2; font-size: 1.2rem;">🕊️</span><span class="flying-bird" style="top: 8%; animation-duration: 15s; animation-delay: 10s; opacity: 0.35; font-size: 1.8rem;">🕊️</span><span class="flying-bird" style="top: 35%; animation-duration: 25s; animation-delay: 3s; opacity: 0.18; font-size: 1rem;">🕊️</span><div id="envelope" class="envelope"><div class="envelope-bg"><img src="../../../shared/images/wedding/viet-mem-mai/12.webp" alt=""></div><span class="envelope-deco envelope-deco-1">🌺</span><span class="envelope-deco envelope-deco-2">🌸</span><span class="envelope-deco envelope-deco-3">🏵️</span><span class="envelope-deco envelope-deco-4">🌺</span><span class="envelope-deco envelope-deco-5">🌸</span><span class="envelope-deco envelope-deco-6">💮</span><div class="envelope-card"><span class="envelope-corner envelope-corner-tl">❦</span><span class="envelope-corner envelope-corner-tr">❦</span><span class="envelope-corner envelope-corner-bl">❦</span><span class="envelope-corner envelope-corner-br">❦</span><span class="envelope-flower envelope-flower-tl">🌺</span><span class="envelope-flower envelope-flower-br">🌺</span><span class="envelope-xi">囍</span><div class="envelope-ornament">囍</div><div class="envelope-line"></div><h1 class="envelope-couple-name">Thành Long<br>&<br>Thuỳ Linh</h1><p class="envelope-date">15 . 03 . 2027</p><p class="envelope-invite-text">Nhà trai trân trọng kính mời</p><div id="envelopeOpenBtn" class="padlock-wrap" role="button" tabindex="0" aria-label="Mở thiệp"><div class="padlock-shackle"></div><div class="padlock-body"><div class="padlock-keyhole"></div><span class="padlock-xi">囍</span></div><div class="padlock-key"><div class="key-shaft"><div class="key-head"></div><div class="key-teeth"></div></div></div><span class="padlock-sparkle" style="top:20%;left:15%;--sx:-30px;--sy:-25px;">✨</span><span class="padlock-sparkle" style="top:20%;right:15%;--sx:30px;--sy:-25px;">✨</span><span class="padlock-sparkle" style="top:50%;left:5%;--sx:-35px;--sy:5px;">❤️</span><span class="padlock-sparkle" style="top:50%;right:5%;--sx:35px;--sy:5px;">❤️</span><span class="padlock-sparkle" style="top:75%;left:20%;--sx:-20px;--sy:25px;">🌸</span><span class="padlock-sparkle" style="top:75%;right:20%;--sx:20px;--sy:25px;">🌸</span><span class="padlock-hint">chạm ổ khoá để mở thiệp</span></div><div class="envelope-peek-photos"><div class="envelope-peek-photo"><img src="../../../shared/images/wedding/viet-mem-mai/5.webp" alt=""></div><div class="envelope-peek-photo"><img src="../../../shared/images/wedding/viet-mem-mai/6.webp" alt=""></div></div></div></div><nav class="nav" id="mainNav"><div class="nav-inner"><a href="#hero" class="nav-link">Trang chủ</a><a href="#story" class="nav-link">Chuyện tình</a><span class="nav-monogram">L & L</span><a href="#gallery" class="nav-link">Album</a><a href="#rsvp" class="nav-link">Xác nhận</a><a href="#wishes" class="nav-link">Lời chúc</a></div></nav><section class="hero" id="hero"><div class="hero-bg"><img src="../../../shared/images/wedding/viet-mem-mai/1.webp" alt="Wedding hero"></div><span class="hero-xi">囍</span><p class="hero-subtitle">Save the Date</p><div class="hero-names" style="position: relative;"><span class="hero-name hero-name-groom">Thành Long</span><div class="hero-ampersand-wrap"><span class="hero-ampersand">&</span></div><span class="hero-name hero-name-bride">Thuỳ Linh</span><span class="deco deco-front deco-heart-beat deco-md" style="top: 0; right: -35px;"></span><span class="deco deco-front deco-sparkle deco-sm" style="bottom: 5px; left: -25px;"></span></div><div class="hero-name-line"><span class="hero-name-line-text">mãi bên nhau</span></div><p class="hero-date">15 . 03 . 2027</p><p class="hero-invite">Nhà trai trân trọng kính mời</p><div class="scroll-indicator"><span>Cuộn xuống</span><i data-lucide="chevron-down"></i></div></section><section class="section--breathe animate-fade-up" style="position: relative;"><span class="section-flower section-flower-tl">🌸</span><span class="section-flower section-flower-br">🌺</span><div class="couple-fly"><img class="couple-fly-img" src="../../../shared/images/wedding/viet-mem-mai/7.webp" alt="Chú rể"><img class="couple-fly-img" src="../../../shared/images/wedding/viet-mem-mai/8.webp" alt="Cô dâu"><div class="couple-fly-heart">♥</div></div><span class="deco deco-butterfly deco-lg" style="top: 15%; left: 10%;"></span><span class="deco deco-heart-float deco-sm" style="bottom: 20%; right: 8%;"></span></section><section class="section countdown-section animate-fade-up" id="countdown" style="position: relative;"><span class="section-flower section-flower-tr">🏵️</span><div class="section-heading"><p class="section-subtitle">Đếm Ngược</p><h2 class="section-title">Ngày Trọng Đại</h2></div><div class="countdown" id="countdownTimer"><div class="countdown-item"><span class="countdown-number" id="days">00</span><span class="countdown-label">Ngày</span></div><div class="countdown-item"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Giờ</span></div><div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Phút</span></div><div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Giây</span></div></div></section><section class="section cal-section bg-image-section animate-fade-up" id="calendar-month" style="position: relative;"><div class="bg-img"><img src="../../../shared/images/wedding/viet-mem-mai/9.webp" alt=""></div><div class="section-heading"><p class="section-subtitle">Save The Date</p><h2 class="section-title">Tháng 3, 2027</h2></div><div id="weddingCalendar"></div><div style="text-align: center; margin-top: 1.5rem;"><button class="calendar-btn" onclick="downloadICS()"><i data-lucide="calendar-plus"></i>
-Thêm vào lịch
-</button></div></section><div class="divider-ornament"><span class="divider-ornament-icon">囍</span></div><div class="photo-strip"><img src="../../../shared/images/wedding/viet-mem-mai/11.webp" alt=""></div><section class="section--breathe bg-image-section" id="story" style="position: relative;"><div class="bg-img"><img src="../../../shared/images/wedding/viet-mem-mai/3.webp" alt=""></div><span class="section-flower section-flower-tl">🌺</span><span class="section-flower section-flower-br">🌸</span><div class="section-heading"><p class="section-subtitle">Our Love Story</p><h2 class="section-title">Chuyện Của Chúng Mình</h2></div><div class="timeline"><div class="timeline-item animate-fade-up"><div class="timeline-dot"></div><div class="timeline-icon">💫</div><div class="timeline-date">Tháng 3, 2020</div><div class="timeline-title">Lần Đầu Gặp Nhau</div><div class="timeline-desc">Một buổi chiều mùa xuân, chúng mình vô tình gặp nhau tại quán cà phê quen thuộc. Ánh mắt đầu tiên đã khắc sâu trong tim.</div></div><div class="timeline-item animate-fade-up"><div class="timeline-dot"></div><div class="timeline-icon">🌸</div><div class="timeline-date">Tháng 8, 2020</div><div class="timeline-title">Bắt Đầu Hẹn Hò</div><div class="timeline-desc">Sau nhiều lần trò chuyện, chúng mình quyết định cùng nhau bước đi trên con đường tình yêu.</div></div><div class="timeline-item animate-fade-up"><div class="timeline-dot"></div><div class="timeline-icon">💍</div><div class="timeline-date">Tháng 9, 2026</div><div class="timeline-title">Lời Cầu Hôn</div><div class="timeline-desc">Dưới ánh hoàng hôn rực rỡ, anh quỳ gối cầu hôn và em đã nói "Đồng Ý!"</div></div><div class="timeline-item animate-fade-up"><div class="timeline-dot"></div><div class="timeline-icon">💒</div><div class="timeline-date">Tháng 3, 2027</div><div class="timeline-title">Ngày Trọng Đại</div><div class="timeline-desc">Và bây giờ, chúng mình sẵn sàng cùng nhau viết tiếp câu chuyện tình yêu — mãi mãi bên nhau.</div></div></div><span class="deco deco-rose-bloom deco-md" style="top: 8%; right: 5%;"></span><span class="deco deco-sparkle deco-sm" style="bottom: 10%; left: 8%;"></span></section><div class="divider-ornament"><span class="divider-ornament-icon">❦</span></div><section class="section event-section animate-fade-up" id="event" style="position: relative;"><span class="section-flower section-flower-tl">🏵️</span><span class="section-flower section-flower-br">🌺</span><div class="section-heading"><p class="section-subtitle">Wedding Ceremony</p><h2 class="section-title">Lễ Thành Hôn</h2></div><div class="event-grid"><div class="event-card"><div class="event-card-icon">💒</div><div class="event-card-type">Tiệc Cưới</div><div class="event-card-name">Lễ Thành Hôn</div><div class="event-card-detail"><i data-lucide="calendar"></i><span>Thứ Bảy, 15/03/2027</span></div><div class="event-card-detail"><i data-lucide="clock"></i><span>17:00 — 21:00</span></div><div class="event-card-detail"><i data-lucide="map-pin"></i><span>Nhà hàng Tiệc Cưới ABC</span></div><div class="event-card-address">123 Đường Nguyễn Huệ, Quận 1, TP.HCM</div><div class="event-card-parents"><strong>Trân trọng kính mời</strong><br>
-Ông Nguyễn Văn A & Bà Trần Thị B
-</div><span class="deco deco-rose deco-sm" style="top: 15%; right: 10%;"></span></div></div></section><section class="section--breathe bg-image-section animate-fade-up" style="position: relative;"><div class="bg-img"><img src="../../../shared/images/wedding/viet-mem-mai/3.webp" alt=""></div><div class="blessing-quote"><div class="quote-xi">囍</div><blockquote>
-Tình yêu không phải là nhìn nhau, mà là cùng nhau nhìn về một hướng.
-</blockquote><cite>— Antoine de Saint-Exupéry</cite></div><span class="deco deco-sparkle deco-md" style="top: 15%; left: 10%;"></span></section><section class="section" id="gallery" style="position: relative;"><span class="section-flower section-flower-tl">🌸</span><span class="section-flower section-flower-br">💮</span><div class="section-heading"><p class="section-subtitle">Our Gallery</p><h2 class="section-title">Khoảnh Khắc Đẹp</h2></div><div class="gallery-grid" id="galleryGrid"><div class="gallery-item" data-index="0"><img src="../../../shared/images/wedding/viet-mem-mai/2.webp" alt="Wedding photo 1"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div><div class="gallery-item" data-index="1"><img src="../../../shared/images/wedding/viet-mem-mai/4.webp" alt="Wedding photo 2"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div><div class="gallery-item" data-index="2"><img src="../../../shared/images/wedding/viet-mem-mai/5.webp" alt="Wedding photo 3"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div><div class="gallery-item" data-index="3"><img src="../../../shared/images/wedding/viet-mem-mai/6.webp" alt="Wedding photo 4"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div><div class="gallery-item" data-index="4"><img src="../../../shared/images/wedding/viet-mem-mai/9.webp" alt="Wedding photo 5"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div><div class="gallery-item" data-index="5"><img src="../../../shared/images/wedding/viet-mem-mai/10.webp" alt="Wedding photo 6"><div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div></div></div><span class="deco deco-sparkle deco-md" style="top: 5%; right: 10%;"></span><span class="deco deco-heart-float deco-lg" style="bottom: 8%; left: 5%;"></span></section><div class="lightbox" id="lightbox"><button class="lightbox-close" id="lightboxClose">✕</button><button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button><img id="lightboxImg" src="" alt="Lightbox"><button class="lightbox-nav lightbox-next" id="lightboxNext">›</button></div><div class="divider-ornament"><span class="divider-ornament-icon">♡</span></div><section class="section rsvp-section animate-fade-up" id="rsvp"><div class="section-heading"><p class="section-subtitle">RSVP</p><h2 class="section-title">Xác Nhận Tham Dự</h2><p class="section-desc">Sự hiện diện của bạn là niềm hạnh phúc lớn nhất của chúng mình</p></div><form class="rsvp-form" id="rsvpForm" onsubmit="return handleRSVP(event)"><input type="text" class="rsvp-input" placeholder="Họ và tên *" required><div class="rsvp-row"><input type="tel" class="rsvp-input" placeholder="Số điện thoại"><select class="rsvp-select"><option value="1">1 khách</option><option value="2">2 khách</option><option value="3">3 khách</option><option value="4">4 khách</option><option value="5">5 khách</option></select></div><textarea class="rsvp-textarea" placeholder="Lời nhắn gửi đến cô dâu chú rể..."></textarea><button type="submit" class="rsvp-submit">Xác Nhận</button></form><div class="rsvp-success" id="rsvpSuccess"><div class="rsvp-success-icon">🎉</div><div class="rsvp-success-text">Cảm ơn bạn đã xác nhận!</div></div></section><section class="section guestbook-section animate-fade-up" id="wishes" style="position: relative;"><span class="section-flower section-flower-tr">🌺</span><div class="section-heading"><p class="section-subtitle">Guestbook</p><h2 class="section-title">Lời Chúc Phúc</h2><p class="section-desc">Gửi lời chúc tốt đẹp đến cặp đôi</p></div><form class="guestbook-form" id="wishForm" onsubmit="return handleWish(event)"><input type="text" class="rsvp-input" id="wishName" placeholder="Tên của bạn *" required><textarea class="rsvp-textarea" id="wishMessage" placeholder="Lời chúc của bạn..." required></textarea><button type="submit" class="rsvp-submit">Gửi Lời Chúc</button></form><div class="guestbook-messages" id="wishList"></div><span class="deco deco-heart-float deco-lg" style="top: 5%; right: 8%;"></span></section><div class="photo-strip"><img src="../../../shared/images/wedding/viet-mem-mai/11.webp" alt=""></div><footer class="footer" id="footer"><div class="footer-bg"><img src="../../../shared/images/wedding/viet-mem-mai/1.webp" alt=""></div><div class="footer-couple">Thành Long & Thuỳ Linh</div><div class="footer-date">15 . 03 . 2027</div><div class="footer-hearts"><span class="footer-heart">♥</span><span class="footer-heart">♥</span><span class="footer-heart">♥</span></div><div class="footer-made">Made with ♥ by Templexa</div></footer><div class="floating-wishes-box" id="floatingWishesBox"></div><button id="wishesToggle" class="wishes-toggle" aria-label="Toggle wishes"><i data-lucide="message-circle" class="wishes-icon-on"></i><i data-lucide="message-circle-off" class="wishes-icon-off"></i></button><button id="musicToggle" class="music-toggle" aria-label="Toggle music"><i data-lucide="volume-2" class="music-icon-on"></i><i data-lucide="volume-x" class="music-icon-off"></i></button><audio id="bgMusic" loop preload="auto"><source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg"></audio><script>
-lucide.createIcons();
-</script><script>document.addEventListener('\x44\x4f\x4d\x43\x6f\x6e\x74\x65\x6e\x74\x4c\x6f\x61\x64\x65\x64', function () { var envelope = document.getElementById('\x65\x6e\x76\x65\x6c\x6f\x70\x65'); var openBtn = document.getElementById('\x65\x6e\x76\x65\x6c\x6f\x70\x65\x4f\x70\x65\x6e\x42\x74\x6e'); var bgMusic = document.getElementById('\x62\x67\x4d\x75\x73\x69\x63'); var lockOpened = false; if (openBtn) { openBtn.addEventListener('\x63\x6c\x69\x63\x6b', function () { if (lockOpened) return; lockOpened = true; openBtn.classList.add('\x69\x6e\x73\x65\x72\x74\x69\x6e\x67'); setTimeout(function () { openBtn.classList.remove('\x69\x6e\x73\x65\x72\x74\x69\x6e\x67'); openBtn.classList.add('\x74\x75\x72\x6e\x69\x6e\x67'); }, 650); setTimeout(function () { openBtn.classList.remove('\x74\x75\x72\x6e\x69\x6e\x67'); openBtn.classList.add('\x75\x6e\x6c\x6f\x63\x6b\x65\x64'); }, 1200); setTimeout(function () { envelope.classList.add('\x6f\x70\x65\x6e\x65\x64'); if (bgMusic) { bgMusic.volume = 0.3; bgMusic.play().catch(function(){}); } }, 1800); setTimeout(function () { envelope.style.display = '\x6e\x6f\x6e\x65'; }, 2800); }); openBtn.addEventListener('\x6b\x65\x79\x64\x6f\x77\x6e', function (e) { if (e.key === '\x45\x6e\x74\x65\x72' || e.key === ' ') { e.preventDefault(); openBtn.click(); } }); } function updateCountdown() { var weddingDate = new Date('2027-03-15T17:00:00').getTime(); var now = new Date().getTime(); var diff = weddingDate - now; if (diff <= 0) { document.getElementById('countdownTimer').innerHTML = '<div class="countdown-done">\uD83C\uDF89 H\u00F4n l\u1EC5 \u0111\u00E3 di\u1EC5n ra! \uD83C\uDF89</div>'; return; } var d = Math.floor(diff / (1000 * 60 * 60 * 24)); var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); var s = Math.floor((diff % (1000 * 60)) / 1000); document.getElementById('days').textContent = String(d).padStart(2, '0'); document.getElementById('hours').textContent = String(h).padStart(2, '0'); document.getElementById('minutes').textContent = String(m).padStart(2, '0'); document.getElementById('seconds').textContent = String(s).padStart(2, '0'); } updateCountdown(); setInterval(updateCountdown, 1000); initCalendarMonth({ containerId: 'weddingCalendar', month: 3, year: 2027, variant: 'classic', accentColor: '#C41E3A', events: [ { day: 15, color: '#C41E3A', label: '17:00 \u2014 L\u1EC5 Th\u00E0nh H\u00F4n' } ] }); function initCalendarMonth(config) { var container = document.getElementById(config.containerId); if (!container) return; var month = config.month; var year = config.year; var variant = config.variant || 'classic'; var accentColor = config.accentColor || '#C41E3A'; var events = config.events || []; var monthNames = ['', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x31', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x32', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x33', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x34', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x35', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x36', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x37', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x38', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x39', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x31\x30', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x31\x31', '\x54\x68\x5c\x75\x30\x30\x45\x31\x6e\x67\x20\x31\x32']; var dows = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']; var markedDays = {}; events.forEach(function(e) { markedDays[e.day] = e.color || accentColor; }); var firstDay = new Date(year, month - 1, 1).getDay(); var daysInMonth = new Date(year, month, 0).getDate(); var today = new Date(); var isThisMonth = (today.getFullYear() === year && today.getMonth() + 1 === month); var todayDate = today.getDate(); var html = '<div class="cal-month cal-'\x20\x2b\x20\x76\x61\x72\x69\x61\x6e\x74\x20\x2b\x20'" style="--cal-accent:'\x20\x2b\x20\x61\x63\x63\x65\x6e\x74\x43\x6f\x6c\x6f\x72\x20\x2b\x20'">'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'<div class="cal-header"><span class="cal-month-name">'\x20\x2b\x20\x6d\x6f\x6e\x74\x68\x4e\x61\x6d\x65\x73\x5b\x6d\x6f\x6e\x74\x68\x5d\x20\x2b\x20'</span><span class="cal-year">'\x20\x2b\x20\x79\x65\x61\x72\x20\x2b\x20'</span></div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'<div class="cal-grid">'; dows.forEach(function(d) { html += '<div class="cal-dow">'\x20\x2b\x20\x64\x20\x2b\x20'</div>'\x3b\x20\x7d\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x66\x6f\x72\x20\x28\x76\x61\x72\x20\x69\x20\x3d\x20\x30\x3b\x20\x69\x20\x3c\x20\x66\x69\x72\x73\x74\x44\x61\x79\x3b\x20\x69\x2b\x2b\x29\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'<div class="cal-day empty"></div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x66\x6f\x72\x20\x28\x76\x61\x72\x20\x64\x20\x3d\x20\x31\x3b\x20\x64\x20\x3c\x3d\x20\x64\x61\x79\x73\x49\x6e\x4d\x6f\x6e\x74\x68\x3b\x20\x64\x2b\x2b\x29\x20\x7b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x76\x61\x72\x20\x63\x6c\x73\x20\x3d\x20'cal-day'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x69\x66\x20\x28\x69\x73\x54\x68\x69\x73\x4d\x6f\x6e\x74\x68\x20\x26\x26\x20\x64\x20\x3d\x3d\x3d\x20\x74\x6f\x64\x61\x79\x44\x61\x74\x65\x29\x20\x63\x6c\x73\x20\x2b\x3d\x20' today'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x69\x66\x20\x28\x6d\x61\x72\x6b\x65\x64\x44\x61\x79\x73\x5b\x64\x5d\x29\x20\x63\x6c\x73\x20\x2b\x3d\x20' marked'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'<div class="'\x20\x2b\x20\x63\x6c\x73\x20\x2b\x20'">'\x20\x2b\x20\x64\x20\x2b\x20'</div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x7d\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'</div>'; if (events.length) { html += '<div class="cal-events">'; events.forEach(function(e) { html += '<div class="cal-event"><div class="cal-event-dot" style="background:' + (e.color || accentColor) + '"></div><span class="cal-event-date">' + e.day + '/'\x20\x2b\x20\x6d\x6f\x6e\x74\x68\x20\x2b\x20'</span><span class="cal-event-text">' + e.label + '</span></div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x7d\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'</div>'\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x7d\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x68\x74\x6d\x6c\x20\x2b\x3d\x20'</div>'; container.innerHTML = html; } var musicBtn = document.getElementById('musicToggle'); if (musicBtn && bgMusic) { var musicStarted = false; musicBtn.addEventListener('click', function () { if (!musicStarted) { bgMusic.play().catch(function(){}); musicStarted = true; musicBtn.classList.remove('muted'); } else if (bgMusic.paused) { bgMusic.play(); musicBtn.classList.remove('muted'); } else { bgMusic.pause(); musicBtn.classList.add('muted'); } }); } var observer = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) entry.target.classList.add('is-visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }); document.querySelectorAll('.animate-fade-up, .timeline-item').forEach(function (el) { observer.observe(el); }); var nav = document.getElementById('mainNav'); window.addEventListener('scroll', function () { if (window.scrollY > 50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); }); document.querySelectorAll('.nav-link').forEach(function (link) { link.addEventListener('click', function (e) { e.preventDefault(); var target = document.querySelector(this.getAttribute('href')); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); }); var galleryImages = []; document.querySelectorAll('.gallery-item img').forEach(function(img) { galleryImages.push(img.src); }); var lightbox = document.getElementById('lightbox'); var lightboxImg = document.getElementById('lightboxImg'); var currentLightboxIndex = 0; document.querySelectorAll('.gallery-item').forEach(function (item) { item.addEventListener('click', function () { currentLightboxIndex = parseInt(item.dataset.index) || 0; lightboxImg.src = galleryImages[currentLightboxIndex]; lightbox.classList.add('active'); }); }); document.getElementById('lightboxClose').addEventListener('click', function () { lightbox.classList.remove('active'); }); document.getElementById('lightboxPrev').addEventListener('click', function () { currentLightboxIndex = (currentLightboxIndex - 1 + galleryImages.length) % galleryImages.length; lightboxImg.src = galleryImages[currentLightboxIndex]; }); document.getElementById('lightboxNext').addEventListener('click', function () { currentLightboxIndex = (currentLightboxIndex + 1) % galleryImages.length; lightboxImg.src = galleryImages[currentLightboxIndex]; }); lightbox.addEventListener('click', function (e) { if (e.target === lightbox) lightbox.classList.remove('active'); }); window.handleRSVP = function (e) { e.preventDefault(); document.getElementById('rsvpForm').style.display = 'none'; document.getElementById('rsvpSuccess').classList.add('show'); return false; }; var LOCAL_WISHES_KEY = 'viet_mem_mai_hy_wishes'; var defaultWishes = [ { name: 'Ngo\u1EA1 Long', message: 'Ch\u00FAc hai b\u1EA1n tr\u0103m n\u0103m h\u1EA1nh ph\u00FAc, s\u1EDBm c\u00F3 tin vui nha! \uD83C\uDF89' }, { name: 'Ph\u01B0\u1EE3ng S\u1ED3', message: 'Happy Wedding! Mong hai b\u1EA1n lu\u00F4n y\u00EAu th\u01B0\u01A1ng nhau m\u00E3i m\u00E3i \uD83D\uDC95' }, { name: 'Doremon', message: 'Ch\u00FAc m\u1EEBng \u0111\u00E1m c\u01B0\u1EDBi! \u01AF\u1EDBc g\u00EC m\u00ECnh c\u00F3 t\u00FAi th\u1EA7n k\u1EF3 t\u1EB7ng hai b\u1EA1n \uD83E\uDD16' }, { name: 'Pikachu', message: 'Pika pika! Ch\u00FAc anh ch\u1ECB h\u1EA1nh ph\u00FAc vi\u00EAn m\u00E3n, v\u1EA1n s\u1EF1 nh\u01B0 \u00FD \u26A1' }, { name: 'Kabibara', message: 'Ch\u00FAc \u0111\u00F4i uy\u00EAn \u01B0\u01A1ng s\u1ED1ng b\u00EAn nhau tr\u1ECDn \u0111\u1EDDi, y\u00EAu th\u01B0\u01A1ng m\u1ED7i ng\u00E0y \uD83E\uDDE1' } ]; function getStoredWishes() { try { var stored = JSON.parse(localStorage.getItem(LOCAL_WISHES_KEY)); return Array.isArray(stored) ? stored : []; } catch (e) { return []; } } function saveWishes(arr) { localStorage.setItem(LOCAL_WISHES_KEY, JSON.stringify(arr)); } var storedWishes = getStoredWishes(); var allWishes = defaultWishes.concat(storedWishes); function renderWishes() { var list = document.getElementById('wishList'); list.innerHTML = ''; allWishes.forEach(function (w) { var div = document.createElement('div'); div.className = 'guestbook-message'; div.innerHTML = '<div class="guestbook-message-header">'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<div class="guestbook-avatar">' + w.name.charAt(0).toUpperCase() + '</div>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<div class="guestbook-name">' + w.name + '</div>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'</div>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<div class="guestbook-text">' + w.message + '</div>'; list.appendChild(div); }); } renderWishes(); window.handleWish = function (e) { e.preventDefault(); var nameEl = document.getElementById('wishName'); var msgEl = document.getElementById('wishMessage'); var name = nameEl.value.trim(); var message = msgEl.value.trim(); if (!name || !message) return false; var wish = { name: name, message: message }; allWishes.push(wish); storedWishes.push(wish); saveWishes(storedWishes); renderWishes(); if (typeof floatingWishesLocal !== 'undefined' && floatingWishesLocal) { floatingWishesLocal.addWish(name, message); } nameEl.value = ''; msgEl.value = ''; return false; }; var floatingWishesLocal = (function () { var wishPool = allWishes.slice(); var currentIndex = 0; var maxVisible = 5; var interval = 1200; var duration = 7000; var container = document.getElementById('floatingWishesBox'); var colorCount = 5; function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; } function createBubble(name, message) { var el = document.createElement('div'); el.className = 'floating-wish fw-c' + (Math.floor(Math.random() * colorCount) + 1); el.style.animationDuration = duration + 'ms'; el.innerHTML = '<div class="floating-wish-avatar">' + esc(name).charAt(0).toUpperCase() + '</div>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<span class="floating-wish-name">'\x20\x2b\x20\x65\x73\x63\x28\x6e\x61\x6d\x65\x29\x20\x2b\x20':</span>'\x20\x2b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'<span class="floating-wish-text">'\x20\x2b\x20\x65\x73\x63\x28\x6d\x65\x73\x73\x61\x67\x65\x29\x20\x2b\x20'</span>'; container.appendChild(el); while (container.children.length > maxVisible) { container.removeChild(container.firstChild); } setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, duration); } function showNext() { if (wishPool.length === 0) return; var wish = wishPool[currentIndex % wishPool.length]; createBubble(wish.name, wish.message); currentIndex++; } setTimeout(function () { showNext(); setInterval(showNext, interval); }, 500); return { addWish: function (name, message) { if (name && message) { wishPool.push({ name: name, message: message }); createBubble(name, message); } } }; })(); var wishesBtn = document.getElementById('wishesToggle'); var wishesBox = document.getElementById('floatingWishesBox'); if (wishesBtn && wishesBox) { wishesBtn.addEventListener('click', function () { var isHidden = wishesBtn.classList.toggle('hidden'); wishesBox.classList.toggle('hidden-wishes', isHidden); }); } function createPetal() { var petal = document.createElement('div'); petal.classList.add('petal'); petal.style.left = Math.random() * 100 + 'vw'; petal.style.animationDuration = (Math.random() * 3 + 5) + 's'; petal.style.opacity = Math.random() * 0.5 + 0.2; petal.style.fontSize = (Math.random() * 8 + 12) + 'px'; petal.innerHTML = ['\uD83C\uDF38', '\x5c\x75\x44\x38\x33\x43\x5c\x75\x44\x46\x33\x41', '\x5c\x75\x44\x38\x33\x44\x5c\x75\x44\x43\x41\x45', '\x5c\x75\x44\x38\x33\x43\x5c\x75\x44\x46\x46\x35\x5c\x75\x46\x45\x30\x46'][Math.floor(Math.random() * 4)]; document.body.appendChild(petal); setTimeout(function () { petal.remove(); }, 8000); } setInterval(createPetal, 1000); function createHeart() { var heart = document.createElement('\x64\x69\x76'); heart.classList.add('\x66\x6c\x6f\x61\x74\x69\x6e\x67\x2d\x68\x65\x61\x72\x74'); heart.style.left = Math.random() * 100 + 'vw'; heart.innerHTML = ['\u2764\uFE0F', '\x5c\x75\x44\x38\x33\x44\x5c\x75\x44\x43\x39\x35', '\x5c\x75\x44\x38\x33\x44\x5c\x75\x44\x43\x39\x37', '\x5c\x75\x44\x38\x33\x45\x5c\x75\x44\x44\x45\x31'][Math.floor(Math.random() * 4)]; heart.style.fontSize = (Math.random() * 8 + 10) + 'px'; heart.style.animationDuration = (Math.random() * 3 + 5) + 's'; document.body.appendChild(heart); setTimeout(function () { heart.remove(); }, 8000); } setInterval(createHeart, 2500); function createSparkle() { var sparkle = document.createElement('div'); sparkle.classList.add('sparkle'); sparkle.style.left = Math.random() * 100 + 'vw'; sparkle.style.top = Math.random() * 100 + 'vh'; sparkle.innerHTML = '\u2728'; sparkle.style.fontSize = (Math.random() * 6 + 8) + 'px'; document.body.appendChild(sparkle); setTimeout(function () { sparkle.remove(); }, 2000); } setInterval(createSparkle, 2000); window.downloadICS = function () { var ics = [ 'BEGIN:VCALENDAR'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'VERSION:2.0'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'PRODID:- ].join('\r\n'); var blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' }); var link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'cuoi-minh-ngoc.ics'; link.click(); }; });</script></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới - Thành Long & Thuỳ Linh</title>
+    <meta name="description" content="Thiệp mời đám cưới phong cách truyền thống Việt Nam, tông đỏ hồng mềm mại, chữ Hỷ trang trọng">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --font-heading: 'Dancing Script', cursive;
+            --font-body: 'Quicksand', sans-serif;
+            --font-accent: 'Cormorant Garamond', serif;
+            --accent: #C41E3A;
+            --accent-dark: #8B0000;
+            --accent-light: #E8A0B0;
+            --accent-glow: rgba(196, 30, 58, 0.25);
+            --gold: #D4AF37;
+            --gold-light: #F0D77B;
+            --bg-primary: #FFF8F0;
+            --bg-secondary: #FFF0E8;
+            --text-primary: #2C1810;
+            --text-secondary: #6B3A20;
+            --text-tertiary: #9B6B50;
+            --btn-bg: linear-gradient(135deg, #C41E3A, #8B0000);
+            --btn-text: #FFFFFF;
+            --divider-color: rgba(196, 30, 58, 0.3);
+            --bow-color: #C41E3A;
+            --bow-color-dark: #8B0000;
+            --bow-glow: rgba(196, 30, 58, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 300;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            overflow-x: hidden;
+            max-width: 100vw;
+            line-height: 1.6;
+        }
+
+        /* Body subtle texture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 15% 25%, rgba(196, 30, 58, 0.04), transparent 50%),
+                radial-gradient(circle at 85% 75%, rgba(212, 175, 55, 0.03), transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(232, 160, 176, 0.03), transparent 60%);
+        }
+
+        img { max-width: 100%; height: auto; }
+
+        /* ==================== FLYING BIRDS ==================== */
+        .flying-bird {
+            position: fixed;
+            z-index: 9997;
+            pointer-events: none;
+            font-size: 1.5rem;
+            opacity: 0.3;
+            animation: bird-fly linear infinite;
+        }
+        @keyframes bird-fly {
+            0% { transform: translate(-100px, 0) scaleX(-1) rotate(-5deg); }
+            25% { transform: translate(27vw, -15px) scaleX(-1) rotate(3deg); }
+            50% { transform: translate(55vw, 5px) scaleX(-1) rotate(-3deg); }
+            75% { transform: translate(82vw, -10px) scaleX(-1) rotate(5deg); }
+            100% { transform: translate(110vw, 0) scaleX(-1) rotate(-2deg); }
+        }
+
+        /* ==================== ENVELOPE ==================== */
+        .envelope {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, transform 1s ease;
+            text-align: center;
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+        .envelope-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .envelope-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(6px) brightness(0.85);
+        }
+        .envelope-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 248, 240, 0.88) 0%,
+                rgba(255, 240, 232, 0.82) 50%,
+                rgba(255, 235, 225, 0.88) 100%
+            );
+        }
+        /* Floating botanical elements on bg */
+        .envelope-deco {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.12;
+            font-size: 3rem;
+        }
+        .envelope-deco-1 { top: 8%; left: 5%; animation: env-float-1 6s ease-in-out infinite; }
+        .envelope-deco-2 { top: 12%; right: 8%; animation: env-float-2 7s ease-in-out infinite; font-size: 2.5rem; }
+        .envelope-deco-3 { bottom: 15%; left: 10%; animation: env-float-1 8s ease-in-out infinite 1s; font-size: 2rem; }
+        .envelope-deco-4 { bottom: 10%; right: 6%; animation: env-float-2 6s ease-in-out infinite 0.5s; }
+        .envelope-deco-5 { top: 30%; left: 3%; animation: env-float-2 9s ease-in-out infinite 2s; font-size: 2rem; opacity: 0.08; }
+        .envelope-deco-6 { top: 25%; right: 4%; animation: env-float-1 7s ease-in-out infinite 1.5s; font-size: 2.5rem; opacity: 0.1; }
+        @keyframes env-float-1 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(8deg); }
+        }
+        @keyframes env-float-2 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(-6deg); }
+        }
+
+        .envelope.opened {
+            opacity: 0;
+            transform: scale(1.08);
+            pointer-events: none;
+        }
+
+        /* Main card frame */
+        .envelope-card {
+            position: relative;
+            z-index: 2;
+            max-width: 440px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: clamp(2.5rem, 6vw, 3.5rem) clamp(2rem, 5vw, 3rem);
+            box-shadow:
+                0 20px 60px rgba(44, 24, 16, 0.12),
+                0 0 0 1px rgba(196, 30, 58, 0.12);
+            animation: env-card-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+        @keyframes env-card-in {
+            from { opacity: 0; transform: translateY(40px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        /* Decorative double border inside card */
+        .envelope-card::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(196, 30, 58, 0.18);
+            border-radius: 18px;
+            pointer-events: none;
+        }
+        .envelope-card::after {
+            content: '';
+            position: absolute;
+            inset: 16px;
+            border: 1px dashed rgba(196, 30, 58, 0.1);
+            border-radius: 14px;
+            pointer-events: none;
+        }
+        /* Corner ornaments */
+        .envelope-corner {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            z-index: 3;
+            color: var(--accent);
+            opacity: 0.35;
+            font-size: 1rem;
+        }
+        .envelope-corner-tl { top: 20px; left: 20px; }
+        .envelope-corner-tr { top: 20px; right: 20px; transform: scaleX(-1); }
+        .envelope-corner-bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+        .envelope-corner-br { bottom: 20px; right: 20px; transform: scale(-1); }
+
+        /* Corner floral decorations on card */
+        .envelope-flower {
+            position: absolute;
+            z-index: 4;
+            font-size: 3rem;
+            opacity: 0.18;
+            pointer-events: none;
+        }
+        .envelope-flower-tl { top: -8px; left: -8px; transform: rotate(-15deg); }
+        .envelope-flower-br { bottom: -8px; right: -8px; transform: rotate(15deg); }
+
+        /* Xi watermark behind couple name */
+        .envelope-xi {
+            position: absolute;
+            font-size: 15rem;
+            color: rgba(196, 30, 58, 0.06);
+            font-weight: 900;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+            font-family: serif;
+            line-height: 1;
+        }
+
+        /* Content stagger animations */
+        .envelope-ornament {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both,
+                       pulse-gentle 2.5s ease-in-out 1.5s infinite;
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes pulse-gentle {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.8; }
+        }
+        .envelope-line {
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 0 auto 1.25rem;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+        .envelope-couple-name {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 7vw, 3.5rem);
+            color: var(--accent-dark);
+            letter-spacing: 0.02em;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+            position: relative;
+            z-index: 1;
+        }
+        .envelope-date {
+            font-family: var(--font-accent);
+            font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.85s both;
+        }
+        .envelope-invite-text {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--text-tertiary);
+            margin-bottom: 2rem;
+            letter-spacing: 0.08em;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s both;
+        }
+
+        /* ---- PADLOCK — Ổ khoá tình yêu ---- */
+        .padlock-wrap {
+            position: relative;
+            width: 100px;
+            height: 130px;
+            margin: 0.5rem auto 0;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
+        }
+        .padlock-wrap:hover { filter: brightness(1.08); }
+
+        /* Quai khoá — hình chữ U */
+        .padlock-shackle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 46px;
+            height: 36px;
+            border: 5px solid var(--gold);
+            border-bottom: none;
+            border-radius: 23px 23px 0 0;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.5s 0.4s;
+            transform-origin: right bottom;
+            z-index: 2;
+        }
+        .padlock-shackle::after {
+            content: '';
+            position: absolute;
+            top: 2px; left: 6px;
+            width: 8px; height: 20px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Thân khoá */
+        .padlock-body {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 64px;
+            height: 52px;
+            background: linear-gradient(145deg, #D4AF37, #B8960B, #D4AF37);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.25),
+                        inset 0 2px 4px rgba(255,255,255,0.2);
+            z-index: 3;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+                        opacity 0.5s 0.6s;
+        }
+        .padlock-body::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1.5px solid rgba(196, 30, 58, 0.3);
+            border-radius: 5px;
+        }
+
+        /* Lỗ khoá — hình trái tim */
+        .padlock-keyhole {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px; height: 14px;
+            background: #8B0000;
+            border-radius: 50%;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+        }
+        .padlock-keyhole::after {
+            content: '';
+            position: absolute;
+            top: 11px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px; height: 12px;
+            background: #8B0000;
+            border-radius: 0 0 3px 3px;
+        }
+        .padlock-xi {
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            color: #8B0000;
+            font-weight: 900;
+            opacity: 0.5;
+        }
+
+        /* Chìa khoá — bắt đầu ở bên phải, sẽ bay vào cắm ổ */
+        .padlock-key {
+            position: absolute;
+            top: 48px;
+            left: calc(50% + 28px);
+            z-index: 4;
+            transform: rotate(-30deg);
+            transition: none; /* dùng animation thay vì transition */
+        }
+        .key-shaft {
+            width: 4px; height: 28px;
+            background: linear-gradient(to bottom, #D4AF37, #C9A84C);
+            border-radius: 2px;
+            position: relative;
+        }
+        .key-head {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px; height: 18px;
+            border: 3px solid #D4AF37;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.1);
+        }
+        /* Trái tim nhỏ trong đầu chìa */
+        .key-head::after {
+            content: '♥';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.45rem;
+            color: #C41E3A;
+        }
+        .key-teeth {
+            position: absolute;
+            bottom: 0; left: 4px;
+            width: 8px; height: 4px;
+            background: #D4AF37;
+            border-radius: 0 2px 2px 0;
+        }
+        .key-teeth::after {
+            content: '';
+            position: absolute;
+            top: -7px; left: 0;
+            width: 6px; height: 4px;
+            background: #D4AF37;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* Hover: chìa lắc nhẹ */
+        .padlock-wrap:hover .padlock-key {
+            animation: key-wiggle 0.6s ease-in-out;
+        }
+        @keyframes key-wiggle {
+            0%, 100% { transform: rotate(-30deg); }
+            25% { transform: rotate(-35deg) translateX(2px); }
+            75% { transform: rotate(-25deg) translateX(-2px); }
+        }
+
+        .padlock-hint {
+            position: absolute;
+            bottom: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            white-space: nowrap;
+            animation: padlock-pulse 2s ease-in-out infinite;
+        }
+        @keyframes padlock-pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.9; }
+        }
+
+        .padlock-sparkle {
+            position: absolute;
+            pointer-events: none;
+            font-size: 14px;
+            opacity: 0;
+        }
+
+        /* Hover shake */
+        .padlock-wrap:hover .padlock-shackle {
+            animation: shackle-shake 0.4s ease-in-out;
+        }
+        @keyframes shackle-shake {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(-3deg); }
+            75% { transform: translateX(-50%) rotate(3deg); }
+        }
+
+        /* ---- UNLOCK — 4 phases ---- */
+
+        /* Phase 1: inserting — chìa bay vào cắm ổ khoá */
+        .padlock-wrap.inserting .padlock-key {
+            animation: key-insert 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes key-insert {
+            0%   { transform: rotate(-30deg); }
+            40%  { transform: rotate(0deg) translate(-26px, 0); }
+            100% { transform: rotate(0deg) translate(-26px, 5px); /* cắm vào lỗ */ }
+        }
+
+        /* Phase 2: turning — xoay chìa trong ổ */
+        .padlock-wrap.turning .padlock-key {
+            animation: key-turn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes key-turn {
+            0%   { transform: rotate(0deg) translate(-26px, 5px); }
+            50%  { transform: rotate(45deg) translate(-26px, 5px); }
+            100% { transform: rotate(90deg) translate(-26px, 5px); }
+        }
+        /* Thân khoá rung khi xoay */
+        .padlock-wrap.turning .padlock-body {
+            animation: body-shake 0.5s ease-in-out;
+        }
+        @keyframes body-shake {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            20% { transform: translateX(-50%) rotate(-2deg); }
+            40% { transform: translateX(-50%) rotate(2deg); }
+            60% { transform: translateX(-50%) rotate(-1deg); }
+            80% { transform: translateX(-50%) rotate(1deg); }
+        }
+
+        /* Phase 3: unlocked — quai bật, chìa rút ra rơi, khoá rơi */
+        .padlock-wrap.unlocked .padlock-shackle {
+            animation: shackle-pop 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes shackle-pop {
+            0%   { transform: translateX(-50%) rotate(0deg); }
+            40%  { transform: translateX(-50%) rotate(-60deg) translateY(-12px); }
+            100% { transform: translateX(-50%) rotate(-120deg) translateY(-30px); opacity: 0; }
+        }
+        .padlock-wrap.unlocked .padlock-key {
+            animation: key-fall 0.8s cubic-bezier(0.5, 0, 1, 1) forwards;
+        }
+        @keyframes key-fall {
+            0%   { transform: rotate(90deg) translate(-26px, 5px); opacity: 1; }
+            30%  { transform: rotate(60deg) translate(-20px, -10px); opacity: 1; }
+            100% { transform: rotate(140deg) translate(40px, 120px); opacity: 0; }
+        }
+        .padlock-wrap.unlocked .padlock-body {
+            animation: body-fall 0.8s cubic-bezier(0.5, 0, 1, 1) 0.2s forwards;
+        }
+        @keyframes body-fall {
+            0%   { transform: translateX(-50%) rotate(0deg); opacity: 1; }
+            40%  { transform: translateX(-50%) rotate(8deg) translateY(10px); opacity: 0.8; }
+            100% { transform: translateX(-50%) rotate(20deg) translateY(60px); opacity: 0; }
+        }
+        .padlock-wrap.unlocked .padlock-hint {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .padlock-wrap.unlocked .padlock-sparkle {
+            animation: padlock-burst 0.8s ease-out forwards;
+        }
+        @keyframes padlock-burst {
+            0% { opacity: 1; transform: translate(0, 0) scale(0.5); }
+            100% { opacity: 0; transform: translate(var(--sx), var(--sy)) scale(1.3) rotate(180deg); }
+        }
+
+        /* Peek photos */
+        .envelope-peek-photos {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            position: relative;
+            height: 75px;
+            animation: env-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.3s both;
+        }
+        .envelope-peek-photo {
+            width: 90px;
+            height: 65px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 3px solid white;
+            position: absolute;
+        }
+        .envelope-peek-photo:nth-child(1) {
+            left: calc(50% - 100px);
+            transform: rotate(-6deg);
+            z-index: 1;
+        }
+        .envelope-peek-photo:nth-child(2) {
+            left: calc(50% + 10px);
+            transform: rotate(4deg);
+            top: 5px;
+        }
+        .envelope-peek-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+        @media (max-width: 480px) {
+            .envelope-card {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+            .envelope-card::before { inset: 8px; border-radius: 15px; }
+            .envelope-card::after { inset: 13px; border-radius: 12px; }
+            .envelope-corner { display: none; }
+            .envelope-deco { font-size: 2rem; opacity: 0.1; }
+            .envelope-peek-photo { width: 80px; height: 58px; }
+            .envelope-peek-photo:nth-child(1) { left: calc(50% - 88px); }
+            .envelope-xi { font-size: 10rem; }
+            .envelope-flower { font-size: 2rem; }
+        }
+
+        /* ==================== NAV ==================== */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(255, 248, 240, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(196, 30, 58, 0.1);
+            transition: box-shadow 0.3s;
+        }
+        .nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 2rem);
+            padding: 12px 1rem;
+            flex-wrap: wrap;
+        }
+        .nav-link {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            padding: 4px 0;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--accent); }
+        .nav-monogram {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--accent);
+            padding: 0 0.5rem;
+        }
+        @media (max-width: 480px) {
+            .nav-inner { gap: 0.6rem; }
+            .nav-link { font-size: 0.65rem; letter-spacing: 0.08em; }
+        }
+
+        /* ==================== HERO ==================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: clamp(6rem, 15vw, 8rem) 1.5rem clamp(4rem, 10vw, 6rem);
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 248, 240, 0.3) 0%,
+                rgba(255, 248, 240, 0.1) 30%,
+                rgba(255, 248, 240, 0.5) 70%,
+                rgba(255, 248, 240, 0.95) 100%
+            );
+        }
+        /* Xi watermark in hero */
+        .hero-xi {
+            position: absolute;
+            font-size: clamp(12rem, 35vw, 20rem);
+            color: rgba(196, 30, 58, 0.05);
+            font-weight: 900;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: -1;
+            font-family: serif;
+            line-height: 1;
+        }
+        .hero-subtitle {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+        /* Hero couple names — vertical stacked */
+        .hero-names {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .hero-name {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 10vw, 5rem);
+            color: var(--accent-dark);
+            line-height: 1;
+            position: relative;
+            display: inline-block;
+        }
+        .hero-name-groom {
+            animation: name-slide-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+            transform-origin: center;
+        }
+        .hero-name-bride {
+            animation: name-slide-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+        }
+        @keyframes name-slide-right {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes name-slide-left {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        /* Ampersand giữa — to, xoay nhẹ, viền trang trí */
+        .hero-ampersand-wrap {
+            position: relative;
+            margin: 0.3rem 0;
+            animation: amp-pop 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+        }
+        @keyframes amp-pop {
+            from { opacity: 0; transform: scale(0.3) rotate(-20deg); }
+            to { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+        .hero-ampersand {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            border: 2px solid rgba(212, 175, 55, 0.35);
+            border-radius: 50%;
+            position: relative;
+            transform: rotate(-5deg);
+        }
+        /* Vòng ngoài mờ */
+        .hero-ampersand::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border: 1px dashed rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            animation: amp-spin 20s linear infinite;
+        }
+        @keyframes amp-spin {
+            to { transform: rotate(360deg); }
+        }
+        /* Decorative lines 2 bên */
+        .hero-name-line {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
+        }
+        .hero-name-line::before,
+        .hero-name-line::after {
+            content: '';
+            width: clamp(30px, 10vw, 60px);
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .hero-name-line-text {
+            font-family: var(--font-accent);
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+        .hero-date {
+            font-family: var(--font-accent);
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+        .hero-invite {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-tertiary);
+            animation: slide-up-hero 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+        }
+        @keyframes slide-up-hero {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-tertiary);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            animation: scroll-bounce 2s ease-in-out infinite;
+        }
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ==================== SECTIONS SHARED ==================== */
+        .section {
+            padding: clamp(4rem, 10vw, 6rem) clamp(1rem, 5vw, 2rem);
+            overflow: hidden;
+            position: relative;
+        }
+        .section--breathe {
+            padding: clamp(5rem, 12vw, 7rem) 1.5rem;
+            overflow: hidden;
+        }
+        .section--compact {
+            padding: clamp(2rem, 5vw, 3.5rem) 1.5rem;
+        }
+        .section-heading {
+            text-align: center;
+            margin-bottom: clamp(2rem, 5vw, 3rem);
+        }
+        .section-subtitle {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            color: var(--accent-dark);
+            margin-bottom: 0.75rem;
+        }
+        .section-desc {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Ornament divider */
+        .divider-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: clamp(1rem, 3vw, 2rem) 0;
+        }
+        .divider-ornament::before,
+        .divider-ornament::after {
+            content: '';
+            height: 1px;
+            width: clamp(40px, 15vw, 100px);
+            background: var(--divider-color);
+        }
+        .divider-ornament-icon {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        /* ==================== COUPLE PHOTOS FLY-IN ==================== */
+        .couple-fly {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .couple-fly-img {
+            width: clamp(150px, 35vw, 220px);
+            height: clamp(200px, 45vw, 280px);
+            border-radius: 120px 120px 20px 20px;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        .couple-fly-img:first-child {
+            margin-right: -25px;
+            transform: rotate(-2deg);
+            z-index: 1;
+        }
+        .couple-fly-img:last-child {
+            margin-left: -25px;
+            margin-top: 30px;
+            transform: rotate(1.5deg);
+        }
+        .couple-fly-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            25% { transform: translate(-50%, -50%) scale(1.15); }
+            50% { transform: translate(-50%, -50%) scale(1); }
+            75% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* ==================== COUNTDOWN ==================== */
+        .countdown-section {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+        .countdown-section::before {
+            content: '';
+            position: absolute;
+            top: -30px; left: 0; right: 0;
+            height: 60px;
+            background: var(--bg-secondary);
+            clip-path: ellipse(55% 100% at 50% 100%);
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: clamp(12px, 3vw, 24px);
+        }
+        .countdown-item {
+            text-align: center;
+            min-width: clamp(65px, 16vw, 100px);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(196, 30, 58, 0.15);
+            border-radius: 16px;
+            padding: clamp(14px, 3vw, 24px) clamp(8px, 2vw, 16px);
+            backdrop-filter: blur(8px);
+        }
+        .countdown-number {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            color: var(--accent-dark);
+            line-height: 1;
+            display: block;
+        }
+        .countdown-label {
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 1.8vw, 0.8rem);
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+        .countdown-done {
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--accent);
+            padding: 2rem;
+        }
+
+        /* ==================== CALENDAR MONTH ==================== */
+        .cal-section { text-align: center; }
+        .cal-month { max-width: 420px; margin: 0 auto; }
+        .cal-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 1.25rem;
+        }
+        .cal-month-name {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        .cal-year { font-size: 0.85rem; opacity: 0.5; font-weight: 400; }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0;
+        }
+        .cal-dow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 8px 0;
+            opacity: 0.5;
+        }
+        .cal-day {
+            position: relative;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: default;
+            transition: background 0.2s;
+        }
+        .cal-day.empty { pointer-events: none; }
+        .cal-day.today { font-weight: 700; }
+        .cal-day.marked { color: #fff; font-weight: 700; z-index: 1; }
+        .cal-events {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cal-event {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+        .cal-event-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .cal-event-date { font-weight: 600; white-space: nowrap; min-width: 40px; }
+        .cal-event-text { opacity: 0.75; }
+        /* Classic variant */
+        .cal-classic .cal-day {
+            font-family: var(--font-accent);
+            font-size: 0.95rem;
+        }
+        .cal-classic .cal-day.marked::before {
+            content: '';
+            position: absolute;
+            width: 36px; height: 36px;
+            background: var(--cal-accent, var(--accent));
+            border-radius: 50%;
+            z-index: -1;
+        }
+        .cal-classic .cal-month-name {
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+        .cal-classic .cal-dow {
+            font-family: var(--font-accent);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+        }
+        .cal-classic .cal-event-dot {
+            background: var(--cal-accent, var(--accent));
+        }
+        @media (max-width: 480px) {
+            .cal-month { max-width: 340px; }
+            .cal-day { font-size: 0.8rem; }
+            .cal-classic .cal-day { font-size: 0.85rem; }
+            .cal-classic .cal-day.marked::before { width: 30px; height: 30px; }
+        }
+
+        /* ==================== LOVE STORY TIMELINE ==================== */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 1rem 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .timeline-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 3rem;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+            padding-left: 3rem;
+        }
+        .timeline-dot {
+            position: absolute;
+            top: 1.5rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 3px var(--accent);
+            z-index: 1;
+        }
+        .timeline-item:nth-child(odd) .timeline-dot { right: -7px; }
+        .timeline-item:nth-child(even) .timeline-dot { left: -7px; }
+        .timeline-date {
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .timeline-desc {
+            font-family: var(--font-accent);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .timeline-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .timeline::before { left: 20px; }
+            .timeline-item,
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                width: 100%;
+                left: 0;
+                text-align: left;
+                padding-left: 50px;
+                padding-right: 1rem;
+            }
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 13px;
+                right: auto;
+            }
+        }
+
+        /* ==================== EVENT CARD ==================== */
+        .event-section {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+        .event-grid {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .event-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(196, 30, 58, 0.2);
+            border-radius: 20px;
+            padding: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+        }
+        .event-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .event-card-type {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .event-card-name {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+            color: var(--text-primary);
+            margin-bottom: 1.25rem;
+        }
+        .event-card-detail {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font-accent);
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        .event-card-detail svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: var(--accent);
+        }
+        .event-card-address {
+            font-family: var(--font-accent);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+        .event-card-parents {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(196, 30, 58, 0.15);
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .event-card-parents strong { color: var(--text-primary); }
+
+        /* ==================== GALLERY ==================== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(8px, 2vw, 14px);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            cursor: pointer;
+            aspect-ratio: 4/5;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            background: rgba(44, 24, 16, 0.25);
+        }
+        .gallery-overlay-icon {
+            color: white;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; max-width: 320px; }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            animation: lightbox-zoom-in 0.3s ease;
+        }
+        @keyframes lightbox-zoom-in {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-close:hover { background: rgba(255, 255, 255, 0.3); }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-nav:hover { background: rgba(255, 255, 255, 0.3); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        /* ==================== QUOTE ==================== */
+        .blessing-quote {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        .blessing-quote blockquote {
+            font-family: var(--font-accent);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-style: italic;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            position: relative;
+            padding: 0 2rem;
+        }
+        .blessing-quote blockquote::before {
+            content: '\201C';
+            position: absolute;
+            top: -0.5rem;
+            left: 0;
+            font-size: 3.5rem;
+            color: var(--accent-light);
+            font-style: normal;
+            line-height: 1;
+        }
+        .blessing-quote cite {
+            display: block;
+            margin-top: 1rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-style: normal;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+        /* Xi decoration in quote */
+        .quote-xi {
+            font-size: 4rem;
+            color: rgba(196, 30, 58, 0.08);
+            font-weight: 900;
+            font-family: serif;
+            margin-bottom: 1rem;
+        }
+
+        /* ==================== RSVP ==================== */
+        .rsvp-section {
+            background: var(--bg-secondary);
+            position: relative;
+        }
+        .rsvp-section::before {
+            content: '';
+            position: absolute;
+            top: -30px; left: 0; right: 0;
+            height: 60px;
+            background: var(--bg-secondary);
+            clip-path: ellipse(55% 100% at 50% 100%);
+        }
+        .rsvp-form {
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .rsvp-input,
+        .rsvp-select,
+        .rsvp-textarea {
+            width: 100%;
+            padding: 14px 20px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(196, 30, 58, 0.2);
+            border-radius: 12px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .rsvp-input:focus,
+        .rsvp-select:focus,
+        .rsvp-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+        }
+        .rsvp-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .rsvp-input::placeholder,
+        .rsvp-textarea::placeholder {
+            color: var(--text-tertiary);
+        }
+        .rsvp-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        @media (max-width: 480px) {
+            .rsvp-row { grid-template-columns: 1fr; }
+        }
+        .rsvp-submit {
+            padding: 14px 48px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--btn-text);
+            background: var(--btn-bg);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px var(--accent-glow);
+            margin-top: 0.5rem;
+        }
+        .rsvp-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+        .rsvp-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            animation: fade-up 0.5s ease;
+        }
+        .rsvp-success.show { display: block; }
+        .rsvp-success-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .rsvp-success-text {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--text-primary);
+        }
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==================== GUESTBOOK / WISHES ==================== */
+        .guestbook-section {
+            text-align: center;
+        }
+        .guestbook-form {
+            max-width: 480px;
+            margin: 0 auto 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .guestbook-messages {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .guestbook-message {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(196, 30, 58, 0.12);
+            border-radius: 14px;
+            padding: 1.25rem;
+            text-align: left;
+            animation: fade-up 0.4s ease;
+        }
+        .guestbook-message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+        }
+        .guestbook-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .guestbook-name {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .guestbook-text {
+            font-family: var(--font-accent);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* ==================== FLOATING WISHES ==================== */
+        .floating-wishes-box {
+            position: fixed;
+            bottom: 80px;
+            left: 16px;
+            width: 300px;
+            height: 0;
+            z-index: 999;
+            pointer-events: none;
+        }
+        .floating-wish {
+            position: absolute;
+            bottom: 0; left: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--fw-bg, rgba(196, 30, 58, 0.3));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 12px var(--fw-shadow, rgba(196, 30, 58, 0.15));
+            color: var(--fw-text, #fff);
+            font-size: 0.8rem;
+            line-height: 1.3;
+            max-width: 100%;
+            width: fit-content;
+            animation: wish-float-up 7s linear forwards;
+            pointer-events: auto;
+            will-change: transform, opacity;
+        }
+        .fw-c1 { --fw-bg: rgba(196, 30, 58, 0.82); --fw-avatar: #C41E3A; --fw-shadow: rgba(196,30,58,0.25); }
+        .fw-c2 { --fw-bg: rgba(139, 0, 0, 0.78); --fw-avatar: #8B0000; --fw-shadow: rgba(139,0,0,0.25); }
+        .fw-c3 { --fw-bg: rgba(212, 175, 55, 0.82); --fw-avatar: #D4AF37; --fw-shadow: rgba(212,175,55,0.25); }
+        .fw-c4 { --fw-bg: rgba(255, 255, 255, 0.85); --fw-text: #2C1810; --fw-avatar: #9B6B50; --fw-shadow: rgba(0,0,0,0.1); }
+        .fw-c5 { --fw-bg: rgba(232, 160, 176, 0.80); --fw-avatar: #C4788A; --fw-shadow: rgba(232,160,176,0.25); }
+        .floating-wish-avatar {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: var(--fw-avatar, var(--accent));
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .floating-wish-name {
+            font-weight: 600;
+            margin-right: 2px;
+            white-space: nowrap;
+        }
+        .floating-wish-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 190px;
+        }
+        @keyframes wish-float-up {
+            0%   { opacity: 0; transform: translateY(0); }
+            5%   { opacity: 1; }
+            65%  { opacity: 0.7; }
+            88%  { opacity: 0.2; }
+            100% { opacity: 0; transform: translateY(-300px); }
+        }
+        .floating-wishes-box.hidden-wishes { display: none; }
+        @media (max-width: 480px) {
+            .floating-wishes-box { width: 260px; bottom: 72px; left: 10px; }
+            .floating-wish { font-size: 0.74rem; padding: 5px 12px; }
+            .floating-wish-avatar { width: 20px; height: 20px; font-size: 0.6rem; }
+            .floating-wish-text { max-width: 150px; }
+        }
+
+        /* ==================== MUSIC TOGGLE ==================== */
+        .music-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: var(--accent);
+            color: white;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+        .music-toggle .music-icon-off { display: none; }
+        .music-toggle.muted .music-icon-on { display: none; }
+        .music-toggle.muted .music-icon-off { display: block; }
+
+        /* Wishes toggle */
+        .wishes-toggle {
+            position: fixed;
+            bottom: 80px;
+            right: 24px;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--accent);
+            color: white;
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+            opacity: 0.85;
+        }
+        .wishes-toggle:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        .wishes-toggle svg { width: 18px; height: 18px; }
+        .wishes-toggle .wishes-icon-off { display: none; }
+        .wishes-toggle.hidden .wishes-icon-on { display: none; }
+        .wishes-toggle.hidden .wishes-icon-off { display: block; }
+
+        /* ==================== CALENDAR BUTTON ==================== */
+        .calendar-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .calendar-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+        .calendar-btn svg { width: 16px; height: 16px; }
+
+        /* ==================== PHOTO STRIP ==================== */
+        .photo-strip {
+            width: 100%;
+            height: clamp(180px, 25vw, 250px);
+            overflow: hidden;
+            position: relative;
+        }
+        .photo-strip img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .photo-strip::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                var(--bg-primary) 0%,
+                transparent 15%,
+                transparent 85%,
+                var(--bg-primary) 100%
+            );
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            text-align: center;
+            padding: clamp(3rem, 8vw, 5rem) 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+        .footer-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.14;
+            filter: blur(2px);
+        }
+        .footer-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 248, 240, 0.80);
+        }
+        .footer-couple {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--accent-dark);
+            margin-bottom: 0.5rem;
+        }
+        .footer-date {
+            font-family: var(--font-accent);
+            font-size: 1rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+        .footer-hearts {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 1rem 0;
+        }
+        .footer-heart {
+            font-size: 0.8rem;
+            color: var(--accent);
+            animation: heartbeat-footer 1.5s ease-in-out infinite;
+        }
+        .footer-heart:nth-child(2) { animation-delay: 0.15s; }
+        .footer-heart:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes heartbeat-footer {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+        }
+        .footer-made {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 300;
+            margin-top: 1rem;
+        }
+
+        /* ==================== FALLING EFFECTS ==================== */
+        .petal {
+            position: fixed;
+            top: -30px;
+            z-index: 9999;
+            pointer-events: none;
+            animation: petal-fall linear forwards;
+        }
+        @keyframes petal-fall {
+            0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+            25% { transform: translateY(27vh) rotate(180deg) translateX(30px); }
+            50% { transform: translateY(55vh) rotate(360deg) translateX(-20px); }
+            75% { transform: translateY(82vh) rotate(540deg) translateX(25px); }
+            100% { transform: translateY(110vh) rotate(720deg) translateX(-10px); opacity: 0; }
+        }
+        .floating-heart {
+            position: fixed;
+            bottom: -30px;
+            z-index: 9998;
+            pointer-events: none;
+            animation: heart-float ease-out forwards;
+        }
+        @keyframes heart-float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-50vh) scale(1.2); opacity: 0.8; }
+            100% { transform: translateY(-110vh) scale(0.8); opacity: 0; }
+        }
+        .sparkle {
+            position: fixed;
+            z-index: 9998;
+            pointer-events: none;
+            animation: sparkle-fade 2s ease-out forwards;
+        }
+        @keyframes sparkle-fade {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            30% { opacity: 1; transform: scale(1) rotate(90deg); }
+            100% { opacity: 0; transform: scale(0.3) rotate(180deg); }
+        }
+
+        /* ==================== DECORATIVE ==================== */
+        .deco {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
+        }
+        .deco-front { z-index: 3; }
+        .deco-heart-beat::after {
+            content: '\2665';
+            font-size: var(--deco-size, 1.5rem);
+            color: var(--deco-color, #C41E3A);
+            animation: deco-hb 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(196,30,58,0.3));
+        }
+        @keyframes deco-hb {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.25); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+        }
+        .deco-heart-float::after {
+            content: '\2661';
+            font-size: var(--deco-size, 1.2rem);
+            color: var(--deco-color, var(--accent-light));
+            animation: deco-fl 4s ease-in-out infinite;
+            opacity: 0.6;
+        }
+        @keyframes deco-fl {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(5deg); }
+            75% { transform: translateY(5px) rotate(-3deg); }
+        }
+        .deco-rose-bloom::after {
+            content: '\1F339';
+            font-size: var(--deco-size, 1.3rem);
+            animation: deco-bl 3s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        @keyframes deco-bl {
+            0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.1) rotate(10deg); opacity: 0.8; }
+        }
+        .deco-butterfly::after {
+            content: '\1F98B';
+            font-size: var(--deco-size, 1.2rem);
+            animation: deco-bf 5s ease-in-out infinite;
+            opacity: 0.5;
+        }
+        @keyframes deco-bf {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scaleX(1); }
+            20% { transform: translate(8px, -10px) rotate(5deg) scaleX(0.9); }
+            40% { transform: translate(15px, -5px) rotate(-3deg) scaleX(1); }
+            60% { transform: translate(8px, 3px) rotate(5deg) scaleX(0.9); }
+            80% { transform: translate(-3px, -3px) rotate(-2deg) scaleX(1); }
+        }
+        .deco-sparkle::after {
+            content: '\2728';
+            font-size: var(--deco-size, 1rem);
+            animation: deco-tw 1.8s ease-in-out infinite;
+        }
+        @keyframes deco-tw {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .deco-rose::after {
+            content: '\1F33A';
+            font-size: var(--deco-size, 1.3rem);
+            animation: deco-bl 3.5s ease-in-out infinite;
+            opacity: 0.6;
+        }
+        .deco-sm { --deco-size: 1rem; }
+        .deco-md { --deco-size: 1.5rem; }
+        .deco-lg { --deco-size: 2rem; }
+
+        /* Large flower decorations at section corners */
+        .section-flower {
+            position: absolute;
+            pointer-events: none;
+            font-size: 3.5rem;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        .section-flower-tl { top: 10px; left: 10px; transform: rotate(-12deg); }
+        .section-flower-tr { top: 10px; right: 10px; transform: rotate(15deg); }
+        .section-flower-bl { bottom: 10px; left: 10px; transform: rotate(10deg); }
+        .section-flower-br { bottom: 10px; right: 10px; transform: rotate(-8deg); }
+
+        /* ==================== IMAGE BACKGROUND SECTIONS ==================== */
+        .bg-image-section {
+            position: relative;
+            overflow: hidden;
+        }
+        .bg-image-section .bg-img {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+        .bg-image-section .bg-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.28;
+            filter: blur(1px);
+        }
+        .bg-image-section .bg-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 248, 240, 0.65);
+        }
+
+        /* ==================== GROUP ANIMATIONS ==================== */
+        .animate-fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .animate-fade-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body><script>
+(function(){
+  var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"];
+  var _h=location.hostname;
+  var _ok=false;
+  for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'+_d[i])){_ok=true;break;}}
+  if(!_ok&&_h!==''){
+    document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https://phuocpt98.github.io/Templexa/" style="color:#7DA06D;">Truy cập Templexa</a></div></div>';
+    throw new Error('Domain not authorized');
+  }
+})();
+(function(){
+  // Chặn right-click
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  // Chặn Ctrl+S, Ctrl+U, Ctrl+Shift+I, F12
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();}
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();}
+    if(e.key==='F12'){e.preventDefault();}
+  });
+  // Chặn drag ảnh
+  document.addEventListener('dragstart',function(e){e.preventDefault();});
+  // Chặn select text (trừ input/textarea)
+  document.addEventListener('selectstart',function(e){
+    if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();}
+  });
+})();
+(function(){
+  var _w=document.createElement('div');
+  _w.setAttribute('data-t','VGVtcGxleGF8Z2VuXzE5MV92aWV0LW1lbS1tYWktaHl8MjAyNi0wMy0zMHxwaHVvY3B0OTg=');
+  _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;';
+  document.body.appendChild(_w);
+})();</script>
+
+    <!-- ==================== FLYING BIRDS ==================== -->
+    <span class="flying-bird" style="top: 12%; animation-duration: 18s; animation-delay: 0s; opacity: 0.25;">🕊️</span>
+    <span class="flying-bird" style="top: 25%; animation-duration: 22s; animation-delay: 5s; opacity: 0.2; font-size: 1.2rem;">🕊️</span>
+    <span class="flying-bird" style="top: 8%; animation-duration: 15s; animation-delay: 10s; opacity: 0.35; font-size: 1.8rem;">🕊️</span>
+    <span class="flying-bird" style="top: 35%; animation-duration: 25s; animation-delay: 3s; opacity: 0.18; font-size: 1rem;">🕊️</span>
+
+    <!-- ==================== ENVELOPE ==================== -->
+    <div id="envelope" class="envelope">
+        <!-- Background blurred image -->
+        <div class="envelope-bg">
+            <img src="../../../shared/images/wedding/viet-mem-mai/12.webp" alt="">
+        </div>
+        <!-- Floating botanical decorations -->
+        <span class="envelope-deco envelope-deco-1">🌺</span>
+        <span class="envelope-deco envelope-deco-2">🌸</span>
+        <span class="envelope-deco envelope-deco-3">🏵️</span>
+        <span class="envelope-deco envelope-deco-4">🌺</span>
+        <span class="envelope-deco envelope-deco-5">🌸</span>
+        <span class="envelope-deco envelope-deco-6">💮</span>
+
+        <!-- Main card -->
+        <div class="envelope-card">
+            <!-- Corner ornaments -->
+            <span class="envelope-corner envelope-corner-tl">❦</span>
+            <span class="envelope-corner envelope-corner-tr">❦</span>
+            <span class="envelope-corner envelope-corner-bl">❦</span>
+            <span class="envelope-corner envelope-corner-br">❦</span>
+
+            <!-- Corner floral decorations -->
+            <span class="envelope-flower envelope-flower-tl">🌺</span>
+            <span class="envelope-flower envelope-flower-br">🌺</span>
+
+            <!-- Xi watermark -->
+            <span class="envelope-xi">囍</span>
+
+            <div class="envelope-ornament">囍</div>
+            <div class="envelope-line"></div>
+            <h1 class="envelope-couple-name">Thành Long<br>&<br>Thuỳ Linh</h1>
+            <p class="envelope-date">15 . 03 . 2027</p>
+            <p class="envelope-invite-text">Nhà trai trân trọng kính mời</p>
+
+            <!-- Padlock — ổ khoá tình yêu -->
+            <div id="envelopeOpenBtn" class="padlock-wrap" role="button" tabindex="0" aria-label="Mở thiệp">
+                <div class="padlock-shackle"></div>
+                <div class="padlock-body">
+                    <div class="padlock-keyhole"></div>
+                    <span class="padlock-xi">囍</span>
+                </div>
+                <div class="padlock-key">
+                    <div class="key-shaft">
+                        <div class="key-head"></div>
+                        <div class="key-teeth"></div>
+                    </div>
+                </div>
+                <span class="padlock-sparkle" style="top:20%;left:15%;--sx:-30px;--sy:-25px;">✨</span>
+                <span class="padlock-sparkle" style="top:20%;right:15%;--sx:30px;--sy:-25px;">✨</span>
+                <span class="padlock-sparkle" style="top:50%;left:5%;--sx:-35px;--sy:5px;">❤️</span>
+                <span class="padlock-sparkle" style="top:50%;right:5%;--sx:35px;--sy:5px;">❤️</span>
+                <span class="padlock-sparkle" style="top:75%;left:20%;--sx:-20px;--sy:25px;">🌸</span>
+                <span class="padlock-sparkle" style="top:75%;right:20%;--sx:20px;--sy:25px;">🌸</span>
+                <span class="padlock-hint">chạm ổ khoá để mở thiệp</span>
+            </div>
+
+            <div class="envelope-peek-photos">
+                <div class="envelope-peek-photo"><img src="../../../shared/images/wedding/viet-mem-mai/5.webp" alt=""></div>
+                <div class="envelope-peek-photo"><img src="../../../shared/images/wedding/viet-mem-mai/6.webp" alt=""></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== NAV ==================== -->
+    <nav class="nav" id="mainNav">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-link">Trang chủ</a>
+            <a href="#story" class="nav-link">Chuyện tình</a>
+            <span class="nav-monogram">L & L</span>
+            <a href="#gallery" class="nav-link">Album</a>
+            <a href="#rsvp" class="nav-link">Xác nhận</a>
+            <a href="#wishes" class="nav-link">Lời chúc</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="../../../shared/images/wedding/viet-mem-mai/1.webp" alt="Wedding hero">
+        </div>
+        <span class="hero-xi">囍</span>
+        <p class="hero-subtitle">Save the Date</p>
+        <div class="hero-names" style="position: relative;">
+            <span class="hero-name hero-name-groom">Thành Long</span>
+            <div class="hero-ampersand-wrap">
+                <span class="hero-ampersand">&</span>
+            </div>
+            <span class="hero-name hero-name-bride">Thuỳ Linh</span>
+            <span class="deco deco-front deco-heart-beat deco-md" style="top: 0; right: -35px;"></span>
+            <span class="deco deco-front deco-sparkle deco-sm" style="bottom: 5px; left: -25px;"></span>
+        </div>
+        <div class="hero-name-line">
+            <span class="hero-name-line-text">mãi bên nhau</span>
+        </div>
+        <p class="hero-date">15 . 03 . 2027</p>
+        <p class="hero-invite">Nhà trai trân trọng kính mời</p>
+        <div class="scroll-indicator">
+            <span>Cuộn xuống</span>
+            <i data-lucide="chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ==================== COUPLE PHOTOS ==================== -->
+    <section class="section--breathe animate-fade-up" style="position: relative;">
+        <span class="section-flower section-flower-tl">🌸</span>
+        <span class="section-flower section-flower-br">🌺</span>
+        <div class="couple-fly">
+            <img class="couple-fly-img" src="../../../shared/images/wedding/viet-mem-mai/7.webp" alt="Chú rể">
+            <img class="couple-fly-img" src="../../../shared/images/wedding/viet-mem-mai/8.webp" alt="Cô dâu">
+            <div class="couple-fly-heart">♥</div>
+        </div>
+        <span class="deco deco-butterfly deco-lg" style="top: 15%; left: 10%;"></span>
+        <span class="deco deco-heart-float deco-sm" style="bottom: 20%; right: 8%;"></span>
+    </section>
+
+    <!-- ==================== COUNTDOWN ==================== -->
+    <section class="section countdown-section animate-fade-up" id="countdown" style="position: relative;">
+        <span class="section-flower section-flower-tr">🏵️</span>
+        <div class="section-heading">
+            <p class="section-subtitle">Đếm Ngược</p>
+            <h2 class="section-title">Ngày Trọng Đại</h2>
+        </div>
+        <div class="countdown" id="countdownTimer">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Ngày</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Giờ</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Phút</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Giây</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CALENDAR MONTH ==================== -->
+    <section class="section cal-section bg-image-section animate-fade-up" id="calendar-month" style="position: relative;">
+        <div class="bg-img"><img src="../../../shared/images/wedding/viet-mem-mai/9.webp" alt=""></div>
+        <div class="section-heading">
+            <p class="section-subtitle">Save The Date</p>
+            <h2 class="section-title">Tháng 3, 2027</h2>
+        </div>
+        <div id="weddingCalendar"></div>
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <button class="calendar-btn" onclick="downloadICS()">
+                <i data-lucide="calendar-plus"></i>
+                Thêm vào lịch
+            </button>
+        </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="divider-ornament"><span class="divider-ornament-icon">囍</span></div>
+
+    <!-- ==================== PHOTO STRIP ==================== -->
+    <div class="photo-strip">
+        <img src="../../../shared/images/wedding/viet-mem-mai/11.webp" alt="">
+    </div>
+
+    <!-- ==================== LOVE STORY ==================== -->
+    <section class="section--breathe bg-image-section" id="story" style="position: relative;">
+        <div class="bg-img"><img src="../../../shared/images/wedding/viet-mem-mai/3.webp" alt=""></div>
+        <span class="section-flower section-flower-tl">🌺</span>
+        <span class="section-flower section-flower-br">🌸</span>
+        <div class="section-heading">
+            <p class="section-subtitle">Our Love Story</p>
+            <h2 class="section-title">Chuyện Của Chúng Mình</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item animate-fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-icon">💫</div>
+                <div class="timeline-date">Tháng 3, 2020</div>
+                <div class="timeline-title">Lần Đầu Gặp Nhau</div>
+                <div class="timeline-desc">Một buổi chiều mùa xuân, chúng mình vô tình gặp nhau tại quán cà phê quen thuộc. Ánh mắt đầu tiên đã khắc sâu trong tim.</div>
+            </div>
+            <div class="timeline-item animate-fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-icon">🌸</div>
+                <div class="timeline-date">Tháng 8, 2020</div>
+                <div class="timeline-title">Bắt Đầu Hẹn Hò</div>
+                <div class="timeline-desc">Sau nhiều lần trò chuyện, chúng mình quyết định cùng nhau bước đi trên con đường tình yêu.</div>
+            </div>
+            <div class="timeline-item animate-fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-icon">💍</div>
+                <div class="timeline-date">Tháng 9, 2026</div>
+                <div class="timeline-title">Lời Cầu Hôn</div>
+                <div class="timeline-desc">Dưới ánh hoàng hôn rực rỡ, anh quỳ gối cầu hôn và em đã nói "Đồng Ý!"</div>
+            </div>
+            <div class="timeline-item animate-fade-up">
+                <div class="timeline-dot"></div>
+                <div class="timeline-icon">💒</div>
+                <div class="timeline-date">Tháng 3, 2027</div>
+                <div class="timeline-title">Ngày Trọng Đại</div>
+                <div class="timeline-desc">Và bây giờ, chúng mình sẵn sàng cùng nhau viết tiếp câu chuyện tình yêu — mãi mãi bên nhau.</div>
+            </div>
+        </div>
+        <span class="deco deco-rose-bloom deco-md" style="top: 8%; right: 5%;"></span>
+        <span class="deco deco-sparkle deco-sm" style="bottom: 10%; left: 8%;"></span>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="divider-ornament"><span class="divider-ornament-icon">❦</span></div>
+
+    <!-- ==================== EVENT INFO ==================== -->
+    <section class="section event-section animate-fade-up" id="event" style="position: relative;">
+        <span class="section-flower section-flower-tl">🏵️</span>
+        <span class="section-flower section-flower-br">🌺</span>
+        <div class="section-heading">
+            <p class="section-subtitle">Wedding Ceremony</p>
+            <h2 class="section-title">Lễ Thành Hôn</h2>
+        </div>
+        <div class="event-grid">
+            <div class="event-card">
+                <div class="event-card-icon">💒</div>
+                <div class="event-card-type">Tiệc Cưới</div>
+                <div class="event-card-name">Lễ Thành Hôn</div>
+                <div class="event-card-detail">
+                    <i data-lucide="calendar"></i>
+                    <span>Thứ Bảy, 15/03/2027</span>
+                </div>
+                <div class="event-card-detail">
+                    <i data-lucide="clock"></i>
+                    <span>17:00 — 21:00</span>
+                </div>
+                <div class="event-card-detail">
+                    <i data-lucide="map-pin"></i>
+                    <span>Nhà hàng Tiệc Cưới ABC</span>
+                </div>
+                <div class="event-card-address">123 Đường Nguyễn Huệ, Quận 1, TP.HCM</div>
+                <div class="event-card-parents">
+                    <strong>Trân trọng kính mời</strong><br>
+                    Ông Nguyễn Văn A & Bà Trần Thị B
+                </div>
+                <span class="deco deco-rose deco-sm" style="top: 15%; right: 10%;"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== QUOTE ==================== -->
+    <section class="section--breathe bg-image-section animate-fade-up" style="position: relative;">
+        <div class="bg-img"><img src="../../../shared/images/wedding/viet-mem-mai/3.webp" alt=""></div>
+        <div class="blessing-quote">
+            <div class="quote-xi">囍</div>
+            <blockquote>
+                Tình yêu không phải là nhìn nhau, mà là cùng nhau nhìn về một hướng.
+            </blockquote>
+            <cite>— Antoine de Saint-Exupéry</cite>
+        </div>
+        <span class="deco deco-sparkle deco-md" style="top: 15%; left: 10%;"></span>
+    </section>
+
+    <!-- ==================== GALLERY ==================== -->
+    <section class="section" id="gallery" style="position: relative;">
+        <span class="section-flower section-flower-tl">🌸</span>
+        <span class="section-flower section-flower-br">💮</span>
+        <div class="section-heading">
+            <p class="section-subtitle">Our Gallery</p>
+            <h2 class="section-title">Khoảnh Khắc Đẹp</h2>
+        </div>
+        <div class="gallery-grid" id="galleryGrid">
+            <div class="gallery-item" data-index="0">
+                <img src="../../../shared/images/wedding/viet-mem-mai/2.webp" alt="Wedding photo 1">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+            <div class="gallery-item" data-index="1">
+                <img src="../../../shared/images/wedding/viet-mem-mai/4.webp" alt="Wedding photo 2">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+            <div class="gallery-item" data-index="2">
+                <img src="../../../shared/images/wedding/viet-mem-mai/5.webp" alt="Wedding photo 3">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+            <div class="gallery-item" data-index="3">
+                <img src="../../../shared/images/wedding/viet-mem-mai/6.webp" alt="Wedding photo 4">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+            <div class="gallery-item" data-index="4">
+                <img src="../../../shared/images/wedding/viet-mem-mai/9.webp" alt="Wedding photo 5">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+            <div class="gallery-item" data-index="5">
+                <img src="../../../shared/images/wedding/viet-mem-mai/10.webp" alt="Wedding photo 6">
+                <div class="gallery-overlay"><i data-lucide="maximize-2" class="gallery-overlay-icon"></i></div>
+            </div>
+        </div>
+        <span class="deco deco-sparkle deco-md" style="top: 5%; right: 10%;"></span>
+        <span class="deco deco-heart-float deco-lg" style="bottom: 8%; left: 5%;"></span>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">✕</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev">‹</button>
+        <img id="lightboxImg" src="" alt="Lightbox">
+        <button class="lightbox-nav lightbox-next" id="lightboxNext">›</button>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="divider-ornament"><span class="divider-ornament-icon">♡</span></div>
+
+    <!-- ==================== RSVP ==================== -->
+    <section class="section rsvp-section animate-fade-up" id="rsvp">
+        <div class="section-heading">
+            <p class="section-subtitle">RSVP</p>
+            <h2 class="section-title">Xác Nhận Tham Dự</h2>
+            <p class="section-desc">Sự hiện diện của bạn là niềm hạnh phúc lớn nhất của chúng mình</p>
+        </div>
+        <form class="rsvp-form" id="rsvpForm" onsubmit="return handleRSVP(event)">
+            <input type="text" class="rsvp-input" placeholder="Họ và tên *" required>
+            <div class="rsvp-row">
+                <input type="tel" class="rsvp-input" placeholder="Số điện thoại">
+                <select class="rsvp-select">
+                    <option value="1">1 khách</option>
+                    <option value="2">2 khách</option>
+                    <option value="3">3 khách</option>
+                    <option value="4">4 khách</option>
+                    <option value="5">5 khách</option>
+                </select>
+            </div>
+            <textarea class="rsvp-textarea" placeholder="Lời nhắn gửi đến cô dâu chú rể..."></textarea>
+            <button type="submit" class="rsvp-submit">Xác Nhận</button>
+        </form>
+        <div class="rsvp-success" id="rsvpSuccess">
+            <div class="rsvp-success-icon">🎉</div>
+            <div class="rsvp-success-text">Cảm ơn bạn đã xác nhận!</div>
+        </div>
+    </section>
+
+    <!-- ==================== WISHES / GUESTBOOK ==================== -->
+    <section class="section guestbook-section animate-fade-up" id="wishes" style="position: relative;">
+        <span class="section-flower section-flower-tr">🌺</span>
+        <div class="section-heading">
+            <p class="section-subtitle">Guestbook</p>
+            <h2 class="section-title">Lời Chúc Phúc</h2>
+            <p class="section-desc">Gửi lời chúc tốt đẹp đến cặp đôi</p>
+        </div>
+        <form class="guestbook-form" id="wishForm" onsubmit="return handleWish(event)">
+            <input type="text" class="rsvp-input" id="wishName" placeholder="Tên của bạn *" required>
+            <textarea class="rsvp-textarea" id="wishMessage" placeholder="Lời chúc của bạn..." required></textarea>
+            <button type="submit" class="rsvp-submit">Gửi Lời Chúc</button>
+        </form>
+        <div class="guestbook-messages" id="wishList"></div>
+        <span class="deco deco-heart-float deco-lg" style="top: 5%; right: 8%;"></span>
+    </section>
+
+    <!-- ==================== PHOTO STRIP ==================== -->
+    <div class="photo-strip">
+        <img src="../../../shared/images/wedding/viet-mem-mai/11.webp" alt="">
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer" id="footer">
+        <div class="footer-bg">
+            <img src="../../../shared/images/wedding/viet-mem-mai/1.webp" alt="">
+        </div>
+        <div class="footer-couple">Thành Long & Thuỳ Linh</div>
+        <div class="footer-date">15 . 03 . 2027</div>
+        <div class="footer-hearts">
+            <span class="footer-heart">♥</span>
+            <span class="footer-heart">♥</span>
+            <span class="footer-heart">♥</span>
+        </div>
+        <div class="footer-made">Made with ♥ by Templexa</div>
+    </footer>
+
+    <!-- ==================== FLOATING WISHES BOX ==================== -->
+    <div class="floating-wishes-box" id="floatingWishesBox"></div>
+
+    <!-- ==================== WISHES TOGGLE ==================== -->
+    <button id="wishesToggle" class="wishes-toggle" aria-label="Toggle wishes">
+        <i data-lucide="message-circle" class="wishes-icon-on"></i>
+        <i data-lucide="message-circle-off" class="wishes-icon-off"></i>
+    </button>
+
+    <!-- ==================== MUSIC ==================== -->
+    <button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+        <i data-lucide="volume-2" class="music-icon-on"></i>
+        <i data-lucide="volume-x" class="music-icon-off"></i>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        lucide.createIcons();
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // === ENVELOPE — Padlock Unlock (4 phases) ===
+        var envelope = document.getElementById('envelope');
+        var openBtn = document.getElementById('envelopeOpenBtn');
+        var bgMusic = document.getElementById('bgMusic');
+        var lockOpened = false;
+        if (openBtn) {
+            openBtn.addEventListener('click', function () {
+                if (lockOpened) return;
+                lockOpened = true;
+
+                // Phase 1: chìa bay vào cắm ổ (0.6s)
+                openBtn.classList.add('inserting');
+
+                // Phase 2: xoay chìa trong ổ (0.5s)
+                setTimeout(function () {
+                    openBtn.classList.remove('inserting');
+                    openBtn.classList.add('turning');
+                }, 650);
+
+                // Phase 3: quai bật + chìa rút rơi + khoá rơi (0.8s)
+                setTimeout(function () {
+                    openBtn.classList.remove('turning');
+                    openBtn.classList.add('unlocked');
+                }, 1200);
+
+                // Phase 4: mở thiệp + nhạc
+                setTimeout(function () {
+                    envelope.classList.add('opened');
+                    if (bgMusic) {
+                        bgMusic.volume = 0.3;
+                        bgMusic.play().catch(function(){});
+                    }
+                }, 1800);
+
+                setTimeout(function () { envelope.style.display = 'none'; }, 2800);
+            });
+            openBtn.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openBtn.click();
+                }
+            });
+        }
+
+        // === COUNTDOWN ===
+        function updateCountdown() {
+            var weddingDate = new Date('2027-03-15T17:00:00').getTime();
+            var now = new Date().getTime();
+            var diff = weddingDate - now;
+            if (diff <= 0) {
+                document.getElementById('countdownTimer').innerHTML = '<div class="countdown-done">\uD83C\uDF89 H\u00F4n l\u1EC5 \u0111\u00E3 di\u1EC5n ra! \uD83C\uDF89</div>';
+                return;
+            }
+            var d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            var s = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('days').textContent = String(d).padStart(2, '0');
+            document.getElementById('hours').textContent = String(h).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // === CALENDAR MONTH ===
+        initCalendarMonth({
+            containerId: 'weddingCalendar',
+            month: 3,
+            year: 2027,
+            variant: 'classic',
+            accentColor: '#C41E3A',
+            events: [
+                { day: 15, color: '#C41E3A', label: '17:00 \u2014 L\u1EC5 Th\u00E0nh H\u00F4n' }
+            ]
+        });
+
+        function initCalendarMonth(config) {
+            var container = document.getElementById(config.containerId);
+            if (!container) return;
+            var month = config.month;
+            var year = config.year;
+            var variant = config.variant || 'classic';
+            var accentColor = config.accentColor || '#C41E3A';
+            var events = config.events || [];
+            var monthNames = ['', 'Th\u00E1ng 1', 'Th\u00E1ng 2', 'Th\u00E1ng 3', 'Th\u00E1ng 4', 'Th\u00E1ng 5', 'Th\u00E1ng 6', 'Th\u00E1ng 7', 'Th\u00E1ng 8', 'Th\u00E1ng 9', 'Th\u00E1ng 10', 'Th\u00E1ng 11', 'Th\u00E1ng 12'];
+            var dows = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+            var markedDays = {};
+            events.forEach(function(e) { markedDays[e.day] = e.color || accentColor; });
+            var firstDay = new Date(year, month - 1, 1).getDay();
+            var daysInMonth = new Date(year, month, 0).getDate();
+            var today = new Date();
+            var isThisMonth = (today.getFullYear() === year && today.getMonth() + 1 === month);
+            var todayDate = today.getDate();
+            var html = '<div class="cal-month cal-' + variant + '" style="--cal-accent:' + accentColor + '">';
+            html += '<div class="cal-header"><span class="cal-month-name">' + monthNames[month] + '</span><span class="cal-year">' + year + '</span></div>';
+            html += '<div class="cal-grid">';
+            dows.forEach(function(d) { html += '<div class="cal-dow">' + d + '</div>'; });
+            for (var i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+            for (var d = 1; d <= daysInMonth; d++) {
+                var cls = 'cal-day';
+                if (isThisMonth && d === todayDate) cls += ' today';
+                if (markedDays[d]) cls += ' marked';
+                html += '<div class="' + cls + '">' + d + '</div>';
+            }
+            html += '</div>';
+            if (events.length) {
+                html += '<div class="cal-events">';
+                events.forEach(function(e) {
+                    html += '<div class="cal-event"><div class="cal-event-dot" style="background:' + (e.color || accentColor) + '"></div><span class="cal-event-date">' + e.day + '/' + month + '</span><span class="cal-event-text">' + e.label + '</span></div>';
+                });
+                html += '</div>';
+            }
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // === MUSIC TOGGLE ===
+        var musicBtn = document.getElementById('musicToggle');
+        if (musicBtn && bgMusic) {
+            var musicStarted = false;
+            musicBtn.addEventListener('click', function () {
+                if (!musicStarted) {
+                    bgMusic.play().catch(function(){});
+                    musicStarted = true;
+                    musicBtn.classList.remove('muted');
+                } else if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicBtn.classList.remove('muted');
+                } else {
+                    bgMusic.pause();
+                    musicBtn.classList.add('muted');
+                }
+            });
+        }
+
+        // === SCROLL REVEAL ===
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) entry.target.classList.add('is-visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.animate-fade-up, .timeline-item').forEach(function (el) { observer.observe(el); });
+
+        // === NAV SCROLL ===
+        var nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+        document.querySelectorAll('.nav-link').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // === GALLERY LIGHTBOX ===
+        var galleryImages = [];
+        document.querySelectorAll('.gallery-item img').forEach(function(img) { galleryImages.push(img.src); });
+        var lightbox = document.getElementById('lightbox');
+        var lightboxImg = document.getElementById('lightboxImg');
+        var currentLightboxIndex = 0;
+        document.querySelectorAll('.gallery-item').forEach(function (item) {
+            item.addEventListener('click', function () {
+                currentLightboxIndex = parseInt(item.dataset.index) || 0;
+                lightboxImg.src = galleryImages[currentLightboxIndex];
+                lightbox.classList.add('active');
+            });
+        });
+        document.getElementById('lightboxClose').addEventListener('click', function () { lightbox.classList.remove('active'); });
+        document.getElementById('lightboxPrev').addEventListener('click', function () {
+            currentLightboxIndex = (currentLightboxIndex - 1 + galleryImages.length) % galleryImages.length;
+            lightboxImg.src = galleryImages[currentLightboxIndex];
+        });
+        document.getElementById('lightboxNext').addEventListener('click', function () {
+            currentLightboxIndex = (currentLightboxIndex + 1) % galleryImages.length;
+            lightboxImg.src = galleryImages[currentLightboxIndex];
+        });
+        lightbox.addEventListener('click', function (e) { if (e.target === lightbox) lightbox.classList.remove('active'); });
+
+        // === RSVP FORM (UI-only) ===
+        window.handleRSVP = function (e) {
+            e.preventDefault();
+            document.getElementById('rsvpForm').style.display = 'none';
+            document.getElementById('rsvpSuccess').classList.add('show');
+            return false;
+        };
+
+        // === WISHES / GUESTBOOK (localStorage) ===
+        var LOCAL_WISHES_KEY = 'viet_mem_mai_hy_wishes';
+        var defaultWishes = [
+            { name: 'Ngo\u1EA1 Long', message: 'Ch\u00FAc hai b\u1EA1n tr\u0103m n\u0103m h\u1EA1nh ph\u00FAc, s\u1EDBm c\u00F3 tin vui nha! \uD83C\uDF89' },
+            { name: 'Ph\u01B0\u1EE3ng S\u1ED3', message: 'Happy Wedding! Mong hai b\u1EA1n lu\u00F4n y\u00EAu th\u01B0\u01A1ng nhau m\u00E3i m\u00E3i \uD83D\uDC95' },
+            { name: 'Doremon', message: 'Ch\u00FAc m\u1EEBng \u0111\u00E1m c\u01B0\u1EDBi! \u01AF\u1EDBc g\u00EC m\u00ECnh c\u00F3 t\u00FAi th\u1EA7n k\u1EF3 t\u1EB7ng hai b\u1EA1n \uD83E\uDD16' },
+            { name: 'Pikachu', message: 'Pika pika! Ch\u00FAc anh ch\u1ECB h\u1EA1nh ph\u00FAc vi\u00EAn m\u00E3n, v\u1EA1n s\u1EF1 nh\u01B0 \u00FD \u26A1' },
+            { name: 'Kabibara', message: 'Ch\u00FAc \u0111\u00F4i uy\u00EAn \u01B0\u01A1ng s\u1ED1ng b\u00EAn nhau tr\u1ECDn \u0111\u1EDDi, y\u00EAu th\u01B0\u01A1ng m\u1ED7i ng\u00E0y \uD83E\uDDE1' }
+        ];
+
+        function getStoredWishes() {
+            try {
+                var stored = JSON.parse(localStorage.getItem(LOCAL_WISHES_KEY));
+                return Array.isArray(stored) ? stored : [];
+            } catch (e) { return []; }
+        }
+        function saveWishes(arr) {
+            localStorage.setItem(LOCAL_WISHES_KEY, JSON.stringify(arr));
+        }
+
+        var storedWishes = getStoredWishes();
+        var allWishes = defaultWishes.concat(storedWishes);
+
+        function renderWishes() {
+            var list = document.getElementById('wishList');
+            list.innerHTML = '';
+            allWishes.forEach(function (w) {
+                var div = document.createElement('div');
+                div.className = 'guestbook-message';
+                div.innerHTML =
+                    '<div class="guestbook-message-header">' +
+                        '<div class="guestbook-avatar">' + w.name.charAt(0).toUpperCase() + '</div>' +
+                        '<div class="guestbook-name">' + w.name + '</div>' +
+                    '</div>' +
+                    '<div class="guestbook-text">' + w.message + '</div>';
+                list.appendChild(div);
+            });
+        }
+        renderWishes();
+
+        window.handleWish = function (e) {
+            e.preventDefault();
+            var nameEl = document.getElementById('wishName');
+            var msgEl = document.getElementById('wishMessage');
+            var name = nameEl.value.trim();
+            var message = msgEl.value.trim();
+            if (!name || !message) return false;
+
+            var wish = { name: name, message: message };
+            allWishes.push(wish);
+            storedWishes.push(wish);
+            saveWishes(storedWishes);
+            renderWishes();
+
+            if (typeof floatingWishesLocal !== 'undefined' && floatingWishesLocal) {
+                floatingWishesLocal.addWish(name, message);
+            }
+
+            nameEl.value = '';
+            msgEl.value = '';
+            return false;
+        };
+
+        // === FLOATING WISHES (LOCAL) ===
+        var floatingWishesLocal = (function () {
+            var wishPool = allWishes.slice();
+            var currentIndex = 0;
+            var maxVisible = 5;
+            var interval = 1200;
+            var duration = 7000;
+            var container = document.getElementById('floatingWishesBox');
+            var colorCount = 5;
+
+            function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+            function createBubble(name, message) {
+                var el = document.createElement('div');
+                el.className = 'floating-wish fw-c' + (Math.floor(Math.random() * colorCount) + 1);
+                el.style.animationDuration = duration + 'ms';
+                el.innerHTML =
+                    '<div class="floating-wish-avatar">' + esc(name).charAt(0).toUpperCase() + '</div>' +
+                    '<span class="floating-wish-name">' + esc(name) + ':</span>' +
+                    '<span class="floating-wish-text">' + esc(message) + '</span>';
+                container.appendChild(el);
+                while (container.children.length > maxVisible) {
+                    container.removeChild(container.firstChild);
+                }
+                setTimeout(function () {
+                    if (el.parentNode) el.parentNode.removeChild(el);
+                }, duration);
+            }
+
+            function showNext() {
+                if (wishPool.length === 0) return;
+                var wish = wishPool[currentIndex % wishPool.length];
+                createBubble(wish.name, wish.message);
+                currentIndex++;
+            }
+
+            setTimeout(function () {
+                showNext();
+                setInterval(showNext, interval);
+            }, 500);
+
+            return {
+                addWish: function (name, message) {
+                    if (name && message) {
+                        wishPool.push({ name: name, message: message });
+                        createBubble(name, message);
+                    }
+                }
+            };
+        })();
+
+        // === WISHES TOGGLE ===
+        var wishesBtn = document.getElementById('wishesToggle');
+        var wishesBox = document.getElementById('floatingWishesBox');
+        if (wishesBtn && wishesBox) {
+            wishesBtn.addEventListener('click', function () {
+                var isHidden = wishesBtn.classList.toggle('hidden');
+                wishesBox.classList.toggle('hidden-wishes', isHidden);
+            });
+        }
+
+        // === FALLING PETALS ===
+        function createPetal() {
+            var petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            petal.style.opacity = Math.random() * 0.5 + 0.2;
+            petal.style.fontSize = (Math.random() * 8 + 12) + 'px';
+            petal.innerHTML = ['\uD83C\uDF38', '\uD83C\uDF3A', '\uD83D\uDCAE', '\uD83C\uDFF5\uFE0F'][Math.floor(Math.random() * 4)];
+            document.body.appendChild(petal);
+            setTimeout(function () { petal.remove(); }, 8000);
+        }
+        setInterval(createPetal, 1000);
+
+        // === FLOATING HEARTS ===
+        function createHeart() {
+            var heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.innerHTML = ['\u2764\uFE0F', '\uD83D\uDC95', '\uD83D\uDC97', '\uD83E\uDDE1'][Math.floor(Math.random() * 4)];
+            heart.style.fontSize = (Math.random() * 8 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            document.body.appendChild(heart);
+            setTimeout(function () { heart.remove(); }, 8000);
+        }
+        setInterval(createHeart, 2500);
+
+        // === SPARKLES ===
+        function createSparkle() {
+            var sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.innerHTML = '\u2728';
+            sparkle.style.fontSize = (Math.random() * 6 + 8) + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(function () { sparkle.remove(); }, 2000);
+        }
+        setInterval(createSparkle, 2000);
+
+        // === CALENDAR EXPORT (.ics) ===
+        window.downloadICS = function () {
+            var ics = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Templexa//Wedding//VI',
+                'BEGIN:VEVENT',
+                'DTSTART:20270315T100000',
+                'DTEND:20270315T140000',
+                'SUMMARY:L\u1EC5 Th\u00E0nh H\u00F4n - Long & Ng\u1ECDc',
+                'DESCRIPTION:Tr\u00E2n tr\u1ECDng k\u00EDnh m\u1EDDi qu\u00FD kh\u00E1ch \u0111\u1EBFn d\u1EF1 l\u1EC5 th\u00E0nh h\u00F4n',
+                'LOCATION:Nh\u00E0 h\u00E0ng Ti\u1EC7c C\u01B0\u1EDBi ABC\\, 123 \u0110\u01B0\u1EDDng Nguy\u1EC5n Hu\u1EC7\\, Qu\u1EADn 1\\, TP.HCM',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\r\n');
+            var blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'cuoi-minh-ngoc.ics';
+            link.click();
+        };
+
+    });
+    </script>
+</body>
+</html>

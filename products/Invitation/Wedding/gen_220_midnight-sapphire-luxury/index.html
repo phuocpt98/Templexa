@@ -1,786 +1,1234 @@
-<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Minh Đức & Thanh Ngân — Midnight Sapphire Wedding</title><meta name="description" content="Trân trọng kính mời tới lễ cưới Minh Đức & Thanh Ngân — 20/07/2026"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Pinyon+Script&family=Outfit:wght@300;400&display=swap" rel="stylesheet"><style>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minh Đức & Thanh Ngân — Midnight Sapphire Wedding</title>
+<meta name="description" content="Trân trọng kính mời tới lễ cưới Minh Đức & Thanh Ngân — 20/07/2026">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Pinyon+Script&family=Outfit:wght@300;400&display=swap" rel="stylesheet">
+<style>
 /* =========================================
-CSS VARIABLES — MIDNIGHT SAPPHIRE PALETTE
-========================================= */
+   CSS VARIABLES — MIDNIGHT SAPPHIRE PALETTE
+   ========================================= */
 :root {
---midnight: #0A0E1A;
---sapphire: #1B3A6B;
---sapphire-light: #2A5298;
---champagne: #E8D5B5;
---gold: #D4A853;
---gold-light: #F0DEB8;
---ivory: #FBF8F3;
---text-light: #C8C0B4;
---text-faint: #6B6B7B;
+  --midnight: #0A0E1A;
+  --sapphire: #1B3A6B;
+  --sapphire-light: #2A5298;
+  --champagne: #E8D5B5;
+  --gold: #D4A853;
+  --gold-light: #F0DEB8;
+  --ivory: #FBF8F3;
+  --text-light: #C8C0B4;
+  --text-faint: #6B6B7B;
 }
+
 /* =========================================
-RESET & BASE
-========================================= */
+   RESET & BASE
+   ========================================= */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-background: var(--midnight);
-color: var(--champagne);
-font-family: 'Outfit', sans-serif;
-font-weight: 300;
-overflow-x: hidden;
+  background: var(--midnight);
+  color: var(--champagne);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
 section { position: relative; }
+
 /* =========================================
-MUSIC BUTTON
-========================================= */
+   MUSIC BUTTON
+   ========================================= */
 #music-btn {
-position: fixed;
-bottom: 28px;
-right: 28px;
-z-index: 9999;
-width: 46px;
-height: 46px;
-border-radius: 50%;
-background: rgba(10,14,26,0.85);
-border: 1px solid rgba(212,168,83,0.3);
-color: var(--gold);
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-backdrop-filter: blur(8px);
-transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s ease, opacity 0.3s;
-opacity: 0;
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(10,14,26,0.85);
+  border: 1px solid rgba(212,168,83,0.3);
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s ease, opacity 0.3s;
+  opacity: 0;
 }
 #music-btn.visible { opacity: 0.5; }
 #music-btn.visible.playing { opacity: 1; border-color: rgba(212,168,83,0.6); }
 #music-btn:hover {
-border-color: var(--gold);
-box-shadow: 0 0 16px rgba(212,168,83,0.35);
-transform: translateY(-3px);
+  border-color: var(--gold);
+  box-shadow: 0 0 16px rgba(212,168,83,0.35);
+  transform: translateY(-3px);
 }
 #music-btn svg { width: 18px; height: 18px; }
+
 /* =========================================
-SECTION 1: ENVELOPE
-========================================= */
+   SECTION 1: ENVELOPE
+   ========================================= */
 #envelope {
-position: relative;
-width: 100%;
-height: 100dvh;
-min-height: 600px;
-background: var(--midnight);
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-cursor: pointer;
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 600px;
+  background: var(--midnight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
 }
+
 /* Sparkle fireflies — bottom-left + top-right clusters */
 .sparkle {
-position: absolute;
-width: 3px; height: 3px;
-border-radius: 50%;
-background: var(--gold-light);
-pointer-events: none;
-z-index: 2;
-animation: sparkle-drift var(--dur) ease-in-out infinite, sparkle-pulse var(--pulse) ease-in-out infinite;
+  position: absolute;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  pointer-events: none;
+  z-index: 2;
+  animation: sparkle-drift var(--dur) ease-in-out infinite, sparkle-pulse var(--pulse) ease-in-out infinite;
 }
 @keyframes sparkle-drift {
-0% { transform: translate(0, 0); }
-14% { transform: translate(var(--dx1), var(--dy1)); }
-28% { transform: translate(var(--dx2), var(--dy2)); }
-42% { transform: translate(var(--dx3), var(--dy3)); }
-57% { transform: translate(var(--dx4), var(--dy4)); }
-71% { transform: translate(var(--dx5), var(--dy5)); }
-85% { transform: translate(var(--dx6), var(--dy6)); }
-100% { transform: translate(0, 0); }
+  0% { transform: translate(0, 0); }
+  14% { transform: translate(var(--dx1), var(--dy1)); }
+  28% { transform: translate(var(--dx2), var(--dy2)); }
+  42% { transform: translate(var(--dx3), var(--dy3)); }
+  57% { transform: translate(var(--dx4), var(--dy4)); }
+  71% { transform: translate(var(--dx5), var(--dy5)); }
+  85% { transform: translate(var(--dx6), var(--dy6)); }
+  100% { transform: translate(0, 0); }
 }
 @keyframes sparkle-pulse {
-0%, 100% { opacity: 0.15; box-shadow: 0 0 3px rgba(212,168,83,0.3); }
-50% { opacity: 0.9; box-shadow: 0 0 8px rgba(212,168,83,0.8); }
+  0%, 100% { opacity: 0.15; box-shadow: 0 0 3px rgba(212,168,83,0.3); }
+  50% { opacity: 0.9; box-shadow: 0 0 8px rgba(212,168,83,0.8); }
 }
+
 /* Radial glow background */
 #envelope::before {
-content: '';
-position: absolute;
-inset: 0;
-background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(27,58,107,0.45) 0%, transparent 70%);
-pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(27,58,107,0.45) 0%, transparent 70%);
+  pointer-events: none;
 }
+
 /* Corner decorative lines */
 #envelope::after {
-content: '';
-position: absolute;
-inset: 32px;
-border: 1px solid rgba(212,168,83,0.12);
-pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 32px;
+  border: 1px solid rgba(212,168,83,0.12);
+  pointer-events: none;
 }
+
 .env-content {
-position: relative;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 0;
-z-index: 2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  z-index: 2;
 }
+
 /* "TRÂN TRỌNG KÍNH MỜI" label above */
 .env-label {
-font-family: 'Cormorant Garamond', serif;
-font-weight: 600;
-font-size: 9px;
-letter-spacing: 0.5em;
-text-transform: uppercase;
-color: var(--gold);
-margin-bottom: 28px;
-opacity: 0;
-animation: fadeInDown 1s 0.5s forwards;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeInDown 1s 0.5s forwards;
 }
+
 /* Outer ring wrapper — for zoom transform */
 .env-ring-wrapper {
-position: relative;
-width: 180px;
-height: 180px;
-display: flex;
-align-items: center;
-justify-content: center;
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 /* Rotating ring */
 .env-ring {
-position: absolute;
-inset: 0;
-border-radius: 50%;
-border: 1px solid rgba(212,168,83,0.55);
-animation: ringRotate 20s linear infinite;
-transform-origin: center center;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(212,168,83,0.55);
+  animation: ringRotate 20s linear infinite;
+  transform-origin: center center;
 }
 .env-ring::before {
-content: '';
-position: absolute;
-top: -3px;
-left: 50%;
-transform: translateX(-50%);
-width: 5px;
-height: 5px;
-border-radius: 50%;
-background: var(--gold);
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
 }
+
 /* Wax seal */
 .env-seal {
-position: relative;
-z-index: 3;
-width: 120px;
-height: 120px;
-border-radius: 50%;
-overflow: visible;
-display: flex;
-align-items: center;
-justify-content: center;
-animation: sealGlow 3s ease-in-out infinite;
+  position: relative;
+  z-index: 3;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: sealGlow 3s ease-in-out infinite;
 }
 .env-seal img {
-width: 120px;
-height: 120px;
-object-fit: contain;
-filter: drop-shadow(0 0 20px rgba(212,168,83,0.4));
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(212,168,83,0.4));
 }
+
 /* Gold particle container */
 .particles-container {
-position: absolute;
-inset: 0;
-pointer-events: none;
-z-index: 10;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
 }
 .particle {
-position: absolute;
-top: 50%;
-left: 50%;
-width: 4px;
-height: 4px;
-border-radius: 50%;
-background: var(--gold);
-opacity: 0;
-transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  transform: translate(-50%, -50%);
 }
+
 /* Couple names under ring */
 .env-names {
-margin-top: 28px;
-font-family: 'Cormorant Garamond', serif;
-font-style: italic;
-font-weight: 300;
-font-size: clamp(22px, 5vw, 30px);
-color: var(--champagne);
-letter-spacing: 0.05em;
-opacity: 0;
-animation: fadeInUp 1s 0.8s forwards;
+  margin-top: 28px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(22px, 5vw, 30px);
+  color: var(--champagne);
+  letter-spacing: 0.05em;
+  opacity: 0;
+  animation: fadeInUp 1s 0.8s forwards;
 }
+
 /* "Chạm để mở" */
 .env-tap {
-margin-top: 36px;
-font-family: 'Outfit', sans-serif;
-font-weight: 300;
-font-size: 12px;
-letter-spacing: 0.25em;
-color: var(--gold);
-text-transform: uppercase;
-animation: tapPulse 2s ease-in-out infinite;
+  margin-top: 36px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  animation: tapPulse 2s ease-in-out infinite;
 }
+
 /* Photo reveal layer — hidden initially */
 #photo-reveal {
-position: absolute;
-inset: 0;
-z-index: 5;
-overflow: hidden;
-opacity: 0;
-pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 #photo-reveal img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-filter: brightness(0.55);
-clip-path: circle(0% at 50% 50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.55);
+  clip-path: circle(0% at 50% 50%);
 }
+
 /* Envelope exit overlay */
 #envelope.opening .env-content { pointer-events: none; }
+
 /* =========================================
-ENVELOPE KEYFRAMES
-========================================= */
+   ENVELOPE KEYFRAMES
+   ========================================= */
 @keyframes sealGlow {
-0%, 100% { filter: drop-shadow(0 0 20px rgba(212,168,83,0.4)); }
-50% { filter: drop-shadow(0 0 40px rgba(212,168,83,0.7)); }
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(212,168,83,0.4)); }
+  50% { filter: drop-shadow(0 0 40px rgba(212,168,83,0.7)); }
 }
 @keyframes ringRotate {
-from { transform: rotate(0deg); }
-to { transform: rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 @keyframes fadeInDown {
-from { opacity: 0; transform: translateY(-12px); }
-to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeInUp {
-from { opacity: 0; transform: translateY(12px); }
-to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 @keyframes tapPulse {
-0%, 100% { opacity: 0.6; }
-50% { opacity: 1; }
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
+
 /* PARTICLE burst animations (15 particles, randomized via CSS vars) */
 @keyframes particleBurst {
-0% { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
-60% { opacity: 0.8; }
-100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--px), var(--py)) scale(0.2); }
+  0% { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
+  60% { opacity: 0.8; }
+  100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--px), var(--py)) scale(0.2); }
 }
+
 /* Seal crack animation */
 @keyframes sealCrack {
-0% { transform: scale(1) rotate(0deg); opacity: 1; }
-40% { transform: scale(1.25) rotate(15deg); opacity: 0.8; }
-80% { transform: scale(1.4) rotate(25deg); opacity: 0.3; }
-100% { transform: scale(1.6) rotate(30deg); opacity: 0; }
+  0% { transform: scale(1) rotate(0deg); opacity: 1; }
+  40% { transform: scale(1.25) rotate(15deg); opacity: 0.8; }
+  80% { transform: scale(1.4) rotate(25deg); opacity: 0.3; }
+  100% { transform: scale(1.6) rotate(30deg); opacity: 0; }
 }
+
 /* Ring zoom expansion */
 @keyframes ringExpand {
-0% { transform: scale(1); opacity: 1; }
-100% { transform: scale(40); opacity: 0; }
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(40); opacity: 0; }
 }
+
 /* Photo clip expand */
 @keyframes photoReveal {
-0% { clip-path: circle(0% at 50% 50%); }
-100% { clip-path: circle(150% at 50% 50%); }
+  0% { clip-path: circle(0% at 50% 50%); }
+  100% { clip-path: circle(150% at 50% 50%); }
 }
+
 /* Envelope slide up */
 @keyframes envelopeExit {
-0% { transform: translateY(0); opacity: 1; }
-100% { transform: translateY(-100vh); opacity: 0; }
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
 }
+
 /* =========================================
-SECTION 2: HERO — FULL-BLEED EDITORIAL
-========================================= */
+   SECTION 2: HERO — FULL-BLEED EDITORIAL
+   ========================================= */
 #hero {
-position: relative;
-width: 100%;
-height: 100dvh;
-min-height: 600px;
-overflow: hidden;
-display: flex;
-align-items: center;
-justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .hero-bg {
-position: absolute;
-inset: 0;
-z-index: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 .hero-bg img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-object-position: center 30%;
-filter: brightness(0.38);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: brightness(0.38);
 }
 /* Multi-layer dark gradient for depth */
 .hero-overlay {
-position: absolute;
-inset: 0;
-background:
-linear-gradient(to top, rgba(10,14,26,0.95) 0%, rgba(10,14,26,0.2) 40%, rgba(10,14,26,0.15) 60%, rgba(10,14,26,0.6) 100%);
-z-index: 1;
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(10,14,26,0.95) 0%, rgba(10,14,26,0.2) 40%, rgba(10,14,26,0.15) 60%, rgba(10,14,26,0.6) 100%);
+  z-index: 1;
 }
+
 /* Floral lineart overlay — envelope background, golden glow */
 .env-lineart-bg {
-position: absolute; inset: 0;
-z-index: 0;
-background-image: url('../../../shared/images/wedding/backgrounds/floral-lineart/bg-floral-lineart-beige-corner-dual.webp');
-background-size: cover;
-background-position: center;
-opacity: 0.45;
-pointer-events: none;
-mix-blend-mode: screen;
-filter: brightness(3) sepia(0.8) saturate(2.5) hue-rotate(-15deg) contrast(1.3);
+  position: absolute; inset: 0;
+  z-index: 0;
+  background-image: url('../../../shared/images/wedding/backgrounds/floral-lineart/bg-floral-lineart-beige-corner-dual.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.45;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: brightness(3) sepia(0.8) saturate(2.5) hue-rotate(-15deg) contrast(1.3);
 }
 /* Art nouveau corners removed */
+
 .hero-content {
-position: relative;
-z-index: 3;
-text-align: center;
-padding: 0 24px;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 0 24px;
 }
+
 .hero-name-top {
-font-family: 'Cormorant Garamond', serif;
-font-style: italic;
-font-weight: 300;
-font-size: clamp(36px, 7vw, 56px);
-color: var(--champagne);
-display: block;
-opacity: 0;
-transform: translateX(-40px);
-transition: opacity 0.8s ease, transform 0.8s ease;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(36px, 7vw, 56px);
+  color: var(--champagne);
+  display: block;
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 .hero-name-top.visible { opacity: 1; transform: translateX(0); }
+
 .hero-ampersand {
-display: block;
-font-family: 'Pinyon Script', cursive;
-font-size: clamp(56px, 10vw, 80px);
-color: var(--gold);
-line-height: 1;
-margin: 4px 0;
-opacity: 0;
-transition: opacity 1s 0.3s ease;
+  display: block;
+  font-family: 'Pinyon Script', cursive;
+  font-size: clamp(56px, 10vw, 80px);
+  color: var(--gold);
+  line-height: 1;
+  margin: 4px 0;
+  opacity: 0;
+  transition: opacity 1s 0.3s ease;
 }
 .hero-ampersand.visible { opacity: 1; }
+
 .hero-name-bottom {
-font-family: 'Cormorant Garamond', serif;
-font-style: italic;
-font-weight: 300;
-font-size: clamp(36px, 7vw, 56px);
-color: var(--champagne);
-display: block;
-opacity: 0;
-transform: translateX(40px);
-transition: opacity 0.8s 0.15s ease, transform 0.8s 0.15s ease;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(36px, 7vw, 56px);
+  color: var(--champagne);
+  display: block;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s 0.15s ease, transform 0.8s 0.15s ease;
 }
 .hero-name-bottom.visible { opacity: 1; transform: translateX(0); }
+
 .hero-divider {
-width: 60px;
-height: 1px;
-background: var(--gold);
-margin: 20px auto;
-opacity: 0;
-transition: opacity 0.8s 0.45s ease;
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 20px auto;
+  opacity: 0;
+  transition: opacity 0.8s 0.45s ease;
 }
 .hero-divider.visible { opacity: 1; }
+
 .hero-date {
-font-family: 'Outfit', sans-serif;
-font-weight: 300;
-font-size: clamp(13px, 2.5vw, 15px);
-color: var(--text-light);
-letter-spacing: 0.35em;
-text-transform: uppercase;
-opacity: 0;
-transition: opacity 0.8s 0.6s ease;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  font-size: clamp(13px, 2.5vw, 15px);
+  color: var(--text-light);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.8s 0.6s ease;
 }
 .hero-date.visible { opacity: 1; }
+
 .hero-venue {
-margin-top: 10px;
-font-family: 'Outfit', sans-serif;
-font-weight: 300;
-font-size: clamp(12px, 2vw, 13px);
-color: var(--text-faint);
-letter-spacing: 0.12em;
-opacity: 0;
-transition: opacity 0.8s 0.75s ease;
+  margin-top: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  font-size: clamp(12px, 2vw, 13px);
+  color: var(--text-faint);
+  letter-spacing: 0.12em;
+  opacity: 0;
+  transition: opacity 0.8s 0.75s ease;
 }
 .hero-venue.visible { opacity: 1; }
+
 /* Thin gold bottom line accent */
 #hero::after {
-content: '';
-position: absolute;
-bottom: 0;
-left: 50%;
-transform: translateX(-50%);
-width: 1px;
-height: 60px;
-background: linear-gradient(to bottom, var(--gold), transparent);
-z-index: 3;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  z-index: 3;
 }
+
 /* =========================================
-SECTION 3: THÔNG TIN TIỆC — SPLIT LAYOUT
-========================================= */
+   SECTION 3: THÔNG TIN TIỆC — SPLIT LAYOUT
+   ========================================= */
 #party-info {
-position: relative;
-width: 100%;
-min-height: 100dvh;
-display: flex;
-align-items: stretch;
-overflow: hidden;
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
 }
+
 /* Left panel — Sapphire */
 .panel-left {
-flex: 1;
-background: var(--sapphire);
-padding: clamp(48px, 8vw, 80px) clamp(32px, 5vw, 64px);
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: flex-start;
-position: relative;
-transform: translateX(-60px);
-opacity: 0;
-transition: transform 0.9s ease, opacity 0.9s ease;
+  flex: 1;
+  background: var(--sapphire);
+  padding: clamp(48px, 8vw, 80px) clamp(32px, 5vw, 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  transform: translateX(-60px);
+  opacity: 0;
+  transition: transform 0.9s ease, opacity 0.9s ease;
 }
 .panel-left.visible { transform: translateX(0); opacity: 1; }
+
 /* Subtle sapphire texture */
 .panel-left::before {
-content: '';
-position: absolute;
-inset: 0;
-background: linear-gradient(135deg, rgba(42,82,152,0.3) 0%, transparent 60%);
-pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(42,82,152,0.3) 0%, transparent 60%);
+  pointer-events: none;
 }
+
 /* Right panel — Ivory */
 .panel-right {
-flex: 1;
-background: var(--ivory);
-padding: clamp(48px, 8vw, 80px) clamp(32px, 5vw, 64px);
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: flex-start;
-position: relative;
-transform: translateX(60px);
-opacity: 0;
-transition: transform 0.9s 0.15s ease, opacity 0.9s 0.15s ease;
+  flex: 1;
+  background: var(--ivory);
+  padding: clamp(48px, 8vw, 80px) clamp(32px, 5vw, 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  transform: translateX(60px);
+  opacity: 0;
+  transition: transform 0.9s 0.15s ease, opacity 0.9s 0.15s ease;
 }
 .panel-right.visible { transform: translateX(0); opacity: 1; }
+
 /* Vertical gold divider line */
 .panel-divider {
-position: absolute;
-top: 0;
-left: 50%;
-transform: translateX(-50%);
-width: 1px;
-height: 100%;
-background: linear-gradient(to bottom, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
-z-index: 5;
-pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
+  z-index: 5;
+  pointer-events: none;
 }
+
 /* Circular couple photo at center junction */
 .panel-center-photo {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-z-index: 6;
-width: 100px;
-height: 100px;
-border-radius: 50%;
-overflow: hidden;
-border: 2px solid var(--gold);
-box-shadow: 0 0 0 4px var(--midnight), 0 0 20px rgba(212,168,83,0.3);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 4px var(--midnight), 0 0 20px rgba(212,168,83,0.3);
 }
 .panel-center-photo img {
-width: 100%;
-height: 100%;
-object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
 /* Panel section labels */
 .panel-label {
-font-family: 'Cormorant Garamond', serif;
-font-weight: 600;
-font-size: clamp(9px, 1.5vw, 10px);
-letter-spacing: 0.5em;
-text-transform: uppercase;
-margin-bottom: 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(9px, 1.5vw, 10px);
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
 }
 .panel-left .panel-label { color: rgba(232,213,181,0.7); }
 .panel-right .panel-label { color: var(--sapphire); }
+
 /* Panel gold accent line */
 .panel-gold-line {
-width: 40px;
-height: 1px;
-background: var(--gold);
-margin-bottom: 24px;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 24px;
 }
+
 /* Event title */
 .event-title {
-font-family: 'Cormorant Garamond', serif;
-font-style: italic;
-font-weight: 400;
-font-size: clamp(28px, 4vw, 38px);
-line-height: 1.1;
-margin-bottom: 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 38px);
+  line-height: 1.1;
+  margin-bottom: 24px;
 }
 .panel-left .event-title { color: var(--champagne); }
 .panel-right .event-title { color: var(--midnight); }
+
 /* Event details */
 .event-detail {
-display: flex;
-flex-direction: column;
-gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 .detail-row {
-display: flex;
-flex-direction: column;
-gap: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 .detail-key {
-font-family: 'Cormorant Garamond', serif;
-font-weight: 600;
-font-size: 9px;
-letter-spacing: 0.4em;
-text-transform: uppercase;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
 }
 .panel-left .detail-key { color: rgba(212,168,83,0.7); }
 .panel-right .detail-key { color: var(--sapphire-light); }
+
 .detail-value {
-font-family: 'Outfit', sans-serif;
-font-weight: 300;
-font-size: clamp(14px, 2vw, 16px);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  font-size: clamp(14px, 2vw, 16px);
 }
 .panel-left .detail-value { color: var(--text-light); }
 .panel-right .detail-value { color: #2C3A4A; }
+
 /* MOBILE: stack panels vertically */
 @media (max-width: 420px) {
-#party-info {
-flex-direction: column;
-min-height: auto;
+  #party-info {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .panel-left, .panel-right {
+    width: 100%;
+    padding: 56px 32px;
+    align-items: flex-start;
+  }
+  .panel-left {
+    padding-bottom: 72px;
+  }
+  .panel-right {
+    padding-top: 72px;
+  }
+  .panel-divider {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
+  }
+  .panel-center-photo {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
-.panel-left, .panel-right {
-width: 100%;
-padding: 56px 32px;
-align-items: flex-start;
-}
-.panel-left {
-padding-bottom: 72px;
-}
-.panel-right {
-padding-top: 72px;
-}
-.panel-divider {
-top: 50%;
-left: 0;
-width: 100%;
-height: 1px;
-background: linear-gradient(to right, transparent 0%, var(--gold) 20%, var(--gold) 80%, transparent 100%);
-}
-.panel-center-photo {
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-}
-}
+
 /* =========================================
-SECTION 4: CẢM ƠN — DARK MONOGRAM CLOSE
-========================================= */
+   SECTION 4: CẢM ƠN — DARK MONOGRAM CLOSE
+   ========================================= */
 #thank-you {
-position: relative;
-width: 100%;
-min-height: 100dvh;
-background: var(--midnight);
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-padding: 80px 24px;
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--midnight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 80px 24px;
 }
+
 /* Floral watercolor blush gold overlay — cảm ơn */
 .ty-floral-bg {
-position: absolute; inset: 0;
-z-index: 1;
-background-image: url('../../../shared/images/wedding/backgrounds/floral-watercolor/bg-floral-watercolor-blush-gold-veil.webp');
-background-size: cover;
-background-position: center;
-opacity: 0.12;
-pointer-events: none;
-mix-blend-mode: screen;
-filter: brightness(1.5) sepia(0.5) saturate(1.2);
+  position: absolute; inset: 0;
+  z-index: 1;
+  background-image: url('../../../shared/images/wedding/backgrounds/floral-watercolor/bg-floral-watercolor-blush-gold-veil.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: brightness(1.5) sepia(0.5) saturate(1.2);
 }
+
 /* Faint background photo */
 .ty-bg {
-position: absolute;
-inset: 0;
-z-index: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 .ty-bg img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-opacity: 0.06;
-mix-blend-mode: luminosity;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.06;
+  mix-blend-mode: luminosity;
 }
+
 /* Subtle radial glow */
 #thank-you::before {
-content: '';
-position: absolute;
-inset: 0;
-background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(27,58,107,0.25) 0%, transparent 70%);
-z-index: 1;
-pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(27,58,107,0.25) 0%, transparent 70%);
+  z-index: 1;
+  pointer-events: none;
 }
+
 .ty-content {
-position: relative;
-z-index: 2;
-display: flex;
-flex-direction: column;
-align-items: center;
-text-align: center;
-max-width: 520px;
-opacity: 0;
-transform: translateY(30px);
-transition: opacity 1s ease, transform 1s ease;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 520px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
 }
 .ty-content.visible { opacity: 1; transform: translateY(0); }
+
 /* Monogram ring — callback to envelope */
 .ty-ring {
-position: relative;
-width: 160px;
-height: 160px;
-display: flex;
-align-items: center;
-justify-content: center;
-margin: 0 auto 36px;
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 36px;
 }
 .ty-ring-border {
-position: absolute;
-inset: 0;
-border-radius: 50%;
-border: 1px solid rgba(212,168,83,0.45);
-animation: tyRingGlow 4s ease-in-out infinite;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(212,168,83,0.45);
+  animation: tyRingGlow 4s ease-in-out infinite;
 }
 .ty-ring-border-outer {
-position: absolute;
-inset: -8px;
-border-radius: 50%;
-border: 1px solid rgba(212,168,83,0.15);
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(212,168,83,0.15);
 }
 .ty-monogram {
-font-family: 'Cormorant Garamond', serif;
-font-style: italic;
-font-weight: 300;
-font-size: 32px;
-color: var(--gold);
-letter-spacing: 0.1em;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
 }
+
 @keyframes tyRingGlow {
-0%, 100% { box-shadow: 0 0 12px rgba(212,168,83,0.15); }
-50% { box-shadow: 0 0 28px rgba(212,168,83,0.35); }
+  0%, 100% { box-shadow: 0 0 12px rgba(212,168,83,0.15); }
+  50% { box-shadow: 0 0 28px rgba(212,168,83,0.35); }
 }
+
 /* "Cảm ơn" shimmer heading */
 .ty-heading {
-font-family: 'Cormorant Garamond', serif;
-font-weight: 600;
-font-size: clamp(11px, 2vw, 13px);
-letter-spacing: 0.55em;
-text-transform: uppercase;
-background: linear-gradient(-45deg, var(--gold), var(--champagne), var(--gold), var(--gold-light));
-background-size: 300%;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-animation: shimmer 4s ease-in-out infinite;
-margin-bottom: 28px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(11px, 2vw, 13px);
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+  background: linear-gradient(-45deg, var(--gold), var(--champagne), var(--gold), var(--gold-light));
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s ease-in-out infinite;
+  margin-bottom: 28px;
 }
 @keyframes shimmer {
-0% { background-position: 0% 50%; }
-50% { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
+
 /* Gold divider */
 .ty-divider {
-width: 50px;
-height: 1px;
-background: var(--gold);
-margin: 0 auto 28px;
-opacity: 0.6;
+  width: 50px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 28px;
+  opacity: 0.6;
 }
+
 /* Message */
 .ty-message {
-font-family: 'Cormorant Garamond', serif;
-font-style: italic;
-font-weight: 300;
-font-size: clamp(17px, 3vw, 20px);
-color: var(--champagne);
-line-height: 1.6;
-margin-bottom: 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(17px, 3vw, 20px);
+  color: var(--champagne);
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
+
 /* Signature line */
 .ty-signature {
-font-family: 'Outfit', sans-serif;
-font-weight: 300;
-font-size: clamp(12px, 2vw, 13px);
-color: var(--text-light);
-letter-spacing: 0.1em;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  font-size: clamp(12px, 2vw, 13px);
+  color: var(--text-light);
+  letter-spacing: 0.1em;
 }
+
 /* Corner ornaments */
 .ty-corner {
-position: absolute;
-width: 40px;
-height: 40px;
-opacity: 0.3;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0.3;
 }
 .ty-corner-tl { top: 40px; left: 40px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
 .ty-corner-tr { top: 40px; right: 40px; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); }
 .ty-corner-bl { bottom: 40px; left: 40px; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
 .ty-corner-br { bottom: 40px; right: 40px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+
 /* =========================================
-RESPONSIVE GLOBAL
-========================================= */
+   RESPONSIVE GLOBAL
+   ========================================= */
 @media (max-width: 420px) {
-#envelope::after { inset: 20px; }
-.ty-corner { display: none; }
+  #envelope::after { inset: 20px; }
+  .ty-corner { display: none; }
 }
+
 /* =========================================
-REDUCED MOTION
-========================================= */
+   REDUCED MOTION
+   ========================================= */
 @media (prefers-reduced-motion: reduce) {
-.env-ring { animation: none; }
-.env-seal { animation: none; }
-.env-label, .env-names { animation: fadeInUp 0.1s forwards; opacity: 1; }
-.env-tap { animation: none; opacity: 0.7; }
-.ty-ring-border { animation: none; }
-.ty-heading { animation: none; background-position: 0% 50%; }
+  .env-ring { animation: none; }
+  .env-seal { animation: none; }
+  .env-label, .env-names { animation: fadeInUp 0.1s forwards; opacity: 1; }
+  .env-tap { animation: none; opacity: 0.7; }
+  .ty-ring-border { animation: none; }
+  .ty-heading { animation: none; background-position: 0% 50%; }
 }
-</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x7a\x49\x79\x4d\x46\x39\x74\x61\x57\x52\x75\x61\x57\x64\x6f\x64\x43\x31\x7a\x59\x58\x42\x77\x61\x47\x6c\x79\x5a\x53\x31\x73\x64\x58\x68\x31\x63\x6e\x6c\x38\x4d\x6a\x41\x79\x4e\x69\x30\x77\x4d\x79\x30\x79\x4f\x58\x78\x77\x61\x48\x56\x76\x59\x33\x42\x30\x4f\x54\x67\x3d'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><audio id="bg-audio" loop preload="none"><source src="../../../shared/music/romantic/Only Love.mp3" type="audio/mpeg"></audio><button id="music-btn" aria-label="Bật/tắt nhạc" title="Bật/tắt nhạc"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z" fill="currentColor"/></svg></button><section id="envelope" role="button" aria-label="Chạm để mở thiệp" tabindex="0"><div class="env-lineart-bg" aria-hidden="true"></div><div id="photo-reveal"><img
-src="../../../shared/images/wedding/vit-sang-trong/couple_hero.webp"
-alt="Couple photo"
-loading="eager"
-></div><div class="particles-container" id="particles-container" aria-hidden="true"></div><div class="env-content" id="env-content"><span class="env-label">Trân trọng kính mời</span><div class="env-ring-wrapper" id="ring-wrapper"><div class="env-ring" id="env-ring" aria-hidden="true"></div><div class="env-seal" id="env-seal"><img
-src="../../../shared/images/wedding/icons/wax-seal.webp"
-alt=""
-aria-hidden="true"
-loading="eager"
-></div></div><div class="env-names">Minh Đức &amp; Thanh Ngân</div><div class="env-tap" id="env-tap">Open the invitation</div></div></section><section id="hero" aria-label="Lời mời cưới"><div class="hero-bg"><img
-src="../../../shared/images/wedding/vit-sang-trong/653903489_1530983949029416_1935782495085440839_n.webp"
-alt="Ảnh cặp đôi"
-loading="lazy"
-></div><div class="hero-overlay" aria-hidden="true"></div><div class="hero-content" id="hero-content"><span class="hero-name-top" id="hero-name-top">Minh Đức</span><span class="hero-ampersand" id="hero-amp">&amp;</span><span class="hero-name-bottom" id="hero-name-bottom">Thanh Ngân</span><div class="hero-divider" id="hero-divider"></div><div class="hero-date" id="hero-date">20 · 07 · 2026</div><div class="hero-venue" id="hero-venue">Trung tâm Hội nghị Quốc gia, Hà Nội</div></div></section><section id="party-info" aria-label="Thông tin tiệc cưới"><div class="panel-divider" aria-hidden="true"></div><div class="panel-center-photo" aria-hidden="true"><img
-src="../../../shared/images/wedding/vit-sang-trong/653912172_1530983919029419_6207138495660907446_n.webp"
-alt=""
-loading="lazy"
-></div><div class="panel-left" id="panel-left"><div class="panel-label">Nghi lễ</div><div class="panel-gold-line" aria-hidden="true"></div><div class="event-title">Lễ Vu Quy</div><div class="event-detail"><div class="detail-row"><span class="detail-key">Thời gian</span><span class="detail-value">08:00 sáng, Thứ Hai</span><span class="detail-value">20 tháng 07 năm 2026</span></div><div class="detail-row"><span class="detail-key">Địa điểm</span><span class="detail-value">Nhà gái</span><span class="detail-value" style="color: var(--text-faint); font-size: 13px;">123 Phố Hoa Lư, Hà Nội</span></div></div></div><div class="panel-right" id="panel-right"><div class="panel-label">Tiệc mừng</div><div class="panel-gold-line" style="background: var(--sapphire-light);" aria-hidden="true"></div><div class="event-title">Tiệc Cưới</div><div class="event-detail"><div class="detail-row"><span class="detail-key">Thời gian</span><span class="detail-value" style="color: #2C3A4A;">17:30, Thứ Hai</span><span class="detail-value" style="color: #2C3A4A;">20 tháng 07 năm 2026</span></div><div class="detail-row"><span class="detail-key">Địa điểm</span><span class="detail-value" style="color: #2C3A4A;">Trung tâm Hội nghị Quốc gia</span><span class="detail-value" style="color: var(--text-faint); font-size: 13px;">Mễ Trì, Nam Từ Liêm, Hà Nội</span></div></div></div></section><section id="thank-you" aria-label="Lời cảm ơn"><div class="ty-floral-bg" aria-hidden="true"></div><div class="ty-bg" aria-hidden="true"><img
-src="../../../shared/images/wedding/vit-sang-trong/654849909_1530983399029471_5040448921471250_n.webp"
-alt=""
-loading="lazy"
-></div><div class="ty-corner ty-corner-tl" aria-hidden="true"></div><div class="ty-corner ty-corner-tr" aria-hidden="true"></div><div class="ty-corner ty-corner-bl" aria-hidden="true"></div><div class="ty-corner ty-corner-br" aria-hidden="true"></div><div class="ty-content" id="ty-content"><div class="ty-ring" aria-hidden="true"><div class="ty-ring-border-outer"></div><div class="ty-ring-border"></div><div class="ty-monogram">M &amp; T</div></div><div class="ty-heading">Cảm ơn</div><div class="ty-divider" aria-hidden="true"></div><p class="ty-message">
-Sự hiện diện của quý khách<br>
-là niềm vinh hạnh lớn lao<br>
-đối với gia đình chúng tôi
-</p><div class="ty-signature">Gia đình Minh Đức &amp; Thanh Ngân</div></div></section><script>(function() { '\x75\x73\x65\x20\x73\x74\x72\x69\x63\x74'; (function createSparkles() { const env = document.getElementById('\x65\x6e\x76\x65\x6c\x6f\x70\x65'); if (!env || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; const zones = [ { x: [2, 32], y: [58, 95] }, { x: [62, 98], y: [5, 30] }, ]; const R = (min, max) => min + Math.random() * (max - min); for (let i = 0; i < 14; i++) { const z = zones[i % 2]; const s = document.createElement('\x64\x69\x76'); s.className = '\x73\x70\x61\x72\x6b\x6c\x65'; s.style.left = R(z.x[0], z.x[1]) + '%'; s.style.top = R(z.y[0], z.y[1]) + '%'; s.style.width = s.style.height = R(2, 4) + 'px'; s.style.setProperty('--dur'\x2c\x20\x52\x28\x31\x35\x2c\x20\x33\x30\x29\x20\x2b\x20's'); s.style.setProperty('--pulse', R(1.2, 3) + 's'); for (let w = 1; w <= 6; w++) { s.style.setProperty('--dx'\x20\x2b\x20\x77\x2c\x20\x52\x28\x2d\x36\x30\x2c\x20\x36\x30\x29\x20\x2b\x20'px'); s.style.setProperty('--dy'\x20\x2b\x20\x77\x2c\x20\x52\x28\x2d\x36\x30\x2c\x20\x36\x30\x29\x20\x2b\x20'px'); } s.style.animationDelay = R(0, 5) + 's'; env.appendChild(s); } })(); const audio = document.getElementById('bg-audio'); const musicBtn = document.getElementById('music-btn'); let musicStarted = false; function startMusic() { if (musicStarted) return; musicStarted = true; audio.volume = 0; audio.play().then(() => { let vol = 0; const fade = setInterval(() => { vol = Math.min(vol + 0.05, 0.5); audio.volume = vol; if (vol >= 0.5) clearInterval(fade); }, 120); musicBtn.classList.add('visible'); }).catch(() => {}); } musicBtn.addEventListener('click', () => { if (audio.paused) { audio.play(); } else { audio.pause(); } }); audio.addEventListener('play', () => musicBtn.classList.add('playing')); audio.addEventListener('pause', () => musicBtn.classList.remove('playing')); const envelope = document.getElementById('envelope'); const envContent = document.getElementById('env-content'); const envSeal = document.getElementById('env-seal'); const envRing = document.getElementById('env-ring'); const photoReveal = document.getElementById('photo-reveal'); const photoRevealImg = photoReveal.querySelector('img'); const particlesContainer = document.getElementById('particles-container'); let opened = false; const particleAngles = []; for (let i = 0; i < 15; i++) { particleAngles.push((360 / 15) * i + (Math.random() * 20 - 10)); } function createParticles() { particlesContainer.innerHTML = ''; particleAngles.forEach((angle, i) => { const dist = 80 + Math.random() * 100; const rad = (angle * Math.PI) / 180; const px = Math.round(Math.cos(rad) * dist); const py = Math.round(Math.sin(rad) * dist); const size = 3 + Math.random() * 4; const p = document.createElement('div'); p.className = 'particle'; p.style.cssText = [ '--px:'\x20\x2b\x20\x70\x78\x20\x2b\x20'px'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'--py:'\x20\x2b\x20\x70\x79\x20\x2b\x20'px'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'width:'\x20\x2b\x20\x73\x69\x7a\x65\x20\x2b\x20'px'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'height:'\x20\x2b\x20\x73\x69\x7a\x65\x20\x2b\x20'px'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'background:' + (Math.random() > 0.5 ? '#D4A853' : '#F0DEB8'\x29\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'border-radius:50%'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'position:absolute'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'top:50%'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'left:50%'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'transform:translate(-50%,-50%)'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'opacity:0'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'animation: particleBurst 0.8s ' + (0.05 * i) + 's ease-out forwards'\x2c\x0a\x20\x20\x20\x20\x20\x20\x20\x20'pointer-events:none', ].join(';'); particlesContainer.appendChild(p); }); } function openEnvelope() { if (opened) return; opened = true; const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; if (prefersReduced) { envelope.style.display = 'none'; startMusic(); triggerHeroAnimations(); return; } createParticles(); envSeal.style.animation = 'sealCrack 0.6s ease-in forwards'; setTimeout(() => { envRing.style.animation = 'ringExpand 0.9s ease-in forwards'; }, 300); setTimeout(() => { photoReveal.style.opacity = '1'; photoReveal.style.pointerEvents = 'none'; photoRevealImg.style.animation = 'photoReveal 0.8s ease-out forwards'; }, 1000); setTimeout(() => { startMusic(); }, 1600); setTimeout(() => { envelope.style.animation = 'envelopeExit 0.7s ease-in forwards'; setTimeout(() => { envelope.style.display = 'none'; triggerHeroAnimations(); }, 700); }, 1800); } envelope.addEventListener('click', openEnvelope); envelope.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); } }); function triggerHeroAnimations() { const els = [ document.getElementById('hero-name-top'), document.getElementById('hero-amp'), document.getElementById('hero-name-bottom'), document.getElementById('hero-divider'), document.getElementById('hero-date'), document.getElementById('hero-venue'), ]; els.forEach((el, i) => { if (!el) return; setTimeout(() => el.classList.add('visible'), i * 220); }); } const observerOptions = { threshold: 0.15 }; const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, observerOptions); ['panel-left', '\x70\x61\x6e\x65\x6c\x2d\x72\x69\x67\x68\x74', '\x74\x79\x2d\x63\x6f\x6e\x74\x65\x6e\x74'].forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); }); })();</script></body></html>
+</style>
+</head>
+<body><script>
+(function(){
+  var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"];
+  var _h=location.hostname;
+  var _ok=false;
+  for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'+_d[i])){_ok=true;break;}}
+  if(!_ok&&_h!==''){
+    document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https://phuocpt98.github.io/Templexa/" style="color:#7DA06D;">Truy cập Templexa</a></div></div>';
+    throw new Error('Domain not authorized');
+  }
+})();
+(function(){
+  // Chặn right-click
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  // Chặn Ctrl+S, Ctrl+U, Ctrl+Shift+I, F12
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();}
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();}
+    if(e.key==='F12'){e.preventDefault();}
+  });
+  // Chặn drag ảnh
+  document.addEventListener('dragstart',function(e){e.preventDefault();});
+  // Chặn select text (trừ input/textarea)
+  document.addEventListener('selectstart',function(e){
+    if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();}
+  });
+})();
+(function(){
+  var _w=document.createElement('div');
+  _w.setAttribute('data-t','VGVtcGxleGF8Z2VuXzIyMF9taWRuaWdodC1zYXBwaGlyZS1sdXh1cnl8MjAyNi0wMy0zMHxwaHVvY3B0OTg=');
+  _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;';
+  document.body.appendChild(_w);
+})();</script>
+
+<!-- ========================================
+     MUSIC
+     ======================================== -->
+<audio id="bg-audio" loop preload="none">
+  <source src="../../../shared/music/romantic/Only Love.mp3" type="audio/mpeg">
+</audio>
+
+<button id="music-btn" aria-label="Bật/tắt nhạc" title="Bật/tắt nhạc">
+  <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z" fill="currentColor"/></svg>
+</button>
+
+<!-- ========================================
+     SECTION 1: ENVELOPE
+     ======================================== -->
+<section id="envelope" role="button" aria-label="Chạm để mở thiệp" tabindex="0">
+  <div class="env-lineart-bg" aria-hidden="true"></div>
+  <!-- Photo reveal layer (hidden behind envelope) -->
+  <div id="photo-reveal">
+    <img
+      src="../../../shared/images/wedding/vit-sang-trong/couple_hero.webp"
+      alt="Couple photo"
+      loading="eager"
+    >
+  </div>
+
+  <!-- Particles container -->
+  <div class="particles-container" id="particles-container" aria-hidden="true"></div>
+
+  <div class="env-content" id="env-content">
+    <span class="env-label">Trân trọng kính mời</span>
+
+    <div class="env-ring-wrapper" id="ring-wrapper">
+      <!-- Rotating gold ring -->
+      <div class="env-ring" id="env-ring" aria-hidden="true"></div>
+
+      <!-- Wax seal -->
+      <div class="env-seal" id="env-seal">
+        <img
+          src="../../../shared/images/wedding/icons/wax-seal.webp"
+          alt=""
+          aria-hidden="true"
+          loading="eager"
+        >
+      </div>
+    </div>
+
+    <div class="env-names">Minh Đức &amp; Thanh Ngân</div>
+    <div class="env-tap" id="env-tap">Open the invitation</div>
+  </div>
+</section>
+
+<!-- ========================================
+     SECTION 2: HERO
+     ======================================== -->
+<section id="hero" aria-label="Lời mời cưới">
+  <div class="hero-bg">
+    <img
+      src="../../../shared/images/wedding/vit-sang-trong/653903489_1530983949029416_1935782495085440839_n.webp"
+      alt="Ảnh cặp đôi"
+      loading="lazy"
+    >
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="hero-content" id="hero-content">
+    <span class="hero-name-top" id="hero-name-top">Minh Đức</span>
+    <span class="hero-ampersand" id="hero-amp">&amp;</span>
+    <span class="hero-name-bottom" id="hero-name-bottom">Thanh Ngân</span>
+    <div class="hero-divider" id="hero-divider"></div>
+    <div class="hero-date" id="hero-date">20 · 07 · 2026</div>
+    <div class="hero-venue" id="hero-venue">Trung tâm Hội nghị Quốc gia, Hà Nội</div>
+  </div>
+</section>
+
+<!-- ========================================
+     SECTION 3: THÔNG TIN TIỆC
+     ======================================== -->
+<section id="party-info" aria-label="Thông tin tiệc cưới">
+  <!-- Vertical gold divider -->
+  <div class="panel-divider" aria-hidden="true"></div>
+
+  <!-- Center circle photo -->
+  <div class="panel-center-photo" aria-hidden="true">
+    <img
+      src="../../../shared/images/wedding/vit-sang-trong/653912172_1530983919029419_6207138495660907446_n.webp"
+      alt=""
+      loading="lazy"
+    >
+  </div>
+
+  <!-- Left: Sapphire — VU QUY -->
+  <div class="panel-left" id="panel-left">
+    <div class="panel-label">Nghi lễ</div>
+    <div class="panel-gold-line" aria-hidden="true"></div>
+    <div class="event-title">Lễ Vu Quy</div>
+    <div class="event-detail">
+      <div class="detail-row">
+        <span class="detail-key">Thời gian</span>
+        <span class="detail-value">08:00 sáng, Thứ Hai</span>
+        <span class="detail-value">20 tháng 07 năm 2026</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Địa điểm</span>
+        <span class="detail-value">Nhà gái</span>
+        <span class="detail-value" style="color: var(--text-faint); font-size: 13px;">123 Phố Hoa Lư, Hà Nội</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Ivory — TIEC MUNG -->
+  <div class="panel-right" id="panel-right">
+    <div class="panel-label">Tiệc mừng</div>
+    <div class="panel-gold-line" style="background: var(--sapphire-light);" aria-hidden="true"></div>
+    <div class="event-title">Tiệc Cưới</div>
+    <div class="event-detail">
+      <div class="detail-row">
+        <span class="detail-key">Thời gian</span>
+        <span class="detail-value" style="color: #2C3A4A;">17:30, Thứ Hai</span>
+        <span class="detail-value" style="color: #2C3A4A;">20 tháng 07 năm 2026</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-key">Địa điểm</span>
+        <span class="detail-value" style="color: #2C3A4A;">Trung tâm Hội nghị Quốc gia</span>
+        <span class="detail-value" style="color: var(--text-faint); font-size: 13px;">Mễ Trì, Nam Từ Liêm, Hà Nội</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     SECTION 4: CẢM ƠN
+     ======================================== -->
+<section id="thank-you" aria-label="Lời cảm ơn">
+  <div class="ty-floral-bg" aria-hidden="true"></div>
+  <!-- Faint background photo -->
+  <div class="ty-bg" aria-hidden="true">
+    <img
+      src="../../../shared/images/wedding/vit-sang-trong/654849909_1530983399029471_5040448921471250_n.webp"
+      alt=""
+      loading="lazy"
+    >
+  </div>
+
+  <!-- Corner ornaments -->
+  <div class="ty-corner ty-corner-tl" aria-hidden="true"></div>
+  <div class="ty-corner ty-corner-tr" aria-hidden="true"></div>
+  <div class="ty-corner ty-corner-bl" aria-hidden="true"></div>
+  <div class="ty-corner ty-corner-br" aria-hidden="true"></div>
+
+  <div class="ty-content" id="ty-content">
+    <!-- Monogram ring (callback to envelope) -->
+    <div class="ty-ring" aria-hidden="true">
+      <div class="ty-ring-border-outer"></div>
+      <div class="ty-ring-border"></div>
+      <div class="ty-monogram">M &amp; T</div>
+    </div>
+
+    <div class="ty-heading">Cảm ơn</div>
+    <div class="ty-divider" aria-hidden="true"></div>
+    <p class="ty-message">
+      Sự hiện diện của quý khách<br>
+      là niềm vinh hạnh lớn lao<br>
+      đối với gia đình chúng tôi
+    </p>
+    <div class="ty-signature">Gia đình Minh Đức &amp; Thanh Ngân</div>
+  </div>
+</section>
+
+<!-- ========================================
+     JAVASCRIPT
+     ======================================== -->
+<script>
+(function() {
+  'use strict';
+
+  /* ----------------------------------------
+     SPARKLE FIREFLIES — bottom-left + top-right
+     ---------------------------------------- */
+  (function createSparkles() {
+    const env = document.getElementById('envelope');
+    if (!env || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const zones = [
+      { x: [2, 32], y: [58, 95] },    // bottom-left
+      { x: [62, 98], y: [5, 30] },     // top-right
+    ];
+    const R = (min, max) => min + Math.random() * (max - min);
+    for (let i = 0; i < 14; i++) {
+      const z = zones[i % 2];
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = R(z.x[0], z.x[1]) + '%';
+      s.style.top = R(z.y[0], z.y[1]) + '%';
+      s.style.width = s.style.height = R(2, 4) + 'px';
+      s.style.setProperty('--dur', R(15, 30) + 's');
+      s.style.setProperty('--pulse', R(1.2, 3) + 's');
+      // 6 waypoints — longer, more complex orbit
+      for (let w = 1; w <= 6; w++) {
+        s.style.setProperty('--dx' + w, R(-60, 60) + 'px');
+        s.style.setProperty('--dy' + w, R(-60, 60) + 'px');
+      }
+      s.style.animationDelay = R(0, 5) + 's';
+      env.appendChild(s);
+    }
+  })();
+
+  /* ----------------------------------------
+     MUSIC
+     ---------------------------------------- */
+  const audio = document.getElementById('bg-audio');
+  const musicBtn = document.getElementById('music-btn');
+  let musicStarted = false;
+
+  function startMusic() {
+    if (musicStarted) return;
+    musicStarted = true;
+    audio.volume = 0;
+    audio.play().then(() => {
+      let vol = 0;
+      const fade = setInterval(() => {
+        vol = Math.min(vol + 0.05, 0.5);
+        audio.volume = vol;
+        if (vol >= 0.5) clearInterval(fade);
+      }, 120);
+      musicBtn.classList.add('visible');
+    }).catch(() => {});
+  }
+
+  musicBtn.addEventListener('click', () => {
+    if (audio.paused) { audio.play(); } else { audio.pause(); }
+  });
+  audio.addEventListener('play',  () => musicBtn.classList.add('playing'));
+  audio.addEventListener('pause', () => musicBtn.classList.remove('playing'));
+
+  /* ----------------------------------------
+     ENVELOPE ANIMATION
+     ---------------------------------------- */
+  const envelope = document.getElementById('envelope');
+  const envContent = document.getElementById('env-content');
+  const envSeal = document.getElementById('env-seal');
+  const envRing = document.getElementById('env-ring');
+  const photoReveal = document.getElementById('photo-reveal');
+  const photoRevealImg = photoReveal.querySelector('img');
+  const particlesContainer = document.getElementById('particles-container');
+  let opened = false;
+
+  // Create 15 gold particles
+  const particleAngles = [];
+  for (let i = 0; i < 15; i++) {
+    particleAngles.push((360 / 15) * i + (Math.random() * 20 - 10));
+  }
+
+  function createParticles() {
+    particlesContainer.innerHTML = '';
+    particleAngles.forEach((angle, i) => {
+      const dist = 80 + Math.random() * 100;
+      const rad = (angle * Math.PI) / 180;
+      const px = Math.round(Math.cos(rad) * dist);
+      const py = Math.round(Math.sin(rad) * dist);
+      const size = 3 + Math.random() * 4;
+
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = [
+        '--px:' + px + 'px',
+        '--py:' + py + 'px',
+        'width:' + size + 'px',
+        'height:' + size + 'px',
+        'background:' + (Math.random() > 0.5 ? '#D4A853' : '#F0DEB8'),
+        'border-radius:50%',
+        'position:absolute',
+        'top:50%',
+        'left:50%',
+        'transform:translate(-50%,-50%)',
+        'opacity:0',
+        'animation: particleBurst 0.8s ' + (0.05 * i) + 's ease-out forwards',
+        'pointer-events:none',
+      ].join(';');
+      particlesContainer.appendChild(p);
+    });
+  }
+
+  function openEnvelope() {
+    if (opened) return;
+    opened = true;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      // Skip animation — just hide envelope, show hero
+      envelope.style.display = 'none';
+      startMusic();
+      triggerHeroAnimations();
+      return;
+    }
+
+    // --- STEP 1 (0s-0.6s): Seal cracks + particles burst ---
+    createParticles();
+    envSeal.style.animation = 'sealCrack 0.6s ease-in forwards';
+
+    // --- STEP 2 (0.3s-1.2s): Ring expands (zoom through) ---
+    setTimeout(() => {
+      envRing.style.animation = 'ringExpand 0.9s ease-in forwards';
+    }, 300);
+
+    // --- STEP 3 (1.0s-1.8s): Photo reveals via clip-path circle ---
+    setTimeout(() => {
+      photoReveal.style.opacity = '1';
+      photoReveal.style.pointerEvents = 'none';
+      photoRevealImg.style.animation = 'photoReveal 0.8s ease-out forwards';
+    }, 1000);
+
+    // --- STEP 4 (1.8s-2.5s): Envelope slides up, music starts ---
+    setTimeout(() => {
+      startMusic();
+    }, 1600);
+
+    setTimeout(() => {
+      envelope.style.animation = 'envelopeExit 0.7s ease-in forwards';
+      setTimeout(() => {
+        envelope.style.display = 'none';
+        triggerHeroAnimations();
+      }, 700);
+    }, 1800);
+  }
+
+  envelope.addEventListener('click', openEnvelope);
+  envelope.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
+  });
+
+  /* ----------------------------------------
+     HERO ANIMATIONS — stagger on reveal
+     ---------------------------------------- */
+  function triggerHeroAnimations() {
+    const els = [
+      document.getElementById('hero-name-top'),
+      document.getElementById('hero-amp'),
+      document.getElementById('hero-name-bottom'),
+      document.getElementById('hero-divider'),
+      document.getElementById('hero-date'),
+      document.getElementById('hero-venue'),
+    ];
+    els.forEach((el, i) => {
+      if (!el) return;
+      setTimeout(() => el.classList.add('visible'), i * 220);
+    });
+  }
+
+  /* ----------------------------------------
+     INTERSECTION OBSERVER — Sections 3 & 4
+     ---------------------------------------- */
+  const observerOptions = { threshold: 0.15 };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  ['panel-left', 'panel-right', 'ty-content'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+})();
+</script>
+</body>
+</html>

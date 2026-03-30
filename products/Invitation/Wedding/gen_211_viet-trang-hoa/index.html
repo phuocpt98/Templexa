@@ -1,986 +1,1630 @@
-<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Thiệp Cưới - Hoàng Viết & Trang Hoa</title><meta name="description" content="Trân trọng kính mời quý khách tới dự lễ thành hôn của Nguyễn Hoàng Viết & Trần Trang Hoa"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Great+Vibes&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
-/* ===== CSS VARIABLES ===== */
-:root {
---font-script: 'Great Vibes', cursive;
---font-heading: 'Cormorant Garamond', serif;
---font-body: 'Quicksand', sans-serif;
---blush: #E8B4B8;
---blush-light: #F5D5D8;
---blush-dark: #C4899E;
---sage: #8BA888;
---sage-light: #C5D4B8;
---cream: #FFF8F5;
---warm-white: #FFFAF7;
---gold: #C5A55A;
---gold-light: #E8D5A3;
---text: #4A3728;
---text-light: #7B6555;
---text-faint: #B09080;
-}
-/* ===== RESET & BASE ===== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-font-family: var(--font-body);
-background: var(--cream);
-color: var(--text);
-line-height: 1.7;
-font-weight: 300;
-overflow-x: hidden;
-background-image:
-radial-gradient(circle at 15% 40%, rgba(232,180,184,0.05) 0%, transparent 50%),
-radial-gradient(circle at 85% 20%, rgba(139,168,136,0.04) 0%, transparent 50%),
-radial-gradient(circle at 50% 85%, rgba(245,213,216,0.06) 0%, transparent 50%);
-}
-/* ===== COMMON LAYOUT ===== */
-.section { padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 2rem); }
-.section--breathe { padding: clamp(5rem, 12vw, 7rem) clamp(1rem, 5vw, 2rem); }
-.section--compact { padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 5vw, 2rem); }
-.container { max-width: 560px; margin: 0 auto; }
-.section-heading { text-align: center; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
-.section-label {
-font-family: var(--font-body);
-font-size: 0.6rem; font-weight: 400;
-color: var(--blush-dark);
-letter-spacing: 0.35em; text-transform: uppercase;
-margin-bottom: 0.5rem;
-display: block;
-}
-.section-title {
-font-family: var(--font-heading);
-font-size: clamp(1.5rem, 5vw, 2rem);
-font-weight: 400; color: var(--text);
-font-style: italic;
-}
-.ornament { text-align: center; color: var(--blush); font-size: 1.2rem; margin: 0.5rem 0; }
-.divider { width: 50px; height: 1px; background: var(--blush); margin: 1rem auto; }
-/* Decorative section separator */
-.sep {
-text-align: center;
-padding: 1.5rem 0 0.5rem;
-color: var(--blush-light);
-letter-spacing: 0.5em;
-font-size: 1.1rem;
-user-select: none;
-}
-.sep::before, .sep::after {
-content: '';
-display: inline-block;
-width: 45px; height: 1px;
-background: linear-gradient(90deg, transparent, var(--blush-light), transparent);
-vertical-align: middle;
-margin: 0 1.2rem;
-}
-/* Reveal animation */
-.reveal {
-opacity: 0;
-transform: translateY(22px);
-transition: opacity 1s cubic-bezier(0.25,0.1,0.25,1), transform 1s cubic-bezier(0.25,0.1,0.25,1);
-}
-.reveal.vis { opacity: 1; transform: translateY(0); }
-.reveal-d1 { transition-delay: 0.12s; }
-.reveal-d2 { transition-delay: 0.25s; }
-.reveal-d3 { transition-delay: 0.38s; }
-.reveal-d4 { transition-delay: 0.5s; }
-/* ===== 1. ENVELOPE ===== */
-#envelope-overlay {
-position: fixed; inset: 0;
-z-index: 1000;
-display: flex; align-items: center; justify-content: center;
-background: #1a0a0e;
-overflow: hidden;
-}
-/* Photo background */
-#envelope-overlay::before {
-content: '';
-position: absolute; inset: 0;
-background: url('../../../shared/images/wedding/viet-trang-hoa/629708109_1496741975786947_7694401786574075770_n.webp') center/cover no-repeat;
-filter: blur(12px) brightness(0.35);
-transform: scale(1.08);
-}
-/* Overlay gradient */
-#envelope-overlay::after {
-content: '';
-position: absolute; inset: 0;
-background:
-radial-gradient(ellipse at 30% 70%, rgba(232,180,184,0.18) 0%, transparent 55%),
-radial-gradient(ellipse at 70% 30%, rgba(197,165,90,0.12) 0%, transparent 55%),
-linear-gradient(160deg, rgba(74,55,40,0.5) 0%, rgba(26,10,14,0.65) 100%);
-}
-/* Floating botanical animations */
-.env-float {
-position: absolute;
-pointer-events: none;
-z-index: 1001;
-opacity: 0;
-animation: envFloatIn 1.8s ease-out forwards;
-}
-.env-float img { display: block; }
-.env-float-1 { top: -5%; left: -3%; width: 200px; animation-delay: 0.3s; transform: rotate(-15deg); }
-.env-float-2 { bottom: -3%; right: -2%; width: 180px; animation-delay: 0.5s; transform: rotate(170deg); }
-.env-float-3 { top: 5%; right: 2%; width: 120px; animation-delay: 0.7s; transform: rotate(30deg) scaleX(-1); }
-.env-float-4 { bottom: 8%; left: 1%; width: 100px; animation-delay: 0.9s; transform: rotate(-20deg) scaleX(-1); }
-@keyframes envFloatIn {
-from { opacity: 0; transform: scale(0.85) translateY(10px); }
-to { opacity: 0.85; transform: scale(1) translateY(0); }
-}
-@keyframes envGentleFloat {
-0%, 100% { transform: translateY(0px) rotate(var(--base-rot, 0deg)); }
-50% { transform: translateY(-8px) rotate(var(--base-rot, 0deg)); }
-}
-.env-float-1 { animation: envFloatIn 1.8s ease-out 0.3s forwards, envGentleFloat 5s ease-in-out 2.5s infinite; --base-rot: -15deg; }
-.env-float-2 { animation: envFloatIn 1.8s ease-out 0.5s forwards, envGentleFloat 6s ease-in-out 3s infinite; --base-rot: 170deg; }
-.env-float-3 { animation: envFloatIn 1.8s ease-out 0.7s forwards, envGentleFloat 4.5s ease-in-out 2.8s infinite; }
-.env-float-4 { animation: envFloatIn 1.8s ease-out 0.9s forwards, envGentleFloat 5.5s ease-in-out 3.2s infinite; }
-/* Envelope Card */
-.env-card {
-position: relative; z-index: 1002;
-width: min(340px, 90vw);
-background: linear-gradient(160deg, rgba(255,248,245,0.92) 0%, rgba(255,250,247,0.95) 100%);
-border-radius: 12px;
-padding: 2.5rem 2rem 2rem;
-text-align: center;
-backdrop-filter: blur(6px);
-box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(197,165,90,0.25);
-opacity: 0;
-animation: envCardIn 1.2s cubic-bezier(0.25,0.1,0.25,1) 1s forwards;
-}
-@keyframes envCardIn {
-from { opacity: 0; transform: translateY(20px) scale(0.97); }
-to { opacity: 1; transform: translateY(0) scale(1); }
-}
-/* Double border frame */
-.env-card::before {
-content: '';
-position: absolute;
-inset: 8px;
-border: 1px solid rgba(197,165,90,0.5);
-border-radius: 8px;
-pointer-events: none;
-}
-.env-card::after {
-content: '';
-position: absolute;
-inset: 13px;
-border: 1px dashed rgba(232,180,184,0.55);
-border-radius: 5px;
-pointer-events: none;
-}
-/* Corner ornaments */
-.env-corner {
-position: absolute;
-width: 70px; height: 70px;
-pointer-events: none;
-z-index: 1;
-}
-.env-corner img { width: 100%; height: 100%; object-fit: contain; }
-.env-corner--tl { top: -8px; left: -8px; transform: rotate(0deg); }
-.env-corner--tr { top: -8px; right: -8px; transform: scaleX(-1); }
-.env-corner--bl { bottom: -8px; left: -8px; transform: scaleY(-1); }
-.env-corner--br { bottom: -8px; right: -8px; transform: scale(-1,-1); }
-/* Envelope card content */
-.env-invite-label {
-font-family: var(--font-body);
-font-size: 0.55rem; font-weight: 400;
-color: var(--text-faint);
-letter-spacing: 0.4em; text-transform: uppercase;
-margin-bottom: 1rem;
-opacity: 0;
-animation: envFadeUp 0.8s ease 1.6s forwards;
-}
-.env-names {
-font-family: var(--font-script);
-font-size: clamp(2rem, 8vw, 2.8rem);
-color: var(--text);
-line-height: 1.2;
-opacity: 0;
-animation: envFadeUp 0.8s ease 1.8s forwards;
-}
-.env-amp {
-font-family: var(--font-heading);
-font-size: 1rem; font-style: italic;
-color: var(--blush-dark);
-display: block;
-margin: 0.2rem 0;
-letter-spacing: 0.15em;
-}
-.env-date-text {
-font-family: var(--font-heading);
-font-size: 0.82rem; font-style: italic;
-color: var(--text-light);
-letter-spacing: 0.2em;
-margin: 1rem 0 0.5rem;
-opacity: 0;
-animation: envFadeUp 0.8s ease 2s forwards;
-}
-.env-bouquet {
-width: 60px; margin: 0.5rem auto 1.2rem;
-opacity: 0;
-animation: envFadeUp 0.8s ease 2.1s forwards;
-}
-.env-bouquet img { width: 100%; }
-/* Wax seal button */
-.env-seal-btn {
-display: inline-flex;
-flex-direction: column;
-align-items: center;
-gap: 0.4rem;
-cursor: pointer;
-background: none; border: none;
-opacity: 0;
-animation: envFadeUp 0.8s ease 2.3s forwards;
--webkit-tap-highlight-color: transparent;
-transition: transform 0.3s;
-}
-.env-seal-btn:hover { transform: scale(1.05); }
-.env-seal-btn:active { transform: scale(0.95); }
-.env-seal-img {
-width: 70px; height: 70px;
-object-fit: contain;
-filter: drop-shadow(0 4px 12px rgba(197,165,90,0.4));
-transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s;
-}
-.env-seal-hint {
-font-size: 0.58rem; color: var(--text-faint);
-letter-spacing: 0.25em; text-transform: uppercase;
-}
-@keyframes envFadeUp {
-from { opacity: 0; transform: translateY(10px); }
-to { opacity: 1; transform: translateY(0); }
-}
-/* Seal break animation */
-.env-seal-btn.breaking .env-seal-img {
-animation: sealBreak 0.6s ease-out forwards;
-}
-@keyframes sealBreak {
-0% { transform: scale(1) rotate(0deg); opacity: 1; }
-30% { transform: scale(1.3) rotate(-15deg); opacity: 1; }
-100% { transform: scale(0.5) rotate(25deg); opacity: 0; }
-}
-/* Overlay close animation */
-#envelope-overlay.opening {
-animation: overlayClose 0.9s cubic-bezier(0.4,0,0.2,1) 0.5s forwards;
-}
-@keyframes overlayClose {
-0% { opacity: 1; transform: translateY(0); }
-100% { opacity: 0; transform: translateY(-30px); pointer-events: none; }
-}
-#envelope-overlay.gone { display: none; }
-/* ===== MUSIC PLAYER ===== */
-.music-player {
-position: fixed;
-bottom: 1.5rem; right: 1.5rem;
-z-index: 900;
-display: flex; align-items: center; gap: 0.5rem;
-background: rgba(255,248,245,0.88);
-border: 1px solid rgba(197,165,90,0.3);
-border-radius: 50px;
-padding: 0.4rem 0.9rem 0.4rem 0.5rem;
-backdrop-filter: blur(8px);
-box-shadow: 0 4px 20px rgba(74,55,40,0.12);
-cursor: pointer;
-user-select: none;
--webkit-tap-highlight-color: transparent;
-}
-.music-icon {
-width: 32px; height: 32px;
-border-radius: 50%;
-background: linear-gradient(135deg, var(--blush), var(--blush-dark));
-display: flex; align-items: center; justify-content: center;
-color: white; font-size: 0.9rem;
-flex-shrink: 0;
-transition: transform 0.3s;
-}
-.music-player:hover .music-icon { transform: scale(1.1); }
-.music-note {
-font-size: 0.62rem; color: var(--text-light);
-letter-spacing: 0.1em; font-weight: 400;
-line-height: 1.2;
-}
-.music-note small { display: block; font-size: 0.55rem; color: var(--text-faint); }
-/* Music bars animation */
-.music-bars {
-display: flex; align-items: flex-end; gap: 2px;
-height: 14px;
-}
-.music-bar {
-width: 2px; background: white; border-radius: 1px;
-animation: barBounce 0.8s ease-in-out infinite alternate;
-}
-.music-bar:nth-child(1) { height: 6px; animation-delay: 0s; }
-.music-bar:nth-child(2) { height: 10px; animation-delay: 0.15s; }
-.music-bar:nth-child(3) { height: 7px; animation-delay: 0.3s; }
-.music-bar:nth-child(4) { height: 12px; animation-delay: 0.1s; }
-@keyframes barBounce {
-from { transform: scaleY(0.4); }
-to { transform: scaleY(1); }
-}
-.music-player.paused .music-bar { animation-play-state: paused; }
-.music-player.paused .music-icon::after { content: '▶'; }
-.music-player:not(.paused) .music-icon::after { content: ''; }
-/* ===== 2. HERO ===== */
-.hero {
-position: relative;
-min-height: 100svh;
-display: flex; flex-direction: column;
-align-items: center; justify-content: center;
-text-align: center;
-padding: clamp(4rem, 12vw, 7rem) 2rem clamp(3rem, 8vw, 5rem);
-overflow: hidden;
-}
-.hero-bg {
-position: absolute; inset: 0;
-background: url('../../../shared/images/wedding/viet-trang-hoa/629708109_1496741975786947_7694401786574075770_n.webp') center 30%/cover no-repeat;
-filter: brightness(0.55) saturate(1.1);
-transform: scale(1.03);
-transition: transform 0.1s linear;
-}
-.hero-overlay {
-position: absolute; inset: 0;
-background:
-linear-gradient(180deg, rgba(26,10,14,0.4) 0%, rgba(74,55,40,0.25) 40%, rgba(26,10,14,0.5) 100%);
-}
-.hero-content {
-position: relative; z-index: 2;
-}
-.hero-invite {
-font-size: 0.6rem; font-weight: 400;
-color: rgba(245,213,216,0.9);
-letter-spacing: 0.5em; text-transform: uppercase;
-margin-bottom: 2rem;
-opacity: 0;
-animation: heroUp 1.2s ease 0.2s forwards;
-}
-.hero-blossom-top {
-position: absolute;
-top: 0; left: 50%;
-transform: translateX(-50%);
-width: 200px;
-opacity: 0.65;
-pointer-events: none;
-}
-.hero-blossom-left {
-position: absolute;
-left: -20px; top: 50%;
-transform: translateY(-50%);
-width: 110px; opacity: 0.5;
-pointer-events: none; z-index: 1;
-}
-.hero-blossom-right {
-position: absolute;
-right: -20px; top: 50%;
-transform: translateY(-50%) scaleX(-1);
-width: 110px; opacity: 0.5;
-pointer-events: none; z-index: 1;
-}
-.hero-names {
-font-family: var(--font-script);
-font-size: clamp(3.5rem, 11vw, 5.5rem);
-color: #fff;
-line-height: 1.1;
-text-shadow: 0 2px 20px rgba(0,0,0,0.4);
-opacity: 0;
-animation: heroUp 1.4s ease 0.5s forwards;
-}
-.hero-amp {
-display: block;
-font-family: var(--font-heading);
-font-style: italic;
-font-size: clamp(1.2rem, 4vw, 1.7rem);
-color: var(--blush-light);
-margin: 0.4rem 0;
-letter-spacing: 0.2em;
-}
-.hero-divider {
-width: 60px; height: 1px;
-background: linear-gradient(90deg, transparent, rgba(245,213,216,0.7), transparent);
-margin: 1.8rem auto 1rem;
-opacity: 0;
-animation: heroUp 1s ease 0.9s forwards;
-}
-.hero-date {
-font-family: var(--font-heading);
-font-size: 1rem; font-style: italic;
-color: rgba(245,213,216,0.9);
-letter-spacing: 0.2em;
-opacity: 0;
-animation: heroUp 1.2s ease 1.1s forwards;
-}
-.hero-venue {
-font-size: 0.7rem; font-weight: 300;
-color: rgba(255,250,247,0.65);
-letter-spacing: 0.18em;
-margin-top: 0.5rem;
-opacity: 0;
-animation: heroUp 1.2s ease 1.3s forwards;
-}
-/* Falling petals */
-.petal {
-position: absolute; top: -20px;
-pointer-events: none; z-index: 1;
-opacity: 0;
-animation: petalFall linear infinite;
-}
-@keyframes petalFall {
-0% { opacity: 0; transform: translateY(0) rotate(0deg) translateX(0); }
-5% { opacity: 0.7; }
-90% { opacity: 0.5; }
-100% { opacity: 0; transform: translateY(110vh) rotate(360deg) translateX(30px); }
-}
-@keyframes heroUp {
-from { opacity: 0; transform: translateY(18px); }
-to { opacity: 1; transform: translateY(0); }
-}
-.hero-scroll-hint {
-position: absolute; bottom: 2rem; left: 50%;
-transform: translateX(-50%);
-font-size: 0.58rem; color: rgba(245,213,216,0.5);
-letter-spacing: 0.35em; text-transform: uppercase;
-z-index: 2;
-animation: scrollBounce 2s ease-in-out infinite;
-}
-@keyframes scrollBounce {
-0%, 100% { transform: translateX(-50%) translateY(0); }
-50% { transform: translateX(-50%) translateY(5px); }
-}
-/* ===== 3. COUPLE INFO ===== */
-.couple-section {
-background: var(--warm-white);
-position: relative; overflow: hidden;
-}
-.couple-deco-wreath,
-.couple-deco-corner {
-position: absolute; top: 0; bottom: 0;
-left: 50%; transform: translateX(-50%);
-width: 100%; max-width: 520px;
-pointer-events: none; z-index: 1;
-background-repeat: no-repeat;
-background-position: center;
-}
-.couple-deco-wreath {
-background-image: url('../../../shared/images/wedding/backgrounds/floral-watercolor/bg-floral-watercolor-wreath-wildflower.webp');
-background-size: 90% auto;
-opacity: 0.45;
-}
-.couple-deco-corner {
-background-image: url('../../../shared/images/wedding/backgrounds/floral-watercolor/bg-floral-watercolor-corner-pastel-dual.webp');
-background-size: 100% 100%;
-opacity: 0.5;
-}
-.couple-section .container { position: relative; z-index: 2; }
-.couple-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 0;
-position: relative;
-margin-top: 2rem;
-}
-.couple-card {
-display: flex; flex-direction: column;
-align-items: center; text-align: center;
-padding: 0 0.8rem;
-}
-.couple-card:first-child { padding-top: 2rem; }
-.couple-card:last-child { padding-top: 0; }
-.couple-photo-wrap {
-width: 140px; height: 175px;
-border-radius: 70px 70px 40px 40px;
-overflow: hidden;
-box-shadow: 0 8px 30px rgba(74,55,40,0.15);
-border: 3px solid rgba(255,255,255,0.9);
-position: relative;
-}
-.couple-card:first-child .couple-photo-wrap {
-margin-right: -15px; z-index: 1;
-}
-.couple-card:last-child .couple-photo-wrap {
-margin-left: -15px;
-}
-.couple-photo-wrap img {
-width: 100%; height: 100%;
-object-fit: cover; object-position: top center;
-}
-.couple-name {
-font-family: var(--font-script);
-font-size: clamp(1.5rem, 5vw, 2rem);
-color: var(--text);
-margin-top: 1rem; margin-bottom: 0.3rem;
-}
-.couple-role {
-font-size: 0.6rem; font-weight: 400;
-color: var(--text-faint); letter-spacing: 0.3em;
-text-transform: uppercase;
-}
-.couple-desc {
-font-size: 0.78rem; color: var(--text-light);
-margin-top: 0.5rem; line-height: 1.6; font-weight: 300;
-}
-.couple-center-deco {
-position: absolute; left: 50%; top: 30%;
-transform: translateX(-50%);
-z-index: 2; pointer-events: none;
-width: 40px;
-}
-.couple-center-deco img { width: 100%; }
-/* ===== 4. LOVE STORY ===== */
-.story-section {
-background: linear-gradient(160deg, var(--cream) 0%, var(--warm-white) 100%);
-position: relative; overflow: hidden;
-}
-.story-section::before {
-content: '';
-position: absolute; inset: 0;
-background:
-radial-gradient(circle at 80% 20%, rgba(197,165,90,0.06) 0%, transparent 50%),
-radial-gradient(circle at 20% 80%, rgba(232,180,184,0.07) 0%, transparent 50%);
-pointer-events: none;
-}
-.story-quote {
-font-family: var(--font-heading);
-font-size: clamp(1.3rem, 4.5vw, 1.7rem);
-font-style: italic;
-color: var(--text); line-height: 1.6; text-align: center;
-margin-bottom: 1.5rem;
-}
-.story-quote span { color: var(--blush-dark); }
-.story-photo-wrap {
-margin: 1.5rem auto;
-width: 85%;
-max-width: 300px;
-position: relative;
-}
-.story-photo {
-width: 100%; border-radius: 60% 40% 50% 50% / 40% 50% 50% 60%;
-object-fit: cover;
-aspect-ratio: 4/5;
-display: block;
-box-shadow: 0 12px 40px rgba(74,55,40,0.15);
-border: 4px solid white;
-transform: rotate(-1.5deg);
-}
-.story-photo-deco {
-position: absolute;
-bottom: -20px; right: -15px;
-width: 80px; opacity: 0.7;
-}
-.story-photo-deco img { width: 100%; }
-.story-cupid {
-position: absolute;
-width: 155px;
-opacity: 0.6;
-top: 5%;
-transform: translateY(-50%);
-pointer-events: none;
-}
-.story-cupid--left {
-left: -55px;
-transform: translateY(-50%) scaleX(-1);
-}
-.story-cupid--right {
-right: -65px;
-}
-.story-text {
-font-size: 0.85rem; color: var(--text-light);
-line-height: 1.9; font-weight: 300;
-text-align: center;
-margin-top: 2rem;
-}
-.story-text em { font-style: italic; color: var(--blush-dark); }
-/* ===== 5. EVENT INFO ===== */
-.event-section { background: var(--cream); }
-.event-cards {
-display: grid;
-grid-template-columns: 1fr;
-gap: 1.2rem;
-}
-.event-card {
-background: white;
-border-radius: 20px;
-padding: 2rem 1.5rem;
-box-shadow: 0 4px 25px rgba(74,55,40,0.06);
-position: relative; overflow: hidden;
-}
-.event-card::before {
-content: '';
-position: absolute; top: 0; left: 0; right: 0;
-height: 3px;
-background: linear-gradient(90deg, transparent, var(--blush), transparent);
-}
-.event-card:nth-child(2) { transform: translateX(8px); }
-.event-icon {
-width: 44px; height: 44px;
-border-radius: 50%;
-background: linear-gradient(135deg, var(--blush-light), var(--blush));
-display: flex; align-items: center; justify-content: center;
-margin: 0 auto 1rem;
-}
-.event-icon img { width: 24px; height: 24px; object-fit: contain; filter: brightness(0.6); }
-.event-title {
-font-family: var(--font-heading);
-font-size: 1.4rem; font-weight: 500; font-style: italic;
-color: var(--text); text-align: center; margin-bottom: 1rem;
-}
-.event-row {
-display: flex; align-items: flex-start; gap: 10px;
-font-size: 0.83rem; color: var(--text-light);
-margin-bottom: 0.6rem; font-weight: 300;
-}
-.event-row-icon {
-width: 16px; height: 16px;
-flex-shrink: 0; margin-top: 2px;
-color: var(--blush-dark); font-size: 0.9rem;
-}
-.event-map-btn {
-display: inline-flex; align-items: center; gap: 6px;
-margin-top: 1rem;
-font-size: 0.72rem; font-weight: 500;
-color: var(--blush-dark);
-background: var(--blush-light);
-border: none; border-radius: 20px;
-padding: 0.4rem 1rem; cursor: pointer;
-text-decoration: none;
-transition: background 0.25s, color 0.25s;
-}
-.event-map-btn:hover { background: var(--blush); color: white; }
-/* ===== 7. GALLERY ===== */
-.gallery-section { background: var(--cream); }
-.gallery-slider {
-position: relative;
-border-radius: 16px;
-box-shadow: 0 8px 35px rgba(74,55,40,0.12);
-max-width: 480px; margin: 0 auto;
-overflow: hidden;
-}
-.gallery-slider img {
-width: 100%; height: auto;
-object-fit: contain; display: block;
-}
-.gallery-btn {
-position: absolute; top: 50%; transform: translateY(-50%);
-width: 36px; height: 36px;
-background: rgba(255,248,245,0.85);
-border: none; border-radius: 50%;
-cursor: pointer; z-index: 5;
-font-size: 1rem; color: var(--text);
-display: flex; align-items: center; justify-content: center;
-backdrop-filter: blur(4px);
-box-shadow: 0 2px 12px rgba(0,0,0,0.12);
--webkit-tap-highlight-color: transparent;
-transition: background 0.25s;
-}
-.gallery-btn:hover { background: rgba(255,248,245,0.97); }
-.gallery-btn--prev { left: 10px; }
-.gallery-btn--next { right: 10px; }
-.gallery-dots {
-display: flex; justify-content: center; gap: 6px;
-margin-top: 1rem;
-}
-.gallery-dot {
-width: 6px; height: 6px;
-border-radius: 50%; background: var(--blush-light);
-cursor: pointer; transition: background 0.25s, transform 0.25s;
-border: none;
-}
-.gallery-dot.active { background: var(--blush-dark); transform: scale(1.3); }
-/* ===== 8. RSVP ===== */
-.rsvp-section { background: var(--warm-white); }
-.rsvp-form { display: grid; gap: 1rem; }
-.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-.form-label {
-font-size: 0.72rem; font-weight: 500;
-color: var(--text-light); letter-spacing: 0.1em;
-}
-.form-input, .form-textarea {
-width: 100%; padding: 0.75rem 1rem;
-border: 1px solid var(--blush-light);
-border-radius: 12px; background: white;
-font-family: var(--font-body); font-size: 0.85rem;
-color: var(--text); font-weight: 300;
-outline: none;
-transition: border-color 0.25s, box-shadow 0.25s;
-}
-.form-input:focus, .form-textarea:focus {
-border-color: var(--blush-dark);
-box-shadow: 0 0 0 3px rgba(196,137,158,0.1);
-}
-.form-textarea { resize: vertical; min-height: 80px; }
-.rsvp-radios {
-display: flex; gap: 1rem;
-}
-.rsvp-radio-label {
-flex: 1; display: flex; align-items: center; gap: 0.5rem;
-font-size: 0.82rem; color: var(--text-light);
-cursor: pointer; padding: 0.6rem 1rem;
-border: 1px solid var(--blush-light);
-border-radius: 10px; background: white;
-transition: all 0.25s;
-}
-.rsvp-radio-label input { accent-color: var(--blush-dark); }
-.rsvp-radio-label:has(input:checked) {
-border-color: var(--blush-dark);
-background: var(--blush-light);
-color: var(--text);
-}
-.btn-primary {
-padding: 0.85rem 2rem;
-background: linear-gradient(135deg, var(--blush), var(--blush-dark));
-color: white; border: none; border-radius: 30px;
-font-family: var(--font-body); font-size: 0.85rem; font-weight: 500;
-letter-spacing: 0.1em; cursor: pointer;
-box-shadow: 0 6px 20px rgba(196,137,158,0.35);
-transition: transform 0.25s, box-shadow 0.25s;
--webkit-tap-highlight-color: transparent;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(196,137,158,0.4); }
-.btn-primary:active { transform: translateY(0); }
-.form-success {
-display: none; text-align: center;
-padding: 2rem; background: white;
-border-radius: 16px; box-shadow: 0 4px 20px rgba(74,55,40,0.06);
-}
-.form-success.show { display: block; }
-.success-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
-.success-msg {
-font-family: var(--font-heading); font-style: italic;
-font-size: 1.2rem; color: var(--text); margin-bottom: 0.5rem;
-}
-.success-sub { font-size: 0.8rem; color: var(--text-faint); }
-/* ===== 9. WISHES ===== */
-.wishes-section { background: var(--cream); }
-.wishes-presets {
-display: flex; flex-wrap: wrap; gap: 0.5rem;
-margin-bottom: 1rem;
-}
-.wish-preset {
-font-size: 0.72rem; font-weight: 400;
-color: var(--blush-dark);
-background: var(--blush-light);
-border: 1px solid var(--blush);
-border-radius: 20px;
-padding: 0.3rem 0.8rem; cursor: pointer;
-transition: background 0.25s, color 0.25s;
--webkit-tap-highlight-color: transparent;
-}
-.wish-preset:hover { background: var(--blush); color: white; }
-.wish-toast {
-display: none; margin-top: 1rem;
-padding: 0.8rem 1.2rem;
-background: white; border-radius: 12px;
-border-left: 3px solid var(--sage);
-font-size: 0.8rem; color: var(--text-light);
-box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-.wish-toast.show { display: flex; align-items: center; gap: 0.5rem; }
-/* ===== 10. GIFT ===== */
-.gift-section { background: var(--warm-white); }
-.gift-cards {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 1rem;
-}
-.bank-card {
-background: white; border-radius: 16px;
-padding: 1.5rem 1rem; text-align: center;
-box-shadow: 0 4px 20px rgba(74,55,40,0.07);
-cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
-border: 1px solid rgba(197,165,90,0.15);
--webkit-tap-highlight-color: transparent;
-}
-.bank-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(74,55,40,0.12); }
-.bank-logo {
-font-size: 0.65rem; font-weight: 600;
-letter-spacing: 0.1em; margin-bottom: 0.5rem;
-padding: 0.25rem 0.6rem; border-radius: 4px;
-display: inline-block;
-}
-.bank-vcb { color: #00613F; background: rgba(0,97,63,0.08); }
-.bank-tp { color: #CD1029; background: rgba(205,16,41,0.08); }
-.bank-name-text {
-font-size: 0.72rem; font-weight: 500;
-color: var(--text); margin-bottom: 0.3rem;
-}
-.bank-account {
-font-size: 0.95rem; font-weight: 600;
-color: var(--blush-dark); letter-spacing: 0.05em;
-}
-.bank-tap {
-font-size: 0.6rem; color: var(--text-faint);
-margin-top: 0.5rem; letter-spacing: 0.1em;
-}
-/* Gift Modal */
-.gift-modal {
-display: none; position: fixed; inset: 0;
-z-index: 950; align-items: center; justify-content: center;
-background: rgba(26,10,14,0.55);
-backdrop-filter: blur(4px);
-padding: 1rem;
-}
-.gift-modal.open { display: flex; }
-.gift-modal-card {
-background: white; border-radius: 20px;
-padding: 2rem 1.5rem; width: 100%; max-width: 300px;
-text-align: center;
-box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-position: relative;
-}
-.gift-modal-close {
-position: absolute; top: 1rem; right: 1rem;
-width: 28px; height: 28px;
-background: var(--blush-light); border: none; border-radius: 50%;
-cursor: pointer; font-size: 0.9rem; color: var(--text-light);
-display: flex; align-items: center; justify-content: center;
-}
-.gift-qr {
-width: 120px; height: 120px;
-background: var(--cream); border-radius: 8px;
-display: flex; align-items: center; justify-content: center;
-margin: 1rem auto;
-border: 1px dashed var(--blush-light);
-font-size: 0.65rem; color: var(--text-faint);
-}
-.gift-copy-btn {
-margin-top: 0.5rem;
-padding: 0.6rem 1.5rem;
-background: var(--blush-light); color: var(--blush-dark);
-border: none; border-radius: 20px; font-family: var(--font-body);
-font-size: 0.8rem; font-weight: 500; cursor: pointer;
-transition: background 0.25s, color 0.25s;
--webkit-tap-highlight-color: transparent;
-}
-.gift-copy-btn:hover { background: var(--blush); color: white; }
-.gift-copy-btn.copied { background: var(--sage); color: white; }
-.gift-modal-bank { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 0.5rem; }
-.gift-modal-holder { font-size: 0.8rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
-.gift-modal-stk {
-font-size: 1.2rem; font-weight: 700;
-color: var(--blush-dark); letter-spacing: 0.05em;
-}
-/* ===== 11. THANK YOU ===== */
-.thankyou-section {
-position: relative; overflow: hidden;
-min-height: 50vh;
-display: flex; align-items: center; justify-content: center;
-}
-.thankyou-bg {
-position: absolute; inset: 0;
-background: url('../../../shared/images/wedding/viet-trang-hoa/629719960_1496739252453886_2578583488563429923_n.webp') center/cover no-repeat;
-filter: brightness(0.45) saturate(0.9);
-}
-.thankyou-overlay {
-position: absolute; inset: 0;
-background: linear-gradient(160deg, rgba(74,55,40,0.4) 0%, rgba(26,10,14,0.6) 100%);
-}
-.thankyou-content {
-position: relative; z-index: 2;
-text-align: center; padding: 3rem 2rem;
-}
-.thankyou-title {
-font-family: var(--font-script);
-font-size: clamp(3rem, 10vw, 4.5rem);
-color: white;
-text-shadow: 0 2px 15px rgba(0,0,0,0.3);
-margin-bottom: 0.5rem;
-}
-.thankyou-msg {
-font-size: 0.82rem; font-weight: 300;
-color: rgba(245,213,216,0.85);
-letter-spacing: 0.15em;
-line-height: 1.7;
-max-width: 280px; margin: 0 auto;
-}
-.thankyou-hearts {
-font-size: 1.5rem; margin-bottom: 1rem;
-animation: heartBeat 1.5s ease-in-out infinite;
-}
-@keyframes heartBeat {
-0%, 100% { transform: scale(1); }
-30% { transform: scale(1.15); }
-60% { transform: scale(1); }
-}
-/* Heart confetti */
-.heart-particle {
-position: absolute; pointer-events: none; z-index: 3;
-animation: heartFloat linear infinite;
-opacity: 0;
-}
-@keyframes heartFloat {
-0% { opacity: 0; transform: translateY(0) scale(0.5); }
-10% { opacity: 0.8; }
-90% { opacity: 0.5; }
-100% { opacity: 0; transform: translateY(-80vh) scale(1) rotate(30deg); }
-}
-/* ===== FOOTER ===== */
-.site-footer {
-background: var(--text);
-padding: 2rem;
-text-align: center;
-}
-.footer-names {
-font-family: var(--font-script);
-font-size: 1.8rem; color: var(--blush-light);
-margin-bottom: 0.3rem;
-}
-.footer-date {
-font-size: 0.7rem; color: rgba(245,213,216,0.5);
-letter-spacing: 0.3em;
-}
-/* ===== RESPONSIVE ===== */
-@media (max-width: 420px) {
-.couple-photo-wrap { width: 115px; height: 145px; }
-.couple-card:first-child .couple-photo-wrap { margin-right: -10px; }
-.couple-card:last-child .couple-photo-wrap { margin-left: -10px; }
-.gift-cards { grid-template-columns: 1fr; }
-.env-float-1, .env-float-3 { width: 150px; }
-.env-float-2, .env-float-4 { width: 130px; }
-.gallery-slider { border-radius: 12px; }
-}
-/* ===== REDUCED MOTION ===== */
-@media (prefers-reduced-motion: reduce) {
-*, *::before, *::after {
-animation-duration: 0.01ms !important;
-animation-iteration-count: 1 !important;
-transition-duration: 0.01ms !important;
-}
-.petal, .heart-particle { display: none; }
-}
-</style><style>body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}input,textarea{-webkit-user-select:auto;-moz-user-select:auto;user-select:auto;}</style></head><body><script>(function(){ var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"]; var _h=location.hostname; var _ok=false; for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'\x2b\x5f\x64\x5b\x69\x5d\x29\x29\x7b\x5f\x6f\x6b\x3d\x74\x72\x75\x65\x3b\x62\x72\x65\x61\x6b\x3b\x7d\x7d\x0a\x20\x20\x69\x66\x28\x21\x5f\x6f\x6b\x26\x26\x5f\x68\x21\x3d\x3d''){ document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https: } })(); (function(){ document.addEventListener('contextmenu',function(e){e.preventDefault();}); document.addEventListener('keydown',function(e){ if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();} if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();} if(e.key==='F12'){e.preventDefault();} }); document.addEventListener('dragstart',function(e){e.preventDefault();}); document.addEventListener('selectstart',function(e){ if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();} }); })(); (function(){ var _w=document.createElement('div'); _w.setAttribute('data-t','\x56\x47\x56\x74\x63\x47\x78\x6c\x65\x47\x46\x38\x5a\x32\x56\x75\x58\x7a\x49\x78\x4d\x56\x39\x32\x61\x57\x56\x30\x4c\x58\x52\x79\x59\x57\x35\x6e\x4c\x57\x68\x76\x59\x58\x77\x79\x4d\x44\x49\x32\x4c\x54\x41\x7a\x4c\x54\x49\x35\x66\x48\x42\x6f\x64\x57\x39\x6a\x63\x48\x51\x35\x4f\x41\x3d\x3d'); _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;'; document.body.appendChild(_w); })();</script><div id="envelope-overlay"><div class="env-float env-float-1"><img src="../../../shared/images/wedding/icons/blossom-branch-blush-watercolor.webp" alt=""></div><div class="env-float env-float-2"><img src="../../../shared/images/wedding/icons/blossom-branch-blush-watercolor.webp" alt=""></div><div class="env-float env-float-3"><img src="../../../shared/images/wedding/icons/garland-watercolor-pastel-vertical.webp" alt=""></div><div class="env-float env-float-4"><img src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp" alt=""></div><div class="env-card"><div class="env-corner env-corner--tl"><img src="../../../shared/images/wedding-elements/corner-rose-vine-watercolor-pink.webp" alt=""></div><div class="env-corner env-corner--tr"><img src="../../../shared/images/wedding-elements/corner-rose-vine-watercolor-pink.webp" alt=""></div><div class="env-corner env-corner--bl"><img src="../../../shared/images/wedding-elements/corner-rose-vine-watercolor-pink.webp" alt=""></div><div class="env-corner env-corner--br"><img src="../../../shared/images/wedding-elements/corner-rose-vine-watercolor-pink.webp" alt=""></div><p class="env-invite-label">Trân trọng kính mời</p><div class="env-bouquet"><img src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp" alt=""></div><div class="env-names">
-Hoàng Viết
-<span class="env-amp">&amp;</span>
-Trang Hoa
-</div><p class="env-date-text">28 · 04 · 2026</p><div class="divider" style="margin: 1rem auto;"></div><button class="env-seal-btn" id="openEnvBtn" aria-label="Mở thiệp"><img class="env-seal-img" src="../../../shared/images/wedding/icons/wax-seal.webp" alt="Mở thiệp"><span class="env-seal-hint">Nhấn để mở thiệp</span></button></div></div><div class="music-player paused" id="musicPlayer" role="button" aria-label="Bật/tắt nhạc"><div class="music-icon"><div class="music-bars"><div class="music-bar"></div><div class="music-bar"></div><div class="music-bar"></div><div class="music-bar"></div></div></div><div class="music-note">
-Beautiful In White
-<small>Spencer Kane</small></div></div><audio id="bgMusic" loop><source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg"></audio><section class="hero" id="main-content"><div class="hero-bg" id="heroBg"></div><div class="hero-overlay"></div><div id="petalsContainer" aria-hidden="true"></div><img class="hero-blossom-top" src="../../../shared/images/wedding/icons/blossom-branch-blush-watercolor.webp" alt="" aria-hidden="true"><img class="hero-blossom-left" src="../../../shared/images/wedding/icons/garland-watercolor-pastel-vertical.webp" alt="" aria-hidden="true"><img class="hero-blossom-right" src="../../../shared/images/wedding/icons/garland-watercolor-pastel-vertical.webp" alt="" aria-hidden="true"><div class="hero-content"><p class="hero-invite">Trân trọng kính mời</p><h1 class="hero-names">
-Hoàng Viết
-<span class="hero-amp">&amp;</span>
-Trang Hoa
-</h1><div class="hero-divider"></div><p class="hero-date">28 tháng 04 năm 2026</p><p class="hero-venue">Trung tâm Hội nghị Tiệc cưới ABC · TP.HCM</p></div><div class="hero-scroll-hint" aria-hidden="true">↓ cuộn xuống</div></section><section class="couple-section section"><div class="couple-deco-wreath" aria-hidden="true"></div><div class="couple-deco-corner" aria-hidden="true"></div><div class="container"><div class="section-heading reveal"><span class="section-label">Cô dâu &amp; Chú rể</span><h2 class="section-title">Hai Trái Tim, Một Nhịp Đập</h2></div><div class="couple-grid reveal reveal-d1"><div class="couple-card"><div class="couple-photo-wrap"><img src="../../../shared/images/wedding/viet-trang-hoa/627789060_1496741912453620_3108546600317143173_n.webp"
-alt="Trang Hoa — Cô dâu" loading="lazy"></div><p class="couple-name">Trang Hoa</p><p class="couple-role">Cô dâu</p><p class="couple-desc">Nụ cười ấm áp, trái tim nhân hậu — người đã mang ánh sáng vào cuộc đời anh.</p></div><div class="couple-center-deco" aria-hidden="true"><img src="../../../shared/images/wedding/icons/leaf-floral-lineart-gold-light.webp" alt=""></div><div class="couple-card"><div class="couple-photo-wrap"><img src="../../../shared/images/wedding/viet-trang-hoa/628232532_1496741939120284_2188543106842202943_n.webp"
-alt="Hoàng Viết — Chú rể" loading="lazy"></div><p class="couple-name">Hoàng Viết</p><p class="couple-role">Chú rể</p><p class="couple-desc">Nụ cười rạng rỡ, tấm lòng chân thành — người đã hứa cùng em đi trọn cuộc đời.</p></div></div></div></section><div class="sep reveal" aria-hidden="true">❦</div><section class="story-section section--breathe"><div class="container"><div class="section-heading reveal"><span class="section-label">Câu Chuyện Tình Yêu</span><h2 class="section-title">Khi Hai Thế Giới Gặp Nhau</h2></div><p class="story-quote reveal reveal-d1">
-"Yêu không phải là nhìn nhau, mà là cùng nhau <span><br>nhìn về một hướng</span>."
-</p><div class="story-photo-wrap reveal reveal-d2"><img class="story-cupid story-cupid--left" src="../../../shared/images/wedding/icons/cupid-lineart-red.webp" alt="" aria-hidden="true"><img class="story-photo"
-src="../../../shared/images/wedding/viet-trang-hoa/628264245_1496742449120233_4645514456825061638_n.webp"
-alt="Câu chuyện tình yêu" loading="lazy"><img class="story-cupid story-cupid--right" src="../../../shared/images/wedding/icons/cupid-lineart-red.webp" alt="" aria-hidden="true"><div class="story-photo-deco" aria-hidden="true"><img src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp" alt=""></div></div><p class="story-text reveal reveal-d3">
-Từ một buổi sáng tình cờ, từ những ánh mắt vô tình gặp nhau — chúng tôi bắt đầu
-<em>viết nên câu chuyện riêng của mình</em>. Mỗi khoảnh khắc bên nhau là một trang
-thơ đẹp, và hôm nay chúng tôi muốn chia sẻ niềm hạnh phúc ấy cùng những người
-thân yêu nhất.
-</p></div></section><div class="sep reveal" aria-hidden="true">✿</div><section class="event-section section"><div class="container"><div class="section-heading reveal"><span class="section-label">Lịch Trình</span><h2 class="section-title">Ngày Trọng Đại</h2></div><div class="event-cards"><div class="event-card reveal reveal-d1"><div class="event-icon" aria-hidden="true"><img src="../../../shared/images/wedding/icons/flowers-watercolor-pastel.webp" alt=""></div><h3 class="event-title">Lễ Vu Quy</h3><div class="event-row"><span class="event-row-icon">🕗</span><span>08:00 sáng · Thứ Ba, 28/04/2026</span></div><div class="event-row"><span class="event-row-icon">📍</span><span>Nhà gái: 123 Nguyễn Huệ, Quận 1, TP.HCM</span></div><a class="event-map-btn" href="https://maps.google.com/?q=Nguyen+Hue+Ho+Chi+Minh" target="_blank" rel="noopener">
-📌 Xem bản đồ
-</a></div><div class="event-card reveal reveal-d2"><div class="event-icon" aria-hidden="true"><img src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp" alt=""></div><h3 class="event-title">Tiệc Thân Mật</h3><div class="event-row"><span class="event-row-icon">🕠</span><span>17:30 chiều · Thứ Ba, 28/04/2026</span></div><div class="event-row"><span class="event-row-icon">📍</span><span>TT Hội Nghị Tiệc Cưới ABC, 123 Nguyễn Huệ, Q.1, TP.HCM</span></div><a class="event-map-btn" href="https://maps.google.com/?q=123+Nguyen+Hue+Ho+Chi+Minh" target="_blank" rel="noopener">
-📌 Xem bản đồ
-</a></div></div></div></section><section class="gallery-section section"><div class="container"><div class="section-heading reveal"><span class="section-label">Album Ảnh</span><h2 class="section-title">Khoảnh Khắc Đẹp</h2></div><div class="gallery-slider reveal reveal-d1" id="gallerySlider"><img id="galleryImg" src="../../../shared/images/wedding/viet-trang-hoa/628045812_1496742042453607_50305878371780347_n.webp" alt="Ảnh cưới"><button class="gallery-btn gallery-btn--prev" id="galPrev" aria-label="Ảnh trước">&#8249;</button><button class="gallery-btn gallery-btn--next" id="galNext" aria-label="Ảnh tiếp">&#8250;</button></div><div class="gallery-dots" id="galleryDots" role="tablist" aria-label="Chọn ảnh"></div></div></section><div class="sep reveal" aria-hidden="true">✿</div><section class="rsvp-section section"><div class="container"><div class="section-heading reveal"><span class="section-label">Xác Nhận Tham Dự</span><h2 class="section-title">Bạn Có Đến Không?</h2></div><div id="rsvpSuccess" class="form-success"><div class="success-icon">💌</div><p class="success-msg">Cảm ơn bạn!</p><p class="success-sub">Chúng tôi rất vui khi nhận được phản hồi của bạn.</p></div><form class="rsvp-form reveal reveal-d1" id="rsvpForm" novalidate><div class="form-group"><label class="form-label" for="rsvpName">Tên của bạn</label><input class="form-input" type="text" id="rsvpName" placeholder="Nguyễn Văn A" autocomplete="name"></div><div class="form-group"><label class="form-label">Bạn có tham dự không?</label><div class="rsvp-radios"><label class="rsvp-radio-label"><input type="radio" name="attend" value="yes"> Có, tôi sẽ đến 🎉
-</label><label class="rsvp-radio-label"><input type="radio" name="attend" value="no"> Rất tiếc, không thể 😢
-</label></div></div><div class="form-group"><label class="form-label" for="rsvpMsg">Lời nhắn (tuỳ chọn)</label><textarea class="form-textarea" id="rsvpMsg" rows="3" placeholder="Lời chúc của bạn..."></textarea></div><button type="submit" class="btn-primary" style="width:100%">Gửi xác nhận ✉️</button></form></div></section><div style="position:relative; overflow:hidden;"><img src="../../../shared/images/wedding/viet-trang-hoa/625879595_1496741972453614_8061171316701395782_n.webp"
-alt="Hoàng Viết &amp; Trang Hoa" loading="lazy"
-style="width:100%; max-height:65vh; object-fit:cover; display:block;"><div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(255,248,245,0.5) 0%, transparent 20%, transparent 80%, rgba(255,248,245,0.6) 100%); pointer-events:none;"></div></div><section class="wishes-section section"><div class="container"><div class="section-heading reveal"><span class="section-label">Sổ Lưu Bút</span><h2 class="section-title">Gửi Lời Yêu Thương</h2></div><div class="wishes-presets reveal reveal-d1"><button class="wish-preset" onclick="fillWish('Chúc mừng hạnh phúc! 🎊')">Chúc mừng hạnh phúc</button><button class="wish-preset" onclick="fillWish('Trăm năm hạnh phúc, bách niên giai lão! 💑')">Bách niên giai lão</button><button class="wish-preset" onclick="fillWish('Chúc đôi bạn mãi yêu nhau như hôm nay! 💕')">Mãi yêu nhau</button><button class="wish-preset" onclick="fillWish('Hạnh phúc viên mãn, vạn sự như ý! 🌸')">Vạn sự như ý</button></div><form class="rsvp-form reveal reveal-d2" id="wishForm" novalidate><div class="form-group"><label class="form-label" for="wishName">Tên của bạn</label><input class="form-input" type="text" id="wishName" placeholder="Người gửi lời chúc"></div><div class="form-group"><label class="form-label" for="wishText">Lời chúc</label><textarea class="form-textarea" id="wishText" rows="4" placeholder="Viết lời chúc của bạn tại đây..."></textarea></div><button type="submit" class="btn-primary" style="width:100%">Gửi lời chúc 🌸</button></form><div class="wish-toast" id="wishToast"><span>🌸</span><span>Cảm ơn lời chúc của bạn! Chúng tôi trân trọng từng tình cảm.</span></div></div></section><div class="sep reveal" aria-hidden="true">❦</div><section class="gift-section section"><div class="container"><div class="section-heading reveal"><span class="section-label">Mừng Cưới</span><h2 class="section-title">Chút Tình Cảm</h2><p style="font-size:0.78rem; color:var(--text-faint); margin-top:0.5rem; font-weight:300;">
-Sự hiện diện của bạn là món quà quý giá nhất với chúng tôi 🌸
-</p></div><div class="gift-cards reveal reveal-d1"><div class="bank-card" onclick="openGiftModal('vcb')" role="button" tabindex="0"
-aria-label="Xem tài khoản Vietcombank"><div class="bank-logo bank-vcb">VIETCOMBANK</div><p class="bank-name-text">Nguyễn Hoàng Viết</p><p class="bank-account">0123 456 789</p><p class="bank-tap">Nhấn để xem QR</p></div><div class="bank-card" onclick="openGiftModal('tp')" role="button" tabindex="0"
-aria-label="Xem tài khoản TPBank"><div class="bank-logo bank-tp">TPBANK</div><p class="bank-name-text">Trần Trang Hoa</p><p class="bank-account">9876 543 210</p><p class="bank-tap">Nhấn để xem QR</p></div></div></div></section><div class="gift-modal" id="giftModal" role="dialog" aria-modal="true" aria-label="Thông tin tài khoản"><div class="gift-modal-card"><button class="gift-modal-close" onclick="closeGiftModal()" aria-label="Đóng">✕</button><p class="gift-modal-bank" id="modalBank"></p><p class="gift-modal-holder" id="modalHolder"></p><p class="gift-modal-stk" id="modalStk"></p><div class="gift-qr" aria-label="QR code (demo)">QR code</div><button class="gift-copy-btn" id="copyBtn" onclick="copyStk()">Sao chép STK</button></div></div><div style="position:relative; overflow:hidden; margin-top:0;"><img src="../../../shared/images/wedding/viet-trang-hoa/626759978_1496742325786912_8666924174171780533_n.webp"
-alt="Hoàng Viết &amp; Trang Hoa — khoảnh khắc đẹp" loading="lazy"
-style="width:100%; max-height:65vh; object-fit:cover; display:block;"><div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(255,248,245,0.5) 0%, transparent 25%, transparent 75%, rgba(255,248,245,0.6) 100%); pointer-events:none;"></div></div><section class="thankyou-section"><div class="thankyou-bg"></div><div class="thankyou-overlay"></div><div id="heartsContainer" aria-hidden="true"></div><div class="thankyou-content"><div class="thankyou-hearts" aria-hidden="true">🌸</div><h2 class="thankyou-title">Cảm Ơn</h2><p class="thankyou-msg">
-Cảm ơn bạn đã chia sẻ niềm vui trong ngày trọng đại này cùng chúng tôi.<br><br>
-Hoàng Viết &amp; Trang Hoa
-</p></div></section><div style="text-align:center; padding: 3rem 1rem; background: var(--cream); position:relative; overflow:hidden;"><div class="couple-deco-wreath" aria-hidden="true"></div><div class="couple-deco-corner" aria-hidden="true"></div><img src="../../../shared/images/wedding/viet-trang-hoa/629214346_1496741812453630_740612148984566707_n.webp"
-alt="Hoa cưới" loading="lazy"
-style="width:200px; height:200px; object-fit:cover; border-radius:50%; box-shadow:0 8px 30px rgba(74,55,40,0.15); border:4px solid white; display:inline-block; position:relative; z-index:2;"></div><footer class="site-footer"><p class="footer-names">Hoàng Viết &amp; Trang Hoa</p><p class="footer-date">28 · 04 · 2026</p></footer><script>(() => { '\x75\x73\x65\x20\x73\x74\x72\x69\x63\x74'; const overlay = document.getElementById('\x65\x6e\x76\x65\x6c\x6f\x70\x65\x2d\x6f\x76\x65\x72\x6c\x61\x79'); const openBtn = document.getElementById('\x6f\x70\x65\x6e\x45\x6e\x76\x42\x74\x6e'); const audio = document.getElementById('\x62\x67\x4d\x75\x73\x69\x63'); const player = document.getElementById('\x6d\x75\x73\x69\x63\x50\x6c\x61\x79\x65\x72'); openBtn.addEventListener('\x63\x6c\x69\x63\x6b', () => { openBtn.classList.add('\x62\x72\x65\x61\x6b\x69\x6e\x67'); setTimeout(() => { overlay.classList.add('\x6f\x70\x65\x6e\x69\x6e\x67'); audio.volume = 0.5; audio.play().then(() => { player.classList.remove('\x70\x61\x75\x73\x65\x64'); }).catch(() => { }); setTimeout(() => { overlay.classList.add('\x67\x6f\x6e\x65'); document.body.style.overflow = ''; }, 1400); }, 500); }); document.body.style.overflow = 'hidden'; overlay.addEventListener('transitionend', () => { if (overlay.classList.contains('gone')) { document.body.style.overflow = ''; } }); player.addEventListener('click', () => { if (audio.paused) { audio.play().then(() => player.classList.remove('paused')).catch(()=>{}); } else { audio.pause(); player.classList.add('paused'); } }); const revealObs = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); revealObs.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }); document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el)); const petalContainer = document.getElementById('petalsContainer'\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x63\x6f\x6e\x73\x74\x20\x70\x65\x74\x61\x6c\x43\x6f\x6c\x6f\x72\x73\x20\x3d\x20\x5b'#E8B4B8', '#F5D5D8', '#C5D4B8', '#C4899E']; const totalPetals = 14; for (let i = 0; i < totalPetals; i++) { const p = document.createElement('\x64\x69\x76'); p.className = '\x70\x65\x74\x61\x6c'; const size = Math.random() * 8 + 5; p.style.cssText = ` left: ${Math.random() * 100}%; width: ${size}px; height: ${size}px; background: ${petalColors[Math.floor(Math.random() * petalColors.length)]}; border-radius: ${Math.random() > 0.5 ? '\x35\x30\x25' : '\x36\x30\x25\x20\x34\x30\x25\x20\x35\x35\x25\x20\x34\x35\x25'}; animation-duration: ${Math.random() * 6 + 7}s; animation-delay: ${Math.random() * 8}s; opacity: 0; `; petalContainer.appendChild(p); } const galImages = [ '../../../shared/images/wedding/viet-trang-hoa/628045812_1496742042453607_50305878371780347_n.webp', '../../../shared/images/wedding/viet-trang-hoa/628267914_1496742209120257_3178729502643930985_n.webp', '../../../shared/images/wedding/viet-trang-hoa/628427200_1496742375786907_1068531846115830906_n.webp', '../../../shared/images/wedding/viet-trang-hoa/629227517_1496742499120228_4192193729224028066_n.webp', '../../../shared/images/wedding/viet-trang-hoa/629235467_1496742385786906_5916049160219901503_n.webp', '../../../shared/images/wedding/viet-trang-hoa/628255527_1496741349120343_2167207757054090780_n.webp' ]; const galImg = document.getElementById('\x67\x61\x6c\x6c\x65\x72\x79\x49\x6d\x67'); const dotsEl = document.getElementById('\x67\x61\x6c\x6c\x65\x72\x79\x44\x6f\x74\x73'); let current = 0; galImages.forEach((_, i) => { const btn = document.createElement('\x62\x75\x74\x74\x6f\x6e'); btn.className = '\x67\x61\x6c\x6c\x65\x72\x79\x2d\x64\x6f\x74' + (i === 0 ? '\x20\x61\x63\x74\x69\x76\x65' : ''); btn.addEventListener('click', () => goTo(i)); dotsEl.appendChild(btn); }); function goTo(idx) { current = (idx + galImages.length) % galImages.length; galImg.src = galImages[current]; dotsEl.querySelectorAll('.gallery-dot').forEach((d, i) => d.classList.toggle('active', i === current)); } document.getElementById('galPrev').addEventListener('click', () => goTo(current - 1)); document.getElementById('galNext').addEventListener('click', () => goTo(current + 1)); document.getElementById('rsvpForm').addEventListener('submit', (e) => { e.preventDefault(); document.getElementById('rsvpForm').style.display = 'none'; document.getElementById('rsvpSuccess').classList.add('show'); }); window.fillWish = (text) => { document.getElementById('wishText').value = text; document.getElementById('wishText').focus(); }; document.getElementById('wishForm').addEventListener('submit', (e) => { e.preventDefault(); const toast = document.getElementById('wishToast'); document.getElementById('wishForm').reset(); toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 4000); }); const giftData = { vcb: { bank: 'VIETCOMBANK', holder: 'NGUYỄN HOÀNG VIẾT', stk: '0123456789' }, tp: { bank: 'TPBANK', holder: 'TRẦN TRANG HOA', stk: '9876543210'\x20\x7d\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x7d\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x6c\x65\x74\x20\x63\x75\x72\x72\x65\x6e\x74\x53\x74\x6b\x20\x3d\x20''; window.openGiftModal = (id) => { const d = giftData[id]; document.getElementById('modalBank').textContent = d.bank; document.getElementById('modalHolder').textContent = d.holder; document.getElementById('modalStk').textContent = d.stk; currentStk = d.stk; document.getElementById('copyBtn').textContent = 'Sao chép STK'; document.getElementById('copyBtn').classList.remove('copied'); document.getElementById('giftModal').classList.add('open'); }; window.closeGiftModal = () => { document.getElementById('giftModal').classList.remove('open'); }; document.getElementById('giftModal').addEventListener('click', (e) => { if (e.target === document.getElementById('giftModal')) closeGiftModal(); }); window.copyStk = () => { navigator.clipboard.writeText(currentStk).then(() => { const btn = document.getElementById('copyBtn'); btn.textContent = 'Đã sao chép ✓'; btn.classList.add('copied'); setTimeout(() => { btn.textContent = 'Sao chép STK'; btn.classList.remove('copied'); }, 2500); }).catch(() => { const ta = document.createElement('textarea'); ta.value = currentStk; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); document.getElementById('copyBtn').textContent = 'Đã sao chép ✓'; document.getElementById('copyBtn').classList.add('copied'); }); }; const heartsEl = document.getElementById('heartsContainer'\x29\x3b\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x63\x6f\x6e\x73\x74\x20\x68\x65\x61\x72\x74\x43\x68\x61\x72\x73\x20\x3d\x20\x5b'💗','🌸','✿','❤️','💕']; for (let i = 0; i < 12; i++) { const h = document.createElement('div'); h.className = 'heart-particle'; h.textContent = heartChars[Math.floor(Math.random() * heartChars.length)]; h.style.cssText = ` left: ${Math.random() * 100}%; bottom: 0; font-size: ${Math.random() * 14 + 10}px; animation-duration: ${Math.random() * 5 + 6}s; animation-delay: ${Math.random() * 5}s; `; heartsEl.appendChild(h); } })();</script></body></html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới - Hoàng Viết & Trang Hoa</title>
+    <meta name="description" content="Trân trọng kính mời quý khách tới dự lễ thành hôn của Nguyễn Hoàng Viết & Trần Trang Hoa">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Great+Vibes&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --font-script: 'Great Vibes', cursive;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Quicksand', sans-serif;
+            --blush: #E8B4B8;
+            --blush-light: #F5D5D8;
+            --blush-dark: #C4899E;
+            --sage: #8BA888;
+            --sage-light: #C5D4B8;
+            --cream: #FFF8F5;
+            --warm-white: #FFFAF7;
+            --gold: #C5A55A;
+            --gold-light: #E8D5A3;
+            --text: #4A3728;
+            --text-light: #7B6555;
+            --text-faint: #B09080;
+        }
+
+        /* ===== RESET & BASE ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.7;
+            font-weight: 300;
+            overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 15% 40%, rgba(232,180,184,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 85% 20%, rgba(139,168,136,0.04) 0%, transparent 50%),
+                radial-gradient(circle at 50% 85%, rgba(245,213,216,0.06) 0%, transparent 50%);
+        }
+
+        /* ===== COMMON LAYOUT ===== */
+        .section { padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 5vw, 2rem); }
+        .section--breathe { padding: clamp(5rem, 12vw, 7rem) clamp(1rem, 5vw, 2rem); }
+        .section--compact { padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 5vw, 2rem); }
+        .container { max-width: 560px; margin: 0 auto; }
+        .section-heading { text-align: center; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 0.6rem; font-weight: 400;
+            color: var(--blush-dark);
+            letter-spacing: 0.35em; text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-weight: 400; color: var(--text);
+            font-style: italic;
+        }
+        .ornament { text-align: center; color: var(--blush); font-size: 1.2rem; margin: 0.5rem 0; }
+        .divider { width: 50px; height: 1px; background: var(--blush); margin: 1rem auto; }
+
+        /* Decorative section separator */
+        .sep {
+            text-align: center;
+            padding: 1.5rem 0 0.5rem;
+            color: var(--blush-light);
+            letter-spacing: 0.5em;
+            font-size: 1.1rem;
+            user-select: none;
+        }
+        .sep::before, .sep::after {
+            content: '';
+            display: inline-block;
+            width: 45px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blush-light), transparent);
+            vertical-align: middle;
+            margin: 0 1.2rem;
+        }
+
+        /* Reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 1s cubic-bezier(0.25,0.1,0.25,1), transform 1s cubic-bezier(0.25,0.1,0.25,1);
+        }
+        .reveal.vis { opacity: 1; transform: translateY(0); }
+        .reveal-d1 { transition-delay: 0.12s; }
+        .reveal-d2 { transition-delay: 0.25s; }
+        .reveal-d3 { transition-delay: 0.38s; }
+        .reveal-d4 { transition-delay: 0.5s; }
+
+        /* ===== 1. ENVELOPE ===== */
+        #envelope-overlay {
+            position: fixed; inset: 0;
+            z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            background: #1a0a0e;
+            overflow: hidden;
+        }
+        /* Photo background */
+        #envelope-overlay::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url('../../../shared/images/wedding/viet-trang-hoa/629708109_1496741975786947_7694401786574075770_n.webp') center/cover no-repeat;
+            filter: blur(12px) brightness(0.35);
+            transform: scale(1.08);
+        }
+        /* Overlay gradient */
+        #envelope-overlay::after {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 70%, rgba(232,180,184,0.18) 0%, transparent 55%),
+                radial-gradient(ellipse at 70% 30%, rgba(197,165,90,0.12) 0%, transparent 55%),
+                linear-gradient(160deg, rgba(74,55,40,0.5) 0%, rgba(26,10,14,0.65) 100%);
+        }
+
+        /* Floating botanical animations */
+        .env-float {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1001;
+            opacity: 0;
+            animation: envFloatIn 1.8s ease-out forwards;
+        }
+        .env-float img { display: block; }
+        .env-float-1 { top: -5%; left: -3%; width: 200px; animation-delay: 0.3s; transform: rotate(-15deg); }
+        .env-float-2 { bottom: -3%; right: -2%; width: 180px; animation-delay: 0.5s; transform: rotate(170deg); }
+        .env-float-3 { top: 5%; right: 2%; width: 120px; animation-delay: 0.7s; transform: rotate(30deg) scaleX(-1); }
+        .env-float-4 { bottom: 8%; left: 1%; width: 100px; animation-delay: 0.9s; transform: rotate(-20deg) scaleX(-1); }
+        @keyframes envFloatIn {
+            from { opacity: 0; transform: scale(0.85) translateY(10px); }
+            to { opacity: 0.85; transform: scale(1) translateY(0); }
+        }
+        @keyframes envGentleFloat {
+            0%, 100% { transform: translateY(0px) rotate(var(--base-rot, 0deg)); }
+            50% { transform: translateY(-8px) rotate(var(--base-rot, 0deg)); }
+        }
+        .env-float-1 { animation: envFloatIn 1.8s ease-out 0.3s forwards, envGentleFloat 5s ease-in-out 2.5s infinite; --base-rot: -15deg; }
+        .env-float-2 { animation: envFloatIn 1.8s ease-out 0.5s forwards, envGentleFloat 6s ease-in-out 3s infinite; --base-rot: 170deg; }
+        .env-float-3 { animation: envFloatIn 1.8s ease-out 0.7s forwards, envGentleFloat 4.5s ease-in-out 2.8s infinite; }
+        .env-float-4 { animation: envFloatIn 1.8s ease-out 0.9s forwards, envGentleFloat 5.5s ease-in-out 3.2s infinite; }
+
+        /* Envelope Card */
+        .env-card {
+            position: relative; z-index: 1002;
+            width: min(340px, 90vw);
+            background: linear-gradient(160deg, rgba(255,248,245,0.92) 0%, rgba(255,250,247,0.95) 100%);
+            border-radius: 12px;
+            padding: 2.5rem 2rem 2rem;
+            text-align: center;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(197,165,90,0.25);
+            opacity: 0;
+            animation: envCardIn 1.2s cubic-bezier(0.25,0.1,0.25,1) 1s forwards;
+        }
+        @keyframes envCardIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Double border frame */
+        .env-card::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(197,165,90,0.5);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        .env-card::after {
+            content: '';
+            position: absolute;
+            inset: 13px;
+            border: 1px dashed rgba(232,180,184,0.55);
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        /* Corner ornaments */
+        .env-corner {
+            position: absolute;
+            width: 70px; height: 70px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .env-corner img { width: 100%; height: 100%; object-fit: contain; }
+        .env-corner--tl { top: -8px; left: -8px; transform: rotate(0deg); }
+        .env-corner--tr { top: -8px; right: -8px; transform: scaleX(-1); }
+        .env-corner--bl { bottom: -8px; left: -8px; transform: scaleY(-1); }
+        .env-corner--br { bottom: -8px; right: -8px; transform: scale(-1,-1); }
+
+        /* Envelope card content */
+        .env-invite-label {
+            font-family: var(--font-body);
+            font-size: 0.55rem; font-weight: 400;
+            color: var(--text-faint);
+            letter-spacing: 0.4em; text-transform: uppercase;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: envFadeUp 0.8s ease 1.6s forwards;
+        }
+        .env-names {
+            font-family: var(--font-script);
+            font-size: clamp(2rem, 8vw, 2.8rem);
+            color: var(--text);
+            line-height: 1.2;
+            opacity: 0;
+            animation: envFadeUp 0.8s ease 1.8s forwards;
+        }
+        .env-amp {
+            font-family: var(--font-heading);
+            font-size: 1rem; font-style: italic;
+            color: var(--blush-dark);
+            display: block;
+            margin: 0.2rem 0;
+            letter-spacing: 0.15em;
+        }
+        .env-date-text {
+            font-family: var(--font-heading);
+            font-size: 0.82rem; font-style: italic;
+            color: var(--text-light);
+            letter-spacing: 0.2em;
+            margin: 1rem 0 0.5rem;
+            opacity: 0;
+            animation: envFadeUp 0.8s ease 2s forwards;
+        }
+        .env-bouquet {
+            width: 60px; margin: 0.5rem auto 1.2rem;
+            opacity: 0;
+            animation: envFadeUp 0.8s ease 2.1s forwards;
+        }
+        .env-bouquet img { width: 100%; }
+
+        /* Wax seal button */
+        .env-seal-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            background: none; border: none;
+            opacity: 0;
+            animation: envFadeUp 0.8s ease 2.3s forwards;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.3s;
+        }
+        .env-seal-btn:hover { transform: scale(1.05); }
+        .env-seal-btn:active { transform: scale(0.95); }
+        .env-seal-img {
+            width: 70px; height: 70px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(197,165,90,0.4));
+            transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1), opacity 0.5s;
+        }
+        .env-seal-hint {
+            font-size: 0.58rem; color: var(--text-faint);
+            letter-spacing: 0.25em; text-transform: uppercase;
+        }
+        @keyframes envFadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Seal break animation */
+        .env-seal-btn.breaking .env-seal-img {
+            animation: sealBreak 0.6s ease-out forwards;
+        }
+        @keyframes sealBreak {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            30% { transform: scale(1.3) rotate(-15deg); opacity: 1; }
+            100% { transform: scale(0.5) rotate(25deg); opacity: 0; }
+        }
+
+        /* Overlay close animation */
+        #envelope-overlay.opening {
+            animation: overlayClose 0.9s cubic-bezier(0.4,0,0.2,1) 0.5s forwards;
+        }
+        @keyframes overlayClose {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-30px); pointer-events: none; }
+        }
+        #envelope-overlay.gone { display: none; }
+
+        /* ===== MUSIC PLAYER ===== */
+        .music-player {
+            position: fixed;
+            bottom: 1.5rem; right: 1.5rem;
+            z-index: 900;
+            display: flex; align-items: center; gap: 0.5rem;
+            background: rgba(255,248,245,0.88);
+            border: 1px solid rgba(197,165,90,0.3);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem 0.4rem 0.5rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(74,55,40,0.12);
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .music-icon {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blush), var(--blush-dark));
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 0.9rem;
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+        .music-player:hover .music-icon { transform: scale(1.1); }
+        .music-note {
+            font-size: 0.62rem; color: var(--text-light);
+            letter-spacing: 0.1em; font-weight: 400;
+            line-height: 1.2;
+        }
+        .music-note small { display: block; font-size: 0.55rem; color: var(--text-faint); }
+
+        /* Music bars animation */
+        .music-bars {
+            display: flex; align-items: flex-end; gap: 2px;
+            height: 14px;
+        }
+        .music-bar {
+            width: 2px; background: white; border-radius: 1px;
+            animation: barBounce 0.8s ease-in-out infinite alternate;
+        }
+        .music-bar:nth-child(1) { height: 6px; animation-delay: 0s; }
+        .music-bar:nth-child(2) { height: 10px; animation-delay: 0.15s; }
+        .music-bar:nth-child(3) { height: 7px; animation-delay: 0.3s; }
+        .music-bar:nth-child(4) { height: 12px; animation-delay: 0.1s; }
+        @keyframes barBounce {
+            from { transform: scaleY(0.4); }
+            to { transform: scaleY(1); }
+        }
+        .music-player.paused .music-bar { animation-play-state: paused; }
+        .music-player.paused .music-icon::after { content: '▶'; }
+        .music-player:not(.paused) .music-icon::after { content: ''; }
+
+        /* ===== 2. HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            padding: clamp(4rem, 12vw, 7rem) 2rem clamp(3rem, 8vw, 5rem);
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: url('../../../shared/images/wedding/viet-trang-hoa/629708109_1496741975786947_7694401786574075770_n.webp') center 30%/cover no-repeat;
+            filter: brightness(0.55) saturate(1.1);
+            transform: scale(1.03);
+            transition: transform 0.1s linear;
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background:
+                linear-gradient(180deg, rgba(26,10,14,0.4) 0%, rgba(74,55,40,0.25) 40%, rgba(26,10,14,0.5) 100%);
+        }
+        .hero-content {
+            position: relative; z-index: 2;
+        }
+        .hero-invite {
+            font-size: 0.6rem; font-weight: 400;
+            color: rgba(245,213,216,0.9);
+            letter-spacing: 0.5em; text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: heroUp 1.2s ease 0.2s forwards;
+        }
+        .hero-blossom-top {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            opacity: 0.65;
+            pointer-events: none;
+        }
+        .hero-blossom-left {
+            position: absolute;
+            left: -20px; top: 50%;
+            transform: translateY(-50%);
+            width: 110px; opacity: 0.5;
+            pointer-events: none; z-index: 1;
+        }
+        .hero-blossom-right {
+            position: absolute;
+            right: -20px; top: 50%;
+            transform: translateY(-50%) scaleX(-1);
+            width: 110px; opacity: 0.5;
+            pointer-events: none; z-index: 1;
+        }
+        .hero-names {
+            font-family: var(--font-script);
+            font-size: clamp(3.5rem, 11vw, 5.5rem);
+            color: #fff;
+            line-height: 1.1;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+            opacity: 0;
+            animation: heroUp 1.4s ease 0.5s forwards;
+        }
+        .hero-amp {
+            display: block;
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-size: clamp(1.2rem, 4vw, 1.7rem);
+            color: var(--blush-light);
+            margin: 0.4rem 0;
+            letter-spacing: 0.2em;
+        }
+        .hero-divider {
+            width: 60px; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(245,213,216,0.7), transparent);
+            margin: 1.8rem auto 1rem;
+            opacity: 0;
+            animation: heroUp 1s ease 0.9s forwards;
+        }
+        .hero-date {
+            font-family: var(--font-heading);
+            font-size: 1rem; font-style: italic;
+            color: rgba(245,213,216,0.9);
+            letter-spacing: 0.2em;
+            opacity: 0;
+            animation: heroUp 1.2s ease 1.1s forwards;
+        }
+        .hero-venue {
+            font-size: 0.7rem; font-weight: 300;
+            color: rgba(255,250,247,0.65);
+            letter-spacing: 0.18em;
+            margin-top: 0.5rem;
+            opacity: 0;
+            animation: heroUp 1.2s ease 1.3s forwards;
+        }
+        /* Falling petals */
+        .petal {
+            position: absolute; top: -20px;
+            pointer-events: none; z-index: 1;
+            opacity: 0;
+            animation: petalFall linear infinite;
+        }
+        @keyframes petalFall {
+            0% { opacity: 0; transform: translateY(0) rotate(0deg) translateX(0); }
+            5% { opacity: 0.7; }
+            90% { opacity: 0.5; }
+            100% { opacity: 0; transform: translateY(110vh) rotate(360deg) translateX(30px); }
+        }
+        @keyframes heroUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-scroll-hint {
+            position: absolute; bottom: 2rem; left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.58rem; color: rgba(245,213,216,0.5);
+            letter-spacing: 0.35em; text-transform: uppercase;
+            z-index: 2;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(5px); }
+        }
+
+        /* ===== 3. COUPLE INFO ===== */
+        .couple-section {
+            background: var(--warm-white);
+            position: relative; overflow: hidden;
+        }
+        .couple-deco-wreath,
+        .couple-deco-corner {
+            position: absolute; top: 0; bottom: 0;
+            left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: 520px;
+            pointer-events: none; z-index: 1;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .couple-deco-wreath {
+            background-image: url('../../../shared/images/wedding/backgrounds/floral-watercolor/bg-floral-watercolor-wreath-wildflower.webp');
+            background-size: 90% auto;
+            opacity: 0.45;
+        }
+        .couple-deco-corner {
+            background-image: url('../../../shared/images/wedding/backgrounds/floral-watercolor/bg-floral-watercolor-corner-pastel-dual.webp');
+            background-size: 100% 100%;
+            opacity: 0.5;
+        }
+        .couple-section .container { position: relative; z-index: 2; }
+        .couple-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            position: relative;
+            margin-top: 2rem;
+        }
+        .couple-card {
+            display: flex; flex-direction: column;
+            align-items: center; text-align: center;
+            padding: 0 0.8rem;
+        }
+        .couple-card:first-child { padding-top: 2rem; }
+        .couple-card:last-child { padding-top: 0; }
+        .couple-photo-wrap {
+            width: 140px; height: 175px;
+            border-radius: 70px 70px 40px 40px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(74,55,40,0.15);
+            border: 3px solid rgba(255,255,255,0.9);
+            position: relative;
+        }
+        .couple-card:first-child .couple-photo-wrap {
+            margin-right: -15px; z-index: 1;
+        }
+        .couple-card:last-child .couple-photo-wrap {
+            margin-left: -15px;
+        }
+        .couple-photo-wrap img {
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: top center;
+        }
+        .couple-name {
+            font-family: var(--font-script);
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            color: var(--text);
+            margin-top: 1rem; margin-bottom: 0.3rem;
+        }
+        .couple-role {
+            font-size: 0.6rem; font-weight: 400;
+            color: var(--text-faint); letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+        .couple-desc {
+            font-size: 0.78rem; color: var(--text-light);
+            margin-top: 0.5rem; line-height: 1.6; font-weight: 300;
+        }
+        .couple-center-deco {
+            position: absolute; left: 50%; top: 30%;
+            transform: translateX(-50%);
+            z-index: 2; pointer-events: none;
+            width: 40px;
+        }
+        .couple-center-deco img { width: 100%; }
+
+        /* ===== 4. LOVE STORY ===== */
+        .story-section {
+            background: linear-gradient(160deg, var(--cream) 0%, var(--warm-white) 100%);
+            position: relative; overflow: hidden;
+        }
+        .story-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(circle at 80% 20%, rgba(197,165,90,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(232,180,184,0.07) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .story-quote {
+            font-family: var(--font-heading);
+            font-size: clamp(1.3rem, 4.5vw, 1.7rem);
+            font-style: italic;
+            color: var(--text); line-height: 1.6; text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .story-quote span { color: var(--blush-dark); }
+        .story-photo-wrap {
+            margin: 1.5rem auto;
+            width: 85%;
+            max-width: 300px;
+            position: relative;
+        }
+        .story-photo {
+            width: 100%; border-radius: 60% 40% 50% 50% / 40% 50% 50% 60%;
+            object-fit: cover;
+            aspect-ratio: 4/5;
+            display: block;
+            box-shadow: 0 12px 40px rgba(74,55,40,0.15);
+            border: 4px solid white;
+            transform: rotate(-1.5deg);
+        }
+        .story-photo-deco {
+            position: absolute;
+            bottom: -20px; right: -15px;
+            width: 80px; opacity: 0.7;
+        }
+        .story-photo-deco img { width: 100%; }
+        .story-cupid {
+            position: absolute;
+            width: 155px;
+            opacity: 0.6;
+            top: 5%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        .story-cupid--left {
+            left: -55px;
+            transform: translateY(-50%) scaleX(-1);
+        }
+        .story-cupid--right {
+            right: -65px;
+        }
+        .story-text {
+            font-size: 0.85rem; color: var(--text-light);
+            line-height: 1.9; font-weight: 300;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .story-text em { font-style: italic; color: var(--blush-dark); }
+
+        /* ===== 5. EVENT INFO ===== */
+        .event-section { background: var(--cream); }
+        .event-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+        .event-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 4px 25px rgba(74,55,40,0.06);
+            position: relative; overflow: hidden;
+        }
+        .event-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--blush), transparent);
+        }
+        .event-card:nth-child(2) { transform: translateX(8px); }
+        .event-icon {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blush-light), var(--blush));
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        .event-icon img { width: 24px; height: 24px; object-fit: contain; filter: brightness(0.6); }
+        .event-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem; font-weight: 500; font-style: italic;
+            color: var(--text); text-align: center; margin-bottom: 1rem;
+        }
+        .event-row {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 0.83rem; color: var(--text-light);
+            margin-bottom: 0.6rem; font-weight: 300;
+        }
+        .event-row-icon {
+            width: 16px; height: 16px;
+            flex-shrink: 0; margin-top: 2px;
+            color: var(--blush-dark); font-size: 0.9rem;
+        }
+        .event-map-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 1rem;
+            font-size: 0.72rem; font-weight: 500;
+            color: var(--blush-dark);
+            background: var(--blush-light);
+            border: none; border-radius: 20px;
+            padding: 0.4rem 1rem; cursor: pointer;
+            text-decoration: none;
+            transition: background 0.25s, color 0.25s;
+        }
+        .event-map-btn:hover { background: var(--blush); color: white; }
+
+        /* ===== 7. GALLERY ===== */
+        .gallery-section { background: var(--cream); }
+        .gallery-slider {
+            position: relative;
+            border-radius: 16px;
+            box-shadow: 0 8px 35px rgba(74,55,40,0.12);
+            max-width: 480px; margin: 0 auto;
+            overflow: hidden;
+        }
+        .gallery-slider img {
+            width: 100%; height: auto;
+            object-fit: contain; display: block;
+        }
+        .gallery-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 36px; height: 36px;
+            background: rgba(255,248,245,0.85);
+            border: none; border-radius: 50%;
+            cursor: pointer; z-index: 5;
+            font-size: 1rem; color: var(--text);
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.25s;
+        }
+        .gallery-btn:hover { background: rgba(255,248,245,0.97); }
+        .gallery-btn--prev { left: 10px; }
+        .gallery-btn--next { right: 10px; }
+        .gallery-dots {
+            display: flex; justify-content: center; gap: 6px;
+            margin-top: 1rem;
+        }
+        .gallery-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%; background: var(--blush-light);
+            cursor: pointer; transition: background 0.25s, transform 0.25s;
+            border: none;
+        }
+        .gallery-dot.active { background: var(--blush-dark); transform: scale(1.3); }
+
+        /* ===== 8. RSVP ===== */
+        .rsvp-section { background: var(--warm-white); }
+        .rsvp-form { display: grid; gap: 1rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+        .form-label {
+            font-size: 0.72rem; font-weight: 500;
+            color: var(--text-light); letter-spacing: 0.1em;
+        }
+        .form-input, .form-textarea {
+            width: 100%; padding: 0.75rem 1rem;
+            border: 1px solid var(--blush-light);
+            border-radius: 12px; background: white;
+            font-family: var(--font-body); font-size: 0.85rem;
+            color: var(--text); font-weight: 300;
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--blush-dark);
+            box-shadow: 0 0 0 3px rgba(196,137,158,0.1);
+        }
+        .form-textarea { resize: vertical; min-height: 80px; }
+        .rsvp-radios {
+            display: flex; gap: 1rem;
+        }
+        .rsvp-radio-label {
+            flex: 1; display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.82rem; color: var(--text-light);
+            cursor: pointer; padding: 0.6rem 1rem;
+            border: 1px solid var(--blush-light);
+            border-radius: 10px; background: white;
+            transition: all 0.25s;
+        }
+        .rsvp-radio-label input { accent-color: var(--blush-dark); }
+        .rsvp-radio-label:has(input:checked) {
+            border-color: var(--blush-dark);
+            background: var(--blush-light);
+            color: var(--text);
+        }
+        .btn-primary {
+            padding: 0.85rem 2rem;
+            background: linear-gradient(135deg, var(--blush), var(--blush-dark));
+            color: white; border: none; border-radius: 30px;
+            font-family: var(--font-body); font-size: 0.85rem; font-weight: 500;
+            letter-spacing: 0.1em; cursor: pointer;
+            box-shadow: 0 6px 20px rgba(196,137,158,0.35);
+            transition: transform 0.25s, box-shadow 0.25s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(196,137,158,0.4); }
+        .btn-primary:active { transform: translateY(0); }
+        .form-success {
+            display: none; text-align: center;
+            padding: 2rem; background: white;
+            border-radius: 16px; box-shadow: 0 4px 20px rgba(74,55,40,0.06);
+        }
+        .form-success.show { display: block; }
+        .success-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .success-msg {
+            font-family: var(--font-heading); font-style: italic;
+            font-size: 1.2rem; color: var(--text); margin-bottom: 0.5rem;
+        }
+        .success-sub { font-size: 0.8rem; color: var(--text-faint); }
+
+        /* ===== 9. WISHES ===== */
+        .wishes-section { background: var(--cream); }
+        .wishes-presets {
+            display: flex; flex-wrap: wrap; gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .wish-preset {
+            font-size: 0.72rem; font-weight: 400;
+            color: var(--blush-dark);
+            background: var(--blush-light);
+            border: 1px solid var(--blush);
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem; cursor: pointer;
+            transition: background 0.25s, color 0.25s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .wish-preset:hover { background: var(--blush); color: white; }
+        .wish-toast {
+            display: none; margin-top: 1rem;
+            padding: 0.8rem 1.2rem;
+            background: white; border-radius: 12px;
+            border-left: 3px solid var(--sage);
+            font-size: 0.8rem; color: var(--text-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .wish-toast.show { display: flex; align-items: center; gap: 0.5rem; }
+
+        /* ===== 10. GIFT ===== */
+        .gift-section { background: var(--warm-white); }
+        .gift-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .bank-card {
+            background: white; border-radius: 16px;
+            padding: 1.5rem 1rem; text-align: center;
+            box-shadow: 0 4px 20px rgba(74,55,40,0.07);
+            cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
+            border: 1px solid rgba(197,165,90,0.15);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .bank-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(74,55,40,0.12); }
+        .bank-logo {
+            font-size: 0.65rem; font-weight: 600;
+            letter-spacing: 0.1em; margin-bottom: 0.5rem;
+            padding: 0.25rem 0.6rem; border-radius: 4px;
+            display: inline-block;
+        }
+        .bank-vcb { color: #00613F; background: rgba(0,97,63,0.08); }
+        .bank-tp { color: #CD1029; background: rgba(205,16,41,0.08); }
+        .bank-name-text {
+            font-size: 0.72rem; font-weight: 500;
+            color: var(--text); margin-bottom: 0.3rem;
+        }
+        .bank-account {
+            font-size: 0.95rem; font-weight: 600;
+            color: var(--blush-dark); letter-spacing: 0.05em;
+        }
+        .bank-tap {
+            font-size: 0.6rem; color: var(--text-faint);
+            margin-top: 0.5rem; letter-spacing: 0.1em;
+        }
+
+        /* Gift Modal */
+        .gift-modal {
+            display: none; position: fixed; inset: 0;
+            z-index: 950; align-items: center; justify-content: center;
+            background: rgba(26,10,14,0.55);
+            backdrop-filter: blur(4px);
+            padding: 1rem;
+        }
+        .gift-modal.open { display: flex; }
+        .gift-modal-card {
+            background: white; border-radius: 20px;
+            padding: 2rem 1.5rem; width: 100%; max-width: 300px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .gift-modal-close {
+            position: absolute; top: 1rem; right: 1rem;
+            width: 28px; height: 28px;
+            background: var(--blush-light); border: none; border-radius: 50%;
+            cursor: pointer; font-size: 0.9rem; color: var(--text-light);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .gift-qr {
+            width: 120px; height: 120px;
+            background: var(--cream); border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 1rem auto;
+            border: 1px dashed var(--blush-light);
+            font-size: 0.65rem; color: var(--text-faint);
+        }
+        .gift-copy-btn {
+            margin-top: 0.5rem;
+            padding: 0.6rem 1.5rem;
+            background: var(--blush-light); color: var(--blush-dark);
+            border: none; border-radius: 20px; font-family: var(--font-body);
+            font-size: 0.8rem; font-weight: 500; cursor: pointer;
+            transition: background 0.25s, color 0.25s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .gift-copy-btn:hover { background: var(--blush); color: white; }
+        .gift-copy-btn.copied { background: var(--sage); color: white; }
+        .gift-modal-bank { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 0.5rem; }
+        .gift-modal-holder { font-size: 0.8rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
+        .gift-modal-stk {
+            font-size: 1.2rem; font-weight: 700;
+            color: var(--blush-dark); letter-spacing: 0.05em;
+        }
+
+        /* ===== 11. THANK YOU ===== */
+        .thankyou-section {
+            position: relative; overflow: hidden;
+            min-height: 50vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .thankyou-bg {
+            position: absolute; inset: 0;
+            background: url('../../../shared/images/wedding/viet-trang-hoa/629719960_1496739252453886_2578583488563429923_n.webp') center/cover no-repeat;
+            filter: brightness(0.45) saturate(0.9);
+        }
+        .thankyou-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(160deg, rgba(74,55,40,0.4) 0%, rgba(26,10,14,0.6) 100%);
+        }
+        .thankyou-content {
+            position: relative; z-index: 2;
+            text-align: center; padding: 3rem 2rem;
+        }
+        .thankyou-title {
+            font-family: var(--font-script);
+            font-size: clamp(3rem, 10vw, 4.5rem);
+            color: white;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.3);
+            margin-bottom: 0.5rem;
+        }
+        .thankyou-msg {
+            font-size: 0.82rem; font-weight: 300;
+            color: rgba(245,213,216,0.85);
+            letter-spacing: 0.15em;
+            line-height: 1.7;
+            max-width: 280px; margin: 0 auto;
+        }
+        .thankyou-hearts {
+            font-size: 1.5rem; margin-bottom: 1rem;
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            30% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+        /* Heart confetti */
+        .heart-particle {
+            position: absolute; pointer-events: none; z-index: 3;
+            animation: heartFloat linear infinite;
+            opacity: 0;
+        }
+        @keyframes heartFloat {
+            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.5; }
+            100% { opacity: 0; transform: translateY(-80vh) scale(1) rotate(30deg); }
+        }
+
+        /* ===== FOOTER ===== */
+        .site-footer {
+            background: var(--text);
+            padding: 2rem;
+            text-align: center;
+        }
+        .footer-names {
+            font-family: var(--font-script);
+            font-size: 1.8rem; color: var(--blush-light);
+            margin-bottom: 0.3rem;
+        }
+        .footer-date {
+            font-size: 0.7rem; color: rgba(245,213,216,0.5);
+            letter-spacing: 0.3em;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 420px) {
+            .couple-photo-wrap { width: 115px; height: 145px; }
+            .couple-card:first-child .couple-photo-wrap { margin-right: -10px; }
+            .couple-card:last-child .couple-photo-wrap { margin-left: -10px; }
+            .gift-cards { grid-template-columns: 1fr; }
+            .env-float-1, .env-float-3 { width: 150px; }
+            .env-float-2, .env-float-4 { width: 130px; }
+            .gallery-slider { border-radius: 12px; }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .petal, .heart-particle { display: none; }
+        }
+    </style>
+</head>
+<body><script>
+(function(){
+  var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","localhost","127.0.0.1"];
+  var _h=location.hostname;
+  var _ok=false;
+  for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'+_d[i])){_ok=true;break;}}
+  if(!_ok&&_h!==''){
+    document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https://phuocpt98.github.io/Templexa/" style="color:#7DA06D;">Truy cập Templexa</a></div></div>';
+    throw new Error('Domain not authorized');
+  }
+})();
+(function(){
+  // Chặn right-click
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  // Chặn Ctrl+S, Ctrl+U, Ctrl+Shift+I, F12
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();}
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();}
+    if(e.key==='F12'){e.preventDefault();}
+  });
+  // Chặn drag ảnh
+  document.addEventListener('dragstart',function(e){e.preventDefault();});
+  // Chặn select text (trừ input/textarea)
+  document.addEventListener('selectstart',function(e){
+    if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();}
+  });
+})();
+(function(){
+  var _w=document.createElement('div');
+  _w.setAttribute('data-t','VGVtcGxleGF8Z2VuXzIxMV92aWV0LXRyYW5nLWhvYXwyMDI2LTAzLTMwfHBodW9jcHQ5OA==');
+  _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;';
+  document.body.appendChild(_w);
+})();</script>
+
+    <!-- ===== ENVELOPE OVERLAY ===== -->
+    <div id="envelope-overlay">
+        <!-- Floating botanical decorations -->
+        <div class="env-float env-float-1">
+            <img src="../../../shared/images/wedding/icons/blossom-branch-blush-watercolor.webp" alt="">
+        </div>
+        <div class="env-float env-float-2">
+            <img src="../../../shared/images/wedding/icons/blossom-branch-blush-watercolor.webp" alt="">
+        </div>
+        <div class="env-float env-float-3">
+            <img src="../../../shared/images/wedding/icons/garland-watercolor-pastel-vertical.webp" alt="">
+        </div>
+        <div class="env-float env-float-4">
+            <img src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp" alt="">
+        </div>
+
+        <!-- Envelope card -->
+        <div class="env-card">
+            <!-- Corner ornaments -->
+            <div class="env-corner env-corner--tl">
+                <img src="../../../shared/images/wedding-elements/corner-rose-vine-watercolor-pink.webp" alt="">
+            </div>
+            <div class="env-corner env-corner--tr">
+                <img src="../../../shared/images/wedding-elements/corner-rose-vine-watercolor-pink.webp" alt="">
+            </div>
+            <div class="env-corner env-corner--bl">
+                <img src="../../../shared/images/wedding-elements/corner-rose-vine-watercolor-pink.webp" alt="">
+            </div>
+            <div class="env-corner env-corner--br">
+                <img src="../../../shared/images/wedding-elements/corner-rose-vine-watercolor-pink.webp" alt="">
+            </div>
+
+            <p class="env-invite-label">Trân trọng kính mời</p>
+
+            <div class="env-bouquet">
+                <img src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp" alt="">
+            </div>
+
+            <div class="env-names">
+                Hoàng Viết
+                <span class="env-amp">&amp;</span>
+                Trang Hoa
+            </div>
+
+            <p class="env-date-text">28 · 04 · 2026</p>
+
+            <div class="divider" style="margin: 1rem auto;"></div>
+
+            <!-- Wax seal button -->
+            <button class="env-seal-btn" id="openEnvBtn" aria-label="Mở thiệp">
+                <img class="env-seal-img" src="../../../shared/images/wedding/icons/wax-seal.webp" alt="Mở thiệp">
+                <span class="env-seal-hint">Nhấn để mở thiệp</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== MUSIC PLAYER ===== -->
+    <div class="music-player paused" id="musicPlayer" role="button" aria-label="Bật/tắt nhạc">
+        <div class="music-icon">
+            <div class="music-bars">
+                <div class="music-bar"></div>
+                <div class="music-bar"></div>
+                <div class="music-bar"></div>
+                <div class="music-bar"></div>
+            </div>
+        </div>
+        <div class="music-note">
+            Beautiful In White
+            <small>Spencer Kane</small>
+        </div>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="main-content">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+
+        <!-- Falling petals (created by JS) -->
+        <div id="petalsContainer" aria-hidden="true"></div>
+
+        <!-- Decorative blossom branches -->
+        <img class="hero-blossom-top" src="../../../shared/images/wedding/icons/blossom-branch-blush-watercolor.webp" alt="" aria-hidden="true">
+        <img class="hero-blossom-left" src="../../../shared/images/wedding/icons/garland-watercolor-pastel-vertical.webp" alt="" aria-hidden="true">
+        <img class="hero-blossom-right" src="../../../shared/images/wedding/icons/garland-watercolor-pastel-vertical.webp" alt="" aria-hidden="true">
+
+        <div class="hero-content">
+            <p class="hero-invite">Trân trọng kính mời</p>
+            <h1 class="hero-names">
+                Hoàng Viết
+                <span class="hero-amp">&amp;</span>
+                Trang Hoa
+            </h1>
+            <div class="hero-divider"></div>
+            <p class="hero-date">28 tháng 04 năm 2026</p>
+            <p class="hero-venue">Trung tâm Hội nghị Tiệc cưới ABC · TP.HCM</p>
+        </div>
+        <div class="hero-scroll-hint" aria-hidden="true">↓ cuộn xuống</div>
+    </section>
+
+    <!-- ===== COUPLE INFO ===== -->
+    <section class="couple-section section">
+        <div class="couple-deco-wreath" aria-hidden="true"></div>
+        <div class="couple-deco-corner" aria-hidden="true"></div>
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-label">Cô dâu &amp; Chú rể</span>
+                <h2 class="section-title">Hai Trái Tim, Một Nhịp Đập</h2>
+            </div>
+
+            <div class="couple-grid reveal reveal-d1">
+                <div class="couple-card">
+                    <div class="couple-photo-wrap">
+                        <img src="../../../shared/images/wedding/viet-trang-hoa/627789060_1496741912453620_3108546600317143173_n.webp"
+                             alt="Trang Hoa — Cô dâu" loading="lazy">
+                    </div>
+                    <p class="couple-name">Trang Hoa</p>
+                    <p class="couple-role">Cô dâu</p>
+                    <p class="couple-desc">Nụ cười ấm áp, trái tim nhân hậu — người đã mang ánh sáng vào cuộc đời anh.</p>
+                </div>
+
+                <div class="couple-center-deco" aria-hidden="true">
+                    <img src="../../../shared/images/wedding/icons/leaf-floral-lineart-gold-light.webp" alt="">
+                </div>
+
+                <div class="couple-card">
+                    <div class="couple-photo-wrap">
+                        <img src="../../../shared/images/wedding/viet-trang-hoa/628232532_1496741939120284_2188543106842202943_n.webp"
+                             alt="Hoàng Viết — Chú rể" loading="lazy">
+                    </div>
+                    <p class="couple-name">Hoàng Viết</p>
+                    <p class="couple-role">Chú rể</p>
+                    <p class="couple-desc">Nụ cười rạng rỡ, tấm lòng chân thành — người đã hứa cùng em đi trọn cuộc đời.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sep reveal" aria-hidden="true">❦</div>
+
+    <!-- ===== LOVE STORY ===== -->
+    <section class="story-section section--breathe">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-label">Câu Chuyện Tình Yêu</span>
+                <h2 class="section-title">Khi Hai Thế Giới Gặp Nhau</h2>
+            </div>
+
+            <p class="story-quote reveal reveal-d1">
+                "Yêu không phải là nhìn nhau, mà là cùng nhau <span><br>nhìn về một hướng</span>."
+            </p>
+
+            <div class="story-photo-wrap reveal reveal-d2">
+                <img class="story-cupid story-cupid--left" src="../../../shared/images/wedding/icons/cupid-lineart-red.webp" alt="" aria-hidden="true">
+                <img class="story-photo"
+                     src="../../../shared/images/wedding/viet-trang-hoa/628264245_1496742449120233_4645514456825061638_n.webp"
+                     alt="Câu chuyện tình yêu" loading="lazy">
+                <img class="story-cupid story-cupid--right" src="../../../shared/images/wedding/icons/cupid-lineart-red.webp" alt="" aria-hidden="true">
+                <div class="story-photo-deco" aria-hidden="true">
+                    <img src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp" alt="">
+                </div>
+            </div>
+
+            <p class="story-text reveal reveal-d3">
+                Từ một buổi sáng tình cờ, từ những ánh mắt vô tình gặp nhau — chúng tôi bắt đầu
+                <em>viết nên câu chuyện riêng của mình</em>. Mỗi khoảnh khắc bên nhau là một trang
+                thơ đẹp, và hôm nay chúng tôi muốn chia sẻ niềm hạnh phúc ấy cùng những người
+                thân yêu nhất.
+            </p>
+        </div>
+    </section>
+
+    <div class="sep reveal" aria-hidden="true">✿</div>
+
+    <!-- ===== EVENT INFO ===== -->
+    <section class="event-section section">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-label">Lịch Trình</span>
+                <h2 class="section-title">Ngày Trọng Đại</h2>
+            </div>
+
+            <div class="event-cards">
+                <div class="event-card reveal reveal-d1">
+                    <div class="event-icon" aria-hidden="true">
+                        <img src="../../../shared/images/wedding/icons/flowers-watercolor-pastel.webp" alt="">
+                    </div>
+                    <h3 class="event-title">Lễ Vu Quy</h3>
+                    <div class="event-row">
+                        <span class="event-row-icon">🕗</span>
+                        <span>08:00 sáng · Thứ Ba, 28/04/2026</span>
+                    </div>
+                    <div class="event-row">
+                        <span class="event-row-icon">📍</span>
+                        <span>Nhà gái: 123 Nguyễn Huệ, Quận 1, TP.HCM</span>
+                    </div>
+                    <a class="event-map-btn" href="https://maps.google.com/?q=Nguyen+Hue+Ho+Chi+Minh" target="_blank" rel="noopener">
+                        📌 Xem bản đồ
+                    </a>
+                </div>
+
+                <div class="event-card reveal reveal-d2">
+                    <div class="event-icon" aria-hidden="true">
+                        <img src="../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp" alt="">
+                    </div>
+                    <h3 class="event-title">Tiệc Thân Mật</h3>
+                    <div class="event-row">
+                        <span class="event-row-icon">🕠</span>
+                        <span>17:30 chiều · Thứ Ba, 28/04/2026</span>
+                    </div>
+                    <div class="event-row">
+                        <span class="event-row-icon">📍</span>
+                        <span>TT Hội Nghị Tiệc Cưới ABC, 123 Nguyễn Huệ, Q.1, TP.HCM</span>
+                    </div>
+                    <a class="event-map-btn" href="https://maps.google.com/?q=123+Nguyen+Hue+Ho+Chi+Minh" target="_blank" rel="noopener">
+                        📌 Xem bản đồ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section class="gallery-section section">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-label">Album Ảnh</span>
+                <h2 class="section-title">Khoảnh Khắc Đẹp</h2>
+            </div>
+
+            <div class="gallery-slider reveal reveal-d1" id="gallerySlider">
+                <img id="galleryImg" src="../../../shared/images/wedding/viet-trang-hoa/628045812_1496742042453607_50305878371780347_n.webp" alt="Ảnh cưới">
+                <button class="gallery-btn gallery-btn--prev" id="galPrev" aria-label="Ảnh trước">&#8249;</button>
+                <button class="gallery-btn gallery-btn--next" id="galNext" aria-label="Ảnh tiếp">&#8250;</button>
+            </div>
+            <div class="gallery-dots" id="galleryDots" role="tablist" aria-label="Chọn ảnh"></div>
+        </div>
+    </section>
+
+    <div class="sep reveal" aria-hidden="true">✿</div>
+
+    <!-- ===== RSVP ===== -->
+    <section class="rsvp-section section">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-label">Xác Nhận Tham Dự</span>
+                <h2 class="section-title">Bạn Có Đến Không?</h2>
+            </div>
+
+            <div id="rsvpSuccess" class="form-success">
+                <div class="success-icon">💌</div>
+                <p class="success-msg">Cảm ơn bạn!</p>
+                <p class="success-sub">Chúng tôi rất vui khi nhận được phản hồi của bạn.</p>
+            </div>
+
+            <form class="rsvp-form reveal reveal-d1" id="rsvpForm" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="rsvpName">Tên của bạn</label>
+                    <input class="form-input" type="text" id="rsvpName" placeholder="Nguyễn Văn A" autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bạn có tham dự không?</label>
+                    <div class="rsvp-radios">
+                        <label class="rsvp-radio-label">
+                            <input type="radio" name="attend" value="yes"> Có, tôi sẽ đến 🎉
+                        </label>
+                        <label class="rsvp-radio-label">
+                            <input type="radio" name="attend" value="no"> Rất tiếc, không thể 😢
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="rsvpMsg">Lời nhắn (tuỳ chọn)</label>
+                    <textarea class="form-textarea" id="rsvpMsg" rows="3" placeholder="Lời chúc của bạn..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%">Gửi xác nhận ✉️</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== COUPLE BIG PHOTO ===== -->
+    <div style="position:relative; overflow:hidden;">
+        <img src="../../../shared/images/wedding/viet-trang-hoa/625879595_1496741972453614_8061171316701395782_n.webp"
+             alt="Hoàng Viết &amp; Trang Hoa" loading="lazy"
+             style="width:100%; max-height:65vh; object-fit:cover; display:block;">
+        <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(255,248,245,0.5) 0%, transparent 20%, transparent 80%, rgba(255,248,245,0.6) 100%); pointer-events:none;"></div>
+    </div>
+
+    <!-- ===== WISHES ===== -->
+    <section class="wishes-section section">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-label">Sổ Lưu Bút</span>
+                <h2 class="section-title">Gửi Lời Yêu Thương</h2>
+            </div>
+
+            <div class="wishes-presets reveal reveal-d1">
+                <button class="wish-preset" onclick="fillWish('Chúc mừng hạnh phúc! 🎊')">Chúc mừng hạnh phúc</button>
+                <button class="wish-preset" onclick="fillWish('Trăm năm hạnh phúc, bách niên giai lão! 💑')">Bách niên giai lão</button>
+                <button class="wish-preset" onclick="fillWish('Chúc đôi bạn mãi yêu nhau như hôm nay! 💕')">Mãi yêu nhau</button>
+                <button class="wish-preset" onclick="fillWish('Hạnh phúc viên mãn, vạn sự như ý! 🌸')">Vạn sự như ý</button>
+            </div>
+
+            <form class="rsvp-form reveal reveal-d2" id="wishForm" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="wishName">Tên của bạn</label>
+                    <input class="form-input" type="text" id="wishName" placeholder="Người gửi lời chúc">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="wishText">Lời chúc</label>
+                    <textarea class="form-textarea" id="wishText" rows="4" placeholder="Viết lời chúc của bạn tại đây..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%">Gửi lời chúc 🌸</button>
+            </form>
+
+            <div class="wish-toast" id="wishToast">
+                <span>🌸</span>
+                <span>Cảm ơn lời chúc của bạn! Chúng tôi trân trọng từng tình cảm.</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="sep reveal" aria-hidden="true">❦</div>
+
+    <!-- ===== GIFT ===== -->
+    <section class="gift-section section">
+        <div class="container">
+            <div class="section-heading reveal">
+                <span class="section-label">Mừng Cưới</span>
+                <h2 class="section-title">Chút Tình Cảm</h2>
+                <p style="font-size:0.78rem; color:var(--text-faint); margin-top:0.5rem; font-weight:300;">
+                    Sự hiện diện của bạn là món quà quý giá nhất với chúng tôi 🌸
+                </p>
+            </div>
+
+            <div class="gift-cards reveal reveal-d1">
+                <div class="bank-card" onclick="openGiftModal('vcb')" role="button" tabindex="0"
+                     aria-label="Xem tài khoản Vietcombank">
+                    <div class="bank-logo bank-vcb">VIETCOMBANK</div>
+                    <p class="bank-name-text">Nguyễn Hoàng Viết</p>
+                    <p class="bank-account">0123 456 789</p>
+                    <p class="bank-tap">Nhấn để xem QR</p>
+                </div>
+
+                <div class="bank-card" onclick="openGiftModal('tp')" role="button" tabindex="0"
+                     aria-label="Xem tài khoản TPBank">
+                    <div class="bank-logo bank-tp">TPBANK</div>
+                    <p class="bank-name-text">Trần Trang Hoa</p>
+                    <p class="bank-account">9876 543 210</p>
+                    <p class="bank-tap">Nhấn để xem QR</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gift Modal -->
+    <div class="gift-modal" id="giftModal" role="dialog" aria-modal="true" aria-label="Thông tin tài khoản">
+        <div class="gift-modal-card">
+            <button class="gift-modal-close" onclick="closeGiftModal()" aria-label="Đóng">✕</button>
+            <p class="gift-modal-bank" id="modalBank"></p>
+            <p class="gift-modal-holder" id="modalHolder"></p>
+            <p class="gift-modal-stk" id="modalStk"></p>
+            <div class="gift-qr" aria-label="QR code (demo)">QR code</div>
+            <button class="gift-copy-btn" id="copyBtn" onclick="copyStk()">Sao chép STK</button>
+        </div>
+    </div>
+
+    <!-- ===== GALLERY COUPLE ===== -->
+    <div style="position:relative; overflow:hidden; margin-top:0;">
+        <img src="../../../shared/images/wedding/viet-trang-hoa/626759978_1496742325786912_8666924174171780533_n.webp"
+             alt="Hoàng Viết &amp; Trang Hoa — khoảnh khắc đẹp" loading="lazy"
+             style="width:100%; max-height:65vh; object-fit:cover; display:block;">
+        <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(255,248,245,0.5) 0%, transparent 25%, transparent 75%, rgba(255,248,245,0.6) 100%); pointer-events:none;"></div>
+    </div>
+
+    <!-- ===== THANK YOU ===== -->
+    <section class="thankyou-section">
+        <div class="thankyou-bg"></div>
+        <div class="thankyou-overlay"></div>
+
+        <!-- Heart particles created by JS -->
+        <div id="heartsContainer" aria-hidden="true"></div>
+
+        <div class="thankyou-content">
+            <div class="thankyou-hearts" aria-hidden="true">🌸</div>
+            <h2 class="thankyou-title">Cảm Ơn</h2>
+            <p class="thankyou-msg">
+                Cảm ơn bạn đã chia sẻ niềm vui trong ngày trọng đại này cùng chúng tôi.<br><br>
+                Hoàng Viết &amp; Trang Hoa
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== BOUQUET DETAIL ===== -->
+    <div style="text-align:center; padding: 3rem 1rem; background: var(--cream); position:relative; overflow:hidden;">
+        <div class="couple-deco-wreath" aria-hidden="true"></div>
+        <div class="couple-deco-corner" aria-hidden="true"></div>
+        <img src="../../../shared/images/wedding/viet-trang-hoa/629214346_1496741812453630_740612148984566707_n.webp"
+             alt="Hoa cưới" loading="lazy"
+             style="width:200px; height:200px; object-fit:cover; border-radius:50%; box-shadow:0 8px 30px rgba(74,55,40,0.15); border:4px solid white; display:inline-block; position:relative; z-index:2;">
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <p class="footer-names">Hoàng Viết &amp; Trang Hoa</p>
+        <p class="footer-date">28 · 04 · 2026</p>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+    (() => {
+        'use strict';
+
+        // ── Envelope ──────────────────────────────────────────────────────
+        const overlay = document.getElementById('envelope-overlay');
+        const openBtn = document.getElementById('openEnvBtn');
+        const audio   = document.getElementById('bgMusic');
+        const player  = document.getElementById('musicPlayer');
+
+        openBtn.addEventListener('click', () => {
+            openBtn.classList.add('breaking');
+            setTimeout(() => {
+                overlay.classList.add('opening');
+                // Try autoplay music
+                audio.volume = 0.5;
+                audio.play().then(() => {
+                    player.classList.remove('paused');
+                }).catch(() => {
+                    // Autoplay blocked — show paused state
+                });
+                setTimeout(() => {
+                    overlay.classList.add('gone');
+                    document.body.style.overflow = '';
+                }, 1400);
+            }, 500);
+        });
+
+        // Block scroll while overlay visible
+        document.body.style.overflow = 'hidden';
+        overlay.addEventListener('transitionend', () => {
+            if (overlay.classList.contains('gone')) {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ── Music Player ───────────────────────────────────────────────────
+        player.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().then(() => player.classList.remove('paused')).catch(()=>{});
+            } else {
+                audio.pause();
+                player.classList.add('paused');
+            }
+        });
+
+        // ── Reveal Observer ────────────────────────────────────────────────
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('vis');
+                    revealObs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+        // ── Falling Petals ─────────────────────────────────────────────────
+        const petalContainer = document.getElementById('petalsContainer');
+        const petalColors = ['#E8B4B8', '#F5D5D8', '#C5D4B8', '#C4899E'];
+        const totalPetals = 14;
+
+        for (let i = 0; i < totalPetals; i++) {
+            const p = document.createElement('div');
+            p.className = 'petal';
+            const size = Math.random() * 8 + 5;
+            p.style.cssText = `
+                left: ${Math.random() * 100}%;
+                width: ${size}px; height: ${size}px;
+                background: ${petalColors[Math.floor(Math.random() * petalColors.length)]};
+                border-radius: ${Math.random() > 0.5 ? '50%' : '60% 40% 55% 45%'};
+                animation-duration: ${Math.random() * 6 + 7}s;
+                animation-delay: ${Math.random() * 8}s;
+                opacity: 0;
+            `;
+            petalContainer.appendChild(p);
+        }
+
+        // ── Gallery ───────────────────────────────────────────────────────
+        const galImages = [
+            '../../../shared/images/wedding/viet-trang-hoa/628045812_1496742042453607_50305878371780347_n.webp',
+            '../../../shared/images/wedding/viet-trang-hoa/628267914_1496742209120257_3178729502643930985_n.webp',
+            '../../../shared/images/wedding/viet-trang-hoa/628427200_1496742375786907_1068531846115830906_n.webp',
+            '../../../shared/images/wedding/viet-trang-hoa/629227517_1496742499120228_4192193729224028066_n.webp',
+            '../../../shared/images/wedding/viet-trang-hoa/629235467_1496742385786906_5916049160219901503_n.webp',
+            '../../../shared/images/wedding/viet-trang-hoa/628255527_1496741349120343_2167207757054090780_n.webp'
+        ];
+        const galImg = document.getElementById('galleryImg');
+        const dotsEl = document.getElementById('galleryDots');
+        let current = 0;
+
+        // Build dots
+        galImages.forEach((_, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+            btn.addEventListener('click', () => goTo(i));
+            dotsEl.appendChild(btn);
+        });
+
+        function goTo(idx) {
+            current = (idx + galImages.length) % galImages.length;
+            galImg.src = galImages[current];
+            dotsEl.querySelectorAll('.gallery-dot').forEach((d, i) =>
+                d.classList.toggle('active', i === current));
+        }
+
+        document.getElementById('galPrev').addEventListener('click', () => goTo(current - 1));
+        document.getElementById('galNext').addEventListener('click', () => goTo(current + 1));
+
+        // ── RSVP Form ──────────────────────────────────────────────────────
+        document.getElementById('rsvpForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('rsvpForm').style.display = 'none';
+            document.getElementById('rsvpSuccess').classList.add('show');
+        });
+
+        // ── Wishes ─────────────────────────────────────────────────────────
+        window.fillWish = (text) => {
+            document.getElementById('wishText').value = text;
+            document.getElementById('wishText').focus();
+        };
+
+        document.getElementById('wishForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const toast = document.getElementById('wishToast');
+            document.getElementById('wishForm').reset();
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        });
+
+        // ── Gift Modal ─────────────────────────────────────────────────────
+        const giftData = {
+            vcb: { bank: 'VIETCOMBANK', holder: 'NGUYỄN HOÀNG VIẾT', stk: '0123456789' },
+            tp:  { bank: 'TPBANK', holder: 'TRẦN TRANG HOA', stk: '9876543210' }
+        };
+        let currentStk = '';
+
+        window.openGiftModal = (id) => {
+            const d = giftData[id];
+            document.getElementById('modalBank').textContent = d.bank;
+            document.getElementById('modalHolder').textContent = d.holder;
+            document.getElementById('modalStk').textContent = d.stk;
+            currentStk = d.stk;
+            document.getElementById('copyBtn').textContent = 'Sao chép STK';
+            document.getElementById('copyBtn').classList.remove('copied');
+            document.getElementById('giftModal').classList.add('open');
+        };
+
+        window.closeGiftModal = () => {
+            document.getElementById('giftModal').classList.remove('open');
+        };
+
+        document.getElementById('giftModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('giftModal')) closeGiftModal();
+        });
+
+        window.copyStk = () => {
+            navigator.clipboard.writeText(currentStk).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = 'Đã sao chép ✓';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Sao chép STK';
+                    btn.classList.remove('copied');
+                }, 2500);
+            }).catch(() => {
+                // Fallback
+                const ta = document.createElement('textarea');
+                ta.value = currentStk;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                ta.remove();
+                document.getElementById('copyBtn').textContent = 'Đã sao chép ✓';
+                document.getElementById('copyBtn').classList.add('copied');
+            });
+        };
+
+        // ── Heart Particles ────────────────────────────────────────────────
+        const heartsEl = document.getElementById('heartsContainer');
+        const heartChars = ['💗','🌸','✿','❤️','💕'];
+        for (let i = 0; i < 12; i++) {
+            const h = document.createElement('div');
+            h.className = 'heart-particle';
+            h.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+            h.style.cssText = `
+                left: ${Math.random() * 100}%;
+                bottom: 0;
+                font-size: ${Math.random() * 14 + 10}px;
+                animation-duration: ${Math.random() * 5 + 6}s;
+                animation-delay: ${Math.random() * 5}s;
+            `;
+            heartsEl.appendChild(h);
+        }
+
+    })();
+    </script>
+</body>
+</html>
