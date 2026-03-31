@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Minh Đức & Thuỳ Linh — Wedding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+/* ============================================
+   BLANC ATELIER v2 — Arch + Polaroid + Timeline
+   ============================================ */
+:root {
+  --gold: #C8B070;
+  --gold-dim: rgba(200,176,112,0.25);
+  --text: #2D2D2D;
+  --text-light: #9C9590;
+  --bg: #FAFAFA;
+  --cream: #F5F0E8;
+  --white: #FFFFFF;
+  --dark: #111111;
+  --font-heading: 'Cormorant Garamond', 'Georgia', serif;
+  --font-body: 'Quicksand', sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+img { max-width: 100%; height: auto; display: block; }
+.wrap { max-width: 600px; margin: 0 auto; padding: 0 24px; }
+.tc { text-align: center; }
+
+/* --- Typography --- */
+.lbl { font-size: 0.58rem; font-weight: 500; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); }
+.gold-line { width: 45px; height: 1px; background: var(--gold); margin: 0.8rem auto; }
+.sec-title { font-family: var(--font-heading); font-size: clamp(1.4rem, 5vw, 2rem); font-weight: 400; font-style: italic; }
+
+/* --- Arch Photo Shape --- */
+.arch { border-radius: 200px 200px 6px 6px; overflow: hidden; }
+.arch img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+
+/* --- Polaroid Photo --- */
+.polaroid {
+  background: var(--white);
+  padding: 6px 6px 28px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
+}
+.polaroid img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center 25%; }
+.polaroid-caption {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--text-light);
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* --- Cream Section --- */
+.sec-cream { background: var(--cream); }
+
+/* --- Reveal Animations --- */
+.rv { opacity: 0; transform: translateY(35px); transition: opacity 1.2s ease, transform 1.2s var(--ease); }
+.rv.vis { opacity: 1; transform: translateY(0); }
+.rv-clip { clip-path: inset(100% 0 0 0); transition: clip-path 1.4s cubic-bezier(0.77, 0, 0.175, 1); }
+.rv-clip.vis { clip-path: inset(0 0 0 0); }
+.rv-zoom { opacity: 0; transform: scale(1.12); transition: opacity 1.2s ease, transform 1.6s var(--ease); }
+.rv-zoom.vis { opacity: 1; transform: scale(1); }
+.rv-blur { opacity: 0; filter: blur(10px); transition: opacity 1s ease, filter 1.4s ease; }
+.rv-blur.vis { opacity: 1; filter: blur(0); }
+.d1 { transition-delay: 0.15s; } .d2 { transition-delay: 0.3s; } .d3 { transition-delay: 0.45s; } .d4 { transition-delay: 0.6s; }
+
+/* ============================================
+   ENVELOPE — Cinema Letterbox
+   ============================================ */
+.env { position: fixed; inset: 0; z-index: 9999; background: var(--dark); cursor: pointer; overflow: hidden; transition: opacity 0.6s 1.6s; }
+.env-bg { position: absolute; inset: 0; }
+.env-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; opacity: 0.35; filter: blur(1.5px) saturate(0.7); animation: kb 14s ease-in-out infinite alternate; }
+@keyframes kb { from{transform:scale(1.08)} to{transform:scale(1)} }
+.bar { position: absolute; left: 0; right: 0; height: 50%; background: var(--dark); z-index: 2; transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1); }
+.bar-t { top: 0; } .bar-b { bottom: 0; }
+.env-frame { position: absolute; top: 16vh; bottom: 16vh; left: 16px; right: 16px; border: 1px solid var(--gold-dim); z-index: 3; pointer-events: none; transition: opacity 0.5s; }
+.env-c { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 4; text-align: center; color: var(--bg); padding: 0 32px; transition: opacity 0.8s; }
+.env-names { font-family: var(--font-heading); font-size: clamp(1.8rem, 7vw, 3.2rem); font-weight: 300; font-style: italic; letter-spacing: 0.05em; line-height: 1.4; margin: 0.8rem 0; }
+.env-names .amp { display: block; font-size: 0.5em; color: var(--gold); font-style: normal; letter-spacing: 0.3em; margin: 0.2rem 0; }
+.tap { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(250,250,250,0.45); margin-top: 1.5rem; animation: br 2.5s ease-in-out infinite; }
+@keyframes br { 0%,100%{opacity:0.4} 50%{opacity:1} }
+.env.opened .bar-t { transform: translateY(-100%); }
+.env.opened .bar-b { transform: translateY(100%); }
+.env.opened .env-c, .env.opened .env-frame { opacity: 0; }
+.env.opened { opacity: 0; pointer-events: none; }
+
+/* ============================================
+   HERO — Arch Photo Centered
+   ============================================ */
+.hero { padding: 0 0 2rem; text-align: center; }
+.hero-arch {
+  width: clamp(260px, 65vw, 340px);
+  aspect-ratio: 3/4;
+  margin: 0 auto;
+  border-radius: 200px 200px 6px 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+}
+.hero-arch img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.hero-info { padding: 1.5rem 24px 0; }
+.hero-names { font-family: var(--font-heading); font-size: clamp(2rem, 8vw, 3.2rem); font-weight: 300; font-style: italic; line-height: 1.3; }
+.hero-names .amp { display: block; font-size: 0.35em; color: var(--gold); font-style: normal; letter-spacing: 0.6em; margin: 0.15rem 0; }
+.hero-date { font-size: 0.65rem; letter-spacing: 0.5em; color: var(--text-light); margin-top: 0.8rem; }
+.scroll-hint { width: 1px; height: 35px; background: var(--gold); margin: 1.5rem auto 0; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+
+/* ============================================
+   QUOTE
+   ============================================ */
+.quote { padding: 2.5rem 0; position: relative; }
+.quote-deco { position: absolute; font-family: var(--font-heading); font-size: 5rem; color: var(--gold-dim); line-height: 1; pointer-events: none; }
+.quote-deco.open { top: 0.5rem; left: clamp(8px, 3vw, 40px); }
+.quote-deco.close { bottom: -1rem; right: clamp(8px, 3vw, 40px); }
+.quote-text { font-family: var(--font-heading); font-size: clamp(1.1rem, 3.8vw, 1.5rem); font-weight: 300; font-style: italic; line-height: 1.9; max-width: 440px; margin: 0 auto; }
+.quote-attr { font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--text-light); margin-top: 1rem; }
+
+/* ============================================
+   COUNTDOWN
+   ============================================ */
+.cd-sec { padding: 2rem 0; }
+.cd-grid { display: flex; justify-content: center; gap: 10px; margin-top: 1rem; }
+.cd-box { border: 1px solid var(--gold-dim); padding: 0.8rem 0.6rem; min-width: 62px; text-align: center; background: var(--white); }
+.cd-num { font-family: var(--font-heading); font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 300; display: block; }
+.cd-lbl { font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-light); margin-top: 0.2rem; display: block; }
+
+/* ============================================
+   LOVE STORY — Vertical Timeline with Arch Photos
+   ============================================ */
+.story { padding: 2rem 0 1rem; }
+.timeline { position: relative; max-width: 500px; margin: 1.5rem auto 0; padding: 0 20px; }
+/* Gold vertical line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--gold-dim);
+  transform: translateX(-50%);
+}
+.milestone {
+  position: relative;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+/* Gold dot on timeline */
+.milestone::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.ms-photo {
+  width: clamp(180px, 50vw, 240px);
+  aspect-ratio: 3/4;
+  margin: 1.2rem auto 0.8rem;
+  border-radius: 140px 140px 6px 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.ms-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+/* Alternate photo offset for organic feel */
+.milestone:nth-child(odd) .ms-photo { transform: translateX(-12px) rotate(-1deg); }
+.milestone:nth-child(even) .ms-photo { transform: translateX(12px) rotate(0.8deg); }
+.ms-year { font-family: var(--font-heading); font-size: clamp(1.4rem, 4.5vw, 1.8rem); font-weight: 300; color: var(--gold); }
+.ms-title { font-family: var(--font-heading); font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 500; font-style: italic; margin: 0.2rem 0; }
+.ms-desc { font-size: 0.78rem; color: var(--text-light); line-height: 1.7; max-width: 280px; margin: 0 auto; }
+
+/* ============================================
+   EVENTS
+   ============================================ */
+.events { padding: 2.5rem 0; }
+.ev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 1.5rem; }
+.ev-card {
+  background: var(--white);
+  border-top: 2px solid var(--gold);
+  padding: clamp(1.2rem, 3.5vw, 1.8rem);
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.ev-type { font-size: 0.5rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+.ev-name { font-family: var(--font-heading); font-size: clamp(1rem, 3vw, 1.3rem); font-weight: 500; font-style: italic; margin-bottom: 0.8rem; }
+.ev-row { font-size: 0.75rem; color: var(--text-light); margin-bottom: 0.3rem; display: flex; align-items: center; justify-content: center; gap: 5px; }
+.ev-row i { color: var(--gold); width: 13px; height: 13px; }
+.ev-addr { font-size: 0.7rem; color: var(--text-light); margin-top: 0.4rem; }
+
+/* ============================================
+   FAMILY
+   ============================================ */
+.family { padding: 2rem 0; }
+.fam-grid { display: grid; grid-template-columns: 1fr auto 1fr; margin-top: 1.5rem; align-items: start; }
+.fam-side { text-align: center; }
+.fam-label { font-size: 0.5rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+.fam-name { font-family: var(--font-heading); font-size: clamp(0.9rem, 2.8vw, 1.1rem); font-weight: 400; font-style: italic; line-height: 2; }
+.fam-div { width: 1px; height: 60px; background: var(--gold-dim); margin: 0 clamp(10px, 2.5vw, 28px); align-self: center; }
+
+/* ============================================
+   GALLERY — Scattered Polaroids
+   ============================================ */
+.gallery { padding: 2.5rem 0 1.5rem; }
+.pol-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 12px;
+  max-width: 420px;
+  margin: 1.5rem auto 0;
+  padding: 0 16px;
+}
+.pol-grid .polaroid { cursor: pointer; transition: transform 0.4s ease; }
+.pol-grid .polaroid:hover { transform: scale(1.02) !important; z-index: 2; }
+.pol-grid .polaroid:nth-child(1) { transform: rotate(-2deg); }
+.pol-grid .polaroid:nth-child(2) { transform: rotate(1.5deg); margin-top: 20px; }
+.pol-grid .polaroid:nth-child(3) { transform: rotate(1deg); }
+.pol-grid .polaroid:nth-child(4) { transform: rotate(-1.5deg); margin-top: -10px; }
+.pol-grid .polaroid:nth-child(5) { transform: rotate(0.5deg); grid-column: 1 / -1; max-width: 70%; margin: 0 auto; }
+.pol-grid .polaroid:nth-child(5) img { aspect-ratio: 4/3; }
+.pol-grid .polaroid:nth-child(6) { transform: rotate(-1deg); }
+.pol-grid .polaroid:nth-child(7) { transform: rotate(2deg); margin-top: 15px; }
+.pol-grid .polaroid:nth-child(8) { transform: rotate(-0.5deg); grid-column: 1 / -1; max-width: 75%; margin: 0 auto; }
+.pol-grid .polaroid:nth-child(8) img { aspect-ratio: 4/3; object-position: center 30%; }
+.pol-grid .polaroid:nth-child(9) { transform: rotate(1deg); grid-column: 1 / -1; max-width: 60%; margin: 0 auto; }
+
+/* ============================================
+   RSVP
+   ============================================ */
+.rsvp { padding: 2.5rem 0; }
+.rsvp form { max-width: 420px; margin: 1.2rem auto 0; }
+.rsvp input, .rsvp select, .rsvp textarea {
+  width: 100%; padding: 11px 14px; border: 1px solid var(--gold-dim); background: transparent;
+  font-family: var(--font-body); font-size: 0.82rem; font-weight: 300; color: var(--text);
+  margin-bottom: 10px; outline: none; transition: border-color 0.3s;
+}
+.rsvp input:focus, .rsvp select:focus, .rsvp textarea:focus { border-color: var(--gold); }
+.rsvp textarea { min-height: 80px; resize: vertical; }
+.btn-dark {
+  width: 100%; padding: 13px; background: var(--text); color: var(--bg); border: none;
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 500;
+  letter-spacing: 0.4em; text-transform: uppercase; cursor: pointer; transition: background 0.3s;
+}
+.btn-dark:hover { background: var(--gold); }
+.rsvp-ok { text-align: center; display: none; padding: 1.5rem; }
+.rsvp-ok.show { display: block; }
+
+/* ============================================
+   GUESTBOOK
+   ============================================ */
+.gbook { padding: 2rem 0; }
+.wish-item { border-bottom: 1px solid var(--gold-dim); padding: 0.8rem 0; }
+.wish-item:last-child { border-bottom: none; }
+.wish-name { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 500; font-style: italic; }
+.wish-text { font-size: 0.78rem; color: var(--text-light); line-height: 1.6; margin-top: 0.15rem; }
+.gbook form { margin-top: 1rem; }
+.gbook input, .gbook textarea {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--gold-dim); background: transparent;
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 300; color: var(--text);
+  margin-bottom: 8px; outline: none;
+}
+.gbook input:focus, .gbook textarea:focus { border-color: var(--gold); }
+.gbook textarea { min-height: 60px; resize: vertical; }
+
+/* ============================================
+   CALENDAR
+   ============================================ */
+.cal {
+  padding: 2.5rem 0;
+  background: url('../../../shared/images/wedding/backgrounds/floral-photo/bg-floral-photo-petals-pink-soft.webp') center/cover no-repeat;
+}
+
+/* ============================================
+   CLOSING
+   ============================================ */
+.closing { padding: 2rem 0 0; text-align: center; }
+.closing-photo {
+  width: clamp(220px, 55vw, 280px);
+  aspect-ratio: 3/4;
+  margin: 1.2rem auto 0;
+  border-radius: 140px 140px 6px 6px;
+  overflow: hidden;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.08);
+}
+.closing-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; }
+.closing-names { font-family: var(--font-heading); font-size: clamp(1.4rem, 5vw, 2rem); font-weight: 300; font-style: italic; margin-top: 1.2rem; }
+.closing-ft { padding: 1.5rem 0; font-size: 0.55rem; letter-spacing: 0.3em; color: var(--text-light); }
+
+/* ============================================
+   MUSIC TOGGLE
+   ============================================ */
+.mu-btn {
+  position: fixed; bottom: 20px; right: 20px; z-index: 100;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--text); color: var(--bg); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15); transition: background 0.3s;
+}
+.mu-btn:hover { background: var(--gold); }
+.mu-btn .off { display: none; }
+.mu-btn.muted .on { display: none; }
+.mu-btn.muted .off { display: block; }
+
+/* --- Light Leak --- */
+.ll { position: fixed; width: 45vw; height: 45vw; border-radius: 50%; background: radial-gradient(circle, rgba(200,176,112,0.05) 0%, transparent 65%); pointer-events: none; z-index: 0; animation: drift 28s ease-in-out infinite; }
+@keyframes drift { 0%{top:10%;left:-15%} 25%{top:50%;left:75%} 50%{top:80%;left:10%} 75%{top:25%;left:85%} 100%{top:10%;left:-15%} }
+
+/* --- Sparkle --- */
+.spk { position: fixed; pointer-events: none; z-index: 1; animation: sf 3s ease-out forwards; }
+@keyframes sf { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-50px) scale(0.3)} }
+
+/* --- Decorative scattered icons --- */
+.deco-abs { position: absolute; pointer-events: none; opacity: 0.12; z-index: 0; }
+.deco-abs img { width: 100%; height: auto; }
+.sec-rel { position: relative; overflow: hidden; }
+.sec-rel > *:not(.deco-abs) { position: relative; z-index: 1; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .ev-grid { grid-template-columns: 1fr; }
+  .fam-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .fam-div { width: 40px; height: 1px; margin: 0 auto; }
+}
+@media (max-width: 440px) {
+  .wrap { padding: 0 20px; }
+  .cd-box { min-width: 55px; padding: 0.7rem 0.5rem; }
+  .ms-photo { width: clamp(160px, 50vw, 200px); }
+}
+</style>
+</head>
+<body>
+
+<!-- ======== ENVELOPE ======== -->
+<div class="env" id="envelope">
+  <div class="env-bg"><img src="../../../shared/images/wedding/trắng-2/621823044_1488054073329518_7596570888375835136_n.webp" alt=""></div>
+  <div class="bar bar-t"></div>
+  <div class="bar bar-b"></div>
+  <div class="env-frame"></div>
+  <div class="env-c">
+    <span class="lbl">THE WEDDING OF</span>
+    <div class="gold-line"></div>
+    <div class="env-names">Minh Đức <span class="amp">&</span> Thuỳ Linh</div>
+    <div class="gold-line"></div>
+    <p class="tap">Nhấn để mở</p>
+  </div>
+</div>
+
+<!-- ======== HERO — Arch Photo ======== -->
+<section class="hero tc sec-rel" id="hero">
+  <!-- Decorative bg elements -->
+  <div class="deco-abs" style="top:8%;left:-8px;width:100px;transform:rotate(-25deg);opacity:0.35"><img src="../../../shared/images/wedding/icons/eucalyptus-lineart-gold.webp" alt=""></div>
+  <div class="deco-abs" style="top:5%;right:-10px;width:95px;transform:rotate(20deg) scaleX(-1);opacity:0.35"><img src="../../../shared/images/wedding/icons/eucalyptus-lineart-gold.webp" alt=""></div>
+  <div class="deco-abs" style="bottom:18%;left:5px;width:75px;transform:rotate(-40deg);opacity:0.3"><img src="../../../shared/images/wedding/icons/olive-branch-gold.webp" alt=""></div>
+  <div class="deco-abs" style="bottom:20%;right:5px;width:75px;transform:rotate(40deg) scaleX(-1);opacity:0.3"><img src="../../../shared/images/wedding/icons/olive-branch-gold.webp" alt=""></div>
+  <div class="deco-abs" style="top:45%;left:10px;width:45px;opacity:0.2"><img src="../../../shared/images/wedding/icons/elegant-lineart-floral-wreath.webp" alt=""></div>
+  <div class="deco-abs" style="top:42%;right:10px;width:45px;opacity:0.2"><img src="../../../shared/images/wedding/icons/elegant-lineart-floral-wreath.webp" alt=""></div>
+
+  <div class="hero-arch rv-zoom">
+    <img src="../../../shared/images/wedding/trắng-2/619327035_1488054216662837_7960497226571341314_n.webp" alt="Minh Đức & Thuỳ Linh">
+  </div>
+  <div class="hero-info">
+    <span class="lbl rv d1">THE WEDDING OF</span>
+    <div class="gold-line rv d2"></div>
+    <h1 class="hero-names rv d2">Minh Đức <span class="amp">&</span> Thuỳ Linh</h1>
+    <p class="hero-date rv d3">18 . 07 . 2026</p>
+    <div class="scroll-hint rv d4"></div>
+  </div>
+</section>
+
+<!-- ======== QUOTE ======== -->
+<section class="quote sec-cream sec-rel rv">
+  <span class="quote-deco open">"</span>
+  <span class="quote-deco close">"</span>
+  <div class="wrap tc">
+    <p class="quote-text">Tình yêu không phải là nhìn nhau, mà là cùng nhìn về một hướng.</p>
+    <p class="quote-attr">— ANTOINE DE SAINT-EXUPÉRY —</p>
+  </div>
+</section>
+
+<!-- ======== COUNTDOWN ======== -->
+<section class="cd-sec tc rv" id="countdown">
+  <div class="wrap">
+    <span class="lbl">SAVE THE DATE</span>
+    <div class="gold-line"></div>
+    <div class="cd-grid">
+      <div class="cd-box"><span class="cd-num" id="days">00</span><span class="cd-lbl">Ngày</span></div>
+      <div class="cd-box"><span class="cd-num" id="hours">00</span><span class="cd-lbl">Giờ</span></div>
+      <div class="cd-box"><span class="cd-num" id="minutes">00</span><span class="cd-lbl">Phút</span></div>
+      <div class="cd-box"><span class="cd-num" id="seconds">00</span><span class="cd-lbl">Giây</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== LOVE STORY — Timeline ======== -->
+<section class="story sec-cream sec-rel" id="love-story">
+  <!-- Scattered decorations along timeline -->
+  <div class="deco-abs" style="top:12%;left:5px;width:60px;transform:rotate(-30deg);opacity:0.2"><img src="../../../shared/images/wedding/icons/eucalyptus-lineart-gold.webp" alt=""></div>
+  <div class="deco-abs" style="top:30%;right:5px;width:55px;transform:rotate(25deg) scaleX(-1);opacity:0.18"><img src="../../../shared/images/wedding/icons/olive-branch-gold.webp" alt=""></div>
+  <div class="deco-abs" style="top:55%;left:8px;width:50px;transform:rotate(-15deg);opacity:0.18"><img src="../../../shared/images/wedding/icons/olive-branch-gold.webp" alt=""></div>
+  <div class="deco-abs" style="top:75%;right:8px;width:55px;transform:rotate(30deg) scaleX(-1);opacity:0.2"><img src="../../../shared/images/wedding/icons/eucalyptus-lineart-gold.webp" alt=""></div>
+
+  <div class="wrap tc rv">
+    <span class="lbl">OUR STORY</span>
+    <div class="gold-line"></div>
+    <p class="sec-title">Câu Chuyện Tình Yêu</p>
+  </div>
+
+  <div class="timeline">
+    <!-- 1 — Heart icon -->
+    <div class="milestone rv">
+      <div class="ms-photo">
+        <img src="../../../shared/images/wedding/trắng-2/619152311_1488062116662047_7164231694490086148_n.webp" alt="">
+      </div>
+      <img class="ms-icon" src="../../../shared/images/wedding/icons/elegant-lineart-heart.webp" alt="" style="width:36px;margin:0.3rem auto;opacity:0.35">
+      <div class="ms-year">2020</div>
+      <h3 class="ms-title">Lần Đầu Gặp Gỡ</h3>
+      <p class="ms-desc">Tình cờ gặp nhau tại buổi họp nhóm đại học. Một ánh nhìn, một nụ cười — và thế giới bỗng chậm lại.</p>
+    </div>
+    <!-- 2 — Bouquet icon -->
+    <div class="milestone rv">
+      <div class="ms-photo">
+        <img src="../../../shared/images/wedding/trắng-2/619191857_1488054026662856_2323264759865152076_n.webp" alt="">
+      </div>
+      <img class="ms-icon" src="../../../shared/images/wedding/icons/elegant-lineart-bouquet.webp" alt="" style="width:32px;margin:0.3rem auto;opacity:0.35">
+      <div class="ms-year">2021</div>
+      <h3 class="ms-title">Bắt Đầu Yêu</h3>
+      <p class="ms-desc">Từ bạn bè trở thành người yêu. Những cuộc hẹn đầu tiên, tin nhắn khuya, và lời hứa sẽ luôn bên nhau.</p>
+    </div>
+    <!-- 3 — Champagne icon -->
+    <div class="milestone rv">
+      <div class="ms-photo">
+        <img src="../../../shared/images/wedding/trắng-2/619295400_1488054099996182_8905608008651989380_n.webp" alt="">
+      </div>
+      <img class="ms-icon" src="../../../shared/images/wedding/icons/elegant-lineart-champagne.webp" alt="" style="width:30px;margin:0.3rem auto;opacity:0.35">
+      <div class="ms-year">2022</div>
+      <h3 class="ms-title">Những Ngày Bên Nhau</h3>
+      <p class="ms-desc">Cùng nhau đi qua những mùa. Mỗi chuyến đi, mỗi bữa cơm — đều trở thành kỷ niệm quý giá nhất.</p>
+    </div>
+    <!-- 4 — Rings icon -->
+    <div class="milestone rv">
+      <div class="ms-photo">
+        <img src="../../../shared/images/wedding/trắng-2/622589584_1488054156662843_7305538924174892155_n.webp" alt="">
+      </div>
+      <img class="ms-icon" src="../../../shared/images/wedding/icons/elegant-lineart-rings.webp" alt="" style="width:34px;margin:0.3rem auto;opacity:0.35">
+      <div class="ms-year">2024</div>
+      <h3 class="ms-title">Lời Cầu Hôn</h3>
+      <p class="ms-desc">Một buổi tối bất ngờ dưới ánh nến. Anh quỳ gối — "Em đồng ý!" — ba tiếng ấy làm tim anh vỡ oà.</p>
+    </div>
+    <!-- 5 — Cake icon -->
+    <div class="milestone rv">
+      <div class="ms-photo">
+        <img src="../../../shared/images/wedding/trắng-2/620125932_1488054126662846_6083723595423355361_n.webp" alt="">
+      </div>
+      <img class="ms-icon" src="../../../shared/images/wedding/icons/elegant-lineart-cake.webp" alt="" style="width:30px;margin:0.3rem auto;opacity:0.35">
+      <div class="ms-year">2026</div>
+      <h3 class="ms-title">Về Chung Một Nhà</h3>
+      <p class="ms-desc">Cuối cùng cũng đến lúc viết tiếp câu chuyện — không phải hai người, mà là một gia đình.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======== EVENTS ======== -->
+<section class="events sec-rel" id="events">
+  <div class="deco-abs" style="top:-10px;left:-15px;width:80px;transform:rotate(-20deg)"><img src="../../../shared/images/wedding/icons/olive-branch-gold.webp" alt=""></div>
+  <div class="deco-abs" style="bottom:10px;right:-15px;width:80px;transform:rotate(160deg) scaleX(-1)"><img src="../../../shared/images/wedding/icons/olive-branch-gold.webp" alt=""></div>
+  <div class="wrap tc rv">
+    <span class="lbl">CELEBRATION</span>
+    <div class="gold-line"></div>
+    <p class="sec-title">Lễ Cưới</p>
+  </div>
+  <div class="wrap">
+    <div class="ev-grid">
+      <div class="ev-card rv d1">
+        <div class="ev-type">LỄ VU QUY</div>
+        <h3 class="ev-name">Nhà Gái</h3>
+        <div class="ev-row"><i data-lucide="clock" width="13" height="13"></i><span>08:00 — 18/07/2026</span></div>
+        <div class="ev-row"><i data-lucide="map-pin" width="13" height="13"></i><span>Tư gia nhà gái</span></div>
+        <p class="ev-addr">123 Trần Hưng Đạo, Q.5, TP.HCM</p>
+      </div>
+      <div class="ev-card rv d2">
+        <div class="ev-type">LỄ THÀNH HÔN</div>
+        <h3 class="ev-name">Nhà Trai</h3>
+        <div class="ev-row"><i data-lucide="clock" width="13" height="13"></i><span>17:00 — 18/07/2026</span></div>
+        <div class="ev-row"><i data-lucide="map-pin" width="13" height="13"></i><span>White Palace</span></div>
+        <p class="ev-addr">588 Phạm Văn Đồng, Thủ Đức, TP.HCM</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FAMILY ======== -->
+<section class="family sec-cream sec-rel" id="family">
+  <div class="deco-abs" style="top:50%;left:50%;width:55px;transform:translate(-50%,-50%);opacity:0.08"><img src="../../../shared/images/wedding/icons/elegant-lineart-heart.webp" alt=""></div>
+  <div class="wrap tc rv">
+    <span class="lbl">OUR FAMILIES</span>
+    <div class="gold-line"></div>
+    <p class="sec-title">Gia Đình</p>
+  </div>
+  <div class="wrap">
+    <div class="fam-grid rv">
+      <div class="fam-side">
+        <div class="fam-label">NHÀ TRAI</div>
+        <p class="fam-name">Ông Trần Văn Hùng</p>
+        <p class="fam-name">Bà Phạm Thị Mai</p>
+      </div>
+      <div class="fam-div"></div>
+      <div class="fam-side">
+        <div class="fam-label">NHÀ GÁI</div>
+        <p class="fam-name">Ông Nguyễn Văn Thành</p>
+        <p class="fam-name">Bà Lê Thị Hoa</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== GALLERY — Scattered Polaroids ======== -->
+<section class="gallery" id="gallery">
+  <div class="wrap tc rv">
+    <span class="lbl">MOMENTS</span>
+    <div class="gold-line"></div>
+    <p class="sec-title">Khoảnh Khắc</p>
+  </div>
+  <div class="pol-grid rv" id="galleryGrid">
+    <div class="polaroid"><img src="../../../shared/images/wedding/trắng-2/619077666_1488053899996202_8605926157434200602_n.webp" alt=""></div>
+    <div class="polaroid"><img src="../../../shared/images/wedding/trắng-2/619295400_1488054099996182_8905608008651989380_n.webp" alt=""></div>
+    <div class="polaroid"><img src="../../../shared/images/wedding/trắng-2/619191857_1488054026662856_2323264759865152076_n.webp" alt=""></div>
+    <div class="polaroid"><img src="../../../shared/images/wedding/trắng-2/620125932_1488054126662846_6083723595423355361_n.webp" alt=""></div>
+    <div class="polaroid"><img src="../../../shared/images/wedding/trắng-2/619327035_1488054216662837_7960497226571341314_n.webp" alt="" style="object-position:center 20%"></div>
+    <div class="polaroid"><img src="../../../shared/images/wedding/trắng-2/622589584_1488054156662843_7305538924174892155_n.webp" alt=""></div>
+    <div class="polaroid"><img src="../../../shared/images/wedding/trắng-2/622873643_1488054183329507_7905329686456968241_n.webp" alt="" style="object-position:center 10%"></div>
+    <div class="polaroid"><img src="../../../shared/images/wedding/trắng-2/621823044_1488054073329518_7596570888375835136_n.webp" alt="" style="object-position:center 30%"></div>
+    <div class="polaroid"><img src="../../../shared/images/wedding/trắng-2/619152311_1488062116662047_7164231694490086148_n.webp" alt=""></div>
+  </div>
+</section>
+
+<!-- ======== RSVP ======== -->
+<section class="rsvp sec-cream" id="rsvp">
+  <div class="wrap tc rv">
+    <span class="lbl">RSVP</span>
+    <div class="gold-line"></div>
+    <p class="sec-title">Xác Nhận Tham Dự</p>
+    <p style="font-size:0.8rem;color:var(--text-light);margin-top:0.3rem">Sự hiện diện của bạn là niềm vinh hạnh của chúng tôi</p>
+  </div>
+  <div class="wrap">
+    <form id="rsvpForm" class="rv">
+      <input type="text" name="name" placeholder="Họ và tên *" required>
+      <input type="tel" name="phone" placeholder="Số điện thoại">
+      <select name="guests"><option value="1">1 khách</option><option value="2">2 khách</option><option value="3">3 khách</option><option value="4">4 khách</option><option value="5">5 khách</option></select>
+      <textarea name="message" placeholder="Lời nhắn gửi đến cặp đôi..."></textarea>
+      <button type="submit" class="btn-dark">Xác Nhận</button>
+    </form>
+    <div class="rsvp-ok" id="rsvpOk">
+      <i data-lucide="heart" style="color:var(--gold);width:40px;height:40px"></i>
+      <p class="sec-title" style="margin-top:0.8rem">Cảm ơn bạn!</p>
+      <p style="font-size:0.8rem;color:var(--text-light)">Chúng tôi rất mong được gặp bạn.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======== GUESTBOOK ======== -->
+<section class="gbook sec-rel" id="wishes">
+  <div class="deco-abs" style="bottom:0;right:-5px;width:80px;opacity:0.08"><img src="../../../shared/images/wedding/icons/elegant-lineart-champagne.webp" alt=""></div>
+  <div class="wrap tc rv">
+    <span class="lbl">GUESTBOOK</span>
+    <div class="gold-line"></div>
+    <p class="sec-title">Sổ Lưu Bút</p>
+  </div>
+  <div class="wrap">
+    <div id="wishesList" class="rv">
+      <div class="wish-item"><p class="wish-name">Ngọa Long</p><p class="wish-text">Chúc hai bạn trăm năm hạnh phúc, sớm có tin vui!</p></div>
+      <div class="wish-item"><p class="wish-name">Phượng Sồ</p><p class="wish-text">Happy Wedding! Mong hai bạn luôn yêu thương nhau.</p></div>
+      <div class="wish-item"><p class="wish-name">Doremon</p><p class="wish-text">Chúc mừng đám cưới! Ước hai bạn mãi bên nhau.</p></div>
+    </div>
+    <form id="wishesForm" class="rv">
+      <input type="text" name="wishName" placeholder="Tên của bạn *" required>
+      <textarea name="wishText" placeholder="Lời chúc gửi đến cặp đôi..."></textarea>
+      <button type="submit" class="btn-dark">Gửi Lời Chúc</button>
+    </form>
+  </div>
+</section>
+
+<!-- ======== CALENDAR ======== -->
+<section class="cal sec-rel" id="calendar">
+  <div class="wrap tc rv">
+    <span class="lbl">MARK YOUR CALENDAR</span>
+    <div class="gold-line"></div>
+    <div id="calendarContainer"></div>
+  </div>
+</section>
+
+<!-- ======== CLOSING ======== -->
+<section class="closing" id="closing">
+  <div class="wrap tc rv">
+    <span class="lbl">THANK YOU</span>
+    <div class="gold-line"></div>
+    <p class="closing-names">Minh Đức & Thuỳ Linh</p>
+    <p class="hero-date">18 . 07 . 2026</p>
+  </div>
+  <div class="closing-photo rv-zoom">
+    <img src="../../../shared/images/wedding/trắng-2/622873643_1488054183329507_7905329686456968241_n.webp" alt="">
+  </div>
+  <p class="closing-ft tc">MADE WITH ♥</p>
+</section>
+
+<!-- ======== MUSIC ======== -->
+<button class="mu-btn muted" id="musicToggle">
+  <i data-lucide="volume-2" class="on" width="18" height="18"></i>
+  <i data-lucide="volume-x" class="off" width="18" height="18"></i>
+</button>
+<audio id="bgMusic" loop preload="auto">
+  <source src="../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg">
+</audio>
+<div class="ll"></div>
+
+<!-- ======== SCRIPTS ======== -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  lucide.createIcons();
+  document.body.style.overflow = 'hidden';
+
+  /* --- Envelope --- */
+  document.getElementById('envelope').addEventListener('click', function() {
+    this.classList.add('opened');
+    document.body.style.overflow = '';
+    const a = document.getElementById('bgMusic');
+    if (a) { a.volume = 0.3; a.play().then(() => { document.getElementById('musicToggle').classList.remove('muted'); }).catch(() => {}); }
+    setTimeout(startSparkles, 800);
+  });
+
+  /* --- Music --- */
+  const mb = document.getElementById('musicToggle'), au = document.getElementById('bgMusic');
+  mb.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (au.paused) { au.play(); this.classList.remove('muted'); } else { au.pause(); this.classList.add('muted'); }
+  });
+
+  /* --- Countdown --- */
+  const wd = new Date('2026-07-18T08:00:00').getTime();
+  function uc() {
+    const d = wd - Date.now();
+    if (d <= 0) return;
+    document.getElementById('days').textContent = String(Math.floor(d/864e5)).padStart(2,'0');
+    document.getElementById('hours').textContent = String(Math.floor(d%864e5/36e5)).padStart(2,'0');
+    document.getElementById('minutes').textContent = String(Math.floor(d%36e5/6e4)).padStart(2,'0');
+    document.getElementById('seconds').textContent = String(Math.floor(d%6e4/1e3)).padStart(2,'0');
+  }
+  uc(); setInterval(uc, 1000);
+
+  /* --- Scroll Reveal --- */
+  const obs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis', 'visible', 'in-view'); }); }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.rv, .rv-clip, .rv-zoom, .rv-blur').forEach(el => obs.observe(el));
+
+  /* --- Lightbox --- */
+  const imgs = Array.from(document.querySelectorAll('#galleryGrid .polaroid img')).map(i => i.src);
+  let lbOpen = false, ci = 0;
+  const lb = document.createElement('div');
+  lb.style.cssText = 'position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.95);display:none;align-items:center;justify-content:center;cursor:pointer';
+  lb.innerHTML = '<img style="max-width:90%;max-height:85vh;object-fit:contain" alt=""><span style="position:absolute;top:16px;right:20px;color:#fff;font-size:2rem;font-weight:300">&times;</span><span style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.4);font-size:0.65rem;letter-spacing:0.3em" id="lbc"></span>';
+  document.body.appendChild(lb);
+  const li = lb.querySelector('img'), lc = lb.querySelector('#lbc');
+  function olb(i) { ci=i; li.src=imgs[i]; lc.textContent=(i+1)+' / '+imgs.length; lb.style.display='flex'; lbOpen=true; }
+  document.querySelectorAll('#galleryGrid .polaroid').forEach((p,i) => p.addEventListener('click', () => olb(i)));
+  lb.addEventListener('click', () => { lb.style.display='none'; lbOpen=false; });
+  li.addEventListener('click', e => { e.stopPropagation(); ci=(ci+1)%imgs.length; li.src=imgs[ci]; lc.textContent=(ci+1)+' / '+imgs.length; });
+  document.addEventListener('keydown', e => { if (!lbOpen) return; if (e.key==='Escape'){lb.style.display='none';lbOpen=false;} if (e.key==='ArrowRight'){ci=(ci+1)%imgs.length;li.src=imgs[ci];lc.textContent=(ci+1)+' / '+imgs.length;} if (e.key==='ArrowLeft'){ci=(ci-1+imgs.length)%imgs.length;li.src=imgs[ci];lc.textContent=(ci+1)+' / '+imgs.length;} });
+
+  /* --- RSVP --- */
+  document.getElementById('rsvpForm').addEventListener('submit', function(e) { e.preventDefault(); this.style.display='none'; document.getElementById('rsvpOk').classList.add('show'); lucide.createIcons(); });
+
+  /* --- Guestbook --- */
+  document.getElementById('wishesForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const n=this.wishName.value.trim(), t=this.wishText.value.trim();
+    if (!n||!t) return;
+    const el=document.createElement('div'); el.className='wish-item';
+    el.innerHTML='<p class="wish-name">'+n.replace(/</g,'&lt;')+'</p><p class="wish-text">'+t.replace(/</g,'&lt;')+'</p>';
+    document.getElementById('wishesList').appendChild(el);
+    this.reset(); el.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+
+  /* --- Sparkles --- */
+  let spkOn=false;
+  function startSparkles() { spkOn=true; mkSpk(); }
+  function mkSpk() { if (!spkOn) return; const s=document.createElement('div'); s.className='spk'; s.textContent='✦'; s.style.cssText='left:'+Math.random()*100+'vw;top:'+Math.random()*100+'vh;color:rgba(200,176,112,'+(0.3+Math.random()*0.4)+');font-size:'+(8+Math.random()*5)+'px'; document.body.appendChild(s); setTimeout(()=>s.remove(),3000); setTimeout(mkSpk, 2500+Math.random()*3000); }
+
+  /* --- Calendar --- */
+  (function() {
+    const c=document.getElementById('calendarContainer');
+    const ms=['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
+    const ds=['CN','T2','T3','T4','T5','T6','T7'];
+    const fd=new Date(2026,6,1).getDay(), dim=new Date(2026,7,0).getDate();
+    let h='<div style="margin-top:1rem"><p style="font-family:var(--font-heading);font-size:1.2rem;font-style:italic;margin-bottom:0.8rem">'+ms[6]+' 2026</p>';
+    h+='<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;max-width:300px;margin:0 auto">';
+    ds.forEach(d=>{h+='<div style="font-size:0.5rem;letter-spacing:0.15em;color:var(--text-light);padding:3px 0">'+d+'</div>';});
+    for(let i=0;i<fd;i++) h+='<div></div>';
+    for(let d=1;d<=dim;d++){
+      const w=d===18;
+      const s=w?'background:var(--gold);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;margin:0 auto;font-weight:500;font-size:0.8rem':'padding:4px 0;font-size:0.75rem;color:var(--text)';
+      h+='<div style="'+s+'">'+d+'</div>';
+    }
+    h+='</div></div>'; c.innerHTML=h;
+  })();
+});
+</script>
+</body>
+</html>
