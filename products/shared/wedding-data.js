@@ -65,7 +65,11 @@ var WEDDING_DATA = {
             { id: 'bg-frame-ornament-gold-baroque-crown', file: 'frame-ornament/bg-frame-ornament-gold-baroque-crown.webp', name: 'Khung vang baroque vuong mien', category: 'frame-ornament', tags: ['ornament', 'classic', 'luxury', 'formal', 'baroque'], colors: ['gold', 'cream', 'ivory'], usage: ['hero-section', 'full-page', 'cover'] },
             { id: 'bg-floral-photo-petals-pink-soft', file: 'floral-photo/bg-floral-photo-petals-pink-soft.webp', name: 'Nen canh hoa hong pastel photo', category: 'floral-photo', tags: ['floral', 'photo', 'soft', 'romantic', 'petals'], colors: ['pink', 'blush', 'cream', 'nude'], usage: ['full-page', 'section-background'] },
             { id: 'bg-traditional-red-dragon-phoenix', file: 'traditional-red/bg-traditional-red-dragon-phoenix.webp', name: 'Nen truyen thong do rong phuong vang', category: 'traditional-red', tags: ['traditional', 'luxury', 'formal', 'ornament', 'dragon', 'phoenix'], colors: ['red', 'gold'], usage: ['hero-section', 'full-page', 'cover'] },
-            { id: 'bg-floral-watercolor-blue-arch-couple', file: 'floral-watercolor/bg-floral-watercolor-blue-arch-couple.webp', name: 'Cong hoa xanh watercolor co dau chu re', category: 'floral-watercolor', tags: ['watercolor', 'floral', 'romantic', 'elegant', 'couple', 'arch'], colors: ['blue', 'cream', 'gold'], usage: ['hero-section', 'full-page', 'cover'] }
+            { id: 'bg-floral-watercolor-blue-arch-couple', file: 'floral-watercolor/bg-floral-watercolor-blue-arch-couple.webp', name: 'Cong hoa xanh watercolor co dau chu re', category: 'floral-watercolor', tags: ['watercolor', 'floral', 'romantic', 'elegant', 'couple', 'arch'], colors: ['blue', 'cream', 'gold'], usage: ['hero-section', 'full-page', 'cover'] },
+
+            // Batch 2026-03-31 — Backgrounds
+            { id: 'bg-minimalist-lily-emboss-corner', file: 'minimalist-clean/bg-minimalist-lily-emboss-corner.webp', name: 'Hoa ly emboss trang 4 goc', category: 'minimalist-clean', tags: ['minimalist', 'emboss', 'floral', 'lily', 'white', 'elegant', 'clean'], colors: ['white', 'cream', 'ivory'], usage: ['hero-section', 'full-page', 'section-background'] },
+            { id: 'bg-minimalist-rose-emboss-vine', file: 'minimalist-clean/bg-minimalist-rose-emboss-vine.webp', name: 'Hoa hong emboss day leo trang', category: 'minimalist-clean', tags: ['minimalist', 'emboss', 'floral', 'rose', 'vine', 'white', 'elegant'], colors: ['white', 'cream', 'ivory'], usage: ['hero-section', 'full-page', 'cover', 'section-background'] }
         ]
     },
 
@@ -352,7 +356,10 @@ var WEDDING_DATA = {
             { id: 'album-cover-couple-chibi', file: 'wedding-elements/album-cover-couple-chibi.webp', name: 'Bia album cuoi chibi', tags: ['cute', 'chibi', 'pink', 'romantic', 'floral'], usage: ['cover-background', 'popup-background'] },
 
             // Batch 2026-03-26 — Wreath
-            { id: 'wreath-floral-photo-colorful', file: 'wedding-elements/wreath-floral-photo-colorful.webp', name: 'Vong hoa photo colorful', tags: ['floral', 'photo', 'colorful', 'natural'], usage: ['hero-center', 'photo-frame'] }
+            { id: 'wreath-floral-photo-colorful', file: 'wedding-elements/wreath-floral-photo-colorful.webp', name: 'Vong hoa photo colorful', tags: ['floral', 'photo', 'colorful', 'natural'], usage: ['hero-center', 'photo-frame'] },
+
+            // Batch 2026-03-31 — Chandelier
+            { id: 'chandelier-crystal-gold', file: 'wedding-elements/chandelier-crystal-gold.webp', name: 'Den chum pha le vang', tags: ['chandelier', 'crystal', 'gold', 'luxury', 'elegant'], usage: ['hero-deco', 'section-header', 'decoration'] }
         ]
     },
 
@@ -892,6 +899,96 @@ var WEDDING_DATA = {
                 { path: 'products/shared/images/wedding/vit-sang-trong/654370256_1530983452362799_7346529339772399357_n.webp', description: 'Couple Viet studio - formal, dep mat' },
                 { path: 'products/shared/images/wedding/vit-sang-trong/654723537_1530984109029400_4608443364961711798_n.webp', description: 'Couple Viet studio - vest navy noi bat' },
                 { path: 'products/shared/images/wedding/vit-sang-trong/654849909_1530983399029471_5040438644921471250_n.webp', description: 'Couple Viet studio - cuoi cung, sang trong' }
+            ]
+        },
+
+        // Batch 2026-03-31 — 3 bộ ảnh mới
+        {
+            id: 'lang-chai',
+            name: 'Làng Chài Outdoor',
+            folder: 'products/shared/images/wedding/lang-chai/',
+            count: 3,
+            style: 'Outdoor fishing village, rustic natural, white gown + black suit',
+            tags: ['outdoor', 'rustic', 'natural', 'fishing-village', 'vietnamese', 'romantic', 'countryside'],
+            colors: ['white', 'black', 'teal', 'natural'],
+            mood: 'tu nhien, moc mac, lang man',
+            description: 'Bo 3 anh couple cuoi ngoai troi lang chai, tren thuyen go. Vay cuoi trang, vest den, phong cach moc mac tu nhien.',
+            hasPortrait: false,
+            matchPalettes: ['rustic', 'natural', 'sage-green', 'vintage'],
+            files: {
+                hero: 'couple_hero.webp',
+                envelope: 'couple_1.webp',
+                story: ['couple_1.webp', 'couple_2.webp'],
+                gallery: ['couple_hero.webp', 'couple_1.webp', 'couple_2.webp']
+            },
+            usedBy: [],
+            images: [
+                { path: 'products/shared/images/wedding/lang-chai/couple_hero.webp', description: 'Couple tren thuyen - tay gio cao, vay bong benh, anh ngang' },
+                { path: 'products/shared/images/wedding/lang-chai/couple_1.webp', description: 'Couple tren thuyen - co dau cam hoa, chu re chi tay' },
+                { path: 'products/shared/images/wedding/lang-chai/couple_2.webp', description: 'Couple tren thuyen - co dau cuoi tuoi, anh nho' }
+            ]
+        },
+        {
+            id: 'model-hot',
+            name: 'Fashion Studio Moody',
+            folder: 'products/shared/images/wedding/model-hot/',
+            count: 5,
+            style: 'Studio fashion, dark moody lighting, champagne satin gown, dramatic',
+            tags: ['studio', 'fashion', 'moody', 'dramatic', 'luxury', 'champagne', 'dark', 'modern'],
+            colors: ['champagne', 'nude', 'dark', 'gold', 'warm'],
+            mood: 'sang trong, quyen ru, dramatic',
+            description: 'Bo 5 anh studio thoi trang, anh sang dramatic toi, vay satin champagne hoa 3D. Co ca portrait co dau va couple.',
+            hasPortrait: true,
+            portraitFiles: { bride: 'portrait_bride.webp' },
+            matchPalettes: ['luxury-gold', 'dark-moody', 'champagne', 'modern-neutral'],
+            files: {
+                hero: 'couple_hero.webp',
+                envelope: ['portrait_bride.webp', 'portrait_bride_2.webp'],
+                couple: ['couple_1.webp'],
+                story: ['bride_full.webp', 'portrait_bride_2.webp'],
+                gallery: ['couple_hero.webp', 'couple_1.webp', 'portrait_bride.webp', 'portrait_bride_2.webp', 'bride_full.webp']
+            },
+            usedBy: [],
+            images: [
+                { path: 'products/shared/images/wedding/model-hot/couple_hero.webp', description: 'Couple ngoi om nhau - than mat, vui ve' },
+                { path: 'products/shared/images/wedding/model-hot/couple_1.webp', description: 'Couple dung canh thang - ao satin champagne, pose fashion' },
+                { path: 'products/shared/images/wedding/model-hot/portrait_bride.webp', description: 'Close-up co dau - vay hoa 3D, trang suc, nen toi' },
+                { path: 'products/shared/images/wedding/model-hot/portrait_bride_2.webp', description: 'Co dau nghieng dau - spotlight, bong tuong, dramatic' },
+                { path: 'products/shared/images/wedding/model-hot/bride_full.webp', description: 'Co dau nhin tu tren - vay bong tran san, anh vang am' }
+            ]
+        },
+        {
+            id: 'tiec-cuoi',
+            name: 'Tiệc Cưới Garden Luxury',
+            folder: 'products/shared/images/wedding/tiec-cuoi/',
+            count: 10,
+            style: 'Outdoor garden wedding reception, white luxury, crystal chandelier, candles',
+            tags: ['outdoor', 'garden', 'reception', 'luxury', 'white', 'chandelier', 'elegant', 'party', 'crystal'],
+            colors: ['white', 'gold', 'green', 'crystal'],
+            mood: 'sang trong, lung linh, trang le',
+            description: 'Bo 10 anh tiec cuoi ngoai troi, ban tiec trang, den pha le, nen, hoa loa ken. Couple vest trang + vay dinh da. Phu hop thiep cuoi sang trong.',
+            hasPortrait: false,
+            matchPalettes: ['luxury-gold', 'classic-gold', 'modern-neutral', 'white-clean'],
+            files: {
+                hero: 'couple_hero.webp',
+                envelope: 'couple_3.webp',
+                couple: ['couple_4.webp', 'couple_5.webp'],
+                story: ['couple_2.webp', 'couple_8.webp', 'couple_6.webp'],
+                gallery: ['couple_hero.webp', 'couple_1.webp', 'couple_2.webp', 'couple_3.webp', 'couple_4.webp', 'couple_5.webp', 'couple_6.webp', 'couple_7.webp', 'couple_8.webp', 'couple_9.webp'],
+                event: ['couple_6.webp', 'couple_7.webp']
+            },
+            usedBy: [],
+            images: [
+                { path: 'products/shared/images/wedding/tiec-cuoi/couple_hero.webp', description: 'Couple ngoi ban tiec - chandelier pha le, cay xanh' },
+                { path: 'products/shared/images/wedding/tiec-cuoi/couple_1.webp', description: 'Couple ban tiec can hon - champagne, nen trang' },
+                { path: 'products/shared/images/wedding/tiec-cuoi/couple_2.webp', description: 'Chu re dut cho co dau an - ngot ngao than mat' },
+                { path: 'products/shared/images/wedding/tiec-cuoi/couple_3.webp', description: 'Couple hon nhau - lang man, chandelier' },
+                { path: 'products/shared/images/wedding/tiec-cuoi/couple_4.webp', description: 'Couple om hon - can canh, tinh cam' },
+                { path: 'products/shared/images/wedding/tiec-cuoi/couple_5.webp', description: 'Chu re nhin co dau quay lung - chandelier sang' },
+                { path: 'products/shared/images/wedding/tiec-cuoi/couple_6.webp', description: 'Couple full body dung - ban tiec 2 ben, hoa loa ken' },
+                { path: 'products/shared/images/wedding/tiec-cuoi/couple_7.webp', description: 'Couple full body nam tay - chandelier, co xanh' },
+                { path: 'products/shared/images/wedding/tiec-cuoi/couple_8.webp', description: 'Couple cung ly champagne - hoang hon' },
+                { path: 'products/shared/images/wedding/tiec-cuoi/couple_9.webp', description: 'Couple pose - co dau vay dinh da, ban tiec sang trong' }
             ]
         }
     ],
