@@ -4548,6 +4548,36 @@ const PRODUCTS = [
         rating: 4.8,
         showInSlider: false,
         updatedAt: '2026-04-07',
+    },
+    {
+        id: 227,
+        isPublic: false,
+        name: 'Thiệp Sinh Nhật 30 - Gold Luxury Black Tie',
+        slug: 'sinh-nhat-30-gold-luxury',
+        description: 'Thiệp sinh nhật tuổi 30 phong cách Gold Luxury Black Tie — black + gold, font Bebas Neue + Playfair Display + Great Vibes, age count-up, confetti & sparkles, KHÔNG có RSVP',
+        category: 'other',
+        type: 'invitation',
+        tags: ['birthday', 'sinh-nhật', 'tuổi-30', 'gold-luxury', 'black-tie', 'milestone', 'elegant'],
+        price: 'free',
+        images: [
+            './products/Invitation/Other/gen_227_sinh-nhat-30-gold-luxury/screen.webp',
+            './products/Invitation/Other/gen_227_sinh-nhat-30-gold-luxury/screen-mobile.webp',
+        ],
+        thumbnail: './products/Invitation/Other/gen_227_sinh-nhat-30-gold-luxury/screen.webp',
+        mobileView: './products/Invitation/Other/gen_227_sinh-nhat-30-gold-luxury/screen-mobile.webp',
+        path: './products/Invitation/Other/gen_227_sinh-nhat-30-gold-luxury/',
+        demoUrl: './products/Invitation/Other/gen_227_sinh-nhat-30-gold-luxury/index.html',
+        features: [
+            'Gold luxury black tie elegant',
+            'Số tuổi 30 huge với count-up animation',
+            'Timeline 5 cột mốc + KHÔNG có RSVP form',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 3,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-04-07',
     }
 ];
 
