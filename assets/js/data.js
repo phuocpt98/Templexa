@@ -4578,6 +4578,36 @@ const PRODUCTS = [
         rating: 4.8,
         showInSlider: false,
         updatedAt: '2026-04-07',
+    },
+    {
+        id: 228,
+        isPublic: false,
+        name: 'Thiệp Kỷ Niệm 10 Năm Cưới - Warm Vintage',
+        slug: 'ky-niem-10-nam-cuoi-warm-vintage',
+        description: 'Thiệp kỷ niệm 10 năm ngày cưới phong cách warm vintage đằm thắm — terracotta + cream + dusty rose, font Cormorant Garamond + Pinyon Script, sepia photo filter, sparkles vàng nhẹ',
+        category: 'other',
+        type: 'invitation',
+        tags: ['anniversary', 'kỷ-niệm-cưới', '10-năm', 'vintage', 'warm', 'terracotta', 'romantic'],
+        price: 'free',
+        images: [
+            './products/Invitation/Other/gen_228_ky-niem-10-nam-cuoi-warm-vintage/screen.webp',
+            './products/Invitation/Other/gen_228_ky-niem-10-nam-cuoi-warm-vintage/screen-mobile.webp',
+        ],
+        thumbnail: './products/Invitation/Other/gen_228_ky-niem-10-nam-cuoi-warm-vintage/screen.webp',
+        mobileView: './products/Invitation/Other/gen_228_ky-niem-10-nam-cuoi-warm-vintage/screen-mobile.webp',
+        path: './products/Invitation/Other/gen_228_ky-niem-10-nam-cuoi-warm-vintage/',
+        demoUrl: './products/Invitation/Other/gen_228_ky-niem-10-nam-cuoi-warm-vintage/index.html',
+        features: [
+            'Roman numeral X huge gradient terracotta',
+            'Story timeline 5 mốc + 4 facts achievements',
+            'Sepia warm photo filter, slow fade reveal',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 2,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-04-07',
     }
 ];
 
