@@ -4500,9 +4500,11 @@ const PRODUCTS = [
         tags: ['wedding', 'heritage', 'classic', 'illustration', 'warm', 'terracotta'],
         price: 'free',
         images: [
-            './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/venue-illustration.png',
+            './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/screen.png',
+            './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/screen-mobile.png',
         ],
-        thumbnail: './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/venue-illustration.png',
+        thumbnail: './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/screen.png',
+        mobileView: './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/screen-mobile.png',
         path: './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/',
         demoUrl: './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/index.html',
         features: [
@@ -4516,6 +4518,36 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         updatedAt: '2026-04-06',
+    },
+    {
+        id: 226,
+        isPublic: false,
+        name: 'Thiệp Đầy Tháng - Bé Bảo Pastel Cute',
+        slug: 'day-thang-be-bao-cute',
+        description: 'Thiệp đầy tháng bé trai phong cách pastel cute — sky blue + lavender + cream, font Fredoka + Caveat, balloons & stars floating animation',
+        category: 'other',
+        type: 'invitation',
+        tags: ['baby', 'đầy-tháng', 'bé-trai', 'pastel', 'cute', 'sky-blue', 'lavender'],
+        price: 'free',
+        images: [
+            './products/Invitation/Other/gen_226_day-thang-be-bao-cute/screen.webp',
+            './products/Invitation/Other/gen_226_day-thang-be-bao-cute/screen-mobile.webp',
+        ],
+        thumbnail: './products/Invitation/Other/gen_226_day-thang-be-bao-cute/screen.webp',
+        mobileView: './products/Invitation/Other/gen_226_day-thang-be-bao-cute/screen-mobile.webp',
+        path: './products/Invitation/Other/gen_226_day-thang-be-bao-cute/',
+        demoUrl: './products/Invitation/Other/gen_226_day-thang-be-bao-cute/index.html',
+        features: [
+            'Pastel cute bé trai (sky + lavender + cream)',
+            'Balloons + twinkling stars animation',
+            'Hành trình 4 tuần đầu đời + RSVP có số trẻ em & dị ứng',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 3,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-04-07',
     }
 ];
 
