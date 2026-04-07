@@ -359,7 +359,11 @@ var WEDDING_DATA = {
             { id: 'wreath-floral-photo-colorful', file: 'wedding-elements/wreath-floral-photo-colorful.webp', name: 'Vong hoa photo colorful', tags: ['floral', 'photo', 'colorful', 'natural'], usage: ['hero-center', 'photo-frame'] },
 
             // Batch 2026-03-31 — Chandelier
-            { id: 'chandelier-crystal-gold', file: 'wedding-elements/chandelier-crystal-gold.webp', name: 'Den chum pha le vang', tags: ['chandelier', 'crystal', 'gold', 'luxury', 'elegant'], usage: ['hero-deco', 'section-header', 'decoration'] }
+            { id: 'chandelier-crystal-gold', file: 'wedding-elements/chandelier-crystal-gold.webp', name: 'Den chum pha le vang', tags: ['chandelier', 'crystal', 'gold', 'luxury', 'elegant'], usage: ['hero-deco', 'section-header', 'decoration'] },
+
+            // Batch 2026-04-07 — Heritage invitation #225
+            { id: 'fountain-divider-heritage', file: 'wedding-elements/fountain-divider-heritage.webp', name: 'Divider dai phun nuoc heritage', tags: ['divider', 'heritage', 'classic', 'ornament'], usage: ['section-divider'] },
+            { id: 'venue-illustration-heritage', file: 'wedding-elements/venue-illustration-heritage.webp', name: 'Minh hoa venue heritage', tags: ['illustration', 'venue', 'heritage', 'lineart'], usage: ['hero-deco', 'section-deco'] }
         ]
     },
 
@@ -1157,6 +1161,42 @@ var WEDDING_DATA = {
             vietnameseSupport: true,
             suggestedFor: 'Nhan viet tay, ten khach moi, loi chuc, chu ky tieng Viet',
             sampleText: 'Kinh moi'
+        },
+        {
+            path: 'products/shared/fonts/cormorant-garamond-regular.woff2',
+            name: 'Cormorant Garamond Regular',
+            family: 'CormorantGaramond',
+            type: 'serif body',
+            vietnameseSupport: true,
+            suggestedFor: 'Body text elegant, mo ta, thong tin, heritage theme',
+            sampleText: 'Nous nous marions'
+        },
+        {
+            path: 'products/shared/fonts/cormorant-garamond-italic.woff2',
+            name: 'Cormorant Garamond Italic',
+            family: 'CormorantGaramond-Italic',
+            type: 'serif italic',
+            vietnameseSupport: true,
+            suggestedFor: 'Quote, highlight, caption nghieng, heritage theme',
+            sampleText: 'Notre histoire'
+        },
+        {
+            path: 'products/shared/fonts/great-vibes.woff2',
+            name: 'Great Vibes',
+            family: 'GreatVibes',
+            type: 'script decorative',
+            vietnameseSupport: false,
+            suggestedFor: 'Ten cap doi, tieu de script, chu ky sang trong',
+            sampleText: 'Alex & Diane'
+        },
+        {
+            path: 'products/shared/fonts/montserrat.woff2',
+            name: 'Montserrat',
+            family: 'Montserrat',
+            type: 'sans-serif body',
+            vietnameseSupport: true,
+            suggestedFor: 'UI text, button, nav, label, modern sans',
+            sampleText: 'RSVP'
         }
     ],
 

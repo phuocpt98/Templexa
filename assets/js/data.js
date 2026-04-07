@@ -4488,6 +4488,34 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         updatedAt: '2026-03-31',
+    },
+    {
+        id: 225,
+        isPublic: false,
+        name: 'Thiệp Cưới - Heritage Illustrated Venue',
+        slug: 'heritage-illustrated-venue',
+        description: 'Thiệp cưới phong cách cổ điển warm với illustration venue vẽ tay, tông terracotta kem, font Cormorant Garamond + Great Vibes',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['wedding', 'heritage', 'classic', 'illustration', 'warm', 'terracotta'],
+        price: 'free',
+        images: [
+            './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/venue-illustration.png',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/venue-illustration.png',
+        path: './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/',
+        demoUrl: './products/Invitation/Wedding/gen_225_heritage-illustrated-venue/index.html',
+        features: [
+            'Illustration venue watercolor',
+            'Tông terracotta warm cổ điển',
+            'Timeline chuyện tình 4 mốc',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 6,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-04-06',
     }
 ];
 
