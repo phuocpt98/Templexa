@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Đầy Tháng Bé Bảo — Phạm Quốc Bảo</title>
+<meta name="description" content="Thiệp mời đầy tháng bé Phạm Quốc Bảo — pastel cute, sky blue & lavender">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --primary: #A8D8EA;
+    --primary-dark: #7BC4DB;
+    --secondary: #AA96DA;
+    --accent: #FFCAD4;
+    --accent-2: #FCBAD3;
+    --bg: #FFFFFC;
+    --bg-soft: #F4FBFF;
+    --text: #2C3E50;
+    --text-sub: #6B7B8C;
+    --text-mute: #9CABBA;
+    --shadow-soft: 0 8px 32px rgba(168, 216, 234, 0.25);
+    --shadow-md: 0 12px 40px rgba(170, 150, 218, 0.2);
+    --radius-sm: 16px;
+    --radius-md: 24px;
+    --radius-lg: 36px;
+    --font-display: 'Fredoka', sans-serif;
+    --font-script: 'Caveat', cursive;
+    --font-body: 'Quicksand', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+body { max-width: 100vw; }
+.wrapper { max-width: 680px; margin: 0 auto; position: relative; background: var(--bg); box-shadow: 0 0 80px rgba(168, 216, 234, 0.15); }
+img { max-width: 100%; display: block; }
+
+/* ============ ENVELOPE / SPLASH ============ */
+.envelope {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: linear-gradient(155deg, #E8F4FA 0%, #F5EFFF 50%, #FFF5F8 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: pointer;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    overflow: hidden;
+}
+.envelope.opened { opacity: 0; transform: scale(1.1); pointer-events: none; }
+.envelope::before {
+    content: '';
+    position: absolute;
+    inset: 24px;
+    border: 2px solid rgba(170, 150, 218, 0.3);
+    border-radius: var(--radius-lg);
+    pointer-events: none;
+}
+.envelope::after {
+    content: '';
+    position: absolute;
+    inset: 32px;
+    border: 1px dashed rgba(168, 216, 234, 0.5);
+    border-radius: calc(var(--radius-lg) - 8px);
+    pointer-events: none;
+}
+.env-corner {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    opacity: 0.6;
+}
+.env-corner.tl { top: 40px; left: 40px; }
+.env-corner.tr { top: 40px; right: 40px; transform: scaleX(-1); }
+.env-corner.bl { bottom: 40px; left: 40px; transform: scaleY(-1); }
+.env-corner.br { bottom: 40px; right: 40px; transform: scale(-1, -1); }
+.env-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid #fff;
+    box-shadow: var(--shadow-md), 0 0 0 2px var(--primary);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+    animation: floaty 4s ease-in-out infinite;
+}
+.env-photo img { width: 100%; height: 100%; object-fit: cover; }
+.env-label {
+    font-family: var(--font-script);
+    font-size: 1.6rem;
+    color: var(--secondary);
+    margin-bottom: 0.3rem;
+    z-index: 2;
+}
+.env-name {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    z-index: 2;
+}
+.env-sub {
+    font-size: 0.95rem;
+    color: var(--text-sub);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 2;
+}
+.env-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+    margin: 1.2rem 0;
+    z-index: 2;
+}
+.env-tap {
+    margin-top: 2rem;
+    font-family: var(--font-script);
+    font-size: 1.4rem;
+    color: var(--accent-2);
+    animation: breathe 2s ease-in-out infinite;
+    z-index: 2;
+}
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes breathe { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+
+/* Floating decorations on envelope */
+.env-balloon {
+    position: absolute;
+    width: 32px;
+    height: 40px;
+    border-radius: 50% 50% 45% 45%;
+    opacity: 0.7;
+    animation: balloonFloat 8s ease-in-out infinite;
+}
+.env-balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    width: 1px;
+    height: 20px;
+    background: rgba(0,0,0,0.15);
+}
+.env-balloon.b1 { top: 12%; left: 8%; background: #FFCAD4; animation-delay: 0s; }
+.env-balloon.b2 { top: 20%; right: 12%; background: #A8D8EA; animation-delay: 1.5s; }
+.env-balloon.b3 { bottom: 25%; left: 10%; background: #AA96DA; animation-delay: 3s; }
+.env-balloon.b4 { bottom: 18%; right: 8%; background: #B5EAD7; animation-delay: 4.5s; }
+@keyframes balloonFloat {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-15px) rotate(3deg); }
+}
+
+/* ============ MAIN CONTENT ============ */
+.main-content { display: none; }
+.main-content.show { display: block; animation: fadeUp 0.8s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============ HERO ============ */
+.hero {
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    background: radial-gradient(ellipse at top, #F5EFFF 0%, transparent 60%),
+                radial-gradient(ellipse at bottom, #FFF5F8 0%, var(--bg) 70%);
+    position: relative;
+    overflow: hidden;
+}
+.hero-deco {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.5;
+}
+.hero-deco.cloud-1 { top: 20px; left: 20px; width: 80px; }
+.hero-deco.cloud-2 { top: 60px; right: 30px; width: 60px; }
+.hero-deco.star-1 { bottom: 80px; left: 30px; width: 24px; animation: twinkle 3s ease-in-out infinite; }
+.hero-deco.star-2 { top: 40%; right: 25px; width: 18px; animation: twinkle 2s ease-in-out infinite 0.5s; }
+.hero-deco.star-3 { bottom: 30px; right: 40px; width: 22px; animation: twinkle 2.5s ease-in-out infinite 1s; }
+@keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
+
+.hero-tagline {
+    font-family: var(--font-script);
+    font-size: 1.5rem;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+}
+.hero-greeting {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-sub);
+    margin-bottom: 1.5rem;
+}
+.hero-photo-wrap {
+    width: 240px;
+    height: 240px;
+    margin: 0 auto 2rem;
+    position: relative;
+}
+.hero-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 8px solid #fff;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    z-index: 2;
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.hero-photo-ring {
+    position: absolute;
+    inset: -16px;
+    border: 2px dashed var(--primary);
+    border-radius: 50%;
+    animation: rotate 30s linear infinite;
+}
+@keyframes rotate { to { transform: rotate(360deg); } }
+
+.hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 9vw, 3.8rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 50%, var(--accent-2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.3rem;
+    line-height: 1.1;
+}
+.hero-name-script {
+    font-family: var(--font-script);
+    font-size: 1.8rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+.hero-event {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: rgba(168, 216, 234, 0.2);
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--primary-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+}
+.hero-date {
+    font-family: var(--font-script);
+    font-size: 1.6rem;
+    color: var(--text-sub);
+    margin-bottom: 2rem;
+}
+
+/* COUNTDOWN */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 2rem auto;
+    flex-wrap: wrap;
+}
+.cd-item {
+    background: #fff;
+    border: 2px solid rgba(168, 216, 234, 0.4);
+    border-radius: var(--radius-md);
+    padding: 0.9rem 0.7rem;
+    min-width: 70px;
+    box-shadow: var(--shadow-soft);
+}
+.cd-num {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--secondary);
+    line-height: 1;
+}
+.cd-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-mute);
+    margin-top: 0.3rem;
+}
+
+/* ============ SECTION GENERAL ============ */
+.section {
+    padding: 4rem 2rem;
+    position: relative;
+}
+.section-soft { background: var(--bg-soft); }
+.section-cream { background: linear-gradient(180deg, #FFF9F4 0%, #FFFCF7 100%); }
+.section-lavender { background: linear-gradient(180deg, #F5EFFF 0%, var(--bg) 100%); }
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+    font-weight: 600;
+    text-align: center;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+.section-subtitle {
+    font-family: var(--font-script);
+    font-size: 1.4rem;
+    text-align: center;
+    color: var(--secondary);
+    margin-bottom: 2.5rem;
+}
+.section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0 2.5rem;
+}
+.section-divider span { width: 40px; height: 1px; background: var(--primary); }
+.section-divider .dot { width: 8px; height: 8px; background: var(--secondary); border-radius: 50%; }
+
+/* ============ INFO CARD (Bé là ai) ============ */
+.info-card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 2rem 1.5rem;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(168, 216, 234, 0.3);
+    position: relative;
+}
+.info-card::before {
+    content: '★';
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-top: 1rem;
+}
+.info-item {
+    text-align: center;
+    padding: 1rem 0.5rem;
+    background: var(--bg-soft);
+    border-radius: var(--radius-sm);
+}
+.info-item.full { grid-column: 1 / -1; }
+.info-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-mute);
+    margin-bottom: 0.3rem;
+}
+.info-value {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--secondary);
+}
+.info-value.script { font-family: var(--font-script); font-size: 1.4rem; color: var(--primary-dark); }
+
+/* ============ PARENTS ============ */
+.parents-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    max-width: 540px;
+    margin: 0 auto;
+}
+.parent-card {
+    background: #fff;
+    padding: 1.8rem 1rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(170, 150, 218, 0.2);
+}
+.parent-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 0.8rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.4rem;
+}
+.parent-role {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-mute);
+    margin-bottom: 0.4rem;
+}
+.parent-name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* ============ JOURNEY (Hành trình của bé) ============ */
+.journey {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 560px;
+    margin: 0 auto;
+    position: relative;
+}
+.journey::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 20px;
+    bottom: 20px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--primary), var(--secondary), var(--accent));
+}
+.journey-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    position: relative;
+}
+.journey-mark {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-soft);
+    z-index: 2;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--secondary);
+    font-size: 0.95rem;
+    text-align: center;
+    line-height: 1.1;
+}
+.journey-content {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 1rem 1.2rem;
+    flex: 1;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(170, 150, 218, 0.15);
+}
+.journey-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--secondary);
+    margin-bottom: 0.2rem;
+}
+.journey-text {
+    font-size: 0.9rem;
+    color: var(--text-sub);
+    line-height: 1.6;
+}
+
+/* ============ WISHES ============ */
+.wishes-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 560px;
+    margin: 0 auto;
+}
+.wish-card {
+    background: #fff;
+    padding: 1.4rem 1.6rem;
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--secondary);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+}
+.wish-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    font-family: serif;
+    font-size: 4rem;
+    color: var(--accent);
+    line-height: 1;
+    opacity: 0.6;
+}
+.wish-text {
+    font-family: var(--font-script);
+    font-size: 1.3rem;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+/* ============ GALLERY ============ */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+    max-width: 560px;
+    margin: 0 auto;
+}
+.gallery-item {
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    border: 4px solid #fff;
+    transition: transform 0.4s ease;
+}
+.gallery-item:nth-child(odd) { transform: rotate(-1.5deg); }
+.gallery-item:nth-child(even) { transform: rotate(1.5deg); }
+.gallery-item:hover { transform: rotate(0) scale(1.03); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ============ EVENT INFO ============ */
+.event-card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 2.2rem 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(168, 216, 234, 0.3);
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+}
+.event-card::before, .event-card::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.4;
+}
+.event-card::before { top: -12px; left: 30px; }
+.event-card::after { bottom: -12px; right: 30px; background: var(--primary); }
+.event-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px dashed rgba(170, 150, 218, 0.3);
+    text-align: left;
+}
+.event-row:last-child { border-bottom: none; }
+.event-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+}
+.event-body { flex: 1; }
+.event-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-mute);
+    margin-bottom: 0.2rem;
+}
+.event-value {
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+/* ============ RSVP ============ */
+.rsvp-form {
+    background: #fff;
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    max-width: 500px;
+    margin: 0 auto;
+}
+.form-group { margin-bottom: 1rem; }
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-sub);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid rgba(168, 216, 234, 0.4);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--bg-soft);
+    transition: border-color 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--secondary);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.form-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(170, 150, 218, 0.4);
+    transition: transform 0.2s;
+    margin-top: 0.5rem;
+}
+.form-btn:hover { transform: translateY(-2px); }
+
+/* ============ THANK YOU ============ */
+.thanks {
+    text-align: center;
+    padding: 4rem 2rem 5rem;
+    background: linear-gradient(180deg, var(--bg) 0%, #FFF5F8 100%);
+}
+.thanks-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.thanks-title {
+    font-family: var(--font-script);
+    font-size: 2.4rem;
+    color: var(--secondary);
+    margin-bottom: 0.8rem;
+}
+.thanks-text {
+    color: var(--text-sub);
+    max-width: 400px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
+}
+.thanks-sign {
+    font-family: var(--font-script);
+    font-size: 1.6rem;
+    color: var(--primary-dark);
+}
+
+/* ============ FLOATING DECO ============ */
+.float-deco {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+}
+.main-content.show ~ .float-deco { opacity: 1; }
+
+.balloon {
+    position: fixed;
+    bottom: -60px;
+    width: 28px;
+    height: 36px;
+    border-radius: 50% 50% 45% 45%;
+    pointer-events: none;
+    z-index: 50;
+    animation: floatUp linear infinite;
+    opacity: 0;
+}
+.main-content.show ~ .balloon { opacity: 0.6; }
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    width: 1px;
+    height: 16px;
+    background: rgba(0,0,0,0.2);
+}
+@keyframes floatUp {
+    0% { transform: translateY(0) translateX(0) rotate(-3deg); }
+    50% { transform: translateY(-50vh) translateX(20px) rotate(3deg); }
+    100% { transform: translateY(-110vh) translateX(0) rotate(-3deg); }
+}
+
+.star-bg {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: #FFD93D;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 50;
+    box-shadow: 0 0 8px #FFD93D;
+    opacity: 0;
+    animation: twinkleBg 3s ease-in-out infinite;
+}
+.main-content.show ~ .star-bg { opacity: 0.8; }
+@keyframes twinkleBg {
+    0%, 100% { transform: scale(0.5); opacity: 0.3; }
+    50% { transform: scale(1); opacity: 0.9; }
+}
+
+/* ============ MUSIC TOGGLE ============ */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--secondary);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+    transition: transform 0.3s;
+}
+.main-content.show ~ .music-btn { display: flex; }
+.music-btn.playing { animation: musicSpin 4s linear infinite; }
+@keyframes musicSpin { to { transform: rotate(360deg); } }
+.music-btn svg { width: 22px; height: 22px; color: var(--secondary); }
+
+/* ============ REVEAL ============ */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible, .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 480px) {
+    .section { padding: 3rem 1.2rem; }
+    .hero { padding: 3rem 1.2rem 2.5rem; }
+    .info-grid { grid-template-columns: 1fr; }
+    .parents-grid { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+    .cd-item { min-width: 60px; padding: 0.7rem 0.5rem; }
+    .cd-num { font-size: 1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ ENVELOPE ============ -->
+<div class="envelope" id="envelope">
+    <div class="env-balloon b1"></div>
+    <div class="env-balloon b2"></div>
+    <div class="env-balloon b3"></div>
+    <div class="env-balloon b4"></div>
+
+    <div class="env-photo">
+        <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=400&q=80" alt="Bé Bảo">
+    </div>
+    <div class="env-label">Trân trọng kính mời</div>
+    <div class="env-name">Bé Bảo</div>
+    <div class="env-divider"></div>
+    <div class="env-sub">Lễ Đầy Tháng</div>
+    <div class="env-tap">Nhấn để mở thiệp ✨</div>
+</div>
+
+<!-- ============ MAIN CONTENT ============ -->
+<div class="main-content" id="main">
+    <div class="wrapper">
+
+        <!-- HERO -->
+        <section class="hero">
+            <svg class="hero-deco cloud-1" viewBox="0 0 100 60"><ellipse cx="50" cy="40" rx="40" ry="18" fill="#A8D8EA" opacity="0.5"/><ellipse cx="30" cy="35" rx="20" ry="14" fill="#A8D8EA" opacity="0.5"/><ellipse cx="70" cy="32" rx="22" ry="15" fill="#A8D8EA" opacity="0.5"/></svg>
+            <svg class="hero-deco cloud-2" viewBox="0 0 100 60"><ellipse cx="50" cy="40" rx="40" ry="18" fill="#AA96DA" opacity="0.4"/><ellipse cx="30" cy="35" rx="20" ry="14" fill="#AA96DA" opacity="0.4"/></svg>
+            <svg class="hero-deco star-1" viewBox="0 0 24 24" fill="#FFD93D"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+            <svg class="hero-deco star-2" viewBox="0 0 24 24" fill="#FFCAD4"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+            <svg class="hero-deco star-3" viewBox="0 0 24 24" fill="#AA96DA"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+
+            <div class="hero-tagline reveal">Welcome our little star</div>
+            <div class="hero-greeting reveal">— ngôi sao bé nhỏ của gia đình —</div>
+
+            <div class="hero-photo-wrap reveal">
+                <div class="hero-photo-ring"></div>
+                <div class="hero-photo">
+                    <img src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=600&q=80" alt="Bé Bảo">
+                </div>
+            </div>
+
+            <h1 class="hero-name reveal">Phạm Quốc Bảo</h1>
+            <div class="hero-name-script reveal">~ Bé Bảo yêu của bố mẹ ~</div>
+            <div class="hero-event reveal">Lễ Đầy Tháng</div>
+            <div class="hero-date reveal">Chủ Nhật • 12 Tháng 04 • 2026</div>
+
+            <div class="countdown reveal" id="countdown">
+                <div class="cd-item"><div class="cd-num" id="cd-d">00</div><div class="cd-label">Ngày</div></div>
+                <div class="cd-item"><div class="cd-num" id="cd-h">00</div><div class="cd-label">Giờ</div></div>
+                <div class="cd-item"><div class="cd-num" id="cd-m">00</div><div class="cd-label">Phút</div></div>
+                <div class="cd-item"><div class="cd-num" id="cd-s">00</div><div class="cd-label">Giây</div></div>
+            </div>
+        </section>
+
+        <!-- BÉ LÀ AI -->
+        <section class="section section-soft">
+            <h2 class="section-title reveal">Bé Là Ai?</h2>
+            <div class="section-divider reveal"><span></span><div class="dot"></div><span></span></div>
+            <div class="info-card reveal">
+                <div class="info-grid">
+                    <div class="info-item full">
+                        <div class="info-label">Tên đầy đủ</div>
+                        <div class="info-value">Phạm Quốc Bảo</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Biệt danh</div>
+                        <div class="info-value script">Bé Bảo</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Ngày sinh</div>
+                        <div class="info-value">12 / 03 / 2026</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Cân nặng</div>
+                        <div class="info-value">3.4 kg</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Cung hoàng đạo</div>
+                        <div class="info-value">Song Ngư ♓</div>
+                    </div>
+                    <div class="info-item full">
+                        <div class="info-label">Lời đầu tiên của bé</div>
+                        <div class="info-value script">"Oeeee~ Chào thế giới!"</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BỐ MẸ -->
+        <section class="section section-cream">
+            <h2 class="section-title reveal">Bố Mẹ Của Bé</h2>
+            <div class="section-divider reveal"><span></span><div class="dot"></div><span></span></div>
+            <div class="parents-grid">
+                <div class="parent-card reveal">
+                    <div class="parent-icon">♂</div>
+                    <div class="parent-role">Cha</div>
+                    <div class="parent-name">Ông Phạm Quốc Hùng</div>
+                </div>
+                <div class="parent-card reveal">
+                    <div class="parent-icon">♀</div>
+                    <div class="parent-role">Mẹ</div>
+                    <div class="parent-name">Bà Nguyễn Thị Mai</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HÀNH TRÌNH CỦA BÉ -->
+        <section class="section section-lavender">
+            <h2 class="section-title reveal">Hành Trình Của Bé</h2>
+            <p class="section-subtitle reveal">— những cột mốc đầu đời —</p>
+            <div class="journey">
+                <div class="journey-item reveal">
+                    <div class="journey-mark">Tuần<br>1</div>
+                    <div class="journey-content">
+                        <div class="journey-title">Chào đời</div>
+                        <div class="journey-text">Ngày 12/03 — bé Bảo cất tiếng khóc đầu tiên, mẹ tròn con vuông.</div>
+                    </div>
+                </div>
+                <div class="journey-item reveal">
+                    <div class="journey-mark">Tuần<br>2</div>
+                    <div class="journey-content">
+                        <div class="journey-title">Mở mắt nhìn đời</div>
+                        <div class="journey-text">Đôi mắt to tròn nhìn bố mẹ, nụ cười đầu tiên xuất hiện.</div>
+                    </div>
+                </div>
+                <div class="journey-item reveal">
+                    <div class="journey-mark">Tuần<br>3</div>
+                    <div class="journey-content">
+                        <div class="journey-title">Bú giỏi & ngủ ngoan</div>
+                        <div class="journey-text">Bé tăng cân đều, ngủ thẳng giấc 4-5 tiếng mỗi đêm.</div>
+                    </div>
+                </div>
+                <div class="journey-item reveal">
+                    <div class="journey-mark">Tuần<br>4</div>
+                    <div class="journey-content">
+                        <div class="journey-title">Đầy tháng yêu thương</div>
+                        <div class="journey-text">Tròn 1 tháng tuổi, gia đình tổ chức lễ đầy tháng tạ ơn các Mụ Bà.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LỜI CHÚC -->
+        <section class="section section-soft">
+            <h2 class="section-title reveal">Lời Chúc Cho Bé</h2>
+            <div class="section-divider reveal"><span></span><div class="dot"></div><span></span></div>
+            <div class="wishes-list">
+                <div class="wish-card reveal">
+                    <div class="wish-text">Chúc con hay ăn chóng lớn, ngoan ngoãn và luôn khoẻ mạnh.</div>
+                </div>
+                <div class="wish-card reveal">
+                    <div class="wish-text">Chúc con bình an, may mắn và được mọi người yêu thương.</div>
+                </div>
+                <div class="wish-card reveal">
+                    <div class="wish-text">Mong con lớn lên thông minh, hiếu thảo và thành công trong cuộc sống.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section class="section section-cream">
+            <h2 class="section-title reveal">Album Của Bé</h2>
+            <p class="section-subtitle reveal">— những khoảnh khắc đáng yêu —</p>
+            <div class="gallery">
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=500&q=80" alt=""></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1492725764893-90b379c2b6e7?w=500&q=80" alt=""></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=500&q=80" alt=""></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1544126592-807ade215a0b?w=500&q=80" alt=""></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1612531385446-f7e6d131e1d0?w=500&q=80" alt=""></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=500&q=80" alt=""></div>
+            </div>
+        </section>
+
+        <!-- EVENT INFO -->
+        <section class="section section-lavender">
+            <h2 class="section-title reveal">Thông Tin Buổi Lễ</h2>
+            <div class="section-divider reveal"><span></span><div class="dot"></div><span></span></div>
+            <div class="event-card reveal">
+                <div class="event-row">
+                    <div class="event-icon">📅</div>
+                    <div class="event-body">
+                        <div class="event-label">Ngày tổ chức</div>
+                        <div class="event-value">Chủ Nhật, 12 Tháng 04 Năm 2026</div>
+                    </div>
+                </div>
+                <div class="event-row">
+                    <div class="event-icon">⏰</div>
+                    <div class="event-body">
+                        <div class="event-label">Thời gian</div>
+                        <div class="event-value">11:00 — 14:00</div>
+                    </div>
+                </div>
+                <div class="event-row">
+                    <div class="event-icon">📍</div>
+                    <div class="event-body">
+                        <div class="event-label">Địa điểm</div>
+                        <div class="event-value">Tư gia — 123 Đường Hoa Phượng,<br>Quận 10, TP. Hồ Chí Minh</div>
+                    </div>
+                </div>
+                <div class="event-row">
+                    <div class="event-icon">👕</div>
+                    <div class="event-body">
+                        <div class="event-label">Dress code</div>
+                        <div class="event-value">Pastel mềm — bé trai cute</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP -->
+        <section class="section section-soft">
+            <h2 class="section-title reveal">Xác Nhận Tham Dự</h2>
+            <p class="section-subtitle reveal">— gia đình bé rất mong sự có mặt của bạn —</p>
+            <form class="rsvp-form reveal" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã xác nhận! ✨');">
+                <div class="form-group">
+                    <label>Họ và tên</label>
+                    <input type="text" placeholder="Nguyễn Văn A" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Số người lớn</label>
+                        <select>
+                            <option>1 người</option>
+                            <option>2 người</option>
+                            <option>3 người</option>
+                            <option>4 người</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Số trẻ em</label>
+                        <select>
+                            <option>0 bé</option>
+                            <option>1 bé</option>
+                            <option>2 bé</option>
+                            <option>3 bé</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Dị ứng món ăn (nếu có)</label>
+                    <input type="text" placeholder="Hải sản, đậu phộng...">
+                </div>
+                <div class="form-group">
+                    <label>Lời chúc cho bé</label>
+                    <textarea rows="3" placeholder="Chúc bé hay ăn chóng lớn..."></textarea>
+                </div>
+                <button class="form-btn" type="submit">Gửi Lời Chúc ✨</button>
+            </form>
+        </section>
+
+        <!-- THANKS -->
+        <section class="thanks">
+            <div class="thanks-icon">💙</div>
+            <h2 class="thanks-title reveal">Cảm ơn bạn rất nhiều!</h2>
+            <p class="thanks-text reveal">Sự hiện diện của bạn là món quà quý giá nhất cho bé Bảo và gia đình trong ngày đặc biệt này.</p>
+            <div class="thanks-sign reveal">~ Gia đình bé Bảo ~</div>
+        </section>
+
+    </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="bgm" loop>
+    <source src="../../../shared/music/wedding/Sugar.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" id="musicBtn" aria-label="Bật/tắt nhạc">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+</button>
+
+<script>
+// ============ ENVELOPE OPEN ============
+const envelope = document.getElementById('envelope');
+const main = document.getElementById('main');
+const bgm = document.getElementById('bgm');
+const musicBtn = document.getElementById('musicBtn');
+
+envelope.addEventListener('click', () => {
+    envelope.classList.add('opened');
+    main.classList.add('show');
+    setTimeout(() => envelope.style.display = 'none', 800);
+    bgm.volume = 0.4;
+    bgm.play().then(() => musicBtn.classList.add('playing')).catch(() => {});
+    spawnFloatingDeco();
+    initReveal();
+});
+
+// ============ MUSIC TOGGLE ============
+musicBtn.addEventListener('click', () => {
+    if (bgm.paused) { bgm.play(); musicBtn.classList.add('playing'); }
+    else { bgm.pause(); musicBtn.classList.remove('playing'); }
+});
+
+// ============ COUNTDOWN ============
+const target = new Date('2026-04-12T11:00:00+07:00').getTime();
+function tick() {
+    const now = Date.now();
+    let diff = Math.max(0, target - now);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-d').textContent = String(d).padStart(2, '0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+}
+tick(); setInterval(tick, 1000);
+
+// ============ REVEAL ON SCROLL ============
+function initReveal() {
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible', 'in-view'); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+// ============ FLOATING DECO ============
+function spawnFloatingDeco() {
+    // Balloons floating up
+    const colors = ['#FFCAD4', '#A8D8EA', '#AA96DA', '#B5EAD7', '#FFE5B4'];
+    for (let i = 0; i < 6; i++) {
+        const b = document.createElement('div');
+        b.className = 'balloon';
+        b.style.left = Math.random() * 100 + '%';
+        b.style.background = colors[i % colors.length];
+        b.style.animationDuration = (12 + Math.random() * 8) + 's';
+        b.style.animationDelay = (i * 2.5) + 's';
+        document.body.appendChild(b);
+    }
+    // Twinkling stars
+    for (let i = 0; i < 12; i++) {
+        const s = document.createElement('div');
+        s.className = 'star-bg';
+        s.style.left = Math.random() * 100 + '%';
+        s.style.top = Math.random() * 100 + '%';
+        s.style.animationDelay = (Math.random() * 3) + 's';
+        document.body.appendChild(s);
+    }
+}
+</script>
+</body>
+</html>

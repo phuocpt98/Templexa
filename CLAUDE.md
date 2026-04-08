@@ -6,27 +6,61 @@ Website cung cấp mẫu thiết kế tùy chỉnh (template customization servi
 
 ```
 Templexa/
-├── index.html                # Trang chủ
-├── products.html             # Danh sách thiết kế
-├── product-detail.html       # Chi tiết sản phẩm
-├── contact.html              # Dịch vụ / Liên hệ
+├── index.html                  # Trang chủ
+├── products.html               # Danh sách thiết kế
+├── product-detail.html         # Chi tiết sản phẩm
+├── contact.html                # Dịch vụ / Liên hệ
+├── products-admin.html         # Trang admin quản lý sản phẩm
+├── bang-gia-thiep-cuoi.html    # Bảng giá thiệp cưới
+├── thu-vien-hieu-ung.html      # Thư viện hiệu ứng / animations demo
+├── preview.html                # Preview tool
 ├── assets/
-│   ├── css/style.css         # Stylesheet chính (~2900 dòng, CSS variables + dark mode overrides)
+│   ├── css/style.css           # Stylesheet chính (~2900 dòng)
 │   ├── js/
-│   │   ├── data.js           # Data products, categories, pricing, API config, helper functions
-│   │   ├── main.js           # JS chung (dark mode, hamburger menu, slider, scroll effects)
-│   │   ├── products.js       # Search, filter, render grid, phân trang
-│   │   ├── product-detail.js # Render chi tiết, gallery, modal nhận mẫu, related products
-│   │   └── contact.js        # Render pricing cards, form validation + submit Google Sheet
-│   └── images/               # Logo, icons, hero background, showcase, template previews
-├── products/                 # Các project mẫu sản phẩm (156 sản phẩm)
-│   ├── invitation/           # Wedding, birthday, anniversary, holiday, confession (65 sản phẩm)
-│   ├── onepage/              # Landing page, coming soon (30 sản phẩm)
-│   ├── e-commerce/           # Makeup, beauty, digital design, sport (37 sản phẩm)
-│   ├── portfolio/            # Portfolio, personal blog (26 sản phẩm)
-│   └── education/            # Khóa học, đào tạo, chứng chỉ (34 sản phẩm)
-└── docs/                     # Mockup thiết kế (PNG/SVG)
+│   │   ├── data.js             # Data products, categories, pricing, helpers
+│   │   ├── data-loader.js      # Loader dynamic data
+│   │   ├── main.js             # Dark mode, hamburger, slider, scroll
+│   │   ├── products.js         # Search, filter, grid, phân trang
+│   │   ├── product-detail.js   # Detail render, gallery, modals
+│   │   ├── products-admin.js   # Admin CRUD UI
+│   │   └── contact.js          # Pricing render, form submit
+│   └── images/                 # Logo, icons, backgrounds (đa số WebP)
+├── products/                   # 220 sản phẩm
+│   ├── Web/
+│   │   ├── E-commerce/         # 36
+│   │   ├── Education/          # 31
+│   │   ├── Onepage/            # 26
+│   │   └── Portfolio/          # 25
+│   ├── Invitation/
+│   │   ├── Wedding/            # 58 thiệp cưới
+│   │   └── Other/              # 39 (sinh nhật, kỷ niệm, tỏ tình, ...)
+│   ├── Google-sheet/
+│   │   └── E-commerce/         # 5
+│   └── shared/                 # Tài nguyên dùng chung
+│       ├── animations.css
+│       ├── fonts/  images/  music/  new/
+│       ├── wedding/            # README, names.js, scripts.js, styles.css,
+│       │                       # wedding-order-form.html, wishes-api.js
+│       └── wedding-data.js
+├── wedding/                    # Wedding builder
+│   ├── config.js
+│   ├── template.html
+│   └── {khach-hang}/           # Thiệp riêng từng khách
+├── scripts/                    # Node scripts
+│   ├── convert-webp.js         # PNG/JPG → WebP
+│   ├── update-webp-refs.js     # Cập nhật references
+│   └── protect-wedding.js      # Bảo vệ thiệp cưới khi merge
+├── docs/
+│   ├── SYSTEM.md               # AI context entry-point
+│   ├── products.md             # Danh sách sản phẩm
+│   ├── wedding-tag-matrix.md   # Tag matrix thiệp cưới (auto-gen)
+│   ├── workflow-protect-deploy.md
+│   └── memory/                 # Feedback files cho AI
+├── plans/                      # Plans + reports
+└── package.json                # npm scripts (convert-webp, ...)
 ```
+
+**Tổng số sản phẩm:** 220 (Web 118 + Invitation 97 + Google-sheet 5).
 
 ## Tech Stack
 

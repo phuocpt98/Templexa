@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Thirty & Fabulous — Lê Hoàng Minh Anh</title>
+<meta name="description" content="Thiệp mời sinh nhật 30 — Lê Hoàng Minh Anh, Gold Luxury Black Tie">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@400;500;700;900&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #D4AF37;
+    --gold-light: #F4D78A;
+    --gold-dark: #A88729;
+    --black: #0A0A0A;
+    --black-soft: #141414;
+    --bg: #0F0F0F;
+    --bg-card: #1A1A1A;
+    --text: #F5F5F0;
+    --text-mute: #8B8478;
+    --line: rgba(212, 175, 55, 0.3);
+    --shadow-gold: 0 10px 40px rgba(212, 175, 55, 0.15);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-script: 'Great Vibes', cursive;
+    --font-body: 'Inter', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+body { max-width: 100vw; }
+.wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--bg);
+    position: relative;
+    box-shadow: 0 0 100px rgba(212, 175, 55, 0.08);
+}
+img { max-width: 100%; display: block; }
+
+/* ============ ENVELOPE ============ */
+.envelope {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: radial-gradient(ellipse at center, #1A1A1A 0%, #0A0A0A 80%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: pointer;
+    transition: opacity 0.9s ease, transform 0.9s ease;
+    overflow: hidden;
+}
+.envelope.opened { opacity: 0; transform: scale(1.08); pointer-events: none; }
+.envelope::before {
+    content: '';
+    position: absolute;
+    inset: 30px;
+    border: 1px solid var(--gold);
+    pointer-events: none;
+}
+.envelope::after {
+    content: '';
+    position: absolute;
+    inset: 36px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    pointer-events: none;
+}
+.env-corner {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--gold);
+    pointer-events: none;
+}
+.env-corner.tl { top: 50px; left: 50px; border-right: none; border-bottom: none; }
+.env-corner.tr { top: 50px; right: 50px; border-left: none; border-bottom: none; }
+.env-corner.bl { bottom: 50px; left: 50px; border-right: none; border-top: none; }
+.env-corner.br { bottom: 50px; right: 50px; border-left: none; border-top: none; }
+.env-monogram {
+    font-family: var(--font-serif);
+    font-weight: 900;
+    font-size: 5rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+}
+.env-line {
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1rem 0;
+}
+.env-label {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.4em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+.env-name {
+    font-family: var(--font-script);
+    font-size: clamp(2rem, 7vw, 3rem);
+    color: var(--text);
+    margin: 0.3rem 0 1rem;
+}
+.env-tap {
+    margin-top: 2.5rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    animation: breathe 2.4s ease-in-out infinite;
+}
+@keyframes breathe { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+/* ============ MAIN CONTENT ============ */
+.main-content { display: none; }
+.main-content.show { display: block; animation: fadeUp 1s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============ HERO ============ */
+.hero {
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    background: radial-gradient(ellipse at top, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 30px; left: 30px; right: 30px; bottom: 30px;
+    border: 1px solid var(--line);
+    pointer-events: none;
+}
+.hero-pre {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+.hero-photo {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gold);
+    box-shadow: var(--shadow-gold), 0 0 0 1px var(--bg), 0 0 0 6px rgba(212, 175, 55, 0.15);
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+.hero-script {
+    font-family: var(--font-script);
+    font-size: 2rem;
+    color: var(--gold-light);
+    margin-bottom: 0.3rem;
+}
+.hero-age {
+    font-family: var(--font-display);
+    font-size: clamp(8rem, 32vw, 16rem);
+    line-height: 0.85;
+    background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 60px rgba(212, 175, 55, 0.3);
+    margin: 0.5rem 0;
+    letter-spacing: -0.04em;
+}
+.hero-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0 1.5rem;
+}
+.hero-divider span { width: 60px; height: 1px; background: var(--gold); }
+.hero-divider .diamond {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+}
+.hero-name {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+.hero-tagline {
+    font-family: var(--font-script);
+    font-size: 1.5rem;
+    color: var(--gold-light);
+    margin-bottom: 2rem;
+}
+.hero-date {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    color: var(--text-mute);
+    text-transform: uppercase;
+}
+
+/* COUNTDOWN */
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 2rem auto 0;
+    flex-wrap: wrap;
+}
+.cd-item {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 1rem 0.7rem;
+    min-width: 72px;
+    position: relative;
+}
+.cd-item::before, .cd-item::after {
+    content: '';
+    position: absolute;
+    width: 6px; height: 6px;
+    border: 1px solid var(--gold);
+}
+.cd-item::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.cd-item::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+.cd-num {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--gold-light);
+    line-height: 1;
+}
+.cd-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-mute);
+    margin-top: 0.4rem;
+}
+
+/* ============ SECTION ============ */
+.section {
+    padding: 5rem 2rem;
+    position: relative;
+}
+.section-bordered::before, .section-bordered::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 1px;
+    background: var(--gold);
+}
+.section-bordered::before { top: 30px; }
+.section-bordered::after { bottom: 30px; }
+
+.section-pre {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+}
+.section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+    font-weight: 500;
+    text-align: center;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+}
+.section-script {
+    font-family: var(--font-script);
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+/* ============ ABOUT ============ */
+.about {
+    max-width: 540px;
+    margin: 0 auto;
+    text-align: center;
+}
+.about-text {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+}
+.facts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.fact-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    position: relative;
+}
+.fact-card::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    pointer-events: none;
+}
+.fact-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+}
+.fact-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-mute);
+}
+
+/* ============ TIMELINE (Through the years) ============ */
+.timeline {
+    max-width: 580px;
+    margin: 0 auto;
+    position: relative;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    bottom: 30px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+}
+.timeline-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+.timeline-year {
+    width: 60px;
+    height: 60px;
+    border: 1px solid var(--gold);
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 2;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+}
+.timeline-content {
+    background: var(--bg-card);
+    border-left: 2px solid var(--gold);
+    padding: 1rem 1.4rem;
+    flex: 1;
+}
+.timeline-title {
+    font-family: var(--font-serif);
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+.timeline-text {
+    font-size: 0.9rem;
+    color: var(--text-mute);
+    line-height: 1.6;
+}
+
+/* ============ PARTY DETAILS ============ */
+.party-card {
+    max-width: 540px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--gold);
+    padding: 2.5rem 2rem;
+    position: relative;
+}
+.party-card::before, .party-card::after {
+    content: '';
+    position: absolute;
+    width: 30px; height: 30px;
+    background: var(--gold);
+    transform: rotate(45deg);
+}
+.party-card::before { top: -15px; left: 50%; margin-left: -15px; }
+.party-card::after { bottom: -15px; left: 50%; margin-left: -15px; }
+.party-row {
+    text-align: center;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--line);
+}
+.party-row:last-child { border-bottom: none; }
+.party-label {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+}
+.party-value {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+/* ============ NO GIFTS ============ */
+.no-gifts {
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+.no-gifts-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+.no-gifts-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    line-height: 1.7;
+}
+.no-gifts-sub {
+    font-size: 0.85rem;
+    color: var(--text-mute);
+    margin-top: 0.6rem;
+    font-style: italic;
+}
+
+/* ============ GALLERY ============ */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.gallery-item {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+    filter: grayscale(0.3);
+}
+.gallery-item:hover {
+    border-color: var(--gold);
+    filter: grayscale(0);
+    transform: scale(1.04);
+}
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ============ THANKS ============ */
+.thanks {
+    text-align: center;
+    padding: 5rem 2rem 6rem;
+    background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+    position: relative;
+}
+.thanks::before {
+    content: '';
+    position: absolute;
+    top: 30px; left: 30px; right: 30px; bottom: 30px;
+    border: 1px solid var(--line);
+    pointer-events: none;
+}
+.thanks-script {
+    font-family: var(--font-script);
+    font-size: 3rem;
+    background: linear-gradient(180deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+}
+.thanks-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--text);
+    max-width: 420px;
+    margin: 0 auto 2rem;
+    line-height: 1.8;
+}
+.thanks-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+.thanks-divider span { width: 80px; height: 1px; background: var(--gold); }
+.thanks-divider .diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); }
+.thanks-hashtag {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+}
+
+/* ============ FLOATING DECO ============ */
+.confetti {
+    position: fixed;
+    top: -10px;
+    width: 8px;
+    height: 14px;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0;
+    animation: confettiFall linear infinite;
+}
+.main-content.show ~ .confetti { opacity: 0.85; }
+@keyframes confettiFall {
+    0% { transform: translateY(0) rotateZ(0deg); }
+    100% { transform: translateY(110vh) rotateZ(720deg); }
+}
+.spark {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--gold);
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0;
+    animation: sparkTwinkle 3s ease-in-out infinite;
+}
+.main-content.show ~ .spark { opacity: 0.7; }
+@keyframes sparkTwinkle {
+    0%, 100% { transform: scale(0.4); opacity: 0.2; }
+    50% { transform: scale(1.2); opacity: 0.9; }
+}
+
+/* MUSIC */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--gold);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-gold);
+    z-index: 1000;
+}
+.main-content.show ~ .music-btn { display: flex; }
+.music-btn.playing { animation: musicSpin 4s linear infinite; }
+@keyframes musicSpin { to { transform: rotate(360deg); } }
+.music-btn svg { width: 22px; height: 22px; color: var(--gold); }
+
+/* REVEAL */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible, .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    .section { padding: 4rem 1.2rem; }
+    .hero { padding: 4rem 1.2rem 3rem; }
+    .facts-grid { grid-template-columns: 1fr 1fr; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .cd-item { min-width: 64px; padding: 0.8rem 0.5rem; }
+    .timeline-year { width: 52px; height: 52px; font-size: 0.85rem; }
+    .timeline::before { left: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ENVELOPE -->
+<div class="envelope" id="envelope">
+    <div class="env-corner tl"></div>
+    <div class="env-corner tr"></div>
+    <div class="env-corner bl"></div>
+    <div class="env-corner br"></div>
+    <div class="env-monogram">M&nbsp;A</div>
+    <div class="env-line"></div>
+    <div class="env-label">A Private Celebration</div>
+    <div class="env-name">Minh Anh</div>
+    <div class="env-line"></div>
+    <div class="env-tap">— Nhấn để mở thiệp —</div>
+</div>
+
+<!-- MAIN -->
+<div class="main-content" id="main">
+    <div class="wrapper">
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-pre reveal">You're Cordially Invited</div>
+            <div class="hero-photo reveal">
+                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&q=80" alt="Minh Anh">
+            </div>
+            <div class="hero-script reveal">Cheers to</div>
+            <div class="hero-age reveal" id="ageNum">30</div>
+            <div class="hero-divider reveal"><span></span><div class="diamond"></div><span></span></div>
+            <h1 class="hero-name reveal">Lê Hoàng Minh Anh</h1>
+            <div class="hero-tagline reveal">~ Thirty &amp; Fabulous ~</div>
+            <div class="hero-date reveal">Saturday • 25 May 2026</div>
+            <div class="countdown reveal" id="countdown">
+                <div class="cd-item"><div class="cd-num" id="cd-d">00</div><div class="cd-label">Days</div></div>
+                <div class="cd-item"><div class="cd-num" id="cd-h">00</div><div class="cd-label">Hours</div></div>
+                <div class="cd-item"><div class="cd-num" id="cd-m">00</div><div class="cd-label">Mins</div></div>
+                <div class="cd-item"><div class="cd-num" id="cd-s">00</div><div class="cd-label">Secs</div></div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="section section-bordered">
+            <div class="section-pre reveal">About the Birthday Star</div>
+            <h2 class="section-title reveal">Three Decades of Stories</h2>
+            <div class="section-script reveal">— and counting —</div>
+            <div class="about">
+                <p class="about-text reveal">"Ba mươi không phải điểm dừng. Đó là lúc ta biết rõ mình muốn gì,
+                yêu ai, và sẵn sàng viết tiếp những trang đẹp nhất của cuộc đời."</p>
+                <div class="facts-grid">
+                    <div class="fact-card reveal"><div class="fact-num">30</div><div class="fact-label">Năm đáng nhớ</div></div>
+                    <div class="fact-card reveal"><div class="fact-num">12</div><div class="fact-label">Quốc gia đã đến</div></div>
+                    <div class="fact-card reveal"><div class="fact-num">∞</div><div class="fact-label">Khoảnh khắc đẹp</div></div>
+                    <div class="fact-card reveal"><div class="fact-num">1</div><div class="fact-label">Trái tim biết ơn</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE -->
+        <section class="section section-bordered">
+            <div class="section-pre reveal">Through the Years</div>
+            <h2 class="section-title reveal">Những Cột Mốc</h2>
+            <div class="section-script reveal">— a journey of thirty years —</div>
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">1996</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Khởi đầu</div>
+                        <div class="timeline-text">Chào đời trong vòng tay yêu thương của gia đình tại Hà Nội.</div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2014</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Tuổi 18</div>
+                        <div class="timeline-text">Bước vào đại học, mở ra hành trình tự lập và những giấc mơ lớn.</div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2018</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Bước ngoặt sự nghiệp</div>
+                        <div class="timeline-text">Công việc đầu tiên, thành phố mới, những người bạn đồng hành tuyệt vời.</div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Hành trình khám phá</div>
+                        <div class="timeline-text">Du lịch 12 quốc gia, tìm thấy bản thân giữa những chân trời mới.</div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2026</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Tuổi 30</div>
+                        <div class="timeline-text">Trưởng thành, biết ơn, và sẵn sàng cho thập kỷ mới rực rỡ hơn.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PARTY DETAILS -->
+        <section class="section section-bordered">
+            <div class="section-pre reveal">The Celebration</div>
+            <h2 class="section-title reveal">Chi Tiết Buổi Lễ</h2>
+            <div class="section-script reveal">— save the date —</div>
+            <div class="party-card reveal">
+                <div class="party-row">
+                    <div class="party-label">Date</div>
+                    <div class="party-value">Saturday, 25 May 2026</div>
+                </div>
+                <div class="party-row">
+                    <div class="party-label">Time</div>
+                    <div class="party-value">19:00 — 23:00</div>
+                </div>
+                <div class="party-row">
+                    <div class="party-label">Venue</div>
+                    <div class="party-value">The Reverie Saigon Rooftop<br>22-36 Nguyễn Huệ, Q.1, HCM</div>
+                </div>
+                <div class="party-row">
+                    <div class="party-label">Dress Code</div>
+                    <div class="party-value">Black Tie • Gold Touch</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NO GIFTS -->
+        <section class="section">
+            <div class="no-gifts reveal">
+                <div class="no-gifts-icon">✦</div>
+                <p class="no-gifts-text">"Sự hiện diện của bạn chính là món quà ý nghĩa nhất.<br>Xin đừng mang theo gì ngoài nụ cười."</p>
+                <p class="no-gifts-sub">— No gifts please, just your presence —</p>
+            </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section class="section section-bordered">
+            <div class="section-pre reveal">Memories</div>
+            <h2 class="section-title reveal">Album Kỷ Niệm</h2>
+            <div class="section-script reveal">— moments that shaped me —</div>
+            <div class="gallery">
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&q=80" alt=""></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&q=80" alt=""></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80" alt=""></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" alt=""></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&q=80" alt=""></div>
+                <div class="gallery-item reveal"><img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=400&q=80" alt=""></div>
+            </div>
+        </section>
+
+        <!-- THANKS -->
+        <section class="thanks">
+            <div class="thanks-script reveal">With Gratitude</div>
+            <p class="thanks-text reveal">Cảm ơn vì đã đồng hành cùng tôi trong ba mươi năm qua. Mỗi người trong các bạn đều là một phần không thể thiếu của hành trình này.</p>
+            <div class="thanks-divider reveal"><span></span><div class="diamond"></div><span></span></div>
+            <div class="thanks-hashtag reveal">#MinhAnhTurns30</div>
+        </section>
+
+    </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="bgm" loop>
+    <source src="../../../shared/music/upbeat-energy/We Found Love.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" id="musicBtn" aria-label="Bật/tắt nhạc">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+</button>
+
+<script>
+const envelope = document.getElementById('envelope');
+const main = document.getElementById('main');
+const bgm = document.getElementById('bgm');
+const musicBtn = document.getElementById('musicBtn');
+
+envelope.addEventListener('click', () => {
+    envelope.classList.add('opened');
+    main.classList.add('show');
+    setTimeout(() => envelope.style.display = 'none', 900);
+    bgm.volume = 0.35;
+    bgm.play().then(() => musicBtn.classList.add('playing')).catch(() => {});
+    spawnDeco();
+    initReveal();
+    animateAge();
+});
+
+musicBtn.addEventListener('click', () => {
+    if (bgm.paused) { bgm.play(); musicBtn.classList.add('playing'); }
+    else { bgm.pause(); musicBtn.classList.remove('playing'); }
+});
+
+// COUNTDOWN
+const target = new Date('2026-05-25T19:00:00+07:00').getTime();
+function tick() {
+    const diff = Math.max(0, target - Date.now());
+    document.getElementById('cd-d').textContent = String(Math.floor(diff / 86400000)).padStart(2, '0');
+    document.getElementById('cd-h').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+    document.getElementById('cd-m').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    document.getElementById('cd-s').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+}
+tick(); setInterval(tick, 1000);
+
+// AGE COUNT UP
+function animateAge() {
+    const el = document.getElementById('ageNum');
+    let n = 0;
+    const target = 30;
+    const interval = setInterval(() => {
+        n++;
+        el.textContent = n;
+        if (n >= target) clearInterval(interval);
+    }, 60);
+}
+
+// REVEAL
+function initReveal() {
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible', 'in-view'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+// CONFETTI + SPARKS
+function spawnDeco() {
+    const colors = ['#D4AF37', '#F4D78A', '#FFFFFF', '#A88729'];
+    for (let i = 0; i < 30; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = Math.random() * 100 + '%';
+        c.style.background = colors[i % colors.length];
+        c.style.animationDuration = (5 + Math.random() * 5) + 's';
+        c.style.animationDelay = (Math.random() * 5) + 's';
+        document.body.appendChild(c);
+    }
+    for (let i = 0; i < 18; i++) {
+        const s = document.createElement('div');
+        s.className = 'spark';
+        s.style.left = Math.random() * 100 + '%';
+        s.style.top = Math.random() * 100 + '%';
+        s.style.animationDelay = (Math.random() * 3) + 's';
+        document.body.appendChild(s);
+    }
+}
+</script>
+</body>
+</html>
