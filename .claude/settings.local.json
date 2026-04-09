@@ -271,7 +271,18 @@
       "Bash(npx --no playwright --version)",
       "Bash(cwebp -q 85 screen-raw.png -o screen.webp)",
       "Bash(cwebp -q 85 screen-mobile-raw.png -o screen-mobile.webp)",
-      "Bash(cwebp -q 85 products/Invitation/Other/khach_2/mobile.png -o products/Invitation/Other/khach_2/screen-mobile.webp)"
+      "Bash(cwebp -q 85 products/Invitation/Other/khach_2/mobile.png -o products/Invitation/Other/khach_2/screen-mobile.webp)",
+      "WebFetch(domain:www.canva.com)",
+      "Bash(ffmpeg -i /tmp/canva-231.mp4 -vf \"fps=1,scale=640:-1\" /tmp/canva-frame-%02d.png -y)",
+      "Bash(ffmpeg -i products/Invitation/Other/khach_2_v2/intro.mp4 -c:v libx264 -crf 28 -profile:v baseline -pix_fmt yuv420p -movflags +faststart -an products/Invitation/Other/khach_2_v2/intro-compressed.mp4)",
+      "Bash(ffmpeg -i products/Invitation/Other/khach_2_v2/intro.mp4 -ss 0 -frames:v 1 -q:v 2 products/Invitation/Other/khach_2_v2/intro-poster.webp -y)",
+      "Bash(ffmpeg -i products/Invitation/Other/khach_2_v2/intro.mp4 -ss 0 -frames:v 1 -q:v 2 products/Invitation/Other/khach_2_v2/intro-poster.jpg -y)",
+      "Bash(cwebp -q 85 products/Invitation/Other/khach_2_v2/intro-poster.jpg -o products/Invitation/Other/khach_2_v2/intro-poster.webp)",
+      "Bash(ffmpeg -i products/Invitation/Other/khach_2_v2/intro.mp4 -c:v libx264 -crf 32 -preset slow -profile:v baseline -pix_fmt yuv420p -movflags +faststart -an -vf \"scale='min\\(720,iw\\)':-2\" products/Invitation/Other/khach_2_v2/intro-lite.mp4 -y)",
+      "Bash(ffprobe -v error -show_format -show_streams -select_streams v /tmp/h225.mp4)",
+      "Bash(ffmpeg -i /tmp/h225.mp4 -vf \"fps=1.5,scale=540:-1\" /tmp/h225-f%02d.png -y)",
+      "Bash(ffprobe -v error -show_format -show_streams -select_streams v products/Invitation/Other/khach_2_v3/Luxury_Champagne_Bar_Video_Generation.mp4)",
+      "Bash(ffmpeg -y -ss 1.5 -t 5 -i products/Invitation/Other/khach_2_v3/Luxury_Champagne_Bar_Video_Generation.mp4 -vf crop=405:720:437:0,scale=540:960,fps=24 -c:v libx264 -preset slow -crf 28 -pix_fmt yuv420p -movflags +faststart -an products/Invitation/Other/khach_2_v3/hero-video.mp4)"
     ]
   }
 }
