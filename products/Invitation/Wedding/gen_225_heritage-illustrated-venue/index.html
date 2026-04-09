@@ -2475,11 +2475,39 @@
   </head>
 
   <body>
+    <style>
+      #video-loader{position:fixed;inset:0;z-index:10000;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s ease;font-family:'Cormorant Garamond',serif}
+      #video-loader.hidden{opacity:0;pointer-events:none}
+      #video-loader .vl-title{color:#d4af37;font-size:20px;letter-spacing:.5em;text-transform:uppercase;margin-bottom:28px;text-shadow:0 0 24px rgba(212,175,55,.35);font-weight:300;padding-left:.5em}
+      #video-loader .vl-bar{position:relative;width:min(260px,60vw);height:2px;background:rgba(212,175,55,.15);overflow:hidden;border-radius:2px}
+      #video-loader .vl-bar::before{content:"";position:absolute;inset:0;width:40%;background:linear-gradient(90deg,transparent,#d4af37 20%,#f5d97a 50%,#d4af37 80%,transparent);box-shadow:0 0 12px rgba(212,175,55,.6);animation:vlSlide 1.6s cubic-bezier(.4,0,.2,1) infinite}
+      #video-loader .vl-sub{color:rgba(212,175,55,.55);font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin-top:20px;font-style:italic}
+      @keyframes vlSlide{0%{left:-40%}100%{left:100%}}
+    </style>
+    <div id="video-loader">
+      <div class="vl-title">Heritage</div>
+      <div class="vl-bar"></div>
+      <div class="vl-sub">Loading</div>
+    </div>
     <div id="intro-screen">
       <video id="intro-video" muted="" playsinline="" preload="auto">
-        <source src="../../../shared/videos/wedding/intro-heritage.mp4" type="video/mp4" />
+        <source src="https://heritage-theme.thedigitalinvite.com/intro-video.mp4" type="video/mp4" />
       </video>
     </div>
+    <script>
+      (function(){
+        var loader=document.getElementById('video-loader');
+        var vid=document.getElementById('intro-video');
+        if(!loader||!vid)return;
+        var done=false;
+        function hide(){if(done)return;done=true;loader.classList.add('hidden');setTimeout(function(){loader.style.display='none'},700)}
+        if(vid.readyState>=3)hide();
+        vid.addEventListener('canplaythrough',hide,{once:true});
+        vid.addEventListener('loadeddata',hide,{once:true});
+        vid.addEventListener('error',hide,{once:true});
+        setTimeout(hide,8000);
+      })();
+    </script>
 
     <div id="root">
       <div role="region" aria-label="Notifications (F8)" tabindex="-1" style="pointer-events: none">
@@ -2487,47 +2515,23 @@
       </div>
       <section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></section>
       <div class="min-h-screen">
-        <button
-          class="fixed top-6 right-6 z-50 flex items-center gap-2 px-3 py-2 rounded-full border border-muted-foreground/30 bg-background/80 backdrop-blur-sm text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all duration-300"
-          aria-label="Switch language"
-        >
-          <svg
-            xmlns="http:"
-            www.w3.org=""
-            2000=""
-            svg=""
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-globe"
-          >
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-            <path d="M2 12h20"></path></svg
-          ><span class="text-xs font-medium uppercase tracking-wider">EN</span>
-        </button>
         <section class="relative min-h-screen flex flex-col items-center justify-center py-8 px-6 overflow-hidden bg-background">
-          <audio loop="" preload="auto" src="../../../shared/music/wedding/heritage-theme.mp3"></audio>
+          <audio id="bg-music" loop="" preload="auto" src="../../../shared/music/wedding/heritage-theme.mp3"></audio>
           <div class="absolute inset-0 w-full h-full">
-            <video autoplay="" loop="" muted="" playsinline="" preload="auto" class="absolute inset-0 w-full h-full object-cover" src="../../../shared/videos/wedding/hero-heritage-venue.mp4"></video>
+            <video autoplay="" loop="" muted="" playsinline="" preload="auto" class="absolute inset-0 w-full h-full object-cover" src="https://heritage-theme.thedigitalinvite.com/hero-video.mp4"></video>
             <div class="absolute inset-0 bg-background/20"></div>
           </div>
           <div class="text-center z-10 animate-fade-in my-[230px]">
-            <p class="text-xs md:text-sm tracking-[0.3em] uppercase mb-3 text-wedding-olive">Nous nous marions</p>
+            <p class="text-xs md:text-sm tracking-[0.3em] uppercase mb-3 text-wedding-olive">We Are Getting Married</p>
             <h1 class="font-script text-5xl md:text-6xl lg:text-7xl mb-2 text-wedding-olive">Alex <span class="mx-2">&amp;</span> Diane</h1>
             <div class="flex items-center justify-center gap-4 md:my-8 my-[5px]">
               <span class="h-px w-12 md:w-20 bg-wedding-olive"></span><span class="text-amber-500 text-lg drop-shadow-md">✦</span><span class="h-px w-12 md:w-20 bg-wedding-olive"></span>
             </div>
-            <p class="text-xs md:text-sm tracking-[0.2em] uppercase text-wedding-olive my-0 py-[6px]">22 Novembre 2026</p>
+            <p class="text-xs md:text-sm tracking-[0.2em] uppercase text-wedding-olive my-0 py-[6px]">November 22, 2026</p>
           </div>
           <div class="flex-1"></div>
           <div class="text-center z-10 animate-fade-in" style="animation-delay: 0.4s">
-            <button class="text-xs tracking-[0.3em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300">Confirmer sa présence</button>
+            <button class="text-xs tracking-[0.3em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300">Confirm Your Attendance</button>
             <div class="mt-4 flex justify-center">
               <svg class="w-4 h-4 text-muted-foreground animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"></path>
@@ -2535,6 +2539,8 @@
             </div>
           </div>
           <button
+            id="bgm-toggle"
+            onclick="(function(b){var a=document.getElementById('bg-music');if(!a)return;if(a.paused){a.play();b.setAttribute('aria-label','Mute');}else{a.pause();b.setAttribute('aria-label','Play');}})(this)"
             class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full border border-muted-foreground/30 bg-background/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/50 transition-all duration-300"
             aria-label="Mute"
           >
@@ -2562,8 +2568,8 @@
         <section id="story" class="md:py-32 bg-wedding-cream py-0">
           <div class="container mx-auto px-4 max-w-4xl bg-[#faf4eb]/[0.76]">
             <div class="text-center mb-16">
-              <p class="font-script text-wedding-accent text-2xl mb-4 py-[20px]">Notre Parcours</p>
-              <h2 class="font-script text-5xl md:text-6xl text-wedding-olive mb-6">Notre Histoire</h2>
+              <p class="font-script text-wedding-accent text-2xl mb-4 py-[20px]">Our Journey</p>
+              <h2 class="font-script text-5xl md:text-6xl text-wedding-olive mb-6">Our Story</h2>
               <div class="flex items-center justify-center gap-4">
                 <div class="h-px w-16 bg-wedding-accent/30"></div>
                 <svg
@@ -2592,9 +2598,9 @@
                 <div class="relative flex items-start gap-8 transition-all duration-700 ease-out md:flex-row opacity-100 translate-y-0" style="transition-delay: 0ms">
                   <div class="flex-1 ml-12 md:ml-0 md:text-right md:pr-12">
                     <span class="font-script text-wedding-accent text-3xl">2020</span>
-                    <h3 class="font-script text-3xl text-wedding-text mt-2 mb-3">Notre Rencontre</h3>
+                    <h3 class="font-script text-3xl text-wedding-text mt-2 mb-3">How We Met</h3>
                     <p class="font-serif italic text-wedding-text/70 leading-relaxed text-lg">
-                      Nos chemins se sont croisés de la manière la plus inattendue. Ce qui a commencé comme une rencontre fortuite est devenu le début de notre belle histoire.
+                      Our paths crossed in the most unexpected way. What started as a chance encounter became the beginning of our beautiful story.
                     </p>
                   </div>
                   <div
@@ -2606,9 +2612,9 @@
                 <div class="relative flex items-start gap-8 transition-all duration-700 ease-out md:flex-row-reverse opacity-100 translate-y-0" style="transition-delay: 100ms">
                   <div class="flex-1 ml-12 md:ml-0 md:pl-12">
                     <span class="font-script text-wedding-accent text-3xl">2021</span>
-                    <h3 class="font-script text-3xl text-wedding-text mt-2 mb-3">Première Aventure</h3>
+                    <h3 class="font-script text-3xl text-wedding-text mt-2 mb-3">First Adventure</h3>
                     <p class="font-serif italic text-wedding-text/70 leading-relaxed text-lg">
-                      Nous avons découvert notre amour commun pour l'exploration et l'aventure. Des conversations nocturnes aux voyages spontanés, chaque moment nous a rapprochés.
+                      We discovered our shared love for exploration and adventure. From late-night conversations to spontaneous trips, every moment brought us closer together.
                     </p>
                   </div>
                   <div
@@ -2620,9 +2626,9 @@
                 <div class="relative flex items-start gap-8 transition-all duration-700 ease-out md:flex-row opacity-100 translate-y-0" style="transition-delay: 200ms">
                   <div class="flex-1 ml-12 md:ml-0 md:text-right md:pr-12">
                     <span class="font-script text-wedding-accent text-3xl">2023</span>
-                    <h3 class="font-script text-3xl text-wedding-text mt-2 mb-3">Avancer Ensemble</h3>
+                    <h3 class="font-script text-3xl text-wedding-text mt-2 mb-3">Moving Forward Together</h3>
                     <p class="font-serif italic text-wedding-text/70 leading-relaxed text-lg">
-                      Nous savions que c'était pour toujours. Construire notre vie ensemble, soutenir les rêves de l'autre, et devenir plus forts chaque jour.
+                      We knew it was forever. Building our life together, supporting each other's dreams, and growing stronger every day.
                     </p>
                   </div>
                   <div
@@ -2634,9 +2640,9 @@
                 <div class="relative flex items-start gap-8 transition-all duration-700 ease-out md:flex-row-reverse opacity-100 translate-y-0" style="transition-delay: 300ms">
                   <div class="flex-1 ml-12 md:ml-0 md:pl-12">
                     <span class="font-script text-wedding-accent text-3xl">2025</span>
-                    <h3 class="font-script text-3xl text-wedding-text mt-2 mb-3">La Demande</h3>
+                    <h3 class="font-script text-3xl text-wedding-text mt-2 mb-3">The Proposal</h3>
                     <p class="font-serif italic text-wedding-text/70 leading-relaxed text-lg">
-                      Le cœur rempli d'amour et de rêves pour notre avenir, la question a été posée et répondue avec des larmes de joie.
+                      With hearts full of love and dreams for our future, the question was asked and answered with tears of joy.
                     </p>
                   </div>
                   <div
@@ -2672,8 +2678,8 @@
         <section class="md:py-24 bg-wedding-olive py-0">
           <div class="max-w-5xl mx-auto px-4 py-[40px]">
             <div class="text-center mb-16 animate-fade-in">
-              <h2 class="font-script text-5xl md:text-6xl text-wedding-gold mb-2">Programme du jour</h2>
-              <p class="text-white/70 tracking-wide">Ce que nous avons préparé pour vous</p>
+              <h2 class="font-script text-5xl md:text-6xl text-wedding-gold mb-2">Day's Schedule</h2>
+              <p class="text-white/70 tracking-wide">What we have planned for you</p>
             </div>
             <div class="relative">
               <div class="relative">
@@ -2708,9 +2714,9 @@
                     <div class="flex-1 pt-1 md:flex md:flex-col md:items-center md:pt-2">
                       <div class="flex items-baseline gap-3 mb-0.5 md:flex-col md:items-center md:gap-1 md:mb-1">
                         <span class="bg-wedding-gold text-wedding-olive px-2 py-0.5 rounded text-xs font-medium">16:30</span>
-                        <h3 class="font-serif text-lg text-white">Arrivée des invités</h3>
+                        <h3 class="font-serif text-lg text-white">Guest Arrival</h3>
                       </div>
-                      <p class="text-white/60 text-sm">Accueil et bienvenue</p>
+                      <p class="text-white/60 text-sm">Welcome &amp; reception</p>
                     </div>
                   </div>
                   <div class="flex items-start gap-4 pl-1 md:flex-col md:items-center md:text-center md:gap-2 md:pl-0 md:flex-1 animate-fade-in" style="animation-delay: 0.1s">
@@ -2738,9 +2744,9 @@
                     <div class="flex-1 pt-1 md:flex md:flex-col md:items-center md:pt-2">
                       <div class="flex items-baseline gap-3 mb-0.5 md:flex-col md:items-center md:gap-1 md:mb-1">
                         <span class="bg-wedding-gold text-wedding-olive px-2 py-0.5 rounded text-xs font-medium">17:00</span>
-                        <h3 class="font-serif text-lg text-white">Cérémonie</h3>
+                        <h3 class="font-serif text-lg text-white">Ceremony</h3>
                       </div>
-                      <p class="text-white/60 text-sm">Mariage civil</p>
+                      <p class="text-white/60 text-sm">Civil wedding</p>
                     </div>
                   </div>
                   <div class="flex items-start gap-4 pl-1 md:flex-col md:items-center md:text-center md:gap-2 md:pl-0 md:flex-1 animate-fade-in" style="animation-delay: 0.2s">
@@ -2773,7 +2779,7 @@
                         <span class="bg-wedding-gold text-wedding-olive px-2 py-0.5 rounded text-xs font-medium">18:00</span>
                         <h3 class="font-serif text-lg text-white">Cocktail</h3>
                       </div>
-                      <p class="text-white/60 text-sm">Apéritifs et boissons</p>
+                      <p class="text-white/60 text-sm">Drinks &amp; appetizers</p>
                     </div>
                   </div>
                   <div class="flex items-start gap-4 pl-1 md:flex-col md:items-center md:text-center md:gap-2 md:pl-0 md:flex-1 animate-fade-in" style="animation-delay: 0.3s">
@@ -2804,9 +2810,9 @@
                     <div class="flex-1 pt-1 md:flex md:flex-col md:items-center md:pt-2">
                       <div class="flex items-baseline gap-3 mb-0.5 md:flex-col md:items-center md:gap-1 md:mb-1">
                         <span class="bg-wedding-gold text-wedding-olive px-2 py-0.5 rounded text-xs font-medium">20:00</span>
-                        <h3 class="font-serif text-lg text-white">Dîner</h3>
+                        <h3 class="font-serif text-lg text-white">Dinner</h3>
                       </div>
-                      <p class="text-white/60 text-sm">Banquet de mariage</p>
+                      <p class="text-white/60 text-sm">Wedding banquet</p>
                     </div>
                   </div>
                   <div class="flex items-start gap-4 pl-1 md:flex-col md:items-center md:text-center md:gap-2 md:pl-0 md:flex-1 animate-fade-in" style="animation-delay: 0.4s">
@@ -2834,9 +2840,9 @@
                     <div class="flex-1 pt-1 md:flex md:flex-col md:items-center md:pt-2">
                       <div class="flex items-baseline gap-3 mb-0.5 md:flex-col md:items-center md:gap-1 md:mb-1">
                         <span class="bg-wedding-gold text-wedding-olive px-2 py-0.5 rounded text-xs font-medium">22:30</span>
-                        <h3 class="font-serif text-lg text-white">Première danse</h3>
+                        <h3 class="font-serif text-lg text-white">First Dance</h3>
                       </div>
-                      <p class="text-white/60 text-sm">La danse des mariés</p>
+                      <p class="text-white/60 text-sm">The newlyweds' dance</p>
                     </div>
                   </div>
                   <div class="flex items-start gap-4 pl-1 md:flex-col md:items-center md:text-center md:gap-2 md:pl-0 md:flex-1 animate-fade-in" style="animation-delay: 0.5s">
@@ -2866,9 +2872,9 @@
                     <div class="flex-1 pt-1 md:flex md:flex-col md:items-center md:pt-2">
                       <div class="flex items-baseline gap-3 mb-0.5 md:flex-col md:items-center md:gap-1 md:mb-1">
                         <span class="bg-wedding-gold text-wedding-olive px-2 py-0.5 rounded text-xs font-medium">23:00</span>
-                        <h3 class="font-serif text-lg text-white">Fête</h3>
+                        <h3 class="font-serif text-lg text-white">Party</h3>
                       </div>
-                      <p class="text-white/60 text-sm">On danse !</p>
+                      <p class="text-white/60 text-sm">Let's dance!</p>
                     </div>
                   </div>
                   <div class="flex items-start gap-4 pl-1 md:flex-col md:items-center md:text-center md:gap-2 md:pl-0 md:flex-1 animate-fade-in" style="animation-delay: 0.6s">
@@ -2904,9 +2910,9 @@
                     <div class="flex-1 pt-1 md:flex md:flex-col md:items-center md:pt-2">
                       <div class="flex items-baseline gap-3 mb-0.5 md:flex-col md:items-center md:gap-1 md:mb-1">
                         <span class="bg-wedding-gold text-wedding-olive px-2 py-0.5 rounded text-xs font-medium">02:30</span>
-                        <h3 class="font-serif text-lg text-white">Fin</h3>
+                        <h3 class="font-serif text-lg text-white">End</h3>
                       </div>
-                      <p class="text-white/60 text-sm">Au revoir</p>
+                      <p class="text-white/60 text-sm">Farewell</p>
                     </div>
                   </div>
                 </div>
@@ -2917,14 +2923,14 @@
         <section class="md:py-24 relative overflow-hidden py-[10px]" style="background-color: rgb(250, 245, 235)">
           <div class="max-w-2xl mx-auto px-4 relative z-10">
             <div class="text-center mb-12 animate-fade-in">
-              <h2 class="font-script text-5xl md:text-6xl text-wedding-olive mb-6 mx-0 px-0 my-[20px]">Cadeaux</h2>
+              <h2 class="font-script text-5xl md:text-6xl text-wedding-olive mb-6 mx-0 px-0 my-[20px]">Gifts</h2>
               <p class="text-muted-foreground leading-relaxed max-w-lg mx-auto">
-                Votre présence est le plus important pour nous.<br class="hidden md:block" />Si vous souhaitez nous faire un cadeau, vous pouvez le faire de la manière qui vous convient le mieux.
+                Your presence is the most important thing for us.<br class="hidden md:block" />If you would like to give us a gift, you can do so in whatever way feels right for you.
               </p>
             </div>
             <div class="rounded-2xl border-2 shadow-sm overflow-hidden animate-fade-in bg-wedding-olive border-wedding-olive" style="animation-delay: 0.2s">
               <button id="contrib-toggle" class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-secondary/30 transition-colors">
-                <span class="font-serif text-lg text-white">Contribution</span>
+                <span class="font-serif text-lg text-white">Cash Gift</span>
                 <div id="contrib-chevron" class="transition-transform duration-300" style="transform: rotate(0deg)">
                   <svg
                     xmlns="http:"
@@ -2962,9 +2968,9 @@
         <section id="details" class="py-12 md:py-32 bg-white">
           <div class="container mx-auto px-4 sm:px-6 max-w-3xl">
             <div class="text-center mb-8 md:mb-16">
-              <p class="text-wedding-accent tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-3 md:mb-4">Rejoignez-nous</p>
-              <h2 class="font-serif text-3xl md:text-5xl text-wedding-olive mb-4 md:mb-6">Détails de l'événement</h2>
-              <p class="text-wedding-text/70 max-w-2xl mx-auto text-sm md:text-base px-2">Nous avons hâte de célébrer ce jour spécial avec vous. Voici tout ce que vous devez savoir.</p>
+              <p class="text-wedding-accent tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-3 md:mb-4">Join Us</p>
+              <h2 class="font-serif text-3xl md:text-5xl text-wedding-olive mb-4 md:mb-6">Event Details</h2>
+              <p class="text-wedding-text/70 max-w-2xl mx-auto text-sm md:text-base px-2">We can't wait to celebrate this special day with you. Here is everything you need to know.</p>
             </div>
             <div class="mb-8 md:mb-16">
               <div class="bg-wedding-cream rounded-xl md:rounded-2xl p-5 sm:p-6 md:p-8 text-center hover:shadow-lg transition-shadow duration-300">
@@ -2993,7 +2999,7 @@
                     <path d="M5 18H3"></path>
                   </svg>
                 </div>
-                <h3 class="font-serif text-xl md:text-2xl text-wedding-text mb-3 md:mb-4">Cérémonie de Mariage</h3>
+                <h3 class="font-serif text-xl md:text-2xl text-wedding-text mb-3 md:mb-4">Wedding Ceremony</h3>
                 <div class="space-y-2 md:space-y-3 text-wedding-text/70 mb-4 md:mb-6 text-sm md:text-base">
                   <div class="flex items-center justify-center gap-2">
                     <svg
@@ -3033,7 +3039,7 @@
                     >
                       <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
                       <circle cx="12" cy="10" r="3"></circle></svg
-                    ><span class="text-center">Mairie du 19ème arrondissement</span>
+                    ><span class="text-center">Town Hall of the 19th Arrondissement</span>
                   </div>
                   <p class="text-xs md:text-sm">5-7 Place Armand Carrel</p>
                   <p class="text-xs md:text-sm">75019 Paris, France</p>
@@ -3048,7 +3054,7 @@
                     src="https://www.google.com/maps?q=mairie+du+19eme+paris&amp;output=embed"
                   ></iframe>
                 </div>
-                <p class="text-wedding-text/60 text-xs md:text-sm leading-relaxed mb-4 md:mb-6 px-2">Rejoignez-nous pour échanger nos vœux dans une cérémonie intime entourée de nos proches.</p>
+                <p class="text-wedding-text/60 text-xs md:text-sm leading-relaxed mb-4 md:mb-6 px-2">Join us to exchange our vows in an intimate ceremony surrounded by our loved ones.</p>
                 <div class="flex flex-col gap-2 sm:gap-3 sm:flex-row justify-center">
                   <button
                     class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border bg-background hover:text-accent-foreground h-9 rounded-md px-3 border-wedding-accent/30 text-wedding-accent hover:bg-wedding-accent/10 text-xs md:text-sm w-full sm:w-auto"
@@ -3069,7 +3075,7 @@
                       class="lucide lucide-navigation w-3.5 h-3.5 md:w-4 md:h-4 mr-2 flex-shrink-0"
                     >
                       <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg
-                    >Ouvrir dans Maps</button
+                    >Open in Maps</button
                   ><button
                     class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border bg-background hover:text-accent-foreground h-9 rounded-md px-3 border-wedding-accent/30 text-wedding-accent hover:bg-wedding-accent/10 text-xs md:text-sm w-full sm:w-auto"
                   >
@@ -3094,22 +3100,22 @@
                       <path d="M3 10h18"></path>
                       <path d="M16 19h6"></path>
                       <path d="M19 16v6"></path></svg
-                    >Ajouter au Calendrier
+                    >Add to Calendar
                   </button>
                 </div>
               </div>
             </div>
             <div class="text-center bg-wedding-olive rounded-xl md:rounded-2xl p-5 sm:p-6 md:p-8">
-              <h3 class="font-serif text-xl md:text-2xl text-wedding-gold mb-3 md:mb-4">Code Vestimentaire</h3>
-              <p class="text-wedding-gold mb-2 text-sm md:text-base">Formel / Black Tie Optionnel</p>
-              <p class="text-wedding-gold/70 text-xs md:text-sm px-2">Nous vous prions de vous habiller élégamment pour notre célébration.</p>
+              <h3 class="font-serif text-xl md:text-2xl text-wedding-gold mb-3 md:mb-4">Dress Code</h3>
+              <p class="text-wedding-gold mb-2 text-sm md:text-base">Formal / Black Tie Optional</p>
+              <p class="text-wedding-gold/70 text-xs md:text-sm px-2">We kindly ask that you dress elegantly for our celebration.</p>
             </div>
           </div>
         </section>
         <section id="rsvp" class="pt-20 pb-6 md:pt-32 md:pb-8 bg-wedding-cream">
           <div class="container mx-auto px-4 max-w-2xl">
             <div class="text-center mb-12">
-              <p class="text-wedding-accent tracking-[0.3em] uppercase text-sm mb-4">Soyez notre invité</p>
+              <p class="text-wedding-accent tracking-[0.3em] uppercase text-sm mb-4">Be Our Guest</p>
               <h2 class="font-serif text-4xl md:text-5xl text-wedding-olive mb-6">RSVP</h2>
               <div class="flex items-center justify-center gap-4 mb-6">
                 <div class="h-px w-16 bg-wedding-accent/30"></div>
@@ -3132,32 +3138,32 @@
                 </svg>
                 <div class="h-px w-16 bg-wedding-accent/30"></div>
               </div>
-              <p class="text-wedding-text" 70="">Merci de nous confirmer votre présence avant le 22 Octobre 2026</p>
+              <p class="text-wedding-text" 70="">Please confirm your attendance by October 22, 2026</p>
             </div>
             <form class="bg-white rounded-2xl p-8 md:p-12 shadow-lg space-y-6">
               <div class="space-y-2">
-                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-wedding-text" for="name">Nom complet *</label
+                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-wedding-text" for="name">Full Name *</label
                 ><input
                   class="flex h-10 w-full rounded-md border bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm border-wedding-sage/30 focus:border-wedding-accent focus:ring-wedding-accent"
                   id="name"
                   required=""
-                  placeholder="Votre nom complet"
+                  placeholder="Your full name"
                   value=""
                 />
               </div>
               <div class="space-y-2">
-                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-wedding-text" for="email">Adresse email *</label
+                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-wedding-text" for="email">Email Address *</label
                 ><input
                   type="email"
                   class="flex h-10 w-full rounded-md border bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm border-wedding-sage/30 focus:border-wedding-accent focus:ring-wedding-accent"
                   id="email"
                   required=""
-                  placeholder="votre@email.com"
+                  placeholder="your@email.com"
                   value=""
                 />
               </div>
               <div class="space-y-3">
-                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-wedding-text">Serez-vous présent(e) ? *</label>
+                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-wedding-text">Will you be attending? *</label>
                 <div role="radiogroup" aria-required="false" dir="ltr" class="flex gap-6" tabindex="0" style="outline: none">
                   <div class="flex items-center space-x-2">
                     <button
@@ -3177,7 +3183,7 @@
                       tabindex="-1"
                       value="yes"
                       style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 16px; height: 16px"
-                    /><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer" for="yes">J'accepte avec joie</label>
+                    /><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer" for="yes">Joyfully accept</label>
                   </div>
                   <div class="flex items-center space-x-2">
                     <button
@@ -3197,16 +3203,16 @@
                       tabindex="-1"
                       value="no"
                       style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px; width: 16px; height: 16px"
-                    /><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer" for="no">Je décline avec regret</label>
+                    /><label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer" for="no">Decline with regret</label>
                   </div>
                 </div>
               </div>
               <div class="space-y-2">
-                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-wedding-text" for="message">Message pour les mariés</label
+                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-wedding-text" for="message">Message for the newlyweds</label
                 ><textarea
                   class="flex min-h-[80px] w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 border-wedding-sage/30 focus:border-wedding-accent focus:ring-wedding-accent resize-none"
                   id="message"
-                  placeholder="Partagez vos vœux..."
+                  placeholder="Share your wishes..."
                   rows="4"
                 ></textarea>
               </div>
@@ -3231,7 +3237,7 @@
                 >
                   <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
                   <path d="m21.854 2.147-10.94 10.939"></path></svg
-                >Envoyer RSVP
+                >Send RSVP
               </button>
             </form>
           </div>
@@ -3242,9 +3248,9 @@
         <section id="travel" class="pt-6 pb-20 md:pt-8 md:pb-32 bg-wedding-cream">
           <div class="container mx-auto px-4 max-w-5xl">
             <div class="text-center mb-16">
-              <p class="text-wedding-accent tracking-[0.3em] uppercase text-sm mb-4">Planifiez votre visite</p>
-              <h2 class="font-serif text-4xl md:text-5xl text-wedding-olive mb-6">Voyage &amp; Hébergement</h2>
-              <p class="text-wedding-text/70 max-w-2xl mx-auto">Nous voulons rendre votre visite aussi confortable que possible. Voici quelques recommandations.</p>
+              <p class="text-wedding-accent tracking-[0.3em] uppercase text-sm mb-4">Plan Your Visit</p>
+              <h2 class="font-serif text-4xl md:text-5xl text-wedding-olive mb-6">Travel &amp; Accommodation</h2>
+              <p class="text-wedding-text/70 max-w-2xl mx-auto">We want to make your visit as comfortable as possible. Here are a few recommendations.</p>
             </div>
             <div class="mb-16">
               <div class="flex items-center gap-3 mb-8">
@@ -3274,12 +3280,12 @@
                   <path d="M8 7h.01"></path>
                   <rect x="4" y="2" width="16" height="20" rx="2"></rect>
                 </svg>
-                <h3 class="font-serif text-2xl text-wedding-text">Où séjourner</h3>
+                <h3 class="font-serif text-2xl text-wedding-text">Where to Stay</h3>
               </div>
               <div class="grid md:grid-cols-3 gap-6">
                 <div class="bg-white rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
-                  <h4 class="font-serif text-xl text-wedding-text mb-2">Grand Hôtel</h4>
-                  <p class="text-wedding-accent text-sm mb-1">5 Étoiles</p>
+                  <h4 class="font-serif text-xl text-wedding-text mb-2">Grand Hotel</h4>
+                  <p class="text-wedding-accent text-sm mb-1">5 Stars</p>
                   <p class="text-wedding-text/60 text-sm flex items-center gap-1 mb-3">
                     <svg
                       xmlns="http:"
@@ -3298,13 +3304,13 @@
                     >
                       <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
                       <circle cx="12" cy="10" r="3"></circle></svg
-                    >5 min du lieu
+                    >5 min from venue
                   </p>
-                  <p class="text-wedding-text/70 text-sm">Tarif spécial pour les invités du mariage</p>
+                  <p class="text-wedding-text/70 text-sm">Special rate for wedding guests</p>
                 </div>
                 <div class="bg-white rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
                   <h4 class="font-serif text-xl text-wedding-text mb-2">Boutique Inn</h4>
-                  <p class="text-wedding-accent text-sm mb-1">4 Étoiles</p>
+                  <p class="text-wedding-accent text-sm mb-1">4 Stars</p>
                   <p class="text-wedding-text/60 text-sm flex items-center gap-1 mb-3">
                     <svg
                       xmlns="http:"
@@ -3323,13 +3329,13 @@
                     >
                       <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
                       <circle cx="12" cy="10" r="3"></circle></svg
-                    >10 min du lieu
+                    >10 min from venue
                   </p>
-                  <p class="text-wedding-text/70 text-sm">Charmant et intime</p>
+                  <p class="text-wedding-text/70 text-sm">Charming and intimate</p>
                 </div>
                 <div class="bg-white rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
-                  <h4 class="font-serif text-xl text-wedding-text mb-2">Hôtel Centre-Ville</h4>
-                  <p class="text-wedding-accent text-sm mb-1">4 Étoiles</p>
+                  <h4 class="font-serif text-xl text-wedding-text mb-2">City Center Hotel</h4>
+                  <p class="text-wedding-accent text-sm mb-1">4 Stars</p>
                   <p class="text-wedding-text/60 text-sm flex items-center gap-1 mb-3">
                     <svg
                       xmlns="http:"
@@ -3348,37 +3354,37 @@
                     >
                       <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
                       <circle cx="12" cy="10" r="3"></circle></svg
-                    >15 min du lieu
+                    >15 min from venue
                   </p>
-                  <p class="text-wedding-text/70 text-sm">Idéal pour explorer la ville</p>
+                  <p class="text-wedding-text/70 text-sm">Ideal for exploring the city</p>
                 </div>
               </div>
             </div>
             <div class="mb-16 bg-wedding-olive rounded-2xl p-8">
-              <h3 class="font-serif text-2xl text-white mb-6 text-center">Choses à faire</h3>
-              <p class="text-white/70 text-center mb-6">Si vous prolongez votre séjour, voici quelques attractions locales que nous aimons :</p>
+              <h3 class="font-serif text-2xl text-white mb-6 text-center">Things To Do</h3>
+              <p class="text-white/70 text-center mb-6">If you extend your stay, here are some local attractions we love:</p>
               <div class="grid md:grid-cols-2 gap-4 text-white/70">
                 <div class="flex items-center gap-2">
                   <div class="w-2 h-2 bg-wedding-gold rounded-full"></div>
-                  <span>Vieille Ville historique</span>
+                  <span>Historic Old Town</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <div class="w-2 h-2 bg-wedding-gold rounded-full"></div>
-                  <span>Belles plages</span>
+                  <span>Beautiful beaches</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <div class="w-2 h-2 bg-wedding-gold rounded-full"></div>
-                  <span>Marchés locaux</span>
+                  <span>Local markets</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <div class="w-2 h-2 bg-wedding-gold rounded-full"></div>
-                  <span>Restaurants gastronomiques</span>
+                  <span>Fine dining restaurants</span>
                 </div>
               </div>
             </div>
             <div class="text-center rounded-2xl p-8 bg-[#d28f5b]/[0.29]">
-              <h3 class="font-serif text-2xl text-wedding-text mb-4">Questions ?</h3>
-              <p class="text-wedding-text/70 mb-6">N'hésitez pas à nous contacter si vous avez besoin d'aide pour organiser votre voyage.</p>
+              <h3 class="font-serif text-2xl text-wedding-text mb-4">Questions?</h3>
+              <p class="text-wedding-text/70 mb-6">Feel free to reach out if you need help planning your trip.</p>
               <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
                 <a href="mailto:wedding@example.com" class="flex items-center gap-2 text-wedding-accent hover:text-wedding-accent/80 transition-colors"
                   ><svg
@@ -3429,7 +3435,7 @@
             <h2 class="font-script text-4xl mb-4 text-wedding-gold">Alex &amp; Diane</h2>
             <p class="text-wedding-gold/60 mb-6">November 22, 2026</p>
             <div class="flex items-center justify-center gap-2 text-wedding-gold/60 text-sm">
-              <span>Fait avec</span
+              <span>Made with</span
               ><svg
                 xmlns="http:"
                 www.w3.org=""
@@ -3446,10 +3452,13 @@
                 class="lucide lucide-heart w-4 h-4 text-wedding-gold fill-wedding-gold"
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg
-              ><span>pour notre jour spécial</span>
+              ><span>for our special day</span>
             </div>
             <div class="mt-8 pt-8 border-t border-wedding-gold/20 text-wedding-gold/40 text-xs">
               <p>#AlexAndDiane2026</p>
+            </div>
+            <div class="mt-4 text-wedding-gold/40 text-xs text-center">
+              <p>Created by templexa.vn</p>
             </div>
           </div>
         </footer>
@@ -3593,10 +3602,32 @@
                 vid.muted = true;
                 vid.play();
               });
+            var bgm = document.getElementById("bg-music");
+            if (bgm) {
+              bgm.volume = 0.6;
+              var pm = bgm.play();
+              if (pm && pm.catch) pm.catch(function () {});
+            }
           }
           vid.addEventListener("ended", reveal);
           scr.addEventListener("click", start);
         }
+        // Fallback: start music on first user interaction
+        (function () {
+          var playedBgm = false;
+          function tryPlayBgm() {
+            if (playedBgm) return;
+            var bgm = document.getElementById("bg-music");
+            if (!bgm) return;
+            playedBgm = true;
+            bgm.volume = 0.6;
+            var p = bgm.play();
+            if (p && p.catch) p.catch(function () { playedBgm = false; });
+          }
+          ["click", "touchstart", "keydown"].forEach(function (ev) {
+            document.addEventListener(ev, tryPlayBgm, { once: false, passive: true });
+          });
+        })();
         var btn = document.getElementById("contrib-toggle"),
           panel = document.getElementById("contrib-panel"),
           chev = document.getElementById("contrib-chevron"),
