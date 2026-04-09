@@ -125,6 +125,80 @@ img { max-width:100%; display:block; }
 .c-bl { bottom:12px; left:12px; transform: scaleY(-1); }
 .c-br { bottom:12px; right:12px; transform: scale(-1,-1); }
 
+/* ============ LOADING SCREEN ============ */
+#loading {
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at center, #FFFEF7 0%, #FBF6E4 60%, #F4E9BE 100%);
+  z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s;
+}
+#loading.hidden { opacity: 0; visibility: hidden; }
+.loading-inner {
+  text-align: center;
+  animation: logoFade 1.2s ease;
+}
+@keyframes logoFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.loading-logo {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: clamp(3rem, 10vw, 5rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding-left: 0.3em;
+  margin-bottom: 30px;
+  animation: logoPulse 2.4s ease-in-out infinite;
+}
+@keyframes logoPulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.03); }
+}
+.loading-dots {
+  display: flex; justify-content: center; gap: 10px;
+}
+.loading-dots span {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #D4AF37, #F5D67A);
+  box-shadow: 0 0 12px rgba(245, 214, 122, 0.6);
+  animation: dotBounce 1.4s ease-in-out infinite;
+}
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotBounce {
+  0%, 60%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+  30%           { transform: translateY(-12px) scale(1.2); opacity: 1; }
+}
+
+/* ============ VIDEO INTRO ============ */
+#intro {
+  position: fixed; inset: 0;
+  background: url('../../../shared/images/wedding/backgrounds/pastel-dreamy/bg-pastel-dreamy-pink-cream.webp') center/cover no-repeat, #FBF6E4;
+  z-index: 1500;
+  display: none;
+  align-items: center; justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+#intro.active { display: flex; }
+/* (play hint removed — click anywhere to play) */
+#intro.fade-out { animation: introFade 0.6s ease forwards; }
+@keyframes introFade {
+  to { opacity: 0; visibility: hidden; }
+}
+/* (letterbox bg removed — video now fills screen cover) */
+#introVideo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  z-index: 1;
+}
+
 /* ============ SPLASH (ENVELOPE) ============ */
 #splash {
   position: fixed; inset: 0;
@@ -911,8 +985,26 @@ img { max-width:100%; display:block; }
 }
 
 /* Scroll reveal default */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1), transform 1.6s cubic-bezier(0.22, 1, 0.36, 1); }
 .reveal.in { opacity: 1; transform: translateY(0); }
+
+/* Ken Burns slow zoom on hero photo */
+.photo-frame img { animation: kenBurns 18s ease-in-out infinite alternate; }
+@keyframes kenBurns {
+  from { transform: scale(1)    translate(0, 0); }
+  to   { transform: scale(1.06) translate(-1%, -1%); }
+}
+
+/* Letter-by-letter reveal */
+.hero-name .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px) rotate(-8deg);
+  animation: charIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes charIn {
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
 .fact.reveal:nth-child(1) { transition-delay: 0.1s; }
 .fact.reveal:nth-child(2) { transition-delay: 0.3s; }
 .fact.reveal:nth-child(3) { transition-delay: 0.5s; }
@@ -935,46 +1027,23 @@ img { max-width:100%; display:block; }
 </head>
 <body>
 
-<!-- ============ SPLASH ============ -->
-<div id="splash">
-  <!-- Bunting decoration at top -->
-  <img class="splash-bunting" src="../../../shared/images/birthday/white-gold-bling/deco-gold-bunting.webp" alt="">
-
-  <!-- Gold ink bloom center -->
-  <div class="ink-bloom"></div>
-
-  <!-- SVG flower burst: 16 curved petals radiating from center -->
-  <svg class="flower-burst" viewBox="-400 -400 800 800" id="flowerBurst" aria-hidden="true">
-    <defs>
-      <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%"  stop-color="#A8841C" stop-opacity="0"/>
-        <stop offset="20%" stop-color="#D4AF37"/>
-        <stop offset="50%" stop-color="#FFF6C2"/>
-        <stop offset="80%" stop-color="#D4AF37"/>
-        <stop offset="100%" stop-color="#A8841C" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-    <g id="flowerBurstG"></g>
-  </svg>
-
-  <!-- Particle burst layer -->
-  <div id="burstLayer"></div>
-
-  <div class="splash-inner">
-    <div class="gold-frame"></div>
-    <div class="corner c-tl"><svg viewBox="0 0 60 60"><path d="M0 30 Q0 0 30 0 M10 30 Q10 10 30 10 M0 20 Q20 0 40 0" stroke="#D4AF37" stroke-width="1" fill="none"/><circle cx="8" cy="8" r="2" fill="#D4AF37"/></svg></div>
-    <div class="corner c-tr"><svg viewBox="0 0 60 60"><path d="M0 30 Q0 0 30 0 M10 30 Q10 10 30 10 M0 20 Q20 0 40 0" stroke="#D4AF37" stroke-width="1" fill="none"/><circle cx="8" cy="8" r="2" fill="#D4AF37"/></svg></div>
-    <div class="corner c-bl"><svg viewBox="0 0 60 60"><path d="M0 30 Q0 0 30 0 M10 30 Q10 10 30 10 M0 20 Q20 0 40 0" stroke="#D4AF37" stroke-width="1" fill="none"/><circle cx="8" cy="8" r="2" fill="#D4AF37"/></svg></div>
-    <div class="corner c-br"><svg viewBox="0 0 60 60"><path d="M0 30 Q0 0 30 0 M10 30 Q10 10 30 10 M0 20 Q20 0 40 0" stroke="#D4AF37" stroke-width="1" fill="none"/><circle cx="8" cy="8" r="2" fill="#D4AF37"/></svg></div>
-
-    <div class="splash-label">✦ You're Invited ✦</div>
-    <div class="splash-script gold-text">Happy Birthday</div>
-    <div class="splash-name gold-text">Ty Ni</div>
-    <div class="divider-gold"><svg viewBox="0 0 20 20"><path d="M10 2 L12 8 L18 10 L12 12 L10 18 L8 12 L2 10 L8 8 Z"/></svg></div>
-    <div class="splash-age gold-text">18<span style="font-size:0.5em;vertical-align:super;">+</span></div>
-    <div class="splash-cta">↓ Tap to open ↓</div>
+<!-- ============ LOADING SCREEN ============ -->
+<div id="loading">
+  <div class="loading-inner">
+    <div class="loading-logo gold-text">TY NI</div>
+    <div class="loading-dots"><span></span><span></span><span></span></div>
   </div>
 </div>
+
+<!-- ============ VIDEO INTRO — bg pastel dreamy, video overlaid ============ -->
+<div id="intro">
+  <video id="introVideo" playsinline muted preload="auto" poster="./intro-poster.webp">
+    <source src="./intro.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- ============ SPLASH ============ -->
+<!-- splash removed in v2 — video intro replaces it -->
 
 <!-- ============ HERO ============ -->
 <section id="hero">
@@ -1161,7 +1230,7 @@ img { max-width:100%; display:block; }
 
 <!-- ============ MUSIC ============ -->
 <audio id="bgm" loop preload="auto">
-  <source src="../../../shared/music/upbeat-energy/We Found Love.mp3" type="audio/mpeg">
+  <source src="../../../shared/music/festive-holiday/happy-birthday-en.mp3" type="audio/mpeg">
 </audio>
 <button id="musicBtn" aria-label="Music toggle">
   <svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
@@ -1180,63 +1249,81 @@ img { max-width:100%; display:block; }
   const greetEl = document.getElementById('greeting');
   greetEl.innerHTML = `<i>${guest.title},</i> <b>${guest.name}</b> — ${guest.message}`;
 
-  /* ===== SPLASH — FLOWER BURST ===== */
-  const splash = document.getElementById('splash');
-  const burstG = document.getElementById('flowerBurstG');
-  const burstLayer = document.getElementById('burstLayer');
-  const NS = 'http://www.w3.org/2000/svg';
+  /* splash + flower burst removed in v2 — video intro replaces them */
 
-  // 16 curved petals — alternate long/short, curved S-path radiating outward
-  const PETALS = 16;
-  for (let i = 0; i < PETALS; i++) {
-    const angle = (i / PETALS) * Math.PI * 2;
-    const long = i % 2 === 0;
-    const len = long ? 360 : 260;
-    const curl = long ? 50 : 32;
-    // control points for curved petal (bezier with slight S-curve)
-    const cos = Math.cos(angle), sin = Math.sin(angle);
-    const perpX = -sin, perpY = cos;
-    const c1x = cos * len * 0.35 + perpX * curl;
-    const c1y = sin * len * 0.35 + perpY * curl;
-    const c2x = cos * len * 0.7  - perpX * curl;
-    const c2y = sin * len * 0.7  - perpY * curl;
-    const ex  = cos * len;
-    const ey  = sin * len;
-    const p = document.createElementNS(NS, 'path');
-    p.setAttribute('d', `M 0 0 C ${c1x} ${c1y}, ${c2x} ${c2y}, ${ex} ${ey}`);
-    p.style.animationDelay = (i * 40) + 'ms';
-    burstG.appendChild(p);
+  /* ===== LOADING → VIDEO POSTER (paused) → CLICK → PLAY → HERO + MUSIC ===== */
+  const loading    = document.getElementById('loading');
+  const intro      = document.getElementById('intro');
+  const introVideo = document.getElementById('introVideo');
+
+  // Preload video before hiding loading
+  const MIN_LOAD = 1200;
+  const loadStart = Date.now();
+  function showIntro() {
+    const elapsed = Date.now() - loadStart;
+    setTimeout(() => {
+      loading.classList.add('hidden');
+      intro.classList.add('active');
+      // Ensure video paused at poster frame
+      introVideo.pause();
+      introVideo.currentTime = 0;
+    }, Math.max(0, MIN_LOAD - elapsed));
   }
 
-  // 36 glitter particles flying outward
-  for (let i = 0; i < 36; i++) {
-    const angle = Math.random() * Math.PI * 2;
-    const dist  = 200 + Math.random() * 260;
-    const particle = document.createElement('div');
-    particle.className = 'burst-particle';
-    particle.style.setProperty('--tx', `calc(-50% + ${Math.cos(angle) * dist}px)`);
-    particle.style.setProperty('--ty', `calc(-50% + ${Math.sin(angle) * dist}px)`);
-    particle.style.animationDelay = (300 + Math.random() * 400) + 'ms';
-    particle.style.width = particle.style.height = (3 + Math.random() * 5) + 'px';
-    burstLayer.appendChild(particle);
+  // Wait for video metadata + page load before showing intro
+  let videoReady = false, pageReady = false;
+  function maybeShow() { if (videoReady && pageReady) showIntro(); }
+  if (introVideo.readyState >= 2) { videoReady = true; }
+  else {
+    introVideo.addEventListener('loadeddata', () => { videoReady = true; maybeShow(); });
+    introVideo.addEventListener('error',     () => { videoReady = true; maybeShow(); });
   }
+  if (document.readyState === 'complete') { pageReady = true; }
+  else window.addEventListener('load', () => { pageReady = true; maybeShow(); });
+  maybeShow();
+  // Hard fallback: force show loading → intro after 8s even if video stalls
+  setTimeout(() => { videoReady = true; pageReady = true; maybeShow(); }, 8000);
 
-  let opened = false;
-  const openSplash = () => {
+  // User clicks intro → play video → on ended reveal hero + music
+  let opened = false, finished = false;
+  const playIntro = () => {
     if (opened) return;
     opened = true;
-    splash.classList.add('blooming');
-    startHero();
-    tryPlayMusic();
-    // Remove splash after bloom animation completes (~2.2s)
-    setTimeout(() => {
-      splash.classList.add('hidden');
-      setTimeout(() => splash.remove(), 1200);
-    }, 2100);
+    intro.classList.add('playing');
+
+    const done = () => {
+      if (finished) return;
+      finished = true;
+      intro.classList.add('fade-out');
+      setTimeout(() => { intro.style.display = 'none'; }, 700);
+      startHero();
+      tryPlayMusic();
+    };
+
+    const p = introVideo.play();
+    if (p && p.catch) p.catch(() => done());
+    introVideo.onended = done;
+
+    // Stall detection via timeupdate — reset 4s timer on every progress tick
+    // Only fires done() if no progress for 4 full seconds while playing (very generous)
+    let stallTimer;
+    const resetStall = () => {
+      clearTimeout(stallTimer);
+      stallTimer = setTimeout(() => {
+        if (!finished && !introVideo.ended) done();
+      }, 4000);
+    };
+    introVideo.addEventListener('timeupdate', resetStall);
+    resetStall(); // start initial timer
   };
-  splash.addEventListener('click', openSplash);
-  document.addEventListener('scroll', openSplash, { once: true });
-  if (params.get('capture') === '1') setTimeout(openSplash, 300);
+  intro.addEventListener('click', playIntro);
+
+  // Capture mode: skip intro for screenshots
+  if (params.get('capture') === '1') {
+    loading.classList.add('hidden');
+    intro.style.display = 'none';
+    startHero();
+  }
 
   /* ===== COUNTDOWN — next upcoming April 23 19:00 ===== */
   const now = new Date();
@@ -1259,15 +1346,30 @@ img { max-width:100%; display:block; }
   }
   tick(); setInterval(tick, 1000);
 
+  /* ===== Split hero-name into chars for letter-by-letter reveal ===== */
+  (function splitName() {
+    const el = document.querySelector('.hero-name');
+    if (!el) return;
+    const text = el.textContent;
+    el.innerHTML = '';
+    [...text].forEach((ch, i) => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      span.style.animationDelay = (1400 + i * 180) + 'ms';
+      el.appendChild(span);
+    });
+  })();
+
   /* ===== HERO ENTRANCE ===== */
   function startHero() {
-    animate('#greeting', { opacity: [0, 1], translateY: [20, 0], duration: 1200, delay: 400, ease: 'outQuad' });
-    animate('.photo-frame', { opacity: [0, 1], scale: [0.8, 1], duration: 1400, delay: 200, ease: 'outElastic(1, .7)' });
-    animate('.hero-script, .hero-name', { opacity: [0, 1], translateY: [30, 0], duration: 1000, delay: stagger(200, { start: 600 }), ease: 'outQuad' });
+    animate('#greeting', { opacity: [0, 1], translateY: [20, 0], duration: 1600, delay: 600, ease: 'outQuad' });
+    animate('.photo-frame', { opacity: [0, 1], scale: [0.8, 1], duration: 1800, delay: 200, ease: 'outElastic(1, .65)' });
+    animate('.hero-script', { opacity: [0, 1], translateY: [30, 0], duration: 1400, delay: 800, ease: 'outQuad' });
 
     // Age badge reveal (no count-up since "18+" is non-numeric)
-    animate('.hero-age', { scale: [0.5, 1], opacity: [0, 1], duration: 1800, delay: 1000, ease: 'outElastic(1, .6)' });
-    animate('.hero-subtitle, .hero-meta, .countdown', { opacity: [0, 1], translateY: [20, 0], duration: 900, delay: stagger(150, { start: 1800 }), ease: 'outQuad' });
+    animate('.hero-age', { scale: [0.4, 1], opacity: [0, 1], duration: 2200, delay: 2400, ease: 'outElastic(1, .55)' });
+    animate('.hero-subtitle, .hero-meta, .countdown', { opacity: [0, 1], translateY: [28, 0], duration: 1400, delay: stagger(300, { start: 3000 }), ease: 'outQuad' });
   }
 
   /* ===== SPARKLES ===== */
