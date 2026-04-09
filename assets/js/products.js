@@ -166,6 +166,8 @@
             } else {
                 if (p.status === 'new') badgeHTML = '<span class="product-badge new">NEW</span>';
                 else if (p.status === 'hot') badgeHTML = '<span class="product-badge hot">HOT</span>';
+                else if (p.status === 'bestseller') badgeHTML = '<span class="product-badge bestseller">BEST SELLER</span>';
+                else if (p.status === 'trending') badgeHTML = '<span class="product-badge trending">TRENDING</span>';
             }
             if (p.price === 'free') badgeHTML += '<span class="product-badge free" style="top:auto;bottom:12px;right:12px;">FREE</span>';
 
