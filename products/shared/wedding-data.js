@@ -23,7 +23,8 @@ var WEDDING_DATA = {
             { id: 'greenery', name: 'Greenery / Lá Xanh', tags: ['green', 'leaf', 'natural', 'eucalyptus'], folder: 'greenery/' },
             { id: 'frame-ornament', name: 'Khung / Ornament', tags: ['frame', 'ornament', 'classic', 'border'], folder: 'frame-ornament/' },
             { id: 'luxury-fabric', name: 'Vải Sang Trọng', tags: ['luxury', 'fabric', 'silk', 'velvet', 'texture'], folder: 'luxury-fabric/' },
-            { id: 'minimalist-clean', name: 'Tối Giản / Minimalist', tags: ['minimalist', 'clean', 'modern', 'simple'], folder: 'minimalist-clean/' }
+            { id: 'minimalist-clean', name: 'Tối Giản / Minimalist', tags: ['minimalist', 'clean', 'modern', 'simple'], folder: 'minimalist-clean/' },
+            { id: 'pastel-dreamy', name: 'Pastel Dreamy / Sinh nhật bé', tags: ['pastel', 'dreamy', 'pink', 'baby', 'birthday', 'soft'], folder: 'pastel-dreamy/' }
         ],
         items: [
             { id: 'bg-floral-lineart-beige-corner-dual', file: 'floral-lineart/bg-floral-lineart-beige-corner-dual.webp', name: 'Hoa lineart beige goc doi', category: 'floral-lineart', tags: ['floral', 'lineart', 'beige', 'elegant', 'corner'], colors: ['beige', 'brown-light'], usage: ['hero-section', 'full-page'] },
@@ -69,7 +70,13 @@ var WEDDING_DATA = {
 
             // Batch 2026-03-31 — Backgrounds
             { id: 'bg-minimalist-lily-emboss-corner', file: 'minimalist-clean/bg-minimalist-lily-emboss-corner.webp', name: 'Hoa ly emboss trang 4 goc', category: 'minimalist-clean', tags: ['minimalist', 'emboss', 'floral', 'lily', 'white', 'elegant', 'clean'], colors: ['white', 'cream', 'ivory'], usage: ['hero-section', 'full-page', 'section-background'] },
-            { id: 'bg-minimalist-rose-emboss-vine', file: 'minimalist-clean/bg-minimalist-rose-emboss-vine.webp', name: 'Hoa hong emboss day leo trang', category: 'minimalist-clean', tags: ['minimalist', 'emboss', 'floral', 'rose', 'vine', 'white', 'elegant'], colors: ['white', 'cream', 'ivory'], usage: ['hero-section', 'full-page', 'cover', 'section-background'] }
+            { id: 'bg-minimalist-rose-emboss-vine', file: 'minimalist-clean/bg-minimalist-rose-emboss-vine.webp', name: 'Hoa hong emboss day leo trang', category: 'minimalist-clean', tags: ['minimalist', 'emboss', 'floral', 'rose', 'vine', 'white', 'elegant'], colors: ['white', 'cream', 'ivory'], usage: ['hero-section', 'full-page', 'cover', 'section-background'] },
+
+            // Batch 2026-04-09 — Birthday / Baby pastel
+            { id: 'bg-floral-watercolor-pink-hearts', file: 'floral-watercolor/bg-floral-watercolor-pink-hearts.webp', name: 'Hoa watercolor hong trai tim', category: 'floral-watercolor', tags: ['watercolor', 'floral', 'pink', 'hearts', 'romantic', 'soft'], colors: ['pink', 'cream', 'pastel'], usage: ['hero-section', 'full-page', 'cover'] },
+            { id: 'bg-pastel-dreamy-pink-cream', file: 'pastel-dreamy/bg-pastel-dreamy-pink-cream.webp', name: 'Pastel hong kem mong mo', category: 'pastel-dreamy', tags: ['pastel', 'dreamy', 'pink', 'cream', 'soft', 'gradient'], colors: ['pink', 'cream', 'pastel'], usage: ['hero-section', 'full-page', 'section-background'] },
+            { id: 'bg-pastel-party-balloons-ribbon', file: 'pastel-dreamy/bg-pastel-party-balloons-ribbon.webp', name: 'Kem giay bong bay ribbon confetti', category: 'pastel-dreamy', tags: ['pastel', 'party', 'balloons', 'ribbon', 'confetti', 'birthday', 'cream'], colors: ['cream', 'pink', 'gold'], usage: ['hero-section', 'full-page', 'cover', 'event-section'] },
+            { id: 'bg-nursery-pink-sunny', file: 'pastel-dreamy/bg-nursery-pink-sunny.webp', name: 'Phong tre em nursery hong', category: 'pastel-dreamy', tags: ['pastel', 'nursery', 'baby', 'pink', 'warm', 'dreamy', 'room'], colors: ['pink', 'cream', 'pastel'], usage: ['hero-section', 'full-page', 'cover'] }
         ]
     },
 
@@ -278,7 +285,14 @@ var WEDDING_DATA = {
             { id: 'neon-suit', file: 'icons/neon-suit.webp', name: 'Neon - Vest chu re', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] },
             { id: 'neon-bouquet', file: 'icons/neon-bouquet.webp', name: 'Neon - Hoa cuoi', tags: ['neon', 'glow', 'modern', 'dark', 'floral'], usage: ['inline-icon', 'section-deco'] },
             { id: 'neon-car', file: 'icons/neon-car.webp', name: 'Neon - Xe hoa', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] },
-            { id: 'neon-gift', file: 'icons/neon-gift.webp', name: 'Neon - Qua tang', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] }
+            { id: 'neon-gift', file: 'icons/neon-gift.webp', name: 'Neon - Qua tang', tags: ['neon', 'glow', 'modern', 'dark'], usage: ['inline-icon', 'section-deco'] },
+
+            // Batch 2026-04-09 — Birthday / Baby pastel
+            { id: 'envelope-cream-heart-seal', file: 'icons/envelope-cream-heart-seal.webp', name: 'Phong bi kem seal trai tim', tags: ['envelope', 'cream', 'heart', 'seal', 'romantic', 'cute'], usage: ['envelope-section', 'inline-icon'] },
+            { id: 'star-pastel-watercolor', file: 'icons/star-pastel-watercolor.webp', name: 'Ngoi sao pastel watercolor', tags: ['star', 'pastel', 'watercolor', 'cute', 'gold', 'pink'], usage: ['scatter-deco', 'floating-deco', 'inline-icon'] },
+            { id: 'heart-3d-glossy-pink', file: 'icons/heart-3d-glossy-pink.webp', name: 'Trai tim 3d bong hong', tags: ['heart', '3d', 'glossy', 'pink', 'cute', 'romantic'], usage: ['inline-icon', 'floating-deco'] },
+            { id: 'footprint-baby-watercolor-pink', file: 'icons/footprint-baby-watercolor-pink.webp', name: 'Dau chan be watercolor hong', tags: ['footprint', 'baby', 'watercolor', 'pink', 'cute'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'music-note-brown-handdrawn', file: 'icons/music-note-brown-handdrawn.webp', name: 'Not nhac nau handdrawn', tags: ['music', 'note', 'brown', 'handdrawn', 'lineart'], usage: ['music-toggle', 'inline-icon'] }
         ]
     },
 
@@ -363,7 +377,10 @@ var WEDDING_DATA = {
 
             // Batch 2026-04-07 — Heritage invitation #225
             { id: 'fountain-divider-heritage', file: 'wedding-elements/fountain-divider-heritage.webp', name: 'Divider dai phun nuoc heritage', tags: ['divider', 'heritage', 'classic', 'ornament'], usage: ['section-divider'] },
-            { id: 'venue-illustration-heritage', file: 'wedding-elements/venue-illustration-heritage.webp', name: 'Minh hoa venue heritage', tags: ['illustration', 'venue', 'heritage', 'lineart'], usage: ['hero-deco', 'section-deco'] }
+            { id: 'venue-illustration-heritage', file: 'wedding-elements/venue-illustration-heritage.webp', name: 'Minh hoa venue heritage', tags: ['illustration', 'venue', 'heritage', 'lineart'], usage: ['hero-deco', 'section-deco'] },
+
+            // Batch 2026-04-09 — Birthday / Baby pastel
+            { id: 'wreath-pink-roses-sage-green', file: 'wedding-elements/wreath-pink-roses-sage-green.webp', name: 'Vong hoa hong la xanh', tags: ['wreath', 'floral', 'pink', 'rose', 'sage', 'green', 'frame', 'romantic'], usage: ['photo-frame', 'section-header', 'hero-deco', 'decoration'] }
         ]
     },
 
@@ -993,6 +1010,56 @@ var WEDDING_DATA = {
                 { path: 'products/shared/images/wedding/tiec-cuoi/couple_7.webp', description: 'Couple full body nam tay - chandelier, co xanh' },
                 { path: 'products/shared/images/wedding/tiec-cuoi/couple_8.webp', description: 'Couple cung ly champagne - hoang hon' },
                 { path: 'products/shared/images/wedding/tiec-cuoi/couple_9.webp', description: 'Couple pose - co dau vay dinh da, ban tiec sang trong' }
+            ]
+        },
+        {
+            id: 'baby-mimi-girl',
+            name: 'Baby Mimi - Girl Collection',
+            folder: 'products/shared/images/baby/mimi/',
+            count: 9,
+            style: 'Baby girl studio portraits, cute themed outfits',
+            tags: ['baby', 'girl', 'cute', 'studio', 'birthday', 'day-thang', 'thoi-noi', 'pastel'],
+            colors: ['pink', 'cream', 'pastel', 'white'],
+            mood: 'dễ thương, ngọt ngào',
+            description: 'Bo anh be gai 9 outfit: ao dai, princess, knit, bunny, cake smash, flower crown, sailor, angel, ballerina. Dung cho thiep day thang, thoi noi, sinh nhat be gai.',
+            hasPortrait: true,
+            matchPalettes: ['pastel-dreamy', 'pink-cute', 'cream-soft'],
+            usedBy: [],
+            images: [
+                { path: 'products/shared/images/baby/mimi/mimi-01-ao-dai.webp', description: 'Be gai ao dai truyen thong' },
+                { path: 'products/shared/images/baby/mimi/mimi-02-princess.webp', description: 'Be gai vay cong chua' },
+                { path: 'products/shared/images/baby/mimi/mimi-03-knit.webp', description: 'Be gai ao len knit am ap' },
+                { path: 'products/shared/images/baby/mimi/mimi-04-bunny.webp', description: 'Be gai hoa trang tho bunny' },
+                { path: 'products/shared/images/baby/mimi/mimi-05-cake-smash.webp', description: 'Be gai cake smash sinh nhat' },
+                { path: 'products/shared/images/baby/mimi/mimi-06-flower-crown.webp', description: 'Be gai vong hoa flower crown' },
+                { path: 'products/shared/images/baby/mimi/mimi-07-sailor.webp', description: 'Be gai dong phuc thuy thu' },
+                { path: 'products/shared/images/baby/mimi/mimi-08-angel.webp', description: 'Be gai thien than angel' },
+                { path: 'products/shared/images/baby/mimi/mimi-09-ballerina.webp', description: 'Be gai ballerina mua ballet' }
+            ]
+        },
+        {
+            id: 'baby-mimi-boy',
+            name: 'Baby Mimi - Boy Collection',
+            folder: 'products/shared/images/baby/mimi/',
+            count: 9,
+            style: 'Baby boy studio portraits, cosplay career/character outfits',
+            tags: ['baby', 'boy', 'cute', 'studio', 'birthday', 'day-thang', 'thoi-noi', 'cosplay'],
+            colors: ['white', 'cream', 'red', 'blue', 'neutral'],
+            mood: 'đáng yêu, nghịch ngợm',
+            description: 'Bo anh be trai 9 outfit cosplay: ao dai do, tuxedo trang, phi cong, gau xam, dau bep, tieu phu, thuy thu, hoa si, sieu nhan. Dung cho thiep day thang, thoi noi, sinh nhat be trai.',
+            hasPortrait: true,
+            matchPalettes: ['pastel-dreamy', 'blue-cute', 'classic'],
+            usedBy: [],
+            images: [
+                { path: 'products/shared/images/baby/mimi/mimi-10-ao-dai-do.webp', description: 'Be trai ao dai do rong truyen thong' },
+                { path: 'products/shared/images/baby/mimi/mimi-11-tuxedo-trang.webp', description: 'Be trai tuxedo trang lich lam' },
+                { path: 'products/shared/images/baby/mimi/mimi-12-phi-cong.webp', description: 'Be trai phi cong pilot voi may bay' },
+                { path: 'products/shared/images/baby/mimi/mimi-13-gau-xam.webp', description: 'Be trai onesie gau xam' },
+                { path: 'products/shared/images/baby/mimi/mimi-14-dau-bep.webp', description: 'Be trai dau bep chef' },
+                { path: 'products/shared/images/baby/mimi/mimi-15-tieu-phu.webp', description: 'Be trai tieu phu lumberjack voi riu' },
+                { path: 'products/shared/images/baby/mimi/mimi-16-thuy-thu.webp', description: 'Be trai thuy thu sailor' },
+                { path: 'products/shared/images/baby/mimi/mimi-17-hoa-si.webp', description: 'Be trai hoa si artist voi bang mau' },
+                { path: 'products/shared/images/baby/mimi/mimi-18-sieu-nhan.webp', description: 'Be trai sieu nhan superhero' }
             ]
         }
     ],
