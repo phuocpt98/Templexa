@@ -292,7 +292,17 @@ var WEDDING_DATA = {
             { id: 'star-pastel-watercolor', file: 'icons/star-pastel-watercolor.webp', name: 'Ngoi sao pastel watercolor', tags: ['star', 'pastel', 'watercolor', 'cute', 'gold', 'pink'], usage: ['scatter-deco', 'floating-deco', 'inline-icon'] },
             { id: 'heart-3d-glossy-pink', file: 'icons/heart-3d-glossy-pink.webp', name: 'Trai tim 3d bong hong', tags: ['heart', '3d', 'glossy', 'pink', 'cute', 'romantic'], usage: ['inline-icon', 'floating-deco'] },
             { id: 'footprint-baby-watercolor-pink', file: 'icons/footprint-baby-watercolor-pink.webp', name: 'Dau chan be watercolor hong', tags: ['footprint', 'baby', 'watercolor', 'pink', 'cute'], usage: ['inline-icon', 'section-deco'] },
-            { id: 'music-note-brown-handdrawn', file: 'icons/music-note-brown-handdrawn.webp', name: 'Not nhac nau handdrawn', tags: ['music', 'note', 'brown', 'handdrawn', 'lineart'], usage: ['music-toggle', 'inline-icon'] }
+            { id: 'music-note-brown-handdrawn', file: 'icons/music-note-brown-handdrawn.webp', name: 'Not nhac nau handdrawn', tags: ['music', 'note', 'brown', 'handdrawn', 'lineart'], usage: ['music-toggle', 'inline-icon'] },
+            // Batch 2026-04-10 — Wedding watercolor icon set
+            { id: 'wedding-rings-watercolor', file: 'icons/wedding-rings-watercolor.webp', name: 'Nhan cuoi watercolor', tags: ['wedding', 'rings', 'watercolor', 'gold', 'elegant'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'bouquet-watercolor', file: 'icons/bouquet-watercolor.webp', name: 'Bo hoa cuoi watercolor', tags: ['floral', 'bouquet', 'watercolor', 'romantic', 'pink'], usage: ['between-names', 'section-deco'] },
+            { id: 'flower-arch-watercolor', file: 'icons/flower-arch-watercolor.webp', name: 'Cong hoa cuoi watercolor', tags: ['floral', 'arch', 'watercolor', 'garden', 'romantic'], usage: ['section-deco', 'hero-center'] },
+            { id: 'champagne-toast-watercolor', file: 'icons/champagne-toast-watercolor.webp', name: 'Ly champagne chuc mung', tags: ['champagne', 'toast', 'watercolor', 'celebration', 'gold'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'wedding-cake-watercolor', file: 'icons/wedding-cake-watercolor.webp', name: 'Banh cuoi watercolor', tags: ['cake', 'wedding', 'watercolor', 'floral', 'elegant'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'heart-leaves-watercolor', file: 'icons/heart-leaves-watercolor.webp', name: 'Trai tim la watercolor', tags: ['heart', 'leaves', 'watercolor', 'romantic', 'botanical'], usage: ['between-names', 'section-deco', 'inline-icon'] },
+            { id: 'just-married-car-watercolor', file: 'icons/just-married-car-watercolor.webp', name: 'Xe cuoi just married', tags: ['car', 'just-married', 'watercolor', 'vintage', 'romantic'], usage: ['section-deco', 'footer-deco'] },
+            { id: 'candle-lantern-watercolor', file: 'icons/candle-lantern-watercolor.webp', name: 'Den long nen watercolor', tags: ['lantern', 'candle', 'watercolor', 'warm', 'elegant'], usage: ['section-deco', 'side-deco'] },
+            { id: 'sparkler-hand-watercolor', file: 'icons/sparkler-hand-watercolor.webp', name: 'Phao sang tay watercolor', tags: ['sparkler', 'hand', 'watercolor', 'celebration', 'gold'], usage: ['section-deco', 'inline-icon'] }
         ]
     },
 
