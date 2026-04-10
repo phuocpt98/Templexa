@@ -320,7 +320,21 @@ img { max-width:100%; display:block; }
   opacity: 0;
   word-wrap: break-word;
 }
-.hero-greeting b { font-weight:600; color: var(--gold-dp); font-style: normal; }
+.hero-greeting b {
+  display: block;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  color: var(--gold);
+  text-shadow: 0 2px 12px rgba(168, 132, 28, 0.35);
+  letter-spacing: 0.08em;
+  margin: 8px 0 6px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dp), #f5d97a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
 .photo-frame {
   position:relative;
@@ -1176,7 +1190,7 @@ img { max-width:100%; display:block; }
   const slug = params.get('g') || 'default';
   const guest = (window.GUESTS && window.GUESTS[slug]) || window.GUESTS.default;
   const greetEl = document.getElementById('greeting');
-  greetEl.innerHTML = `<i>${guest.title},</i> <b>${guest.name}</b> — ${guest.message}`;
+  greetEl.innerHTML = `<i>${guest.title},</i> <b>${guest.name}</b><br>${guest.message}`;
 
   /* ===== SPLASH — FLOWER BURST ===== */
   const splash = document.getElementById('splash');
