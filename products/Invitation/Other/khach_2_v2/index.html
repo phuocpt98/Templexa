@@ -190,6 +190,16 @@ img { max-width:100%; display:block; }
   visibility: hidden;
   pointer-events: none;
 }
+/* Rose-gold deco to cover watermark — positioned relative to video center */
+#intro-deco {
+  position: absolute;
+  z-index: 2;
+  width: 80px;
+  height: auto;
+  opacity: 0.85;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15));
+  pointer-events: none;
+}
 /* (letterbox bg removed — video now fills screen cover) */
 #introVideo {
   position: relative;
@@ -1041,6 +1051,7 @@ img { max-width:100%; display:block; }
   <video id="introVideo" playsinline muted preload="auto" poster="./intro-poster.webp">
     <source src="https://cache.giaohangtietkiem.vn/d/a99c86fcf4edbaa5054b593bbffbf0bd.mp4" type="video/mp4">
   </video>
+  <img id="intro-deco" src="../../../shared/images/wedding/icons/rose-gold.webp" alt="">
 </div>
 
 <!-- ============ SPLASH ============ -->
@@ -1256,6 +1267,30 @@ img { max-width:100%; display:block; }
   const loading    = document.getElementById('loading');
   const intro      = document.getElementById('intro');
   const introVideo = document.getElementById('introVideo');
+  const introDeco  = document.getElementById('intro-deco');
+
+  // Position deco at bottom-right of actual video area (not screen)
+  function positionDeco() {
+    if (!introVideo.videoWidth) return;
+    const cW = intro.clientWidth, cH = intro.clientHeight;
+    const vRatio = introVideo.videoWidth / introVideo.videoHeight;
+    let renderedW, renderedH;
+    if (cW / cH > vRatio) {
+      renderedH = cH; renderedW = cH * vRatio;
+    } else {
+      renderedW = cW; renderedH = cW / vRatio;
+    }
+    const offsetR = (cW - renderedW) / 2;
+    const offsetB = (cH - renderedH) / 2;
+    introDeco.style.right  = (offsetR - 20) + 'px';
+    introDeco.style.bottom = (offsetB - 20) + 'px';
+  }
+  introVideo.addEventListener('loadedmetadata', positionDeco);
+  introVideo.addEventListener('playing', positionDeco);
+  window.addEventListener('resize', positionDeco);
+  // Retry positioning after short delay in case metadata loaded before listener
+  setTimeout(positionDeco, 500);
+  setTimeout(positionDeco, 1500);
 
   // Preload video before hiding loading
   const MIN_LOAD = 1200;
