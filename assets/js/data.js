@@ -4724,6 +4724,33 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         updatedAt: '2026-04-10',
+    },
+    {
+        id: 234,
+        name: 'Thiệp Sinh Nhật Ty Ni - Gold Glitter Party',
+        slug: 'sinh-nhat-ty-ni-gold-glitter-party',
+        description: 'Thiệp sinh nhật 18+ Ty Ni phong cách Gold Glitter — kế thừa layout #190 Viet Green Fresh. Envelope ribbon bow untie, countdown, calendar tháng 4, timeline trưởng thành (không lộ năm), event card + Google Maps, gallery lightbox, RSVP, guestbook lời chúc floating. Gold sparkle + confetti particles. Dancing Script + Quicksand + Cormorant Garamond.',
+        category: 'other',
+        type: 'invitation',
+        tags: ['birthday', 'sinh-nhật', 'gold', 'glitter', 'party', '18+', 'light-mode', 'ty-ni', 'envelope'],
+        price: '',
+        images: [
+            './products/Invitation/Other/khach_2_v4/screen.webp',
+        ],
+        thumbnail: './products/Invitation/Other/khach_2_v4/screen.webp',
+        path: './products/Invitation/Other/khach_2_v4/',
+        demoUrl: './products/Invitation/Other/khach_2_v4/index.html',
+        features: [
+            'Envelope ribbon bow untie + gold glitter overlay, countdown đếm ngược, calendar tháng 4 highlight ngày 23',
+            'Timeline hành trình trưởng thành (không lộ năm/tuổi thật), event card Kay Beer Garden + Maps link',
+            'Gallery lightbox, RSVP form, guestbook lời chúc + floating wishes bubble, gold sparkle + confetti particles',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 1,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-04-10',
     }
 ];
 
