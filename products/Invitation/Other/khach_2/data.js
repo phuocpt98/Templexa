@@ -1,7 +1,7 @@
 // Danh sách khách mời — Ty Ni 26th Birthday
 // URL format: index.html?g=1
 window.GUESTS = {
-  "default": { name: "Quý khách",           title: "Kính mời", message: "Rất mong được gặp bạn trong đêm tiệc đặc biệt này ✨" },
+  "default": { name: "Quý khách",           title: "Kính mời", message: "Rất mong được gặp quý khách trong đêm tiệc đặc biệt này ✨" },
   "1":  { name: "A Cường +",            title: "Kính mời", message: "Rất hân hạnh được mời anh đến chung vui ✨" },
   "2":  { name: "Vc a Huy C Thảo",     title: "Kính mời", message: "Rất hân hạnh được mời anh chị đến chung vui ✨" },
   "3":  { name: "Bé Lủng +",            title: "Kính mời", message: "Rất hân hạnh được mời bạn đến chung vui ✨" },
