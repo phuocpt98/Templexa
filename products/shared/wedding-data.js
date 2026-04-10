@@ -293,6 +293,17 @@ var WEDDING_DATA = {
             { id: 'heart-3d-glossy-pink', file: 'icons/heart-3d-glossy-pink.webp', name: 'Trai tim 3d bong hong', tags: ['heart', '3d', 'glossy', 'pink', 'cute', 'romantic'], usage: ['inline-icon', 'floating-deco'] },
             { id: 'footprint-baby-watercolor-pink', file: 'icons/footprint-baby-watercolor-pink.webp', name: 'Dau chan be watercolor hong', tags: ['footprint', 'baby', 'watercolor', 'pink', 'cute'], usage: ['inline-icon', 'section-deco'] },
             { id: 'music-note-brown-handdrawn', file: 'icons/music-note-brown-handdrawn.webp', name: 'Not nhac nau handdrawn', tags: ['music', 'note', 'brown', 'handdrawn', 'lineart'], usage: ['music-toggle', 'inline-icon'] },
+
+            // Batch 2026-04-10 — Nautical baby boy icons
+            { id: 'anchor-navy-rope', file: 'icons/anchor-navy-rope.webp', name: 'Mo neo navy day thua', tags: ['nautical', 'navy', 'anchor', 'rope', 'vintage'], usage: ['inline-icon', 'section-deco', 'hero-deco'] },
+            { id: 'ship-wheel-navy', file: 'icons/ship-wheel-navy.webp', name: 'Vo lang tau navy', tags: ['nautical', 'navy', 'wheel', 'helm', 'vintage'], usage: ['section-deco', 'hero-deco'] },
+            { id: 'sailboat-coral-stripe', file: 'icons/sailboat-coral-stripe.webp', name: 'Thuyen buom soc do xanh', tags: ['nautical', 'sailboat', 'coral', 'navy', 'cute'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'compass-brass-navy', file: 'icons/compass-brass-navy.webp', name: 'La ban dong navy', tags: ['nautical', 'compass', 'brass', 'navy', 'vintage'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'lighthouse-coral-white', file: 'icons/lighthouse-coral-white.webp', name: 'Hai dang do trang', tags: ['nautical', 'lighthouse', 'coral', 'white'], usage: ['section-deco', 'hero-deco'] },
+            { id: 'message-in-bottle', file: 'icons/message-in-bottle.webp', name: 'Thu trong chai', tags: ['nautical', 'bottle', 'message', 'vintage', 'romantic'], usage: ['inline-icon', 'envelope-section'] },
+            { id: 'sailor-hat-navy', file: 'icons/sailor-hat-navy.webp', name: 'Mu thuy thu navy', tags: ['nautical', 'sailor', 'hat', 'navy', 'cute', 'baby'], usage: ['inline-icon', 'hero-deco'] },
+            { id: 'life-buoy-coral', file: 'icons/life-buoy-coral.webp', name: 'Phao cuu sinh do trang', tags: ['nautical', 'buoy', 'coral', 'safety'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'telescope-brass', file: 'icons/telescope-brass.webp', name: 'Ong nhom dong', tags: ['nautical', 'telescope', 'brass', 'vintage', 'adventure'], usage: ['inline-icon', 'section-deco'] },
             // Batch 2026-04-10 — Wedding watercolor icon set
             { id: 'wedding-rings-watercolor', file: 'icons/wedding-rings-watercolor.webp', name: 'Nhan cuoi watercolor', tags: ['wedding', 'rings', 'watercolor', 'gold', 'elegant'], usage: ['inline-icon', 'section-deco'] },
             { id: 'bouquet-watercolor', file: 'icons/bouquet-watercolor.webp', name: 'Bo hoa cuoi watercolor', tags: ['floral', 'bouquet', 'watercolor', 'romantic', 'pink'], usage: ['between-names', 'section-deco'] },
@@ -315,6 +326,17 @@ var WEDDING_DATA = {
             { id: 'calendar-heart-pink', file: 'icons/calendar-heart-pink.webp', name: 'Calendar heart hong', tags: ['calendar', 'heart', 'pink', 'romantic'], usage: ['date-highlight', 'calendar-section'] },
             { id: 'music-toggle-disc', file: 'icons/music-toggle-disc.webp', name: 'Music toggle icon', tags: ['ui', 'music', 'disc'], usage: ['music-toggle'] },
             { id: 'play-button-circle', file: 'icons/play-button-circle.webp', name: 'Play button icon', tags: ['ui', 'play', 'auto-scroll'], usage: ['music-toggle', 'general-deco'] }
+        ,
+            // Batch 2026-04-10 — Nautical baby boy icons
+            { id: 'anchor-navy-rope', file: 'icons/anchor-navy-rope.webp', name: 'Mo neo navy day thua', tags: ['nautical', 'navy', 'anchor', 'rope', 'vintage'], usage: ['inline-icon', 'section-deco', 'hero-deco'] },
+            { id: 'ship-wheel-navy', file: 'icons/ship-wheel-navy.webp', name: 'Vo lang tau navy', tags: ['nautical', 'navy', 'wheel', 'helm', 'vintage'], usage: ['section-deco', 'hero-deco'] },
+            { id: 'sailboat-coral-stripe', file: 'icons/sailboat-coral-stripe.webp', name: 'Thuyen buom soc do xanh', tags: ['nautical', 'sailboat', 'coral', 'navy', 'cute'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'compass-brass-navy', file: 'icons/compass-brass-navy.webp', name: 'La ban dong navy', tags: ['nautical', 'compass', 'brass', 'navy', 'vintage'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'lighthouse-coral-white', file: 'icons/lighthouse-coral-white.webp', name: 'Hai dang do trang', tags: ['nautical', 'lighthouse', 'coral', 'white'], usage: ['section-deco', 'hero-deco'] },
+            { id: 'message-in-bottle', file: 'icons/message-in-bottle.webp', name: 'Thu trong chai', tags: ['nautical', 'bottle', 'message', 'vintage', 'romantic'], usage: ['inline-icon', 'envelope-section'] },
+            { id: 'sailor-hat-navy', file: 'icons/sailor-hat-navy.webp', name: 'Mu thuy thu navy', tags: ['nautical', 'sailor', 'hat', 'navy', 'cute', 'baby'], usage: ['inline-icon', 'hero-deco'] },
+            { id: 'life-buoy-coral', file: 'icons/life-buoy-coral.webp', name: 'Phao cuu sinh do trang', tags: ['nautical', 'buoy', 'coral', 'safety'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'telescope-brass', file: 'icons/telescope-brass.webp', name: 'Ong nhom dong', tags: ['nautical', 'telescope', 'brass', 'vintage', 'adventure'], usage: ['inline-icon', 'section-deco'] }
         ]
     },
 

@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiệp Cưới — Phương Anh &amp; Đức Anh</title>
+<link rel="stylesheet" href="font.css">
+<style>
+/* ===== CSS VARIABLES ===== */
+:root {
+  --bg: #F9F1EF;
+  --bg-alt: #FFFFFF;
+  --accent: #A3403D;
+  --accent-soft: #E49696;
+  --text: #3D2222;
+  --text-sec: #7A5050;
+  --card-max: 451px;
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+body {
+  font-family: 'Quicksand', sans-serif;
+  background: #F0F2F5;
+  color: var(--text);
+  min-height: 100vh;
+}
+body.locked { overflow: hidden; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; outline: none; background: none; }
+
+/* ===== CARD WRAPPER ===== */
+.card-wrap {
+  max-width: var(--card-max);
+  margin: 0 auto;
+  background: var(--bg);
+  box-shadow: 0 0 60px rgba(0,0,0,0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== REVEAL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s cubic-bezier(0.22,1,0.36,1),
+              transform 1.2s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.2s; }
+.reveal-delay-2 { transition-delay: 0.4s; }
+.reveal-delay-3 { transition-delay: 0.6s; }
+
+/* ===== FLOATING HEARTS ===== */
+.hearts-bg {
+  position: fixed;
+  bottom: 0; right: 0;
+  width: 60px; height: 100vh;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+.heart-particle {
+  position: absolute;
+  bottom: -30px; right: 0;
+  font-size: 16px;
+  color: var(--accent-soft);
+  opacity: 0;
+  animation: heartFloat var(--dur, 20s) var(--delay, 0s) infinite ease-in;
+}
+@keyframes heartFloat {
+  0%   { opacity: 0; transform: translateY(0) translateX(0) rotate(0deg); }
+  10%  { opacity: 0.7; }
+  80%  { opacity: 0.4; }
+  100% { opacity: 0; transform: translateY(-110vh) translateX(var(--tx,-10px)) rotate(360deg); }
+}
+
+/* ===== SECTION DECORATIONS (floral img) ===== */
+.sec-deco-img {
+  position: absolute; pointer-events: none; z-index: 1;
+  opacity: 0.35;
+}
+.sec-deco-img.tr { top: 0; right: 0; }
+.sec-deco-img.bl { bottom: 0; left: 0; }
+.sec-deco-img.tl { top: 0; left: 0; transform: scaleX(-1); }
+.sec-deco-img.br { bottom: 0; right: 0; transform: scaleX(-1); }
+
+/* ===== MUSIC BUTTON ===== */
+#music-btn {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+  border: 2px solid rgba(255,255,255,0.6);
+  box-shadow: 0 4px 18px rgba(163,64,61,0.35);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  animation: spin 5s linear infinite;
+  animation-play-state: paused;
+}
+#music-btn.show { display: flex; }
+#music-btn.playing { animation-play-state: running; }
+#music-btn img { display: none; }
+#music-btn svg { width: 22px; height: 22px; fill: #fff; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* =====================================================
+   SECTION 1 — ENVELOPE COVER
+   ===================================================== */
+#envelope-section {
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+  min-height: 80dvh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: clamp(20px, 4vh, 40px) 20px 30px;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+/* Spacer — envelope sits ~30% from bottom of screen */
+.env-spacer {
+  height: 18vh;
+}
+
+.env-deco-tr {
+  position: absolute;
+  top: 0; right: 0;
+  width: 140px;
+  pointer-events: none;
+}
+.env-deco-bl {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 120px;
+  pointer-events: none;
+}
+
+/* top name header — above envelope, high z-index */
+.env-top-label {
+  text-align: center;
+  margin-bottom: clamp(20px, 4vh, 36px);
+  position: relative;
+  z-index: 20;
+}
+.invite-title {
+  font-family: 'Aquarelle', cursive;
+  font-size: 20px;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+.env-names-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.env-name {
+  font-family: 'BucThu', cursive;
+  font-size: 30px;
+  color: var(--text);
+  line-height: 1;
+}
+.env-amp {
+  font-family: 'Belinda Avenue', cursive, serif;
+  font-size: 38px;
+  color: var(--accent);
+  line-height: 1;
+  margin-top: -4px;
+}
+
+/* ---- 3D envelope (responsive CSS var approach) ---- */
+#envelope {
+  --ew: min(340px, 78vw);
+  --eh: calc(var(--ew) * 0.667);
+  width: var(--ew);
+  height: var(--eh);
+  position: relative;
+  z-index: 3;
+  animation: envFloat 3s ease-in-out infinite;
+  perspective: 800px;
+}
+@keyframes envFloat {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* shadow under envelope */
+.env-shadow {
+  position: absolute;
+  width: 110%; height: 20px;
+  left: -5%; bottom: -40px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.15);
+  filter: blur(6px);
+  animation: shadowPulse 3s ease-in-out infinite;
+}
+@keyframes shadowPulse {
+  0%,100% { transform: scaleX(1); opacity: 0.15; }
+  50%     { transform: scaleX(0.9); opacity: 0.12; }
+}
+
+/* body */
+.env-body {
+  position: absolute; inset: 0;
+  background: #f08080;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  z-index: 0;
+}
+.env-body-text {
+  position: absolute;
+  top: 12%; left: 50%;
+  transform: translateX(-50%);
+  font-family: Arial, sans-serif;
+  font-size: clamp(0.5rem, 1.8vw, 0.72rem);
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.85);
+  text-transform: uppercase;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* flap — CSS border triangle */
+.env-flap-3d {
+  position: absolute; top: 0; left: 0;
+  width: 0; height: 0;
+  border-left: calc(var(--ew) / 2) solid transparent;
+  border-right: calc(var(--ew) / 2) solid transparent;
+  border-top: calc(var(--eh) * 0.54) solid #812927;
+  border-bottom: calc(var(--eh) * 0.46) solid transparent;
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), z-index 1.2s;
+  z-index: 5;
+}
+#envelope.opened .env-flap-3d {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+/* pocket — CSS border trapezoid */
+.env-pocket {
+  position: absolute; bottom: 0; left: 0;
+  width: 0; height: 0;
+  border-left: calc(var(--ew) / 2) solid #A33F3D;
+  border-right: calc(var(--ew) / 2) solid #A33F3D;
+  border-bottom: calc(var(--eh) / 2) solid #a84644;
+  border-top: calc(var(--eh) / 2) solid transparent;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  z-index: 3;
+}
+/* (old .env-flap removed — replaced by .env-flap-3d above) */
+
+/* wax seal */
+.env-seal {
+  position: absolute;
+  top: calc(var(--eh) * 0.4);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(var(--ew) * 0.14);
+  height: calc(var(--ew) * 0.14);
+  object-fit: contain;
+  z-index: 10;
+  transition: transform 0.6s ease 0.3s, opacity 0.6s ease 0.3s;
+}
+#envelope.opened .env-seal {
+  transform: translateX(-50%) scale(1.4) rotate(20deg);
+  opacity: 0;
+}
+
+/* letter — centered inside envelope body */
+.env-letter {
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 90%;
+  height: 85%;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 2;
+  transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+  box-shadow: 0 2px 26px rgba(0,0,0,0.12);
+}
+.env-letter img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+.env-letter::after {
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(255,255,255,0) 25%, rgba(255,227,239,0.2) 75%, rgba(215,227,239,0.3));
+  pointer-events:none;
+}
+#envelope.opened .env-letter {
+  transform: translateY(calc(-50% - var(--eh) * 0.47));
+  box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+}
+
+/* hearts on open */
+.env-heart {
+  position: absolute;
+  top: 20%;
+  font-size: 18px;
+  color: #d00000;
+  opacity: 0;
+  z-index: 12;
+  pointer-events: none;
+}
+.env-heart:nth-child(1) { left: 30%; }
+.env-heart:nth-child(2) { left: 48%; }
+.env-heart:nth-child(3) { left: 64%; }
+@keyframes envHeartFloat {
+  0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+  20%  { opacity: 1; transform: translateY(-10px) scale(1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(0.8); }
+}
+#envelope.opened .env-heart:nth-child(1) { animation: envHeartFloat 1.5s ease forwards 1.2s; }
+#envelope.opened .env-heart:nth-child(2) { animation: envHeartFloat 1.5s ease forwards 1.4s; }
+#envelope.opened .env-heart:nth-child(3) { animation: envHeartFloat 1.5s ease forwards 1.6s; }
+
+/* tap hint */
+.tap-hint {
+  margin-top: 32px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  color: var(--text-sec);
+  letter-spacing: 1px;
+  animation: pulseFade 2s ease-in-out infinite;
+  position: relative;
+  z-index: 3;
+}
+@keyframes pulseFade {
+  0%,100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+/* =====================================================
+   SECTION 2 — HERO PHOTO
+   ===================================================== */
+#hero-section { padding: 0; position: relative; }
+.hero-photo-wrap { position: relative; width: 100%; }
+.hero-overlay {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  padding: 32px 24px;
+  text-align: center;
+  z-index: 2;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: brightness(1.08) saturate(0.7);
+  -webkit-backdrop-filter: brightness(1.08) saturate(0.7);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+.hero-photo-wrap img {
+  width: 100%; height: auto; display: block;
+  animation: heroFloat 4s ease-in-out infinite;
+}
+.hero-shadow {
+  position: absolute;
+  bottom: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 60%; height: 20px;
+  background: rgba(163,64,61,0.15);
+  border-radius: 50%;
+  filter: blur(10px);
+  animation: shadowPulse 4s ease-in-out infinite;
+}
+@keyframes heroFloat {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes shadowPulse {
+  0%,100% { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
+  50%      { opacity: 0.3; transform: translateX(-50%) scaleX(0.8); }
+}
+
+/* =====================================================
+   SECTION 3 — COUNTDOWN
+   ===================================================== */
+/* countdown + greeting now inside .hero-overlay — standalone sections removed */
+.countdown-label {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #C94444;
+  margin-bottom: 20px;
+  text-shadow: 0 0 12px rgba(255,255,255,0.95), 0 0 24px rgba(255,255,255,0.6);
+}
+.countdown-grid {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.countdown-box {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  padding: 14px 8px 10px;
+  flex: 1;
+  max-width: 80px;
+}
+.countdown-num {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: bold;
+  display: block;
+}
+.countdown-lbl {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 4px;
+  display: block;
+  opacity: 0.85;
+}
+
+/* =====================================================
+   SECTION 4 — INVITATION GREETING
+   ===================================================== */
+/* #greeting-section merged into .hero-overlay */
+.invitation-title {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 20px;
+  letter-spacing: 11px;
+  text-transform: uppercase;
+  color: #C94444;
+  margin-top: 28px;
+  margin-bottom: 14px;
+  text-shadow: 0 0 12px rgba(255,255,255,0.95), 0 0 24px rgba(255,255,255,0.6);
+}
+.section-divider {
+  width: 60px; height: 1px;
+  background: var(--accent-soft);
+  margin: 0 auto 20px;
+}
+.greeting-text {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13.5px;
+  color: var(--text);
+  text-shadow: 0 0 10px rgba(255,255,255,0.8);
+  line-height: 1.62;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+/* =====================================================
+   SECTION 5 — LỄ THÀNH HÔN
+   ===================================================== */
+#ceremony-section {
+  padding: 52px 20px;
+  background: var(--bg);
+}
+/* 2-column: left 1/4 (Lễ Thành Hôn vertical), right 3/4 (names) */
+.ceremony-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.cer-left {
+  flex: 0 0 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding-top: 8px;
+}
+.cer-word {
+  font-family: 'HoaTay1', cursive;
+  font-size: clamp(1.5rem, 5.5vw, 1.9rem);
+  color: var(--text);
+  line-height: 1.2;
+  font-weight: 500;
+}
+.cer-right {
+  flex: 0 0 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.cer-name {
+  font-family: 'HoaTay1', cursive;
+  font-size: clamp(2rem, 7.5vw, 2.6rem);
+  color: var(--accent);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.cer-amp {
+  font-family: 'HoaTay1', cursive;
+  font-size: clamp(2rem, 7vw, 2.4rem);
+  color: var(--accent);
+  line-height: 1;
+}
+.couple-amp {
+  font-family: 'Belinda Avenue', cursive, serif;
+  font-size: 2.9rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+/* =====================================================
+   SECTION 6 — PARENTS
+   ===================================================== */
+#parents-section {
+  padding: 48px 28px;
+  background: var(--bg-alt);
+  text-align: center;
+}
+.parents-title {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 12px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.parents-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.parents-col h4 {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--accent-soft);
+}
+.parents-col p {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12.5px;
+  color: var(--text-sec);
+  line-height: 1.75;
+}
+
+/* =====================================================
+   SECTION 7 — EVENT DETAILS
+   ===================================================== */
+#event-section {
+  padding: 52px 28px;
+  background: var(--bg);
+  text-align: center;
+}
+.event-title {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--text-sec);
+  margin-bottom: 6px;
+}
+.event-time {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13.5px;
+  color: var(--text-sec);
+  margin-bottom: 20px;
+}
+.event-date-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.event-month, .event-year {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 17px;
+  color: var(--text-sec);
+}
+.event-day {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 64px;
+  color: var(--accent);
+  line-height: 1;
+  font-weight: bold;
+}
+.event-lunar {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--text-sec);
+  margin-bottom: 24px;
+}
+.event-sweet {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 12px;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.event-venue-name {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.event-venue-addr {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  color: var(--text-sec);
+}
+
+/* =====================================================
+   SECTION 8 — GALLERY
+   ===================================================== */
+/* ===== EDITORIAL SCRAPBOOK (gallery + about us) ===== */
+.ed-section {
+  padding: 20px 0;
+  background: var(--bg);
+}
+.ed-block {
+  position: relative;
+  overflow: visible;
+}
+/* Scattered text — Quicksand 43px with shadow double */
+.ed-word {
+  position: absolute;
+  font-family: 'Quicksand', sans-serif;
+  font-size: clamp(2.4rem, 10vw, 3rem);
+  font-weight: 300;
+  color: var(--accent-soft);
+  line-height: 1;
+  text-shadow: 2px 2px 0 rgba(228,150,150,0.25);
+  z-index: 2;
+}
+.ed-word.ed-accent {
+  color: var(--accent);
+  text-shadow: 2px 2px 0 rgba(163,64,61,0.15);
+}
+/* Portrait photo — absolute positioned, overlapping */
+.ed-portrait {
+  position: absolute;
+  width: 62%;
+  border-radius: 10px;
+  object-fit: cover;
+  aspect-ratio: 2/3;
+  display: block;
+  box-shadow: 0 8px 30px rgba(163,64,61,0.15);
+  z-index: 1;
+}
+/* Deco circle */
+.ed-deco-circle {
+  position: absolute;
+  width: 50px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+/* "About us" label */
+.ed-about-label {
+  position: absolute;
+  font-family: 'Carlytte', cursive;
+  font-size: clamp(2.2rem, 9vw, 2.8rem);
+  color: var(--accent-soft);
+  z-index: 2;
+}
+/* Role label (Bride/Groom) */
+.ed-role {
+  position: absolute;
+  font-family: 'PlayfairDisplay', serif;
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+  z-index: 2;
+}
+/* Person name */
+.ed-person-name {
+  font-family: 'HoaTay1', cursive;
+  font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+  color: var(--text);
+  line-height: 1.4;
+}
+/* Detail (DOB, city) */
+.ed-detail {
+  position: absolute;
+  font-family: 'HoaTay1', cursive;
+  font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+  color: var(--text-sec);
+  z-index: 2;
+}
+.ed-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 6px;
+}
+.ed-profile {
+  display: flex;
+  gap: 20px;
+  padding: 30px 20px;
+  align-items: center;
+}
+.ed-profile.reverse { flex-direction: row-reverse; }
+.ed-profile-photo {
+  flex: 0 0 55%;
+}
+.ed-profile-photo img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  aspect-ratio: 2/3;
+  display: block;
+  box-shadow: 0 8px 30px rgba(163,64,61,0.15);
+}
+.ed-profile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+/* =====================================================
+   SECTION 9 — ABOUT US
+   ===================================================== */
+#about-section {
+  padding: 52px 28px;
+  background: var(--bg);
+  text-align: center;
+}
+.about-heading {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 20px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.about-card {
+  background: var(--bg-alt);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(163,64,61,0.08);
+}
+.about-photo {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+.about-info { padding: 14px 10px; }
+.about-role {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.about-name {
+  font-family: 'Carlytte', cursive;
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.about-detail {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 11.5px;
+  color: var(--text-sec);
+  line-height: 1.65;
+}
+
+/* =====================================================
+   SECTION 10 — SAVE THE DATE
+   ===================================================== */
+#savedate-section {
+  padding: 0; text-align: center;
+}
+.savedate-bg { display: none; }
+.savedate-content {
+  background: url('images/0660702c-af3c-42e6-8978-b23bf1e51c39.jpg') no-repeat center/cover;
+  padding: 52px 28px;
+  position: relative;
+}
+.savedate-title {
+  font-family: 'Carlytte', cursive;
+  font-size: 3rem;
+  color: var(--accent);
+  margin-bottom: 6px;
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(255,255,255,0.95), 0 0 24px rgba(255,255,255,0.6);
+}
+.savedate-label {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 24px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.9);
+}
+.calendar {
+  max-width: 300px;
+  margin: 0 auto;
+  border: 1px solid var(--accent-soft);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(163,64,61,0.2);
+  background: #fff;
+}
+.cal-header {
+  background: var(--accent);
+  color: #fff;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 14px;
+}
+.cal-heart { width: 20px; height: 20px; }
+.cal-weekdays, .cal-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.cal-weekdays span {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 9.5px;
+  text-align: center;
+  padding: 8px 0;
+  color: var(--text-sec);
+  background: #fdf6f5;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.cal-days span {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  text-align: center;
+  padding: 8px 4px;
+  color: var(--text-sec);
+  border-top: 1px solid #f3e8e7;
+}
+.cal-days span.empty { color: transparent; }
+.cal-days span.highlight {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  font-weight: bold;
+  margin: 2px auto;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* =====================================================
+   SECTION 11 — TIMELINE
+   ===================================================== */
+/* ===== BREAK PHOTO (between timeline & rsvp) ===== */
+#break-photo-section { padding: 0; position: relative; }
+.break-photo-wrap { position: relative; width: 100%; }
+/* Layer 1: ảnh hero to nền */
+.break-photo-wrap > .break-bg {
+  width: 100%; height: auto; display: block;
+  animation: heroFloat 4s ease-in-out infinite;
+}
+/* Layer 2: background balloons ribbon (lớn hơn 3 ảnh, thấy rõ) */
+/* Layer 2: 85% lớp 1 */
+.break-frame {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%; height: 85%;
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.break-frame::before {
+  content: ''; position: absolute; inset: 0;
+  background: url('../../../shared/images/wedding/backgrounds/pastel-dreamy/bg-pastel-party-balloons-ribbon.webp') no-repeat center/cover;
+  border-radius: 16px;
+  opacity: 0.45;
+  z-index: 0;
+}
+/* Layer 3: 90% lớp 2, 3 ảnh ngang xếp dọc — đậm 100% */
+.break-photos {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%; height: 90%;
+  display: flex; flex-direction: column; gap: 8px;
+  z-index: 2;
+}
+.break-photos img {
+  width: 100%; flex: 1; min-height: 0; object-fit: cover;
+  border-radius: 0;
+  box-shadow: 0 4px 16px rgba(163,64,61,0.2);
+}
+/* Chữ dọc 2 bên — viết tay, to, sáng */
+.break-text-left, .break-text-right {
+  position: absolute; top: 50%; z-index: 3;
+  writing-mode: vertical-rl;
+  font-family: 'Carlytte', cursive;
+  font-size: 32px; letter-spacing: 5px;
+  color: var(--accent); font-weight: bold;
+  text-shadow: 0 2px 8px rgba(163,64,61,0.3);
+}
+.break-text-left {
+  left: 8px; transform: translateY(-50%) rotate(180deg);
+}
+.break-text-right {
+  right: 8px; transform: translateY(-50%);
+}
+.break-photo-shadow {
+  position: absolute; bottom: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 60%; height: 20px;
+  background: rgba(163,64,61,0.15);
+  border-radius: 50%; filter: blur(10px);
+  animation: shadowPulse 4s ease-in-out infinite;
+}
+
+#timeline-section {
+  padding: 52px 28px;
+  background: var(--bg);
+  text-align: center;
+}
+.timeline-label {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 10px;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+}
+.timeline-list {
+  position: relative;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.timeline-list::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--accent-soft);
+  transform: translateX(-50%);
+}
+.timeline-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+  position: relative;
+}
+.timeline-item:nth-child(odd) { flex-direction: row-reverse; }
+.timeline-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  margin: 0 16px;
+}
+.timeline-content { flex: 1; text-align: left; }
+.timeline-item:nth-child(odd) .timeline-content { text-align: right; }
+.timeline-time {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: bold;
+}
+.timeline-event {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  color: var(--text-sec);
+  margin-top: 2px;
+}
+
+/* =====================================================
+   SECTION 12 — MAP
+   ===================================================== */
+#map-section {
+  padding: 48px 28px;
+  background: var(--bg-alt);
+  text-align: center;
+}
+.map-heading {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 13px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.map-frame-wrap {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid var(--accent-soft);
+  margin-bottom: 16px;
+}
+.map-frame-wrap iframe {
+  width: 100%; height: 200px;
+  border: 0; display: block;
+}
+.map-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 30px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.map-btn:hover { background: #8b3533; }
+
+/* =====================================================
+   SECTION 13 — RSVP
+   ===================================================== */
+#rsvp-section {
+  padding: 52px 28px;
+  background: var(--bg);
+  text-align: center;
+}
+.rsvp-heading {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 18px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+.rsvp-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--accent-soft);
+  border-radius: 10px;
+  background: var(--bg-alt);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13.5px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.3s;
+}
+.rsvp-input:focus { border-color: var(--accent); }
+.rsvp-textarea { resize: vertical; min-height: 90px; }
+.rsvp-radio-group {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+.rsvp-radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13.5px;
+  color: var(--text-sec);
+  cursor: pointer;
+}
+.rsvp-radio-group input[type="radio"] { accent-color: var(--accent); }
+.rsvp-submit {
+  padding: 13px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 10px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: background 0.3s, transform 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.rsvp-submit:hover { background: #8b3533; transform: translateY(-2px); }
+.rsvp-success {
+  display: none;
+  margin-top: 12px;
+  padding: 16px;
+  background: #fdf0ef;
+  border: 1px solid var(--accent-soft);
+  border-radius: 10px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13.5px;
+  color: var(--accent);
+}
+
+/* =====================================================
+   SECTION 14 — WISHES
+   ===================================================== */
+#wishes-section {
+  padding: 52px 28px;
+  background: var(--bg-alt);
+  text-align: center;
+}
+.wishes-heading {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 16px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.wishes-list { display: flex; flex-direction: column; gap: 14px; }
+.wish-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 4px 16px rgba(163,64,61,0.08);
+  text-align: left;
+}
+.wish-name {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.wish-msg {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  color: var(--text-sec);
+  line-height: 1.62;
+}
+
+/* =====================================================
+   SECTION 15 — PHOTO NOTE
+   ===================================================== */
+#photo-note-section {
+  padding: 44px 36px;
+  background: var(--bg);
+  text-align: center;
+}
+.photo-note-text {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  color: var(--text-sec);
+  line-height: 1.72;
+  font-style: italic;
+}
+
+/* =====================================================
+   SECTION 16 — GỬI QUÀ MỪNG
+   ===================================================== */
+#gift-section {
+  padding: 52px 20px;
+  background: var(--bg-alt);
+}
+.gift-heading {
+  font-family: 'PlayfairDisplay', serif;
+  font-size: 16px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+  text-align: center;
+}
+/* Each gift row: photo + info side by side */
+.gift-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  background: var(--bg);
+  border-radius: 16px;
+  border: 1px solid var(--accent-soft);
+  margin-bottom: 16px;
+}
+.gift-row.reverse { flex-direction: row-reverse; }
+.gift-avatar {
+  flex-shrink: 0;
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 15%;
+  border: 3px solid var(--accent-soft);
+  box-shadow: 0 4px 16px rgba(163,64,61,0.12);
+}
+.gift-info { flex: 1; }
+.gift-row.reverse .gift-info { text-align: right; }
+.gift-role {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin-bottom: 4px;
+}
+.gift-name {
+  font-family: 'Carlytte', cursive;
+  font-size: 1.4rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.gift-bank {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  color: var(--text-sec);
+  line-height: 1.65;
+}
+.gift-bank strong { color: var(--accent); }
+
+/* =====================================================
+   SECTION 17 — THANK YOU
+   ===================================================== */
+#thankyou-section {
+  padding: 60px 28px 52px;
+  background: var(--bg);
+  text-align: center;
+}
+.thankyou-title {
+  font-family: 'Carlytte', cursive;
+  font-size: 4rem;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.thankyou-gif {
+  width: 100px; height: auto;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+}
+.thankyou-names {
+  font-family: 'BucThu', cursive;
+  font-size: 1.8rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.thankyou-date {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  color: var(--text-sec);
+  letter-spacing: 4px;
+}
+.thankyou-hearts {
+  margin-top: 14px;
+  font-size: 22px;
+  color: var(--accent-soft);
+  letter-spacing: 8px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 460px) {
+  body { background: var(--bg); }
+  .card-wrap { box-shadow: none; }
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- ===== FLOATING HEARTS ===== -->
+<div class="hearts-bg" id="hearts-bg"></div>
+
+<!-- ===== MUSIC BUTTON ===== -->
+<button id="music-btn" aria-label="Nhạc nền">
+  <svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+</button>
+<audio id="bg-music" src="audio/0e470330-e4d4-4fdc-8d99-830aab66916c.mp3" loop preload="none"></audio>
+
+<!-- ===== CARD WRAPPER ===== -->
+<div class="card-wrap">
+
+  <!-- ========== SECTION 1: ENVELOPE ========== -->
+  <section id="envelope-section">
+    <img class="env-deco-tr" src="images/a37a0a9f-3eb1-40d7-9998-d81feaad1570.png" alt="">
+    <img class="env-deco-bl" src="images/c6d2e020-6354-4551-941d-2b4a6d05820b.png" alt="">
+
+    <div class="env-top-label">
+      <span class="invite-title">Thiệp mời cưới</span>
+      <div class="env-names-row">
+        <span class="env-name">Phương Anh</span>
+        <span class="env-amp">&amp;</span>
+        <span class="env-name">Đức Anh</span>
+      </div>
+    </div>
+
+    <div class="env-spacer"></div>
+
+    <div id="envelope">
+      <div class="env-shadow"></div>
+      <div class="env-body">
+        <div class="env-body-text">WEDDING INVITATION</div>
+      </div>
+      <div class="env-flap-3d"></div>
+      <div class="env-pocket"></div>
+      <div class="env-letter">
+        <img src="images/c4d45265-947c-414c-b53f-f291586faeea.jpg" alt="Couple">
+      </div>
+      <img class="env-seal" src="images/wax-seal.webp" alt="Wax seal">
+      <div class="env-heart">♥</div>
+      <div class="env-heart">♡</div>
+      <div class="env-heart">❤</div>
+    </div>
+
+    <p class="tap-hint">✦ Chạm để mở thiệp ✦</p>
+  </section>
+
+  <!-- ========== SECTION 2: HERO PHOTO + COUNTDOWN + GREETING OVERLAY ========== -->
+  <section id="hero-section" class="reveal">
+    <div class="hero-photo-wrap">
+      <img src="images/f9a1916a-869c-4bc2-b2c1-f01b95c3729a.png" alt="Phương Anh &amp; Đức Anh">
+      <div class="hero-shadow"></div>
+    </div>
+    <!-- Overlay: countdown + invitation overlapping hero photo -->
+    <div class="hero-overlay">
+      <p class="countdown-label reveal">Đếm ngược đến ngày cưới</p>
+        <div class="countdown-grid reveal reveal-delay-1">
+          <div class="countdown-box">
+            <span class="countdown-num" id="cd-days">00</span>
+            <span class="countdown-lbl">Ngày</span>
+          </div>
+          <div class="countdown-box">
+            <span class="countdown-num" id="cd-hours">00</span>
+            <span class="countdown-lbl">Giờ</span>
+          </div>
+          <div class="countdown-box">
+            <span class="countdown-num" id="cd-mins">00</span>
+            <span class="countdown-lbl">Phút</span>
+          </div>
+          <div class="countdown-box">
+            <span class="countdown-num" id="cd-secs">00</span>
+            <span class="countdown-lbl">Giây</span>
+          </div>
+        </div>
+        <h2 class="invitation-title reveal reveal-delay-2">INVITATION</h2>
+        <div class="section-divider reveal reveal-delay-2"></div>
+        <p class="greeting-text reveal reveal-delay-2">
+          Gửi đến gia đình và bạn bè thân mến,<br><br>
+          Cảm ơn bạn đã dành thời gian quý báu để cùng chúng mình chung vui trong ngày đặc biệt này. Sự hiện diện của bạn là niềm vinh hạnh lớn lao đối với chúng mình.
+        </p>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 5: LỄ THÀNH HÔN ========== -->
+  <section id="ceremony-section">
+    <div class="ceremony-layout reveal">
+      <div class="cer-left">
+        <span class="cer-word">Lễ</span>
+        <span class="cer-word">Thành</span>
+        <span class="cer-word">Hôn</span>
+      </div>
+      <div class="cer-right">
+        <span class="cer-name">Trần Đức Anh</span>
+        <span class="cer-amp">&amp;</span>
+        <span class="cer-name">Lê Phương Anh</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 6: PARENTS ========== -->
+  <section id="parents-section">
+    <p class="parents-title reveal">Hai Họ</p>
+    <div class="parents-grid reveal reveal-delay-1">
+      <div class="parents-col">
+        <h4>Nhà Trai</h4>
+        <p>Ông: Trần Văn Minh<br>Bà: Nguyễn Thị Lan<br>TP. Hồ Chí Minh</p>
+      </div>
+      <div class="parents-col">
+        <h4>Nhà Gái</h4>
+        <p>Ông: Lê Văn Hùng<br>Bà: Phạm Thị Mai<br>TP. Đà Nẵng</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 7: EVENT DETAILS ========== -->
+  <section id="event-section">
+    <p class="event-title reveal">Tiệc mừng lễ thành hôn</p>
+    <p class="event-time reveal reveal-delay-1">Vào lúc 10:30 Thứ Hai</p>
+    <div class="event-date-row reveal reveal-delay-1">
+      <span class="event-month">Tháng 05</span>
+      <span class="event-day">11</span>
+      <span class="event-year">NĂM 2026</span>
+    </div>
+    <p class="event-lunar reveal reveal-delay-2">(Tức ngày 24 tháng 3 âm Bính Ngọ)</p>
+    <div class="section-divider reveal reveal-delay-2"></div>
+    <p class="event-sweet reveal reveal-delay-2">SWEET WEDDING</p>
+    <p class="event-venue-name reveal reveal-delay-3">Nhà hàng Hoàng Gia</p>
+    <p class="event-venue-addr reveal reveal-delay-3">123 Lê Lợi, Quận 1, TP HCM</p>
+    <div class="map-frame-wrap reveal reveal-delay-3" style="margin-top:24px;">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.464800887095!2d106.69367231480264!3d10.773102592314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f492ca8b601%3A0x50b7a4cdf553ff7!2sL%C3%AA%20L%E1%BB%A3i%2C%20District%201%2C%20Ho%20Chi%20Minh%20City!5e0!3m2!1svi!2svn!4v1700000000000"
+        allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Wedding venue">
+      </iframe>
+    </div>
+    <a class="map-btn reveal reveal-delay-3"
+       href="https://maps.google.com/?q=123+Le+Loi,+District+1,+Ho+Chi+Minh+City"
+       target="_blank" rel="noopener">Xem đường đi</a>
+  </section>
+
+  <!-- ========== SECTION 8+9: GALLERY + ABOUT US — editorial scrapbook ========== -->
+  <section id="gallery-section" class="ed-section">
+
+    <!-- 1. Square photo RIGHT + deco left -->
+    <div class="ed-block reveal" style="padding:20px;">
+      <img class="ed-deco-circle" src="images/c6d2e020-6354-4551-941d-2b4a6d05820b.png" alt="" style="top:0;left:4%;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <img src="images/9881034c-0645-4b24-9855-f600d9426515.jpg" alt="" style="width:60%;border-radius:10px;aspect-ratio:1/1;object-fit:cover;box-shadow:0 8px 24px rgba(163,64,61,0.12);">
+        <img src="images/w4x2kkenv6f8ij6j6n44g3.png" alt="" style="width:32%;opacity:0.85;filter:drop-shadow(0 4px 12px rgba(228,150,150,0.3));">
+      </div>
+    </div>
+
+    <!-- 2. "marry" VERTICAL left + bride portrait RIGHT overlap -->
+    <div class="ed-block reveal" style="min-height:440px;margin-top:-50px;">
+      <span class="ed-word ed-vertical" style="top:30px;left:4%;">marry</span>
+      <span class="ed-word" style="top:10px;left:2%;">me?</span>
+      <img src="images/1d098419-b484-480d-b04b-7474a34aebf0.png" alt="" class="ed-portrait" style="right:3%;top:0;width:60%;">
+    </div>
+
+    <!-- 3. Landscape photo LEFT -->
+    <div class="ed-block reveal" style="padding:0 20px;margin-top:-20px;">
+      <img src="images/8ae958e7-d30a-4200-b1f3-187c1f95cda2.jpg" alt="" style="width:72%;border-radius:10px;display:block;aspect-ratio:4/3;object-fit:cover;box-shadow:0 6px 20px rgba(163,64,61,0.1);">
+    </div>
+
+    <!-- 4. Portrait LEFT + "yes! i do" VERTICAL right + hearts -->
+    <div class="ed-block reveal" style="min-height:400px;margin-top:-30px;">
+      <img src="images/518b1a1e-e31e-4733-8d27-d3c81b90a3ce.jpg" alt="" class="ed-portrait" style="left:3%;top:20px;width:55%;">
+      <span class="ed-word ed-accent" style="top:0;right:5%;">yes!</span>
+      <span class="ed-word ed-accent ed-vertical" style="top:70px;right:8%;">i do</span>
+      <img src="images/a37a0a9f-3eb1-40d7-9998-d81feaad1570.png" alt="" style="position:absolute;top:150px;right:0;width:80px;opacity:0.6;">
+    </div>
+
+    <!-- 5. About us + landscape RIGHT -->
+    <div class="ed-block reveal" style="padding:20px;margin-top:-10px;">
+      <span class="ed-about-label" style="position:relative;display:block;margin-bottom:14px;">About us</span>
+      <img src="images/7e576579-ef79-493a-ae38-702d72a11170.jpg" alt="" style="width:68%;margin-left:auto;border-radius:10px;display:block;aspect-ratio:16/10;object-fit:cover;box-shadow:0 6px 20px rgba(163,64,61,0.1);">
+    </div>
+
+    <!-- 6. BRIDE — portrait dọc LEFT + info RIGHT -->
+    <div class="ed-profile reveal">
+      <div class="ed-profile-photo">
+        <img src="images/f9a1916a-869c-4bc2-b2c1-f01b95c3729a.png" alt="">
+      </div>
+      <div class="ed-profile-info">
+        <span class="ed-role" style="position:relative;">Bride</span>
+        <span class="ed-person-name" style="margin-top:14px;">Lê Phương Anh</span>
+        <span class="ed-detail" style="position:relative;margin-top:8px;">12/05/2000</span>
+        <span class="ed-detail" style="position:relative;font-size:11px;">TP. Đà Nẵng</span>
+        <img class="ed-deco-circle" src="images/c6d2e020-6354-4551-941d-2b4a6d05820b.png" alt="" style="position:relative;width:40px;margin-top:12px;opacity:0.5;">
+      </div>
+    </div>
+
+    <!-- 7. Small landscape centered -->
+    <div class="ed-block reveal" style="padding:16px 20px;">
+      <img src="images/c4d45265-947c-414c-b53f-f291586faeea.jpg" alt="" style="width:78%;margin:0 auto;border-radius:10px;display:block;aspect-ratio:4/3;object-fit:cover;box-shadow:0 6px 20px rgba(163,64,61,0.1);">
+    </div>
+
+    <!-- 8. GROOM — info LEFT + portrait dọc RIGHT (ảnh 2 người) -->
+    <div class="ed-profile reverse reveal">
+      <div class="ed-profile-info" style="text-align:right;align-items:flex-end;">
+        <span class="ed-role" style="position:relative;">Groom</span>
+        <span class="ed-person-name" style="margin-top:14px;">Trần Đức Anh</span>
+        <span class="ed-detail" style="position:relative;margin-top:8px;">05/08/1995</span>
+        <span class="ed-detail" style="position:relative;font-size:11px;">TP. Hồ Chí Minh</span>
+        <img class="ed-deco-circle" src="images/c6d2e020-6354-4551-941d-2b4a6d05820b.png" alt="" style="position:relative;width:40px;margin-top:12px;opacity:0.5;">
+      </div>
+      <div class="ed-profile-photo">
+        <img src="images/9d1297eb-5afd-4986-9345-b32439fa3c91.jpg" alt="">
+      </div>
+    </div>
+
+    <!-- 9. Final landscape full -->
+    <div class="ed-block reveal" style="padding:16px 20px 30px;">
+      <img src="images/0660702c-af3c-42e6-8978-b23bf1e51c39.jpg" alt="" style="width:100%;border-radius:10px;display:block;aspect-ratio:16/10;object-fit:cover;box-shadow:0 8px 24px rgba(163,64,61,0.12);">
+    </div>
+
+  </section>
+
+  <!-- ========== SECTION 10: SAVE THE DATE ========== -->
+  <section id="savedate-section">
+    <img class="savedate-bg" src="images/0660702c-af3c-42e6-8978-b23bf1e51c39.jpg" alt="">
+    <div class="savedate-content">
+      <p class="savedate-title reveal">Save the date</p>
+      <p class="savedate-label reveal reveal-delay-1">2026 / May</p>
+      <div class="calendar reveal reveal-delay-2">
+        <div class="cal-header">
+          <span>May 2026</span>
+          <img class="cal-heart" src="images/calen_heart_1.png" alt="heart">
+        </div>
+        <div class="cal-weekdays">
+          <span>CN</span><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span>
+        </div>
+        <div class="cal-days" id="cal-days"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 11: TIMELINE ========== -->
+  <section id="timeline-section">
+    <p class="timeline-label reveal">Lịch Trình</p>
+    <div class="timeline-list">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <p class="timeline-time">08:00</p>
+          <p class="timeline-event">Lễ Rước Dâu</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal reveal-delay-1">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <p class="timeline-time">09:30</p>
+          <p class="timeline-event">Chụp hình lưu niệm</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal reveal-delay-2">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <p class="timeline-time">10:30</p>
+          <p class="timeline-event">Khai tiệc</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BREAK PHOTO (3 layers) ========== -->
+  <section id="break-photo-section" class="reveal">
+    <div class="break-photo-wrap">
+      <!-- Layer 1: ảnh hero nền -->
+      <img class="break-bg" src="images/f9a1916a-869c-4bc2-b2c1-f01b95c3729a.png" alt="Phương Anh &amp; Đức Anh">
+      <!-- Layer 2+3: khung + 3 ảnh bên trong -->
+      <div class="break-frame">
+        <span class="break-text-left">I love you forever</span>
+        <span class="break-text-right">Nice to meet you</span>
+        <div class="break-photos">
+          <img src="images/7e576579-ef79-493a-ae38-702d72a11170.jpg" alt="">
+          <img src="images/518b1a1e-e31e-4733-8d27-d3c81b90a3ce.jpg" alt="">
+          <img src="images/9a1e2fa8-7139-4191-9205-54eb6027ee1e.jpg" alt="">
+        </div>
+      </div>
+      <div class="break-photo-shadow"></div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 13: RSVP ========== -->
+  <section id="rsvp-section">
+    <h3 class="rsvp-heading reveal">Xác nhận tham dự</h3>
+    <form class="rsvp-form reveal reveal-delay-1" id="rsvp-form" novalidate>
+      <input class="rsvp-input" type="text" placeholder="Tên của bạn *" required>
+      <input class="rsvp-input" type="number" placeholder="Số người tham dự *" min="1" required>
+      <textarea class="rsvp-input rsvp-textarea" placeholder="Lời chúc tới cô dâu chú rể..."></textarea>
+      <div class="rsvp-radio-group">
+        <label><input type="radio" name="attend" value="yes" checked> Sẽ tham dự</label>
+        <label><input type="radio" name="attend" value="no"> Không tham dự</label>
+      </div>
+      <button type="submit" class="rsvp-submit">Gửi xác nhận ✦</button>
+    </form>
+    <div class="rsvp-success" id="rsvp-success">
+      ♥ Cảm ơn bạn đã xác nhận! Chúng mình rất mong được gặp bạn ♥
+    </div>
+  </section>
+
+  <!-- ========== SECTION 14: WISHES ========== -->
+  <section id="wishes-section">
+    <h3 class="wishes-heading reveal">Lời Chúc</h3>
+    <div class="wishes-list">
+      <div class="wish-card reveal">
+        <p class="wish-name">Nguyễn Thị Hoa</p>
+        <p class="wish-msg">Chúc hai bạn trăm năm hạnh phúc, mãi yêu thương và gắn bó bên nhau! Mình rất vui khi được chứng kiến ngày trọng đại này của hai bạn. ❤️</p>
+      </div>
+      <div class="wish-card reveal reveal-delay-1">
+        <p class="wish-name">Trần Minh Khoa</p>
+        <p class="wish-msg">Wishing you both a lifetime of love, laughter, and happily ever after! Chúc mừng ngày cưới nhé! 🥂</p>
+      </div>
+      <div class="wish-card reveal reveal-delay-2">
+        <p class="wish-name">Lê Thu Trang</p>
+        <p class="wish-msg">Chúc cô dâu chú rể luôn hạnh phúc, sum vầy. Gia đình nhỏ mãi yêu thương nhé! 💕</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 15: PHOTO NOTE ========== -->
+  <section id="photo-note-section">
+    <p class="photo-note-text reveal">
+      Mình rất muốn được chụp chung với bạn những tấm hình kỷ niệm,<br>
+      vì vậy hãy đến sớm cùng mình nhé! 📸
+    </p>
+  </section>
+
+  <!-- ========== SECTION 16: GỬI QUÀ MỪNG ========== -->
+  <section id="gift-section">
+    <h3 class="gift-heading reveal">Gửi Quà Mừng</h3>
+
+    <!-- Row 1: Chú rể — info trái, ảnh tròn phải -->
+    <div class="gift-row reveal reveal-delay-1">
+      <div class="gift-info">
+        <p class="gift-role">Chú rể</p>
+        <p class="gift-name">Trần Đức Anh</p>
+        <p class="gift-bank"><strong>MB Bank</strong><br>012345678</p>
+      </div>
+      <img class="gift-avatar" src="images/9d1297eb-5afd-4986-9345-b32439fa3c91.jpg" alt="Chú rể">
+    </div>
+
+    <!-- Row 2: Cô dâu — ảnh tròn trái, info phải -->
+    <div class="gift-row reverse reveal reveal-delay-2">
+      <div class="gift-info">
+        <p class="gift-role">Cô dâu</p>
+        <p class="gift-name">Lê Phương Anh</p>
+        <p class="gift-bank"><strong>MB Bank</strong><br>012345678</p>
+      </div>
+      <img class="gift-avatar" src="images/1d098419-b484-480d-b04b-7474a34aebf0.png" alt="Cô dâu">
+    </div>
+  </section>
+
+  <!-- ========== SECTION 17: THANK YOU ========== -->
+  <section id="thankyou-section">
+    <p class="thankyou-title reveal">Thank you</p>
+    <img class="thankyou-gif reveal reveal-delay-1" src="images/694f2494535443aa96ab2f8cbf4d06bf.gif" alt="Chibi couple dancing">
+    <p class="thankyou-names reveal reveal-delay-1">Phương Anh &amp; Đức Anh</p>
+    <p class="thankyou-date reveal reveal-delay-2">11 · 05 · 2026</p>
+    <p class="thankyou-hearts reveal reveal-delay-2">♡ ♥ ♡</p>
+  </section>
+
+</div><!-- end .card-wrap -->
+
+<script>
+// Force scroll to top on page load/reload
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
+(function () {
+  'use strict';
+
+  /* ===== FLOATING HEARTS ===== */
+  var heartsContainer = document.getElementById('hearts-bg');
+  var heartChars = ['♡', '♥', '❤'];
+  for (var i = 0; i < 14; i++) {
+    var h = document.createElement('span');
+    h.className = 'heart-particle';
+    h.textContent = heartChars[i % 3];
+    var dur = (15 + Math.random() * 12).toFixed(1) + 's';
+    var delay = (Math.random() * 8).toFixed(1) + 's';
+    var tx = (-5 - Math.random() * 20).toFixed(0) + 'px';
+    h.style.cssText = '--dur:' + dur + ';--delay:' + delay + ';--tx:' + tx + ';bottom:' + (Math.random() * 20) + '%;';
+    heartsContainer.appendChild(h);
+  }
+
+  /* ===== SECTION DECORATIONS (floral images) ===== */
+  var imgTR = 'images/a37a0a9f-3eb1-40d7-9998-d81feaad1570.png';
+  var imgBL = 'images/c6d2e020-6354-4551-941d-2b4a6d05820b.png';
+  var decoSections = [
+    { id:'ceremony-section', corners:['tr','bl'], sizes:[100,80] },
+    { id:'parents-section',  corners:['tl','br'], sizes:[90,70] },
+    { id:'event-section',    corners:['tr','bl'], sizes:[110,90] },
+    { id:'gallery-section',  corners:['tl','br'], sizes:[80,70] },
+    { id:'about-section',    corners:['tr'],      sizes:[90] },
+    { id:'savedate-section', corners:['bl','tr'], sizes:[80,100] },
+    { id:'timeline-section', corners:['tl','br'], sizes:[90,80] },
+    { id:'rsvp-section',     corners:['tr','bl'], sizes:[100,80] },
+    { id:'gift-section',     corners:['bl'],      sizes:[70] },
+    { id:'thankyou-section', corners:['tr','bl'], sizes:[110,90] },
+  ];
+  decoSections.forEach(function(cfg) {
+    var sec = document.getElementById(cfg.id);
+    if (!sec) return;
+    sec.style.position = 'relative';
+    sec.style.overflow = 'hidden';
+    cfg.corners.forEach(function(corner, i) {
+      var img = document.createElement('img');
+      img.className = 'sec-deco-img ' + corner;
+      img.src = (corner === 'tr' || corner === 'tl') ? imgTR : imgBL;
+      img.style.width = cfg.sizes[i] + 'px';
+      img.alt = '';
+      sec.appendChild(img);
+    });
+  });
+
+  /* ===== ENVELOPE OPEN ===== */
+  var envelopeSection = document.getElementById('envelope-section');
+  var envelope = document.getElementById('envelope');
+  var musicBtn = document.getElementById('music-btn');
+  var bgMusic = document.getElementById('bg-music');
+  var opened = false;
+
+  envelopeSection.addEventListener('click', function () {
+    if (opened) return;
+    opened = true;
+    envelope.classList.add('opened');
+    setTimeout(function () {
+      document.body.classList.remove('locked');
+      musicBtn.classList.add('show');
+      bgMusic.play().catch(function () {});
+      musicBtn.classList.add('playing');
+    }, 1400);
+  });
+
+  /* ===== MUSIC TOGGLE ===== */
+  musicBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (bgMusic.paused) {
+      bgMusic.play();
+      musicBtn.classList.add('playing');
+    } else {
+      bgMusic.pause();
+      musicBtn.classList.remove('playing');
+    }
+  });
+
+  /* ===== COUNTDOWN ===== */
+  var target = new Date('2026-05-11T10:30:00+07:00').getTime();
+  function updateCountdown() {
+    var diff = target - Date.now();
+    if (diff < 0) diff = 0;
+    var days  = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    var mins  = Math.floor((diff % 3600000) / 60000);
+    var secs  = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent  = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ===== SCROLL REVEAL ===== */
+  var revealEls = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(function (el) { observer.observe(el); });
+
+  /* ===== CALENDAR — MAY 2026 =====
+     May 1 2026 = Friday = index 5 (CN=0, T2=1, T3=2, T4=3, T5=4, T6=5, T7=6)
+  */
+  var calDays = document.getElementById('cal-days');
+  var firstDay = 5;
+  var totalDays = 31;
+  var html = '';
+  for (var e = 0; e < firstDay; e++) {
+    html += '<span class="empty"> </span>';
+  }
+  for (var d = 1; d <= totalDays; d++) {
+    if (d === 11) {
+      html += '<span class="highlight">' + d + '</span>';
+    } else {
+      html += '<span>' + d + '</span>';
+    }
+  }
+  calDays.innerHTML = html;
+
+  /* ===== RSVP ===== */
+  var rsvpForm = document.getElementById('rsvp-form');
+  var rsvpSuccess = document.getElementById('rsvp-success');
+  rsvpForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    rsvpForm.style.display = 'none';
+    rsvpSuccess.style.display = 'block';
+  });
+
+}());
+</script>
+</body>
+</html>

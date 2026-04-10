@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đầy Tháng Bé Mimi — Thuyền Trưởng Nhí</title>
+<meta name="description" content="Thiệp mời lễ đầy tháng bé Mimi — Little Sailor Adventure, phong cách nautical vintage">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Sacramento&family=Nunito:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#2C3E6B; --navy-light:#4A6FA5; --coral:#E8615A; --coral-soft:#F4A29E;
+  --cream:#FFF5E1; --brass:#D4A574; --white:#FEFCF6; --sand:#F5EDD8;
+  --text:#2C3E6B; --muted:#7A8BA8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#E8DFD0;font-family:'Nunito',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+.wrap{max-width:500px;margin:0 auto;background:var(--white);position:relative;overflow:hidden;box-shadow:0 0 60px rgba(44,62,107,0.12)}
+
+/* ── KEYFRAMES ──────────────────────── */
+@keyframes wave{0%,100%{d:path('M0 20 Q60 0,120 20 T240 20 T360 20 T480 20 T600 20 V60 H0 Z')}50%{d:path('M0 20 Q60 40,120 20 T240 20 T360 20 T480 20 T600 20 V60 H0 Z')}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-12px) rotate(1deg)}}
+@keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes anchorDrop{0%{transform:translateY(-60px);opacity:0}60%{transform:translateY(8px);opacity:1}80%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+@keyframes fishSwim{0%{transform:translateX(-60px) scaleX(1)}49%{transform:translateX(calc(100vw)) scaleX(1)}50%{transform:translateX(calc(100vw)) scaleX(-1)}100%{transform:translateX(-60px) scaleX(-1)}}
+@keyframes bottleOpen{0%{transform:rotate(0) scale(1)}30%{transform:rotate(-15deg) scale(1.05)}60%{transform:rotate(10deg) scale(1.02)}100%{transform:rotate(0) scale(1)}}
+@keyframes corkPop{0%{transform:translateY(0) rotate(0);opacity:1}40%{transform:translateY(-120px) rotate(30deg);opacity:1}100%{transform:translateY(-300px) rotate(90deg);opacity:0}}
+@keyframes sparkBurst{0%{transform:translate(0,0) scale(1);opacity:1}100%{opacity:0}}
+@keyframes bottleCrack{0%{filter:brightness(1);transform:scale(1)}40%{filter:brightness(1.5);transform:scale(1.06)}60%{filter:brightness(0.9);transform:scale(0.98)}100%{filter:brightness(1);transform:scale(1);opacity:0.3}}
+@keyframes flagWave{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes pulseNav{0%,100%{box-shadow:0 0 0 0 rgba(44,62,107,0.35)}50%{box-shadow:0 0 0 16px rgba(44,62,107,0)}}
+.anim{opacity:0}.anim.on{animation:fadeUp 0.9s ease-out forwards}
+
+/* ── WAVES (reusable SVG bottom border) ── */
+.wave-bottom{position:absolute;bottom:-1px;left:0;width:100%;height:40px;overflow:hidden}
+.wave-bottom svg{width:200%;height:100%;animation:wave 4s ease-in-out infinite}
+
+/* ── COVER (Message in a Bottle) ────── */
+.cover{
+  position:fixed;inset:0;z-index:9999;max-width:500px;margin:0 auto;
+  background:
+    linear-gradient(180deg, rgba(168,216,234,0.45) 0%, rgba(224,240,250,0.8) 35%, var(--sand) 100%),
+    url('../../../shared/images/baby/mimi/mimi-16-thuy-thu.webp') no-repeat center top/cover;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 24px;
+  transition:transform 1.4s cubic-bezier(.7,0,.3,1),opacity 0.8s ease 0.5s;
+}
+.cover.open{transform:translateY(-100%);opacity:0;pointer-events:none}
+.cover-bottle{
+  width:140px;height:280px;position:relative;cursor:pointer;
+  animation:float 3s ease-in-out infinite;
+  outline:none;-webkit-tap-highlight-color:transparent;
+}
+.cover-bottle img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 12px 24px rgba(44,62,107,0.25));transition:all 0.6s}
+.cover-bottle.shake{animation:bottleOpen 0.6s ease}
+.cover-bottle.cracked img{animation:bottleCrack 0.8s ease-out forwards}
+/* Cork */
+.cover-cork{
+  position:absolute;top:-8px;left:50%;margin-left:-12px;
+  width:24px;height:28px;background:linear-gradient(180deg,#C9A87C,#8B6914,#C9A87C);
+  border-radius:4px 4px 2px 2px;z-index:3;
+  box-shadow:0 2px 8px rgba(0,0,0,0.3);transition:all 0.1s;
+}
+.cover-cork.pop{animation:corkPop 0.7s ease-out forwards}
+/* Sparkle particles */
+.spark-container{position:absolute;top:0;left:50%;transform:translateX(-50%);pointer-events:none;z-index:10}
+.spark{
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  animation:sparkBurst 0.8s ease-out forwards;
+}
+/* Glass shards */
+.shard{
+  position:absolute;pointer-events:none;z-index:5;
+  border-left:6px solid transparent;border-right:6px solid transparent;
+  border-bottom:14px solid rgba(168,216,234,0.6);
+  filter:blur(0.5px);
+  animation:sparkBurst 1s ease-out forwards;
+}
+.cover-label{
+  font-family:'Sacramento',cursive;font-size:36px;color:var(--navy);
+  margin-top:24px;animation:fadeUp 1s 0.3s both;
+}
+.cover-sub{font-size:13px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:6px;animation:fadeUp 1s 0.5s both}
+.cover-hint{
+  margin-top:30px;padding:12px 32px;
+  background:linear-gradient(135deg,var(--navy),var(--navy-light));color:var(--cream);
+  border:none;border-radius:30px;font-family:'Comfortaa',sans-serif;font-size:14px;
+  cursor:pointer;box-shadow:0 8px 20px rgba(44,62,107,0.35);
+  animation:fadeUp 1s 0.7s both,pulseNav 2s infinite 1.5s;
+}
+/* Decorative icons on cover */
+.cover-deco{position:absolute;pointer-events:none}
+.cover-deco.anchor{width:50px;bottom:15%;left:12%;animation:floatSlow 3.5s ease-in-out infinite}
+.cover-deco.wheel{width:60px;top:12%;right:10%;animation:spin 20s linear infinite;opacity:0.35}
+.cover-deco.sailboat{width:70px;bottom:18%;right:8%;animation:sway 4s ease-in-out infinite}
+
+/* ── BUNTING FLAGS ───────────────────── */
+.bunting{display:flex;justify-content:center;gap:0;padding:20px 0 10px;position:relative}
+.bunting .flag{
+  width:28px;height:38px;clip-path:polygon(0 0,100% 0,50% 100%);
+  animation:flagWave 2s ease-in-out infinite;transform-origin:top center;
+}
+.bunting .flag:nth-child(odd){background:var(--navy)}
+.bunting .flag:nth-child(even){background:var(--coral)}
+.bunting .flag:nth-child(3n){background:var(--brass)}
+.bunting::before{content:'';position:absolute;top:18px;left:10%;right:10%;height:2px;background:var(--navy);z-index:-1}
+
+/* ── SECTION base ───────────────────── */
+section{padding:60px 26px;position:relative;overflow:hidden}
+.sec-icon{width:56px;height:56px;margin:0 auto 14px;display:block;animation:floatSlow 3s ease-in-out infinite}
+.sec-title{font-family:'Comfortaa',sans-serif;font-weight:700;font-size:28px;color:var(--navy);text-align:center;margin-bottom:6px}
+.sec-script{font-family:'Sacramento',cursive;font-size:28px;color:var(--coral);text-align:center;margin-bottom:20px}
+.sec-divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--navy),transparent);margin:0 auto 22px}
+
+/* ── HERO ───────────────────────────── */
+.hero{
+  background:linear-gradient(180deg,#A8D8EA 0%,#D6EEF8 50%,var(--white) 100%);
+  text-align:center;padding:50px 26px 80px;position:relative;min-height:100vh;
+}
+.hero-hat{width:100px;margin:0 auto 10px;display:block;animation:floatSlow 3s ease-in-out infinite}
+.hero-name{font-family:'Comfortaa',sans-serif;font-weight:700;font-size:clamp(42px,12vw,60px);color:var(--navy);margin-bottom:4px}
+.hero-tag{font-family:'Sacramento',cursive;font-size:36px;color:var(--coral)}
+.hero-photo{
+  width:200px;height:200px;border-radius:50%;margin:30px auto;
+  border:6px solid var(--cream);box-shadow:0 0 0 3px var(--navy),0 12px 30px rgba(44,62,107,0.2);
+  object-fit:cover;
+}
+.hero-date{
+  display:inline-block;padding:10px 28px;background:var(--cream);border-radius:30px;
+  font-family:'Comfortaa',sans-serif;font-size:15px;color:var(--navy);
+  border:2px solid var(--navy);letter-spacing:1px;margin-top:16px;
+}
+/* Countdown */
+.countdown{display:flex;justify-content:center;gap:10px;margin:28px 0 0}
+.cd-box{background:var(--navy);border-radius:14px;padding:14px 10px;min-width:62px;text-align:center;box-shadow:0 4px 14px rgba(44,62,107,0.2)}
+.cd-num{font-family:'Comfortaa',sans-serif;font-weight:700;font-size:24px;color:var(--cream)}
+.cd-lbl{font-size:9px;color:var(--coral-soft);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px}
+/* Fish swim */
+.fish{position:absolute;bottom:50px;width:30px;height:20px;z-index:1;animation:fishSwim 12s linear infinite}
+.fish:nth-child(2){bottom:80px;width:22px;animation-duration:16s;animation-delay:3s;opacity:0.5}
+.fish svg{width:100%;height:100%;fill:var(--navy-light);opacity:0.4}
+
+/* ── ABOUT BABY ──────────────────────── */
+.about{background:var(--white)}
+.about-card{
+  background:var(--cream);border-radius:16px;padding:28px 22px;
+  border:2px solid rgba(44,62,107,0.15);max-width:380px;margin:0 auto;
+  box-shadow:0 8px 24px rgba(44,62,107,0.08);
+}
+.about-photo{width:130px;height:130px;border-radius:50%;margin:-75px auto 18px;display:block;object-fit:cover;border:5px solid var(--white);box-shadow:0 8px 20px rgba(44,62,107,0.15)}
+.about-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed rgba(44,62,107,0.2);font-size:14px}
+.about-row:last-child{border-bottom:none}
+.about-row span:first-child{color:var(--muted);font-weight:500}
+.about-row span:last-child{color:var(--navy);font-weight:600}
+
+/* ── PARENTS (Porthole) ─────────────── */
+.parents{background:linear-gradient(180deg,var(--white),#E8F4FA);text-align:center}
+.porthole-grid{display:flex;justify-content:center;gap:40px;margin-top:24px;flex-wrap:wrap}
+.porthole{position:relative;width:140px}
+.porthole-frame{
+  width:130px;height:130px;border-radius:50%;overflow:hidden;margin:0 auto;
+  border:6px solid var(--navy);box-shadow:inset 0 0 20px rgba(44,62,107,0.2),0 8px 20px rgba(44,62,107,0.15);
+}
+.porthole-frame img{width:100%;height:100%;object-fit:cover}
+/* Porthole screws */
+.porthole-frame::before,.porthole-frame::after{content:'';position:absolute;width:10px;height:10px;border-radius:50%;background:var(--brass);border:1.5px solid var(--navy)}
+.porthole-frame::before{top:2px;left:50%;margin-left:-5px}
+.porthole-frame::after{bottom:2px;left:50%;margin-left:-5px}
+.porthole-role{font-family:'Sacramento',cursive;font-size:24px;color:var(--coral);margin-top:10px}
+.porthole-name{font-family:'Comfortaa',sans-serif;font-size:14px;font-weight:600;color:var(--navy);margin-top:2px}
+.porthole-anchor{width:40px;margin:0 auto;animation:floatSlow 2.5s ease-in-out infinite}
+
+/* ── LOGBOOK (30 days timeline) ─────── */
+.logbook{background:var(--cream)}
+.log-entries{max-width:380px;margin:20px auto 0}
+.log-entry{
+  display:flex;gap:16px;padding:18px;margin-bottom:14px;
+  background:var(--white);border-radius:12px;border-left:4px solid var(--navy);
+  box-shadow:0 4px 12px rgba(44,62,107,0.06);position:relative;
+}
+.log-entry::before{content:attr(data-week);position:absolute;top:-10px;right:16px;background:var(--coral);color:var(--cream);padding:2px 10px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:1px}
+.log-icon{width:44px;height:44px;flex-shrink:0;object-fit:contain}
+.log-text{flex:1}
+.log-title{font-family:'Comfortaa',sans-serif;font-weight:700;font-size:14px;color:var(--navy);margin-bottom:3px}
+.log-desc{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* ── GALLERY (Bunting flag photos) ──── */
+.gallery{background:var(--white)}
+.clothesline{position:relative;padding-top:20px;margin-top:20px}
+.clothesline::before{content:'';position:absolute;top:16px;left:5%;right:5%;height:2px;background:var(--navy)}
+.clothesline-photos{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 8px}
+.cl-photo{
+  width:calc(33% - 8px);aspect-ratio:3/4;border-radius:4px;overflow:hidden;
+  border:3px solid var(--cream);box-shadow:0 6px 14px rgba(44,62,107,0.12);
+  transform-origin:top center;animation:sway 3s ease-in-out infinite;
+  position:relative;background:var(--sand);
+}
+.cl-photo:nth-child(even){animation-delay:0.5s}
+.cl-photo:nth-child(3n){animation-delay:1s}
+.cl-photo::before{content:'';position:absolute;top:-8px;left:50%;width:8px;height:16px;background:var(--brass);border-radius:2px;margin-left:-4px;z-index:2}
+.cl-photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ── EVENT DETAILS ───────────────────── */
+.event{background:linear-gradient(180deg,var(--white),#E8F4FA)}
+.event-card{
+  max-width:380px;margin:20px auto 0;padding:28px 24px;
+  background:var(--cream);border:2px solid var(--navy);border-radius:4px;
+  text-align:center;position:relative;
+}
+.event-card::before,.event-card::after{content:'';position:absolute;width:28px;height:28px;border:2px solid var(--navy)}
+.event-card::before{top:-2px;left:-2px;border-right:none;border-bottom:none}
+.event-card::after{bottom:-2px;right:-2px;border-left:none;border-top:none}
+.event-date{font-family:'Comfortaa',sans-serif;font-weight:700;font-size:48px;color:var(--navy);line-height:1}
+.event-month{font-family:'Sacramento',cursive;font-size:28px;color:var(--coral)}
+.event-info{margin-top:18px;font-size:14px;line-height:1.8;color:var(--text)}
+.event-info strong{color:var(--coral)}
+/* Map pin */
+.map-pin-wrap{text-align:center;margin-top:30px}
+.map-pin-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;background:var(--navy);color:var(--cream);
+  border:none;border-radius:30px;font-family:'Comfortaa',sans-serif;font-size:13px;
+  cursor:pointer;box-shadow:0 6px 18px rgba(44,62,107,0.3);
+  transition:transform 0.3s;text-decoration:none;
+}
+.map-pin-btn:hover{transform:translateY(-2px)}
+.map-pin-btn svg{width:16px;height:16px;fill:var(--cream)}
+
+/* ── RSVP ────────────────────────────── */
+.rsvp{background:var(--cream)}
+.rsvp-form{max-width:380px;margin:20px auto 0}
+.rsvp-form input,.rsvp-form select,.rsvp-form textarea{
+  width:100%;padding:12px 18px;margin-bottom:10px;
+  background:var(--white);border:2px dashed rgba(44,62,107,0.25);border-radius:8px;
+  font-family:'Nunito',sans-serif;font-size:14px;color:var(--navy);outline:none;
+  transition:border 0.3s;
+}
+.rsvp-form input:focus,.rsvp-form select:focus,.rsvp-form textarea:focus{border-color:var(--navy);border-style:solid}
+.rsvp-form input::placeholder,.rsvp-form textarea::placeholder{color:var(--muted)}
+.rsvp-form textarea{resize:none;min-height:80px}
+.rsvp-form .split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rsvp-form .split input{margin-bottom:0}
+.rsvp-btn{
+  width:100%;padding:14px;margin-top:8px;
+  background:linear-gradient(135deg,var(--navy),var(--navy-light));color:var(--cream);
+  border:none;border-radius:30px;font-family:'Comfortaa',sans-serif;font-size:14px;font-weight:600;
+  cursor:pointer;box-shadow:0 8px 20px rgba(44,62,107,0.3);transition:transform 0.2s;
+}
+.rsvp-btn:hover{transform:translateY(-2px)}
+.rsvp-btn:disabled{opacity:0.5;cursor:not-allowed}
+
+/* ── THANKYOU ────────────────────────── */
+.thankyou{
+  background:linear-gradient(180deg,#A8D8EA,#D6EEF8);
+  text-align:center;padding:70px 30px 40px;
+}
+.thankyou-anchor{width:60px;margin:0 auto 16px;display:block;animation:anchorDrop 1.2s ease-out}
+.thankyou-title{font-family:'Comfortaa',sans-serif;font-weight:700;font-size:32px;color:var(--navy)}
+.thankyou-script{font-family:'Sacramento',cursive;font-size:36px;color:var(--coral);margin:4px 0 16px}
+.thankyou-hashtag{font-family:'Comfortaa',sans-serif;font-size:12px;letter-spacing:3px;color:var(--navy-light)}
+.footer-mini{padding:16px;text-align:center;font-size:10px;color:var(--muted);background:var(--white);letter-spacing:1px}
+
+/* ── MUSIC BUTTON ────────────────────── */
+.music-btn{
+  position:fixed;bottom:20px;right:calc(50% - 230px);z-index:80;
+  width:50px;height:50px;border-radius:50%;
+  background:var(--navy);border:2px solid var(--cream);
+  box-shadow:0 6px 18px rgba(44,62,107,0.35);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  animation:spin 5s linear infinite;animation-play-state:paused;
+}
+.music-btn.playing{animation-play-state:running}
+.music-btn svg{width:20px;height:20px;fill:var(--cream)}
+@media(max-width:520px){.music-btn{right:16px}}
+
+/* ── POPUP ───────────────────────────── */
+.popup{position:fixed;inset:0;background:rgba(44,62,107,0.85);z-index:300;display:none;align-items:center;justify-content:center;padding:24px}
+.popup.show{display:flex;animation:fadeUp 0.4s ease-out}
+.popup-card{background:var(--cream);border:3px solid var(--navy);border-radius:12px;padding:36px 28px;max-width:320px;text-align:center}
+.popup-card h3{font-family:'Sacramento',cursive;color:var(--navy);font-size:36px;margin-bottom:8px}
+.popup-card p{font-size:14px;color:var(--text);line-height:1.6}
+.popup-card button{margin-top:18px;padding:10px 28px;background:var(--navy);color:var(--cream);border:none;border-radius:20px;font-family:'Comfortaa',sans-serif;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- COVER: Message in a Bottle -->
+  <div class="cover" id="cover">
+    <img class="cover-deco wheel" src="../../../shared/images/wedding/icons/ship-wheel-navy.webp" alt="">
+    <img class="cover-deco anchor" src="../../../shared/images/wedding/icons/anchor-navy-rope.webp" alt="">
+    <img class="cover-deco sailboat" src="../../../shared/images/wedding/icons/sailboat-coral-stripe.webp" alt="">
+    <div class="cover-bottle" id="coverBottle" onclick="openBottle()">
+      <div class="spark-container" id="sparkContainer"></div>
+      <img src="../../../shared/images/wedding/icons/message-in-bottle.webp" alt="Message in a bottle">
+    </div>
+    <div class="cover-label">Hải Trình Đầu Tiên</div>
+    <div class="cover-sub">Lễ đầy tháng bé Mimi</div>
+    <button class="cover-hint" onclick="openBottle()">Chạm vào chai ⛵</button>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="bunting anim">
+      <div class="flag"></div><div class="flag"></div><div class="flag"></div>
+      <div class="flag"></div><div class="flag"></div><div class="flag"></div>
+      <div class="flag"></div><div class="flag"></div><div class="flag"></div>
+      <div class="flag"></div><div class="flag"></div>
+    </div>
+    <img class="hero-hat anim" src="../../../shared/images/wedding/icons/sailor-hat-navy.webp" alt="">
+    <div class="hero-name anim">Bé Mimi</div>
+    <div class="hero-tag anim">Thuyền trưởng nhí</div>
+    <img class="hero-photo anim" src="../../../shared/images/baby/mimi/mimi-16-thuy-thu.webp" alt="Bé Mimi">
+    <div class="hero-date anim">15 · 07 · 2026</div>
+    <div class="countdown anim" id="countdown">
+      <div class="cd-box"><div class="cd-num" id="cdD">00</div><div class="cd-lbl">Ngày</div></div>
+      <div class="cd-box"><div class="cd-num" id="cdH">00</div><div class="cd-lbl">Giờ</div></div>
+      <div class="cd-box"><div class="cd-num" id="cdM">00</div><div class="cd-lbl">Phút</div></div>
+      <div class="cd-box"><div class="cd-num" id="cdS">00</div><div class="cd-lbl">Giây</div></div>
+    </div>
+    <!-- Swimming fish -->
+    <div class="fish"><svg viewBox="0 0 30 20"><path d="M5 10 Q10 3,20 7 L28 2 V18 L20 13 Q10 17,5 10Z"/></svg></div>
+    <div class="fish"><svg viewBox="0 0 30 20"><path d="M5 10 Q10 3,20 7 L28 2 V18 L20 13 Q10 17,5 10Z"/></svg></div>
+    <div class="wave-bottom"><svg viewBox="0 0 600 60" preserveAspectRatio="none"><path fill="var(--white)" d="M0 20 Q60 0,120 20 T240 20 T360 20 T480 20 T600 20 V60 H0 Z"/></svg></div>
+  </section>
+
+  <!-- ABOUT BABY -->
+  <section class="about">
+    <img class="sec-icon anim" src="../../../shared/images/wedding/icons/compass-brass-navy.webp" alt="">
+    <div class="sec-title anim">Bé Là Ai?</div>
+    <div class="sec-script anim">Little captain info</div>
+    <div class="sec-divider"></div>
+    <div class="about-card anim">
+      <img class="about-photo" src="../../../shared/images/baby/mimi/mimi-11-tuxedo-trang.webp" alt="Mimi">
+      <div class="about-row"><span>Tên đầy đủ</span><span>Nguyễn Ngọc Mi Mi</span></div>
+      <div class="about-row"><span>Biệt danh</span><span>Bé Mimi</span></div>
+      <div class="about-row"><span>Ngày sinh</span><span>15 · 06 · 2026</span></div>
+      <div class="about-row"><span>Cung hoàng đạo</span><span>Song Tử ♊</span></div>
+      <div class="about-row"><span>Con giáp</span><span>Tỵ 🐍</span></div>
+      <div class="about-row"><span>Cân nặng</span><span>4.2 kg</span></div>
+      <div class="about-row"><span>Sở thích</span><span>Bú sữa, ngủ, ôm gấu bông</span></div>
+    </div>
+  </section>
+
+  <!-- PARENTS (Porthole) -->
+  <section class="parents">
+    <img class="sec-icon anim" src="../../../shared/images/wedding/icons/life-buoy-coral.webp" alt="">
+    <div class="sec-title anim">Bố Mẹ Thuyền Trưởng</div>
+    <div class="sec-script anim">The crew</div>
+    <div class="sec-divider"></div>
+    <div class="porthole-grid anim">
+      <div class="porthole">
+        <div class="porthole-frame">
+          <img src="https://placehold.co/300x300/A8D8EA/2C3E6B?text=Bo" alt="Bố">
+        </div>
+        <div class="porthole-role">Bố</div>
+        <div class="porthole-name">Nguyễn Minh Hoàng</div>
+      </div>
+      <div class="porthole" style="padding-top:20px">
+        <img class="porthole-anchor" src="../../../shared/images/wedding/icons/anchor-navy-rope.webp" alt="">
+      </div>
+      <div class="porthole">
+        <div class="porthole-frame">
+          <img src="https://placehold.co/300x300/F4A29E/2C3E6B?text=Me" alt="Mẹ">
+        </div>
+        <div class="porthole-role">Mẹ</div>
+        <div class="porthole-name">Trần Thu Hương</div>
+      </div>
+    </div>
+    <div class="wave-bottom"><svg viewBox="0 0 600 60" preserveAspectRatio="none"><path fill="var(--cream)" d="M0 20 Q60 0,120 20 T240 20 T360 20 T480 20 T600 20 V60 H0 Z"/></svg></div>
+  </section>
+
+  <!-- LOGBOOK (30 days timeline) -->
+  <section class="logbook">
+    <img class="sec-icon anim" src="../../../shared/images/wedding/icons/telescope-brass.webp" alt="">
+    <div class="sec-title anim">Nhật Ký 30 Ngày</div>
+    <div class="sec-script anim">Captain's log</div>
+    <div class="sec-divider"></div>
+    <div class="log-entries">
+      <div class="log-entry anim" data-week="TUẦN 1">
+        <img class="log-icon" src="../../../shared/images/wedding/icons/sailor-hat-navy.webp" alt="">
+        <div class="log-text"><div class="log-title">Chào thế giới!</div><div class="log-desc">3.8kg tí hon — tiếng khóc đầu tiên vang cả phòng sinh 🎉</div></div>
+      </div>
+      <div class="log-entry anim" data-week="TUẦN 2">
+        <img class="log-icon" src="../../../shared/images/wedding/icons/compass-brass-navy.webp" alt="">
+        <div class="log-text"><div class="log-title">Khám phá giấc ngủ</div><div class="log-desc">Ngủ 18 tiếng/ngày, mơ về biển cả và sữa mẹ 💤</div></div>
+      </div>
+      <div class="log-entry anim" data-week="TUẦN 3">
+        <img class="log-icon" src="../../../shared/images/wedding/icons/lighthouse-coral-white.webp" alt="">
+        <div class="log-text"><div class="log-title">Ánh mắt sáng</div><div class="log-desc">Bắt đầu nhìn theo ánh sáng, nắm chặt tay mẹ 👀</div></div>
+      </div>
+      <div class="log-entry anim" data-week="TUẦN 4">
+        <img class="log-icon" src="../../../shared/images/wedding/icons/sailboat-coral-stripe.webp" alt="">
+        <div class="log-text"><div class="log-title">Sẵn sàng ra khơi!</div><div class="log-desc">4.2kg khỏe mạnh — mẹ tròn con vuông, hẹn gặp mọi người! ⛵</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY (Clothesline photos) -->
+  <section class="gallery">
+    <img class="sec-icon anim" src="../../../shared/images/wedding/icons/life-buoy-coral.webp" alt="">
+    <div class="sec-title anim">Album Thuyền Trưởng</div>
+    <div class="sec-script anim">Ahoy! Memories</div>
+    <div class="sec-divider"></div>
+    <div class="clothesline anim">
+      <div class="clothesline-photos">
+        <div class="cl-photo"><img src="../../../shared/images/baby/mimi/mimi-11-tuxedo-trang.webp" alt=""></div>
+        <div class="cl-photo"><img src="../../../shared/images/baby/mimi/mimi-12-phi-cong.webp" alt=""></div>
+        <div class="cl-photo"><img src="../../../shared/images/baby/mimi/mimi-13-gau-xam.webp" alt=""></div>
+        <div class="cl-photo"><img src="../../../shared/images/baby/mimi/mimi-14-dau-bep.webp" alt=""></div>
+        <div class="cl-photo"><img src="../../../shared/images/baby/mimi/mimi-16-thuy-thu.webp" alt=""></div>
+        <div class="cl-photo"><img src="../../../shared/images/baby/mimi/mimi-17-hoa-si.webp" alt=""></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENT DETAILS -->
+  <section class="event">
+    <img class="sec-icon anim" src="../../../shared/images/wedding/icons/anchor-navy-rope.webp" alt="">
+    <div class="sec-title anim">Cảng Đến</div>
+    <div class="sec-script anim">Port of call</div>
+    <div class="sec-divider"></div>
+    <div class="event-card anim">
+      <div class="event-month">Tháng 7</div>
+      <div class="event-date">15</div>
+      <div class="event-month">Chủ Nhật · 10:00 AM</div>
+      <div class="event-info">
+        <strong>Nhà hàng Biển Xanh</strong><br>
+        52 Miếu Đầm, Mễ Trì<br>
+        Nam Từ Liêm, Hà Nội
+      </div>
+    </div>
+    <div class="map-pin-wrap anim">
+      <a class="map-pin-btn" href="https://www.google.com/maps/search/?api=1&query=52+Mi%E1%BB%85u+%C4%90%E1%BA%A7m+M%E1%BB%85+Tr%C3%AC+H%C3%A0+N%E1%BB%99i" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Mở bản đồ ⛵
+      </a>
+    </div>
+    <div class="wave-bottom"><svg viewBox="0 0 600 60" preserveAspectRatio="none"><path fill="var(--cream)" d="M0 20 Q60 0,120 20 T240 20 T360 20 T480 20 T600 20 V60 H0 Z"/></svg></div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="rsvp">
+    <img class="sec-icon anim" src="../../../shared/images/wedding/icons/message-in-bottle.webp" alt="">
+    <div class="sec-title anim">Xác Nhận Lên Tàu</div>
+    <div class="sec-script anim">All aboard!</div>
+    <div class="sec-divider"></div>
+    <form class="rsvp-form anim" id="rsvpForm">
+      <input type="text" name="name" placeholder="Họ và tên thủy thủ" required>
+      <div class="split">
+        <input type="number" name="adults" placeholder="Người lớn" min="1" value="1" required>
+        <input type="number" name="kids" placeholder="Trẻ em" min="0" value="0">
+      </div>
+      <select name="attendance" required>
+        <option value="">— Bạn sẽ lên tàu chứ? —</option>
+        <option value="yes">Có! Sẵn sàng ra khơi ⛵</option>
+        <option value="no">Tiếc quá, không lên tàu được</option>
+      </select>
+      <input type="text" name="allergy" placeholder="Dị ứng món ăn (nếu có)">
+      <textarea name="message" placeholder="Lời chúc gửi thuyền trưởng nhí..."></textarea>
+      <button class="rsvp-btn" type="submit">Gửi thư trong chai ⛵</button>
+    </form>
+  </section>
+
+  <!-- THANKYOU -->
+  <section class="thankyou">
+    <img class="thankyou-anchor anim" src="../../../shared/images/wedding/icons/anchor-navy-rope.webp" alt="" style="width:60px">
+    <div class="thankyou-title anim">Cảm Ơn!</div>
+    <div class="thankyou-script anim">Fair winds & following seas</div>
+    <div class="thankyou-hashtag anim">#MimiSailor #BeMinDayThang</div>
+  </section>
+  <div class="footer-mini">Designed with ⚓ by Templexa · 2026</div>
+</div>
+
+<!-- Music -->
+<button class="music-btn" id="musicBtn" aria-label="Music">
+  <svg viewBox="0 0 24 24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+</button>
+<audio id="bgMusic" loop preload="none">
+  <source src="../../../shared/music/wedding/Sugar.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Popup -->
+<div class="popup" id="popupOk">
+  <div class="popup-card">
+    <h3>Ahoy!</h3>
+    <p>Thư trong chai đã được gửi đi.<br>Hẹn gặp bạn trên chuyến hải trình! ⛵</p>
+    <button onclick="document.getElementById('popupOk').classList.remove('show')">Đóng</button>
+  </div>
+</div>
+
+<script>
+  /* ── Open bottle ────────────────────── */
+  let bottleOpened=false;
+  function openBottle(){
+    if(bottleOpened)return;
+    bottleOpened=true;
+    const bottle=document.getElementById('coverBottle');
+    const sparkC=document.getElementById('sparkContainer');
+
+    // Step 1: Shake bottle
+    bottle.classList.add('shake');
+
+    // Step 2: Spark burst (after 400ms)
+    setTimeout(()=>{
+      const colors=['#F4D47C','#E8615A','#A8D8EA','#FFF5E1','#D4A574'];
+      for(let i=0;i<16;i++){
+        const s=document.createElement('div');
+        s.className='spark';
+        const angle=(i/16)*360;
+        const dist=40+Math.random()*60;
+        const x=Math.cos(angle*Math.PI/180)*dist;
+        const y=Math.sin(angle*Math.PI/180)*dist-30;
+        s.style.cssText='background:'+colors[i%5]+';left:0;top:0;transform:translate('+x+'px,'+y+'px) scale('+(0.6+Math.random()*0.8)+');animation-duration:'+(0.5+Math.random()*0.5)+'s';
+        sparkC.appendChild(s);
+      }
+    },400);
+
+    // Step 3: Glass cracks + shards fly (after 800ms)
+    setTimeout(()=>{
+      bottle.classList.add('cracked');
+      // Spawn glass shards
+      const rect=bottle.getBoundingClientRect();
+      for(let i=0;i<12;i++){
+        const sh=document.createElement('div');
+        sh.className='shard';
+        const ax=(Math.random()-0.5)*180;
+        const ay=-(50+Math.random()*120);
+        sh.style.cssText='left:'+(rect.width/2+Math.random()*60-30)+'px;top:'+(rect.height/2+Math.random()*40-20)+'px;transform:translate('+ax+'px,'+ay+'px) rotate('+(Math.random()*360)+'deg);animation-duration:'+(0.6+Math.random()*0.6)+'s;border-bottom-color:rgba('+(150+Math.random()*50)+',216,234,'+(0.4+Math.random()*0.3)+')';
+        bottle.appendChild(sh);
+      }
+    },800);
+
+    // Step 4: Music + open cover
+    setTimeout(()=>{
+      const m=document.getElementById('bgMusic');
+      m.volume=0.3;
+      m.play().then(()=>document.getElementById('musicBtn').classList.add('playing')).catch(()=>{});
+    },600);
+
+    setTimeout(()=>document.getElementById('cover').classList.add('open'),1800);
+  }
+
+  /* ── Music toggle ──────────────────── */
+  const musicBtn=document.getElementById('musicBtn'),bgMusic=document.getElementById('bgMusic');
+  musicBtn.addEventListener('click',()=>{
+    if(bgMusic.paused){bgMusic.play();musicBtn.classList.add('playing')}
+    else{bgMusic.pause();musicBtn.classList.remove('playing')}
+  });
+
+  /* ── Countdown ─────────────────────── */
+  const target=new Date('2026-07-15T10:00:00+07:00').getTime();
+  function tick(){
+    const d=Math.max(0,target-Date.now());
+    document.getElementById('cdD').textContent=String(Math.floor(d/864e5)).padStart(2,'0');
+    document.getElementById('cdH').textContent=String(Math.floor(d%864e5/36e5)).padStart(2,'0');
+    document.getElementById('cdM').textContent=String(Math.floor(d%36e5/6e4)).padStart(2,'0');
+    document.getElementById('cdS').textContent=String(Math.floor(d%6e4/1e3)).padStart(2,'0');
+  }
+  setInterval(tick,1000);tick();
+
+  /* ── Scroll anim ───────────────────── */
+  const io=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('on');io.unobserve(el.target)}})},{threshold:0.12});
+  document.querySelectorAll('.anim').forEach(el=>io.observe(el));
+
+  /* ── RSVP ──────────────────────────── */
+  document.getElementById('rsvpForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const btn=e.target.querySelector('.rsvp-btn');
+    btn.disabled=true;btn.textContent='Đang gửi...';
+    setTimeout(()=>{document.getElementById('popupOk').classList.add('show');btn.textContent='Đã gửi ⛵'},600);
+  });
+</script>
+</body>
+</html>
