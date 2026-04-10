@@ -14,7 +14,7 @@ products/
 │   ├── Onepage/            # 26 san pham
 │   └── Portfolio/          # 24 san pham
 ├── Invitation/             # Mau Thiep moi (type: invitation)
-│   ├── Wedding/            # 27 san pham (thiep cuoi)
+│   ├── Wedding/            # 28 san pham (thiep cuoi)
 │   └── Other/              # 39 san pham (sinh nhat, ky niem, le hoi, confession)
 ├── images/                 # Anh mockup dung chung
 ├── data.csv                # File CSV quan ly san pham
@@ -32,9 +32,9 @@ products/
 | **Web** | Education | 30 |
 | **Web** | Onepage | 26 |
 | **Web** | Portfolio | 24 |
-| **Invitation** | Wedding | 28 |
+| **Invitation** | Wedding | 29 |
 | **Invitation** | Other | 39 |
-| | **Tong** | **190** |
+| | **Tong** | **191** |
 
 ---
 

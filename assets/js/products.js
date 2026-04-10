@@ -73,6 +73,13 @@
 
     // ── Legacy URL redirects ──
     const urlParams = new URLSearchParams(window.location.search);
+    // Redirect products.html?type=invitation → thiep-online.html
+    if (window.location.pathname.includes('products.html') && urlParams.get('type') === 'invitation') {
+        urlParams.delete('type');
+        var remaining = urlParams.toString();
+        window.location.replace('thiep-online.html' + (remaining ? '?' + remaining : ''));
+        return;
+    }
     if (urlParams.get('category') === 'invitation') {
         urlParams.delete('category');
         urlParams.set('type', 'invitation');
@@ -94,6 +101,9 @@
     }
 
     // ── Render filters ──────────────────────────
+    // Detect if type filter is hidden (e.g. thiep-online.html)
+    const typeFilterHidden = typeFiltersEl && typeFiltersEl.parentElement && typeFiltersEl.parentElement.style.display === 'none';
+
     function renderFilters() {
         // Category filters — chỉ hiện categories phù hợp với type đang chọn
         const allowedCats = TYPE_CATEGORIES[currentType] || TYPE_CATEGORIES['all'];
@@ -117,6 +127,14 @@
                 if (filtersWrapper) filtersWrapper.classList.add('category-locked');
             });
         });
+
+        // When type filter is hidden, always show category row
+        if (typeFilterHidden) {
+            if (filtersWrapper) {
+                filtersWrapper.classList.add('category-open', 'category-locked');
+            }
+            return;
+        }
 
         // Event listeners — type (click + hover to show categories)
         typeFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
