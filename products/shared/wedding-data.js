@@ -302,7 +302,19 @@ var WEDDING_DATA = {
             { id: 'heart-leaves-watercolor', file: 'icons/heart-leaves-watercolor.webp', name: 'Trai tim la watercolor', tags: ['heart', 'leaves', 'watercolor', 'romantic', 'botanical'], usage: ['between-names', 'section-deco', 'inline-icon'] },
             { id: 'just-married-car-watercolor', file: 'icons/just-married-car-watercolor.webp', name: 'Xe cuoi just married', tags: ['car', 'just-married', 'watercolor', 'vintage', 'romantic'], usage: ['section-deco', 'footer-deco'] },
             { id: 'candle-lantern-watercolor', file: 'icons/candle-lantern-watercolor.webp', name: 'Den long nen watercolor', tags: ['lantern', 'candle', 'watercolor', 'warm', 'elegant'], usage: ['section-deco', 'side-deco'] },
-            { id: 'sparkler-hand-watercolor', file: 'icons/sparkler-hand-watercolor.webp', name: 'Phao sang tay watercolor', tags: ['sparkler', 'hand', 'watercolor', 'celebration', 'gold'], usage: ['section-deco', 'inline-icon'] }
+            { id: 'sparkler-hand-watercolor', file: 'icons/sparkler-hand-watercolor.webp', name: 'Phao sang tay watercolor', tags: ['sparkler', 'hand', 'watercolor', 'celebration', 'gold'], usage: ['section-deco', 'inline-icon'] },
+
+            // Batch 2026-04-10 — CineLove-style pink pastel icons
+            { id: 'wax-seal-leaf-bronze', file: 'icons/wax-seal-leaf-bronze.webp', name: 'Con dau sap la dong', tags: ['wax-seal', 'vintage', 'elegant', 'bronze', 'brown', 'leaf'], usage: ['envelope-seal', 'envelope-center', 'section-deco'] },
+            { id: 'couple-dance-3d', file: 'icons/couple-dance-3d.webp', name: 'Cap doi 3D nhay', tags: ['couple', 'dance', 'cute', 'chibi', '3d', 'romantic'], usage: ['section-deco', 'floating-deco', 'general-deco'] },
+            { id: 'double-happiness-floral', file: 'icons/double-happiness-floral.webp', name: 'Chu Song Hy hoa la', tags: ['traditional', 'double-happiness', 'red', 'floral', 'chinese'], usage: ['section-deco', 'hero-deco', 'envelope-center'] },
+            { id: 'champagne-toast-pastel', file: 'icons/champagne-toast-pastel.webp', name: 'Ly champagne cung no', tags: ['champagne', 'toast', 'cute', 'pastel', 'pink', 'romantic'], usage: ['inline-icon', 'section-deco'] },
+            { id: 'wedding-car-pink-vintage', file: 'icons/wedding-car-pink-vintage.webp', name: 'Xe hoa hong vintage', tags: ['car', 'vintage', 'cute', 'pink', 'floral'], usage: ['section-deco', 'footer-deco'] },
+            { id: 'heart-hands-kawaii', file: 'icons/heart-hands-kawaii.webp', name: 'Tay bat trai tim', tags: ['heart', 'hands', 'cute', 'kawaii', 'coral', 'romantic'], usage: ['inline-icon', 'section-deco', 'general-deco'] },
+            { id: 'bear-heart-biubiu', file: 'icons/bear-heart-biubiu.webp', name: 'Gau thoi tim biu biu', tags: ['bear', 'heart', 'cute', 'chibi', 'pink', 'romantic'], usage: ['floating-deco', 'section-deco', 'general-deco'] },
+            { id: 'calendar-heart-pink', file: 'icons/calendar-heart-pink.webp', name: 'Calendar heart hong', tags: ['calendar', 'heart', 'pink', 'romantic'], usage: ['date-highlight', 'calendar-section'] },
+            { id: 'music-toggle-disc', file: 'icons/music-toggle-disc.webp', name: 'Music toggle icon', tags: ['ui', 'music', 'disc'], usage: ['music-toggle'] },
+            { id: 'play-button-circle', file: 'icons/play-button-circle.webp', name: 'Play button icon', tags: ['ui', 'play', 'auto-scroll'], usage: ['music-toggle', 'general-deco'] }
         ]
     },
 
@@ -390,7 +402,11 @@ var WEDDING_DATA = {
             { id: 'venue-illustration-heritage', file: 'wedding-elements/venue-illustration-heritage.webp', name: 'Minh hoa venue heritage', tags: ['illustration', 'venue', 'heritage', 'lineart'], usage: ['hero-deco', 'section-deco'] },
 
             // Batch 2026-04-09 — Birthday / Baby pastel
-            { id: 'wreath-pink-roses-sage-green', file: 'wedding-elements/wreath-pink-roses-sage-green.webp', name: 'Vong hoa hong la xanh', tags: ['wreath', 'floral', 'pink', 'rose', 'sage', 'green', 'frame', 'romantic'], usage: ['photo-frame', 'section-header', 'hero-deco', 'decoration'] }
+            { id: 'wreath-pink-roses-sage-green', file: 'wedding-elements/wreath-pink-roses-sage-green.webp', name: 'Vong hoa hong la xanh', tags: ['wreath', 'floral', 'pink', 'rose', 'sage', 'green', 'frame', 'romantic'], usage: ['photo-frame', 'section-header', 'hero-deco', 'decoration'] },
+
+            // Batch 2026-04-10 — CineLove-style pink pastel elements
+            { id: 'circle-pink-sparkle', file: 'wedding-elements/circle-pink-sparkle.webp', name: 'Vong tron hong sparkle', tags: ['circle', 'pink', 'pastel', 'sparkle', 'soft', 'decorative'], usage: ['background-deco', 'section-deco', 'scatter-deco'] },
+            { id: 'hearts-floating-pink', file: 'wedding-elements/hearts-floating-pink.webp', name: 'Trai tim hong bay', tags: ['heart', 'pink', 'floating', 'romantic', 'pastel'], usage: ['floating-deco', 'scatter-deco', 'background-deco'] }
         ]
     },
 
