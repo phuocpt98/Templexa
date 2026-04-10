@@ -182,12 +182,13 @@ img { max-width:100%; display:block; }
   align-items: center; justify-content: center;
   overflow: hidden;
   cursor: pointer;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 #intro.active { display: flex; }
-/* (play hint removed — click anywhere to play) */
-#intro.fade-out { animation: introFade 0.6s ease forwards; }
-@keyframes introFade {
-  to { opacity: 0; visibility: hidden; }
+#intro.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 /* (letterbox bg removed — video now fills screen cover) */
 #introVideo {
@@ -1038,7 +1039,7 @@ img { max-width:100%; display:block; }
 <!-- ============ VIDEO INTRO — bg pastel dreamy, video overlaid ============ -->
 <div id="intro">
   <video id="introVideo" playsinline muted preload="auto" poster="./intro-poster.webp">
-    <source src="./intro.mp4" type="video/mp4">
+    <source src="https://cache.giaohangtietkiem.vn/d/a99c86fcf4edbaa5054b593bbffbf0bd.mp4" type="video/mp4">
   </video>
 </div>
 
@@ -1294,27 +1295,27 @@ img { max-width:100%; display:block; }
     const done = () => {
       if (finished) return;
       finished = true;
-      intro.classList.add('fade-out');
-      setTimeout(() => { intro.style.display = 'none'; }, 700);
       startHero();
       tryPlayMusic();
+      // Fade out like #225: opacity transition, hero already visible underneath
+      intro.classList.add('hidden');
     };
 
     const p = introVideo.play();
     if (p && p.catch) p.catch(() => done());
-    introVideo.onended = done;
 
-    // Stall detection via timeupdate — reset 4s timer on every progress tick
-    // Only fires done() if no progress for 4 full seconds while playing (very generous)
-    let stallTimer;
-    const resetStall = () => {
-      clearTimeout(stallTimer);
-      stallTimer = setTimeout(() => {
-        if (!finished && !introVideo.ended) done();
-      }, 4000);
-    };
-    introVideo.addEventListener('timeupdate', resetStall);
-    resetStall(); // start initial timer
+    // Schedule transition 1.5s before video ends using precise setTimeout
+    introVideo.addEventListener('loadedmetadata', () => {
+      const earlyEnd = Math.max(0, (introVideo.duration - 1.5) * 1000);
+      setTimeout(() => { if (!finished) done(); }, earlyEnd);
+    }, { once: true });
+    // If metadata already loaded
+    if (introVideo.duration) {
+      const earlyEnd = Math.max(0, (introVideo.duration - 1.5) * 1000);
+      setTimeout(() => { if (!finished) done(); }, earlyEnd);
+    }
+    // Fallback: hard cap at 8s
+    setTimeout(() => { if (!finished) done(); }, 8000);
   };
   intro.addEventListener('click', playIntro);
 
