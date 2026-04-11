@@ -4726,6 +4726,34 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         updatedAt: '2026-04-10',
+    },
+    {
+        id: 235,
+        isPublic: true,
+        name: 'Thiệp Cưới - CineLove Pink Pastel',
+        slug: 'cuoi-cinelove-pink-pastel',
+        description: 'Thiệp cưới phong cách CineLove — phong bì hồng mở flap, ảnh cặp đôi polaroid scrapbook, lịch tháng 05/2026 có tim đỏ ngày cưới, love quote My Love monogram, invitation Arcittya Begatri ampersand, RSVP xác nhận, countdown, floating hearts. HoaTay1 + Chetta Vissto + BrikeyMoura.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['thiệp-cưới', 'cinelove', 'pink', 'pastel', 'phong-bì', 'polaroid', 'scrapbook', 'hoatay', 'korean-style'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_235_cuoi-cinelove-pink-pastel/screen.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_235_cuoi-cinelove-pink-pastel/screen.webp',
+        path: './products/Invitation/Wedding/gen_235_cuoi-cinelove-pink-pastel/',
+        demoUrl: './products/Invitation/Wedding/gen_235_cuoi-cinelove-pink-pastel/index.html',
+        features: [
+            'Phong bì hồng mở flap animation, ảnh polaroid scrapbook xoay nghiêng, hoa cẩm chướng trang trí',
+            'Lịch tháng 05/2026 có tim đỏ ngày cưới, countdown giờ phút giây, love quote My Love monogram',
+            'RSVP xác nhận tham dự, thông tin ngân hàng tặng quà, floating hearts, nhạc nền tự động',
+        ],
+        status: 'new',
+        priority: -0.08,
+        downloads: 3,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-04-11',
     }
 ];
 
