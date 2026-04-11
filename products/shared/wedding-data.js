@@ -336,7 +336,11 @@ var WEDDING_DATA = {
             { id: 'message-in-bottle', file: 'icons/message-in-bottle.webp', name: 'Thu trong chai', tags: ['nautical', 'bottle', 'message', 'vintage', 'romantic'], usage: ['inline-icon', 'envelope-section'] },
             { id: 'sailor-hat-navy', file: 'icons/sailor-hat-navy.webp', name: 'Mu thuy thu navy', tags: ['nautical', 'sailor', 'hat', 'navy', 'cute', 'baby'], usage: ['inline-icon', 'hero-deco'] },
             { id: 'life-buoy-coral', file: 'icons/life-buoy-coral.webp', name: 'Phao cuu sinh do trang', tags: ['nautical', 'buoy', 'coral', 'safety'], usage: ['inline-icon', 'section-deco'] },
-            { id: 'telescope-brass', file: 'icons/telescope-brass.webp', name: 'Ong nhom dong', tags: ['nautical', 'telescope', 'brass', 'vintage', 'adventure'], usage: ['inline-icon', 'section-deco'] }
+            { id: 'telescope-brass', file: 'icons/telescope-brass.webp', name: 'Ong nhom dong', tags: ['nautical', 'telescope', 'brass', 'vintage', 'adventure'], usage: ['inline-icon', 'section-deco'] },
+
+            // Batch 2026-04-11 — Pink pastel Korean wedding
+            { id: 'heart-fingerprint-red', file: 'icons/heart-fingerprint-red.webp', name: 'Trai tim van tay do', tags: ['heart', 'fingerprint', 'red', 'romantic', 'unique'], usage: ['inline-icon', 'calendar-section', 'date-highlight'] },
+            { id: 'chibi-couple-dancing', file: 'icons/chibi-couple-dancing.gif', name: 'Chibi couple nhay 3D', tags: ['chibi', '3d', 'dance', 'animated', 'cute', 'romantic'], usage: ['thankyou', 'section-deco', 'floating-deco'] }
         ]
     },
 
@@ -1109,6 +1113,40 @@ var WEDDING_DATA = {
                 { path: 'products/shared/images/baby/mimi/mimi-17-hoa-si.webp', description: 'Be trai hoa si artist voi bang mau' },
                 { path: 'products/shared/images/baby/mimi/mimi-18-sieu-nhan.webp', description: 'Be trai sieu nhan superhero' }
             ]
+        },
+        {
+            id: 'korean-studio-pink',
+            name: 'Korean Studio Pink Pastel',
+            folder: 'products/shared/images/wedding/korean-studio-pink/',
+            count: 10,
+            style: 'Korean studio, pink pastel background, romantic soft',
+            tags: ['korean', 'studio', 'pink', 'pastel', 'romantic', 'soft', 'elegant', 'indoor', 'bouquet'],
+            colors: ['pink', 'blush', 'cream', 'pastel'],
+            mood: 'nhẹ nhàng, lãng mạn, ngọt ngào',
+            description: 'Bo anh couple Han Quoc nen hong pastel, co dau vay hong, chu re vest kem. Da dang goc chup: doi, ca nhan, chan dung. Phu hop thiep cuoi pastel, romantic.',
+            hasPortrait: true,
+            portraitFiles: { bride: 'bride-solo-bouquet.webp' },
+            matchPalettes: ['blush-pink', 'dusty-rose', 'lavender', 'classic-gold'],
+            files: {
+                hero: 'couple-sitting.webp',
+                envelope: 'couple-bouquet-close.webp',
+                story: ['couple-laughing.webp', 'couple-portrait.webp', 'bride-closeup.webp'],
+                gallery: ['couple-window-light.webp', 'couple-close-smile.webp', 'couple-laughing-square.webp'],
+                thankyou: 'couple-standing.webp'
+            },
+            usedBy: [233],
+            images: [
+                { path: 'products/shared/images/wedding/korean-studio-pink/couple-sitting.webp', description: 'Couple ngoi nen hong - hero' },
+                { path: 'products/shared/images/wedding/korean-studio-pink/bride-solo-bouquet.webp', description: 'Co dau solo cam hoa - portrait' },
+                { path: 'products/shared/images/wedding/korean-studio-pink/bride-closeup.webp', description: 'Co dau close-up - portrait' },
+                { path: 'products/shared/images/wedding/korean-studio-pink/couple-laughing.webp', description: 'Couple cuoi vui - landscape' },
+                { path: 'products/shared/images/wedding/korean-studio-pink/couple-portrait.webp', description: 'Couple chan dung gan - landscape' },
+                { path: 'products/shared/images/wedding/korean-studio-pink/couple-laughing-square.webp', description: 'Couple cuoi - square crop' },
+                { path: 'products/shared/images/wedding/korean-studio-pink/couple-window-light.webp', description: 'Couple anh sang cua so - landscape' },
+                { path: 'products/shared/images/wedding/korean-studio-pink/couple-close-smile.webp', description: 'Couple sat cuoi - landscape' },
+                { path: 'products/shared/images/wedding/korean-studio-pink/couple-bouquet-close.webp', description: 'Couple bo hoa gan - landscape' },
+                { path: 'products/shared/images/wedding/korean-studio-pink/couple-standing.webp', description: 'Couple dung cam hoa - portrait' }
+            ]
         }
     ],
 
@@ -1216,6 +1254,14 @@ var WEDDING_DATA = {
             suggestedFor: 'Thiep cuoi vui nhon, phong cach hien dai, tre',
             artist: 'Maroon 5',
             bpm: 'fast'
+        },
+        {
+            path: 'products/shared/music/wedding/Le Duong.mp3',
+            name: 'Lễ Đường',
+            genre: 'wedding',
+            mood: 'romantic, emotional, Vietnamese',
+            tags: ['vietnamese', 'wedding', 'romantic', 'emotional'],
+            suggestedFor: 'Thiep cuoi Viet, phong cach lang man, tieng Viet'
         }
     ],
 

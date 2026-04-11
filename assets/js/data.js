@@ -4678,10 +4678,11 @@ const PRODUCTS = [
         tags: ['wedding', 'thiep-cuoi', 'korean', 'pastel', 'pink', 'cream', 'romantic', 'script', 'envelope'],
         price: '',
         images: [
-            './products/Invitation/Wedding/gen_233_cuoi-pink-pastel-korean/screen.webp',
+            './products/Invitation/Wedding/gen_233_cuoi-pink-pastel-korean/screen-web-1.webp',
+            './products/Invitation/Wedding/gen_233_cuoi-pink-pastel-korean/screen-web-2.webp',
             './products/Invitation/Wedding/gen_233_cuoi-pink-pastel-korean/screen-mobile.webp',
         ],
-        thumbnail: './products/Invitation/Wedding/gen_233_cuoi-pink-pastel-korean/screen.webp',
+        thumbnail: './products/Invitation/Wedding/gen_233_cuoi-pink-pastel-korean/screen-web-1.webp',
         mobileView: './products/Invitation/Wedding/gen_233_cuoi-pink-pastel-korean/screen-mobile.webp',
         path: './products/Invitation/Wedding/gen_233_cuoi-pink-pastel-korean/',
         demoUrl: './products/Invitation/Wedding/gen_233_cuoi-pink-pastel-korean/index.html',
