@@ -43,4 +43,5 @@ window.GUESTS = {
   "39": { name: "Vc c Nhung a Bo",      title: "Kính mời", message: "Rất hân hạnh được mời anh chị đến chung vui ✨" },
   "40": { name: "Em Mập +",             title: "Kính mời", message: "Rất hân hạnh được mời em đến chung vui ✨" },
   "41": { name: "A Khánh Hair +",       title: "Kính mời", message: "Rất hân hạnh được mời anh đến chung vui ✨" },
+  "42": { name: "Chồng iu 💕",           title: "Trân trọng mời", message: "Cảm ơn anh đã luôn bên em — đêm tiệc này sẽ không trọn vẹn nếu thiếu anh 💕" },
 };
