@@ -37,4 +37,10 @@ window.GUESTS = {
   "33": { name: "Mun Nail +",           title: "Kính mời", message: "Rất hân hạnh được mời bạn đến chung vui ✨" },
   "34": { name: "Vc a Lâm c Thương",    title: "Kính mời", message: "Rất hân hạnh được mời anh chị đến chung vui ✨" },
   "35": { name: "Bé Vy +",              title: "Kính mời", message: "Rất hân hạnh được mời bạn đến chung vui ✨" },
+  "36": { name: "Vc c My a Rắc",        title: "Kính mời", message: "Rất hân hạnh được mời anh chị đến chung vui ✨" },
+  "37": { name: "A Út +",               title: "Kính mời", message: "Rất hân hạnh được mời anh đến chung vui ✨" },
+  "38": { name: "Xiao Bao +",           title: "Kính mời", message: "Rất hân hạnh được mời bạn đến chung vui ✨" },
+  "39": { name: "Vc c Nhung a Bo",      title: "Kính mời", message: "Rất hân hạnh được mời anh chị đến chung vui ✨" },
+  "40": { name: "Em Mập +",             title: "Kính mời", message: "Rất hân hạnh được mời em đến chung vui ✨" },
+  "41": { name: "A Khánh Hair +",       title: "Kính mời", message: "Rất hân hạnh được mời anh đến chung vui ✨" },
 };
