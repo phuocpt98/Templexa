@@ -572,10 +572,14 @@
         }
         .gal-view {
             flex: 1; overflow: hidden; position: relative;
+            background: url('../../../shared/images/wedding-elements/thiep-thanh-dat-element_0033_1.webp') no-repeat center / cover;
         }
         .gal-view img {
             width: 100%; height: 100%; object-fit: cover;
             transition: opacity 0.5s ease;
+        }
+        .gal-view img.landscape {
+            object-fit: contain;
         }
         .gal-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
@@ -1139,25 +1143,22 @@
     <!-- S9: Gallery Slider -->
     <div class="section s-gallery">
         <div class="gal-view">
-            <img id="galView" src="./customer/album-portrait-1.webp" alt="Gallery">
+            <img id="galView" src="./customer/PIG02126.webp" alt="Gallery">
             <button class="gal-btn gal-btn-prev" id="galPrev">&#10094;</button>
             <button class="gal-btn gal-btn-next" id="galNext">&#10095;</button>
         </div>
         <div class="gal-controls" id="galControls">
-            <div class="gal-thumb" data-src="./customer/album-portrait-8.webp"><img src="./customer/album-portrait-8.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/album-portrait-9.webp"><img src="./customer/album-portrait-9.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/album-portrait-10.webp"><img src="./customer/album-portrait-10.webp" alt=""></div>
+              <div class="gal-thumb" data-src="./customer/PIG02126.webp"><img src="./customer/PIG02126.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/PIG02202.webp"><img src="./customer/PIG02202.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/PIG02234.webp"><img src="./customer/PIG02234.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/PIG02487.webp"><img src="./customer/PIG02487.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/PIG02957.webp"><img src="./customer/PIG02957.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/PIG02918.webp"><img src="./customer/PIG02918.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/PIG03142.webp"><img src="./customer/PIG03142.webp" alt=""></div>
+            <div class="gal-thumb active" data-src="./customer/PIG01614.webp"><img src="./customer/PIG01614.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/PIG01758.webp" data-orient="landscape"><img src="./customer/PIG01758.webp" alt=""></div>
+            <div class="gal-thumb" data-src="./customer/PIG01857.webp" data-orient="landscape"><img src="./customer/PIG01857.webp" alt=""></div>
 
-            <div class="gal-thumb active" data-src="./customer/album-portrait-1.webp"><img src="./customer/album-portrait-1.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/album-portrait-2.webp"><img src="./customer/album-portrait-2.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/album-portrait-3.webp"><img src="./customer/album-portrait-3.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/album-portrait-4.webp"><img src="./customer/album-portrait-4.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/album-portrait-5.webp"><img src="./customer/album-portrait-5.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/album-portrait-6.webp"><img src="./customer/album-portrait-6.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/album-portrait-7.webp"><img src="./customer/album-portrait-7.webp" alt=""></div>
-           <div class="gal-thumb" data-src="./customer/album-portrait-11.webp"><img src="./customer/album-portrait-11.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/album-portrait-12.webp"><img src="./customer/album-portrait-12.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/album-portrait-13.webp"><img src="./customer/album-portrait-13.webp" alt=""></div>
         </div>
     </div>
 
@@ -1348,6 +1349,11 @@
         galView.style.opacity = 0;
         setTimeout(function () {
             galView.src = thumbs[galIndex].getAttribute('data-src');
+            if (thumbs[galIndex].hasAttribute('data-orient')) {
+                galView.classList.add('landscape');
+            } else {
+                galView.classList.remove('landscape');
+            }
             galView.style.opacity = 1;
         }, 300);
     }
