@@ -4726,6 +4726,31 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         updatedAt: '2026-04-10',
+    },
+    {
+        id: 208,
+        name: 'Thiệp Mời Lễ Tốt Nghiệp Mầm Giáo',
+        slug: 'thiep-moi-le-tot-nghiep-mam-giao',
+        description: 'Thiệp mời lễ tốt nghiệp mầm giáo đầy màu sắc — confetti, countdown, timeline kỷ niệm học tập, RSVP xác nhận tham dự, nhạc nền vui nhộn.',
+        category: 'other',
+        type: 'invitation',
+        tags: ['graduation', 'tốt-nghiệp', 'mầm-non', 'kindergarten', 'bé', 'lễ-tốt-nghiệp'],
+        price: 'free',
+        images: ['./products/Invitation/Other/thiep-tot-nghiep-mau-giao/screen.png'],
+        thumbnail: './products/Invitation/Other/thiep-tot-nghiep-mau-giao/screen.png',
+        path: './products/Invitation/Other/thiep-tot-nghiep-mau-giao/',
+        demoUrl: './products/Invitation/Other/thiep-tot-nghiep-mau-giao/index.html',
+        features: [
+            'Confetti rơi liên tục + cursor trail đầy màu sắc trên desktop',
+            'Countdown đếm ngược flip animation + timeline 6 kỷ niệm học tập',
+            'RSVP xác nhận tham dự qua Google Sheets + nhạc nền vui nhộn',
+        ],
+        status: 'new',
+        priority: -0.08,
+        downloads: 1,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-04-27',
     }
 ];
 

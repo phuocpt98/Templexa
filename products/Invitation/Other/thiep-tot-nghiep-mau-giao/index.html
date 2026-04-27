@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="vi" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Thiệp Mời Lễ Tốt Nghiệp</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; padding: 0; height: 100%; -webkit-overflow-scrolling: touch; }
+
+    /* ── Confetti ── */
+    .confetti-piece {
+      position: absolute; border-radius: 2px;
+      animation: confetti-fall linear infinite; opacity: 0.85;
+    }
+    @keyframes confetti-fall {
+      0%   { transform: translateY(-60px) rotate(0deg) scale(1); opacity: 0; }
+      10%  { opacity: 0.9; }
+      90%  { opacity: 0.7; }
+      100% { transform: translateY(110vh) rotate(720deg) scale(0.5); opacity: 0; }
+    }
+
+    /* ── Base animations ── */
+    @keyframes float    { 0%,100%{transform:translateY(0)}      50%{transform:translateY(-12px)} }
+    @keyframes pop-in   { 0%{transform:scale(0.3);opacity:0} 60%{transform:scale(1.1)} 100%{transform:scale(1);opacity:1} }
+    @keyframes slide-up { 0%{transform:translateY(40px);opacity:0} 100%{transform:translateY(0);opacity:1} }
+    @keyframes wiggle   { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(4deg)} }
+    @keyframes pulse-op { 0%,100%{opacity:1} 50%{opacity:0.55} }
+    @keyframes shimmer  { 0%{background-position:200% center} 100%{background-position:-200% center} }
+    @keyframes heartbeat{ 0%,100%{transform:scale(1)} 14%{transform:scale(1.15)} 28%{transform:scale(1)} 42%{transform:scale(1.1)} 70%{transform:scale(1)} }
+    @keyframes spin-in  { 0%{transform:rotate(-180deg) scale(0);opacity:0} 100%{transform:rotate(0deg) scale(1);opacity:1} }
+    @keyframes flip-num { 0%{transform:translateY(-100%) rotateX(90deg);opacity:0} 60%{transform:translateY(8%) rotateX(-10deg)} 100%{transform:translateY(0) rotateX(0deg);opacity:1} }
+    @keyframes ripple   { to{transform:scale(4);opacity:0} }
+    @keyframes particle-fly { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0} }
+    @keyframes firework { 0%{transform:translate(0,0) scale(1);opacity:1} 100%{transform:translate(var(--fx),var(--fy)) scale(0);opacity:0} }
+    @keyframes trail-fade { 0%{opacity:0.9;transform:scale(1)} 100%{opacity:0;transform:scale(0.2)} }
+    @keyframes bounce-in { 0%{transform:scale(0.6) translateY(-20px);opacity:0} 55%{transform:scale(1.2) translateY(0);opacity:1} 75%{transform:scale(0.95)} 100%{transform:scale(1)} }
+    @keyframes glow-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(255,171,64,0.4)} 50%{box-shadow:0 0 20px 10px rgba(255,171,64,0.15)} }
+
+    .animate-float   { animation: float    3s ease-in-out infinite; }
+    .animate-wiggle  { animation: wiggle   2s ease-in-out infinite; }
+    .animate-pulse   { animation: pulse-op 2s ease-in-out infinite; }
+    .animate-heartbeat{ animation: heartbeat 1.8s ease-in-out infinite; }
+
+    .name-shimmer {
+      background: linear-gradient(90deg,#E65100,#FF9800,#FFD54F,#FF9800,#E65100);
+      background-size: 200% auto;
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
+
+    .star-burst { position: absolute; font-size: 20px; animation: float 2.5s ease-in-out infinite; }
+
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal-left.revealed  { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(40px);  transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal-right.revealed { opacity: 1; transform: translateX(0); }
+
+    .countdown-box {
+      perspective: 400px;
+      text-align: center; padding: 10px 6px; border-radius: 14px;
+      background: rgba(255,255,255,0.92);
+      position: relative; overflow: hidden;
+    }
+    .countdown-num {
+      font-size: clamp(22px, 6vw, 32px);
+      color: #E65100; font-family: 'Baloo 2', cursive; font-weight: 900;
+      display: block; line-height: 1.1;
+      transition: transform 0.15s ease;
+    }
+    .countdown-label {
+      font-size: clamp(9px, 2.5vw, 11px);
+      color: #BF360C; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .flip-animate { animation: flip-num 0.35s ease-out; }
+
+    .ripple-btn { position: relative; overflow: hidden; }
+    .ripple-circle {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      animation: ripple 0.6s linear forwards;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: fixed; pointer-events: none; z-index: 9999;
+      font-size: 18px; animation: particle-fly 0.8s ease-out forwards;
+    }
+    .fw-dot {
+      position: fixed; pointer-events: none; z-index: 9999;
+      width: 8px; height: 8px; border-radius: 50%;
+      animation: firework 0.7s ease-out forwards;
+    }
+
+    .trail-dot {
+      position: fixed; pointer-events: none; z-index: 8888;
+      width: 10px; height: 10px; border-radius: 50%;
+      animation: trail-fade 0.5s ease forwards;
+    }
+
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 16px;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal-content {
+      background: white; border-radius: 24px;
+      padding: clamp(20px,5vw,32px);
+      max-width: 420px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: bounce-in 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .success-message {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: linear-gradient(135deg,#43A047,#66BB6A);
+      color: white; padding: 14px 24px; border-radius: 50px;
+      z-index: 2000; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      white-space: nowrap; font-weight: 700; font-size: 15px;
+      box-shadow: 0 8px 24px rgba(76,175,80,0.4);
+    }
+    .success-message.show {
+      opacity: 1; pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .timeline-wrap { position: relative; padding: 16px 8px; }
+    .tl-line {
+      position: absolute; left: 50%; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg,#42A5F5,#AB47BC,#EC407A,#66BB6A,#FFEE58,#FF7043);
+      border-radius: 2px; transform: translateX(-50%);
+    }
+    .tl-item {
+      display: flex; margin-bottom: 28px; position: relative;
+      width: 48%; padding: 0 24px 0 0;
+    }
+    .tl-item.right {
+      margin-left: 52%; padding: 0 0 0 24px; width: 48%;
+    }
+    .tl-card {
+      border-radius: 16px; padding: 16px 12px; width: 100%;
+      text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .tl-card:hover { transform: translateY(-4px) scale(1.02); }
+
+    @media (max-width: 500px) {
+      .tl-line { left: 20px; transform: none; }
+      .tl-item, .tl-item.right {
+        width: 100% !important; margin-left: 0 !important;
+        padding: 0 0 0 52px !important;
+      }
+    }
+
+    input, select, textarea { font-size: 16px !important; }
+
+    .detail-card {
+      border-radius: 14px; padding: 12px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: default;
+    }
+    .detail-card:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+
+    .rsvp-btn { animation: glow-pulse 2.5s ease-in-out infinite; }
+
+    .section-card {
+      border-radius: 24px; overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .section-card:hover { transform: translateY(-2px); }
+
+    .title-text { font-size: clamp(18px, 5.5vw, 28px); }
+    .child-text  { font-size: clamp(24px, 7vw,  36px); }
+    .section-h2  { font-size: clamp(18px, 5vw,  24px); }
+  </style>
+</head>
+<body style="margin:0;padding:0;height:100%;">
+  <div id="trail-container" style="position:fixed;inset:0;pointer-events:none;z-index:8888;overflow:hidden;"></div>
+
+  <div id="app" class="w-full" style="min-height:100%;background:linear-gradient(160deg,#FFF7E6 0%,#FFECD2 30%,#FCE4EC 60%,#E8F5E9 100%);font-family:'Quicksand',sans-serif;overflow-x:hidden;">
+    <div id="confetti-container" style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;"></div>
+
+    <div class="relative z-10 flex justify-center min-h-screen p-4" style="padding-top:24px;padding-bottom:40px;">
+      <div class="w-full" style="max-width:520px;">
+
+        <!-- ══ MAIN CARD ══ -->
+        <div id="card" class="section-card shadow-2xl reveal" style="background:#fff;border:4px dashed #FFAB40;">
+          <div class="relative overflow-hidden" style="background:linear-gradient(135deg,#FFAB40,#FF7043,#AB47BC);padding:28px 20px 44px;">
+            <div class="star-burst" style="top:8px;left:10%;">🎈</div>
+            <div class="star-burst" style="top:12px;right:13%;animation-delay:.5s;">🎈</div>
+            <div class="star-burst" style="top:5px;left:48%;animation-delay:1s;">⭐</div>
+            <div class="star-burst" style="bottom:14px;left:6%;animation-delay:1.5s;">🌟</div>
+            <div class="star-burst" style="bottom:12px;right:8%;animation-delay:.8s;">✨</div>
+            <div class="text-center relative" style="z-index:2;">
+              <div id="cap-icon" style="font-size:clamp(40px,10vw,52px);display:inline-block;">🎓</div>
+              <h1 class="font-extrabold text-white leading-tight title-text"
+                  style="font-family:'Baloo 2',cursive;text-shadow:2px 2px 6px rgba(0,0,0,0.25);margin-top:6px;">
+                LỄ TỐT NGHIỆP MẦM GIÁO
+              </h1>
+            </div>
+            <svg viewBox="0 0 500 40" style="position:absolute;bottom:-1px;left:0;width:100%;" preserveAspectRatio="none">
+              <path d="M0,20 Q125,45 250,20 T500,20 L500,40 L0,40 Z" fill="#FFFFFF"/>
+            </svg>
+          </div>
+
+          <div class="text-center" style="padding:16px clamp(16px,5vw,32px) 32px;">
+            <div class="flex justify-center gap-3 mb-4" style="margin-top:8px;">
+              <span class="animate-wiggle" style="font-size:clamp(22px,6vw,30px);animation-delay:0s;">🌻</span>
+              <span class="animate-wiggle" style="font-size:clamp(22px,6vw,30px);animation-delay:.3s;">🎉</span>
+              <span class="animate-wiggle" style="font-size:clamp(22px,6vw,30px);animation-delay:.6s;">🌻</span>
+            </div>
+
+            <p class="reveal mb-4"
+               style="color:#5D4037;font-size:clamp(13px,3.5vw,15px);font-weight:500;line-height:1.7;">
+              Trân trọng kính mời Quý Phụ Huynh đến tham dự Lễ Tốt Nghiệp của con yêu
+            </p>
+
+            <div class="reveal mb-5">
+              <div id="child-box" class="inline-block px-5 py-3 rounded-2xl"
+                   style="background:linear-gradient(135deg,#FFF3E0,#FFE0B2);border:2px solid #FFAB40;cursor:pointer;"
+                   onclick="sparkleChild()">
+                <p class="font-extrabold name-shimmer child-text"
+                   style="font-family:'Baloo 2',cursive;line-height:1.2;">Bé Minh Anh</p>
+              </div>
+            </div>
+
+            <div class="reveal mb-5">
+              <p class="font-semibold" style="color:#AB47BC;font-size:clamp(14px,4vw,17px);">
+                <span style="font-size:clamp(17px,5vw,22px);">🏫</span>
+                Trường Mầm Non Ánh Sao
+              </p>
+            </div>
+
+            <div class="flex items-center gap-3 mb-5 reveal">
+              <div class="flex-1" style="height:1px;background:linear-gradient(to right,transparent,#FFAB40,transparent);"></div>
+              <span style="font-size:20px;">🎀</span>
+              <div class="flex-1" style="height:1px;background:linear-gradient(to right,transparent,#FFAB40,transparent);"></div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+              <div class="detail-card reveal" style="background:#FFF8E1;display:flex;align-items:center;gap:12px;">
+                <span style="font-size:clamp(20px,5vw,26px);">📅</span>
+                <div style="text-align:left;">
+                  <p style="font-size:10px;color:#8D6E63;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0;">Ngày</p>
+                  <p class="font-bold" style="color:#4E342E;font-size:clamp(13px,3.5vw,15px);margin:2px 0 0;">Thứ Bảy, 28/06/2025</p>
+                </div>
+              </div>
+              <div class="detail-card reveal" style="background:#F3E5F5;display:flex;align-items:center;gap:12px;">
+                <span style="font-size:clamp(20px,5vw,26px);">⏰</span>
+                <div style="text-align:left;">
+                  <p style="font-size:10px;color:#8D6E63;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0;">Thời gian</p>
+                  <p class="font-bold" style="color:#4E342E;font-size:clamp(13px,3.5vw,15px);margin:2px 0 0;">8:00 sáng</p>
+                </div>
+              </div>
+              <div class="detail-card reveal" style="background:#E8F5E9;display:flex;align-items:center;gap:12px;">
+                <span style="font-size:clamp(20px,5vw,26px);">📍</span>
+                <div style="text-align:left;">
+                  <p style="font-size:10px;color:#8D6E63;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0;">Địa điểm</p>
+                  <p class="font-bold" style="color:#4E342E;font-size:clamp(13px,3.5vw,15px);margin:2px 0 0;">Hội trường Trường Mầm Non Ánh Sao</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="reveal p-4 rounded-2xl mb-2" style="background:linear-gradient(135deg,#FCE4EC,#F3E5F5);">
+              <p style="color:#AD1457;font-size:clamp(13px,3.5vw,14px);font-weight:600;line-height:1.7;margin:0;">
+                Sự hiện diện của Quý Phụ Huynh là niềm vui và nguồn động viên to lớn cho các con! 💖
+              </p>
+            </div>
+
+            <div class="flex justify-center gap-2 mt-4 reveal">
+              <span class="animate-float" style="font-size:clamp(18px,5vw,22px);animation-delay:0s;">🎓</span>
+              <span class="animate-float" style="font-size:clamp(18px,5vw,22px);animation-delay:.2s;">🌈</span>
+              <span class="animate-float" style="font-size:clamp(18px,5vw,22px);animation-delay:.4s;">🎶</span>
+              <span class="animate-float" style="font-size:clamp(18px,5vw,22px);animation-delay:.6s;">🦋</span>
+              <span class="animate-float" style="font-size:clamp(18px,5vw,22px);animation-delay:.8s;">🎓</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ COUNTDOWN ══ -->
+        <div class="section-card mt-6 reveal" style="background:linear-gradient(135deg,#FFE0B2,#FFCC80);border:4px dashed #FF7043;">
+          <div style="padding:24px clamp(14px,5vw,32px);">
+            <h2 class="text-center font-extrabold mb-5 section-h2" style="font-family:'Baloo 2',cursive;color:#E65100;">
+              ⏳ Đếm Ngược Tới Ngày Lễ
+            </h2>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+              <div class="countdown-box"><span id="countdown-days" class="countdown-num">00</span><div class="countdown-label">Ngày</div></div>
+              <div class="countdown-box"><span id="countdown-hours" class="countdown-num">00</span><div class="countdown-label">Giờ</div></div>
+              <div class="countdown-box"><span id="countdown-minutes" class="countdown-num">00</span><div class="countdown-label">Phút</div></div>
+              <div class="countdown-box"><span id="countdown-seconds" class="countdown-num animate-pulse">00</span><div class="countdown-label">Giây</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ MUSIC ══ -->
+        <div class="section-card mt-6 reveal" style="background:linear-gradient(135deg,#E1BEE7,#F3E5F5);border:4px dashed #AB47BC;">
+          <div style="padding:20px clamp(14px,5vw,32px);">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <div>
+                <p style="font-size:clamp(13px,3.5vw,14px);color:#6A1B9A;font-weight:700;margin:0;">🎵 Nhạc nền lễ tốt nghiệp</p>
+                <p style="font-size:clamp(11px,3vw,12px);color:#8E24AA;margin:4px 0 0;">Bài nhạc mừng vui cho bé</p>
+              </div>
+              <button id="music-toggle" class="ripple-btn" onclick="toggleMusic()"
+                style="background:#AB47BC;color:white;border:none;border-radius:50%;
+                       width:clamp(44px,12vw,54px);height:clamp(44px,12vw,54px);
+                       font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+                       transition:all .3s ease;box-shadow:0 4px 14px rgba(171,71,188,.35);flex-shrink:0;">▶</button>
+            </div>
+            <audio id="celebration-audio" style="width:100%;margin-top:12px;display:none;">
+              <source src="https://assets.mixkit.co/active_storage/sfx/2450/2450-preview.mp3" type="audio/mpeg">
+            </audio>
+            <div id="waveform" style="display:flex;align-items:center;justify-content:center;gap:3px;margin-top:14px;height:36px;">
+              <div class="wave-bar" style="width:4px;background:#AB47BC;border-radius:2px;height:8px;transition:height .2s;"></div>
+              <div class="wave-bar" style="width:4px;background:#CE93D8;border-radius:2px;height:16px;transition:height .2s;animation-delay:.1s;"></div>
+              <div class="wave-bar" style="width:4px;background:#AB47BC;border-radius:2px;height:24px;transition:height .2s;animation-delay:.2s;"></div>
+              <div class="wave-bar" style="width:4px;background:#7B1FA2;border-radius:2px;height:12px;transition:height .2s;animation-delay:.15s;"></div>
+              <div class="wave-bar" style="width:4px;background:#CE93D8;border-radius:2px;height:28px;transition:height .2s;animation-delay:.05s;"></div>
+              <div class="wave-bar" style="width:4px;background:#AB47BC;border-radius:2px;height:20px;transition:height .2s;animation-delay:.25s;"></div>
+              <div class="wave-bar" style="width:4px;background:#7B1FA2;border-radius:2px;height:10px;transition:height .2s;animation-delay:.3s;"></div>
+              <div class="wave-bar" style="width:4px;background:#CE93D8;border-radius:2px;height:32px;transition:height .2s;"></div>
+              <div class="wave-bar" style="width:4px;background:#AB47BC;border-radius:2px;height:18px;transition:height .2s;animation-delay:.1s;"></div>
+              <div class="wave-bar" style="width:4px;background:#7B1FA2;border-radius:2px;height:22px;transition:height .2s;animation-delay:.2s;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ MAP ══ -->
+        <div class="section-card mt-6 reveal" style="background:#FFFFFF;border:4px dashed #42A5F5;">
+          <div style="padding:24px clamp(14px,5vw,32px);">
+            <h2 class="text-center font-extrabold mb-5 section-h2" style="font-family:'Baloo 2',cursive;color:#1565C0;">
+              📍 Vị Trí Sự Kiện
+            </h2>
+            <div class="rounded-2xl mb-4"
+                 style="height:clamp(180px,45vw,280px);background:linear-gradient(135deg,#E3F2FD,#BBDEFB);
+                        border:3px solid #42A5F5;display:flex;align-items:center;justify-content:center;">
+              <div class="text-center">
+                <div style="font-size:clamp(36px,10vw,52px);margin-bottom:10px;">🗺️</div>
+                <p style="color:#1565C0;font-weight:700;font-size:clamp(12px,3vw,14px);padding:0 12px;">
+                  Hội trường Trường Mầm Non Ánh Sao
+                </p>
+              </div>
+            </div>
+            <a id="map-link" href="https://www.google.com/maps/search/Tr%C6%B0%E1%BB%9Dng%20M%E1%BA%A7m%20Non%20%C3%81nh%20Sao" target="_blank" rel="noopener noreferrer" class="ripple-btn"
+               style="display:block;text-align:center;padding:13px;background:#42A5F5;color:white;
+                      border-radius:14px;font-weight:700;text-decoration:none;
+                      font-size:clamp(13px,3.5vw,15px);transition:all .3s ease;">
+              🌐 Xem Trên Google Maps
+            </a>
+          </div>
+        </div>
+
+        <!-- ══ RSVP ══ -->
+        <div class="section-card mt-6 reveal" style="background:linear-gradient(135deg,#C8E6C9,#A5D6A7);border:4px dashed #66BB6A;">
+          <div style="padding:24px clamp(14px,5vw,32px);">
+            <h2 class="text-center font-extrabold mb-5 section-h2" style="font-family:'Baloo 2',cursive;color:#1B5E20;">
+              ✅ Xác Nhận Tham Dự
+            </h2>
+            <button id="rsvp-open-btn" onclick="openRSVPModal(event)" class="rsvp-btn ripple-btn"
+              style="width:100%;padding:clamp(12px,3.5vw,16px);
+                     background:linear-gradient(135deg,#66BB6A,#4CAF50);color:white;
+                     border:none;border-radius:14px;font-weight:700;
+                     font-size:clamp(14px,4vw,16px);cursor:pointer;transition:all .3s ease;">
+              🎉 Tôi Sẽ Tham Dự Lễ Tốt Nghiệp
+            </button>
+            <div style="text-align:center;margin-top:12px;color:#1B5E20;font-weight:700;font-size:clamp(13px,3.5vw,15px);">
+              👥 Số người xác nhận: <span id="rsvp-number">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ TIMELINE ══ -->
+        <div class="section-card mt-6" style="background:#FFFFFF;border:4px dashed #AB47BC;">
+          <div style="padding:24px clamp(14px,5vw,32px);">
+            <h2 class="text-center font-extrabold mb-6 reveal" style="font-family:'Baloo 2',cursive;font-size:clamp(20px,6vw,28px);color:#AB47BC;">
+              ✨ Kỷ Niệm Học Tập ✨
+            </h2>
+            <div class="timeline-wrap">
+              <div class="tl-line"></div>
+
+              <div class="tl-item reveal-left">
+                <div class="tl-card" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB);border:3px solid #42A5F5;box-shadow:0 4px 14px rgba(66,165,245,.2);">
+                  <div style="font-size:clamp(28px,8vw,40px);margin-bottom:8px;">📸</div>
+                  <p class="font-bold" style="color:#1565C0;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Ngày đầu tiên</p>
+                </div>
+              </div>
+
+              <div class="tl-item right reveal-right">
+                <div class="tl-card" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7);border:3px solid #AB47BC;box-shadow:0 4px 14px rgba(171,71,188,.2);">
+                  <div style="font-size:clamp(28px,8vw,40px);margin-bottom:8px;">🎨</div>
+                  <p class="font-bold" style="color:#6A1B9A;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Học vẽ</p>
+                </div>
+              </div>
+
+              <div class="tl-item reveal-left">
+                <div class="tl-card" style="background:linear-gradient(135deg,#FCE4EC,#F8BBD0);border:3px solid #EC407A;box-shadow:0 4px 14px rgba(236,64,122,.2);">
+                  <div style="font-size:clamp(28px,8vw,40px);margin-bottom:8px;">🎂</div>
+                  <p class="font-bold" style="color:#AD1457;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Sinh nhật</p>
+                </div>
+              </div>
+
+              <div class="tl-item right reveal-right">
+                <div class="tl-card" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border:3px solid #66BB6A;box-shadow:0 4px 14px rgba(102,187,106,.2);">
+                  <div style="font-size:clamp(28px,8vw,40px);margin-bottom:8px;">🌳</div>
+                  <p class="font-bold" style="color:#1B5E20;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Chơi ngoài trời</p>
+                </div>
+              </div>
+
+              <div class="tl-item reveal-left">
+                <div class="tl-card" style="background:linear-gradient(135deg,#FFFDE7,#FFF9C4);border:3px solid #FFEE58;box-shadow:0 4px 14px rgba(255,238,88,.2);">
+                  <div style="font-size:clamp(28px,8vw,40px);margin-bottom:8px;">🎪</div>
+                  <p class="font-bold" style="color:#E65100;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Ngày hội</p>
+                </div>
+              </div>
+
+              <div class="tl-item right reveal-right" style="margin-bottom:0;">
+                <div class="tl-card" style="background:linear-gradient(135deg,#FFE0B2,#FFCC80);border:3px solid #FF7043;box-shadow:0 4px 14px rgba(255,112,67,.2);">
+                  <div style="font-size:clamp(28px,8vw,40px);margin-bottom:8px;">🎓</div>
+                  <p class="font-bold" style="color:#BF360C;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Lễ tốt nghiệp</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RSVP MODAL ══ -->
+  <div id="rsvp-modal" class="modal-overlay">
+    <div class="modal-content">
+      <h3 style="font-family:'Baloo 2',cursive;font-size:clamp(20px,5vw,24px);color:#1B5E20;margin:0 0 20px;text-align:center;">
+        🎉 Xác Nhận Tham Dự
+      </h3>
+      <form id="rsvp-form" onsubmit="handleRSVPSubmit(event)">
+        <input type="text" id="rsvp-name" placeholder="Họ tên quý phụ huynh" required
+          style="width:100%;padding:13px 14px;margin-bottom:12px;border:2px solid #66BB6A;
+                 border-radius:10px;font-family:'Quicksand',sans-serif;outline:none;
+                 transition:border-color .2s;" onfocus="this.style.borderColor='#2E7D32'" onblur="this.style.borderColor='#66BB6A'">
+        <input type="email" id="rsvp-email" placeholder="Email" required
+          style="width:100%;padding:13px 14px;margin-bottom:12px;border:2px solid #66BB6A;
+                 border-radius:10px;font-family:'Quicksand',sans-serif;outline:none;
+                 transition:border-color .2s;" onfocus="this.style.borderColor='#2E7D32'" onblur="this.style.borderColor='#66BB6A'">
+        <div style="margin-bottom:18px;">
+          <label style="display:block;margin-bottom:8px;font-weight:700;color:#1B5E20;font-size:14px;">Bạn sẽ tham dự?</label>
+          <select id="rsvp-status" required
+            style="width:100%;padding:13px 14px;border:2px solid #66BB6A;border-radius:10px;
+                   font-family:'Quicksand',sans-serif;outline:none;background:white;transition:border-color .2s;"
+            onfocus="this.style.borderColor='#2E7D32'" onblur="this.style.borderColor='#66BB6A'">
+            <option value="">-- Chọn --</option>
+            <option value="Sẽ tham dự">✅ Sẽ tham dự</option>
+            <option value="Có thể tham dự">❓ Có thể tham dự</option>
+            <option value="Không thể tham dự">❌ Không thể tham dự</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button type="submit" id="rsvp-submit-btn" class="ripple-btn"
+            style="flex:1;padding:13px;background:linear-gradient(135deg,#66BB6A,#4CAF50);
+                   color:white;border:none;border-radius:10px;font-weight:700;font-size:15px;
+                   cursor:pointer;transition:all .3s;">Gửi</button>
+          <button type="button" onclick="closeRSVPModal()" class="ripple-btn"
+            style="flex:1;padding:13px;background:#E0E0E0;color:#555;border:none;
+                   border-radius:10px;font-weight:700;font-size:15px;cursor:pointer;transition:all .3s;">Đóng</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="success-msg" class="success-message">✅ Cảm ơn bạn! Đã nhận xác nhận.</div>
+
+  <script src="../../../shared/wedding/wishes-api.js"></script>
+  <script>
+  // ══════════════════════════════════════════
+  //  CONFETTI
+  // ══════════════════════════════════════════
+  (function() {
+    var c = document.getElementById('confetti-container');
+    var colors = ['#FFAB40','#FF7043','#AB47BC','#66BB6A','#42A5F5','#FFEE58','#EF5350','#EC407A'];
+    for (var i = 0; i < 45; i++) {
+      var p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.style.cssText = 'left:'+Math.random()*100+'%;'+
+        'background:'+colors[Math.floor(Math.random()*colors.length)]+';'+
+        'animation-duration:'+(3+Math.random()*5)+'s;'+
+        'animation-delay:'+Math.random()*6+'s;'+
+        'width:'+(6+Math.random()*9)+'px;height:'+(6+Math.random()*9)+'px;'+
+        'border-radius:'+(Math.random()>.5?'50%':'3px')+';';
+      c.appendChild(p);
+    }
+  })();
+
+  // ══════════════════════════════════════════
+  //  CURSOR TRAIL (desktop only)
+  // ══════════════════════════════════════════
+  var trailColors = ['#FFAB40','#FF7043','#AB47BC','#66BB6A','#42A5F5','#FFEE58'];
+  var trailIdx = 0;
+  if (!('ontouchstart' in window)) {
+    document.addEventListener('mousemove', function(e) {
+      var dot = document.createElement('div');
+      dot.className = 'trail-dot';
+      dot.style.cssText = 'left:'+(e.clientX-5)+'px;top:'+(e.clientY-5)+'px;'+
+        'background:'+trailColors[trailIdx++ % trailColors.length]+';opacity:.85;';
+      document.getElementById('trail-container').appendChild(dot);
+      setTimeout(function() { dot.remove(); }, 500);
+    });
+  }
+
+  // ══════════════════════════════════════════
+  //  SCROLL REVEAL (IntersectionObserver)
+  // ══════════════════════════════════════════
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(en, i) {
+      if (en.isIntersecting) {
+        setTimeout(function() { en.target.classList.add('revealed'); }, i * 80);
+        revealObs.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function(el) { revealObs.observe(el); });
+
+  // ══════════════════════════════════════════
+  //  GRADUATION CAP BOUNCE ON LOAD
+  // ══════════════════════════════════════════
+  var cap = document.getElementById('cap-icon');
+  cap.style.cssText += 'animation:bounce-in .8s cubic-bezier(0.34,1.56,0.64,1) both;display:inline-block;';
+  setTimeout(function() {
+    cap.style.animation = 'float 3s ease-in-out infinite';
+  }, 900);
+
+  // ══════════════════════════════════════════
+  //  RIPPLE EFFECT on buttons
+  // ══════════════════════════════════════════
+  document.addEventListener('pointerdown', function(e) {
+    var btn = e.target.closest('.ripple-btn');
+    if (!btn) return;
+    var rect = btn.getBoundingClientRect();
+    var size = Math.max(rect.width, rect.height) * 2;
+    var x = e.clientX - rect.left - size / 2;
+    var y = e.clientY - rect.top  - size / 2;
+    var circle = document.createElement('span');
+    circle.className = 'ripple-circle';
+    circle.style.cssText = 'width:'+size+'px;height:'+size+'px;left:'+x+'px;top:'+y+'px;';
+    btn.appendChild(circle);
+    setTimeout(function() { circle.remove(); }, 650);
+  });
+
+  // ══════════════════════════════════════════
+  //  SPARKLE on child name click
+  // ══════════════════════════════════════════
+  function sparkleChild() {
+    var box = document.getElementById('child-box');
+    var rect = box.getBoundingClientRect();
+    var cx = rect.left + rect.width / 2;
+    var cy = rect.top  + rect.height / 2;
+    var emojis = ['⭐','🌟','✨','💫','🎉','🎊','🌸','💖'];
+    for (var i = 0; i < 12; i++) {
+      var el = document.createElement('div');
+      el.className = 'particle';
+      var angle = (i / 12) * 2 * Math.PI;
+      var dist = 80 + Math.random() * 60;
+      el.style.cssText = 'left:'+cx+'px;top:'+cy+'px;'+
+        '--tx:'+Math.cos(angle)*dist+'px;--ty:'+Math.sin(angle)*dist+'px;'+
+        'animation-duration:'+(0.6+Math.random()*.4)+'s;';
+      el.textContent = emojis[i % emojis.length];
+      document.body.appendChild(el);
+      setTimeout(function() { el.remove(); }, 1000);
+    }
+  }
+
+  // ══════════════════════════════════════════
+  //  FIREWORK burst on success
+  // ══════════════════════════════════════════
+  function fireworkBurst() {
+    var colors = ['#FFAB40','#FF7043','#AB47BC','#66BB6A','#42A5F5','#FFEE58'];
+    for (var j = 0; j < 3; j++) {
+      (function(jj) {
+        setTimeout(function() {
+          var cx = 20 + Math.random() * 60;
+          var cy = 20 + Math.random() * 50;
+          for (var i = 0; i < 16; i++) {
+            var dot = document.createElement('div');
+            dot.className = 'fw-dot';
+            var angle = (i / 16) * 2 * Math.PI;
+            var dist = 60 + Math.random() * 80;
+            dot.style.cssText = 'left:'+cx+'vw;top:'+cy+'vh;'+
+              'background:'+colors[i % colors.length]+';'+
+              '--fx:'+Math.cos(angle)*dist+'px;--fy:'+Math.sin(angle)*dist+'px;'+
+              'animation-duration:'+(0.5+Math.random()*.4)+'s;';
+            document.body.appendChild(dot);
+            setTimeout(function() { dot.remove(); }, 900);
+          }
+        }, jj * 250);
+      })(j);
+    }
+  }
+
+  // ══════════════════════════════════════════
+  //  PARTICLE BURST on RSVP button click
+  // ══════════════════════════════════════════
+  document.getElementById('rsvp-open-btn').addEventListener('click', function() {
+    var rect = this.getBoundingClientRect();
+    var cx = rect.left + rect.width / 2;
+    var cy = rect.top + rect.height / 2;
+    ['🎉','✨','🎊','⭐','🌟','💫'].forEach(function(em, i) {
+      var el = document.createElement('div');
+      el.className = 'particle';
+      var angle = (i / 6) * 2 * Math.PI;
+      el.style.cssText = 'left:'+cx+'px;top:'+cy+'px;'+
+        '--tx:'+Math.cos(angle)*90+'px;--ty:'+Math.sin(angle)*90+'px;';
+      el.textContent = em;
+      document.body.appendChild(el);
+      setTimeout(function() { el.remove(); }, 900);
+    });
+  });
+
+  // ══════════════════════════════════════════
+  //  COUNTDOWN with flip animation
+  // ══════════════════════════════════════════
+  var EVENT_DATETIME = '2025-06-28T08:00:00';
+
+  function flipUpdate(id, val) {
+    var el = document.getElementById('countdown-' + id);
+    var str = String(val).padStart(2, '0');
+    if (el.textContent !== str) {
+      el.classList.remove('flip-animate');
+      void el.offsetWidth;
+      el.classList.add('flip-animate');
+      el.textContent = str;
+      setTimeout(function() { el.classList.remove('flip-animate'); }, 400);
+    }
+  }
+
+  function updateCountdown() {
+    var diff = new Date(EVENT_DATETIME) - new Date();
+    if (diff > 0) {
+      flipUpdate('days',    Math.floor(diff / 86400000));
+      flipUpdate('hours',   Math.floor(diff / 3600000) % 24);
+      flipUpdate('minutes', Math.floor(diff / 60000) % 60);
+      flipUpdate('seconds', Math.floor(diff / 1000) % 60);
+    } else {
+      ['days','hours','minutes','seconds'].forEach(function(k) {
+        document.getElementById('countdown-' + k).textContent = '00';
+      });
+    }
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // ══════════════════════════════════════════
+  //  MUSIC with animated waveform
+  // ══════════════════════════════════════════
+  var waveInterval = null;
+  var waveBars = document.querySelectorAll('.wave-bar');
+
+  function animateWave() {
+    waveBars.forEach(function(b) {
+      b.style.height = (6 + Math.random() * 28) + 'px';
+    });
+  }
+
+  function toggleMusic() {
+    var audio = document.getElementById('celebration-audio');
+    var btn   = document.getElementById('music-toggle');
+    if (audio.paused) {
+      audio.play();
+      btn.textContent = '⏸';
+      btn.style.background = '#7B1FA2';
+      waveInterval = setInterval(animateWave, 150);
+    } else {
+      audio.pause();
+      btn.textContent = '▶';
+      btn.style.background = '#AB47BC';
+      clearInterval(waveInterval);
+      waveBars.forEach(function(b, i) { b.style.height = [8,16,24,12,28,20,10,32,18,22][i] + 'px'; });
+    }
+  }
+
+  // ══════════════════════════════════════════
+  //  RSVP (Google Sheets via sheetsAPI)
+  // ══════════════════════════════════════════
+  var SHEET_ID = 'tot-nghiep-mau-giao';
+
+  function loadRSVPs() {
+    if (typeof sheetsAPI === 'undefined') return;
+    sheetsAPI.get(SHEET_ID).then(function(rows) {
+      var count = rows.filter(function(r) { return r.C === 'Sẽ tham dự'; }).length;
+      document.getElementById('rsvp-number').textContent = count;
+    }).catch(function() {});
+  }
+  window.addEventListener('load', loadRSVPs);
+
+  function openRSVPModal() {
+    document.getElementById('rsvp-modal').classList.add('active');
+    document.getElementById('rsvp-form').reset();
+  }
+  function closeRSVPModal() {
+    document.getElementById('rsvp-modal').classList.remove('active');
+  }
+  document.getElementById('rsvp-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeRSVPModal();
+  });
+
+  function handleRSVPSubmit(e) {
+    e.preventDefault();
+    var name   = document.getElementById('rsvp-name').value.trim();
+    var email  = document.getElementById('rsvp-email').value.trim();
+    var status = document.getElementById('rsvp-status').value;
+    var btn    = document.getElementById('rsvp-submit-btn');
+    if (!name || !email || !status) { alert('Vui lòng điền đầy đủ thông tin'); return; }
+    btn.disabled = true; btn.textContent = 'Đang gửi...';
+
+    if (typeof sheetsAPI !== 'undefined') {
+      sheetsAPI.post(SHEET_ID, {
+        A: name, B: email, C: status, D: new Date().toISOString()
+      }).then(function() {
+        btn.disabled = false; btn.textContent = 'Gửi';
+        closeRSVPModal(); showSuccess(); loadRSVPs();
+      }).catch(function() {
+        btn.disabled = false; btn.textContent = 'Gửi';
+        alert('Có lỗi xảy ra. Vui lòng thử lại.');
+      });
+    } else {
+      btn.disabled = false; btn.textContent = 'Gửi';
+      closeRSVPModal(); showSuccess();
+    }
+  }
+
+  function showSuccess() {
+    var msg = document.getElementById('success-msg');
+    msg.classList.add('show');
+    fireworkBurst();
+    setTimeout(function() { msg.classList.remove('show'); }, 3500);
+  }
+
+  // ══════════════════════════════════════════
+  //  BUTTON HOVER (touch-safe)
+  // ══════════════════════════════════════════
+  document.getElementById('map-link').addEventListener('mouseenter', function(){ this.style.background='#1976D2'; });
+  document.getElementById('map-link').addEventListener('mouseleave', function(){ this.style.background='#42A5F5'; });
+  </script>
+</body>
+</html>
