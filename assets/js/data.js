@@ -4764,8 +4764,16 @@ const PRODUCTS = [
         type: 'invitation',
         tags: ['graduation', 'tốt-nghiệp', 'mầm-non', 'kindergarten', 'bé', 'lễ-tốt-nghiệp'],
         price: 'free',
-        images: ['./products/Invitation/Other/thiep-tot-nghiep-mau-giao/screen.png'],
-        thumbnail: './products/Invitation/Other/thiep-tot-nghiep-mau-giao/screen.png',
+        images: [
+            './products/Invitation/Other/thiep-tot-nghiep-mau-giao/thumbnail.jpg',
+            './products/Invitation/Other/thiep-tot-nghiep-mau-giao/memory-1.jpg',
+            './products/Invitation/Other/thiep-tot-nghiep-mau-giao/memory-2.jpg',
+            './products/Invitation/Other/thiep-tot-nghiep-mau-giao/memory-3.jpg',
+            './products/Invitation/Other/thiep-tot-nghiep-mau-giao/memory-4.jpg',
+            './products/Invitation/Other/thiep-tot-nghiep-mau-giao/memory-5.jpg',
+            './products/Invitation/Other/thiep-tot-nghiep-mau-giao/memory-6.jpg',
+        ],
+        thumbnail: './products/Invitation/Other/thiep-tot-nghiep-mau-giao/thumbnail.jpg',
         path: './products/Invitation/Other/thiep-tot-nghiep-mau-giao/',
         demoUrl: './products/Invitation/Other/thiep-tot-nghiep-mau-giao/index.html',
         features: [
