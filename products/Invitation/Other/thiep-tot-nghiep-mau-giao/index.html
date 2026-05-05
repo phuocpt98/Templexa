@@ -158,6 +158,35 @@
     .child-text  { font-size: clamp(24px, 7vw,  36px); }
     .section-h2  { font-size: clamp(18px, 5vw,  24px); }
 
+    /* ── Timeline ── */
+    .timeline-wrap { position: relative; padding: 16px 8px; }
+    .tl-line {
+      position: absolute; left: 50%; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg,#42A5F5,#AB47BC,#EC407A,#66BB6A,#FFEE58,#FF7043);
+      border-radius: 2px; transform: translateX(-50%);
+    }
+    .tl-item {
+      display: flex; margin-bottom: 28px; position: relative;
+      width: 48%; padding: 0 24px 0 0;
+    }
+    .tl-item.right {
+      margin-left: 52%; padding: 0 0 0 24px; width: 48%;
+    }
+    .tl-card {
+      border-radius: 16px; padding: 16px 12px; width: 100%;
+      text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .tl-card:hover { transform: translateY(-4px) scale(1.02); }
+
+    @media (max-width: 500px) {
+      .tl-line { left: 20px; transform: none; }
+      .tl-item, .tl-item.right {
+        width: 100% !important; margin-left: 0 !important;
+        padding: 0 0 0 52px !important;
+      }
+    }
+
     /* ── ENVELOPE / OPEN SCREEN ── */
     .envelope {
       position: fixed; inset: 0; z-index: 9999;
@@ -589,8 +618,8 @@
                        font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;
                        transition:all .3s ease;box-shadow:0 4px 14px rgba(171,71,188,.35);flex-shrink:0;">▶</button>
             </div>
-            <audio id="celebration-audio" style="width:100%;margin-top:12px;display:none;">
-              <source src="https://assets.mixkit.co/active_storage/sfx/2450/2450-preview.mp3" type="audio/mpeg">
+            <audio id="celebration-audio" style="width:100%;margin-top:12px;display:none;" loop>
+              <source src="../../../shared/new/thieu-nhi-tam-biet-bup-be-than-yeu-mai-vy.mp3" type="audio/mpeg">
             </audio>
             <div id="waveform" style="display:flex;align-items:center;justify-content:center;gap:3px;margin-top:14px;height:36px;">
               <div class="wave-bar" style="width:4px;background:#AB47BC;border-radius:2px;height:8px;transition:height .2s;"></div>
@@ -646,7 +675,61 @@
               🎉 Tôi Sẽ Tham Dự Lễ Tốt Nghiệp
             </button>
             <div style="text-align:center;margin-top:12px;color:#1B5E20;font-weight:700;font-size:clamp(13px,3.5vw,15px);">
-              👥 Số người xác nhận: <span id="rsvp-number">0</span>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ TIMELINE ══ -->
+        <div class="section-card mt-6" style="background:#FFFFFF;border:4px dashed #AB47BC;">
+          <div style="padding:24px clamp(14px,5vw,32px);">
+            <h2 class="text-center font-extrabold mb-6 reveal" style="font-family:'Baloo 2',cursive;font-size:clamp(20px,6vw,28px);color:#AB47BC;">
+              ✨ Kỷ Niệm Học Tập ✨
+            </h2>
+            <div class="timeline-wrap">
+              <div class="tl-line"></div>
+
+              <div class="tl-item reveal-left">
+                <div class="tl-card" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB);border:3px solid #42A5F5;box-shadow:0 4px 14px rgba(66,165,245,.2);">
+                  <img src="memory-1.jpg" alt="Ngày đầu tiên" style="width:clamp(80px,22vw,120px);height:clamp(80px,22vw,120px);border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:3px solid #42A5F5;">
+                  <p class="font-bold" style="color:#1565C0;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Ngày đầu tiên</p>
+                </div>
+              </div>
+
+              <div class="tl-item right reveal-right">
+                <div class="tl-card" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7);border:3px solid #AB47BC;box-shadow:0 4px 14px rgba(171,71,188,.2);">
+                  <img src="memory-2.jpg" alt="Học vẽ" style="width:clamp(80px,22vw,120px);height:clamp(80px,22vw,120px);border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:3px solid #AB47BC;">
+                  <p class="font-bold" style="color:#6A1B9A;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Học vẽ</p>
+                </div>
+              </div>
+
+              <div class="tl-item reveal-left">
+                <div class="tl-card" style="background:linear-gradient(135deg,#FCE4EC,#F8BBD0);border:3px solid #EC407A;box-shadow:0 4px 14px rgba(236,64,122,.2);">
+                  <img src="memory-3.jpg" alt="Sinh nhật" style="width:clamp(80px,22vw,120px);height:clamp(80px,22vw,120px);border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:3px solid #EC407A;">
+                  <p class="font-bold" style="color:#AD1457;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Sinh nhật</p>
+                </div>
+              </div>
+
+              <div class="tl-item right reveal-right">
+                <div class="tl-card" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border:3px solid #66BB6A;box-shadow:0 4px 14px rgba(102,187,106,.2);">
+                  <img src="memory-4.jpg" alt="Chơi ngoài trời" style="width:clamp(80px,22vw,120px);height:clamp(80px,22vw,120px);border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:3px solid #66BB6A;">
+                  <p class="font-bold" style="color:#1B5E20;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Chơi ngoài trời</p>
+                </div>
+              </div>
+
+              <div class="tl-item reveal-left">
+                <div class="tl-card" style="background:linear-gradient(135deg,#FFFDE7,#FFF9C4);border:3px solid #FFEE58;box-shadow:0 4px 14px rgba(255,238,88,.2);">
+                  <img src="memory-5.jpg" alt="Ngày hội" style="width:clamp(80px,22vw,120px);height:clamp(80px,22vw,120px);border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:3px solid #FFEE58;">
+                  <p class="font-bold" style="color:#E65100;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Ngày hội</p>
+                </div>
+              </div>
+
+              <div class="tl-item right reveal-right" style="margin-bottom:0;">
+                <div class="tl-card" style="background:linear-gradient(135deg,#FFE0B2,#FFCC80);border:3px solid #FF7043;box-shadow:0 4px 14px rgba(255,112,67,.2);">
+                  <img src="memory-6.jpg" alt="Lễ tốt nghiệp" style="width:clamp(80px,22vw,120px);height:clamp(80px,22vw,120px);border-radius:50%;object-fit:cover;margin:0 auto 10px;display:block;border:3px solid #FF7043;">
+                  <p class="font-bold" style="color:#BF360C;font-size:clamp(12px,3.5vw,15px);line-height:1.5;margin:0;">Lễ tốt nghiệp</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -782,6 +865,14 @@
       opened = true;
 
       diplomaWrap.classList.add('unrolling');
+
+      // Auto play music on open
+      setTimeout(function() {
+        var audio = document.getElementById('celebration-audio');
+        if (audio && audio.paused) {
+          toggleMusic();
+        }
+      }, 200);
 
       setTimeout(function() {
         launchFireworks();
