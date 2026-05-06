@@ -4,14 +4,9 @@ const fs = require('fs');
 
 const PRODUCTS = [
     {
-        name: 'Film Reel',
-        url: 'products/Invitation/Other/gen_237_lien-hoan-phim-retro/index.html',
-        outDir: 'products/Invitation/Other/gen_237_lien-hoan-phim-retro',
-    },
-    {
-        name: 'Cork Board',
-        url: 'products/Invitation/Other/gen_237_lien-hoan-bang-tin/index.html',
-        outDir: 'products/Invitation/Other/gen_237_lien-hoan-bang-tin',
+        name: 'Trang Trong',
+        url: 'products/Invitation/Other/gen_237_lien-hoan-trang-trong/index.html',
+        outDir: 'products/Invitation/Other/gen_237_lien-hoan-trang-trong',
     },
 ];
 
