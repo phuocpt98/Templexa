@@ -1,0 +1,2541 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuốn Phim Tuổi Học Trò — Lớp 12A2</title>
+    <meta name="description" content="Thiệp mời liên hoan gặp mặt lớp 12A2, Niên khoá 2006–2007. Cuốn Phim Tuổi Học Trò.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Nunito:wght@400;600;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #0D0D1A;
+            color: #F5E6C8;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+        button { cursor: pointer; border: none; font-family: inherit; }
+        input, textarea, select { font-family: inherit; }
+
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --black: #1A1A2E;
+            --gold: #D4A843;
+            --red: #C0392B;
+            --brown: #3D2B1F;
+            --cream: #F5E6C8;
+            --dark-bg: #0D0D1A;
+            --card-bg: #1A1A2E;
+            --film-border: #D4A843;
+            --sprocket: #333;
+            --grain-opacity: 0.04;
+        }
+
+        /* ========== FILM GRAIN OVERLAY ========== */
+        .film-grain {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: var(--grain-opacity);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+            background-size: 150px;
+            animation: filmGrain 0.4s steps(5) infinite;
+        }
+
+        /* ========== KEYFRAMES ========== */
+        @keyframes filmGrain {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-2px, 3px); }
+            40% { transform: translate(3px, -1px); }
+            60% { transform: translate(-1px, -3px); }
+            80% { transform: translate(2px, 1px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(3deg); }
+            50% { transform: translateY(-5px) rotate(-2deg); }
+            75% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes flickerLight {
+            0%, 100% { opacity: 1; }
+            5% { opacity: 0.4; }
+            10% { opacity: 1; }
+            15% { opacity: 0.7; }
+            20% { opacity: 1; }
+            50% { opacity: 0.9; }
+            55% { opacity: 0.5; }
+            60% { opacity: 1; }
+        }
+
+        @keyframes vhsRewind {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes tapeGlitch {
+            0%, 100% { transform: translateX(0); }
+            10% { transform: translateX(-2px); }
+            20% { transform: translateX(3px); }
+            30% { transform: translateX(-1px); }
+            40% { transform: translateX(0); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(212, 168, 67, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(212, 168, 67, 0.6), 0 0 50px rgba(212, 168, 67, 0.2); }
+        }
+
+        @keyframes flickerBulb {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.4; }
+        }
+
+        @keyframes ticketTear {
+            0% { background-position: 0 0; }
+            100% { background-position: 20px 0; }
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        @keyframes floatTicket {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes theEndFade {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* ========== UTILITY ========== */
+        .hidden { display: none !important; }
+        .section-padding { padding: 80px 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .text-center { text-align: center; }
+        .font-typewriter { font-family: 'Special Elite', cursive; }
+        .font-mono { font-family: 'Courier Prime', monospace; }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== SECTION TITLE ========== */
+        .section-title {
+            font-family: 'Special Elite', cursive;
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 12px auto 0;
+        }
+
+        /* ========== 1. COVER — VHS TAPE ========== */
+        .cover-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10000;
+            background: radial-gradient(ellipse at center, #1A1A2E 0%, #0D0D1A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .cover-screen.opening {
+            opacity: 0;
+            transform: scale(1.1);
+            pointer-events: none;
+        }
+
+        .vhs-tape {
+            width: 320px;
+            height: 200px;
+            background: linear-gradient(180deg, #2A2A3E 0%, #1A1A2E 50%, #222236 100%);
+            border: 3px solid #444;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .vhs-tape:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.7), 0 0 30px rgba(212, 168, 67, 0.15);
+        }
+
+        .vhs-label {
+            position: absolute;
+            top: 20px; left: 30px; right: 30px;
+            height: 100px;
+            background: linear-gradient(135deg, #F5E6C8 0%, #E8D5B0 100%);
+            border-radius: 4px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+        }
+        .vhs-label-title {
+            font-family: 'Special Elite', cursive;
+            font-size: 0.85rem;
+            color: #1A1A2E;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.3;
+            text-align: center;
+        }
+        .vhs-label-subtitle {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            color: #555;
+            margin-top: 4px;
+            text-align: center;
+        }
+        .vhs-label-year {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.65rem;
+            color: #777;
+            margin-top: 2px;
+        }
+
+        .vhs-reels {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 60px;
+        }
+        .vhs-reel {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid #555;
+            background: #111;
+            position: relative;
+        }
+        .vhs-reel::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            border: 2px solid #666;
+            background: #222;
+        }
+        .vhs-reel.spinning {
+            animation: vhsRewind 1s linear infinite;
+        }
+        .vhs-reel.spinning::after {
+            content: '';
+            position: absolute;
+            top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border-top: 2px solid #888;
+            border-radius: 50%;
+        }
+
+        .vhs-tape-stripe {
+            position: absolute;
+            bottom: 45px;
+            left: 70px; right: 70px;
+            height: 6px;
+            background: linear-gradient(90deg, #333, #555, #333);
+            border-radius: 3px;
+        }
+
+        .cover-play-text {
+            margin-top: 30px;
+            font-family: 'Special Elite', cursive;
+            font-size: 1rem;
+            color: var(--gold);
+            opacity: 0.8;
+            animation: breathe 2s ease-in-out infinite;
+            letter-spacing: 2px;
+        }
+        .cover-play-icon {
+            display: inline-block;
+            margin-right: 6px;
+            animation: flickerLight 3s ease-in-out infinite;
+        }
+
+        .vhs-tracking {
+            position: absolute;
+            bottom: 30px;
+            left: 0; right: 0;
+            text-align: center;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            color: rgba(245, 230, 200, 0.3);
+            letter-spacing: 4px;
+        }
+
+        /* ========== WRAPPER ========== */
+        .invitation-wrapper {
+            display: none;
+            position: relative;
+            min-height: 100vh;
+        }
+        .invitation-wrapper.active {
+            display: block;
+        }
+
+        /* ========== 2. HERO SECTION ========== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            position: relative;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(192, 57, 43, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 30%, rgba(212, 168, 67, 0.08) 0%, transparent 50%),
+                linear-gradient(180deg, #0D0D1A 0%, #1A1A2E 50%, #0D0D1A 100%);
+            overflow: hidden;
+        }
+
+        .hero-film-strip-left,
+        .hero-film-strip-right {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: repeating-linear-gradient(
+                180deg,
+                #222 0px,
+                #222 20px,
+                var(--dark-bg) 20px,
+                var(--dark-bg) 30px
+            );
+            opacity: 0.3;
+        }
+        .hero-film-strip-left { left: 0; }
+        .hero-film-strip-right { right: 0; }
+
+        .hero-badge {
+            display: inline-block;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            border: 1px solid rgba(212, 168, 67, 0.4);
+            padding: 6px 18px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: rgba(212, 168, 67, 0.06);
+        }
+
+        .hero-title {
+            font-family: 'Special Elite', cursive;
+            font-size: clamp(2.2rem, 8vw, 3.8rem);
+            color: var(--cream);
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+        .hero-title .highlight {
+            color: var(--gold);
+            display: inline-block;
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-family: 'Courier Prime', monospace;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            color: rgba(245, 230, 200, 0.7);
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .hero-class-info {
+            font-family: 'Special Elite', cursive;
+            font-size: clamp(1rem, 3.5vw, 1.3rem);
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+
+        .hero-year {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.85rem;
+            color: rgba(245, 230, 200, 0.5);
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        /* Guest Card */
+        .guest-card {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(61, 43, 31, 0.4));
+            border: 2px solid rgba(212, 168, 67, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 350px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+        .guest-card::before {
+            content: '★ STARRING ★';
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.65rem;
+            color: var(--gold);
+            letter-spacing: 4px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.6;
+        }
+
+        .guest-photo-frame {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            margin: 20px auto 20px;
+            position: relative;
+            padding: 6px;
+            background: linear-gradient(135deg, var(--gold), var(--red), var(--gold));
+        }
+        .guest-photo-frame img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--dark-bg);
+        }
+        .guest-photo-frame::before,
+        .guest-photo-frame::after {
+            content: '';
+            position: absolute;
+            border: 2px solid rgba(212, 168, 67, 0.2);
+            border-radius: 50%;
+        }
+        .guest-photo-frame::before {
+            top: -8px; left: -8px; right: -8px; bottom: -8px;
+        }
+        .guest-photo-frame::after {
+            top: -16px; left: -16px; right: -16px; bottom: -16px;
+            border-style: dashed;
+            animation: vhsRewind 20s linear infinite;
+        }
+
+        .guest-name {
+            font-family: 'Special Elite', cursive;
+            font-size: clamp(1.6rem, 6vw, 2.2rem);
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+        .guest-role {
+            font-family: 'Courier Prime', monospace;
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            color: rgba(245, 230, 200, 0.5);
+            letter-spacing: 2px;
+        }
+
+        /* Fallback post-it */
+        .fallback-postit {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(61, 43, 31, 0.3));
+            border: 2px dashed rgba(212, 168, 67, 0.3);
+            border-radius: 12px;
+            padding: 24px 30px;
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 380px;
+        }
+        .fallback-postit p {
+            font-family: 'Special Elite', cursive;
+            font-size: 1.1rem;
+            color: var(--gold);
+        }
+
+        /* Countdown */
+        .countdown-wrapper {
+            text-align: center;
+        }
+        .countdown-label {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.8rem;
+            color: rgba(245, 230, 200, 0.5);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .countdown-grid {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .countdown-item {
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(212, 168, 67, 0.25);
+            border-radius: 10px;
+            padding: 14px 10px;
+            min-width: 72px;
+            text-align: center;
+        }
+        .countdown-number {
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .countdown-unit {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(245, 230, 200, 0.5);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .scroll-hint {
+            margin-top: 40px;
+            animation: breathe 2s ease-in-out infinite;
+            color: rgba(245, 230, 200, 0.3);
+            font-size: 0.8rem;
+            font-family: 'Courier Prime', monospace;
+            text-align: center;
+        }
+        .scroll-hint i { margin-left: 4px; }
+
+        /* ========== 3. MEMORIES / SCENES ========== */
+        .memories-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #0D0D1A 0%, #151528 50%, #0D0D1A 100%);
+            position: relative;
+        }
+
+        .scene-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .scene-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 168, 67, 0.15);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .scene-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .scene-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            background: rgba(212, 168, 67, 0.06);
+            border-bottom: 1px solid rgba(212, 168, 67, 0.1);
+        }
+        .scene-number {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            white-space: nowrap;
+            opacity: 0.7;
+        }
+        .scene-emoji {
+            font-size: 1.3rem;
+        }
+        .scene-title-text {
+            font-family: 'Special Elite', cursive;
+            font-size: 1.05rem;
+            color: var(--cream);
+            flex: 1;
+        }
+
+        .scene-body {
+            padding: 18px 20px;
+        }
+        .scene-body p {
+            font-size: 0.95rem;
+            color: rgba(245, 230, 200, 0.75);
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        /* Film strip sprocket decoration on sides */
+        .scene-card::before,
+        .scene-card::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 12px;
+            background: repeating-linear-gradient(
+                180deg,
+                rgba(212, 168, 67, 0.15) 0px,
+                rgba(212, 168, 67, 0.15) 8px,
+                transparent 8px,
+                transparent 16px
+            );
+        }
+        .scene-card::before { left: 0; border-radius: 12px 0 0 12px; }
+        .scene-card::after { right: 0; border-radius: 0 12px 12px 0; }
+
+        .scene-highlight {
+            background: linear-gradient(135deg, rgba(192, 57, 43, 0.15), rgba(212, 168, 67, 0.1));
+            border-color: rgba(192, 57, 43, 0.3);
+        }
+        .scene-highlight .scene-title-text {
+            color: var(--gold);
+            font-size: 1.15rem;
+        }
+
+        /* ========== 4. GALLERY — FILM STRIP ========== */
+        .gallery-section {
+            padding: 80px 0;
+            background: linear-gradient(180deg, #0D0D1A 0%, #12121F 50%, #0D0D1A 100%);
+            overflow: hidden;
+        }
+        .gallery-section .section-title {
+            padding: 0 20px;
+        }
+
+        .film-strip-container {
+            position: relative;
+            padding: 30px 0;
+        }
+
+        .film-strip-scroll {
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            padding: 0 20px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .film-strip-scroll::-webkit-scrollbar { display: none; }
+
+        .film-frame {
+            flex: 0 0 280px;
+            scroll-snap-align: center;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .film-frame:hover { transform: scale(1.03); }
+
+        .film-frame-inner {
+            background: #222;
+            border-left: 2px solid #444;
+            border-right: 2px solid #444;
+            position: relative;
+            padding: 0;
+        }
+
+        /* Sprocket holes top and bottom */
+        .film-sprockets-top,
+        .film-sprockets-bottom {
+            height: 28px;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 10px;
+            border-left: 2px solid #444;
+            border-right: 2px solid #444;
+        }
+        .film-sprockets-top { border-top: 2px solid #444; }
+        .film-sprockets-bottom { border-bottom: 2px solid #444; }
+
+        .sprocket-hole {
+            width: 16px;
+            height: 12px;
+            background: #000;
+            border-radius: 3px;
+            border: 1px solid #333;
+        }
+
+        .film-frame-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            filter: sepia(15%) saturate(90%) contrast(105%);
+            transition: filter 0.3s ease;
+        }
+        .film-frame:hover .film-frame-img {
+            filter: sepia(0%) saturate(100%) contrast(100%);
+        }
+
+        .film-frame-number {
+            position: absolute;
+            bottom: 6px;
+            right: 10px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.65rem;
+            color: rgba(212, 168, 67, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .gallery-hint {
+            text-align: center;
+            margin-top: 20px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.75rem;
+            color: rgba(245, 230, 200, 0.3);
+            letter-spacing: 1px;
+            padding: 0 20px;
+        }
+
+        /* ========== 5. SCHEDULE — CINEMA MARQUEE ========== */
+        .schedule-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #0D0D1A 0%, #1A1A2E 50%, #0D0D1A 100%);
+        }
+
+        .marquee-board {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #1A1A2E 0%, #151528 100%);
+            border: 3px solid var(--gold);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 30px rgba(212, 168, 67, 0.1);
+        }
+
+        /* Light bulb border */
+        .marquee-lights-top,
+        .marquee-lights-bottom {
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 12px;
+            background: rgba(212, 168, 67, 0.05);
+        }
+        .bulb {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 6px rgba(212, 168, 67, 0.6);
+        }
+        .bulb:nth-child(odd) { animation: flickerBulb 2s ease-in-out infinite; }
+        .bulb:nth-child(even) { animation: flickerBulb 2s ease-in-out infinite 1s; }
+
+        .marquee-header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(212, 168, 67, 0.15);
+        }
+        .marquee-header h3 {
+            font-family: 'Special Elite', cursive;
+            font-size: 1.3rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .marquee-date {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.85rem;
+            color: var(--red);
+            margin-top: 6px;
+            letter-spacing: 2px;
+        }
+
+        .showtime-list {
+            padding: 10px 20px 20px;
+        }
+        .showtime-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px dashed rgba(245, 230, 200, 0.08);
+        }
+        .showtime-item:last-child { border-bottom: none; }
+
+        .showtime-time {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.9rem;
+            color: var(--gold);
+            min-width: 55px;
+            font-weight: 700;
+        }
+        .showtime-desc {
+            font-size: 0.9rem;
+            color: rgba(245, 230, 200, 0.8);
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        /* ========== 6. LOCATION — MOVIE TICKET STUB ========== */
+        .location-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #0D0D1A 0%, #151528 50%, #0D0D1A 100%);
+        }
+
+        .ticket-stub {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            background: linear-gradient(135deg, #F5E6C8, #E8D5B0);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            position: relative;
+            color: #1A1A2E;
+        }
+
+        .ticket-main {
+            flex: 1;
+            padding: 28px 24px;
+            position: relative;
+        }
+        .ticket-admit {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.65rem;
+            color: var(--red);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .ticket-venue {
+            font-family: 'Special Elite', cursive;
+            font-size: 1.35rem;
+            color: #1A1A2E;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .ticket-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #3D2B1F;
+        }
+        .ticket-detail i { width: 16px; height: 16px; color: var(--red); }
+
+        .ticket-tear {
+            width: 30px;
+            position: relative;
+            background: linear-gradient(135deg, #E8D5B0, #DBC9A0);
+        }
+        .ticket-tear::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: -1px;
+            width: 2px;
+            background: repeating-linear-gradient(
+                180deg,
+                transparent 0px,
+                transparent 4px,
+                rgba(0,0,0,0.15) 4px,
+                rgba(0,0,0,0.15) 8px
+            );
+        }
+
+        .ticket-side {
+            width: 90px;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #DBC9A0, #CEBD94);
+            border-left: 2px dashed rgba(0,0,0,0.15);
+        }
+        .ticket-side-text {
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            color: #555;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .ticket-map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+            padding: 8px 16px;
+            background: var(--red);
+            color: #fff;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .ticket-map-btn:hover { background: #A93226; }
+        .ticket-map-btn i { width: 14px; height: 14px; }
+
+        /* ========== 7. RSVP — CASTING CALL ========== */
+        .rsvp-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #0D0D1A 0%, #1A1A2E 50%, #0D0D1A 100%);
+        }
+
+        .casting-sheet {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 2px solid rgba(212, 168, 67, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .casting-header {
+            background: rgba(212, 168, 67, 0.08);
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(212, 168, 67, 0.15);
+            text-align: center;
+        }
+        .casting-header h3 {
+            font-family: 'Special Elite', cursive;
+            font-size: 1.1rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .casting-header p {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.75rem;
+            color: rgba(245, 230, 200, 0.5);
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        .casting-form {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(13, 13, 26, 0.6);
+            border: 1px solid rgba(212, 168, 67, 0.2);
+            border-radius: 8px;
+            color: var(--cream);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(245, 230, 200, 0.3);
+        }
+        .form-group select option {
+            background: #1A1A2E;
+            color: var(--cream);
+        }
+
+        .rsvp-submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--gold), #B8912E);
+            color: #1A1A2E;
+            font-family: 'Special Elite', cursive;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 10px;
+            letter-spacing: 2px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .rsvp-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 168, 67, 0.3);
+        }
+        .rsvp-submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .rsvp-confirmation {
+            display: none;
+            text-align: center;
+            padding: 30px 24px;
+        }
+        .rsvp-confirmation.show { display: block; }
+        .rsvp-confirmation .check-icon {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            background: rgba(212, 168, 67, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: var(--gold);
+        }
+        .rsvp-confirmation h4 {
+            font-family: 'Special Elite', cursive;
+            font-size: 1.2rem;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .rsvp-confirmation p {
+            font-size: 0.9rem;
+            color: rgba(245, 230, 200, 0.6);
+        }
+
+        /* ========== 8. QR SECTION ========== */
+        .qr-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #0D0D1A 0%, #151528 50%, #0D0D1A 100%);
+        }
+
+        .qr-film-frame {
+            max-width: 280px;
+            margin: 0 auto;
+            background: #222;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .qr-film-frame::before,
+        .qr-film-frame::after {
+            content: '';
+            position: absolute;
+            left: 10px; right: 10px;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 10px,
+                #333 10px,
+                #333 18px,
+                transparent 18px,
+                transparent 28px
+            );
+        }
+        .qr-film-frame::before { top: -18px; }
+        .qr-film-frame::after { bottom: -18px; }
+
+        .qr-placeholder {
+            width: 180px;
+            height: 180px;
+            background: #fff;
+            border-radius: 8px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.75rem;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .qr-instructions {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.8rem;
+            color: rgba(245, 230, 200, 0.5);
+            letter-spacing: 1px;
+        }
+
+        /* ========== 9. GUESTBOOK — MOVIE REVIEWS ========== */
+        .guestbook-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #0D0D1A 0%, #1A1A2E 50%, #0D0D1A 100%);
+        }
+
+        .guestbook-form {
+            max-width: 500px;
+            margin: 0 auto 30px;
+            background: var(--card-bg);
+            border: 1px solid rgba(212, 168, 67, 0.15);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .guestbook-form textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(13, 13, 26, 0.6);
+            border: 1px solid rgba(212, 168, 67, 0.2);
+            border-radius: 8px;
+            color: var(--cream);
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 80px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .guestbook-form textarea:focus {
+            border-color: var(--gold);
+        }
+        .guestbook-form textarea::placeholder {
+            color: rgba(245, 230, 200, 0.3);
+        }
+
+        .guestbook-form-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .guestbook-form-row input {
+            flex: 1;
+            padding: 10px 14px;
+            background: rgba(13, 13, 26, 0.6);
+            border: 1px solid rgba(212, 168, 67, 0.2);
+            border-radius: 8px;
+            color: var(--cream);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .guestbook-form-row input:focus {
+            border-color: var(--gold);
+        }
+        .guestbook-form-row input::placeholder {
+            color: rgba(245, 230, 200, 0.3);
+        }
+
+        .guestbook-submit-btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--gold), #B8912E);
+            color: #1A1A2E;
+            font-family: 'Special Elite', cursive;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: 8px;
+            letter-spacing: 1px;
+            transition: transform 0.2s ease;
+            white-space: nowrap;
+        }
+        .guestbook-submit-btn:hover { transform: translateY(-1px); }
+
+        .quick-msgs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .quick-msg-btn {
+            padding: 6px 12px;
+            background: rgba(212, 168, 67, 0.08);
+            border: 1px solid rgba(212, 168, 67, 0.2);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: rgba(245, 230, 200, 0.6);
+            transition: all 0.2s ease;
+        }
+        .quick-msg-btn:hover {
+            background: rgba(212, 168, 67, 0.15);
+            color: var(--gold);
+        }
+
+        .review-cards {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .review-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(212, 168, 67, 0.12);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .review-card:hover { transform: translateY(-2px); }
+
+        .review-card::before {
+            content: '\201C';
+            font-family: 'Special Elite', cursive;
+            font-size: 3rem;
+            color: rgba(212, 168, 67, 0.15);
+            position: absolute;
+            top: 6px;
+            left: 14px;
+            line-height: 1;
+        }
+
+        .review-text {
+            font-size: 0.95rem;
+            color: rgba(245, 230, 200, 0.8);
+            line-height: 1.6;
+            margin-bottom: 12px;
+            padding-left: 20px;
+            font-style: italic;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            padding-left: 20px;
+        }
+        .review-stars {
+            color: var(--gold);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+        }
+        .review-time {
+            font-size: 0.7rem;
+            color: rgba(245, 230, 200, 0.3);
+            margin-left: auto;
+        }
+        .review-delete {
+            background: none;
+            border: none;
+            color: rgba(245, 230, 200, 0.2);
+            cursor: pointer;
+            padding: 2px 6px;
+            font-size: 0.75rem;
+            transition: color 0.2s;
+        }
+        .review-delete:hover { color: var(--red); }
+
+        /* ========== 10. CLOSING — THE END ========== */
+        .closing-section {
+            padding: 120px 20px;
+            text-align: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, #1A1A2E 0%, #0D0D1A 70%);
+            overflow: hidden;
+        }
+
+        .closing-stars {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+        }
+        .closing-star {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: starTwinkle 2s ease-in-out infinite;
+        }
+
+        .the-end-text {
+            font-family: 'Special Elite', cursive;
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            color: var(--gold);
+            text-shadow: 0 0 30px rgba(212, 168, 67, 0.3), 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            letter-spacing: 8px;
+        }
+
+        .closing-message {
+            font-size: 1rem;
+            color: rgba(245, 230, 200, 0.6);
+            max-width: 500px;
+            margin: 0 auto 20px;
+            line-height: 1.7;
+        }
+
+        .closing-class {
+            font-family: 'Special Elite', cursive;
+            font-size: 1.2rem;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+        .closing-year {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.85rem;
+            color: rgba(245, 230, 200, 0.4);
+            letter-spacing: 3px;
+        }
+
+        .closing-hearts {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            animation: breathe 2s ease-in-out infinite;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(212, 168, 67, 0.1);
+            background: #0A0A15;
+        }
+        .footer p {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.75rem;
+            color: rgba(245, 230, 200, 0.3);
+            letter-spacing: 1px;
+        }
+        .footer a {
+            color: rgba(212, 168, 67, 0.5);
+            transition: color 0.3s;
+        }
+        .footer a:hover { color: var(--gold); }
+
+        /* ========== MUSIC BUTTON ========== */
+        .music-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--card-bg), #252540);
+            border: 2px solid rgba(212, 168, 67, 0.3);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .music-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(212, 168, 67, 0.2);
+        }
+        .music-btn.playing {
+            animation: breathe 1.5s ease-in-out infinite;
+            border-color: var(--gold);
+        }
+        .music-btn i { width: 20px; height: 20px; }
+
+        /* ========== LIGHTBOX ========== */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92);
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s;
+        }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        /* ========== CONFETTI ========== */
+        .confetti-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 10002;
+            overflow: hidden;
+        }
+        .confetti-piece {
+            position: absolute;
+            top: -20px;
+            width: 10px;
+            height: 16px;
+            opacity: 0;
+            animation: confettiFall 3s ease-in forwards;
+        }
+
+        /* ========== FLOATING TICKETS ========== */
+        .floating-tickets {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .floating-ticket {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0;
+            animation: floatTicket 12s linear infinite;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 480px) {
+            .section-padding { padding: 60px 16px; }
+
+            .vhs-tape { width: 260px; height: 170px; }
+            .vhs-label { top: 16px; left: 20px; right: 20px; height: 85px; }
+            .vhs-label-title { font-size: 0.75rem; }
+            .vhs-reels { gap: 40px; bottom: 14px; }
+            .vhs-reel { width: 34px; height: 34px; }
+
+            .hero-film-strip-left,
+            .hero-film-strip-right { width: 25px; }
+
+            .guest-card { padding: 24px 20px; }
+            .guest-photo-frame { width: 140px; height: 140px; }
+            .guest-name { font-size: 1.5rem; }
+
+            .countdown-item { min-width: 60px; padding: 10px 8px; }
+            .countdown-number { font-size: 1.5rem; }
+
+            .scene-card { margin: 0 -4px; }
+            .scene-header { padding: 12px 16px; flex-wrap: wrap; }
+            .scene-body { padding: 14px 16px; }
+
+            .film-frame { flex: 0 0 240px; }
+            .film-frame-img { height: 170px; }
+
+            .marquee-board { margin: 0 -4px; }
+            .showtime-item { gap: 10px; }
+            .showtime-time { font-size: 0.8rem; min-width: 48px; }
+            .showtime-desc { font-size: 0.85rem; }
+
+            .ticket-stub { flex-direction: column; }
+            .ticket-side {
+                writing-mode: horizontal-tb;
+                width: 100%;
+                padding: 12px;
+                border-left: none;
+                border-top: 2px dashed rgba(0,0,0,0.15);
+            }
+            .ticket-side-text {
+                writing-mode: horizontal-tb;
+            }
+            .ticket-tear { display: none; }
+
+            .casting-form { padding: 18px; }
+
+            .guestbook-form-row { flex-direction: column; }
+            .guestbook-submit-btn { width: 100%; }
+
+            .the-end-text { letter-spacing: 4px; }
+
+            .music-btn {
+                bottom: 16px;
+                right: 16px;
+                width: 44px;
+                height: 44px;
+            }
+
+            .lightbox-prev { left: 10px; }
+            .lightbox-next { right: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Film Grain Overlay -->
+    <div class="film-grain"></div>
+
+    <!-- Floating Film Tickets -->
+    <div class="floating-tickets" id="floatingTickets"></div>
+
+    <!-- ============================== -->
+    <!-- 1. COVER — VHS TAPE           -->
+    <!-- ============================== -->
+    <div class="cover-screen" id="coverScreen">
+        <div class="vhs-tape" id="vhsTape" role="button" tabindex="0" aria-label="Nhấn để mở thiệp">
+            <div class="vhs-label">
+                <div class="vhs-label-title">Cuốn Phim Tuổi Học Trò</div>
+                <div class="vhs-label-subtitle" id="coverClass">Lớp 12A2</div>
+                <div class="vhs-label-year" id="coverYear">Niên khoá 2006 – 2007</div>
+            </div>
+            <div class="vhs-tape-stripe"></div>
+            <div class="vhs-reels">
+                <div class="vhs-reel" id="reel1"></div>
+                <div class="vhs-reel" id="reel2"></div>
+            </div>
+        </div>
+        <div class="cover-play-text">
+            <span class="cover-play-icon">&#9654;</span> NHẤN ĐỂ PHÁT
+        </div>
+        <div class="vhs-tracking">TRACKING ▓▓▓▓▓░░░</div>
+    </div>
+
+    <!-- ============================== -->
+    <!-- INVITATION WRAPPER             -->
+    <!-- ============================== -->
+    <div class="invitation-wrapper" id="invitationWrapper">
+
+        <!-- ============================== -->
+        <!-- 2. HERO SECTION               -->
+        <!-- ============================== -->
+        <section class="hero-section" id="heroSection">
+            <div class="hero-film-strip-left"></div>
+            <div class="hero-film-strip-right"></div>
+
+            <div class="hero-badge scroll-reveal">&#127902; NOW SHOWING</div>
+
+            <h1 class="hero-title scroll-reveal">
+                Ê! <span class="highlight">Gặp Mặt</span> Đi! &#127881;
+            </h1>
+            <p class="hero-subtitle scroll-reveal">Lễ Liên Hoan Gặp Mặt</p>
+
+            <p class="hero-class-info scroll-reveal" id="heroClass">Lớp 12A2</p>
+            <p class="hero-year scroll-reveal" id="heroYear">Niên khoá 2006 – 2007</p>
+
+            <!-- Guest Card (shown when ?id is present) -->
+            <div class="guest-card scroll-reveal hidden" id="guestCard">
+                <div class="guest-photo-frame">
+                    <img id="guestPhoto" src="" alt="Ảnh khách mời">
+                </div>
+                <div class="guest-name" id="guestName"></div>
+                <div class="guest-role">Vai chính</div>
+            </div>
+
+            <!-- Fallback (no ?id) -->
+            <div class="fallback-postit scroll-reveal" id="fallbackPostit">
+                <p>&#127916; Gửi riêng cho: <strong>Quý Bạn Học Cũ</strong></p>
+            </div>
+
+            <!-- Countdown -->
+            <div class="countdown-wrapper scroll-reveal">
+                <div class="countdown-label">&#9200; Còn bao lâu nữa...</div>
+                <div class="countdown-grid" id="countdownGrid">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="cdDays">--</div>
+                        <div class="countdown-unit">Ngày</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="cdHours">--</div>
+                        <div class="countdown-unit">Giờ</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="cdMinutes">--</div>
+                        <div class="countdown-unit">Phút</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="cdSeconds">--</div>
+                        <div class="countdown-unit">Giây</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-hint scroll-reveal">
+                Cuộn xuống để xem phim <i data-lucide="chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- 3. MEMORIES — FILM SCENES     -->
+        <!-- ============================== -->
+        <section class="memories-section" id="memoriesSection">
+            <h2 class="section-title scroll-reveal">Hồi Đó Mình... &#127916;</h2>
+            <div class="scene-list">
+                <div class="scene-card scroll-reveal">
+                    <div class="scene-header">
+                        <span class="scene-number">SCENE 01</span>
+                        <span class="scene-emoji">&#128214;</span>
+                        <span class="scene-title-text">Ngày đầu nhập học</span>
+                    </div>
+                    <div class="scene-body">
+                        <p>Còn nhớ không? Mặt ai cũng ngơ ngác như gà lạc đàn. Chưa biết ai là ai, chỉ biết cắm mặt vào sách vở cho qua buổi đầu. Rồi bỗng một ngày, cả lớp thành một gia đình lúc nào chẳng hay!</p>
+                    </div>
+                </div>
+
+                <div class="scene-card scroll-reveal">
+                    <div class="scene-header">
+                        <span class="scene-number">SCENE 02</span>
+                        <span class="scene-emoji">&#127939;</span>
+                        <span class="scene-title-text">Hội thao trường</span>
+                    </div>
+                    <div class="scene-body">
+                        <p>Chạy 100m mà như chạy 1000m. Ai cũng cố hết sức để... không về cuối! Tiếng hô "Cố lên!" vang cả sân trường. Dù thắng hay thua, cái quan trọng là mình được nghỉ học mà!</p>
+                    </div>
+                </div>
+
+                <div class="scene-card scroll-reveal">
+                    <div class="scene-header">
+                        <span class="scene-number">SCENE 03</span>
+                        <span class="scene-emoji">&#128221;</span>
+                        <span class="scene-title-text">Thi cuối kỳ</span>
+                    </div>
+                    <div class="scene-body">
+                        <p>Quay bài — đỉnh cao nghệ thuật! Phao thi giấu trong bút, trong đế giày, thậm chí viết lên tay. Cô giáo đi ngang là tim đập loạn xạ. Nhưng cuối cùng, bài nào quay được thì... chẳng trúng đề!</p>
+                    </div>
+                </div>
+
+                <div class="scene-card scroll-reveal">
+                    <div class="scene-header">
+                        <span class="scene-number">SCENE 04</span>
+                        <span class="scene-emoji">&#127908;</span>
+                        <span class="scene-title-text">Văn nghệ lớp</span>
+                    </div>
+                    <div class="scene-body">
+                        <p>Ai hát dở nhất lớp nhỉ? Nhưng ai cũng nhiệt tình hết mình! Tập múa thì chân tay loạng choạng, tập hát thì hàng xóm kêu. Vậy mà lên sân khấu thì... cả trường vỗ tay không ngớt!</p>
+                    </div>
+                </div>
+
+                <div class="scene-card scroll-reveal">
+                    <div class="scene-header">
+                        <span class="scene-number">SCENE 05</span>
+                        <span class="scene-emoji">&#128546;</span>
+                        <span class="scene-title-text">Ngày chia tay</span>
+                    </div>
+                    <div class="scene-body">
+                        <p>Hứa sẽ nhớ nhau mãi. Viết lưu bút đến mỏi tay, mắt ai cũng đỏ hoe. "Chia tay nhé, hẹn gặp lại!" — câu nói đơn giản mà sao nặng nề đến thế. Rồi mỗi người một ngả...</p>
+                    </div>
+                </div>
+
+                <div class="scene-card scene-highlight scroll-reveal">
+                    <div class="scene-header">
+                        <span class="scene-number">SCENE 06</span>
+                        <span class="scene-emoji">&#127881;</span>
+                        <span class="scene-title-text">Ngày tái hợp — LIÊN HOAN GẶP MẶT!</span>
+                    </div>
+                    <div class="scene-body">
+                        <p>Và hôm nay, chúng ta lại gặp nhau! Bao nhiêu năm xa cách, bao nhiêu thay đổi, nhưng tiếng cười vẫn vậy, ánh mắt vẫn thân quen. Hãy cùng nhau viết tiếp những trang mới cho cuốn phim tuổi học trò!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- 4. GALLERY — FILM STRIP       -->
+        <!-- ============================== -->
+        <section class="gallery-section" id="gallerySection">
+            <h2 class="section-title scroll-reveal">Album Lớp Mình &#128248;</h2>
+            <div class="film-strip-container scroll-reveal">
+                <div class="film-strip-scroll" id="filmStripScroll">
+                    <!-- Film frames generated by JS -->
+                </div>
+            </div>
+            <p class="gallery-hint scroll-reveal"><i data-lucide="move-horizontal"></i> Kéo ngang để xem thêm &#8226; Nhấn để phóng to</p>
+        </section>
+
+        <!-- ============================== -->
+        <!-- 5. SCHEDULE — CINEMA MARQUEE  -->
+        <!-- ============================== -->
+        <section class="schedule-section" id="scheduleSection">
+            <h2 class="section-title scroll-reveal">Chương Trình Liên Hoan &#128203;</h2>
+            <div class="marquee-board scroll-reveal">
+                <div class="marquee-lights-top">
+                    <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                    <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                    <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                    <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                    <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                </div>
+                <div class="marquee-header">
+                    <h3>&#127916; Lịch Chiếu</h3>
+                    <div class="marquee-date" id="scheduleDate">15 / 08 / 2026</div>
+                </div>
+                <div class="showtime-list">
+                    <div class="showtime-item">
+                        <span class="showtime-time">17:00</span>
+                        <span class="showtime-desc">Điểm danh — kiểm tra xem còn nhớ mặt nhau không? &#129300;</span>
+                    </div>
+                    <div class="showtime-item">
+                        <span class="showtime-time">17:30</span>
+                        <span class="showtime-desc">Ôn lại kỷ niệm xưa — ai nhớ nhất sẽ được... miễn uống phạt! &#128214;</span>
+                    </div>
+                    <div class="showtime-item">
+                        <span class="showtime-time">18:00</span>
+                        <span class="showtime-desc">Tiệc bắt đầu — Ăn thôi! Nói chuyện sau &#127829;&#129346;</span>
+                    </div>
+                    <div class="showtime-item">
+                        <span class="showtime-time">19:00</span>
+                        <span class="showtime-desc">Văn nghệ + Trò chơi tập thể &#127908;&#127918;</span>
+                    </div>
+                    <div class="showtime-item">
+                        <span class="showtime-time">20:00</span>
+                        <span class="showtime-desc">Trao giải "Ai thay đổi nhiều nhất" & "Ai vẫn y chang hồi xưa" &#127942;&#128514;</span>
+                    </div>
+                    <div class="showtime-item">
+                        <span class="showtime-time">21:00</span>
+                        <span class="showtime-desc">Chụp ảnh kỷ niệm + Hẹn lần gặp mặt tiếp theo! &#128248;&#127881;</span>
+                    </div>
+                </div>
+                <div class="marquee-lights-bottom">
+                    <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                    <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                    <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                    <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                    <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- 6. LOCATION — MOVIE TICKET    -->
+        <!-- ============================== -->
+        <section class="location-section" id="locationSection">
+            <h2 class="section-title scroll-reveal">Tập Trung Tại Đây! &#128205;</h2>
+            <div class="ticket-stub scroll-reveal" id="ticketStub">
+                <div class="ticket-main">
+                    <div class="ticket-admit">&#127903; ADMIT ONE</div>
+                    <div class="ticket-venue" id="ticketVenue">Nhà hàng ABC</div>
+                    <div class="ticket-detail">
+                        <i data-lucide="map-pin"></i>
+                        <span id="ticketAddress">123 Đường XYZ, Quận 1, TP. Hồ Chí Minh</span>
+                    </div>
+                    <div class="ticket-detail">
+                        <i data-lucide="calendar"></i>
+                        <span>15/08/2026</span>
+                    </div>
+                    <div class="ticket-detail">
+                        <i data-lucide="clock"></i>
+                        <span>17:00</span>
+                    </div>
+                    <a class="ticket-map-btn" id="ticketMapBtn" href="#" target="_blank" rel="noopener noreferrer">
+                        <i data-lucide="navigation"></i> Xem bản đồ
+                    </a>
+                </div>
+                <div class="ticket-tear"></div>
+                <div class="ticket-side">
+                    <span class="ticket-side-text">LỚP 12A2 &#8226; 2026</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- 7. RSVP — CASTING CALL        -->
+        <!-- ============================== -->
+        <section class="rsvp-section" id="rsvpSection">
+            <h2 class="section-title scroll-reveal">Điểm Danh Nào! &#9995;</h2>
+            <div class="casting-sheet scroll-reveal">
+                <div class="casting-header">
+                    <h3>&#127916; Casting Call</h3>
+                    <p>Xác nhận tham gia buổi liên hoan</p>
+                </div>
+                <form class="casting-form" id="rsvpForm">
+                    <div class="form-group">
+                        <label for="rsvpName">&#127916; Nghệ danh (Tên bạn)</label>
+                        <input type="text" id="rsvpName" placeholder="Nhập tên của bạn..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rsvpPhone">&#128222; Liên lạc (SĐT)</label>
+                        <input type="tel" id="rsvpPhone" placeholder="Số điện thoại...">
+                    </div>
+                    <div class="form-group">
+                        <label for="rsvpAttend">&#127903; Có tham gia không?</label>
+                        <select id="rsvpAttend" required>
+                            <option value="">— Chọn —</option>
+                            <option value="yes">Có! Nhất định đi! &#127881;</option>
+                            <option value="maybe">Để xem lại lịch... &#129300;</option>
+                            <option value="no">Lần này không được rồi &#128546;</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rsvpGuests">&#128101; Đi cùng mấy người?</label>
+                        <select id="rsvpGuests">
+                            <option value="1">Chỉ mình tôi</option>
+                            <option value="2">2 người</option>
+                            <option value="3">3 người</option>
+                            <option value="4">4 người trở lên</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rsvpNote">&#128221; Lời nhắn</label>
+                        <textarea id="rsvpNote" rows="3" placeholder="Ghi chú thêm (không bắt buộc)..."></textarea>
+                    </div>
+                    <button type="submit" class="rsvp-submit-btn" id="rsvpSubmitBtn">
+                        Xác Nhận Vai Diễn &#9995;
+                    </button>
+                </form>
+                <div class="rsvp-confirmation" id="rsvpConfirmation">
+                    <div class="check-icon">
+                        <i data-lucide="check" style="width:28px;height:28px;"></i>
+                    </div>
+                    <h4>Đã Xác Nhận!</h4>
+                    <p>Cảm ơn bạn! Hẹn gặp tại buổi liên hoan nhé! &#127881;</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- 8. QR SECTION                 -->
+        <!-- ============================== -->
+        <section class="qr-section" id="qrSection">
+            <h2 class="section-title scroll-reveal">Quét Đi, Đừng Quên! &#128241;</h2>
+            <div class="qr-film-frame scroll-reveal">
+                <div class="qr-placeholder" id="qrPlaceholder">
+                    &#128247; QR Code<br>sẽ hiển thị tại đây
+                </div>
+                <p class="qr-instructions">Quét mã để lưu thông tin</p>
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- 9. GUESTBOOK — MOVIE REVIEWS  -->
+        <!-- ============================== -->
+        <section class="guestbook-section" id="guestbookSection">
+            <h2 class="section-title scroll-reveal">Lưu Bút &#9997;&#65039;</h2>
+
+            <div class="guestbook-form scroll-reveal">
+                <textarea id="gbMessage" placeholder="Viết lưu bút cho bạn bè..."></textarea>
+                <div class="guestbook-form-row">
+                    <input type="text" id="gbName" placeholder="Tên của bạn...">
+                    <button type="button" class="guestbook-submit-btn" id="gbSubmitBtn">Gửi &#127916;</button>
+                </div>
+                <div class="quick-msgs">
+                    <button type="button" class="quick-msg-btn" data-msg="Nhớ mày quá trời! 😭">Nhớ mày quá trời! &#128557;</button>
+                    <button type="button" class="quick-msg-btn" data-msg="Hồi đó mày nợ tao cây bút chì! ✏️">Hồi đó mày nợ tao cây bút chì! &#9999;&#65039;</button>
+                    <button type="button" class="quick-msg-btn" data-msg="Gặp mặt vui quá, hẹn lần sau!">Gặp mặt vui quá, hẹn lần sau!</button>
+                    <button type="button" class="quick-msg-btn" data-msg="Ai còn nhớ cô chủ nhiệm không?">Ai còn nhớ cô chủ nhiệm không?</button>
+                </div>
+            </div>
+
+            <div class="review-cards" id="reviewCards">
+                <!-- Reviews generated by JS -->
+            </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- 10. CLOSING — THE END         -->
+        <!-- ============================== -->
+        <section class="closing-section" id="closingSection">
+            <div class="closing-stars" id="closingStars"></div>
+            <div class="scroll-reveal">
+                <div class="the-end-text">THE END</div>
+                <p class="closing-message">
+                    Cuốn phim tuổi học trò tuy khép lại,<br>
+                    nhưng tình bạn thì mãi trường tồn.<br>
+                    Hẹn gặp lại tất cả tại buổi liên hoan nhé!
+                </p>
+                <div class="closing-class" id="closingClass">Lớp 12A2</div>
+                <div class="closing-year" id="closingYear">Niên khoá 2006 – 2007</div>
+                <div class="closing-hearts">&#10084;&#65039; &#127902; &#10084;&#65039;</div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Thiết kế bởi <a href="https://phuocpt98.github.io/Templexa/" target="_blank" rel="noopener noreferrer">Templexa</a> &mdash; templexa.contact@gmail.com</p>
+        </footer>
+    </div>
+
+    <!-- Music Button -->
+    <button class="music-btn hidden" id="musicBtn" aria-label="Bật/tắt nhạc">
+        <i data-lucide="play"></i>
+    </button>
+
+    <!-- Audio -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="../../../shared/music/upbeat-energy/We Found Love.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Đóng">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Ảnh trước"><i data-lucide="chevron-left"></i></button>
+        <img id="lightboxImg" src="" alt="Ảnh phóng to">
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Ảnh tiếp"><i data-lucide="chevron-right"></i></button>
+    </div>
+
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- ============================== -->
+    <!-- JAVASCRIPT                    -->
+    <!-- ============================== -->
+    <script>
+    (function() {
+        'use strict';
+
+        /* ========== GLOBALS ========== */
+        const EVENT_DATE = new Date('2026-08-15T17:00:00');
+        const RSVP_KEY = 'lh_phim_rsvps';
+        const GUESTBOOK_KEY = 'lh_phim_guestbook';
+
+        let appData = null;
+        let galleryPhotos = [];
+        let currentLightboxIndex = 0;
+        let musicPlaying = false;
+
+        /* ========== HELPERS ========== */
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        }
+
+        function timeAgo(dateStr) {
+            const now = new Date();
+            const date = new Date(dateStr);
+            const diff = Math.floor((now - date) / 1000);
+            if (diff < 60) return 'Vừa xong';
+            if (diff < 3600) return Math.floor(diff / 60) + ' phút trước';
+            if (diff < 86400) return Math.floor(diff / 3600) + ' giờ trước';
+            return Math.floor(diff / 86400) + ' ngày trước';
+        }
+
+        function getUrlParam(key) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(key);
+        }
+
+        /* ========== CONFETTI ========== */
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            container.innerHTML = '';
+            const colors = ['#D4A843', '#C0392B', '#F5E6C8', '#E8D5B0', '#FFD700', '#FF6B6B', '#4ECDC4'];
+            for (let i = 0; i < 60; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDelay = Math.random() * 2 + 's';
+                piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+                piece.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                piece.style.width = (6 + Math.random() * 8) + 'px';
+                piece.style.height = (8 + Math.random() * 12) + 'px';
+                piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                container.appendChild(piece);
+            }
+            setTimeout(() => { container.innerHTML = ''; }, 5000);
+        }
+
+        /* ========== FLOATING TICKETS ========== */
+        function initFloatingTickets() {
+            const container = document.getElementById('floatingTickets');
+            const tickets = ['&#127903;', '&#127902;', '&#127916;', '&#127915;', '&#11088;'];
+            for (let i = 0; i < 8; i++) {
+                const ticket = document.createElement('div');
+                ticket.className = 'floating-ticket';
+                ticket.innerHTML = tickets[Math.floor(Math.random() * tickets.length)];
+                ticket.style.left = Math.random() * 100 + '%';
+                ticket.style.animationDelay = Math.random() * 12 + 's';
+                ticket.style.animationDuration = (10 + Math.random() * 8) + 's';
+                ticket.style.fontSize = (0.8 + Math.random() * 0.8) + 'rem';
+                ticket.style.opacity = '0';
+                container.appendChild(ticket);
+            }
+        }
+
+        /* ========== COVER ========== */
+        function initCover() {
+            const cover = document.getElementById('coverScreen');
+            const tape = document.getElementById('vhsTape');
+            const wrapper = document.getElementById('invitationWrapper');
+            const musicBtn = document.getElementById('musicBtn');
+            const reel1 = document.getElementById('reel1');
+            const reel2 = document.getElementById('reel2');
+
+            function openCover() {
+                // Start reel spinning
+                reel1.classList.add('spinning');
+                reel2.classList.add('spinning');
+
+                setTimeout(() => {
+                    cover.classList.add('opening');
+                    wrapper.classList.add('active');
+                    musicBtn.classList.remove('hidden');
+                    launchConfetti();
+                    initFloatingTickets();
+                    tryPlayMusic();
+
+                    setTimeout(() => {
+                        cover.style.display = 'none';
+                    }, 800);
+                }, 600);
+            }
+
+            tape.addEventListener('click', openCover);
+            tape.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openCover();
+                }
+            });
+        }
+
+        /* ========== MUSIC ========== */
+        function tryPlayMusic() {
+            const audio = document.getElementById('bgMusic');
+            const btn = document.getElementById('musicBtn');
+            audio.volume = 0.4;
+            audio.play().then(() => {
+                musicPlaying = true;
+                btn.classList.add('playing');
+                updateMusicIcon();
+            }).catch(() => {
+                musicPlaying = false;
+                updateMusicIcon();
+            });
+        }
+
+        function updateMusicIcon() {
+            const btn = document.getElementById('musicBtn');
+            const iconName = musicPlaying ? 'pause' : 'play';
+            btn.innerHTML = '<i data-lucide="' + iconName + '"></i>';
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function initMusic() {
+            const btn = document.getElementById('musicBtn');
+            const audio = document.getElementById('bgMusic');
+
+            btn.addEventListener('click', function() {
+                if (musicPlaying) {
+                    audio.pause();
+                    musicPlaying = false;
+                    btn.classList.remove('playing');
+                } else {
+                    audio.play().then(() => {
+                        musicPlaying = true;
+                        btn.classList.add('playing');
+                    }).catch(() => {});
+                }
+                updateMusicIcon();
+            });
+        }
+
+        /* ========== COUNTDOWN ========== */
+        function updateCountdown() {
+            const now = new Date();
+            const diff = EVENT_DATE - now;
+
+            if (diff <= 0) {
+                document.getElementById('cdDays').textContent = '0';
+                document.getElementById('cdHours').textContent = '0';
+                document.getElementById('cdMinutes').textContent = '0';
+                document.getElementById('cdSeconds').textContent = '0';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cdDays').textContent = days;
+            document.getElementById('cdHours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('cdMinutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('cdSeconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        function initCountdown() {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        /* ========== DATA LOADING ========== */
+        async function loadData() {
+            try {
+                const resp = await fetch('data.json');
+                appData = await resp.json();
+
+                // Update event info
+                if (appData.event) {
+                    const ev = appData.event;
+                    document.getElementById('coverClass').textContent = ev.class || 'Lớp 12A2';
+                    document.getElementById('coverYear').textContent = ev.year || 'Niên khoá 2006 – 2007';
+                    document.getElementById('heroClass').textContent = ev.class || 'Lớp 12A2';
+                    document.getElementById('heroYear').textContent = ev.year || 'Niên khoá 2006 – 2007';
+                    document.getElementById('closingClass').textContent = ev.class || 'Lớp 12A2';
+                    document.getElementById('closingYear').textContent = ev.year || 'Niên khoá 2006 – 2007';
+                    document.getElementById('ticketVenue').textContent = ev.venue || 'Nhà hàng ABC';
+                    document.getElementById('ticketAddress').textContent = ev.address || '';
+
+                    // Map link
+                    if (ev.address) {
+                        const mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(ev.address);
+                        document.getElementById('ticketMapBtn').href = mapUrl;
+                    }
+                }
+
+                // Load guest
+                const guestId = getUrlParam('id');
+                if (guestId && appData.guests) {
+                    const guest = appData.guests.find(g => String(g.id) === String(guestId));
+                    if (guest) {
+                        document.getElementById('guestCard').classList.remove('hidden');
+                        document.getElementById('fallbackPostit').classList.add('hidden');
+                        document.getElementById('guestPhoto').src = guest.photo;
+                        document.getElementById('guestPhoto').alt = 'Ảnh ' + guest.name;
+                        document.getElementById('guestName').textContent = 'Vai chính: ' + guest.name;
+
+                        // Pre-fill RSVP
+                        document.getElementById('rsvpName').value = guest.name;
+                    }
+                }
+
+                // Build gallery
+                buildGallery();
+
+            } catch (err) {
+                console.warn('Could not load data.json:', err);
+                buildGalleryFallback();
+            }
+        }
+
+        /* ========== GALLERY ========== */
+        function buildGallery() {
+            const scroll = document.getElementById('filmStripScroll');
+            // Use specific photos from the requirement
+            const photos = ['photos/1.jpg', 'photos/2.jpg', 'photos/5.jpg', 'photos/7.jpg', 'photos/8.jpg', 'photos/11.jpg'];
+            galleryPhotos = photos;
+
+            photos.forEach(function(photo, i) {
+                const frame = document.createElement('div');
+                frame.className = 'film-frame';
+                frame.setAttribute('data-index', i);
+
+                const sprocketsTop = createSprockets();
+                const inner = document.createElement('div');
+                inner.className = 'film-frame-inner';
+
+                const img = document.createElement('img');
+                img.className = 'film-frame-img';
+                img.src = photo;
+                img.alt = 'Ảnh kỷ niệm ' + (i + 1);
+                img.loading = 'lazy';
+
+                const num = document.createElement('span');
+                num.className = 'film-frame-number';
+                num.textContent = 'FR-' + String(i + 1).padStart(2, '0');
+
+                inner.appendChild(img);
+                inner.appendChild(num);
+
+                const sprocketsBottom = createSprockets();
+
+                frame.appendChild(sprocketsTop);
+                frame.appendChild(inner);
+                frame.appendChild(sprocketsBottom);
+
+                frame.addEventListener('click', function() {
+                    openLightbox(i);
+                });
+
+                scroll.appendChild(frame);
+            });
+        }
+
+        function buildGalleryFallback() {
+            galleryPhotos = ['photos/1.jpg', 'photos/2.jpg', 'photos/5.jpg', 'photos/7.jpg', 'photos/8.jpg', 'photos/11.jpg'];
+            const scroll = document.getElementById('filmStripScroll');
+
+            galleryPhotos.forEach(function(photo, i) {
+                const frame = document.createElement('div');
+                frame.className = 'film-frame';
+
+                const sprocketsTop = createSprockets();
+                const inner = document.createElement('div');
+                inner.className = 'film-frame-inner';
+
+                const img = document.createElement('img');
+                img.className = 'film-frame-img';
+                img.src = photo;
+                img.alt = 'Ảnh kỷ niệm ' + (i + 1);
+                img.loading = 'lazy';
+
+                const num = document.createElement('span');
+                num.className = 'film-frame-number';
+                num.textContent = 'FR-' + String(i + 1).padStart(2, '0');
+
+                inner.appendChild(img);
+                inner.appendChild(num);
+
+                const sprocketsBottom = createSprockets();
+
+                frame.appendChild(sprocketsTop);
+                frame.appendChild(inner);
+                frame.appendChild(sprocketsBottom);
+
+                frame.addEventListener('click', function() {
+                    openLightbox(i);
+                });
+
+                scroll.appendChild(frame);
+            });
+        }
+
+        function createSprockets() {
+            const row = document.createElement('div');
+            row.className = 'film-sprockets-top';
+            for (let j = 0; j < 8; j++) {
+                const hole = document.createElement('div');
+                hole.className = 'sprocket-hole';
+                row.appendChild(hole);
+            }
+            return row;
+        }
+
+        /* ========== LIGHTBOX ========== */
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImg');
+            img.src = galleryPhotos[index];
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function navigateLightbox(dir) {
+            currentLightboxIndex = (currentLightboxIndex + dir + galleryPhotos.length) % galleryPhotos.length;
+            document.getElementById('lightboxImg').src = galleryPhotos[currentLightboxIndex];
+        }
+
+        function initLightbox() {
+            document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+            document.getElementById('lightboxPrev').addEventListener('click', function() { navigateLightbox(-1); });
+            document.getElementById('lightboxNext').addEventListener('click', function() { navigateLightbox(1); });
+
+            document.getElementById('lightbox').addEventListener('click', function(e) {
+                if (e.target === this) closeLightbox();
+            });
+
+            document.addEventListener('keydown', function(e) {
+                const lightbox = document.getElementById('lightbox');
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            });
+        }
+
+        /* ========== RSVP ========== */
+        function initRsvp() {
+            const form = document.getElementById('rsvpForm');
+            const confirmation = document.getElementById('rsvpConfirmation');
+            const submitBtn = document.getElementById('rsvpSubmitBtn');
+
+            // Check if already submitted
+            const stored = JSON.parse(localStorage.getItem(RSVP_KEY) || '[]');
+            const guestId = getUrlParam('id');
+            if (guestId) {
+                const existing = stored.find(r => String(r.guestId) === String(guestId));
+                if (existing) {
+                    form.style.display = 'none';
+                    confirmation.classList.add('show');
+                }
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('rsvpName').value.trim();
+                const phone = document.getElementById('rsvpPhone').value.trim();
+                const attend = document.getElementById('rsvpAttend').value;
+                const guests = document.getElementById('rsvpGuests').value;
+                const note = document.getElementById('rsvpNote').value.trim();
+
+                if (!name || !attend) return;
+
+                const rsvpEntry = {
+                    guestId: guestId || null,
+                    name: name,
+                    phone: phone,
+                    attend: attend,
+                    guests: guests,
+                    note: note,
+                    timestamp: new Date().toISOString()
+                };
+
+                const rsvps = JSON.parse(localStorage.getItem(RSVP_KEY) || '[]');
+                // Remove existing for same guest
+                const filtered = rsvps.filter(r => !(guestId && String(r.guestId) === String(guestId)));
+                filtered.push(rsvpEntry);
+                localStorage.setItem(RSVP_KEY, JSON.stringify(filtered));
+
+                form.style.display = 'none';
+                confirmation.classList.add('show');
+                launchConfetti();
+            });
+        }
+
+        /* ========== GUESTBOOK ========== */
+        const DEFAULT_MESSAGES = [
+            { name: 'Ngoạ Long', message: 'Nhớ hồi đó mình chung bàn! Mày có còn nhớ tao không? 😄', timestamp: '2026-05-01T10:00:00' },
+            { name: 'Phượng Sồ', message: 'Ê bạn cũ, nhớ quá đi! Mấy năm rồi mới gặp lại 🥹', timestamp: '2026-05-02T14:30:00' },
+            { name: 'Tèo Béo', message: 'Hồi xưa mày hay chép bài tao lắm đó nha! 😤', timestamp: '2026-05-03T09:15:00' },
+            { name: 'Lan Huỳnh', message: 'Gặp mặt lần này chill lắm! Hẹn lần sau còn đông hơn nha 🎉', timestamp: '2026-05-04T16:45:00' }
+        ];
+
+        function getGuestbookMessages() {
+            const stored = JSON.parse(localStorage.getItem(GUESTBOOK_KEY) || '[]');
+            return [...DEFAULT_MESSAGES, ...stored];
+        }
+
+        function renderGuestbook() {
+            const container = document.getElementById('reviewCards');
+            const messages = getGuestbookMessages();
+
+            container.innerHTML = '';
+            messages.forEach(function(msg, i) {
+                const isDefault = i < DEFAULT_MESSAGES.length;
+                const card = document.createElement('div');
+                card.className = 'review-card scroll-reveal revealed';
+
+                const stars = '★★★★★';
+                const deleteBtn = isDefault ? '' : '<button class="review-delete" data-index="' + (i - DEFAULT_MESSAGES.length) + '" title="Xoá">✕</button>';
+
+                card.innerHTML =
+                    '<div class="review-text">' + escapeHtml(msg.message) + '</div>' +
+                    '<div class="review-author">' +
+                        '<span class="review-stars">' + stars + '</span>' +
+                        '<span>— ' + escapeHtml(msg.name) + '</span>' +
+                        '<span class="review-time">' + timeAgo(msg.timestamp) + '</span>' +
+                        deleteBtn +
+                    '</div>';
+
+                container.appendChild(card);
+            });
+
+            // Delete handlers
+            container.querySelectorAll('.review-delete').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const idx = parseInt(this.getAttribute('data-index'));
+                    const stored = JSON.parse(localStorage.getItem(GUESTBOOK_KEY) || '[]');
+                    stored.splice(idx, 1);
+                    localStorage.setItem(GUESTBOOK_KEY, JSON.stringify(stored));
+                    renderGuestbook();
+                });
+            });
+        }
+
+        function initGuestbook() {
+            const submitBtn = document.getElementById('gbSubmitBtn');
+            const msgInput = document.getElementById('gbMessage');
+            const nameInput = document.getElementById('gbName');
+
+            // Pre-fill name from guest data
+            const guestId = getUrlParam('id');
+            if (guestId && appData && appData.guests) {
+                const guest = appData.guests.find(g => String(g.id) === String(guestId));
+                if (guest) {
+                    nameInput.value = guest.name;
+                }
+            }
+
+            submitBtn.addEventListener('click', function() {
+                const message = msgInput.value.trim();
+                const name = nameInput.value.trim() || 'Ẩn danh';
+
+                if (!message) {
+                    msgInput.focus();
+                    return;
+                }
+
+                const entry = {
+                    name: name,
+                    message: message,
+                    timestamp: new Date().toISOString()
+                };
+
+                const stored = JSON.parse(localStorage.getItem(GUESTBOOK_KEY) || '[]');
+                stored.push(entry);
+                localStorage.setItem(GUESTBOOK_KEY, JSON.stringify(stored));
+
+                msgInput.value = '';
+                renderGuestbook();
+            });
+
+            // Quick messages
+            document.querySelectorAll('.quick-msg-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    msgInput.value = this.getAttribute('data-msg');
+                    msgInput.focus();
+                });
+            });
+
+            renderGuestbook();
+        }
+
+        /* ========== SCROLL REVEAL ========== */
+        function initScrollReveal() {
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            document.querySelectorAll('.scroll-reveal').forEach(function(el) {
+                observer.observe(el);
+            });
+        }
+
+        /* ========== STARS (CLOSING) ========== */
+        function initClosingStars() {
+            const container = document.getElementById('closingStars');
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('div');
+                star.className = 'closing-star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+                star.style.width = (2 + Math.random() * 4) + 'px';
+                star.style.height = star.style.width;
+                container.appendChild(star);
+            }
+        }
+
+        /* ========== INIT ========== */
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            initCover();
+            initMusic();
+            initCountdown();
+            initLightbox();
+            initScrollReveal();
+            initClosingStars();
+
+            // Load data
+            await loadData();
+
+            // Init features that depend on data
+            initRsvp();
+            initGuestbook();
+
+            // Re-create Lucide icons after dynamic content
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
