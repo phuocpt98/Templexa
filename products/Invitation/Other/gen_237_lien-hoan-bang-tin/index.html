@@ -2027,24 +2027,23 @@
        ============================================================ */
     var autoScrollId = null;
     var autoScrollStopped = false;
+    var autoScrollEvents = ['wheel', 'touchstart', 'touchmove', 'pointerdown'];
     function stopAutoScroll() {
         if (autoScrollStopped) return;
         autoScrollStopped = true;
         if (autoScrollId) cancelAnimationFrame(autoScrollId);
         autoScrollId = null;
-        window.removeEventListener('wheel', stopAutoScroll);
-        window.removeEventListener('touchstart', stopAutoScroll);
-        window.removeEventListener('pointerdown', stopAutoScroll);
-        document.documentElement.style.removeProperty('overflow');
-        document.body.style.removeProperty('overflow');
+        autoScrollEvents.forEach(function(evt) {
+            document.removeEventListener(evt, stopAutoScroll);
+        });
     }
     function startAutoScroll() {
         var speed = 1.2;
         var scrollY = window.pageYOffset || 0;
         autoScrollStopped = false;
-        window.addEventListener('wheel', stopAutoScroll, { passive: true });
-        window.addEventListener('touchstart', stopAutoScroll, { passive: true });
-        window.addEventListener('pointerdown', stopAutoScroll, { passive: true });
+        autoScrollEvents.forEach(function(evt) {
+            document.addEventListener(evt, stopAutoScroll, { passive: true });
+        });
         var lastTime = 0;
         function tick(ts) {
             if (autoScrollStopped) return;
