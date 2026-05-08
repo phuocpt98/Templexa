@@ -2043,12 +2043,8 @@
         var scrollY = window.pageYOffset || 0;
         autoScrollStopped = false;
         window.addEventListener('wheel', stopAutoScroll, { passive: true });
-        setTimeout(function () {
-            if (!autoScrollStopped) {
-                window.addEventListener('touchstart', stopAutoScroll, { passive: true });
-                window.addEventListener('pointerdown', stopAutoScroll, { passive: true });
-            }
-        }, 2000);
+        window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+        window.addEventListener('pointerdown', stopAutoScroll, { passive: true });
         var lastTime = 0;
         function tick(ts) {
             if (autoScrollStopped) return;
