@@ -95,10 +95,6 @@
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes slideUp {
-            from { transform: translateY(80px); }
-            to { transform: translateY(0); }
-        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -149,12 +145,6 @@
             to { width: 100%; opacity: 1; }
         }
 
-        .reveal, .reveal-left, .reveal-right, .reveal-fade {
-            transform: translateY(80px);
-        }
-        .reveal.visible, .reveal-left.visible, .reveal-right.visible, .reveal-fade.visible {
-            animation: slideUp 2.5s cubic-bezier(0.16, 0.6, 0.4, 1) forwards;
-        }
 
         /* ========== PUSHPIN ========== */
         .pushpin {
@@ -2034,20 +2024,24 @@
        ============================================================ */
     function initScrollReveal() {
         const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-fade');
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const delay = entry.target.dataset.delay || 0;
-                            setTimeout(() => entry.target.classList.add('visible'), delay);
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-                els.forEach(el => observer.observe(el));
-            });
+        els.forEach(el => {
+            el.style.transform = 'translateY(80px)';
+            el.style.transition = 'none';
         });
+        void document.body.offsetHeight;
+        els.forEach(el => {
+            el.style.transition = 'transform 2.5s cubic-bezier(0.16, 0.6, 0.4, 1)';
+        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const d = entry.target.dataset.delay || 0;
+                    setTimeout(() => { entry.target.style.transform = 'translateY(0)'; }, d);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+        els.forEach(el => observer.observe(el));
     }
 
     /* ============================================================
@@ -2270,18 +2264,27 @@
         // Render members gallery
         renderMembers();
 
-        // Re-observe reveal elements in members board
+        // Members board — reuse initScrollReveal for dynamically added elements
         if (document.getElementById('mainBoard').style.display !== 'none') {
+            const mEls = document.querySelectorAll('#membersBoard .reveal');
+            mEls.forEach(el => {
+                el.style.transform = 'translateY(80px)';
+                el.style.transition = 'none';
+            });
+            void document.body.offsetHeight;
+            mEls.forEach(el => {
+                el.style.transition = 'transform 2.5s cubic-bezier(0.16, 0.6, 0.4, 1)';
+            });
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(e => {
                     if (e.isIntersecting) {
-                        const delay = e.target.dataset.delay || 0;
-                        setTimeout(() => e.target.classList.add('visible'), delay);
+                        const d = e.target.dataset.delay || 0;
+                        setTimeout(() => { e.target.style.transform = 'translateY(0)'; }, d);
                         obs.unobserve(e.target);
                     }
                 });
             }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-            document.querySelectorAll('#membersBoard .reveal, #membersBoard .reveal-left, #membersBoard .reveal-fade, #membersBoard .reveal-right').forEach(el => obs.observe(el));
+            mEls.forEach(el => obs.observe(el));
         }
 
         // Init Lucide icons
