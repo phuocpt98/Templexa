@@ -2026,26 +2026,37 @@
        AUTO SCROLL
        ============================================================ */
     var autoScrollId = null;
+    var autoScrollStopped = false;
+    function stopAutoScroll() {
+        if (autoScrollStopped) return;
+        autoScrollStopped = true;
+        if (autoScrollId) cancelAnimationFrame(autoScrollId);
+        autoScrollId = null;
+        window.removeEventListener('wheel', stopAutoScroll);
+        window.removeEventListener('touchstart', stopAutoScroll);
+        window.removeEventListener('pointerdown', stopAutoScroll);
+        document.documentElement.style.removeProperty('overflow');
+        document.body.style.removeProperty('overflow');
+    }
     function startAutoScroll() {
-        var speed = 1.2;
-        var stopped = false;
-        function stop() {
-            if (stopped) return;
-            stopped = true;
-            if (autoScrollId) cancelAnimationFrame(autoScrollId);
-            autoScrollId = null;
-            window.removeEventListener('wheel', stop);
-            window.removeEventListener('touchstart', stop);
-            window.removeEventListener('pointerdown', stop);
+        var speed = 1;
+        autoScrollStopped = false;
+        window.addEventListener('wheel', stopAutoScroll, { passive: true });
+        window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+        window.addEventListener('pointerdown', stopAutoScroll, { passive: true });
+        var lastTime = 0;
+        function getScrollTop() {
+            return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
         }
-        window.addEventListener('wheel', stop, { passive: true });
-        window.addEventListener('touchstart', stop, { passive: true });
-        window.addEventListener('pointerdown', stop, { passive: true });
-        function tick() {
-            if (stopped) return;
-            var maxY = document.documentElement.scrollHeight - window.innerHeight;
-            if (window.scrollY >= maxY) { stop(); return; }
-            window.scrollBy(0, speed);
+        function tick(ts) {
+            if (autoScrollStopped) return;
+            if (!lastTime) { lastTime = ts; }
+            var dt = ts - lastTime;
+            lastTime = ts;
+            var px = speed * dt / 16;
+            var maxY = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) - window.innerHeight;
+            if (getScrollTop() >= maxY - 1) { stopAutoScroll(); return; }
+            window.scrollTo(0, getScrollTop() + px);
             autoScrollId = requestAnimationFrame(tick);
         }
         autoScrollId = requestAnimationFrame(tick);
