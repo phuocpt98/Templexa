@@ -1945,7 +1945,10 @@
                     initScrollReveal();
                     startFloatingWishes();
                 }, 700);
-                setTimeout(function () { envelope.style.display = 'none'; }, 1700);
+                setTimeout(function () {
+                    envelope.style.display = 'none';
+                    startAutoScroll();
+                }, 1700);
             });
             openBtn.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -2018,6 +2021,35 @@
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    /* ============================================================
+       AUTO SCROLL
+       ============================================================ */
+    var autoScrollId = null;
+    function startAutoScroll() {
+        var speed = 1.2;
+        var stopped = false;
+        function stop() {
+            if (stopped) return;
+            stopped = true;
+            if (autoScrollId) cancelAnimationFrame(autoScrollId);
+            autoScrollId = null;
+            window.removeEventListener('wheel', stop);
+            window.removeEventListener('touchstart', stop);
+            window.removeEventListener('pointerdown', stop);
+        }
+        window.addEventListener('wheel', stop, { passive: true });
+        window.addEventListener('touchstart', stop, { passive: true });
+        window.addEventListener('pointerdown', stop, { passive: true });
+        function tick() {
+            if (stopped) return;
+            var maxY = document.documentElement.scrollHeight - window.innerHeight;
+            if (window.scrollY >= maxY) { stop(); return; }
+            window.scrollBy(0, speed);
+            autoScrollId = requestAnimationFrame(tick);
+        }
+        autoScrollId = requestAnimationFrame(tick);
+    }
 
     /* ============================================================
        SCROLL REVEAL
