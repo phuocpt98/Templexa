@@ -31,8 +31,9 @@
             font-family: 'Nunito', sans-serif;
             background: #E8F5ED;
             color: #1D3557;
-            overflow-x: hidden;
+            overflow-x: clip;
             min-height: 100vh;
+            -webkit-overflow-scrolling: touch;
         }
 
         /* ========== COLOR PALETTE ========== */
@@ -80,7 +81,7 @@
         .board-frame {
             max-width: 900px;
             margin: 0 auto;
-            overflow-x: hidden;
+            overflow-x: clip;
             border: 12px solid #B8E0CC;
             border-image: linear-gradient(135deg, #B8E0CC, #8CCFAB, #A8DBC2, #B8E0CC) 1;
             box-shadow:
@@ -2039,11 +2040,15 @@
         document.body.style.removeProperty('overflow');
     }
     function startAutoScroll() {
-        var speed = 1;
+        var speed = 1.2;
         autoScrollStopped = false;
         window.addEventListener('wheel', stopAutoScroll, { passive: true });
-        window.addEventListener('touchstart', stopAutoScroll, { passive: true });
-        window.addEventListener('pointerdown', stopAutoScroll, { passive: true });
+        setTimeout(function () {
+            if (!autoScrollStopped) {
+                window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+                window.addEventListener('pointerdown', stopAutoScroll, { passive: true });
+            }
+        }, 3000);
         var lastTime = 0;
         function getScrollTop() {
             return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
@@ -2211,7 +2216,7 @@
         const colors = ['var(--postit-yellow)', 'var(--postit-pink)', 'var(--postit-blue)', 'var(--postit-green)', 'var(--postit-orange)'];
 
         setInterval(() => {
-            if (document.getElementById('cover').classList.contains('opened')) {
+            if (document.getElementById('envelope').classList.contains('opened')) {
                 const wish = document.createElement('div');
                 wish.className = 'floating-wish';
                 wish.textContent = wishes[Math.floor(Math.random() * wishes.length)];
