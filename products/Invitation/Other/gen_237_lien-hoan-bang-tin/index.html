@@ -25,15 +25,14 @@
     <style>
         /* ========== RESET & BASE ========== */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scrollbar-width: none; }
+        html { scrollbar-width: none; }
         html::-webkit-scrollbar { display: none; }
         body {
             font-family: 'Nunito', sans-serif;
             background: #E8F5ED;
             color: #1D3557;
-            overflow-x: clip;
+            overflow-x: hidden;
             min-height: 100vh;
-            -webkit-overflow-scrolling: touch;
         }
 
         /* ========== COLOR PALETTE ========== */
@@ -81,7 +80,7 @@
         .board-frame {
             max-width: 900px;
             margin: 0 auto;
-            overflow-x: clip;
+            overflow-x: hidden;
             border: 12px solid #B8E0CC;
             border-image: linear-gradient(135deg, #B8E0CC, #8CCFAB, #A8DBC2, #B8E0CC) 1;
             box-shadow:
@@ -2041,6 +2040,7 @@
     }
     function startAutoScroll() {
         var speed = 1.2;
+        var scrollY = window.pageYOffset || 0;
         autoScrollStopped = false;
         window.addEventListener('wheel', stopAutoScroll, { passive: true });
         setTimeout(function () {
@@ -2048,20 +2048,18 @@
                 window.addEventListener('touchstart', stopAutoScroll, { passive: true });
                 window.addEventListener('pointerdown', stopAutoScroll, { passive: true });
             }
-        }, 3000);
+        }, 2000);
         var lastTime = 0;
-        function getScrollTop() {
-            return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-        }
         function tick(ts) {
             if (autoScrollStopped) return;
             if (!lastTime) { lastTime = ts; }
             var dt = ts - lastTime;
             lastTime = ts;
             var px = speed * dt / 16;
+            scrollY += px;
             var maxY = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) - window.innerHeight;
-            if (getScrollTop() >= maxY - 1) { stopAutoScroll(); return; }
-            window.scrollTo(0, getScrollTop() + px);
+            if (scrollY >= maxY - 1) { stopAutoScroll(); return; }
+            window.scrollTo({ top: scrollY, behavior: 'instant' });
             autoScrollId = requestAnimationFrame(tick);
         }
         autoScrollId = requestAnimationFrame(tick);
