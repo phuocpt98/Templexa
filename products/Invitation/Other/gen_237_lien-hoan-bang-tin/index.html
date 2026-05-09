@@ -650,6 +650,7 @@
             border-radius: 8px;
             border: 3px solid var(--blue-ink);
             object-fit: cover;
+            object-position: top;
             margin-bottom: 12px;
             background: #ddd;
         }
@@ -2285,8 +2286,12 @@
             if (guest) {
                 guestData = guest;
                 document.getElementById('guestCard').style.display = 'inline-block';
-                document.getElementById('guestPhoto').src = guest.photo;
-                document.getElementById('guestPhoto').alt = guest.name;
+                if (guest.photo) {
+                    document.getElementById('guestPhoto').src = guest.photo;
+                    document.getElementById('guestPhoto').alt = guest.name;
+                } else {
+                    document.getElementById('guestPhoto').style.display = 'none';
+                }
                 document.getElementById('guestName').textContent = guest.name;
                 if (guest.table) {
                     document.getElementById('guestTable').textContent = '🍽️ ' + guest.table;
