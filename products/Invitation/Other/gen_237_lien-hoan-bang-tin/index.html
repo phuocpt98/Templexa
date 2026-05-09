@@ -876,6 +876,17 @@
             font-size: 0.85rem;
             color: #666;
         }
+        .polaroid-placeholder {
+            aspect-ratio: 3/4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e8d5b7, #f5e6d0);
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #8b7355;
+            font-weight: 700;
+        }
 
         /* Lightbox */
         .lightbox {
@@ -2106,7 +2117,9 @@
         const lb = document.getElementById('lightbox');
         if (lb.dataset.mode === 'members' && eventData && eventData.guests) {
             const len = eventData.guests.length;
-            currentMemberLb = (currentMemberLb + dir + len) % len;
+            let next = currentMemberLb;
+            do { next = (next + dir + len) % len; } while (!eventData.guests[next].photo && next !== currentMemberLb);
+            currentMemberLb = next;
             document.getElementById('lightboxImg').src = eventData.guests[currentMemberLb].photo;
         } else {
             currentLightbox = (currentLightbox + dir + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length;
@@ -2235,10 +2248,12 @@
         const pins = ['', 'green', 'blue', 'yellow'];
         const rots = [-3, 2, -1.5, 2.5, -2, 1, -0.5, 3, -2.5, 1.5];
         board.innerHTML = eventData.guests.map((guest, i) => `
-            <div class="polaroid reveal" style="--rot:${rots[i % rots.length]}deg" onclick="openMemberLightbox(${i})">
+            <div class="polaroid reveal" style="--rot:${rots[i % rots.length]}deg"${guest.photo ? ` onclick="openMemberLightbox(${i})"` : ''}>
                 <div class="pushpin ${pins[i % pins.length]}"></div>
                 <div class="tape top-${i % 2 === 0 ? 'left' : 'right'}"></div>
-                <img src="${guest.photo}" alt="${escapeHtml(guest.name)}">
+                ${guest.photo
+                    ? `<img src="${guest.photo}" alt="${escapeHtml(guest.name)}">`
+                    : `<div class="polaroid-placeholder">${escapeHtml(guest.name).charAt(0)}</div>`}
                 <div class="polaroid-label">${escapeHtml(guest.name)}</div>
             </div>
         `).join('');
@@ -2247,7 +2262,7 @@
 
     let currentMemberLb = 0;
     function openMemberLightbox(idx) {
-        if (!eventData || !eventData.guests) return;
+        if (!eventData || !eventData.guests || !eventData.guests[idx].photo) return;
         currentMemberLb = idx;
         const lb = document.getElementById('lightbox');
         document.getElementById('lightboxImg').src = eventData.guests[idx].photo;
