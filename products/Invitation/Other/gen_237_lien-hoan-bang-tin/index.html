@@ -233,6 +233,7 @@
             text-align: center;
             padding: 1.5rem;
             overflow: hidden;
+            cursor: pointer;
         }
         .envelope-bg {
             position: absolute;
@@ -461,20 +462,22 @@
         }
         .bow-hint {
             position: absolute;
-            bottom: -24px; left: 50%;
+            bottom: -32px; left: 50%;
             transform: translateX(-50%);
             font-family: var(--font-accent);
             font-style: italic;
-            font-size: 0.8rem;
-            color: var(--env-text-tertiary);
+            font-size: 0.95rem;
+            color: var(--env-accent-dark);
             white-space: nowrap;
-            letter-spacing: 0.05em;
-            opacity: 0.7;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            opacity: 1;
+            text-shadow: 0 1px 3px rgba(255,255,255,0.8);
             animation: bow-hint-pulse 2s ease-in-out infinite;
         }
         @keyframes bow-hint-pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.9; }
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
         .ribbon-bow::before {
             content: '';
@@ -1923,36 +1926,45 @@
     /* ============================================================
        COVER
        ============================================================ */
-    // === ENVELOPE — Ribbon Bow Untie ===
+    // === ENVELOPE — Click anywhere to open ===
     (function() {
         var envelope = document.getElementById('envelope');
         var openBtn = document.getElementById('envelopeOpenBtn');
         var bowUntied = false;
-        if (openBtn) {
-            openBtn.addEventListener('click', function () {
-                if (bowUntied) return;
-                bowUntied = true;
-                openBtn.classList.add('untying');
-                launchConfetti();
-                setTimeout(function () {
-                    envelope.classList.add('opened');
-                    document.getElementById('mainBoard').style.display = 'block';
-                    tryPlayMusic();
-                    initScrollReveal();
-                    startFloatingWishes();
-                }, 700);
-                setTimeout(function () {
-                    envelope.style.display = 'none';
-                    startAutoScroll();
-                }, 1700);
-            });
-            openBtn.addEventListener('keydown', function (e) {
+
+        function openEnvelope() {
+            if (bowUntied) return;
+            bowUntied = true;
+            openBtn.classList.add('untying');
+            launchConfetti();
+            setTimeout(function () {
+                envelope.classList.add('opened');
+                document.getElementById('mainBoard').style.display = 'block';
+                initScrollReveal();
+                startFloatingWishes();
+            }, 700);
+            setTimeout(function () {
+                envelope.style.display = 'none';
+                startAutoScroll();
+            }, 1700);
+        }
+
+        if (envelope) {
+            envelope.addEventListener('click', openEnvelope);
+            envelope.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    openBtn.click();
+                    openEnvelope();
                 }
             });
         }
+
+        // Autoplay music on first user interaction (page load)
+        tryPlayMusic();
+        document.addEventListener('click', function autoplayOnce() {
+            tryPlayMusic();
+            document.removeEventListener('click', autoplayOnce);
+        }, { once: true });
     })();
 
     /* ============================================================
