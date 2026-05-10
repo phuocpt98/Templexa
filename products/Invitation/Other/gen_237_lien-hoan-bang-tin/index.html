@@ -1935,9 +1935,20 @@
         function openEnvelope() {
             if (bowUntied) return;
             bowUntied = true;
+            // iOS requires audio.play() as first action in user gesture
+            var audio = document.getElementById('bgMusic');
+            var playPromise = audio.play();
+            if (playPromise) {
+                playPromise.then(function() {
+                    musicPlaying = true;
+                    updateMusicIcon();
+                }).catch(function() {
+                    musicPlaying = false;
+                    updateMusicIcon();
+                });
+            }
             openBtn.classList.add('untying');
             launchConfetti();
-            tryPlayMusic();
             setTimeout(function () {
                 envelope.classList.add('opened');
                 document.getElementById('mainBoard').style.display = 'block';
