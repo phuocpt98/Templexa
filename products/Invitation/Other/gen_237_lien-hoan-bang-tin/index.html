@@ -1935,18 +1935,8 @@
         function openEnvelope() {
             if (bowUntied) return;
             bowUntied = true;
-            // iOS requires audio.play() as first action in user gesture
-            var audio = document.getElementById('bgMusic');
-            var playPromise = audio.play();
-            if (playPromise) {
-                playPromise.then(function() {
-                    musicPlaying = true;
-                    updateMusicIcon();
-                }).catch(function() {
-                    musicPlaying = false;
-                    updateMusicIcon();
-                });
-            }
+            // iOS: audio.play() must be first action in user gesture handler
+            tryPlayMusic();
             openBtn.classList.add('untying');
             launchConfetti();
             setTimeout(function () {
@@ -1971,7 +1961,13 @@
             });
         }
 
-        // Music starts when envelope is opened (requires user gesture for mobile)
+        // Desktop: try autoplay on load (blocked on mobile, that's OK)
+        tryPlayMusic();
+        // Fallback: retry on first click anywhere (for strict browsers)
+        document.addEventListener('click', function autoplayOnce() {
+            if (!musicPlaying) tryPlayMusic();
+            document.removeEventListener('click', autoplayOnce);
+        }, { once: true });
     })();
 
     /* ============================================================
