@@ -4929,6 +4929,32 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         updatedAt: '2026-05-06',
+    },
+    {
+        id: 241,
+        isPublic: false,
+        name: 'Thiệp Cưới - Kim Vương & Quỳnh Thương',
+        slug: 'thiep-cuoi-kim-vuong-quynh-thuong',
+        description: 'Thiệp cưới phong cách Sage Green & Gold cho lễ thành hôn Nguyễn Kim Vương & Trần Quỳnh Thương - 24/05/2026 tại Nghệ An',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'sage-green', 'gold', 'elegant', 'khach'],
+        price: '',
+        images: ['./products/Invitation/Wedding/khach_quynhthuong_kimvuong/couple_1.webp'],
+        thumbnail: './products/Invitation/Wedding/khach_quynhthuong_kimvuong/couple_1.webp',
+        path: './products/Invitation/Wedding/khach_quynhthuong_kimvuong/',
+        demoUrl: './products/Invitation/Wedding/khach_quynhthuong_kimvuong/code.html',
+        features: [
+            'Envelope glass-morphism + ảnh quân phục blur + peek polaroid + ribbon bow',
+            'Sage green & gold palette + falling leaves + countdown + calendar tháng 5',
+            'Gallery lightbox + RSVP form + lời chúc floating + mừng cưới QR',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 3,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-05-10',
     }
 ];
 
