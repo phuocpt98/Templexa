@@ -1937,6 +1937,7 @@
             bowUntied = true;
             openBtn.classList.add('untying');
             launchConfetti();
+            tryPlayMusic();
             setTimeout(function () {
                 envelope.classList.add('opened');
                 document.getElementById('mainBoard').style.display = 'block';
@@ -1959,12 +1960,7 @@
             });
         }
 
-        // Autoplay music on first user interaction (page load)
-        tryPlayMusic();
-        document.addEventListener('click', function autoplayOnce() {
-            tryPlayMusic();
-            document.removeEventListener('click', autoplayOnce);
-        }, { once: true });
+        // Music starts when envelope is opened (requires user gesture for mobile)
     })();
 
     /* ============================================================
