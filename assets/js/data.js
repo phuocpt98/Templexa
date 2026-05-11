@@ -4932,7 +4932,7 @@ const PRODUCTS = [
     },
     {
         id: 241,
-        isPublic: false,
+        isPublic: true,
         name: 'Thiệp Cưới - Kim Vương & Quỳnh Thương',
         slug: 'thiep-cuoi-kim-vuong-quynh-thuong',
         description: 'Thiệp cưới phong cách Sage Green & Gold cho lễ thành hôn Nguyễn Kim Vương & Trần Quỳnh Thương - 24/05/2026 tại Nghệ An',

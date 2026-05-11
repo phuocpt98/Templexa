@@ -299,7 +299,10 @@
   z-index: 0;
   top: -3px;
   left: -3px;
-  visibility: hidden;
+}
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
 }
 .mini_calendar table .today .heart.started + span.day {
   color: var(--tb-color-wedding-day);
@@ -1944,8 +1947,8 @@ body img {
 .card-wrapper.theme-red div.div-themeable { background: var(--color-primary) !important; }
 .card-section { position: relative; padding: 50px 0px; }
 #envelop-photo { position: relative; }
-#envelop-photo .pt1 { width: 50%; aspect-ratio: 1 / 1; background-size: cover; background-repeat: no-repeat; background-position: center center; position: absolute; bottom: 36%; right: 6%; transform: rotate(10deg); transform-origin: center center; z-index: 1; }
-#envelop-photo .pt2 { background-image: url(""); width: 46%; aspect-ratio: 1 / 1; background-size: cover; background-repeat: no-repeat; background-position: center center; position: absolute; bottom: 23%; left: 8%; transform: rotate(-2deg); z-index: 2; background-color: rgb(255, 255, 255); border: 5px solid rgb(255, 255, 255); }
+#envelop-photo .pt1 { width: 50%; aspect-ratio: 1 / 1; background-size: cover; background-repeat: no-repeat; background-position: center top; position: absolute; bottom: 36%; right: 6%; transform: rotate(10deg); transform-origin: center center; z-index: 1; }
+#envelop-photo .pt2 { background-image: url(""); width: 46%; aspect-ratio: 1 / 1; background-size: cover; background-repeat: no-repeat; background-position: center top; position: absolute; bottom: 23%; left: 8%; transform: rotate(-2deg); z-index: 2; background-color: rgb(255, 255, 255); border: 5px solid rgb(255, 255, 255); }
 #envelop-photo > img { width: 100%; }
 #envelop-photo > img.front { position: absolute; z-index: 3; bottom: 0px; left: 0px; }
 #card-banner { aspect-ratio: 420 / 652; background-position: center top; background-size: cover; background-repeat: no-repeat; position: relative; padding: 0px; }
@@ -3598,66 +3601,6 @@ function(t,e){"object"==typeof module&&module.exports?module.exports=e(t,require
       document.removeEventListener('click', openCard);
     }, {once: true});
   }
-
-  // WOW.js init
-  new WOW({boxClass:'wow',animateClass:'animate__animated',offset:50,mobile:true,live:true}).init();
-
-  // Audio toggle
-  var audio = document.getElementById('bgAudio');
-  var audioBtn = document.getElementById('audioToggleBtn');
-  if(audio && audioBtn){
-    audio.volume = 0.3;
-    var playing = false;
-    audioBtn.classList.remove('playing');
-    audioBtn.addEventListener('click', function(){
-      if(playing){ audio.pause(); audioBtn.classList.remove('playing'); }
-      else { audio.play().catch(function(){}); audioBtn.classList.add('playing'); }
-      playing = !playing;
-    });
-    // Auto-play on first user interaction
-    document.addEventListener('click', function startAudio(){
-      if(!playing){ audio.play().then(function(){ playing=true; audioBtn.classList.add('playing'); }).catch(function(){}); }
-      document.removeEventListener('click', startAudio);
-    }, {once:true});
-  }
-
-  // Masonry gallery
-  $(function(){
-    var $grid = $('#photo-gallery');
-    if($grid.length){
-      $grid.imagesLoaded(function(){
-        $grid.masonry({ itemSelector:'.photo', columnWidth:'.photo', percentPosition:true });
-      });
-    }
-  });
-
-  // Comment form (localStorage)
-  var form = document.getElementById('commentForm');
-  if(form){
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var name = document.getElementById('fullname').value.trim();
-      var msg = document.getElementById('comment').value.trim();
-      if(!name || !msg) return;
-      var list = JSON.parse(localStorage.getItem('wedding_comments_vt')||'[]');
-      list.push({name:name, message:msg, ts:new Date().toLocaleString('vi-VN')});
-      localStorage.setItem('wedding_comments_vt', JSON.stringify(list));
-      document.getElementById('fullname').value='';
-      document.getElementById('comment').value='';
-      renderComments();
-      alert('Lời chúc của bạn đã được gửi thành công!');
-    });
-    function renderComments(){
-      var el = document.getElementById('commentList');
-      var list = JSON.parse(localStorage.getItem('wedding_comments_vt')||'[]');
-      if(!list.length){ el.innerHTML='<div class="private-message"><i class="bi bi-chat-heart"></i> Hãy là người đầu tiên gửi lời chúc!</div>'; return; }
-      el.innerHTML='';
-      list.forEach(function(c){
-        el.innerHTML+='<div class="comment-item" style="padding:10px;border-bottom:1px solid #d8d8d8;"><div style="font-weight:600;">'+c.name+'</div><div style="font-size:12px;color:#888;">'+c.ts+'</div><div>'+c.message+'</div></div>';
-      });
-    }
-    renderComments();
-  }
 })();
 </script>
 
@@ -3826,9 +3769,9 @@ function(t,e){"object"==typeof module&&module.exports?module.exports=e(t,require
             <div class="fill-frame-inner">
                 <div>
                     <div class="img" style="background-image: url(./couple_1.webp);"></div>
-                    <div class="img" style="background-image: url(./couple_3.webp);"></div>
+                    <div class="img" style="background-image: url(./couple_3.webp); background-position: center top;"></div>
                     <div class="img" style="background-image: url(./couple_6.webp);"></div>
-                    <div class="img" style="background-image: url(./couple_7.webp);"></div>
+                    <div class="img" style="background-image: url(./couple_7.webp); background-position: center top;"></div>
                     <div class="img" style="background-image: url(./couple_10.webp);"></div>
                 </div>
             </div>
@@ -3914,9 +3857,9 @@ function(t,e){"object"==typeof module&&module.exports?module.exports=e(t,require
                         <th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th>
                     </tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr><tr><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr><tr><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>
-                     <div class="today">
-                         <span data-wow-iteration="1000" class="heart wow animate__animated animate__heartBeat">
-                             <i class="today-heart bi bi-heart wow animate__animated animate__fadeIn"></i>
+                     <div class="today fill">
+                         <span class="heart started" style="animation: heartPulse 1.2s ease-in-out infinite; display:inline-block;">
+                             <i class="bi bi-heart-fill" style="color: var(--tb-color-wedding-day);"></i>
                          </span>
                          <span class="day">24</span>
                      </div>
@@ -4027,13 +3970,13 @@ function(t,e){"object"==typeof module&&module.exports?module.exports=e(t,require
 </div>
         <div id="app-footer">
             <div class="inner">
-                Made with ♥ by Templexa
+                Made with ♥ by <a href="https://templexa.vn" target="_blank" style="color:inherit;text-decoration:underline;">templexa.vn</a>
             </div>
         </div>
 
 
     <audio id="bgAudio" src="../../../shared/music/wedding/Beautiful In White.mp3" loop="" hidden=""></audio>
-    <button id="audioToggleBtn" class="playing"></button>
+    <button id="audioToggleBtn"></button>
 
         <button id="giftToggleBtn" data-bs-toggle="modal" data-bs-target="#weddingGiftModal" title="Quà cưới cho CDCR">
             <i class="bi bi-gift-fill"></i>
@@ -4067,4 +4010,115 @@ function(t,e){"object"==typeof module&&module.exports?module.exports=e(t,require
         <div hidden="" id="rsvp-sent-message">Phản hồi của bạn đã được gửi tới cô dâu chú rể. Xin cảm ơn!</div>
         <div hidden="" id="success-comment-message">Lời chúc của bạn đã được gửi thành công!</div>
 
+<script src="../../../shared/wedding/wishes-api.js"></script>
+<script>
+(function(){
+  // WOW.js init
+  new WOW({boxClass:'wow',animateClass:'animate__animated',offset:50,mobile:true,live:true}).init();
+
+  // Audio toggle
+  var audio = document.getElementById('bgAudio');
+  var audioBtn = document.getElementById('audioToggleBtn');
+  if(audio && audioBtn){
+    audio.volume = 0.3;
+    var playing = false;
+    audioBtn.addEventListener('click', function(){
+      if(playing){ audio.pause(); audioBtn.classList.remove('playing'); }
+      else { audio.play().catch(function(){}); audioBtn.classList.add('playing'); }
+      playing = !playing;
+    });
+    document.addEventListener('click', function startAudio(){
+      if(!playing){ audio.play().then(function(){ playing=true; audioBtn.classList.add('playing'); }).catch(function(){}); }
+      document.removeEventListener('click', startAudio);
+    }, {once:true});
+  }
+
+  // Masonry gallery
+  $(function(){
+    var $grid = $('#photo-gallery');
+    if($grid.length){
+      $grid.imagesLoaded(function(){
+        $grid.masonry({ itemSelector:'.photo', columnWidth:'.photo', percentPosition:true });
+      });
+    }
+  });
+
+  // Countdown
+  var cdEl = document.getElementById('countdown');
+  if(cdEl){
+    var parts = (cdEl.getAttribute('data-date')||'').split('-');
+    var timeParts = (cdEl.getAttribute('data-time')||'10:00').split(':');
+    var targetDate = new Date(+parts[2], +parts[1]-1, +parts[0], +timeParts[0]||10, +timeParts[1]||0);
+    var twoDigits = cdEl.getAttribute('twodigits') === 'true';
+    function pad(n){ return twoDigits && n < 10 ? '0'+n : ''+n; }
+    function updateCountdown(){
+      var now = new Date();
+      var diff = targetDate - now;
+      if(diff <= 0){
+        cdEl.querySelectorAll('[data-countdown]').forEach(function(el){ el.textContent = '0'; });
+        return;
+      }
+      var d = Math.floor(diff/86400000);
+      var h = Math.floor((diff%86400000)/3600000);
+      var m = Math.floor((diff%3600000)/60000);
+      var s = Math.floor((diff%60000)/1000);
+      var vals = {days:d, hours:h, minutes:m, seconds:s};
+      cdEl.querySelectorAll('[data-countdown]').forEach(function(el){
+        el.textContent = pad(vals[el.getAttribute('data-countdown')]||0);
+      });
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+
+  // Comment form → Google Sheets
+  var SHEET_ID = 'khach_6';
+  var form = document.getElementById('commentForm');
+  if(form){
+    var submitBtn = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = document.getElementById('fullname').value.trim();
+      var msg = document.getElementById('comment').value.trim();
+      if(!name || !msg) return;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Đang gửi...';
+      var now = new Date();
+      var time = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN');
+      sheetsAPI.post(SHEET_ID, { A: name, B: msg, C: time }).then(function(){
+        submitBtn.textContent = 'Đã gửi!';
+        document.getElementById('fullname').value='';
+        document.getElementById('comment').value='';
+        setTimeout(function(){ submitBtn.disabled=false; submitBtn.textContent='Gửi'; }, 2000);
+      }).catch(function(){
+        submitBtn.disabled=false;
+        submitBtn.textContent='Gửi';
+        alert('Gửi thất bại, vui lòng thử lại!');
+      });
+    });
+  }
+
+  // RSVP — "Xác nhận tham dự" button → Google Sheets
+  var rsvpBtn = document.getElementById('guestInlineConfimationBtn');
+  if(rsvpBtn){
+    rsvpBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      var name = document.getElementById('fullname').value.trim();
+      if(!name){ alert('Vui lòng nhập tên của bạn'); document.getElementById('fullname').focus(); return; }
+      rsvpBtn.style.pointerEvents = 'none';
+      rsvpBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang gửi...';
+      var now = new Date();
+      var time = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN');
+      sheetsAPI.post(SHEET_ID, { A: name, B: 'Xác nhận tham dự', C: time }).then(function(){
+        rsvpBtn.innerHTML = '<i class="bi bi-check-circle-fill"></i> Đã xác nhận!';
+        setTimeout(function(){ rsvpBtn.innerHTML='<i class="bi bi-calendar2-check-fill"></i> Xác nhận tham dự'; rsvpBtn.style.pointerEvents=''; }, 3000);
+      }).catch(function(){
+        rsvpBtn.innerHTML = '<i class="bi bi-calendar2-check-fill"></i> Xác nhận tham dự';
+        rsvpBtn.style.pointerEvents = '';
+        alert('Gửi thất bại, vui lòng thử lại!');
+      });
+    });
+  }
+})();
+</script>
 </body></html>
