@@ -36,6 +36,6 @@ var WEDDING = {
         src: '../../products/Invitation/Wedding/khach_quynhthuong_kimvuong/code.html',
         title: 'Kim Vương & Quỳnh Thương — Wedding Invitation',
         description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 24/05/2026 tại Nghệ An',
-        image: '../../products/Invitation/Wedding/khach_quynhthuong_kimvuong/couple_1.webp',
+        image: '../../products/Invitation/Wedding/khach_quynhthuong_kimvuong/og-cover.jpg',
     },
 };
