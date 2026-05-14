@@ -2453,8 +2453,8 @@
       <div class="vl-bar"></div>
       <div class="vl-sub">Loading</div>
     </div>
-    <div id="intro-screen">
-      <video id="intro-video" autoplay muted playsinline webkit-playsinline preload="auto">
+    <div id="intro-screen" style="cursor:pointer">
+      <video id="intro-video" muted playsinline webkit-playsinline preload="auto">
         <source src="https://cache.giaohangtietkiem.vn/d/a9edf1087c562131940585b09abced6b.mp4" type="video/mp4" />
       </video>
     </div>
@@ -3269,7 +3269,7 @@
         var scr = document.getElementById("intro-screen"),
           vid = document.getElementById("intro-video"),
           heroVid = document.querySelector('#root video'),
-          revealed = false;
+          started = false, revealed = false;
         if (scr && vid) {
           document.body.classList.add("intro-active");
 
@@ -3281,10 +3281,19 @@
             if (heroVid) { heroVid.muted = true; heroVid.play().catch(function(){}); }
           }
 
-          vid.addEventListener("ended", reveal);
-          vid.addEventListener("error", reveal);
-          var fallback = setTimeout(reveal, 20000);
-          vid.addEventListener("ended", function(){ clearTimeout(fallback); });
+          function start() {
+            if (started) return;
+            started = true;
+            vid.play().catch(function(){ reveal(); });
+            var bgm = document.getElementById("bg-music");
+            if (bgm) { bgm.volume = 0.6; bgm.play().catch(function(){}); }
+            var fallback = setTimeout(reveal, 20000);
+            vid.addEventListener("ended", function(){ clearTimeout(fallback); reveal(); });
+            vid.addEventListener("error", function(){ clearTimeout(fallback); reveal(); });
+          }
+
+          scr.addEventListener("click", start);
+          scr.addEventListener("touchend", function(e){ e.preventDefault(); start(); });
         }
         // Fallback: start music on first user interaction
         (function () {
