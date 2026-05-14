@@ -2285,8 +2285,7 @@
         inset: 0;
         z-index: 99999;
         background: #000;
-        cursor: pointer;
-        transition: opacity 1s ease, visibility 1s ease;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
         overflow: hidden;
       }
       #intro-screen.hidden {
@@ -2301,30 +2300,6 @@
         height: 100%;
         object-fit: cover;
       }
-      #intro-overlay {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: rgba(0,0,0,0.3);
-        transition: background 0.5s ease;
-      }
-      #intro-overlay.playing {
-        background: transparent;
-        pointer-events: none;
-      }
-      #intro-overlay .intro-tap {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 11px;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.6);
-        animation: pulse 2.5s ease-in-out infinite;
-      }
-      #intro-overlay.playing .intro-tap { display: none; }
       body.intro-active {
         overflow: hidden;
       }
@@ -2479,12 +2454,9 @@
       <div class="vl-sub">Loading</div>
     </div>
     <div id="intro-screen">
-      <video id="intro-video" muted playsinline webkit-playsinline preload="auto">
+      <video id="intro-video" autoplay muted playsinline webkit-playsinline preload="auto">
         <source src="https://cache.giaohangtietkiem.vn/d/a9edf1087c562131940585b09abced6b.mp4" type="video/mp4" />
       </video>
-      <div id="intro-overlay">
-        <p class="intro-tap">Nhấn để mở</p>
-      </div>
     </div>
     <script>
       (function(){
@@ -3296,12 +3268,10 @@
       (function () {
         var scr = document.getElementById("intro-screen"),
           vid = document.getElementById("intro-video"),
-          overlay = document.getElementById("intro-overlay"),
           heroVid = document.querySelector('#root video'),
-          started = false, revealed = false;
+          revealed = false;
         if (scr && vid) {
           document.body.classList.add("intro-active");
-          vid.controls = false;
 
           function reveal() {
             if (revealed) return;
@@ -3311,27 +3281,10 @@
             if (heroVid) { heroVid.muted = true; heroVid.play().catch(function(){}); }
           }
 
-          function start() {
-            if (started) return;
-            started = true;
-            if (overlay) overlay.classList.add('playing');
-            vid.muted = true;
-            vid.controls = false;
-            var p = vid.play();
-            if (p && p.catch) p.catch(function(){ reveal(); });
-            var bgm = document.getElementById("bg-music");
-            if (bgm) { bgm.volume = 0.6; var pm = bgm.play(); if (pm && pm.catch) pm.catch(function(){}); }
-            var fallback = setTimeout(reveal, 20000);
-            vid.addEventListener("ended", function(){ clearTimeout(fallback); reveal(); });
-            vid.addEventListener("error", function(){ clearTimeout(fallback); reveal(); });
-            var checkInterval = setInterval(function(){
-              vid.controls = false;
-              if (vid.ended) { clearInterval(checkInterval); clearTimeout(fallback); reveal(); }
-            }, 500);
-          }
-
-          overlay.addEventListener("click", function(e){ e.stopPropagation(); start(); });
-          overlay.addEventListener("touchend", function(e){ e.preventDefault(); e.stopPropagation(); start(); });
+          vid.addEventListener("ended", reveal);
+          vid.addEventListener("error", reveal);
+          var fallback = setTimeout(reveal, 20000);
+          vid.addEventListener("ended", function(){ clearTimeout(fallback); });
         }
         // Fallback: start music on first user interaction
         (function () {
