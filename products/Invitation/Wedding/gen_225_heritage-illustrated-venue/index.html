@@ -2559,12 +2559,13 @@
             </div>
           </div>
           <style>
-            .album-track{display:flex;gap:12px;transition:transform .6s cubic-bezier(.4,0,.2,1)}
-            .album-slider{overflow:hidden;margin:0 auto;max-width:1200px;padding:0 16px}
-            .album-card{flex:0 0 calc(33.333% - 8px);border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1);cursor:pointer;transition:transform .3s ease,box-shadow .3s ease}
-            .album-card:hover{transform:scale(1.03);box-shadow:0 8px 30px rgba(0,0,0,.18)}
-            .album-card img{width:100%;height:clamp(200px,30vw,360px);object-fit:cover;display:block}
-            @media(max-width:480px){.album-card{flex:0 0 calc(33.333% - 6px)}.album-track{gap:8px}.album-card img{height:clamp(120px,28vw,200px)}}
+            .album-track{display:flex;gap:12px;align-items:center;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+            .album-slider{overflow:hidden;margin:0 auto;max-width:100%;padding:0 4%}
+            .album-card{flex:0 0 calc(33.333% - 8px);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .35s ease,box-shadow .35s ease,opacity .35s ease;transform:scale(0.85);opacity:.6;background:hsl(var(--wedding-cream))}
+            .album-card img{width:100%;height:clamp(280px,42vw,480px);object-fit:cover;display:block;border-radius:12px}
+            .album-card.a-center{transform:scale(1);box-shadow:0 12px 40px rgba(0,0,0,.15);z-index:2;opacity:1}
+            .album-card.a-side{transform:scale(0.85);opacity:.6}
+            @media(max-width:480px){.album-card{flex:0 0 calc(33.333% - 6px)}.album-track{gap:8px}.album-card img{height:clamp(180px,38vw,280px)}}
             .album-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;backdrop-filter:blur(8px)}
             .album-lightbox.open{opacity:1;pointer-events:auto}
             .album-lightbox img{max-width:92vw;max-height:90vh;object-fit:contain;border-radius:12px;box-shadow:0 0 60px rgba(0,0,0,.5);transform:scale(.9);transition:transform .35s cubic-bezier(.4,0,.2,1)}
@@ -2628,10 +2629,20 @@
             }).join('');
             var maxPos=total-perPage;
 
+            var cards=track.querySelectorAll('.album-card');
+            function updateClasses(){
+              var mid=cur+1;
+              cards.forEach(function(c,i){
+                c.classList.remove('a-center','a-side');
+                if(i===mid)c.classList.add('a-center');
+                else if(i===cur||i===cur+2)c.classList.add('a-side');
+              });
+            }
             function update(){
               var pct=cur*(100/perPage);
               var gapPx=cur*(12/perPage);
               track.style.transform='translateX(calc(-'+pct+'% - '+gapPx+'px))';
+              updateClasses();
             }
             function goNext(){cur=cur>=maxPos?0:cur+1;update();}
             function goPrev(){cur=cur<=0?maxPos:cur-1;update();}
@@ -3011,19 +3022,14 @@
           </div>
         </section>
 
-        <!-- LỜI CẢM ƠN CUỐI -->
-        <section class="py-16 md:py-24 bg-wedding-cream">
-          <div class="container mx-auto px-4 max-w-2xl text-center scroll-reveal opacity-0 translate-y-6 transition-all duration-700 ease-out">
-            <h2 class="font-serif text-2xl md:text-3xl text-wedding-olive mb-6 tracking-wide uppercase">Trân Trọng Cảm Ơn!!!</h2>
-            <p class="font-serif italic text-wedding-text/70 leading-relaxed text-base md:text-lg max-w-xl mx-auto">
-              Thịnh &amp; Quỳnh rất mong đợi sự hiện diện của các bạn trong ngày trọng đại này để cùng chúng tôi viết nên những kỷ niệm thật đẹp.
-            </p>
-          </div>
-        </section>
-
         <!-- FOOTER -->
         <footer class="py-12 text-white bg-wedding-olive">
           <div class="container mx-auto px-4 text-center">
+            <h2 class="font-serif text-2xl md:text-3xl text-wedding-gold mb-4 tracking-wide uppercase">Trân Trọng Cảm Ơn!!!</h2>
+            <p class="font-serif italic text-wedding-gold/70 leading-relaxed text-base md:text-lg max-w-xl mx-auto mb-8">
+              Thịnh &amp; Quỳnh rất mong đợi sự hiện diện của các bạn trong ngày trọng đại này để cùng chúng tôi viết nên những kỷ niệm thật đẹp.
+            </p>
+            <div class="h-px w-20 bg-wedding-gold/30 mx-auto mb-8"></div>
             <h2 class="font-script text-4xl mb-4 text-wedding-gold">Thịnh &amp; Quỳnh</h2>
             <p class="text-wedding-gold/60 mb-6">20 . 06 . 2026</p>
             <div class="flex items-center justify-center gap-2 text-wedding-gold/60 text-sm">
