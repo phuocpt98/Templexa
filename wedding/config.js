@@ -38,4 +38,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 24/05/2026 tại Nghệ An',
         image: '../../products/Invitation/Wedding/khach_quynhthuong_kimvuong/og-cover.jpg',
     },
+    'thinh-quynh': {
+        src: '../../products/Invitation/Wedding/gen_225_heritage-illustrated-venue/index.html',
+        title: 'Thịnh & Quỳnh — Wedding Invitation',
+        description: 'Trân trọng kính mời bạn đến chung vui ngày lễ thành hôn của chúng tôi — 20/06/2026 tại Đắk Lắk',
+        image: '../../products/Invitation/Wedding/gen_225_heritage-illustrated-venue/og-cover.jpg',
+    },
 };
