@@ -2464,10 +2464,13 @@
         var vid=document.getElementById('intro-video');
         if(!loader||!vid)return;
         var done=false;
-        function ready(){
-          if(done)return;done=true;
+        function hideLoader(){
           loader.classList.add('hidden');
           setTimeout(function(){loader.style.display='none'},700);
+        }
+        function ready(){
+          if(done)return;done=true;
+          hideLoader();
           var hint=document.createElement('div');
           hint.id='intro-hint';
           hint.style.cssText='position:absolute;bottom:15%;left:0;right:0;text-align:center;z-index:2;pointer-events:none';
@@ -2476,11 +2479,9 @@
         }
         if(vid.readyState>=3)ready();
         vid.addEventListener('canplaythrough',ready,{once:true});
-        vid.addEventListener('loadeddata',function(){
-          if(vid.readyState>=2)ready();
-        },{once:true});
-        vid.addEventListener('error',ready,{once:true});
-        setTimeout(ready,10000);
+        vid.addEventListener('loadeddata',function(){if(vid.readyState>=2)ready();},{once:true});
+        vid.addEventListener('error',function(){if(done)return;done=true;hideLoader();},{once:true});
+        setTimeout(function(){if(done)return;done=true;hideLoader();},10000);
       })();
     </script>
 
@@ -2491,7 +2492,7 @@
       <section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></section>
       <div class="min-h-screen">
         <section class="relative min-h-screen flex flex-col items-center justify-center py-8 px-6 overflow-hidden bg-background">
-          <audio id="bg-music" loop="" preload="auto" src="/products/shared/music/wedding/heritage-theme.mp3"></audio>
+          <audio id="bg-music" loop="" preload="none" src="/products/shared/music/wedding/heritage-theme.mp3"></audio>
           <div class="absolute inset-0 w-full h-full">
             <video autoplay="" loop="" muted="" playsinline="" webkit-playsinline="" x5-playsinline="" t7-video-player-type="inline" x5-video-player-type="h5" x-webkit-airplay="deny" disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback noplaybackrate" preload="auto" class="absolute inset-0 w-full h-full object-cover" style="pointer-events:none" src="https://cache.giaohangtietkiem.vn/d/1840dc243e320c94b4344c381526e10d.mp4"></video>
             <div class="absolute inset-0 bg-background/20 z-[1]"></div>
@@ -2634,7 +2635,7 @@
                 </svg>
               </div>
             </div>
-            <div class="mt-16 flex justify-center"><img alt="Minh hoạ địa điểm cưới" class="w-80 md:w-[400px] lg:w-[500px] h-auto" src="/products/shared/images/wedding-elements/venue-illustration-heritage.webp" /></div>
+            <div class="mt-16 flex justify-center"><img alt="Minh hoạ địa điểm cưới" class="w-80 md:w-[400px] lg:w-[500px] h-auto" loading="lazy" src="/products/shared/images/wedding-elements/venue-illustration-heritage.webp" /></div>
           </div>
         </section>
 
@@ -3124,7 +3125,7 @@
 
         <!-- DIVIDER -->
         <div class="bg-wedding-cream flex items-center justify-center py-2 md:py-4">
-          <img src="/products/shared/images/wedding-elements/fountain-divider-heritage.webp" alt="trang trí" class="max-w-[280px] md:max-w-[400px] w-full h-auto" />
+          <img src="/products/shared/images/wedding-elements/fountain-divider-heritage.webp" alt="trang trí" loading="lazy" class="max-w-[280px] md:max-w-[400px] w-full h-auto" />
         </div>
 
         <!-- LỜI CẢM ƠN CUỐI -->
@@ -3280,7 +3281,7 @@
         var scr = document.getElementById("intro-screen"),
           vid = document.getElementById("intro-video"),
           heroVid = document.querySelector('#root video'),
-          started = false, revealed = false;
+          revealed = false, started = false;
         if (scr && vid) {
           document.body.classList.add("intro-active");
 
@@ -3300,10 +3301,11 @@
             vid.play().catch(function(){ reveal(); });
             var bgm = document.getElementById("bg-music");
             if (bgm) { bgm.volume = 0.6; bgm.play().catch(function(){}); }
-            var fallback = setTimeout(reveal, 20000);
-            vid.addEventListener("ended", function(){ clearTimeout(fallback); reveal(); });
-            vid.addEventListener("error", function(){ clearTimeout(fallback); reveal(); });
           }
+
+          var fallback = setTimeout(reveal, 25000);
+          vid.addEventListener("ended", function(){ clearTimeout(fallback); reveal(); });
+          vid.addEventListener("error", function(){ clearTimeout(fallback); reveal(); });
 
           scr.addEventListener("click", start);
           scr.addEventListener("touchend", function(e){ e.preventDefault(); start(); });
@@ -3378,6 +3380,44 @@
         v.removeAttribute('controls');
         new MutationObserver(function(m){m.forEach(function(){if(v.hasAttribute('controls')){v.removeAttribute('controls');v.controls=false;}});}).observe(v,{attributes:true,attributeFilter:['controls']});
       });
+      (function(){
+        var ua=navigator.userAgent||'';
+        if(!/Zalo/i.test(ua))return;
+        var bar=document.createElement('div');
+        bar.id='zalo-bar';
+        bar.innerHTML='<style>'
+          +'#zalo-bar{position:fixed;bottom:0;left:0;right:0;z-index:999999;background:rgba(44,24,16,.95);backdrop-filter:blur(8px);padding:12px 16px;display:flex;align-items:center;gap:10px;font-family:Montserrat,sans-serif;box-shadow:0 -2px 12px rgba(0,0,0,.3)}'
+          +'#zalo-bar p{flex:1;color:rgba(255,255,255,.8);font-size:12px;line-height:1.4;margin:0}'
+          +'#zalo-bar button{flex-shrink:0;background:#d28f5b;color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:12px;font-family:inherit;font-weight:500;cursor:pointer;white-space:nowrap}'
+          +'#zalo-bar .close-bar{position:absolute;top:4px;right:8px;background:none;border:none;color:rgba(255,255,255,.4);font-size:18px;cursor:pointer;padding:4px}'
+          +'</style>'
+          +'<p>Mở bằng <b>Safari</b> để xem thiệp đẹp nhất</p>'
+          +'<button id="zalo-copy">📋 Copy link</button>'
+          +'<button class="close-bar" onclick="this.parentElement.remove()">✕</button>';
+        document.body.appendChild(bar);
+        document.getElementById('zalo-copy').addEventListener('click',function(){
+          var url=window.location.href;
+          if(navigator.clipboard&&navigator.clipboard.writeText){
+            navigator.clipboard.writeText(url).then(done).catch(fallback);
+          }else{fallback();}
+          function fallback(){
+            var t=document.createElement('textarea');
+            t.value=url;t.style.cssText='position:fixed;left:-9999px';
+            document.body.appendChild(t);t.select();
+            try{document.execCommand('copy');done();}catch(e){alert('Copy link: '+url);}
+            document.body.removeChild(t);
+          }
+          function done(){
+            var btn=document.getElementById('zalo-copy');
+            btn.textContent='✓ Đã copy';
+            btn.style.background='#5a8a4a';
+            setTimeout(function(){
+              btn.textContent='Mở Safari → Dán link';
+              btn.style.background='#d28f5b';
+            },2000);
+          }
+        });
+      })();
     </script>
   </body>
 </html>
