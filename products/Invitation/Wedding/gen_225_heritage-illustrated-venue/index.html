@@ -708,6 +708,22 @@
         transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
       }
 
+      .translate-y-6 {
+        --tw-translate-y: 1.5rem;
+        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+      }
+
+      .translate-y-8 {
+        --tw-translate-y: 2rem;
+        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+      }
+
+      .duration-1000 { transition-duration: 1000ms; }
+      .delay-150 { transition-delay: 150ms; }
+      .delay-200 { transition-delay: 200ms; }
+      .delay-300 { transition-delay: 300ms; }
+      .delay-500 { transition-delay: 500ms; }
+
       .scale-0 {
         --tw-scale-x: 0;
         --tw-scale-y: 0;
@@ -1414,10 +1430,12 @@
 
       .duration-700 {
         animation-duration: 0.7s;
+        transition-duration: 0.7s;
       }
 
       .ease-out {
         animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
       }
 
       .animate-fade-in {
@@ -2503,7 +2521,7 @@
             <video loop="" muted="" playsinline="" webkit-playsinline="" x5-playsinline="" t7-video-player-type="inline" x5-video-player-type="h5" x-webkit-airplay="deny" disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback noplaybackrate" preload="none" class="absolute inset-0 w-full h-full object-cover" style="pointer-events:none" data-src="https://cache.giaohangtietkiem.vn/d/1840dc243e320c94b4344c381526e10d.mp4"></video>
             <div class="absolute inset-0 bg-background/20 z-[1]"></div>
           </div>
-          <div class="text-center z-10 animate-fade-in my-[230px]">
+          <div id="hero-content" class="text-center z-10 my-[230px] opacity-0 translate-y-6 transition-all duration-1000 ease-out">
             <p class="text-xs md:text-sm tracking-[0.3em] uppercase mb-3 text-wedding-olive">Trân Trọng Kính Mời</p>
             <h1 class="font-script text-5xl md:text-6xl lg:text-7xl mb-2 text-wedding-olive">Thịnh <span class="mx-2">&amp;</span> Quỳnh</h1>
             <div class="flex items-center justify-center gap-4 md:my-8 my-[5px]">
@@ -2512,7 +2530,7 @@
             <p class="text-xs md:text-sm tracking-[0.2em] uppercase text-wedding-olive my-0 py-[6px]">20 . 06 . 2026</p>
           </div>
           <div class="flex-1"></div>
-          <div class="text-center z-10 animate-fade-in" style="animation-delay: 0.4s">
+          <div id="hero-bottom" class="text-center z-10 opacity-0 translate-y-6 transition-all duration-1000 ease-out delay-300">
             <button class="text-xs tracking-[0.3em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300">Xác Nhận Tham Dự</button>
             <div class="mt-4 flex justify-center">
               <svg class="w-4 h-4 text-muted-foreground animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -3302,6 +3320,12 @@
               heroVid.muted = true;
               heroVid.play().catch(function(){});
             }
+            setTimeout(function(){
+              var hc = document.getElementById('hero-content');
+              var hb = document.getElementById('hero-bottom');
+              if (hc) { hc.classList.remove('opacity-0','translate-y-6'); hc.classList.add('opacity-100','translate-y-0'); }
+              if (hb) { hb.classList.remove('opacity-0','translate-y-6'); hb.classList.add('opacity-100','translate-y-0'); }
+            }, 300);
           }
 
           function start() {
