@@ -2566,16 +2566,16 @@
             </div>
           </div>
           <style>
-            .album-showcase{position:relative;margin:0 auto;max-width:100%;padding:0 8px;height:clamp(220px,42vw,420px);overflow:hidden}
-            .album-card{position:absolute;top:0;width:calc(33.333% - 10px);border-radius:12px;overflow:hidden;cursor:pointer;transition:left .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1),opacity .6s cubic-bezier(.4,0,.2,1)}
-            .album-card img{width:100%;height:clamp(220px,42vw,420px);object-fit:cover;display:block;border-radius:12px}
-            .pos-left{left:0;transform:scale(0.88);opacity:.65;z-index:1}
-            .pos-center{left:calc(33.333% + 1px);transform:scale(1);opacity:1;z-index:2;box-shadow:0 12px 40px rgba(0,0,0,.15)}
-            .pos-right{left:calc(66.666% + 2px);transform:scale(0.88);opacity:.65;z-index:1}
-            .pos-exit{left:-34%;transform:scale(0.7);opacity:0;z-index:0;pointer-events:none}
-            .pos-enter{left:101%;transform:scale(0.7);opacity:0;z-index:0;pointer-events:none}
+            .album-showcase{position:relative;margin:0 auto;max-width:100%;padding:0 8px;height:clamp(440px,52vw,620px);overflow:hidden}
+            .album-card{position:absolute;top:0;width:28%;border-radius:12px;overflow:hidden;cursor:pointer;transition:left .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1),opacity .6s cubic-bezier(.4,0,.2,1)}
+            .album-card img{width:100%;height:clamp(440px,52vw,620px);object-fit:cover;display:block;border-radius:12px}
+            .pos-left{left:4%;transform:scale(0.88);opacity:.65;z-index:1}
+            .pos-center{left:36%;transform:scale(1);opacity:1;z-index:2;box-shadow:0 12px 40px rgba(0,0,0,.15)}
+            .pos-right{left:68%;transform:scale(0.88);opacity:.65;z-index:1}
+            .pos-exit{left:-30%;transform:scale(0.7);opacity:0;z-index:0;pointer-events:none}
+            .pos-enter{left:100%;transform:scale(0.7);opacity:0;z-index:0;pointer-events:none}
             .no-transition{transition:none!important}
-            @media(max-width:480px){.album-showcase{height:clamp(160px,36vw,250px);padding:0 4px}.album-card img{height:clamp(160px,36vw,250px)}}
+            @media(max-width:480px){.album-showcase{height:clamp(240px,55vw,360px);padding:0 4px}.album-card{width:calc(33.333% - 6px)}.album-card img{height:clamp(240px,55vw,360px)}.pos-left{left:0}.pos-center{left:calc(33.333% + 1px)}.pos-right{left:calc(66.666% + 2px)}.pos-exit{left:-34%}.pos-enter{left:101%}}
             .album-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;backdrop-filter:blur(8px)}
             .album-lightbox.open{opacity:1;pointer-events:auto}
             .album-lightbox img{max-width:92vw;max-height:90vh;object-fit:contain;border-radius:12px;box-shadow:0 0 60px rgba(0,0,0,.5);transform:scale(.9);transition:transform .35s cubic-bezier(.4,0,.2,1)}
@@ -2657,8 +2657,19 @@
               }
             }
 
+            function settleAll(){
+              for(var i=0;i<4;i++){
+                cards[order[i]].className='album-card '+positions[i]+' no-transition';
+              }
+              cards[0].offsetHeight;
+              for(var i=0;i<4;i++){
+                cards[order[i]].classList.remove('no-transition');
+              }
+            }
+
             function goNext(){
               if(animating)return;animating=true;
+              settleAll();
               cur=wrap(cur+1);
               var recycled=order.shift();
               order.push(recycled);
@@ -2677,6 +2688,7 @@
 
             function goPrev(){
               if(animating)return;animating=true;
+              settleAll();
               cur=wrap(cur-1);
               var recycled=order.pop();
               order.unshift(recycled);
