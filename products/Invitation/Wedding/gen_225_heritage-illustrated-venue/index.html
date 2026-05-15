@@ -2559,14 +2559,13 @@
             </div>
           </div>
           <style>
-            .album-track{display:flex;gap:12px;align-items:center;transition:transform .6s cubic-bezier(.4,0,.2,1)}
-            .album-slider{overflow:hidden;margin:0 auto;max-width:100%;padding:0 2.5%}
-            .album-card{flex:0 0 calc(33.333% - 8px);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .35s ease,box-shadow .35s ease,opacity .35s ease;transform:scale(0.85);opacity:.6;background:hsl(var(--wedding-cream))}
-            .album-card img{width:100%;height:clamp(280px,42vw,480px);object-fit:cover;display:block;border-radius:12px}
-            .album-card.a-center{transform:scale(1);box-shadow:0 12px 40px rgba(0,0,0,.15);z-index:2;opacity:1}
-            .album-card.a-left{transform:scale(0.85);opacity:.6;transform-origin:right center}
-            .album-card.a-right{transform:scale(0.85);opacity:.6;transform-origin:left center}
-            @media(max-width:480px){.album-card{flex:0 0 calc(33.333% - 6px)}.album-track{gap:8px}.album-card img{height:clamp(180px,38vw,280px)}}
+            .album-showcase{display:flex;gap:10px;align-items:center;justify-content:center;margin:0 auto;max-width:100%;padding:0 8px}
+            .album-card{flex:0 0 calc(33.333% - 8px);max-width:280px;border-radius:12px;overflow:hidden;cursor:pointer;position:relative}
+            .album-card img{width:100%;height:clamp(220px,42vw,420px);object-fit:cover;display:block;border-radius:12px;transition:opacity .5s ease,transform .5s ease}
+            .album-card.a-center{transform:scale(1);box-shadow:0 12px 40px rgba(0,0,0,.15);z-index:2}
+            .album-card.a-side{transform:scale(0.88);opacity:.65}
+            .album-card img.swapping{opacity:0;transform:scale(0.92)}
+            @media(max-width:480px){.album-showcase{gap:6px;padding:0 4px}.album-card img{height:clamp(160px,36vw,250px)}}
             .album-lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;backdrop-filter:blur(8px)}
             .album-lightbox.open{opacity:1;pointer-events:auto}
             .album-lightbox img{max-width:92vw;max-height:90vh;object-fit:contain;border-radius:12px;box-shadow:0 0 60px rgba(0,0,0,.5);transform:scale(.9);transition:transform .35s cubic-bezier(.4,0,.2,1)}
@@ -2579,8 +2578,10 @@
             .album-nav.next{right:16px}
             .album-counter{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:13px;letter-spacing:.15em}
           </style>
-          <div class="album-slider" id="albumSlider">
-            <div class="album-track" id="albumTrack"></div>
+          <div class="album-showcase" id="albumShowcase">
+            <div class="album-card a-side" data-pos="left"><img src="" alt="Ảnh cưới" loading="lazy"></div>
+            <div class="album-card a-center" data-pos="center"><img src="" alt="Ảnh cưới" loading="lazy"></div>
+            <div class="album-card a-side" data-pos="right"><img src="" alt="Ảnh cưới" loading="lazy"></div>
           </div>
           <div class="flex justify-center gap-4 mt-6">
             <button id="albumPrev" class="w-10 h-10 rounded-full border border-wedding-accent/30 flex items-center justify-center text-wedding-accent hover:bg-wedding-accent/10 transition-colors">
@@ -2622,39 +2623,37 @@
               "/products/Invitation/Wedding/gen_225_heritage-illustrated-venue/TQ wedding online/TEO01049.webp",
               "/products/Invitation/Wedding/gen_225_heritage-illustrated-venue/TQ wedding online/TEO01247.webp"
             ];
-            var total=photos.length,cur=0,autoTimer=null,manualTO=null,perPage=3;
-            var track=document.getElementById('albumTrack');
-            if(!track)return;
-            track.innerHTML=photos.map(function(src,i){
-              return '<div class="album-card" data-index="'+i+'"><img src="'+src+'" alt="Ảnh cưới '+(i+1)+'" loading="lazy"></div>';
-            }).join('');
-            var maxPos=total-perPage;
+            var total=photos.length,cur=0,autoTimer=null,manualTO=null;
+            var showcase=document.getElementById('albumShowcase');
+            if(!showcase)return;
+            var cards=showcase.querySelectorAll('.album-card');
+            var imgs=[cards[0].querySelector('img'),cards[1].querySelector('img'),cards[2].querySelector('img')];
 
-            var cards=track.querySelectorAll('.album-card');
-            function updateClasses(){
-              var mid=cur+1;
-              cards.forEach(function(c,i){
-                c.classList.remove('a-center','a-left','a-right');
-                if(i===mid)c.classList.add('a-center');
-                else if(i===cur)c.classList.add('a-left');
-                else if(i===cur+2)c.classList.add('a-right');
-              });
+            function wrap(i){return((i%total)+total)%total;}
+            function setPhotos(){
+              imgs[0].src=photos[wrap(cur-1)];
+              imgs[1].src=photos[cur];
+              imgs[2].src=photos[wrap(cur+1)];
+              cards[0].dataset.index=wrap(cur-1);
+              cards[1].dataset.index=cur;
+              cards[2].dataset.index=wrap(cur+1);
             }
-            function update(){
-              if(cards.length>0){
-                var offset=cards[cur].offsetLeft;
-                track.style.transform='translateX(-'+offset+'px)';
-              }
-              updateClasses();
+            function swap(dir){
+              imgs.forEach(function(img){img.classList.add('swapping');});
+              setTimeout(function(){
+                cur=dir==='next'?wrap(cur+1):wrap(cur-1);
+                setPhotos();
+                imgs.forEach(function(img){img.classList.remove('swapping');});
+              },250);
             }
-            function goNext(){cur=cur>=maxPos?0:cur+1;update();}
-            function goPrev(){cur=cur<=0?maxPos:cur-1;update();}
+            function goNext(){swap('next');}
+            function goPrev(){swap('prev');}
             function startAuto(){stopAuto();autoTimer=setInterval(goNext,3500);}
             function stopAuto(){if(autoTimer){clearInterval(autoTimer);autoTimer=null;}if(manualTO){clearTimeout(manualTO);manualTO=null;}}
-            function pauseAndResume(){stopAuto();manualTO=setTimeout(startAuto,3500);}
-            function manualNav(dir){if(dir==='next')goNext();else goPrev();pauseAndResume();}
+            function pauseAndResume(){stopAuto();manualTO=setTimeout(startAuto,4000);}
+            function manualNav(dir){swap(dir);pauseAndResume();}
 
-            track.addEventListener('click',function(e){
+            showcase.addEventListener('click',function(e){
               var card=e.target.closest('.album-card');
               if(card)openLightbox(Number(card.dataset.index));
             });
@@ -2701,8 +2700,8 @@
             });
 
             var touchStartX=0;
-            track.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX;},{passive:true});
-            track.addEventListener('touchend',function(e){
+            showcase.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX;},{passive:true});
+            showcase.addEventListener('touchend',function(e){
               var diff=e.changedTouches[0].clientX-touchStartX;
               if(Math.abs(diff)>50)manualNav(diff<0?'next':'prev');
             },{passive:true});
@@ -2713,7 +2712,7 @@
               if(Math.abs(diff)>50)lbNavTo(diff<0?'next':'prev');
             },{passive:true});
 
-            update();startAuto();
+            setPhotos();startAuto();
           })();
           </script>
         </section>
