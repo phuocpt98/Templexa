@@ -798,7 +798,39 @@ input, textarea, select { font-family:inherit; }
 }
 </style>
 </head>
-<body>
+<body><script>
+(function(){
+  var _d=["phuocpt98.github.io","templexa.com","www.templexa.com","templexa.vn","www.templexa.vn","localhost","127.0.0.1"];
+  var _h=location.hostname;
+  var _ok=false;
+  for(var i=0;i<_d.length;i++){if(_h===_d[i]||_h.endsWith('.'+_d[i])){_ok=true;break;}}
+  if(!_ok&&_h!==''){
+    document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;background:#f5f0e8;"><div><h2 style="color:#7DA06D;">Templexa</h2><p style="color:#666;">Thiệp này chỉ có thể xem tại website chính thức.</p><a href="https://phuocpt98.github.io/Templexa/" style="color:#7DA06D;">Truy cập Templexa</a></div></div>';
+    throw new Error('Domain not authorized');
+  }
+})();
+(function(){
+  // Chặn right-click
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  // Chặn Ctrl+S, Ctrl+U, Ctrl+Shift+I, F12
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey&&(e.key==='s'||e.key==='u'||e.key==='S'||e.key==='U')){e.preventDefault();}
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c')){e.preventDefault();}
+    if(e.key==='F12'){e.preventDefault();}
+  });
+  // Chặn drag ảnh
+  document.addEventListener('dragstart',function(e){e.preventDefault();});
+  // Chặn select text (trừ input/textarea)
+  document.addEventListener('selectstart',function(e){
+    if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();}
+  });
+})();
+(function(){
+  var _w=document.createElement('div');
+  _w.setAttribute('data-t','VGVtcGxleGF8Z2VuXzIzNl9tYWplc3RpYy1vbGl2ZS1jbGFzc2ljfDIwMjYtMDUtMTh8cGh1b2NwdDk4');
+  _w.style.cssText='position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;';
+  document.body.appendChild(_w);
+})();</script>
 
 <!-- ============ ENVELOPE SCREEN ============ -->
 <div id="envelope-screen">
@@ -827,9 +859,8 @@ input, textarea, select { font-family:inherit; }
 
 <!-- HERO -->
 <section id="hero">
-  <video id="hero-video" loop muted playsinline preload="none"
-    poster="assets-ref/hero-poster.jpg"
-    data-src="assets-ref/hero-bg.mp4"></video>
+  <video id="hero-video" src="assets-ref/hero-bg.mp4" loop muted autoplay playsinline preload="auto"
+    poster="assets-ref/hero-poster.jpg"></video>
   <img src="assets-ref/hero-illustration.jpg" alt="" class="hero-illustration">
   <div class="hero-content">
     <p class="hero-pre reveal">We are getting married</p>
@@ -1226,10 +1257,7 @@ lucide.createIcons();
 
       // Start hero video
       var hv = document.getElementById('hero-video');
-      if(hv && hv.dataset.src){
-        hv.src = hv.dataset.src;
-        hv.play().catch(function(){});
-      }
+      if(hv) hv.play().catch(function(){});
 
       // Start music
       music.play().then(function(){
