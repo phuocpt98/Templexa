@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Thiệp Cưới - Hoàng Phúc & Thuỳ Linh</title>
+<meta name="description" content="Trân trọng kính mời bạn đến chung vui ngày lễ thành hôn của chúng tôi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap&subset=vietnamese" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+/* ============ CSS VARIABLES ============ */
+:root {
+  --ivory: 34 33% 91%;
+  --cream: 55 18% 65%;
+  --sage: 72 13% 45%;
+  --sage-dark: 72 19% 32%;
+  --sage-light: 55 18% 65%;
+  --gold: 42 85% 55%;
+  --gold-soft: 42 60% 70%;
+  --olive: 72 13% 45%;
+  --carbon: 72 19% 25%;
+  --countdown-bg: 30 27% 91%;
+  --border: 55 15% 72%;
+  --font-script: 'Dancing Script', cursive;
+  --font-body: 'Quicksand', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-soft: 0 2px 15px -3px rgba(58,69,52,0.08), 0 10px 20px -5px rgba(58,69,52,0.04);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: hsl(var(--sage));
+  background-color: hsl(var(--ivory));
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width:100%; height:auto; display:block; }
+a { color:inherit; text-decoration:none; }
+button { cursor:pointer; border:none; background:none; font-family:inherit; }
+input, textarea, select { font-family:inherit; }
+
+/* ============ TYPOGRAPHY ============ */
+.font-script { font-family: var(--font-script); }
+.font-serif { font-family: var(--font-serif); }
+.font-body { font-family: var(--font-body); }
+.section-title {
+  font-family: var(--font-script);
+  font-size: clamp(2.2rem, 8vw, 3.8rem);
+  font-weight: 700;
+  color: hsl(var(--sage-dark));
+  margin-bottom: 0.5rem;
+}
+.section-subtitle {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: hsl(var(--sage) / 0.6);
+}
+.section-padding { padding: 3rem 1.5rem; }
+@media(min-width:768px) { .section-padding { padding: 5rem 3rem; } }
+
+/* ============ COLORS ============ */
+.bg-ivory { background-color: hsl(var(--ivory)); }
+.bg-countdown { background-color: hsl(var(--countdown-bg)); }
+.text-sage { color: hsl(var(--sage)); }
+.text-sage-dark { color: hsl(var(--sage-dark)); }
+.text-sage-light { color: hsl(var(--sage) / 0.6); }
+
+/* ============ CUPID WATERMARK ============ */
+.cupid {
+  width: clamp(60px, 15vw, 100px);
+  height: auto;
+  opacity: 0.35;
+  pointer-events: none;
+  position: absolute;
+  filter: sepia(0.2);
+}
+
+/* ============ ENVELOPE SCREEN ============ */
+#envelope-screen {
+  position: fixed; inset:0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+  overflow: hidden;
+}
+#envelope-screen.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+.envelope-bg {
+  position: absolute; inset:0;
+  background: hsl(var(--ivory));
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+}
+#intro-video {
+  position: absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity:0; transition: opacity 0.5s ease;
+}
+#intro-video.playing { opacity: 1; }
+.envelope-content {
+  position: relative; z-index: 10;
+  display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+}
+
+/* Envelope flap */
+.envelope-wrapper {
+  position: relative; z-index: 10;
+  width: clamp(260px, 75vw, 400px);
+  perspective: 800px;
+}
+.envelope-body {
+  background: linear-gradient(135deg, hsl(var(--ivory)), hsl(34 28% 88%));
+  border-radius: 4px;
+  height: clamp(200px, 50vw, 300px);
+  position: relative;
+  box-shadow: 0 8px 30px rgba(58,69,52,0.12);
+  overflow: hidden;
+}
+.envelope-body::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border: 1px dashed hsl(var(--border) / 0.4);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.envelope-flap {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 55%;
+  background: linear-gradient(180deg, hsl(34 30% 89%), hsl(34 28% 86%));
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  transform-origin: top center;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.envelope-flap::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 70%, rgba(0,0,0,0.03));
+}
+.envelope-wrapper.open .envelope-flap {
+  transform: rotateX(180deg);
+}
+/* Pearl chain on flap edge */
+.envelope-pearls {
+  position: absolute; top: -2px; left: 50%; transform: translateX(-50%);
+  width: 90%;
+  height: 6px;
+  background: repeating-linear-gradient(90deg,
+    transparent, transparent 4px,
+    hsl(var(--border) / 0.5) 4px, hsl(var(--border) / 0.5) 8px
+  );
+  border-radius: 3px;
+  z-index: 6;
+}
+
+/* Wax seal */
+.wax-seal {
+  position: absolute;
+  top: 45%; left: 50%; transform: translate(-50%, -50%);
+  width: clamp(80px, 22vw, 120px); height: clamp(80px, 22vw, 120px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, hsl(34 20% 92%), hsl(34 25% 82%));
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.5), inset 0 -2px 4px rgba(0,0,0,0.05);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 10;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+.wax-seal .monogram {
+  font-family: var(--font-script);
+  font-size: clamp(1.8rem, 6vw, 2.8rem);
+  color: hsl(var(--sage) / 0.5);
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+.envelope-wrapper.open .wax-seal {
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+}
+
+/* Envelope cupid */
+.envelope-cupid {
+  position: relative; z-index: 10;
+  width: clamp(50px, 14vw, 80px);
+  margin-top: -0.5rem;
+  opacity: 0.4;
+}
+
+/* Tap hint */
+.tap-hint {
+  position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%);
+  z-index: 20;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: hsl(var(--sage) / 0.5);
+  animation: breathe 2s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.8; transform: translateX(-50%) translateY(-4px); }
+}
+
+/* ============ HERO ============ */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 42vh;
+  overflow: hidden;
+  background-color: hsl(var(--ivory));
+}
+#hero-video {
+  position: absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity: 0.15;
+}
+.hero-illustration {
+  position: absolute; top:0; left:50%; transform: translateX(-50%);
+  width: clamp(300px, 85vw, 500px);
+  opacity: 0.9;
+  z-index: 1;
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+.hero-pre {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  color: hsl(var(--sage) / 0.7);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+.hero-couple {
+  font-family: var(--font-script);
+  font-size: clamp(2.8rem, 10vw, 5rem);
+  font-weight: 700;
+  color: hsl(var(--sage-dark));
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  white-space: nowrap;
+}
+.hero-date {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+  letter-spacing: 0.15em;
+  color: hsl(var(--sage) / 0.7);
+}
+
+/* ============ COUNTDOWN ============ */
+#countdown-section {
+  position: relative;
+  background-color: hsl(var(--countdown-bg));
+  overflow: hidden;
+  padding: 2.5rem 1.5rem;
+}
+.string-lights {
+  position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+  width: clamp(350px, 100vw, 800px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+.countdown-title {
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 7vw, 3rem);
+  font-weight: 700;
+  color: hsl(var(--sage-dark));
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.countdown-grid {
+  display: flex; justify-content: center; gap: clamp(0.75rem, 3vw, 1.5rem);
+  position: relative;
+}
+.countdown-item {
+  text-align: center;
+  min-width: clamp(55px, 15vw, 80px);
+}
+.countdown-number {
+  font-family: var(--font-body);
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  font-weight: 600;
+  color: hsl(var(--sage-dark));
+  line-height: 1;
+}
+.countdown-label {
+  font-family: var(--font-serif);
+  font-size: clamp(0.55rem, 1.8vw, 0.7rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: hsl(var(--sage) / 0.5);
+  margin-top: 0.25rem;
+}
+.gramophone {
+  display: block; margin: 0 auto;
+  width: clamp(100px, 30vw, 180px);
+  margin-bottom: 1rem;
+}
+
+/* ============ DETAILS / LOCATION ============ */
+.ornate-frame-bg {
+  position: relative;
+  background-image: url('assets-ref/ornate-frame-new.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: clamp(3rem, 8vw, 5rem) clamp(2rem, 6vw, 4rem);
+  margin: 0 auto;
+  max-width: 380px;
+  min-height: 300px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+}
+.location-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: hsl(var(--sage-dark));
+  margin-bottom: 0.5rem;
+}
+.location-time {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: hsl(var(--sage) / 0.7);
+  display: flex; align-items: center; gap: 0.4rem; justify-content: center;
+  margin-bottom: 0.25rem;
+}
+.btn-olive {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: 6px;
+  background-color: hsl(var(--sage) / 0.9);
+  color: hsl(var(--ivory));
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+}
+.btn-olive:hover { background-color: hsl(var(--sage-dark)); }
+
+/* ============ TIMELINE ============ */
+.timeline-wrapper {
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  padding-left: 2rem;
+}
+.timeline-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: hsl(var(--border));
+}
+.timeline-item {
+  position: relative;
+  padding-bottom: 2.5rem;
+  padding-left: 1.5rem;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.25rem;
+  top: 0.3rem;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--sage) / 0.4);
+  border: 2px solid hsl(var(--ivory));
+}
+.timeline-time {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: hsl(var(--sage) / 0.5);
+  margin-bottom: 0.15rem;
+}
+.timeline-event {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(1rem, 3vw, 1.15rem);
+  color: hsl(var(--sage-dark));
+  margin-bottom: 0.2rem;
+}
+.timeline-desc {
+  font-size: 0.85rem;
+  color: hsl(var(--sage) / 0.7);
+}
+
+/* ============ DRESS CODE ============ */
+.dress-illustration {
+  width: clamp(260px, 80vw, 380px);
+  margin: 0 auto 1.5rem;
+}
+
+/* ============ GIFT ============ */
+.envelope-illus {
+  width: clamp(140px, 40vw, 200px);
+  margin: 0 auto 1.5rem;
+}
+.gift-option {
+  border: 1px solid hsl(var(--border) / 0.4);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: hsl(var(--ivory) / 0.8);
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+.gift-option:hover { background: white; }
+.gift-badge {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  background: hsl(var(--sage) / 0.15);
+  color: hsl(var(--sage));
+  font-weight: 500;
+}
+.gift-detail {
+  display: none;
+  padding: 1rem;
+  border: 1px solid hsl(var(--border) / 0.3);
+  border-radius: 8px;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  background: white;
+  font-size: 0.85rem;
+}
+.gift-detail.open { display: block; }
+
+/* ============ RSVP ============ */
+.flower-bouquet-top {
+  width: 100%; max-width: 400px;
+  margin: 0 auto -2rem;
+  position: relative; z-index: 1;
+}
+.rsvp-form { max-width: 380px; margin: 0 auto; }
+.form-group { margin-bottom: 1.25rem; }
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: hsl(var(--sage));
+  margin-bottom: 0.35rem;
+}
+.form-input, .form-textarea, .form-select {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid hsl(var(--border) / 0.4);
+  border-radius: 6px;
+  background: white;
+  font-size: 0.85rem;
+  color: hsl(var(--sage-dark));
+  transition: border-color 0.2s;
+  outline: none;
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  border-color: hsl(var(--sage) / 0.5);
+}
+.form-input::placeholder, .form-textarea::placeholder { color: hsl(var(--sage) / 0.35); }
+.form-textarea { resize: vertical; min-height: 90px; }
+.radio-group { display: flex; gap: 1.5rem; }
+.radio-label {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.85rem; cursor: pointer;
+}
+.radio-label input[type="radio"] {
+  accent-color: hsl(var(--sage));
+  width: 16px; height: 16px;
+}
+.companion-btns { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+.companion-btn {
+  padding: 0.45rem 1rem;
+  border: 1px solid hsl(var(--border) / 0.5);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: hsl(var(--sage));
+  background: transparent;
+  transition: var(--transition-smooth);
+}
+.companion-btn:hover { background: hsl(var(--sage) / 0.08); }
+.checkbox-label {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.85rem; cursor: pointer;
+  margin: 1rem 0;
+}
+.checkbox-label input[type="checkbox"] {
+  accent-color: hsl(var(--sage));
+  width: 16px; height: 16px;
+}
+.btn-submit {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 8px;
+  background: hsl(var(--sage-dark));
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  transition: var(--transition-smooth);
+  margin-top: 1.5rem;
+}
+.btn-submit:hover { background: hsl(var(--carbon)); }
+
+/* ============ GALLERY ============ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.gallery-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-item.tall { grid-row: span 2; aspect-ratio: auto; }
+
+/* ============ LIGHTBOX ============ */
+.lightbox {
+  position: fixed; inset:0; z-index: 9998;
+  background: rgba(0,0,0,0.92);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+.lightbox.open { opacity:1; pointer-events:auto; }
+.lightbox img {
+  max-width: 92vw; max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  transform: scale(0.9);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.lightbox.open img { transform: scale(1); }
+.lightbox-close {
+  position: absolute; top:16px; right:16px;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+}
+.lightbox-nav {
+  position: absolute; top:50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+}
+.lightbox-nav.prev { left: 12px; }
+.lightbox-nav.next { right: 12px; }
+
+/* ============ LOVE STORY ============ */
+.love-timeline { max-width: 400px; margin: 0 auto; }
+.love-item {
+  text-align: center;
+  padding: 2rem 1rem;
+  position: relative;
+}
+.love-item::after {
+  content: '';
+  display: block;
+  width: 1px; height: 40px;
+  background: hsl(var(--border));
+  margin: 1.5rem auto 0;
+}
+.love-item:last-child::after { display: none; }
+.love-year {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: hsl(var(--sage) / 0.5);
+  margin-bottom: 0.3rem;
+}
+.love-title {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: hsl(var(--sage-dark));
+  margin-bottom: 0.3rem;
+}
+.love-desc {
+  font-size: 0.85rem;
+  color: hsl(var(--sage) / 0.7);
+}
+
+/* ============ CALENDAR MONTH ============ */
+.calendar-month {
+  max-width: 320px;
+  margin: 1.5rem auto 0;
+  text-align: center;
+}
+.cal-month-title {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: hsl(var(--sage-dark));
+  margin-bottom: 0.75rem;
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  font-size: 0.8rem;
+}
+.cal-header {
+  font-weight: 600;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: hsl(var(--sage) / 0.5);
+  padding: 0.4rem 0;
+}
+.cal-day {
+  padding: 0.35rem;
+  border-radius: 50%;
+  color: hsl(var(--sage) / 0.7);
+}
+.cal-day.empty { visibility: hidden; }
+.cal-day.wedding {
+  background: hsl(var(--sage));
+  color: white;
+  font-weight: 600;
+  border-radius: 50%;
+}
+
+/* ============ WISHES ============ */
+.wishes-container { max-width: 400px; margin: 0 auto; }
+.wish-form { display: flex; flex-direction: column; gap: 0.75rem; }
+.wish-list { margin-top: 1.5rem; }
+.wish-card {
+  padding: 1rem;
+  border: 1px solid hsl(var(--border) / 0.3);
+  border-radius: 8px;
+  background: white;
+  margin-bottom: 0.75rem;
+}
+.wish-author {
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: hsl(var(--sage-dark));
+}
+.wish-text {
+  font-size: 0.85rem;
+  color: hsl(var(--sage) / 0.8);
+  margin-top: 0.25rem;
+}
+
+/* ============ FOOTER ============ */
+#footer {
+  text-align: center;
+  padding: 2rem 1.5rem 3rem;
+  background-color: hsl(var(--ivory));
+  position: relative;
+}
+.footer-door {
+  width: clamp(120px, 35vw, 200px);
+  margin: 0 auto 1.5rem;
+}
+.footer-couple {
+  font-family: var(--font-script);
+  font-size: clamp(1.6rem, 6vw, 2.5rem);
+  font-weight: 700;
+  color: hsl(var(--sage-dark));
+  margin-bottom: 0.25rem;
+}
+.footer-date {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: hsl(var(--sage) / 0.6);
+}
+
+/* ============ MUSIC TOGGLE ============ */
+.music-btn {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: hsl(var(--sage-dark));
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 999;
+  box-shadow: 0 4px 15px rgba(58,69,52,0.3);
+  transition: var(--transition-smooth);
+}
+.music-btn:hover { transform: scale(1.08); }
+.music-btn.playing { animation: pulse-music 2s ease-in-out infinite; }
+@keyframes pulse-music {
+  0%,100% { box-shadow: 0 4px 15px rgba(58,69,52,0.3); }
+  50% { box-shadow: 0 4px 25px rgba(58,69,52,0.5); }
+}
+
+/* ============ SCROLL REVEAL ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ============ DIVIDER ============ */
+.ornament-divider {
+  display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+  padding: 0.5rem 0;
+  color: hsl(var(--sage) / 0.3);
+}
+.ornament-divider::before, .ornament-divider::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: hsl(var(--border) / 0.5);
+}
+
+/* ============ FLOATING SPARKLES ============ */
+.sparkle {
+  position: fixed;
+  width: 4px; height: 4px;
+  background: hsl(var(--gold));
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  animation: sparkle-float 6s linear infinite;
+}
+@keyframes sparkle-float {
+  0% { opacity:0; transform: translateY(100vh) scale(0); }
+  10% { opacity:0.8; }
+  90% { opacity:0.3; }
+  100% { opacity:0; transform: translateY(-20vh) scale(1); }
+}
+
+/* ============ FAMILY SECTION ============ */
+.family-card {
+  max-width: 360px; margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.family-label {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: hsl(var(--sage) / 0.5);
+  margin-bottom: 0.75rem;
+}
+.family-parents {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: hsl(var(--sage) / 0.8);
+  margin-bottom: 0.3rem;
+}
+.family-child {
+  font-family: var(--font-script);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 700;
+  color: hsl(var(--sage-dark));
+}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:480px) {
+  .hero-couple { font-size: clamp(2rem, 9vw, 3rem); }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ ENVELOPE SCREEN ============ -->
+<div id="envelope-screen">
+  <div class="envelope-bg"></div>
+  <video id="intro-video" loop muted playsinline preload="auto"
+    poster="assets-ref/intro-poster.jpg"
+    src="assets-ref/intro-video.mp4"></video>
+
+  <div class="envelope-content">
+    <div class="envelope-wrapper" id="envelopeWrapper">
+      <div class="envelope-pearls"></div>
+      <div class="envelope-flap"></div>
+      <div class="envelope-body"></div>
+      <div class="wax-seal">
+        <span class="monogram">P&L</span>
+      </div>
+    </div>
+    <img src="assets-ref/watermark.png" alt="" class="envelope-cupid">
+  </div>
+
+  <div class="tap-hint">Nhấn để mở thiệp</div>
+</div>
+
+<!-- ============ MAIN CONTENT ============ -->
+<main id="main-content" style="opacity:0;transition:opacity 0.8s ease">
+
+<!-- HERO -->
+<section id="hero">
+  <video id="hero-video" loop muted playsinline preload="none"
+    poster="assets-ref/hero-poster.jpg"
+    data-src="assets-ref/hero-bg.mp4"></video>
+  <img src="assets-ref/hero-illustration.jpg" alt="" class="hero-illustration">
+  <div class="hero-content">
+    <p class="hero-pre reveal">We are getting married</p>
+    <h1 class="hero-couple reveal reveal-delay-1">Hoàng Phúc & Thuỳ Linh</h1>
+    <p class="hero-date reveal reveal-delay-2">15 . 08 . 2026</p>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section id="countdown-section" class="bg-countdown">
+  <img src="assets-ref/string-lights.png" alt="" class="string-lights">
+  <img src="assets-ref/couple-dancing.png" alt="" class="gramophone reveal" style="position:relative;z-index:1">
+  <div class="countdown-title reveal">Đếm Ngược</div>
+  <div class="countdown-grid reveal reveal-delay-1">
+    <div class="countdown-item">
+      <div class="countdown-number" id="cd-days">--</div>
+      <div class="countdown-label">Ngày</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-number" id="cd-hours">--</div>
+      <div class="countdown-label">Giờ</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-number" id="cd-mins">--</div>
+      <div class="countdown-label">Phút</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-number" id="cd-secs">--</div>
+      <div class="countdown-label">Giây</div>
+    </div>
+  </div>
+  <div style="position:relative">
+    <img src="assets-ref/watermark.png" alt="" class="cupid" style="right:10%;bottom:-1rem;">
+  </div>
+</section>
+
+<!-- ORNAMENT DIVIDER — String Lights -->
+<div style="padding:0 1rem;background:hsl(var(--ivory))">
+  <img src="assets-ref/string-lights.png" alt="" style="width:100%;max-width:600px;margin:0 auto;display:block;opacity:0.8">
+</div>
+
+<!-- THE DETAILS -->
+<section class="section-padding bg-ivory" style="padding-top:1rem">
+  <div style="max-width:500px;margin:0 auto;text-align:center">
+    <div class="reveal">
+      <h2 class="section-title">Chi Tiết</h2>
+      <p class="section-subtitle">Mọi thông tin bạn cần biết</p>
+    </div>
+
+    <div class="reveal reveal-delay-1" style="margin-top:2rem">
+      <p class="section-subtitle" style="margin-bottom:0.5rem;font-style:italic">Địa điểm</p>
+      <div class="ornate-frame-bg">
+        <h3 class="location-name">Trung Tâm Tiệc Cưới<br>Diamond Palace</h3>
+        <div class="location-time">
+          <i data-lucide="clock" style="width:14px;height:14px"></i>
+          <span>Từ 17:00 đến 21:00</span>
+        </div>
+        <p style="font-size:0.8rem;color:hsl(var(--sage) / 0.6);margin-top:0.25rem">
+          15 Tháng 08 Năm 2026
+        </p>
+      </div>
+      <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:1.5rem">
+        <a href="#" class="btn-olive"><i data-lucide="map-pin" style="width:14px;height:14px"></i> Google Maps</a>
+        <a href="#" class="btn-olive"><i data-lucide="calendar" style="width:14px;height:14px"></i> Lịch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER OF THE DAY (Timeline) -->
+<section class="section-padding bg-ivory" style="position:relative;overflow:hidden">
+  <div style="max-width:500px;margin:0 auto;text-align:center">
+    <img src="assets-ref/couple-dancing.png" alt="" class="gramophone reveal" style="width:clamp(80px,25vw,150px)">
+    <h2 class="section-title reveal">Chương Trình</h2>
+    <p class="section-subtitle reveal reveal-delay-1">Lịch trình ngày vui</p>
+  </div>
+
+  <div class="timeline-wrapper reveal reveal-delay-2" style="margin-top:2.5rem">
+    <div class="timeline-line"></div>
+    <div class="timeline-item">
+      <div class="timeline-time">17:00</div>
+      <div class="timeline-event">Đón Khách & Tiệc Nhẹ</div>
+      <div class="timeline-desc">Chào đón quý khách tại sảnh Diamond Palace</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">17:30</div>
+      <div class="timeline-event">Lễ Thành Hôn</div>
+      <div class="timeline-desc">Khoảnh khắc thiêng liêng nhất trong ngày</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">18:00</div>
+      <div class="timeline-event">Tiệc Cưới</div>
+      <div class="timeline-desc">Cùng nhau thưởng thức bữa tiệc ấm cúng</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">19:30</div>
+      <div class="timeline-event">Tiệc Vui</div>
+      <div class="timeline-desc">Âm nhạc, nhảy múa và những khoảnh khắc đáng nhớ</div>
+    </div>
+    <div class="timeline-item" style="padding-bottom:0">
+      <div class="timeline-time">21:00</div>
+      <div class="timeline-event">Kết Thúc</div>
+      <div class="timeline-desc">Lời tạm biệt và những kỷ niệm đẹp</div>
+    </div>
+  </div>
+  <div style="position:relative">
+    <img src="assets-ref/watermark.png" alt="" class="cupid" style="right:5%;bottom:0">
+  </div>
+</section>
+
+<!-- FAMILY -->
+<section class="section-padding bg-ivory">
+  <div style="max-width:500px;margin:0 auto;text-align:center">
+    <div class="reveal">
+      <h2 class="section-title">Gia Đình</h2>
+      <p class="section-subtitle">Thân mời quý khách</p>
+    </div>
+    <div class="ornament-divider reveal" style="margin:1.5rem 0">❦</div>
+
+    <div class="family-card reveal reveal-delay-1">
+      <div class="family-label">Nhà Trai</div>
+      <div class="family-parents">Ông Lê Văn Thắng & Bà Trần Thị Hoa</div>
+      <div style="font-size:0.8rem;color:hsl(var(--sage)/0.5);margin:0.5rem 0">Con trai</div>
+      <div class="family-child">Lê Hoàng Phúc</div>
+    </div>
+
+    <div class="ornament-divider reveal" style="margin:2rem 0">✿</div>
+
+    <div class="family-card reveal reveal-delay-2">
+      <div class="family-label">Nhà Gái</div>
+      <div class="family-parents">Ông Nguyễn Hữu Tâm & Bà Phan Thị Ngọc</div>
+      <div style="font-size:0.8rem;color:hsl(var(--sage)/0.5);margin:0.5rem 0">Con gái</div>
+      <div class="family-child">Nguyễn Thuỳ Linh</div>
+    </div>
+  </div>
+  <div style="position:relative">
+    <img src="assets-ref/watermark.png" alt="" class="cupid" style="left:8%;bottom:0">
+  </div>
+</section>
+
+<!-- LOVE STORY -->
+<section class="section-padding bg-ivory">
+  <div style="max-width:500px;margin:0 auto;text-align:center">
+    <img src="assets-ref/rings-illustration.png" alt="" class="reveal" style="width:clamp(80px,22vw,120px);margin:0 auto 1rem;opacity:0.85">
+    <h2 class="section-title reveal">Love Story</h2>
+    <p class="section-subtitle reveal reveal-delay-1">Hành trình yêu thương</p>
+  </div>
+  <div class="love-timeline" style="margin-top:2rem">
+    <div class="love-item reveal">
+      <div class="love-year">Tháng 3, 2020</div>
+      <div class="love-title">Lần Đầu Gặp Gỡ</div>
+      <div class="love-desc">Một buổi chiều bình yên, hai trái tim lạ lẫm tình cờ gặp nhau</div>
+    </div>
+    <div class="love-item reveal reveal-delay-1">
+      <div class="love-year">Tháng 9, 2020</div>
+      <div class="love-title">Hẹn Hò Đầu Tiên</div>
+      <div class="love-desc">Quán cà phê nhỏ, câu chuyện dài và nụ cười rạng rỡ</div>
+    </div>
+    <div class="love-item reveal reveal-delay-2">
+      <div class="love-year">Tháng 2, 2024</div>
+      <div class="love-title">Lời Cầu Hôn</div>
+      <div class="love-desc">Dưới ánh hoàng hôn, anh quỳ gối và em gật đầu</div>
+    </div>
+    <div class="love-item reveal reveal-delay-3">
+      <div class="love-year">Tháng 8, 2026</div>
+      <div class="love-title">Ngày Trọng Đại</div>
+      <div class="love-desc">Cùng nhau viết tiếp câu chuyện tình yêu</div>
+    </div>
+  </div>
+</section>
+
+<!-- DRESS CODE -->
+<section class="section-padding bg-ivory">
+  <div style="max-width:500px;margin:0 auto;text-align:center">
+    <h2 class="section-title reveal">Dress Code</h2>
+    <p class="section-subtitle reveal reveal-delay-1">Gợi ý trang phục</p>
+    <img src="assets-ref/dress-code-illustration.png" alt="Dress Code" class="dress-illustration reveal reveal-delay-2" style="margin-top:1.5rem">
+    <h3 class="reveal reveal-delay-3" style="font-family:var(--font-body);font-weight:500;font-size:1.1rem;color:hsl(var(--sage-dark));margin-bottom:0.5rem">
+      Trang Phục Lịch Sự
+    </h3>
+    <p class="reveal reveal-delay-3" style="font-size:0.85rem;color:hsl(var(--sage)/0.7);max-width:320px;margin:0 auto">
+      Chúng tôi kính mời quý khách mặc trang phục lịch sự để cùng tham dự ngày vui.
+    </p>
+    <p class="reveal reveal-delay-4" style="font-family:var(--font-serif);font-style:italic;font-size:0.8rem;color:hsl(var(--sage)/0.5);margin-top:0.75rem">
+      Vui lòng tránh mặc trắng — dành riêng cho cô dâu.
+    </p>
+  </div>
+  <div style="position:relative">
+    <img src="assets-ref/watermark.png" alt="" class="cupid" style="right:10%;bottom:0">
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section-padding bg-ivory">
+  <div style="max-width:500px;margin:0 auto;text-align:center">
+    <img src="assets-ref/framed-couple-photo.jpg" alt="" class="reveal" style="width:clamp(200px,60vw,300px);margin:0 auto 1.5rem;border-radius:12px;box-shadow:var(--shadow-soft)">
+    <h2 class="section-title reveal">Khoảnh Khắc</h2>
+    <p class="section-subtitle reveal reveal-delay-1">Những hình ảnh đẹp nhất</p>
+  </div>
+  <div class="gallery-grid reveal reveal-delay-2" style="margin-top:2rem" id="gallery">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=400&fit=crop" alt="Ảnh cưới"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=400&h=400&fit=crop" alt="Ảnh cưới"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&h=400&fit=crop" alt="Ảnh cưới"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=400&h=400&fit=crop" alt="Ảnh cưới"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400&h=400&fit=crop" alt="Ảnh cưới"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1529636798458-92182e662485?w=400&h=400&fit=crop" alt="Ảnh cưới"></div>
+  </div>
+</section>
+
+<!-- GIFT -->
+<section class="section-padding bg-ivory">
+  <div style="max-width:400px;margin:0 auto;text-align:center">
+    <h2 class="section-title reveal">Mừng Cưới</h2>
+    <p class="section-subtitle reveal reveal-delay-1">Tấm lòng tri ân</p>
+    <img src="assets-ref/envelope-illustration.png" alt="" class="envelope-illus reveal reveal-delay-2" style="margin-top:1.5rem">
+    <p class="reveal reveal-delay-2" style="font-size:0.88rem;color:hsl(var(--sage)/0.75);margin-bottom:2rem;line-height:1.7">
+      Sự hiện diện của bạn là món quà lớn nhất. Nếu bạn muốn gửi lời chúc bằng phong bì, xin mời tham khảo bên dưới:
+    </p>
+    <div class="reveal reveal-delay-3" style="text-align:left">
+      <div class="gift-option" onclick="toggleGift('card')">
+        <span style="font-weight:500">Phong Bì</span>
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <span class="gift-badge">ưu tiên</span>
+          <i data-lucide="chevron-down" style="width:16px;height:16px;color:hsl(var(--sage)/0.4)"></i>
+        </div>
+      </div>
+      <div class="gift-detail" id="gift-card">
+        <p>Quý khách có thể gửi phong bì trực tiếp tại bàn tiếp tân ngày cưới.</p>
+      </div>
+      <div class="gift-option" onclick="toggleGift('bank')">
+        <span style="font-weight:500">Chuyển Khoản</span>
+        <i data-lucide="chevron-down" style="width:16px;height:16px;color:hsl(var(--sage)/0.4)"></i>
+      </div>
+      <div class="gift-detail" id="gift-bank">
+        <p><strong>Chú rể — Lê Hoàng Phúc</strong></p>
+        <p>Vietcombank: 0123 456 789</p>
+        <p style="margin-top:0.75rem"><strong>Cô dâu — Nguyễn Thuỳ Linh</strong></p>
+        <p>MB Bank: 9876 543 210</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section class="bg-ivory" style="padding:0.5rem 1.5rem 3rem">
+  <img src="assets-ref/flower-bouquet.png" alt="" class="flower-bouquet-top reveal">
+  <div style="max-width:500px;margin:0 auto;text-align:center">
+    <h2 class="section-title reveal">RSVP</h2>
+    <p class="section-subtitle reveal reveal-delay-1">Xác nhận tham dự</p>
+  </div>
+
+  <form class="rsvp-form reveal reveal-delay-2" style="margin-top:2rem" id="rsvpForm" onsubmit="return handleRSVP(event)">
+    <div class="form-group">
+      <label class="form-label">Bạn sẽ tham dự? *</label>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="attend" value="yes" checked> Tôi sẽ đến
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="attend" value="no"> Rất tiếc, tôi không thể
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Họ và tên *</label>
+      <input type="text" class="form-input" placeholder="Họ và tên đầy đủ" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Số điện thoại *</label>
+      <input type="tel" class="form-input" placeholder="0901 234 567" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Số người tham dự</label>
+      <select class="form-select">
+        <option>1 người</option>
+        <option>2 người</option>
+        <option>3 người</option>
+        <option>4 người</option>
+        <option>5 người</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Lời nhắn cho cô dâu chú rể (tuỳ chọn)</label>
+      <textarea class="form-textarea" placeholder="Viết vài lời chúc..."></textarea>
+    </div>
+    <button type="submit" class="btn-submit">
+      <i data-lucide="send" style="width:16px;height:16px"></i>
+      Gửi RSVP
+    </button>
+  </form>
+  <div style="position:relative">
+    <img src="assets-ref/watermark.png" alt="" class="cupid" style="right:8%;bottom:1rem">
+  </div>
+</section>
+
+<!-- WISHES -->
+<section class="section-padding bg-ivory">
+  <div style="max-width:500px;margin:0 auto;text-align:center">
+    <h2 class="section-title reveal">Lời Chúc</h2>
+    <p class="section-subtitle reveal reveal-delay-1">Gửi lời chúc phúc đến đôi uyên ương</p>
+  </div>
+  <div class="wishes-container reveal reveal-delay-2" style="margin-top:2rem">
+    <div class="wish-form" id="wishForm">
+      <input type="text" class="form-input" id="wishName" placeholder="Tên của bạn">
+      <textarea class="form-textarea" id="wishText" placeholder="Lời chúc..." style="min-height:70px"></textarea>
+      <button type="button" class="btn-submit" onclick="addWish()" style="margin-top:0">
+        <i data-lucide="heart" style="width:16px;height:16px"></i>
+        Gửi Lời Chúc
+      </button>
+    </div>
+    <div class="wish-list" id="wishList">
+      <div class="wish-card">
+        <div class="wish-author">Minh Anh</div>
+        <div class="wish-text">Chúc hai bạn trăm năm hạnh phúc, sớm có em bé!</div>
+      </div>
+      <div class="wish-card">
+        <div class="wish-author">Thanh Tùng</div>
+        <div class="wish-text">Hạnh phúc mãi nhé anh chị! 🎉</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDAR MONTH -->
+<section class="section-padding bg-ivory">
+  <div style="max-width:500px;margin:0 auto;text-align:center">
+    <h2 class="section-title reveal">Save The Date</h2>
+    <div class="calendar-month reveal reveal-delay-1" id="calendarMonth"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section id="footer">
+  <img src="assets-ref/footer-ornament.png" alt="" class="footer-door reveal">
+  <div class="footer-couple reveal reveal-delay-1">Hoàng Phúc & Thuỳ Linh</div>
+  <div class="footer-date reveal reveal-delay-2">15 Tháng 08, 2026</div>
+  <p style="margin-top:2rem;font-size:0.7rem;color:hsl(var(--sage)/0.3)">
+    Made with ♥ by Templexa
+  </p>
+</section>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav prev" onclick="event.stopPropagation();lbNav(-1)">‹</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lightbox-nav next" onclick="event.stopPropagation();lbNav(1)">›</button>
+</div>
+
+<!-- MUSIC TOGGLE -->
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" style="display:none">
+  <i data-lucide="volume-2" style="width:20px;height:20px" id="musicIcon"></i>
+</button>
+<audio id="bg-music" loop preload="none">
+  <source src="../../../shared/music/wedding/A Thousand Years.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+lucide.createIcons();
+
+/* ---- ENVELOPE ---- */
+(function(){
+  var screen = document.getElementById('envelope-screen');
+  var wrapper = document.getElementById('envelopeWrapper');
+  var video = document.getElementById('intro-video');
+  var main = document.getElementById('main-content');
+  var music = document.getElementById('bg-music');
+  var musicBtn = document.getElementById('musicBtn');
+  var opened = false;
+
+  video.addEventListener('canplaythrough', function(){
+    video.play().then(function(){
+      video.classList.add('playing');
+    }).catch(function(){});
+  }, {once:true});
+  video.addEventListener('loadeddata', function(){
+    video.play().then(function(){
+      video.classList.add('playing');
+    }).catch(function(){});
+  }, {once:true});
+
+  function openEnvelope(){
+    if(opened) return;
+    opened = true;
+    wrapper.classList.add('open');
+
+    setTimeout(function(){
+      screen.classList.add('hidden');
+      main.style.opacity = '1';
+      musicBtn.style.display = 'flex';
+
+      // Start hero video
+      var hv = document.getElementById('hero-video');
+      if(hv && hv.dataset.src){
+        hv.src = hv.dataset.src;
+        hv.play().catch(function(){});
+      }
+
+      // Start music
+      music.play().then(function(){
+        musicBtn.classList.add('playing');
+        isPlaying = true;
+      }).catch(function(){});
+
+      // Trigger scroll reveals
+      initScrollReveal();
+
+      // Sparkles
+      startSparkles();
+    }, 800);
+  }
+
+  screen.addEventListener('click', openEnvelope);
+  screen.addEventListener('touchend', function(e){
+    e.preventDefault();
+    openEnvelope();
+  }, {passive:false});
+})();
+
+/* ---- MUSIC ---- */
+var isPlaying = false;
+function toggleMusic(){
+  var music = document.getElementById('bg-music');
+  var btn = document.getElementById('musicBtn');
+  if(isPlaying){
+    music.pause();
+    btn.classList.remove('playing');
+    btn.innerHTML = '<i data-lucide="volume-x" style="width:20px;height:20px"></i>';
+  } else {
+    music.play();
+    btn.classList.add('playing');
+    btn.innerHTML = '<i data-lucide="volume-2" style="width:20px;height:20px"></i>';
+  }
+  isPlaying = !isPlaying;
+  lucide.createIcons();
+}
+
+/* ---- COUNTDOWN ---- */
+(function(){
+  var wedding = new Date('2026-08-15T17:00:00+07:00').getTime();
+  function update(){
+    var now = Date.now();
+    var diff = wedding - now;
+    if(diff < 0) diff = 0;
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+  }
+  update();
+  setInterval(update, 1000);
+})();
+
+/* ---- SCROLL REVEAL ---- */
+function initScrollReveal(){
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.15});
+  els.forEach(function(el){ io.observe(el); });
+}
+
+/* ---- GALLERY LIGHTBOX ---- */
+var galleryImgs = [];
+var lbIdx = 0;
+(function(){
+  var items = document.querySelectorAll('.gallery-item img');
+  items.forEach(function(img, i){
+    galleryImgs.push(img.src.replace(/w=400&h=400/, 'w=1200&h=900'));
+    img.parentElement.addEventListener('click', function(){
+      lbIdx = i;
+      openLightbox();
+    });
+  });
+})();
+function openLightbox(){
+  var lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = galleryImgs[lbIdx];
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbNav(dir){
+  lbIdx = (lbIdx + dir + galleryImgs.length) % galleryImgs.length;
+  document.getElementById('lightbox-img').src = galleryImgs[lbIdx];
+}
+
+/* ---- GIFT TOGGLE ---- */
+function toggleGift(id){
+  var el = document.getElementById('gift-' + id);
+  el.classList.toggle('open');
+}
+
+/* ---- RSVP ---- */
+function handleRSVP(e){
+  e.preventDefault();
+  var form = document.getElementById('rsvpForm');
+  var btn = form.querySelector('.btn-submit');
+  btn.innerHTML = '✓ Đã gửi thành công!';
+  btn.style.background = 'hsl(120 40% 40%)';
+  btn.disabled = true;
+  setTimeout(function(){
+    btn.innerHTML = '<i data-lucide="send" style="width:16px;height:16px"></i> Gửi RSVP';
+    btn.style.background = '';
+    btn.disabled = false;
+    lucide.createIcons();
+    form.reset();
+  }, 3000);
+  return false;
+}
+
+/* ---- WISHES ---- */
+function addWish(){
+  var name = document.getElementById('wishName').value.trim();
+  var text = document.getElementById('wishText').value.trim();
+  if(!name || !text) return;
+  var list = document.getElementById('wishList');
+  var card = document.createElement('div');
+  card.className = 'wish-card';
+  card.innerHTML = '<div class="wish-author">' + escHtml(name) + '</div><div class="wish-text">' + escHtml(text) + '</div>';
+  list.insertBefore(card, list.firstChild);
+  document.getElementById('wishName').value = '';
+  document.getElementById('wishText').value = '';
+
+  var wishes = JSON.parse(localStorage.getItem('majestic-wishes') || '[]');
+  wishes.unshift({name:name, text:text, time:Date.now()});
+  localStorage.setItem('majestic-wishes', JSON.stringify(wishes));
+}
+function escHtml(s){ var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+(function(){
+  var wishes = JSON.parse(localStorage.getItem('majestic-wishes') || '[]');
+  var list = document.getElementById('wishList');
+  wishes.forEach(function(w){
+    var card = document.createElement('div');
+    card.className = 'wish-card';
+    card.innerHTML = '<div class="wish-author">' + escHtml(w.name) + '</div><div class="wish-text">' + escHtml(w.text) + '</div>';
+    list.insertBefore(card, list.children[2] || null);
+  });
+})();
+
+/* ---- CALENDAR MONTH ---- */
+(function(){
+  var weddingDate = 15;
+  var weddingMonth = 7; // 0-indexed: August
+  var weddingYear = 2026;
+  var container = document.getElementById('calendarMonth');
+  var months = ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'];
+  var days = ['CN','T2','T3','T4','T5','T6','T7'];
+
+  var html = '<div class="cal-month-title">' + months[weddingMonth] + ' ' + weddingYear + '</div>';
+  html += '<div class="cal-grid">';
+  days.forEach(function(d){ html += '<div class="cal-header">' + d + '</div>'; });
+
+  var firstDay = new Date(weddingYear, weddingMonth, 1).getDay();
+  var totalDays = new Date(weddingYear, weddingMonth + 1, 0).getDate();
+
+  for(var i = 0; i < firstDay; i++) html += '<div class="cal-day empty"></div>';
+  for(var d = 1; d <= totalDays; d++){
+    var cls = d === weddingDate ? 'cal-day wedding' : 'cal-day';
+    html += '<div class="' + cls + '">' + d + '</div>';
+  }
+  html += '</div>';
+  container.innerHTML = html;
+})();
+
+/* ---- SPARKLES ---- */
+function startSparkles(){
+  function createSparkle(){
+    var s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDuration = (4 + Math.random() * 4) + 's';
+    s.style.animationDelay = Math.random() * 3 + 's';
+    s.style.width = (2 + Math.random() * 4) + 'px';
+    s.style.height = s.style.width;
+    document.body.appendChild(s);
+    setTimeout(function(){ s.remove(); }, 10000);
+  }
+  setInterval(createSparkle, 800);
+  for(var i = 0; i < 8; i++) setTimeout(createSparkle, i * 200);
+}
+
+/* ---- KEYBOARD NAV ---- */
+document.addEventListener('keydown', function(e){
+  var lb = document.getElementById('lightbox');
+  if(!lb.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') lbNav(-1);
+  if(e.key === 'ArrowRight') lbNav(1);
+});
+</script>
+
+</body>
+</html>
