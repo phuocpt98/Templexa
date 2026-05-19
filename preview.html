@@ -346,6 +346,14 @@
             .preview-frame.mobile::before { display: none; }
         }
     </style>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D8ZC2MYYVY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D8ZC2MYYVY');
+    </script>
 </head>
 <body>
     <div class="preview-toolbar">
@@ -458,6 +466,13 @@
 
             // ── Default mode: mobile for invitation type, desktop otherwise ──
             const defaultMobile = (type === 'invitation');
+
+            // ── Forward guest ID to iframe (gid param) ──
+            var gid = params.get('gid') || '';
+            if (gid && url) {
+                var sep = url.indexOf('?') === -1 ? '?' : '&';
+                url = url + sep + 'id=' + encodeURIComponent(gid);
+            }
 
             // ── Populate ──
             document.title = (name || 'Xem trước') + ' - Templexa';

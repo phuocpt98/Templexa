@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bàn Ăn Bàn Phá — Liên Hoan Gặp Mặt</title>
+
+    <!-- OG Meta — Facebook, Zalo, Messenger preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Bàn Ăn Bàn Phá — Liên Hoan Gặp Mặt">
+    <meta property="og:description" content="Hành trình 2001 – 2026. Bàn Ăn Bàn Phá — Hẹn gặp nhau nha!">
+    <meta property="og:image" content="https://templexa.vn/products/Invitation/Other/gen_237_lien-hoan-bang-tin/photos/1.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://templexa.vn/event/ban-an-ban-pha/index.html">
+    <meta property="og:site_name" content="Templexa">
+    <meta property="og:locale" content="vi_VN">
+
+    <style>
+        * { margin: 0; padding: 0; }
+        html, body { width: 100%; height: 100%; overflow: hidden; position: fixed; }
+        iframe { position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+    <iframe id="f" allowfullscreen allow="autoplay"></iframe>
+    <script src="../config.js"></script>
+    <script>
+        (function () {
+            var parts = location.pathname.replace(/\/index\.html$/i, '').split('/').filter(Boolean);
+            var slug = parts[parts.length - 1];
+            var entry = (typeof EVENT !== 'undefined') && EVENT[slug];
+            if (entry) {
+                var base = location.pathname.replace(/\/event\/[^/]+\/.*$/, '/');
+                var fullSrc = base + entry.src.replace(/^\.\.\/\.\.\//,'');
+                document.getElementById('f').src = fullSrc + location.search + location.hash;
+            } else {
+                document.body.innerHTML = '<p style="text-align:center;padding:40px;font-family:sans-serif;color:#666">Không tìm thấy thiệp. Vui lòng kiểm tra lại đường dẫn.</p>';
+            }
+        })();
+    </script>
+</body>
+</html>
