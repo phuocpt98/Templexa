@@ -44,4 +44,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến chung vui ngày lễ thành hôn của chúng tôi — 20/06/2026 tại Đắk Lắk',
         image: '../../products/Invitation/Wedding/gen_225_heritage-illustrated-venue/og-cover.jpg',
     },
+    'xuan-thinh-ngoc-quynh': {
+        src: '../../products/Invitation/Wedding/gen_236_majestic-olive-classic/code.html',
+        title: 'Xuân Thịnh & Ngọc Quỳnh — Wedding Invitation',
+        description: 'Trân trọng kính mời bạn đến chung vui ngày lễ thành hôn của chúng tôi — 20/06/2026 tại Đắk Lắk',
+        image: '../../products/Invitation/Wedding/gen_236_majestic-olive-classic/og-cover.jpg',
+    },
 };

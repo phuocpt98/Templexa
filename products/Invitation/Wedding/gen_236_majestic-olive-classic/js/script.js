@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Dynamic Countdown
 document.addEventListener("DOMContentLoaded", () => {
-    const targetDate = new Date("2027-09-18T00:00:00").getTime();
+    const targetDate = new Date("2026-06-20T17:00:00+07:00").getTime();
 
     function updateCountdown() {
         const now = new Date().getTime();
