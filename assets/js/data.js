@@ -4967,6 +4967,34 @@ const PRODUCTS = [
         rating: 4.8,
         showInSlider: false,
         updatedAt: '2026-05-10',
+    },
+    {
+        id: 242,
+        isPublic: true,
+        name: 'Thiệp Cưới - Majestic Olive Classic',
+        slug: 'majestic-olive-classic',
+        description: 'Thiệp cưới phong cách Olive Sage & Gold sang trọng — intro video mở màn, hero video loop, countdown, venue details với ornate badge, dress code, order of the day timeline, gift registry, RSVP form. Font TypeKit classic-script + span.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['thiệp-cưới', 'olive', 'sage', 'gold', 'classic', 'majestic', 'video-intro', 'elegant', 'western-style'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_236_majestic-olive-classic/assets-ref/hero-poster.jpg',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_236_majestic-olive-classic/assets-ref/hero-poster.jpg',
+        path: './products/Invitation/Wedding/gen_236_majestic-olive-classic/',
+        demoUrl: './products/Invitation/Wedding/gen_236_majestic-olive-classic/code.html',
+        features: [
+            'Intro video mở màn + hero video background loop + countdown ngày cưới',
+            'Venue details ornate badge + order of the day timeline + dress code + string lights',
+            'Gift registry + RSVP form + footer ornament + TypeKit classic-script font',
+        ],
+        status: 'new',
+        priority: -0.09,
+        downloads: 2,
+        rating: 4.9,
+        showInSlider: false,
+        updatedAt: '2026-05-18',
     }
 ];
 
