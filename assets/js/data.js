@@ -4979,9 +4979,14 @@ const PRODUCTS = [
         tags: ['thiệp-cưới', 'olive', 'sage', 'gold', 'classic', 'majestic', 'video-intro', 'elegant', 'western-style'],
         price: '',
         images: [
-            './products/Invitation/Wedding/gen_236_majestic-olive-classic/assets-ref/hero-poster.jpg',
+            './products/Invitation/Wedding/gen_236_majestic-olive-classic/screen.webp',
+            './products/Invitation/Wedding/gen_236_majestic-olive-classic/mobile.webp',
+            './products/Invitation/Wedding/gen_236_majestic-olive-classic/desktop_1.webp',
+            './products/Invitation/Wedding/gen_236_majestic-olive-classic/desktop_2.webp',
+            './products/Invitation/Wedding/gen_236_majestic-olive-classic/desktop_3.webp',
+            './products/Invitation/Wedding/gen_236_majestic-olive-classic/desktop_4.webp',
         ],
-        thumbnail: './products/Invitation/Wedding/gen_236_majestic-olive-classic/assets-ref/hero-poster.jpg',
+        thumbnail: './products/Invitation/Wedding/gen_236_majestic-olive-classic/screen.webp',
         path: './products/Invitation/Wedding/gen_236_majestic-olive-classic/',
         demoUrl: './products/Invitation/Wedding/gen_236_majestic-olive-classic/code.html',
         features: [
@@ -4994,7 +4999,7 @@ const PRODUCTS = [
         downloads: 2,
         rating: 4.9,
         showInSlider: false,
-        updatedAt: '2026-05-18',
+        updatedAt: '2026-05-19',
     }
 ];
 

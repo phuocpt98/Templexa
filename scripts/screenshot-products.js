@@ -21,7 +21,7 @@ async function dismissCover(page) {
     try {
         await page.evaluate(() => {
             // Hide all cover/overlay elements
-            ['#coverScreen', '#cover', '.cover', '.envelope-overlay'].forEach(sel => {
+            ['#coverScreen', '#cover', '.cover', '.envelope-overlay', '#intro-overlay', '#intro-fade'].forEach(sel => {
                 const el = document.querySelector(sel);
                 if (el) el.style.cssText = 'display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;position:absolute!important;';
             });
@@ -45,10 +45,26 @@ async function dismissCover(page) {
                 el.style.animationDelay = '0s';
             });
 
+            // Force gen_236 hero content + all elements visible (script.js sets opacity:0)
+            document.querySelectorAll('#hero-content > *, main h1, main h2, main h3, main p, main .grid > div, main section > div > div, main img').forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+                el.style.transition = 'none';
+            });
+
             // Remove any hidden class
             document.querySelectorAll('.hidden').forEach(el => {
                 if (!el.id || !el.id.includes('guest')) el.classList.remove('hidden');
             });
+
+            // Hide floating watermark
+            document.querySelectorAll('.fixed.inset-0.pointer-events-none').forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // Fix html overflow:hidden that prevents window.scrollTo
+            document.documentElement.style.overflow = 'visible';
+            document.documentElement.style.height = 'auto';
         });
         await new Promise(r => setTimeout(r, 1500));
     } catch (e) { console.error('dismissCover error:', e); }
