@@ -203,13 +203,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const ics = [
             "BEGIN:VCALENDAR",
             "VERSION:2.0",
-            "PRODID:-//Elisa & Jhon Wedding//EN",
+            "PRODID:-//Xuan Thinh & Ngoc Quynh Wedding//EN",
             "BEGIN:VEVENT",
-            "DTSTART:20270918T170000",
-            "DTEND:20270919T020000",
-            "SUMMARY:Elisa & Jhon — Wedding Day",
-            "DESCRIPTION:You are cordially invited to celebrate the wedding of Elisa & Jhon.",
-            "LOCATION:Villa Montalcino",
+            "DTSTART:20260620T170000",
+            "DTEND:20260621T020000",
+            "SUMMARY:Xuân Thịnh & Ngọc Quỳnh — Wedding Day",
+            "DESCRIPTION:Trân trọng kính mời bạn đến chung vui ngày lễ thành hôn của chúng tôi",
+            "LOCATION:Diamond Center - Hoàng Lộc 3, Buôn Ma Thuột",
             "END:VEVENT",
             "END:VCALENDAR"
         ].join("\r\n");
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "elisa-jhon-wedding.ics";
+        a.download = "xuan-thinh-ngoc-quynh-wedding.ics";
         a.click();
         URL.revokeObjectURL(url);
     });
