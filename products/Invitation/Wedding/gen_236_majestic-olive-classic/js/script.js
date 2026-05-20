@@ -223,3 +223,8 @@ document.addEventListener("DOMContentLoaded", () => {
         URL.revokeObjectURL(url);
     });
 });
+
+// ?basic=true → hide After Party
+if (new URLSearchParams(window.location.search).get('basic') === 'true') {
+    document.querySelectorAll('.after-party-item').forEach(function(el) { el.style.display = 'none'; });
+}
