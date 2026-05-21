@@ -1,9 +1,9 @@
 ---
 name: push
-description: "Auto deploy: detect thay đổi → protect thiệp cưới → commit → push lên cả dev + main."
+description: "Auto deploy: detect thay đổi → protect thiệp cưới → commit → push lên main."
 ---
 
-Auto deploy: detect thay đổi → protect thiệp cưới → commit → push lên cả dev + main.
+Auto deploy: detect thay đổi → protect thiệp cưới → commit → push lên main.
 
 Argument: $ARGUMENTS — commit message (tuỳ chọn). Nếu không có, tự sinh từ git diff.
 
@@ -20,13 +20,7 @@ git diff --stat
 
 Nếu không có thay đổi → báo "Không có gì để push" và dừng.
 
-### Bước 2: Xác định branch hiện tại
-
-- Nếu đang ở `dev` → tiếp tục
-- Nếu đang ở `main` → chuyển sang `dev` trước: `git checkout dev`
-- Nếu đang ở branch khác → hỏi user
-
-### Bước 3: Commit lên dev (code gốc)
+### Bước 2: Commit lên main
 
 1. `git add -A` (hoặc add specific files nếu có file nhạy cảm)
 2. Kiểm tra `.env`, credentials → **KHÔNG commit**
@@ -36,40 +30,34 @@ Nếu không có thay đổi → báo "Không có gì để push" và dừng.
    - Sửa code website → `fix: ...` hoặc `feat: ...`
    - Cập nhật data.js → `chore: cập nhật data.js ...`
 4. `git commit -m "message"`
-5. `git push origin dev`
 
-### Bước 4: Merge dev → main + Protect
+### Bước 3: Protect thiệp cưới
 
-1. `git checkout main`
-2. `git merge dev` — nếu conflict → báo user
-3. Chạy protect thiệp cưới:
+1. Chạy protect:
    ```bash
    node scripts/protect-wedding.js
    ```
-4. `git add -A`
-5. `git commit -m "deploy: protect + merge dev"`
-6. `git push origin main`
+2. `git add -A`
+3. `git commit -m "deploy: protect thiệp cưới"`
 
-### Bước 5: Quay lại dev
+### Bước 4: Push
 
 ```bash
-git checkout dev
+git push origin main
 ```
 
-### Bước 6: Báo cáo
+### Bước 5: Báo cáo
 
 ```
 ✅ Push thành công!
 
-Branch dev:  [commit hash] — message
-Branch main: [commit hash] — deploy: protect + merge dev
+Branch main: [commit hash] — message
 
 Thiệp đã protect: X files
 ```
 
 ## Lưu ý
 
-- **Luôn commit dev trước** → rồi merge sang main → protect → push main
+- Làm việc trực tiếp trên branch `main`, không dùng branch dev
+- Sửa trực tiếp trên `code.html` hoặc `index.html`, không dùng `code.dev.html`
 - Nếu chỉ sửa file không liên quan thiệp (CSS website, data.js, docs) → vẫn protect (script tự skip file đã protect)
-- Nếu `git merge dev` có conflict → **DỪNG**, báo user giải quyết conflict trước
-- File backup (`index.dev.html`, `code.dev.html`) đã gitignore → không commit
