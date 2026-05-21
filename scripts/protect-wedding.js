@@ -18,6 +18,7 @@ const WEDDING_DIR = path.join(__dirname, '..', 'products', 'Invitation', 'Weddin
 // Domain được phép chạy — thêm domain của bạn vào đây
 const ALLOWED_DOMAINS = [
   'phuocpt98.github.io',
+  'templexa.pages.dev',
   'templexa.com',
   'www.templexa.com',
   'templexa.vn',
