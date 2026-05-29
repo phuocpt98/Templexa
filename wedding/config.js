@@ -50,4 +50,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến chung vui ngày lễ thành hôn của chúng tôi — 20/06/2026 tại Đắk Lắk',
         image: '../../products/Invitation/Wedding/gen_236_majestic-olive-classic/og-cover.jpg',
     },
+    'dang-minh-thuy-linh': {
+        src: '../../products/Invitation/Wedding/khach_minh-linh/index.html',
+        title: 'Đăng Minh & Thuỳ Linh — Wedding Invitation',
+        description: 'Trân trọng kính mời bạn tới dự bữa cơm thân mật mừng hạnh phúc của hai chúng tôi — 13.06.2026 tại Trung Tâm Forevermark, Hà Nội',
+        image: '../../products/Invitation/Wedding/khach_minh-linh/customer/anh_doi_1.webp',
+    },
 };
