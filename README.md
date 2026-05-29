@@ -90,3 +90,7 @@ Templexa hướng tới trở thành hệ sinh thái template toàn diện, kế
 - LinkedIn: Đang cập nhật  
 
 ---
+## deploy:
+npx wrangler login
+npx wrangler pages deploy . --project-name=templexa
+
