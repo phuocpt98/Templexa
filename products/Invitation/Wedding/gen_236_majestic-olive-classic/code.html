@@ -512,6 +512,25 @@ Trân trọng kính mời quý khách đến dự Lễ cưới của con chúng 
   var form = document.querySelector('#rsvp form');
   if (!form) return;
 
+  var radios = form.querySelectorAll('[role="radio"]');
+  var checkedSvg = '<svg class="lucide lucide-circle h-2.5 w-2.5 fill-current text-current" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle></svg>';
+  radios.forEach(function(radio) {
+    radio.addEventListener('click', function() {
+      radios.forEach(function(r) {
+        r.setAttribute('data-state', 'unchecked');
+        r.setAttribute('aria-checked', 'false');
+        r.innerHTML = '';
+        var hiddenInput = r.parentElement.querySelector('input[type="radio"]');
+        if (hiddenInput) hiddenInput.removeAttribute('checked');
+      });
+      radio.setAttribute('data-state', 'checked');
+      radio.setAttribute('aria-checked', 'true');
+      radio.innerHTML = '<span class="flex items-center justify-center" data-state="checked">' + checkedSvg + '</span>';
+      var hiddenInput = radio.parentElement.querySelector('input[type="radio"]');
+      if (hiddenInput) hiddenInput.setAttribute('checked', '');
+    });
+  });
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     var btn = form.querySelector('button[type="submit"]');
