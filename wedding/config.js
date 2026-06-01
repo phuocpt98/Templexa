@@ -56,4 +56,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn tới dự bữa cơm thân mật mừng hạnh phúc của hai chúng tôi — 13.06.2026 tại Trung Tâm Forevermark, Hà Nội',
         image: '../../products/Invitation/Wedding/khach_minh-linh/customer/anh_doi_1.webp',
     },
+    'chu-thuong-ngoc-huyen': {
+        src: '../../products/Invitation/Wedding/khach_thuong-huyen/code.html',
+        title: 'Chu Thường & Ngọc Huyền — Wedding Invitation',
+        description: 'Trân trọng kính mời bạn tới dự lễ cưới của Chu Thường & Ngọc Huyền — 20.06.2026 tại Thanh Oai, Hà Nội',
+        image: '../../products/Invitation/Wedding/khach_thuong-huyen/og-cover.jpg',
+    },
 };
