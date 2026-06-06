@@ -62,4 +62,16 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn tới dự lễ cưới của Chu Thường & Ngọc Huyền — 20.06.2026 tại Thanh Oai, Hà Nội',
         image: '../../products/Invitation/Wedding/khach_thuong-huyen/og-cover.jpg',
     },
+    'nguyen-bao-uyen-nhi': {
+        src: '../../products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/index.html',
+        title: 'Nguyên Bảo & Uyên Nhi — Thiệp Mời (Nhà Trai)',
+        description: 'Trân trọng kính mời bạn tới dự lễ cưới của Nguyên Bảo & Uyên Nhi — 03.07.2026 tại Hà Nội',
+        image: '../../products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/customer/anh_doi_1.webp',
+    },
+    'uyen-nhi-nguyen-bao': {
+        src: '../../products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/index.html',
+        title: 'Nguyên Bảo & Uyên Nhi — Thiệp Mời (Nhà Gái)',
+        description: 'Trân trọng kính mời bạn tới dự lễ cưới của Nguyên Bảo & Uyên Nhi — 03.07.2026 tại Hà Nội',
+        image: '../../products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/customer/anh_doi_1.webp',
+    },
 };
