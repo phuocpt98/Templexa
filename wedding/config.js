@@ -70,7 +70,7 @@ var WEDDING = {
     },
     'uyen-nhi-nguyen-bao': {
         src: '../../products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/index.html',
-        title: 'Nguyên Bảo & Uyên Nhi — Thiệp Mời (Nhà Gái)',
+        title: 'Nguyên Bảo & Uyên Nhi — Thiệp Mời',
         description: 'Trân trọng kính mời bạn tới dự lễ cưới của Nguyên Bảo & Uyên Nhi — 03.07.2026 tại Hà Nội',
         image: '../../products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/customer/anh_doi_1.webp',
     },
