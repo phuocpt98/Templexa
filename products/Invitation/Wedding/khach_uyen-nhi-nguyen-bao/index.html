@@ -752,8 +752,88 @@
         .music-btn.playing .icon-on { display: block; }
         .music-btn.playing .icon-off { display: none; }
 
+        /* ========== FLOATING WISHES ========== */
+        .floating-wishes-box {
+            position: fixed;
+            bottom: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 400px;
+            height: 0;
+            z-index: 999;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .floating-wish {
+            position: absolute;
+            bottom: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 18px;
+            border-radius: 22px;
+            background: var(--fw-bg, rgba(255, 255, 255, 0.92));
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 3px 16px var(--fw-shadow, rgba(0, 0, 0, 0.08));
+            color: var(--fw-text, #5D4037);
+            font-family: 'Lora', serif;
+            font-size: 0.8rem;
+            line-height: 1.3;
+            max-width: 90%;
+            width: fit-content;
+            animation: wish-float-up 10s linear forwards;
+            pointer-events: auto;
+            will-change: transform, opacity;
+        }
+        .fw-c1 { --fw-bg: rgba(255, 228, 225, 0.92); --fw-text: #8B3A3A; --fw-avatar: #E8848C; --fw-shadow: rgba(232,132,140,0.2); }
+        .fw-c2 { --fw-bg: rgba(220, 240, 225, 0.92); --fw-text: #3A6B45; --fw-avatar: #6BAF7B; --fw-shadow: rgba(107,175,123,0.2); }
+        .fw-c3 { --fw-bg: rgba(230, 225, 245, 0.92); --fw-text: #5A4080; --fw-avatar: #9B85C5; --fw-shadow: rgba(155,133,197,0.2); }
+        .fw-c4 { --fw-bg: rgba(255, 245, 220, 0.92); --fw-text: #7A5C28; --fw-avatar: #D4A84B; --fw-shadow: rgba(212,168,75,0.2); }
+        .fw-c5 { --fw-bg: rgba(220, 238, 255, 0.92); --fw-text: #2A5A8A; --fw-avatar: #6AABE0; --fw-shadow: rgba(106,171,224,0.2); }
+
+        .floating-wish-name { font-weight: 600; white-space: nowrap; }
+        .floating-wish-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 220px;
+        }
+
+        @keyframes wish-float-up {
+            0%   { opacity: 0; transform: translateY(0); }
+            5%   { opacity: 1; }
+            65%  { opacity: 0.8; }
+            90%  { opacity: 0.15; }
+            100% { opacity: 0; transform: translateY(-300px); }
+        }
+
+        .wishes-toggle {
+            position: fixed; bottom: 80px; right: 20px;
+            width: 50px; height: 50px; border-radius: 50%; border: none;
+            background: rgb(146,132,98); color: #fff;
+            cursor: pointer; z-index: 150;
+            display: none; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            opacity: 0.85;
+        }
+        .wishes-toggle.show { display: flex; }
+        .wishes-toggle:hover { transform: scale(1.1); opacity: 1; }
+        .wishes-toggle svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .wishes-toggle .icon-wishes-off { display: none; }
+        .wishes-toggle.hidden .icon-wishes-on { display: none; }
+        .wishes-toggle.hidden .icon-wishes-off { display: block; }
+        .floating-wishes-box.hidden-wishes { display: none; }
+
         /* ========== RESPONSIVE ========== */
         @media (max-width: 420px) {
+            .floating-wishes-box { max-width: 100vw; bottom: 130px; }
+            .floating-wish { font-size: 0.74rem; padding: 6px 14px; max-width: 85%; }
+            .floating-wish-text { max-width: 180px; }
             .cover-section {
                 transform-origin: top left;
                 transform: scale(calc(100vw / 420));
@@ -1138,6 +1218,12 @@
 <!-- ========== SHEETS API ========== -->
 <script src="../../../shared/wedding/wishes-api.js"></script>
 
+<!-- ========== WISHES TOGGLE ========== -->
+<button class="wishes-toggle" id="wishesToggle" title="Bật/tắt lời chúc">
+    <svg class="icon-wishes-on" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg class="icon-wishes-off" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+</button>
+
 <!-- ========== MUSIC ========== -->
 <button class="music-btn" id="musicBtn" title="Bật/tắt nhạc">
     <svg class="icon-on" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
@@ -1171,6 +1257,8 @@
     var seal = document.getElementById('waxSeal');
     var musicBtn = document.getElementById('musicBtn');
     var bgMusic = document.getElementById('bgMusic');
+    var wishesToggle = document.getElementById('wishesToggle');
+    var floatingWishes = null;
 
     seal.addEventListener('click', function () {
         seal.classList.add('breaking');
@@ -1184,6 +1272,9 @@
             bgMusic.play().then(function() {
                 musicBtn.classList.add('playing');
             }).catch(function() {});
+            // Floating wishes
+            floatingWishes = initFloatingWishes();
+            wishesToggle.classList.add('show');
         }, 500);
         setTimeout(function () {
             cover.style.display = 'none';
@@ -1200,6 +1291,103 @@
             musicBtn.classList.remove('playing');
         }
     });
+
+    /* === Wishes toggle === */
+    wishesToggle.addEventListener('click', function () {
+        var box = document.querySelector('.floating-wishes-box');
+        if (!box) return;
+        var isHidden = wishesToggle.classList.toggle('hidden');
+        if (isHidden) {
+            box.classList.add('hidden-wishes');
+        } else {
+            box.classList.remove('hidden-wishes');
+        }
+    });
+
+    function initFloatingWishes() {
+        var sheetId = SHEET_ID;
+        var maxVisible = 3;
+        var interval = 2500;
+        var duration = 10000;
+        var wishPool = [];
+        var currentIndex = 0;
+        var timerId = null;
+        var isRunning = false;
+        var colorCount = 5;
+
+        var container = document.createElement('div');
+        container.id = 'floatingWishesBox';
+        container.className = 'floating-wishes-box';
+        document.body.appendChild(container);
+
+        function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+        function createBubble(name, message) {
+            var el = document.createElement('div');
+            el.className = 'floating-wish fw-c' + (Math.floor(Math.random() * colorCount) + 1);
+            el.style.animationDuration = duration + 'ms';
+            el.innerHTML =
+                '<span class="floating-wish-name">' + esc(name) + ':&ensp;</span>' +
+                '<span class="floating-wish-text">' + esc(message) + '</span>';
+            container.appendChild(el);
+            while (container.children.length > maxVisible) {
+                container.removeChild(container.firstChild);
+            }
+            setTimeout(function () {
+                if (el.parentNode) el.parentNode.removeChild(el);
+            }, duration);
+        }
+
+        function showNext() {
+            if (wishPool.length === 0) return;
+            var wish = wishPool[currentIndex % wishPool.length];
+            createBubble(wish.name, wish.message);
+            currentIndex++;
+        }
+
+        function startLoop() {
+            if (isRunning || wishPool.length === 0) return;
+            isRunning = true;
+            showNext();
+            timerId = setInterval(showNext, interval);
+        }
+
+        function calcInterval() {
+            var len = wishPool.length;
+            if (len <= 3) return 3000;
+            if (len <= 10) return 2500;
+            if (len <= 30) return 2000;
+            return 1500;
+        }
+
+        sheetsAPI.get(sheetId)
+            .then(function (rows) {
+                rows.forEach(function (row) {
+                    var name = row['A'];
+                    var message = row['D'];
+                    if (name && message) {
+                        wishPool.push({ name: name, message: message });
+                    }
+                });
+                if (wishPool.length > 0) {
+                    interval = calcInterval();
+                    startLoop();
+                }
+            })
+            .catch(function () {});
+
+        return {
+            addWish: function (name, message) {
+                if (!name || !message) return;
+                wishPool.push({ name: name, message: message });
+                createBubble(name, message);
+                if (!isRunning) {
+                    interval = calcInterval();
+                    startLoop();
+                }
+            }
+        };
+    }
 
     /* === Scroll animations (IntersectionObserver) === */
     var animEls = document.querySelectorAll('.anim, .anim-left, .anim-right');
@@ -1299,6 +1487,9 @@
             E: time
         }).then(function () {
             rsvpBtn.textContent = 'Đã gửi!';
+            if (floatingWishes && message) {
+                floatingWishes.addWish(name, message);
+            }
             document.getElementById('popupThankyou').classList.add('show');
             rsvpForm.reset();
             setTimeout(function () {
