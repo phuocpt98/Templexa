@@ -74,4 +74,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn tới dự lễ cưới của Nguyên Bảo & Uyên Nhi — 03.07.2026 tại Hà Nội',
         image: '../../products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/customer/anh_doi_1.webp',
     },
+    'thien-duc-thuy-dung': {
+        src: '../../products/Invitation/Wedding/khach_thuy-dung_thien-duc/index.html',
+        title: 'Thiện Đức & Thùy Dung — Wedding Invitation',
+        description: 'Trân trọng kính mời bạn đến dự lễ cưới của Thiện Đức & Thùy Dung — 10.07.2026 tại Rạch Giá, An Giang',
+        image: '../../products/Invitation/Wedding/khach_thuy-dung_thien-duc/og-cover.jpg',
+    },
 };

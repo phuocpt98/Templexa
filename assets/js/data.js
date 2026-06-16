@@ -5060,6 +5060,36 @@ const PRODUCTS = [
         rating: 4.8,
         showInSlider: false,
         updatedAt: '2026-05-21',
+    },
+    {
+        id: 245,
+        isPublic: false,
+        name: 'Thiệp Cưới - Thiện Đức & Thùy Dung',
+        slug: 'thiep-cuoi-thien-duc-thuy-dung',
+        description: 'Thiệp cưới garden gate outdoor — cổng hoa 3D, love story 6 chương, gallery 20 ảnh, countdown, RSVP + lời chúc + QR mừng cưới.',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['thiệp-cưới', 'garden-gate', 'outdoor', 'sage-green', 'cổng-hoa'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/khach_thuy-dung_thien-duc/customer/anh_01.webp',
+            './products/Invitation/Wedding/khach_thuy-dung_thien-duc/customer/anh_11.webp',
+            './products/Invitation/Wedding/khach_thuy-dung_thien-duc/customer/anh_09.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/khach_thuy-dung_thien-duc/customer/anh_01.webp',
+        path: './products/Invitation/Wedding/khach_thuy-dung_thien-duc/',
+        demoUrl: './products/Invitation/Wedding/khach_thuy-dung_thien-duc/index.html',
+        features: [
+            'Garden gate outdoor — cổng hoa 3D mở + leaf burst + polaroid clothesline',
+            'Love story 6 chương + timeline tiệc cưới + calendar tháng 7/2026 + countdown',
+            'RSVP xác nhận + gửi lời chúc + QR mừng cưới Techcombank + gallery 20 ảnh',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 1,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-06-16',
     }
 ];
 
