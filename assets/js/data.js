@@ -4733,7 +4733,7 @@ const PRODUCTS = [
     {
         id: 235,
         isPublic: true,
-        name: 'Thiệp Cưới - CineLove Pink Pastel',
+        name: 'Thiệp Cưới - Pink Pastel',
         slug: 'cuoi-cinelove-pink-pastel',
         description: 'Thiệp cưới phong cách CineLove — phong bì hồng mở flap, ảnh cặp đôi polaroid scrapbook, lịch tháng 05/2026 có tim đỏ ngày cưới, love quote My Love monogram, invitation Arcittya Begatri ampersand, RSVP xác nhận, countdown, floating hearts. HoaTay1 + Chetta Vissto + BrikeyMoura.',
         category: 'wedding',
