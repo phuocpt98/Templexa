@@ -22,6 +22,7 @@
 
         /* ========== RESET ========== */
         *, *::before, *::after { margin: 0; padding: 0; border: 0; box-sizing: border-box; }
+        img { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-user-drag: none; }
         html, body { height: 100%; overflow-x: hidden; }
         body {
             font-family: 'Lora', 'Open Sans', sans-serif;
@@ -849,7 +850,7 @@
             <!-- 2 polaroid photos giữa 2 lớp thiệp -->
             <div class="hero-photos">
                 <div class="polaroid polaroid-left">
-                    <img class="polaroid-photo" src="./customer/couple_hero.webp" alt="Couple photo 1">
+                    <img class="polaroid-photo" src="./customer/couple_aodai.webp" alt="Couple photo 1">
                 </div>
                 <div class="polaroid polaroid-right">
                     <img class="polaroid-photo" src="./customer/couple_1.webp" alt="Couple photo 2">
@@ -1061,13 +1062,12 @@
     <!-- S9: Gallery Slider -->
     <div class="section s-gallery">
         <div class="gal-view">
-            <img id="galView" src="./customer/couple_hero.webp" alt="Gallery">
+            <img id="galView" src="./customer/couple_1.webp" alt="Gallery">
             <button class="gal-btn gal-btn-prev" id="galPrev">&#10094;</button>
             <button class="gal-btn gal-btn-next" id="galNext">&#10095;</button>
         </div>
                 <div class="gal-controls" id="galControls">
-            <div class="gal-thumb active" data-src="./customer/couple_hero.webp"><img src="./customer/couple_hero.webp" alt=""></div>
-            <div class="gal-thumb" data-src="./customer/couple_1.webp"><img src="./customer/couple_1.webp" alt=""></div>
+            <div class="gal-thumb active" data-src="./customer/couple_1.webp"><img src="./customer/couple_1.webp" alt=""></div>
             <div class="gal-thumb" data-src="./customer/couple_2.webp"><img src="./customer/couple_2.webp" alt=""></div>
             <div class="gal-thumb" data-src="./customer/couple_3.webp"><img src="./customer/couple_3.webp" alt=""></div>
             <div class="gal-thumb" data-src="./customer/couple_4.webp"><img src="./customer/couple_4.webp" alt=""></div>
@@ -1323,6 +1323,18 @@
             if (e.target === overlay) overlay.classList.remove('show');
         });
     });
+})();
+</script>
+<script>
+(function(){
+    document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+    document.addEventListener('dragstart', function(e){ if(e.target.tagName==='IMG') e.preventDefault(); });
+    document.addEventListener('keydown', function(e){
+        if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&/^[IJC]$/i.test(e.key))||(e.ctrlKey&&e.key==='u')||(e.metaKey&&e.altKey&&/^[ijc]$/.test(e.key))){
+            e.preventDefault(); e.stopPropagation();
+        }
+    });
+    (function d(){ setInterval(function(){ (function(){}).constructor('debugger')(); }, 500); })();
 })();
 </script>
 </body>
