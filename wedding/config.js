@@ -80,4 +80,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự lễ cưới của Thiện Đức & Thùy Dung — 10.07.2026 tại Rạch Giá, An Giang',
         image: '../../products/Invitation/Wedding/khach_thuy-dung_thien-duc/og-cover.jpg',
     },
+    'duc-anh-ngoc-trang': {
+        src: '../../products/Invitation/Wedding/gen_216_dam-ngo-song-hy/index.html',
+        title: 'Đức Anh & Ngọc Trang — Lễ Dạm Ngõ',
+        description: 'Trân trọng kính mời bạn đến dự Lễ Dạm Ngõ của Đức Anh & Ngọc Trang — 08.07.2026 tại Nhà hàng Hưng Vân, Nghĩa Lộ, Lào Cai',
+        image: '../../products/Invitation/Wedding/gen_216_dam-ngo-song-hy/og-cover.jpg',
+    },
 };
