@@ -246,7 +246,7 @@
             <p class="sidebar-features-title">Tính năng nổi bật</p>
             <ul class="sidebar-features">${featuresHTML}</ul>
 
-            <a href="contact.html" class="btn-custom">Yêu cầu tùy chỉnh</a>
+            <a href="contact.html?tab=web" class="btn-custom">Yêu cầu tùy chỉnh</a>
         </div>`;
 
     contentEl.innerHTML = `

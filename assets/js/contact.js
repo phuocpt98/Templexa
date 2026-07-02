@@ -108,16 +108,63 @@
 
     // ── Render pricing cards ────────────────────
     renderPricingGrid(pricingGrid, invitationPlans);
-    // #webPricingGrid chưa tồn tại trong contact.html hiện tại (sẽ thêm ở phase sau) → tự bỏ qua nếu không có
     if (webPricingGrid) {
         renderPricingGrid(webPricingGrid, webPlans);
     }
 
-    // ── Auto-select service từ URL param (?service=) ──────
-    // Resolve id từ cả 2 bảng giá: thiệp online (thiep-basic/thiep-pro/thiep-custom)
-    // và legacy web (basic/pro/premium/custom)
+    // ── Tab switcher (Thiệp online / Thiết kế web) ──────────
+    // Bộ id gói web (PRICING) và gói thiệp (INVITATION_PRICING) để resolve ?service=
+    const WEB_SERVICE_IDS = ['basic', 'pro', 'premium', 'custom'];
+    const THIEP_SERVICE_IDS = ['thiep-basic', 'thiep-pro', 'thiep-custom'];
+
+    const thiepPanel = document.getElementById('pricing-section');
+    const webPanel = document.getElementById('web-design');
+    const tabButtons = document.querySelectorAll('.svc-tab');
+
+    function setTab(tab, updateUrl) {
+        const isWeb = tab === 'web';
+        if (webPanel) webPanel.classList.toggle('tab-hidden', !isWeb);
+        if (thiepPanel) thiepPanel.classList.toggle('tab-hidden', isWeb);
+        tabButtons.forEach(btn => {
+            const active = btn.dataset.tab === tab;
+            btn.classList.toggle('active', active);
+            btn.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        if (updateUrl) {
+            const params = new URLSearchParams(window.location.search);
+            params.set('tab', tab);
+            history.replaceState(null, '', window.location.pathname + '?' + params.toString() + window.location.hash);
+        }
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const serviceParam = urlParams.get('service');
+    const initialHash = window.location.hash;
+
+    // Thứ tự ưu tiên resolve tab khi load:
+    // 1) ?tab= tường minh  2) hash #web-design  3) ?service= (web/thiep)
+    // 4) hash #pricing-section  5) mặc định thiệp
+    function resolveInitialTab() {
+        const tabParam = urlParams.get('tab');
+        if (tabParam === 'web' || tabParam === 'thiep') return tabParam;
+        if (initialHash === '#web-design') return 'web';
+        if (serviceParam) {
+            if (WEB_SERVICE_IDS.includes(serviceParam)) return 'web';
+            if (THIEP_SERVICE_IDS.includes(serviceParam)) return 'thiep';
+        }
+        if (initialHash === '#pricing-section') return 'thiep';
+        return 'thiep';
+    }
+
+    // Mở tab đúng TRƯỚC, rồi mới highlight/scroll (element trong tab ẩn không scroll được)
+    setTab(resolveInitialTab(), false);
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => setTab(btn.dataset.tab, true));
+    });
+
+    // ── Auto-select + highlight service từ URL param (?service=) ──────
+    let scrolledToService = false;
     if (serviceParam) {
         if (serviceSelect) {
             serviceSelect.value = serviceParam;
@@ -128,7 +175,19 @@
             const card = match.grid.querySelector(`.pricing-card[data-plan-id="${serviceParam}"]`);
             if (card) {
                 highlightCard(match.grid, card);
+                scrolledToService = true;
+                requestAnimationFrame(() => {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
             }
+        }
+    }
+
+    // ── Scroll tới panel khi vào bằng hash (nếu chưa scroll theo service) ──────
+    if (!scrolledToService && (initialHash === '#web-design' || initialHash === '#pricing-section')) {
+        const target = document.querySelector(initialHash);
+        if (target) {
+            requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth' }));
         }
     }
 
