@@ -1,19 +1,30 @@
 # Templexa — System Overview
 
 > File dành cho AI đọc khi bắt đầu conversation mới.
-> Cập nhật lần cuối: 2026-03-26
+> Cập nhật lần cuối: 2026-07-02
 
 ---
 
 ## 1. Tổng quan dự án
 
-**Templexa** là nền tảng cung cấp mẫu thiết kế tùy chỉnh (template customization service).
-- URL: `https://phuocpt98.github.io/Templexa/`
+**Templexa** là nền tảng bán thiệp cưới/sự kiện online — **invitation-first** — kèm kho mẫu website & Google Sheet phụ trợ.
+- URL: `https://templexa.vn/`
 - Repo: `git@github.com:phuocpt98/Templexa.git`
 - Ngôn ngữ giao diện: **Tiếng Việt**
 - Tech: **Vanilla HTML/CSS/JS** — không framework, không bundler
-- Sản phẩm: **~216 mẫu** (website, Google Sheet, thiệp mời)
-- Khách hàng mục tiêu: Cá nhân & doanh nghiệp nhỏ cần website/thiệp nhanh
+- Sản phẩm: **233 mẫu** trong `data.js` (Invitation 113 + Website 115 + Google-sheet 5)
+- Khách hàng mục tiêu: Cặp đôi/cá nhân cần thiệp cưới, sinh nhật, sự kiện online nhanh — phụ: doanh nghiệp nhỏ cần website
+
+---
+
+## Redesign 2026-07 (nhánh `redesign-thiep-online`)
+
+- Design system đổi từ indigo/purple sang **"Wedding Elegant"** (gold `#A67C2E` / terracotta `#C0654B`), font Playfair Display + Be Vietnam Pro — xem chi tiết trong `CLAUDE.md`.
+- Trang chủ (`index.html`) rebuild invitation-first: hero phone-frame mockup, slider thiệp, categories, 8 feature card, pricing từ `INVITATION_PRICING`, quy trình 4 bước, dải web demoted cuối trang.
+- `thiep-online.html` (mới) — catalog thiệp flagship, dùng chung `products.js`/`data.js` với `products.html` nhưng force `type=invitation`.
+- `products.html` đổi thành "Mẫu Web & Google Sheet" — loại trừ hoàn toàn `type=invitation`; `?type=invitation` và `?category=wedding|other` redirect sang `thiep-online.html`.
+- `product-detail.html` branch UI theo `product.type`: gallery phone-frame + CTA "Đặt thiệp này"/"Xem báo giá" cho invitation, giữ layout cũ cho website/google-sheet.
+- `contact.html` trở thành trang Dịch vụ & Báo giá duy nhất — 2 khối: `#pricing-section` (`INVITATION_PRICING`, flagship) + `#web-design` (`PRICING` web cũ, phụ). `bang-gia-thiep-cuoi.html` chỉ còn là stub redirect (noindex) sang `contact.html#pricing-section`.
 
 ---
 
@@ -93,7 +104,7 @@ Templexa/
 
 ### 3.1 PRODUCTS (data.js)
 
-Mảng `PRODUCTS[]` chứa ~216 object, mỗi product có:
+Mảng `PRODUCTS[]` chứa 233 object (`isPublic !== false`), mỗi product có:
 
 ```javascript
 {

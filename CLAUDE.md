@@ -1,21 +1,22 @@
 # Templexa
 
-Website cung cấp mẫu thiết kế tùy chỉnh (template customization service). Ngôn ngữ giao diện: Tiếng Việt.
+Website bán thiệp cưới/sự kiện online — **invitation-first** (`thiep-online.html` là catalog flagship, `contact.html#pricing-section` là bảng giá chính) — kèm kho mẫu website & Google Sheet phụ trợ (`products.html`). Ngôn ngữ giao diện: Tiếng Việt.
 
 ## Cấu trúc dự án
 
 ```
 Templexa/
-├── index.html                  # Trang chủ
-├── products.html               # Danh sách thiết kế
-├── product-detail.html         # Chi tiết sản phẩm
-├── contact.html                # Dịch vụ / Liên hệ
+├── index.html                  # Trang chủ (invitation-first: hero phone-frame, slider, pricing thiệp)
+├── thiep-online.html           # Catalog thiệp cưới/sự kiện — flagship, dùng chung products.js (force type=invitation)
+├── products.html               # Kho mẫu Web & Google Sheet (KHÔNG còn thiệp mời)
+├── product-detail.html         # Chi tiết sản phẩm (branch UI theo type: invitation | website | google-sheet)
+├── contact.html                # Dịch vụ & Báo giá — 2 khối: #pricing-section (thiệp) + #web-design (web)
 ├── products-admin.html         # Trang admin quản lý sản phẩm
-├── bang-gia-thiep-cuoi.html    # Bảng giá thiệp cưới
+├── bang-gia-thiep-cuoi.html    # Stub redirect (noindex) → contact.html#pricing-section
 ├── thu-vien-hieu-ung.html      # Thư viện hiệu ứng / animations demo
 ├── preview.html                # Preview tool
 ├── assets/
-│   ├── css/style.css           # Stylesheet chính (~2900 dòng)
+│   ├── css/style.css           # Stylesheet chính (~4700 dòng)
 │   ├── js/
 │   │   ├── data.js             # Data products, categories, pricing, helpers
 │   │   ├── data-loader.js      # Loader dynamic data
@@ -25,15 +26,15 @@ Templexa/
 │   │   ├── products-admin.js   # Admin CRUD UI
 │   │   └── contact.js          # Pricing render, form submit
 │   └── images/                 # Logo, icons, backgrounds (đa số WebP)
-├── products/                   # 220 sản phẩm
+├── products/                   # folder sản phẩm (233 active trong data.js)
 │   ├── Web/
 │   │   ├── E-commerce/         # 36
 │   │   ├── Education/          # 31
 │   │   ├── Onepage/            # 26
 │   │   └── Portfolio/          # 25
 │   ├── Invitation/
-│   │   ├── Wedding/            # 58 thiệp cưới
-│   │   └── Other/              # 39 (sinh nhật, kỷ niệm, tỏ tình, ...)
+│   │   ├── Wedding/            # 72 thiệp cưới
+│   │   └── Other/              # 51 (sinh nhật, thôi nôi, kỷ niệm, tỏ tình, ...)
 │   ├── Google-sheet/
 │   │   └── E-commerce/         # 5
 │   └── shared/                 # Tài nguyên dùng chung
@@ -60,12 +61,12 @@ Templexa/
 └── package.json                # npm scripts (convert-webp, ...)
 ```
 
-**Tổng số sản phẩm:** 220 (Web 118 + Invitation 97 + Google-sheet 5).
+**Tổng số sản phẩm (data.js, `isPublic !== false`):** 233 (Invitation 113 + Website 115 + Google-sheet 5).
 
 ## Tech Stack
 
 - HTML/CSS/JS thuần (Vanilla) — không dùng framework
-- Font: Inter (Google Fonts) + Averia Serif Libre (logo)
+- Font: Playfair Display (display/heading/logo) + Be Vietnam Pro (body) — Google Fonts
 - Responsive: dùng `clamp()` và media queries (1024px, 768px, 480px)
 - Animations: IntersectionObserver cho scroll animations
 - CSS Variables cho dark mode (`--bg-primary`, `--text-primary`, `--accent`, ...)
@@ -84,54 +85,65 @@ Templexa/
 
 ## Design System
 
-### Bảng màu chính (Indigo/Purple)
+**"Wedding Elegant"** — palette gold/terracotta thay indigo/purple cũ. Token khai báo `assets/css/style.css` `:root` (dòng ~5–30) + override `[data-theme="dark"]` (dòng ~34–54).
 
-| Vai trò | Mã màu | Dùng ở đâu |
-|---------|--------|-------------|
-| **Indigo** | `#6366F1` | Buttons, borders active, filter active, badge dot, slider badge, pricing highlight |
-| **Indigo Dark** | `#4F46E5` | Button gradient end, hover states |
-| **Purple** | `#7C3AED` | Hero badge icon, showcase icon bg, contact hero spot |
-| **Purple Deep** | `#5B21B6` | Showcase icon gradient end |
-| **Violet** | `#A855F7` | Hero gradient text mid-point |
-| **Blue** | `#3B82F6` | Hero gradient text end, target card left icon, contact CTA button |
+### Bảng màu chính (Gold/Terracotta)
 
-### Gradient patterns
-
-| Tên | Giá trị | Dùng ở đâu |
-|-----|---------|-------------|
-| **Hero text** | `linear-gradient(135deg, #6366F1, #A855F7 50%, #3B82F6)` | `.hero h1 .gradient-text` |
-| **CTA text** | `linear-gradient(135deg, #6366F1, #4F46E5)` | `.cta h2 .gradient-text` |
-| **Button primary** | `linear-gradient(135deg, #6366F1, #8B5CF6)` | `.btn-primary`, pricing CTA highlighted |
-| **Showcase bg** | `linear-gradient(155deg, #6366F1 0%, #4F46E5 50%, #6734DA 75%, #7E22CE 100%)` | `.showcase` section |
-| **Contact hero bg** | `radial-gradient spots on #4F46E5` | `.contact-hero` (2 spots: bottom-left, top-right) |
-| **Contact CTA bg** | `radial-gradient spots on #4527A0` | `.contact-cta-section > .container` |
-| **Contact hero text** | `linear-gradient(90deg, #93C5FD, #C4B5FD)` | `.contact-hero .gradient-text` |
-| **Pricing price highlighted** | `linear-gradient(135deg, #6366F1, #8B5CF6)` | `.pricing-card.highlighted .pricing-price` |
+| Variable | Light | Dark | Dùng ở đâu |
+|----------|-------|------|-------------|
+| `--accent` (gold) | `#A67C2E` | `#D4AF5E` | Nav hover/active, link hover, badge/pill text, border `.btn-gold-outline`, `theme-color` |
+| `--accent-dark` | `#8A6524` | `#C09A45` | Hover gold, gradient end |
+| `--accent-light` | `#F6EDDA` | `#2E2617` | Nền nhạt cho badge/highlight |
+| `--accent-2` (terracotta) | `#C0654B` | `#D98268` | `.btn-terracotta`, `.btn-primary`, CTA "Đặt thiệp này" |
+| `--accent-2-dark` | `#A64F38` | `#C56A4F` | Hover terracotta |
 
 ### Màu nền & text (CSS Variables)
 
 | Variable | Light | Dark |
 |----------|-------|------|
-| `--bg-primary` | `#FFFFFF` | `#0F172A` |
-| `--bg-secondary` | `#F4FBFF` | `#1E293B` |
-| `--text-primary` | `#0B1B2B` | `#F1F5F9` |
-| `--text-secondary` | `#355066` | `#94A3B8` |
-| `--text-tertiary` | `#5E7A90` | `#64748B` |
-| `--border-color` | `#D6ECF7` | `#1A3A4D` |
-| `--card-bg` | `#FFFFFF` | `#1E293B` |
-| `--card-hover-bg` | `#F4FBFF` | `#334155` |
-| `--input-bg` | `#FFFFFF` | `#1E293B` |
-| `--input-border` | `#D6ECF7` | `#1A3A4D` |
+| `--bg-primary` | `#FFFDF8` | `#171310` |
+| `--bg-secondary` | `#FAF4EA` | `#221C15` |
+| `--bg-tertiary` | `#F3E9D8` | `#2C241A` |
+| `--text-primary` | `#2D2418` | `#F3EBDC` |
+| `--text-secondary` | `#6B5B45` | `#C6B599` |
+| `--text-tertiary` | `#9A8768` | `#8F7F66` |
+| `--border-color` | `#E9DDC8` | `#3A3122` |
+| `--card-bg` | `#FFFFFF` | `#221C15` |
+| `--card-hover-bg` | `#FBF5EA` | `#2C241A` |
+| `--input-bg` | `#FFFFFF` | `#221C15` |
+| `--input-border` | `#E9DDC8` | `#3A3122` |
+| `--header-bg` | `rgba(255,253,248,0.85)` | `rgba(23,19,16,0.85)` |
+| `--overlay-bg` | `rgba(45,36,24,0.55)` | `rgba(0,0,0,0.7)` |
+
+### Gradient patterns
+
+| Tên | Giá trị (light) | Dark | Dùng ở đâu |
+|-----|-------------------|------|-------------|
+| `--gold-gradient` | `linear-gradient(90deg, #C9A24B, #A67C2E)` | `linear-gradient(90deg, #E3C57C, #C9A24B)` | `.logo-text`, `.home-hero-title .gradient-text` |
+| `--hero-gradient` | `linear-gradient(135deg, #FAF3E4, #F0E2C9)` | `linear-gradient(135deg, #241C10, #171310)` | Nền `.home-hero` (`.hero` legacy không còn dùng trong HTML) |
+| Hero text (legacy `.hero`/`.products-hero`) | `linear-gradient(135deg, #A67C2E, #C0654B 50%, #C9A24B)` | — | `.products-hero .gradient-text` (thiep-online.html, products.html) |
+| Contact hero text | `linear-gradient(90deg, #F0E2C9, #E8C98F)` | — | `.contact-hero .gradient-text` |
+| Button terracotta | `--accent-2 → --accent-2-dark` (`#C0654B → #A64F38`) | — | `.btn-terracotta:hover`, `.btn-primary` |
+| Button gold outline | border/text `var(--accent)`, hover fill `var(--accent)` | — | `.btn-gold-outline` |
+| Pricing price highlighted | `linear-gradient(135deg, #C9A24B, #A67C2E)` | — | `.pricing-card.highlighted .pricing-price` |
 
 ### Font
 
-- **Family**: Inter (Google Fonts) + Averia Serif Libre (logo)
-- **Weights**: 400 (body), 500 (medium), 600 (semi-bold), 700 (bold), 800 (extra-bold, hero)
+- **Display** (`--font-display`): Playfair Display — `h1, h2, h3`, `.logo-text`, `.home-hero-title`
+- **Body** (`--font-body`): Be Vietnam Pro — `body`
+- Import (Google Fonts): `Be+Vietnam+Pro:wght@300;400;500;600;700` + `Playfair+Display:ital,wght@0,500;0,600;0,700;1,400`
+- Logo: `<span class="logo-text">Templexa</span>` (text, gradient `--gold-gradient`) — **không dùng ảnh logo** trong header/footer nữa; `logo.svg`/`logo_v2.svg` chỉ còn tham chiếu trong JSON-LD `Organization.logo`
 
-### Border radius & Shadow
+### Border radius tokens
 
-- Cards: `12–24px` | Buttons: `30–34px` pill | Icon boxes: `16px`
-- Card shadow: `0 4px 15px rgba(0,0,0,0.05)` | CTA button: `0 10px 30px rgba(99,102,241,0.3)`
+| Variable | Giá trị | Dùng |
+|----------|---------|------|
+| `--radius-sm` | `8px` | Input nhỏ, badge |
+| `--radius-md` | `14px` | Card, button vuông |
+| `--radius-lg` | `22px` | Card lớn, section block |
+| `--radius-pill` | `999px` | Button pill (`.btn-terracotta`, `.btn-gold-outline`) |
+
+- Card shadow: `var(--card-shadow)` = `0 4px 18px rgba(90,70,40,0.08)` (dark: `rgba(0,0,0,0.4)`)
 
 ## Dark Mode
 
@@ -195,77 +207,124 @@ Templexa/
 
 ## Thiết kế các trang
 
-### 1. Trang chủ — `index.html` ✅
-- **Header**: Logo (Averia Serif Libre) + Nav (centered) + Dark mode toggle + Hamburger (mobile)
-- **Hero**: Badge tím + Heading gradient + mô tả + CTA "Bắt Đầu Ngay"
-- **Lý Do Chọn Chúng Tôi**: 4 icon cards (img SVG)
-- **Các Mẫu Nổi Bật**: Slider/carousel, card giữa có badge "Most Popular"
-- **Lợi ích**: 4 cards với icon SVG (benefits_icon_1–4.svg)
-- **Showcase**: Background gradient tím, wave dividers, 2 feature items
-- **CTA cuối**: Heading gradient text + button gradient
-- **Footer**: 4 cột, links có URL params
+### Nav 4-item chuẩn (giống hệt trên 5 trang chính, chỉ khác class `active`)
 
-### 2. Danh sách thiết kế — `products.html` ✅
-- **Hero**: radial-gradient bg, gradient text, search bar (debounce 300ms)
-- **Filters**: flexbox row, category + type, active indigo, URL params
-- **Grid sản phẩm**: 3 cột, card có ảnh + badge + tên + danh mục
-- **Phân trang**: 9 items/page
+```html
+<nav class="nav" id="navMenu">
+    <ul class="nav-menu">
+        <li><a href="index.html" class="active">Trang chủ</a></li>
+        <li><a href="thiep-online.html">Mẫu thiệp</a></li>
+        <li><a href="products.html">Mẫu web</a></li>
+        <li><a href="contact.html">Dịch vụ</a></li>
+    </ul>
+</nav>
+```
 
-### 3. Chi tiết sản phẩm — `product-detail.html` ✅
-- **Breadcrumb**: links với URL params category filter
-- **Layout 2 cột**: Gallery (main + thumbs) + Sidebar sticky
-- **Sidebar**: Badge giá, "Dùng ngay" (gradient), "Xem demo", features list, "Yêu cầu tùy chỉnh"
-- **Action bar**: Save (toggle purple, sessionStorage) + Share + Last updated
-- **Related products**: 4 cards cùng danh mục (getRelatedProducts)
-- **Modal "Nhận mẫu"**: Email* + Họ tên + SĐT + checkbox required → Google Sheets
-- **Modal thành công**: Icon check + message
+Nguồn: `index.html` dòng 85–92 (`.nav-menu a:hover, .nav-menu a.active { color: var(--accent); }`). `products.js` còn tự đổi href của link "Dịch Vụ" thành `contact.html#pricing-section` khi đang lọc `type=invitation` (`updateServiceNavLink()`).
+
+### 1. Trang chủ — `index.html` ✅ (invitation-first)
+- **Hero** (`.home-hero`): badge "THIỆP CƯỚI ONLINE" + h1 "Thiệp Cưới Online **Sang Trọng**" (gradient `--gold-gradient`) + mô tả "giao trong 24h, chỉ từ 150.000đ" + CTA "Xem mẫu thiệp" (`.btn-terracotta` → `thiep-online.html`) + "Xem bảng giá" (`.btn-gold-outline` → `contact.html#pricing-section`) + 4 chip (Giao 24h / RSVP realtime / QR mừng cưới / 100+ mẫu thiệp) + visual **phone-frame mockup** (`.phone-frame` xoay 4 slide ảnh mobile thiệp)
+- **Mẫu Thiệp Nổi Bật** (`.templates`): slider render từ `getSliderProducts()` — 6 thiệp mới nhất theo priority
+- **Danh Mục Thiệp** (`.home-categories`): 3 card link `thiep-online.html?category=wedding` / `?category=other&search=...` / `?category=other`
+- **Tính Năng Thiệp Cưới** (`.home-features`): 8 feature card (Countdown, RSVP, Lời chúc realtime, QR mừng cưới, Bản đồ, Nhạc nền, Cá nhân hoá tên khách, Thêm vào lịch)
+- **Bảng Giá Thiệp Cưới** (`#pricing-section` → `#homePricingGrid`): render `INVITATION_PRICING` bằng inline script
+- **Quy Trình 4 Bước** (`.home-process`)
+- **Web strip** (`.home-web-strip`): dải nhỏ demoted cuối trang — "Bạn cần website cho doanh nghiệp?" → link `products.html` + `contact.html#web-design`
+- **Footer**: 4 cột, giống các trang khác
+
+### 2. Catalog thiệp — `thiep-online.html` ✅ (flagship)
+- Dùng **chung** `assets/js/products.js` + `data.js` với `products.html`, nhưng force `type=invitation` (ẩn type filter, chỉ hiện category `wedding`/`other`), `perPage = 16` (khác 9 của `products.html`) — xem `render()` trong `products.js`
+- Hero `.products-hero` (gradient text riêng) + search debounce 300ms
+- Grid 3 cột, card → `product-detail.html?id=X`, ảnh ưu tiên `mobileView` (phone-view) cho invitation
+- Sub-section tĩnh cuối trang: mô tả thiệp, "Các Loại Thiệp", "Tại Sao Chọn Templexa"
+- Product quick-view popup (`#productPopup`) dùng chung code với `products.html`
+
+### 3. Kho mẫu Web & Google Sheet — `products.html` ✅
+- **KHÔNG còn thiệp mời**: `products.js` có `excludeInvitation()` filter `p.type !== 'invitation'` + ẩn tab "Thiệp mời" khỏi type filter + ẩn category `wedding`/`other` (chỉ khi `pathname.includes('products.html')`, không đụng `thiep-online.html`/`products-admin.html`)
+- Legacy redirect: `?type=invitation` → `thiep-online.html`; `?category=wedding|other` → `thiep-online.html?category=X`
+- Hero radial-gradient bg, gradient text (`.products-hero .gradient-text`), search debounce 300ms
+- Filters flexbox, category + type, active `var(--accent)`
+- Grid 3 cột, card ảnh + badge + tên + danh mục
+- Phân trang: **9 items/page**
+
+### 4. Chi tiết sản phẩm — `product-detail.html` ✅ (branch theo `product.type`)
+- Nếu `type === 'invitation'`: thêm class `.invitation-theme` lên `<body>`, gallery dạng **phone-frame** (`.detail-gallery-invitation`, `.detail-phone-frame`), badge giá cố định **"Từ 150.000đ"**, nút CTA "Đặt thiệp này" (mở modal lead) / "Xem demo" / "Xem báo giá" (→ `contact.html#pricing-section`) / "Sao chép link", **sticky mobile CTA** `#detailMobileCta` (chỉ hiện mobile)
+- Nếu `website`/`google-sheet`: layout cũ — badge giá, "Dùng ngay", "Xem demo", features list, "Yêu cầu tùy chỉnh"
+- **Related products**: 4 card cùng `category` (`getRelatedProducts`)
+- **Modal nhận mẫu/đặt thiệp**: title đổi động — `Đặt thiệp: {name}` cho invitation
+- **Modal thành công**: icon check + message
 - Form data: `{ email, name, phone, reference: window.location.href, service: '', note: '', status: 'submit' }`
+- JSON-LD `#productSchema` cập nhật dynamic; `offers.price = '150000'` (VND) khi `type === 'invitation'`
 
-### 4. Dịch vụ — `contact.html` ✅
-- **Hero**: `min-height: 100vh`, radial-gradient spots tím trên `#4F46E5`
-  - Gradient text: `linear-gradient(90deg, #93C5FD, #C4B5FD)`
-  - Button: `linear-gradient(90deg, #3B82F6, #7C3AED)`
-- **Quy Trình Hợp Tác**: 4 bước với icon SVG (`contact_icon_1-4.svg`)
-  - Process number badges (01–04) góc phải trên icon
-  - Connecting line solid qua giữa icons (`process-grid::before`)
-- **Các Gói Dịch Vụ**: 4 pricing cards, click to highlight
-  - Mỗi gói có: `name`, `price`, `originalPrice`, `showOriginalPrice`, `discount`, `description`, `features`
-  - BASIC: 699.000đ (gốc 1.500.000đ, -55%) | PRO highlighted: 2.999.000đ (gốc 5.000.000đ, -40%)
-  - PREMIUM: 8.000.000đ | CUSTOM: Liên hệ
-  - Highlighted card cao hơn (extra padding), "PHỔ BIẾN NHẤT" badge
-  - Pricing price highlighted: gradient text
-  - Min-height trên header/desc/original-price/price/features để căn bằng
-  - Click CTA → scroll to form + auto-select service
-- **CTA "Sẵn sàng để bứt phá?"**:
-  - Container có gradient bg + border-radius 20px + box-shadow
-  - 2 cột 50/50: cam kết (showcase icons) + form tư vấn (card shadow)
-  - "Liên hệ trực tiếp:" + email + hr divider, căn sát đáy trái
-- **Giải Pháp Dành Cho Ai?**: 2 cards
-  - Card trái: icons xanh `#3B82F6` | Card phải: icons tím `#6366F1`
-  - Icon trong `<li>` có vòng tròn background
+### 5. Dịch vụ — `contact.html` ✅ (2 khối báo giá)
+- **Hero** (`.contact-hero`)
+- **`#pricing-section`** (mặc định, flagship): render `INVITATION_PRICING` vào `#pricingGrid` — 3 gói **Basic 150.000đ** / **Premium 199.000đ** (highlighted, badge "PHỔ BIẾN NHẤT") / **Custom Liên hệ**
+  - Sub-section "Mỗi thiệp cưới đều có": 12 feature card (`.svc-feat-grid`)
+  - Sub-section "Thắc mắc thường gặp": 5 câu FAQ (`<details class="svc-faq-item">`) + `FAQPage` JSON-LD
+- **Quy Trình 4 Bước** (`.process-section`)
+- **Form tư vấn** (`#contactForm` → `#consultForm`): submit `submitToGoogleSheet()`, gộp `invitationType` (nếu có) vào `note`
+- **`#web-design`** (section riêng cuối trang, id anchor): "Thiết Kế Website Theo Yêu Cầu" → render `PRICING` (4 gói web cũ BASIC/PRO/PREMIUM/CUSTOM) vào `#webPricingGrid` (`.pricing-grid-compact`)
+- `contact.js`: `renderPricingGrid()` render cả 2 grid, `planRegistry` map `planId → {plan, grid}` để `?service=` resolve đúng cả 2 bộ id (`thiep-basic/thiep-pro/thiep-custom` và `basic/pro/premium/custom`)
+
+### Trang phụ
+- `bang-gia-thiep-cuoi.html`: **chỉ còn là stub redirect** (`<meta name="robots" content="noindex">` + `<meta http-equiv="refresh">` + `location.replace()`) → `contact.html#pricing-section`. Không còn UI/nội dung thật.
 
 ## Trạng thái tiến độ
 
+### Redesign 2026-07 (nhánh `redesign-thiep-online`, Phase 0–7)
+
+| Hạng mục | File | Trạng thái |
+|----------|------|-----------|
+| Design system "Wedding Elegant" (gold/terracotta, Playfair Display + Be Vietnam Pro) | `assets/css/style.css` `:root` + `[data-theme=dark]` | ✅ Hoàn thành |
+| Trang chủ invitation-first (hero phone-frame, slider, categories, features, pricing, process, web-strip) | `index.html` | ✅ Hoàn thành |
+| Catalog thiệp flagship | `thiep-online.html` | ✅ Hoàn thành |
+| Kho web & Google Sheet — exclude invitation + legacy redirect | `products.html` + `products.js` | ✅ Hoàn thành |
+| Chi tiết sản phẩm — branch invitation vs website/google-sheet | `product-detail.html` + `product-detail.js` | ✅ Hoàn thành |
+| Dịch vụ — báo giá kép (thiệp `#pricing-section` + web `#web-design`) | `contact.html` + `contact.js` | ✅ Hoàn thành |
+| Bảng giá thiệp riêng → stub redirect | `bang-gia-thiep-cuoi.html` | ✅ Hoàn thành (deprecated) |
+| Nav 4-item chuẩn (Trang chủ/Mẫu thiệp/Mẫu web/Dịch vụ) | 5 trang chính | ✅ Hoàn thành |
+| `INVITATION_PRICING` + `getProductsSorted()` invitation-first | `assets/js/data.js` | ✅ Hoàn thành |
+| Sitemap ưu tiên thiệp (0.9) | `sitemap.xml` | ✅ Hoàn thành |
+
+### Nền tảng kế thừa
+
 | Trang / Tính năng | File | Trạng thái |
 |-------|------|-----------|
-| Trang chủ (light) | `index.html` | ✅ Hoàn thành |
-| Danh sách thiết kế (light) | `products.html` + `products.js` | ✅ Hoàn thành |
-| Chi tiết sản phẩm (light) | `product-detail.html` + `product-detail.js` | ✅ Hoàn thành |
-| Dịch vụ (light) | `contact.html` + `contact.js` | ✅ Hoàn thành |
-| Dark mode | CSS overrides (~40 rules) + `main.js` | ✅ Hoàn thành |
+| Dark mode | CSS variables + `main.js` | ✅ Hoàn thành |
 | Responsive | 3 breakpoints (1024, 768, 480) | ✅ Hoàn thành |
 | Mobile menu | Hamburger + slide-in + overlay | ✅ Hoàn thành |
-| Modal nhận mẫu | `product-detail.js` | ✅ Hoàn thành |
+| Modal nhận mẫu / đặt thiệp | `product-detail.js` | ✅ Hoàn thành |
 | Modal thành công | `product-detail.js` | ✅ Hoàn thành |
-| Đổi tên thư mục sản phẩm | 152 folders → kebab-case | ✅ Hoàn thành |
-| Đổi tên HTML → index.html | Tất cả code.html → index.html | ✅ Hoàn thành |
-| Data sản phẩm | `data.js` — 156 sản phẩm (đầy đủ) | ✅ Hoàn thành |
-| Footer đồng bộ | 4 trang giống nhau | ✅ Hoàn thành |
-| SEO meta tags | 4 trang (description, OG, Twitter Card) | ✅ Hoàn thành |
+| Footer đồng bộ | 5 trang chính giống nhau | ✅ Hoàn thành |
+| SEO meta tags | 5 trang (description, OG, Twitter Card, JSON-LD) | ✅ Hoàn thành |
 
 ## Data & API
 
-### PRICING structure (data.js)
+### INVITATION_PRICING structure (data.js) — bảng giá chính (thiệp)
+
+3 gói: `thiep-basic` (150.000đ), `thiep-pro` (name: "Premium", 199.000đ, `highlighted: true`), `thiep-custom` (Liên hệ). Render vào `#pricingGrid` (`contact.html`) và `#homePricingGrid` (`index.html`, inline script).
+
+```javascript
+{
+    id: 'thiep-pro',                // thiep-basic | thiep-pro | thiep-custom
+    name: 'Premium',
+    price: '199.000đ',
+    originalPrice: '250.000đ',
+    showOriginalPrice: true,
+    discount: '-20%',
+    description: '...',
+    features: [
+        'Chọn 1 trong 20+ mẫu thiệp đẹp',
+        { text: 'Hiển thị lời chúc bay (bong bóng)', disabled: true },  // object = tính năng bị khoá ở gói thấp hơn
+        // ...
+    ],
+    highlighted: true,              // true = card nổi bật + badge "PHỔ BIẾN NHẤT"
+}
+```
+
+### PRICING structure (data.js) — bảng giá phụ (web)
+
+4 gói web cũ (BASIC 699K / PRO 2.999K highlighted / PREMIUM 8.000K / CUSTOM Liên hệ). **Chỉ còn render ở `#webPricingGrid`** (`contact.html` section `#web-design`) — không còn xuất hiện trên trang chủ.
 
 ```javascript
 {
@@ -297,11 +356,12 @@ Templexa/
     thumbnail: './products/.../screen.png',
     demoUrl: './products/.../index.html',
     features: ['Tính năng 1', 'Tính năng 2', 'Tính năng 3'],
-    status: 'new',                 // new | hot | (trống)
+    status: 'new',                 // new | hot | bestseller | trending | (trống)
     priority: 1,
     downloads: 5,                 // random 1–10
     rating: 4.8,                   // random 4.7–4.9
-    showInSlider: true,            // Hiện trên slider trang chủ
+    showInSlider: true,            // ⚠ Field vẫn tồn tại nhưng getSliderProducts() KHÔNG dùng nữa (xem Helper functions)
+    isPublic: true,                // false = ẩn khỏi products.html/thiep-online.html (vẫn hiện ở products-admin.html)
     updatedAt: '2025-02-17',
 }
 ```
@@ -322,28 +382,34 @@ Templexa/
 
 | Function | Mô tả |
 |----------|-------|
-| `getSliderProducts()` | Lấy products có `showInSlider: true` |
+| `getSliderProducts()` | 6 sản phẩm `type: 'invitation'` mới nhất theo `priority`/`id` (`isPublic !== false`) — **không còn dùng `showInSlider`** |
 | `getProductById(id)` | Tìm product theo ID |
 | `getProductBySlug(slug)` | Tìm product theo slug |
-| `getProductsSorted()` | Sort theo priority |
-| `filterProducts({ category, type, search })` | Lọc products |
-| `paginateProducts(products, page, perPage)` | Phân trang (9/page) |
-| `getRelatedProducts(productId, limit)` | Cùng category, sort priority, limit 4 |
-| `submitToGoogleSheet(formData)` | Gửi form đến Google Sheets API |
+| `getProductsSorted()` | Sort: `type` invitation → website → google-sheet trước, rồi fullpage-demo, `priority`, `id` (`isPublic !== false`) |
+| `filterProducts({ category, type, search })` | Lọc products (gọi trên `getProductsSorted()`) |
+| `paginateProducts(products, page, perPage)` | Phân trang — mặc định `perPage = 9` (`products.js` override `perPage = 16` khi `currentType === 'invitation'`, tức trên `thiep-online.html`) |
+| `getRelatedProducts(productId, limit)` | Cùng `category`, `isPublic !== false`, sort priority, limit 4 |
+| `submitToGoogleSheet(formData)` | Gửi form đến Google Sheets API (`sheet_name: 'sale'`) |
 
 ## URL Parameters
 
 | Trang | Param | Tác dụng |
 |-------|-------|----------|
-| `products.html` | `?category=onepage` | Auto-filter theo danh mục |
-| `products.html` | `?type=website` | Auto-filter theo loại |
-| `products.html` | `?type=invitation` | Filter thiệp mời (type riêng). Legacy `?type=trending` redirect tới đây |
-| `products.html` | `?category=invitation` | Legacy redirect → `?type=invitation` |
-| `products.html` | `?search=keyword` | Auto-fill search + filter |
-| `contact.html` | `?service=pro` | Auto-select gói dịch vụ trong form |
-| `contact.html` | `#pricing-section` | Scroll đến phần pricing |
+| `products.html` | `?category=onepage\|e-commerce\|portfolio\|education` | Auto-filter theo danh mục (KHÔNG có `wedding`/`other`) |
+| `products.html` | `?type=website\|google-sheet` | Auto-filter theo loại (KHÔNG có `invitation`) |
+| `products.html` | `?type=invitation` | **Redirect** → `thiep-online.html` (giữ nguyên các param còn lại) |
+| `products.html` | `?category=wedding` hoặc `?category=other` | **Redirect** → `thiep-online.html?category=wedding\|other` |
+| `products.html` | `?category=invitation` (legacy) | Redirect nội bộ → `?type=invitation` → redirect tiếp sang `thiep-online.html` |
+| `products.html` / `thiep-online.html` | `?search=keyword` | Auto-fill search + filter |
+| `thiep-online.html` | `?category=wedding\|other` | Filter danh mục thiệp (type luôn = invitation, type filter bị ẩn) |
+| `thiep-online.html` | `?type=trending` (legacy) | Redirect nội bộ → `type=invitation` |
+| `contact.html` | `?service=thiep-basic\|thiep-pro\|thiep-custom` | Auto-select + highlight gói thiệp trong `#pricingGrid` |
+| `contact.html` | `?service=basic\|pro\|premium\|custom` | Auto-select + highlight gói web trong `#webPricingGrid` |
+| `contact.html` | `#pricing-section` | Scroll đến bảng giá thiệp (mặc định) |
+| `contact.html` | `#web-design` | Scroll đến bảng giá web |
 | `contact.html` | `#contactForm` | Scroll đến form tư vấn |
-| `product-detail.html` | `?id=1` | Load sản phẩm theo ID |
+| `product-detail.html` | `?id=1` | Load sản phẩm theo ID, branch UI theo `product.type` |
+| `bang-gia-thiep-cuoi.html` | — | Toàn trang là stub redirect (noindex) → `contact.html#pricing-section` |
 
 ## Cấu trúc folder sản phẩm
 
@@ -381,7 +447,7 @@ products/
 2. Đặt file: `index.html` (bắt buộc với website/invitation) + ảnh (`thumbnail.png`, `anh_*.png`, ...)
 3. Bảo AI: **"quét giúp tôi `products/{Loại}/{Loại-nhỏ}/{tên-folder}` thêm vào data.js"**
 4. AI tự quét folder → sinh product entry → chèn vào `data.js` + cập nhật `products.md`
-5. Set `showInSlider: true` nếu muốn hiện trên slider trang chủ
+5. Slider trang chủ (`index.html #templatesTrack`) tự lấy 6 thiệp (`type: 'invitation'`) mới nhất theo `priority`/`id` (`getSliderProducts()`) — **không cần set `showInSlider`**, field này chỉ còn ý nghĩa lịch sử/tương thích ngược. Set `priority` thấp hơn nếu muốn ưu tiên hiện trước.
 
 ## Quy trình quét sản phẩm vào data.js
 
@@ -454,15 +520,15 @@ Mỗi trang HTML đều có đầy đủ SEO tags trong `<head>`:
 <meta name="keywords" content="từ khóa SEO">
 <meta name="author" content="Templexa Studio">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#6366F1">
-<link rel="canonical" href="https://phuocpt98.github.io/Templexa/{page}">
+<meta name="theme-color" content="#A67C2E">
+<link rel="canonical" href="https://templexa.vn/{page}">
 
 <!-- Open Graph (Facebook, Zalo, ...) -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tiêu đề trang">
 <meta property="og:description" content="Mô tả ngắn">
-<meta property="og:image" content="https://phuocpt98.github.io/Templexa/assets/images/lgo-v2.png">
-<meta property="og:url" content="https://phuocpt98.github.io/Templexa/{page}">
+<meta property="og:image" content="https://templexa.vn/assets/images/og-image.png">
+<meta property="og:url" content="https://templexa.vn/{page}">
 <meta property="og:site_name" content="Templexa">
 <meta property="og:locale" content="vi_VN">
 
@@ -470,17 +536,20 @@ Mỗi trang HTML đều có đầy đủ SEO tags trong `<head>`:
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tiêu đề trang">
 <meta name="twitter:description" content="Mô tả ngắn">
-<meta name="twitter:image" content="https://phuocpt98.github.io/Templexa/assets/images/lgo-v2.png">
+<meta name="twitter:image" content="https://templexa.vn/assets/images/og-image.png">
 ```
+
+Domain thực đã dùng: `https://templexa.vn/` (đã thay xong `phuocpt98.github.io/Templexa/` trên 5 trang chính; riêng `bang-gia-thiep-cuoi.html` — stub redirect — vẫn còn canonical trỏ domain GitHub Pages cũ, không ảnh hưởng vì `noindex`).
 
 ### Meta description từng trang
 
 | Trang | Title | Description |
 |-------|-------|-------------|
-| `index.html` | Templexa - Mẫu Thiết Kế Tùy Chỉnh Cho Bạn | Kho mẫu thiết kế website đa dạng, hơn 150 mẫu sẵn sàng sử dụng |
-| `products.html` | Danh Sách Thiết Kế - Templexa | Khám phá hơn 150 mẫu, lọc theo danh mục, xem demo trực tiếp |
-| `product-detail.html` | Chi Tiết Sản Phẩm - Templexa | Gallery ảnh, tính năng, demo trực tiếp và yêu cầu tùy chỉnh |
-| `contact.html` | Dịch Vụ Thiết Kế - Templexa | 4 gói từ 699K đến Premium, quy trình chuyên nghiệp, tư vấn miễn phí |
+| `index.html` | Templexa — Thiệp Cưới Online Sang Trọng, Giao Trong 24h | Thiệp cưới online sang trọng, thiết kế riêng cho ngày trọng đại. RSVP, QR mừng cưới, lời chúc realtime. Giao trong 24h, chỉ từ 150.000đ. |
+| `thiep-online.html` | Thiệp Cưới Online Đẹp — Mẫu Thiệp Mời Cưới, Sinh Nhật, Thôi Nôi \| Templexa | Kho thiệp cưới online đẹp, thiệp mời cho sinh nhật, thôi nôi — nhạc nền, RSVP, QR mừng cưới. Hơn 100 mẫu, demo trực tiếp, giao trong 24h. |
+| `products.html` | Mẫu Web & Google Sheet — Templexa | Kho giao diện website và Google Sheet tại Templexa. Lọc theo danh mục, tìm kiếm nhanh, xem demo trực tiếp. |
+| `product-detail.html` | Chi Tiết Sản Phẩm - Templexa | Gallery ảnh, tính năng, demo trực tiếp và yêu cầu tùy chỉnh (title/description được `product-detail.js` ghi đè động theo sản phẩm) |
+| `contact.html` | Dịch Vụ & Báo Giá Thiệp Cưới Online — Từ 150.000đ \| Templexa | Báo giá thiệp cưới online — 3 gói Basic/Premium/Custom từ 150.000đ. Countdown, nhạc nền, gallery, RSVP, lời chúc realtime. Giao trong 24h. |
 
 ### Structured Data (JSON-LD)
 
@@ -488,17 +557,18 @@ Mỗi trang có `<script type="application/ld+json">` phù hợp:
 
 | Trang | Schema Type | Nội dung |
 |-------|-------------|----------|
-| `index.html` | `Organization` + `WebSite` | Thông tin tổ chức, logo, email, SearchAction cho search box |
-| `products.html` | `CollectionPage` + `BreadcrumbList` | Trang danh mục với breadcrumb |
-| `product-detail.html` | `Product` | **Dynamic** — `product-detail.js` cập nhật `#productSchema` với name, description, images, rating, offers |
-| `contact.html` | `Service` + `OfferCatalog` | Dịch vụ với 4 gói giá (BASIC, PRO, PREMIUM, CUSTOM) |
+| `index.html` | `Organization` + `WebSite` | Thông tin tổ chức, logo (`logo_v2.svg`), email, SearchAction |
+| `thiep-online.html` | `CollectionPage` + `BreadcrumbList` | Catalog thiệp với breadcrumb |
+| `products.html` | `CollectionPage` + `BreadcrumbList` | Trang kho web/Google Sheet với breadcrumb |
+| `product-detail.html` | `Product` | **Dynamic** — `product-detail.js` cập nhật `#productSchema` với name, description, images, rating, offers (`price: '150000'` VND khi invitation) |
+| `contact.html` | `Service` + `OfferCatalog` + `FAQPage` | 3 gói thiệp (Basic/Premium/Custom) trong `OfferCatalog`; `FAQPage` cho 5 câu hỏi thường gặp |
 
 **product-detail.js** cũng cập nhật dynamic: `document.title`, `meta[description]`, `og:title`, `og:description`, `og:image` khi load sản phẩm.
 
 ### Lưu ý khi deploy
-- Thay `https://phuocpt98.github.io/Templexa/` bằng domain thực (trong cả meta tags và JSON-LD)
-- Tạo file `assets/images/lgo-v2.png` (1200×630px) cho ảnh share link
-- `theme-color`: `#6366F1` — màu thanh trình duyệt trên mobile
+- Domain thực đã áp dụng: `https://templexa.vn/`
+- `og:image`/`twitter:image`: `assets/images/og-image.png` (file thật, 1200×630px, đã verify tồn tại) — **nhưng vẫn là logo gradient indigo/purple cũ**, chưa cập nhật theo palette gold/terracotta mới → nên làm lại ảnh OG wedding-branding (gold/terracotta, có thể kèm mockup thiệp) sau
+- `theme-color`: `#A67C2E` — màu thanh trình duyệt trên mobile
 
 ## Hiển thị ảnh sản phẩm
 
@@ -516,11 +586,11 @@ Tất cả nơi hiển thị ảnh đều dùng `images[0]`:
 
 ## Ghi chú quan trọng
 
-- Footer giống nhau trên tất cả 4 trang — copy HTML, email: `templexa.contact@gmail.com`
-- Header giống nhau trên tất cả 4 trang, chỉ khác class `active` trên nav link
-- Pricing cards render động từ `PRICING` array trong `data.js`
-- Scroll animations: `.service-card`, `.template-card`, `.benefit-card`, `.process-step`, `.pricing-card`, `.target-card`, `.product-card`
-- Hover color cho links: `#6366F1` (indigo) — thống nhất toàn site
+- Footer giống nhau trên 5 trang chính (`index.html`, `thiep-online.html`, `products.html`, `product-detail.html`, `contact.html`) — copy HTML, email: `templexa.contact@gmail.com`
+- Header/Nav giống nhau trên 5 trang chính, chỉ khác class `active` trên nav link
+- Pricing cards thiệp render động từ `INVITATION_PRICING`; pricing cards web (phụ) render từ `PRICING` — cả hai đều trong `data.js`
+- Scroll animations: `.service-card`, `.template-card`, `.benefit-card`, `.process-step`, `.pricing-card`, `.target-card`, `.product-card`, `.home-reveal`, `.hero-reveal`
+- Hover color cho links: `var(--accent)` = `#A67C2E` (gold, dark: `#D4AF5E`) — thống nhất toàn site
 - **Khi thêm CSS mới**: nếu hardcode màu → thêm dark override vào block "DARK MODE — ALL HARDCODED OVERRIDES"
 - **Khi thêm responsive**: thêm vào block "ADDITIONAL RESPONSIVE" theo thứ tự 1024 → 768 → 480
 
