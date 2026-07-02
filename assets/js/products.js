@@ -26,7 +26,7 @@
 
     // ── Two-level filter: show category on type hover ──
     function showCategoryFor(type) {
-        const allowed = TYPE_CATEGORIES[type] || TYPE_CATEGORIES['all'];
+        const allowed = getAllowedCategories(type);
         const cats = CATEGORIES.filter(c => allowed.includes(c.id));
         categoryFiltersEl.innerHTML = cats.map(cat =>
             `<button class="filter-btn${cat.id === currentCategory ? ' active' : ''}" data-category="${cat.id}">${cat.label}</button>`
@@ -80,6 +80,12 @@
         window.location.replace('thiep-online.html' + (remaining ? '?' + remaining : ''));
         return;
     }
+    // Redirect products.html?category=wedding|other → thiep-online.html?category=X
+    var invitationCategoryParam = urlParams.get('category');
+    if (window.location.pathname.includes('products.html') && (invitationCategoryParam === 'wedding' || invitationCategoryParam === 'other')) {
+        window.location.replace('thiep-online.html?category=' + invitationCategoryParam);
+        return;
+    }
     if (urlParams.get('category') === 'invitation') {
         urlParams.delete('category');
         urlParams.set('type', 'invitation');
@@ -103,18 +109,35 @@
     // ── Render filters ──────────────────────────
     // Detect if type filter is hidden (e.g. thiep-online.html)
     const typeFilterHidden = typeFiltersEl && typeFiltersEl.parentElement && typeFiltersEl.parentElement.style.display === 'none';
+    // products.html (kho web/google-sheet) — KHÔNG phải thiep-online.html (typeFilterHidden=false)
+    // và KHÔNG phải products-admin.html (path khác 'products.html')
+    const isProductsListingPage = !typeFilterHidden && window.location.pathname.includes('products.html');
+
+    // ── Loại bỏ sản phẩm/loại/danh mục thiệp mời khỏi products.html (không đụng thiep-online.html / products-admin.html) ──
+    function excludeInvitation(list) {
+        return isProductsListingPage ? list.filter(p => p.type !== 'invitation') : list;
+    }
+
+    function getAllowedCategories(type) {
+        var allowed = TYPE_CATEGORIES[type] || TYPE_CATEGORIES['all'];
+        if (isProductsListingPage) {
+            allowed = allowed.filter(id => id !== 'wedding' && id !== 'other');
+        }
+        return allowed;
+    }
 
     function renderFilters() {
         // Category filters — chỉ hiện categories phù hợp với type đang chọn
-        const allowedCats = TYPE_CATEGORIES[currentType] || TYPE_CATEGORIES['all'];
+        const allowedCats = getAllowedCategories(currentType);
         const visibleCategories = CATEGORIES.filter(cat => allowedCats.includes(cat.id));
 
         categoryFiltersEl.innerHTML = visibleCategories.map(cat =>
             `<button class="filter-btn${cat.id === currentCategory ? ' active' : ''}" data-category="${cat.id}">${cat.label}</button>`
         ).join('');
 
-        // Type filters
-        typeFiltersEl.innerHTML = TYPES.map(t =>
+        // Type filters — bỏ "Thiệp mời" trên products.html
+        const visibleTypes = isProductsListingPage ? TYPES.filter(t => t.id !== 'invitation') : TYPES;
+        typeFiltersEl.innerHTML = visibleTypes.map(t =>
             `<button class="filter-btn${t.id === currentType ? ' active' : ''}" data-type="${t.id}">${t.label}</button>`
         ).join('');
 
@@ -140,7 +163,7 @@
         typeFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 currentType = btn.dataset.type;
-                const newAllowed = TYPE_CATEGORIES[currentType] || TYPE_CATEGORIES['all'];
+                const newAllowed = getAllowedCategories(currentType);
                 if (!newAllowed.includes(currentCategory)) {
                     currentCategory = 'all';
                 }
@@ -437,7 +460,7 @@
             : '';
 
         var customBtn = product.type === 'invitation'
-            ? '<a href="bang-gia-thiep-cuoi.html" class="btn-custom">Bảng giá dịch vụ</a>'
+            ? '<a href="contact.html#pricing-section" class="btn-custom">Bảng giá dịch vụ</a>'
             : '<a href="contact.html" class="btn-custom">Yêu cầu tùy chỉnh</a>';
 
         popupBody.innerHTML =
@@ -531,7 +554,7 @@
     // ── Main render ─────────────────────────────
     // ── Update nav "Dịch Vụ" link based on type ──
     function updateServiceNavLink() {
-        var href = currentType === 'invitation' ? 'bang-gia-thiep-cuoi.html' : 'contact.html';
+        var href = currentType === 'invitation' ? 'contact.html#pricing-section' : 'contact.html';
         document.querySelectorAll('.nav-menu a').forEach(function (a) {
             if (a.textContent.trim() === 'Dịch Vụ') a.href = href;
         });
@@ -565,11 +588,11 @@
         // Giữ trạng thái dropdown mobile trước khi rebuild
         const wasOpen = filtersWrapper && filtersWrapper.classList.contains('open');
 
-        const filtered = filterProducts({
+        const filtered = excludeInvitation(filterProducts({
             category: currentCategory,
             type: currentType,
             search: currentSearch,
-        });
+        }));
 
         const { items, totalPages } = paginateProducts(filtered, currentPage, perPage);
 

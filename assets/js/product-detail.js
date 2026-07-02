@@ -211,12 +211,12 @@
 
             ${demoBtnHTML}
 
-            <a href="bang-gia-thiep-cuoi.html" class="btn-outline">
+            <a href="contact.html#pricing-section" class="btn-outline">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M12 1v22"></path>
                     <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                 </svg>
-                Bảng giá chi tiết
+                Xem báo giá
             </a>
 
             <button class="btn-copy-link" id="btnCopyLink" type="button">
