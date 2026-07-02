@@ -152,12 +152,18 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Đang gửi...';
 
+            // Gộp loại thiệp (nếu có) vào note để không mất dữ liệu khi submit
+            const invitationType = consultForm.invitationType ? consultForm.invitationType.value : '';
+            const noteValue = invitationType
+                ? `[Loại thiệp: ${invitationType}] ${consultForm.note.value}`.trim()
+                : consultForm.note.value;
+
             const formData = {
                 email: consultForm.email.value,
                 phone: consultForm.phone.value,
                 reference: consultForm.reference.value,
                 service: consultForm.service.value,
-                note: consultForm.note.value,
+                note: noteValue,
                 status: 'tư vấn',
             };
 
