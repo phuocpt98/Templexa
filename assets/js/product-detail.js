@@ -102,7 +102,7 @@
             },
             offers: {
                 '@type': 'Offer',
-                price: '0',
+                price: product.type === 'invitation' ? '150000' : '0',
                 priceCurrency: 'VND',
                 availability: 'https://schema.org/InStock',
             },
@@ -120,14 +120,33 @@
         </li>`
     ).join('');
 
-    const thumbsHTML = product.images.map((img, i) =>
+    // ── Invitation branch ───────────────────────
+    const isInvitation = product.type === 'invitation';
+
+    // Gallery image list: for invitation, mobile view leads, screens follow as thumbs
+    let galleryImages;
+    if (isInvitation && product.mobileView) {
+        galleryImages = [product.mobileView].concat(
+            (product.images || []).filter(img => img !== product.mobileView)
+        );
+    } else {
+        galleryImages = product.images || [];
+    }
+
+    const thumbsHTML = galleryImages.map((img, i) =>
         `<div class="gallery-thumb${i === 0 ? ' active' : ''}" data-index="${i}">
             <img src="${img}" alt="Thumb ${i + 1}">
         </div>`
     ).join('');
 
-    const priceClass = product.price === 'free' ? 'free' : 'paid';
-    const priceLabel = product.price === 'free' ? 'FREE' : product.price;
+    let priceClass, priceLabel;
+    if (isInvitation) {
+        priceClass = 'paid';
+        priceLabel = 'Từ 150.000đ';
+    } else {
+        priceClass = product.price === 'free' ? 'free' : 'paid';
+        priceLabel = product.price === 'free' ? 'FREE' : product.price;
+    }
 
     // Time ago
     const updatedDate = new Date(product.updatedAt);
@@ -137,6 +156,98 @@
     else if (daysDiff === 1) timeAgo = 'Hôm qua';
     else if (daysDiff < 30) timeAgo = `${daysDiff} ngày trước`;
     else timeAgo = updatedDate.toLocaleDateString('vi-VN');
+
+    // Shared SVG snippets
+    const arrowsHTML = galleryImages.length > 1 ? `
+        <button class="gallery-arrow prev" id="galleryPrev" aria-label="Ảnh trước">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="gallery-arrow next" id="galleryNext" aria-label="Ảnh tiếp">
+            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+        </button>` : '';
+
+    const iconDemo = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+    </svg>`;
+    const demoBtnHTML = product.demoUrl ? `
+        <a href="preview.html?id=${product.id}" target="_blank" class="btn-outline">
+            ${iconDemo}
+            Xem demo
+        </a>` : '';
+
+    // Gallery markup — phone frame for invitation, standard for the rest
+    const galleryHTML = isInvitation ? `
+        <div class="detail-gallery detail-gallery-invitation">
+            <div class="detail-phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    ${arrowsHTML}
+                    <img src="${galleryImages[0]}" alt="${product.name}" id="galleryMainImg">
+                </div>
+            </div>
+            ${galleryImages.length > 1 ? `<div class="gallery-thumbs">${thumbsHTML}</div>` : ''}
+        </div>` : `
+        <div class="detail-gallery">
+            <div class="gallery-main">
+                ${arrowsHTML}
+                <img src="${galleryImages[0]}" alt="${product.name}" id="galleryMainImg">
+            </div>
+            ${galleryImages.length > 1 ? `<div class="gallery-thumbs">${thumbsHTML}</div>` : ''}
+        </div>`;
+
+    // Sidebar markup
+    const sidebarHTML = isInvitation ? `
+        <div class="detail-sidebar anim-slide-right">
+            <span class="price-badge ${priceClass}">${priceLabel}</span>
+
+            <button class="btn-primary" id="btnGetTemplate">
+                Đặt thiệp này
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+
+            ${demoBtnHTML}
+
+            <a href="bang-gia-thiep-cuoi.html" class="btn-outline">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1v22"></path>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+                Bảng giá chi tiết
+            </a>
+
+            <button class="btn-copy-link" id="btnCopyLink" type="button">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+                <span class="copy-link-label">Sao chép link</span>
+            </button>
+
+            <p class="sidebar-features-title">Tính năng nổi bật</p>
+            <ul class="sidebar-features">${featuresHTML}</ul>
+        </div>` : `
+        <div class="detail-sidebar anim-slide-right">
+            <span class="price-badge ${priceClass}">${priceLabel}</span>
+
+            <button class="btn-primary" id="btnGetTemplate">
+                Dùng ngay
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+
+            ${demoBtnHTML}
+
+            <p class="sidebar-features-title">Tính năng nổi bật</p>
+            <ul class="sidebar-features">${featuresHTML}</ul>
+
+            <a href="contact.html" class="btn-custom">Yêu cầu tùy chỉnh</a>
+        </div>`;
 
     contentEl.innerHTML = `
         <nav class="breadcrumb hero-reveal">
@@ -149,21 +260,9 @@
 
         <h1 class="detail-title hero-reveal">${product.name}</h1>
 
-        <div class="detail-layout">
+        <div class="detail-layout${isInvitation ? ' detail-layout-invitation' : ''}">
             <div class="anim-slide-left">
-                <div class="detail-gallery">
-                    <div class="gallery-main">
-                        ${product.images.length > 1 ? `
-                        <button class="gallery-arrow prev" id="galleryPrev" aria-label="Ảnh trước">
-                            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                        </button>
-                        <button class="gallery-arrow next" id="galleryNext" aria-label="Ảnh tiếp">
-                            <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
-                        </button>` : ''}
-                        <img src="${product.images[0]}" alt="${product.name}" id="galleryMainImg">
-                    </div>
-                    ${product.images.length > 1 ? `<div class="gallery-thumbs">${thumbsHTML}</div>` : ''}
-                </div>
+                ${galleryHTML}
 
                 <div class="action-bar">
                     <button id="btnSave">
@@ -186,33 +285,21 @@
                 </div>
             </div>
 
-            <div class="detail-sidebar anim-slide-right">
-                <span class="price-badge ${priceClass}">${priceLabel}</span>
-
-                <button class="btn-primary" id="btnGetTemplate">
-                    Dùng ngay
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </button>
-
-                ${product.demoUrl ? `
-                <a href="preview.html?id=${product.id}" target="_blank" class="btn-outline">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                    Xem demo
-                </a>` : ''}
-
-                <p class="sidebar-features-title">Tính năng nổi bật</p>
-                <ul class="sidebar-features">${featuresHTML}</ul>
-
-                <a href="${product.type === 'invitation' ? 'bang-gia-thiep-cuoi.html' : 'contact.html'}" class="btn-custom">${product.type === 'invitation' ? 'Bảng giá dịch vụ' : 'Yêu cầu tùy chỉnh'}</a>
-            </div>
+            ${sidebarHTML}
         </div>
+
+        ${isInvitation ? `
+        <div class="detail-mobile-cta" id="detailMobileCta">
+            <button class="btn-primary" id="btnMobileOrder" type="button">
+                Đặt thiệp này
+            </button>
+            ${product.demoUrl ? `<a href="preview.html?id=${product.id}" target="_blank" class="btn-outline">Xem demo</a>` : ''}
+        </div>` : ''}
     `;
+
+    if (isInvitation) {
+        document.body.classList.add('has-mobile-cta');
+    }
 
     // ── Animations ──────────────────────────────
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -247,8 +334,8 @@
     let currentIndex = 0;
 
     function goToImage(index) {
-        currentIndex = (index + product.images.length) % product.images.length;
-        mainImg.src = product.images[currentIndex];
+        currentIndex = (index + galleryImages.length) % galleryImages.length;
+        mainImg.src = galleryImages[currentIndex];
         document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
         const activeThumb = document.querySelector(`.gallery-thumb[data-index="${currentIndex}"]`);
         if (activeThumb) activeThumb.classList.add('active');
@@ -309,7 +396,59 @@
         document.body.style.overflow = '';
     }
 
+    // Customize lead modal copy for invitation products
+    if (isInvitation) {
+        const modalTitle = modalForm.querySelector('h2');
+        const modalDesc = modalForm.querySelector('.modal-desc');
+        if (modalTitle) modalTitle.textContent = `Đặt thiệp: ${product.name}`;
+        if (modalDesc) modalDesc.textContent = 'Để lại thông tin, chúng tôi sẽ liên hệ tư vấn và gửi mẫu thiệp cho bạn.';
+    }
+
     btnGetTemplate.addEventListener('click', () => openModal(modalForm));
+
+    // Sticky mobile CTA (invitation)
+    const btnMobileOrder = document.getElementById('btnMobileOrder');
+    if (btnMobileOrder) {
+        btnMobileOrder.addEventListener('click', () => openModal(modalForm));
+    }
+
+    // Copy link button (invitation sidebar)
+    const btnCopyLink = document.getElementById('btnCopyLink');
+    if (btnCopyLink) {
+        const copyLabel = btnCopyLink.querySelector('.copy-link-label');
+        btnCopyLink.addEventListener('click', () => {
+            const url = window.location.href;
+            const showCopied = () => {
+                btnCopyLink.classList.add('copied');
+                if (copyLabel) copyLabel.textContent = 'Đã sao chép!';
+                setTimeout(() => {
+                    btnCopyLink.classList.remove('copied');
+                    if (copyLabel) copyLabel.textContent = 'Sao chép link';
+                }, 2000);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(showCopied).catch(() => {
+                    fallbackCopy(url);
+                    showCopied();
+                });
+            } else {
+                fallbackCopy(url);
+                showCopied();
+            }
+        });
+    }
+
+    function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) { /* noop */ }
+        document.body.removeChild(ta);
+    }
 
     document.getElementById('modalFormClose').addEventListener('click', () => closeModal(modalForm));
     document.getElementById('modalSuccessClose').addEventListener('click', () => closeModal(modalSuccess));

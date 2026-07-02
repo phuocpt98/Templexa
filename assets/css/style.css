@@ -4409,3 +4409,128 @@ ul {
         justify-content: center;
     }
 }
+
+/* ================================================================
+   PHASE 5 — PRODUCT DETAIL INVITATION
+   ================================================================ */
+.detail-layout-invitation .anim-slide-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-gallery-invitation {
+    background: transparent;
+    border: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(16px, 2vw, 24px);
+    padding: clamp(16px, 2.5vw, 32px) 0;
+}
+[data-theme="dark"] .detail-gallery-invitation {
+    background: transparent;
+    border: none;
+}
+
+/* Phone frame variant for invitation gallery */
+.detail-phone-frame {
+    position: relative;
+    width: clamp(260px, 30vw, 340px);
+    aspect-ratio: 9 / 19;
+    background: linear-gradient(160deg, #2A2018, #171009);
+    border-radius: clamp(34px, 4vw, 46px);
+    padding: clamp(9px, 1.1vw, 13px);
+    box-shadow: 0 30px 60px rgba(45, 36, 24, 0.28), inset 0 0 0 1.5px rgba(255, 255, 255, 0.06);
+}
+[data-theme="dark"] .detail-phone-frame {
+    background: linear-gradient(160deg, #100C07, #060402);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), inset 0 0 0 1.5px rgba(255, 255, 255, 0.05);
+}
+.detail-phone-frame .phone-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+}
+.detail-phone-frame:hover .gallery-arrow {
+    opacity: 1;
+}
+.detail-phone-frame .gallery-arrow.prev { left: 8px; }
+.detail-phone-frame .gallery-arrow.next { right: 8px; }
+
+.detail-gallery-invitation .gallery-thumbs {
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 440px;
+    overflow-x: visible;
+}
+
+/* Invitation sidebar spacing */
+.detail-layout-invitation .btn-outline {
+    margin-bottom: 10px;
+}
+
+/* Copy link button */
+.btn-copy-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: clamp(10px, 1.3vw, 12px);
+    margin-top: 4px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: 1px dashed var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: clamp(0.98rem, 1.15vw, 1.05rem);
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+}
+.btn-copy-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+.btn-copy-link.copied {
+    border-style: solid;
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+}
+
+/* Sticky mobile CTA bar */
+.detail-mobile-cta {
+    display: none;
+}
+@media (max-width: 768px) {
+    .detail-mobile-cta {
+        display: flex;
+        gap: 10px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 200;
+        padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+        background: var(--card-bg);
+        border-top: 1px solid var(--border-color);
+        box-shadow: 0 -6px 20px rgba(45, 36, 24, 0.12);
+    }
+    .detail-mobile-cta .btn-primary,
+    .detail-mobile-cta .btn-outline {
+        margin-bottom: 0;
+        flex: 1;
+    }
+    body.has-mobile-cta {
+        padding-bottom: 84px;
+    }
+    body.has-mobile-cta .chat-bubbles {
+        bottom: calc(84px + env(safe-area-inset-bottom));
+    }
+}
