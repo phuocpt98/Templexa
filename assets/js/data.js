@@ -5207,6 +5207,91 @@ const PRICING = [
     },
 ];
 
+const INVITATION_PRICING = [
+    {
+        id: 'thiep-basic',
+        name: 'Basic',
+        price: '150.000đ',
+        originalPrice: '168.000đ',
+        showOriginalPrice: true,
+        discount: '-11%',
+        description: 'Chọn mẫu có sẵn, thay thông tin — đầy đủ tính năng cơ bản. Giao thiệp trong 24h.',
+        features: [
+            'Chọn 1 trong 20+ mẫu thiệp đẹp',
+            'Thay tên, ngày, địa điểm, ảnh',
+            'Phong bì mở thiệp + nhạc nền',
+            'Countdown đếm ngược ngày cưới',
+            'Love Story, Gallery + Lightbox',
+            'Hiệu ứng hoa rơi / sparkles',
+            'RSVP xác nhận tham dự',
+            'Gửi lời chúc (Google Sheets)',
+            { text: 'Hiển thị lời chúc bay (bong bóng)', disabled: true },
+            { text: 'Cá nhân hoá khách mời (?id=)', disabled: true },
+            'Tờ lịch đánh dấu ngày cưới',
+            'Nhúng video YouTube',
+            'Mã QR chia sẻ thiệp (1 mã chung)',
+            'Google Maps + QR mừng cưới',
+            'Thêm vào lịch (.ics)',
+            'Responsive mọi thiết bị',
+            'Chỉnh sửa 1 lần',
+            'Giao thiệp trong 24h',
+        ],
+        highlighted: false,
+    },
+    {
+        id: 'thiep-pro',
+        name: 'Premium',
+        price: '199.000đ',
+        originalPrice: '250.000đ',
+        showOriginalPrice: true,
+        discount: '-20%',
+        description: 'Trọn bộ tính năng cao cấp — lời chúc bay bong bóng, cá nhân hoá khách mời.',
+        features: [
+            'Chọn 1 trong 20+ mẫu thiệp đẹp',
+            'Thay tên, ngày, địa điểm, ảnh',
+            'Phong bì mở thiệp + nhạc nền',
+            'Countdown đếm ngược ngày cưới',
+            'Love Story, Gallery + Lightbox',
+            'Hiệu ứng hoa rơi / sparkles',
+            'RSVP xác nhận tham dự',
+            'Gửi lời chúc (Google Sheets)',
+            'Hiển thị lời chúc bay (bong bóng)',
+            'Cá nhân hoá khách mời (?id=)',
+            'Mã QR riêng cho từng khách mời',
+            'Tờ lịch đánh dấu ngày cưới',
+            'Nhúng video YouTube',
+            'Google Maps + QR mừng cưới',
+            'Thêm vào lịch (.ics)',
+            'Responsive mọi thiết bị',
+            'Chỉnh sửa 3 lần',
+            'Giao thiệp trong 24h',
+            'Custom trên mẫu có sẵn',
+        ],
+        highlighted: true,
+    },
+    {
+        id: 'thiep-custom',
+        name: 'Custom',
+        price: 'Liên Hệ',
+        originalPrice: '',
+        showOriginalPrice: false,
+        discount: '',
+        description: 'Thiệp cưới độc bản — thiết kế riêng 100% cho câu chuyện của bạn.',
+        features: [
+            'Tất cả tính năng Premium',
+            'Mã QR riêng cho từng khách mời',
+            'Thiết kế giao diện RIÊNG 100%',
+            'Hiệu ứng & animation độc quyền',
+            'Bảng màu, font chữ, layout tuỳ ý',
+            'Video YouTube / nhạc riêng',
+            'Chỉnh sửa không giới hạn',
+            'Tư vấn phong cách 1:1',
+            'Hỗ trợ đến ngày cưới',
+        ],
+        highlighted: false,
+    },
+];
+
 // ============================================
 // HELPER FUNCTIONS
 // ============================================
@@ -5242,16 +5327,16 @@ function getProductsSorted() {
     const isFullpage = (p) =>
         p.demoUrl && (p.demoUrl.toLowerCase().includes('fullpage') || p.demoUrl.toLowerCase().includes('/home/code'));
 
-    const typeOrder = { 'website': 0, 'invitation': 1, 'google-sheet': 2 };
+    const typeOrder = { 'invitation': 0, 'website': 1, 'google-sheet': 2 };
 
     return [...PRODUCTS].filter(p => p.isPublic !== false).sort((a, b) => {
-        const aFull = isFullpage(a) ? 1 : 0;
-        const bFull = isFullpage(b) ? 1 : 0;
-        if (aFull !== bFull) return bFull - aFull;
-
         const aType = typeOrder[a.type] ?? 3;
         const bType = typeOrder[b.type] ?? 3;
         if (aType !== bType) return aType - bType;
+
+        const aFull = isFullpage(a) ? 1 : 0;
+        const bFull = isFullpage(b) ? 1 : 0;
+        if (aFull !== bFull) return bFull - aFull;
 
         if (a.priority !== b.priority) return a.priority - b.priority;
         return b.id - a.id;

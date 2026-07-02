@@ -4,65 +4,96 @@
 
 (function () {
     const pricingGrid = document.getElementById('pricingGrid');
+    const webPricingGrid = document.getElementById('webPricingGrid');
     const consultForm = document.getElementById('consultForm');
+    const serviceSelect = consultForm?.querySelector('select[name="service"]');
 
-    // ── Render pricing cards ────────────────────
-    if (pricingGrid) {
-        pricingGrid.innerHTML = PRICING.map(plan => {
-            const featuresHTML = plan.features.map(f => {
-                const isObj = typeof f === 'object';
-                const text = isObj ? f.text : f;
-                const disabled = isObj && f.disabled;
+    // Nguồn dữ liệu chính (thiệp online) — fallback về PRICING nếu chưa tồn tại
+    const invitationPlans = (typeof INVITATION_PRICING !== 'undefined') ? INVITATION_PRICING : PRICING;
+    // Nguồn dữ liệu web/legacy — chỉ render nếu #webPricingGrid tồn tại trên trang
+    const webPlans = (typeof PRICING !== 'undefined') ? PRICING : [];
 
-                return `
-                    <li class="${disabled ? 'disabled' : ''}">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        ${text}
-                    </li>
-                `;
-            }).join('');
+    // Map planId -> plan, dùng để resolve URL param / auto-select trên cả 2 bảng giá
+    const planRegistry = {};
+
+    function featuresHTML(plan) {
+        return plan.features.map(f => {
+            const isObj = typeof f === 'object';
+            const text = isObj ? f.text : f;
+            const disabled = isObj && f.disabled;
 
             return `
-                <div class="pricing-card${plan.highlighted ? ' highlighted popular' : ''}">
-                    <div class="pricing-header">
-                        <h3>${plan.name}</h3>
-                        ${plan.discount ? `<span class="pricing-discount">${plan.discount}</span>` : ''}
-                    </div>
-                    <p class="pricing-desc">${plan.description}</p>
-                    <div class="pricing-original-price${plan.showOriginalPrice ? '' : ' hidden'}">${plan.showOriginalPrice ? plan.originalPrice : '&nbsp;'}</div>
-                    <div class="pricing-price">${plan.price}</div>
-                    <button class="pricing-cta" data-plan="${plan.id}">Chọn Gói Ngay</button>
-                    <ul class="pricing-features">${featuresHTML}</ul>
-                </div>
+                <li class="${disabled ? 'disabled' : ''}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    ${text}
+                </li>
             `;
         }).join('');
+    }
 
-        // Click card to highlight
-        function highlightCard(card) {
-            card.classList.add('highlighted');
-            setTimeout(() => {
-                pricingGrid.querySelectorAll('.pricing-card').forEach(c => {
-                    if (c !== card) c.classList.remove('highlighted');
-                });
-            }, 100);
+    function planCardHTML(plan) {
+        return `
+            <div class="pricing-card${plan.highlighted ? ' highlighted popular' : ''}" data-plan-id="${plan.id}">
+                <div class="pricing-header">
+                    <h3>${plan.name}</h3>
+                    ${plan.discount ? `<span class="pricing-discount">${plan.discount}</span>` : ''}
+                </div>
+                <p class="pricing-desc">${plan.description}</p>
+                <div class="pricing-original-price${plan.showOriginalPrice ? '' : ' hidden'}">${plan.showOriginalPrice ? plan.originalPrice : '&nbsp;'}</div>
+                <div class="pricing-price">${plan.price}</div>
+                <button class="pricing-cta" data-plan="${plan.id}">Chọn Gói Ngay</button>
+                <ul class="pricing-features">${featuresHTML(plan)}</ul>
+            </div>
+        `;
+    }
+
+    // Thêm option cho <select name="service"> nếu id chưa có sẵn trong HTML
+    function ensureServiceOption(plan) {
+        if (!serviceSelect) return;
+        const exists = Array.from(serviceSelect.options).some(opt => opt.value === plan.id);
+        if (!exists) {
+            const opt = document.createElement('option');
+            opt.value = plan.id;
+            opt.textContent = `${plan.name} — ${plan.price}`;
+            serviceSelect.appendChild(opt);
         }
+    }
 
-        pricingGrid.querySelectorAll('.pricing-card').forEach(card => {
-            card.addEventListener('click', () => highlightCard(card));
+    // Highlight 1 card trong 1 grid cụ thể (bỏ highlight card khác trong cùng grid)
+    function highlightCard(grid, card) {
+        card.classList.add('highlighted');
+        setTimeout(() => {
+            grid.querySelectorAll('.pricing-card').forEach(c => {
+                if (c !== card) c.classList.remove('highlighted');
+            });
+        }, 100);
+    }
+
+    // Render 1 grid bảng giá + gắn event (click card, click CTA)
+    function renderPricingGrid(grid, plans) {
+        if (!grid) return;
+
+        grid.innerHTML = plans.map(planCardHTML).join('');
+
+        plans.forEach(plan => {
+            planRegistry[plan.id] = { plan, grid };
+            ensureServiceOption(plan);
         });
 
-        // Pricing CTA → highlight + scroll to form
-        pricingGrid.querySelectorAll('.pricing-cta').forEach(btn => {
+        grid.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('click', () => highlightCard(grid, card));
+        });
+
+        grid.querySelectorAll('.pricing-cta').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const planId = btn.dataset.plan;
                 const card = btn.closest('.pricing-card');
                 const formSection = document.getElementById('contactForm');
-                const serviceSelect = consultForm?.querySelector('select[name="service"]');
 
-                highlightCard(card);
+                highlightCard(grid, card);
 
                 if (serviceSelect) {
                     serviceSelect.value = planId;
@@ -75,13 +106,29 @@
         });
     }
 
-    // ── Auto-select service from URL param ──────
+    // ── Render pricing cards ────────────────────
+    renderPricingGrid(pricingGrid, invitationPlans);
+    // #webPricingGrid chưa tồn tại trong contact.html hiện tại (sẽ thêm ở phase sau) → tự bỏ qua nếu không có
+    if (webPricingGrid) {
+        renderPricingGrid(webPricingGrid, webPlans);
+    }
+
+    // ── Auto-select service từ URL param (?service=) ──────
+    // Resolve id từ cả 2 bảng giá: thiệp online (thiep-basic/thiep-pro/thiep-custom)
+    // và legacy web (basic/pro/premium/custom)
     const urlParams = new URLSearchParams(window.location.search);
     const serviceParam = urlParams.get('service');
-    if (serviceParam && consultForm) {
-        const serviceSelect = consultForm.querySelector('select[name="service"]');
+    if (serviceParam) {
         if (serviceSelect) {
             serviceSelect.value = serviceParam;
+        }
+
+        const match = planRegistry[serviceParam];
+        if (match) {
+            const card = match.grid.querySelector(`.pricing-card[data-plan-id="${serviceParam}"]`);
+            if (card) {
+                highlightCard(match.grid, card);
+            }
         }
     }
 
