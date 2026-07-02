@@ -266,7 +266,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
         });
     }, observerOptions);
 
-    document.querySelectorAll('.service-card, .benefit-card, .process-step, .pricing-card, .target-card').forEach(el => {
+    document.querySelectorAll('.service-card, .benefit-card, .process-step, .pricing-card, .target-card, .home-reveal').forEach(el => {
         observer.observe(el);
     });
 })();
