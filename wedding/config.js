@@ -44,6 +44,12 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 09/08/2026 tại真的好京漾飯店, New Taipei',
         image: '../../products/Invitation/Wedding/khach_hoaithu_thanhtung/og-cover.jpg',
     },
+    'thanh-tung-hoai-thu-zh': {
+        src: '../../products/Invitation/Wedding/khach_hoaithu_thanhtung/code-zh.html',
+        title: '清松 & 懷秋 — 婚禮邀請卡',
+        description: '誠摯邀請您參加我們的婚禮 — 2026/08/09（日）12:00 於真的好京漾飯店，新北',
+        image: '../../products/Invitation/Wedding/khach_hoaithu_thanhtung/og-cover.jpg',
+    },
     'thinh-quynh': {
         src: '../../products/Invitation/Wedding/gen_225_heritage-illustrated-venue/index.html',
         title: 'Thịnh & Quỳnh — Wedding Invitation',
