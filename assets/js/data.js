@@ -5091,6 +5091,45 @@ const PRODUCTS = [
         showInSlider: false,
         updatedAt: '2026-06-16',
     }
+    ,
+    {
+        id: 246,
+        isPublic: false,
+        name: 'Thiệp Cưới - Thanh Tùng & Hoài Thu',
+        slug: 'thiep-cuoi-thanh-tung-hoai-thu',
+        description: 'Thiệp cưới phong cách Sage Green & Gold cho lễ thành hôn Thanh Tùng & Hoài Thu - 09/08/2026 tại真的好京漾飯店, New Taipei, Đài Loan',
+        category: 'wedding',
+        type: 'invitation',
+        tags: ['website', 'invitation', 'wedding', 'sage-green', 'gold', 'elegant', 'khach', 'custom'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_1.webp',
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_2.webp',
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_3.webp',
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_4.webp',
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_5.webp',
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_6.webp',
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_7.webp',
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_8.webp',
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_9.webp',
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_10.webp',
+            './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_11.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/khach_hoaithu_thanhtung/couple_1.webp',
+        path: './products/Invitation/Wedding/khach_hoaithu_thanhtung/',
+        demoUrl: './products/Invitation/Wedding/khach_hoaithu_thanhtung/code.html',
+        features: [
+            'Envelope glass-morphism + ảnh cô dâu chú rể blur + peek polaroid + ribbon bow',
+            'Sage green & gold palette + countdown + calendar tháng 8',
+            'Gallery lightbox + RSVP form + sổ lưu bút lời chúc',
+        ],
+        status: 'new',
+        priority: 0,
+        downloads: 2,
+        rating: 4.8,
+        showInSlider: false,
+        updatedAt: '2026-07-03',
+    }
 ];
 
 // ============================================

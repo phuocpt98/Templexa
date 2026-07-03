@@ -38,6 +38,12 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 24/05/2026 tại Nghệ An',
         image: '../../products/Invitation/Wedding/khach_quynhthuong_kimvuong/og-cover.jpg',
     },
+    'thanh-tung-hoai-thu': {
+        src: '../../products/Invitation/Wedding/khach_hoaithu_thanhtung/code.html',
+        title: 'Thanh Tùng & Hoài Thu — Wedding Invitation',
+        description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 09/08/2026 tại真的好京漾飯店, New Taipei',
+        image: '../../products/Invitation/Wedding/khach_hoaithu_thanhtung/og-cover.jpg',
+    },
     'thinh-quynh': {
         src: '../../products/Invitation/Wedding/gen_225_heritage-illustrated-venue/index.html',
         title: 'Thịnh & Quỳnh — Wedding Invitation',
