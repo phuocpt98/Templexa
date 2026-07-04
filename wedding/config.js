@@ -50,6 +50,12 @@ var WEDDING = {
         description: '誠摯邀請您參加我們的婚禮 — 2026/08/09（日）12:00 於真的好京漾飯店，新北',
         image: '../../products/Invitation/Wedding/khach_hoaithu_thanhtung/og-cover.jpg',
     },
+    'cong-minh-ngoc-huyen': {
+        src: '../../products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/index.html',
+        title: 'Công Minh & Ngọc Huyền — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 23.07.2026 tại Nhà hàng Nhung Toại, Phú Thọ',
+        image: '../../products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/og-cover.jpg',
+    },
     'thinh-quynh': {
         src: '../../products/Invitation/Wedding/gen_225_heritage-illustrated-venue/index.html',
         title: 'Thịnh & Quỳnh — Wedding Invitation',
