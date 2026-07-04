@@ -56,6 +56,12 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 23.07.2026 tại Nhà hàng Nhung Toại, Phú Thọ',
         image: '../../products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/og-cover.jpg',
     },
+    'thien-ngoc-my-dan': {
+        src: '../../products/Invitation/Wedding/khach_thien-ngoe-my-dan/index.html',
+        title: 'Thiện Ngọc & Mỹ Dân — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 26.07.2026 tại Inorta Palace, Lâm Đồng',
+        image: '../../products/Invitation/Wedding/khach_thien-ngoe-my-dan/og-cover.jpg',
+    },
     'thinh-quynh': {
         src: '../../products/Invitation/Wedding/gen_225_heritage-illustrated-venue/index.html',
         title: 'Thịnh & Quỳnh — Wedding Invitation',
