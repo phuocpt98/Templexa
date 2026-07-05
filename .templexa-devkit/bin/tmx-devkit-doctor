@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$ROOT"
+
+echo "Templexa devkit doctor"
+echo "repo: $ROOT"
+echo
+
+required=(
+  ".templexa-devkit/README.md"
+  ".templexa-devkit/context/project-overview.md"
+  ".templexa-devkit/governance/command-policy.md"
+  ".templexa-devkit/hooks/pre-command-policy.sh"
+  ".templexa-devkit/capabilities/convert-webp/SKILL.md"
+)
+
+for f in "${required[@]}"; do
+  if [[ -f "$f" ]]; then
+    echo "ok   $f"
+  else
+    echo "miss $f"
+    exit 1
+  fi
+done
+
+if command -v codex >/dev/null 2>&1; then
+  echo "ok   codex: $(command -v codex)"
+else
+  echo "warn codex not found"
+fi
+
+if command -v node >/dev/null 2>&1; then
+  echo "ok   node: $(node -v)"
+else
+  echo "warn node not found"
+fi
+
+echo
+echo "Done."
+
