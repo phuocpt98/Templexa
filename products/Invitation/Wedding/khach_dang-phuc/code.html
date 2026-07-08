@@ -99,16 +99,60 @@
         }
 
         /* Scroll reveal */
-        [class*="animate-"] { opacity: 0; transform: translateY(25px); transition: opacity 1.6s cubic-bezier(0.16,1,0.3,1), transform 1.6s cubic-bezier(0.16,1,0.3,1); }
+        /* Scroll reveal — base */
+        [class*="animate-"] { opacity: 0; transform: translateY(25px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
         [class*="animate-"].is-visible { opacity: 1; transform: translateY(0); }
-        .animate-delay-1 { transition-delay: 0.25s; }
-        .animate-delay-2 { transition-delay: 0.5s; }
-        .animate-delay-3 { transition-delay: 0.75s; }
-        .animate-delay-4 { transition-delay: 1s; }
-        .animate-delay-5 { transition-delay: 1.25s; }
+        .animate-delay-1 { transition-delay: 0.12s; animation-delay: 0.12s; }
+        .animate-delay-2 { transition-delay: 0.24s; animation-delay: 0.24s; }
+        .animate-delay-3 { transition-delay: 0.36s; animation-delay: 0.36s; }
+        .animate-delay-4 { transition-delay: 0.48s; animation-delay: 0.48s; }
+        .animate-delay-5 { transition-delay: 0.6s; animation-delay: 0.6s; }
+
+        /* Flip Y — lật ngang 3D */
+        @keyframes flipInY { 0%{opacity:0;transform:perspective(800px) rotateY(80deg)} 40%{transform:perspective(800px) rotateY(-12deg)} 70%{transform:perspective(800px) rotateY(6deg)} 100%{opacity:1;transform:perspective(800px) rotateY(0)} }
+        .animate-flip-y { opacity:0; animation-fill-mode:both; transform:none; }
+        .animate-flip-y.is-visible { animation:flipInY 0.8s ease both; opacity:1; transform:none; }
+
+        /* Bounce In — nẩy vào */
+        @keyframes bounceIn { 0%{opacity:0;transform:scale(0.3)} 50%{transform:scale(1.06)} 70%{transform:scale(0.96)} 100%{opacity:1;transform:scale(1)} }
+        .animate-bounce-in { opacity:0; animation-fill-mode:both; transform:none; }
+        .animate-bounce-in.is-visible { animation:bounceIn 0.7s cubic-bezier(0.34,1.56,0.64,1) both; opacity:1; transform:none; }
+
+        /* Bounce Left/Right — nẩy từ 2 bên */
+        @keyframes bounceInLeft { 0%{opacity:0;transform:translateX(-80px)} 60%{transform:translateX(12px)} 80%{transform:translateX(-5px)} 100%{opacity:1;transform:translateX(0)} }
+        @keyframes bounceInRight { 0%{opacity:0;transform:translateX(80px)} 60%{transform:translateX(-12px)} 80%{transform:translateX(5px)} 100%{opacity:1;transform:translateX(0)} }
+        .animate-bounce-left { opacity:0; animation-fill-mode:both; transform:none; }
+        .animate-bounce-left.is-visible { animation:bounceInLeft 0.8s cubic-bezier(0.34,1.56,0.64,1) both; opacity:1; transform:none; }
+        .animate-bounce-right { opacity:0; animation-fill-mode:both; transform:none; }
+        .animate-bounce-right.is-visible { animation:bounceInRight 0.8s cubic-bezier(0.34,1.56,0.64,1) both; opacity:1; transform:none; }
+
+        /* Bounce Up — nẩy từ dưới */
+        @keyframes bounceInUp { 0%{opacity:0;transform:translateY(60px)} 60%{transform:translateY(-10px)} 80%{transform:translateY(5px)} 100%{opacity:1;transform:translateY(0)} }
+        .animate-bounce-up { opacity:0; animation-fill-mode:both; transform:none; }
+        .animate-bounce-up.is-visible { animation:bounceInUp 0.8s cubic-bezier(0.34,1.56,0.64,1) both; opacity:1; transform:none; }
+
+        /* Zoom Fade — scale nhỏ + blur → rõ nét */
+        .animate-zoom-fade { opacity:0; transform:scale(0.75); filter:blur(4px); transition:opacity 0.7s ease, transform 0.7s cubic-bezier(0.34,1.56,0.64,1), filter 0.7s ease; }
+        .animate-zoom-fade.is-visible { opacity:1; transform:scale(1); filter:blur(0); }
+
+        /* Slide Rotate — trượt + xoay nhẹ */
+        .animate-slide-rotate-left { opacity:0; transform:translateX(-60px) rotate(-6deg); transition:opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .animate-slide-rotate-left.is-visible { opacity:1; transform:translateX(0) rotate(0); }
+        .animate-slide-rotate-right { opacity:0; transform:translateX(60px) rotate(6deg); transition:opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .animate-slide-rotate-right.is-visible { opacity:1; transform:translateX(0) rotate(0); }
+
+        /* Fade Up Big — bay lên xa */
+        @keyframes fadeInUpBig { 0%{opacity:0;transform:translateY(120px)} 100%{opacity:1;transform:translateY(0)} }
+        .animate-fade-up-big { opacity:0; animation-fill-mode:both; transform:none; }
+        .animate-fade-up-big.is-visible { animation:fadeInUpBig 0.9s cubic-bezier(0.16,1,0.3,1) both; opacity:1; transform:none; }
+
+        /* Swing — lắc như quả lắc */
+        @keyframes swing { 20%{transform:rotate(10deg)} 40%{transform:rotate(-6deg)} 60%{transform:rotate(3deg)} 80%{transform:rotate(-2deg)} 100%{transform:rotate(0)} }
+        .animate-swing { opacity:0; transform-origin:top center; animation-fill-mode:both; transform:none; }
+        .animate-swing.is-visible { animation:swing 0.8s ease both; opacity:1; transform:none; }
 
         /* Gallery reveal — bay vào từ 2 bên + zoom */
-        .gallery-item[class*="animate-"] { opacity: 0; transform: scale(0.7) translateX(-40px); transition: opacity 1.4s cubic-bezier(0.16,1,0.3,1), transform 1.4s cubic-bezier(0.16,1,0.3,1); }
+        .gallery-item[class*="animate-"] { opacity: 0; transform: scale(0.7) translateX(-40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
         .gallery-item[class*="animate-"]:nth-child(even) { transform: scale(0.7) translateX(40px); }
         .gallery-item[class*="animate-"].is-visible { opacity: 1; transform: scale(1) translateX(0); }
         .gallery-item[class*="animate-"].is-visible:nth-child(1) { transform: scale(1) rotate(-1.5deg); }
@@ -415,6 +459,8 @@
         .timeline-photo img { width: 100%; height: auto; display: block; }
 
         /* ===== EVENT CARDS ===== */
+        .event-section .section-title { font-family: var(--font-script); font-size: clamp(2.2rem, 7vw, 3.2rem); letter-spacing: 0.02em; text-transform: none; color: var(--red-deep); }
+        .event-section .section-subtitle { font-size: clamp(0.75rem, 2vw, 0.88rem); letter-spacing: 0.35em; color: var(--red); font-style: normal; font-family: var(--font-heading); }
         .event-section { background: var(--red-bg); }
         .event-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 3vw, 1.5rem); }
         .event-card {
@@ -433,7 +479,7 @@
         .event-card:hover { transform: rotate(0deg) translateY(-3px); }
         .event-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--red), var(--gold)); }
         .event-icon { width: 50px; height: 50px; border-radius: 50%; background: var(--red-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--red); }
-        .event-type { font-family: var(--font-heading); font-size: clamp(0.75rem, 2.2vw, 0.85rem); color: var(--red); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.8rem; }
+        .event-type { font-family: var(--font-script); font-size: clamp(1.4rem, 4vw, 1.8rem); color: var(--red-deep); letter-spacing: 0.05em; margin-bottom: 0.8rem; font-weight: 500; }
         .event-date { font-family: var(--font-accent); font-size: clamp(1.05rem, 3vw, 1.25rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
         .event-time { font-size: clamp(0.95rem, 2.5vw, 1.05rem); color: var(--red); font-weight: 500; margin-bottom: 0.5rem; }
         .event-venue { font-family: var(--font-accent); font-size: clamp(0.95rem, 2.5vw, 1.1rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.2rem; }
@@ -751,12 +797,12 @@
 <!-- ===== COUPLE / FAMILY ===== -->
 <section class="section couple-section" id="family">
     <div class="container text-center">
-        <div class="section-heading animate-fade-up">
+        <div class="section-heading animate-bounce-up">
             <p class="section-subtitle">Gia Đình Hai Bên</p>
             <h2 class="section-title">Thông Tin Gia Đình</h2>
         </div>
         <div class="family-grid">
-            <div class="family-card animate-fade-up animate-delay-1">
+            <div class="family-card animate-bounce-left animate-delay-1">
                 <div class="family-photo"><img src="customer/anh_5.webp" alt="Chú rể"></div>
                 <p class="family-side">Nhà Trai</p>
                 <p class="family-parent">Bà Nguyễn Thị Song</p>
@@ -766,7 +812,7 @@
                     <p class="family-child-name">Nguyễn Minh Đáng</p>
                 </div>
             </div>
-            <div class="family-card animate-fade-up animate-delay-2">
+            <div class="family-card animate-bounce-right animate-delay-2">
                 <div class="family-photo"><img src="customer/anh_2.webp" alt="Cô dâu"></div>
                 <p class="family-side">Nhà Gái</p>
                 <p class="family-parent">Ông Huỳnh Văn Liêu</p>
@@ -782,7 +828,7 @@
 </section>
 
 <!-- Photo strip -->
-<div class="photo-strip animate-fade-up">
+<div class="photo-strip animate-zoom-fade">
     <div class="photo-strip-item"><img src="customer/anh_1.webp" alt="" loading="lazy"></div>
     <div class="photo-strip-item"><img src="customer/anh_3.webp" alt="" loading="lazy"></div>
     <div class="photo-strip-item"><img src="customer/anh_6.webp" alt="" loading="lazy"></div>
@@ -794,11 +840,11 @@
 <!-- ===== COUNTDOWN ===== -->
 <section class="section countdown-section" id="countdown">
     <div class="container text-center">
-        <div class="section-heading animate-fade-up">
+        <div class="section-heading animate-flip-y">
             <p class="section-subtitle">Save The Date</p>
             <h2 class="section-title">Cùng Đếm Ngược</h2>
         </div>
-        <div class="countdown-grid animate-fade-up animate-delay-1">
+        <div class="countdown-grid animate-bounce-in animate-delay-1">
             <div class="countdown-item"><div class="countdown-num" id="days">00</div><div class="countdown-label">Ngày</div></div>
             <div class="countdown-sep">:</div>
             <div class="countdown-item"><div class="countdown-num" id="hours">00</div><div class="countdown-label">Giờ</div></div>
@@ -813,34 +859,34 @@
 <!-- ===== LOVE STORY ===== -->
 <section class="section--breathe story-section" id="story">
     <div class="container text-center">
-        <div class="section-heading animate-fade-up">
+        <div class="section-heading animate-fade-up-big">
             <p class="section-subtitle">Our Love Story</p>
             <h2 class="section-title">Câu Chuyện Tình Yêu</h2>
         </div>
     </div>
     <div class="container">
         <div class="timeline">
-            <div class="timeline-item animate-fade-up">
+            <div class="timeline-item animate-slide-rotate-left">
                 <div class="timeline-dot"></div>
                 <p class="timeline-date">Tháng 3, 2020</p>
                 <h3 class="timeline-title">Lần Đầu Gặp Nhau</h3>
                 <p class="timeline-desc">Một buổi chiều nắng đẹp, hai người tình cờ gặp nhau qua lời giới thiệu của bạn bè chung. Ánh mắt đầu tiên là sự rung động khó quên.</p>
                 <div class="timeline-photo"><img src="customer/anh_1.webp" alt="" loading="lazy"></div>
             </div>
-            <div class="timeline-item animate-fade-up animate-delay-1">
+            <div class="timeline-item animate-slide-rotate-right animate-delay-1">
                 <div class="timeline-dot"></div>
                 <p class="timeline-date">Tháng 9, 2020</p>
                 <h3 class="timeline-title">Chính Thức Yêu Nhau</h3>
                 <p class="timeline-desc">Sau thời gian tìm hiểu, Minh Đáng đã tỏ tình với Diễm Phúc. Từ đó, hai trái tim hoà cùng một nhịp đập.</p>
             </div>
-            <div class="timeline-item animate-fade-up animate-delay-2">
+            <div class="timeline-item animate-slide-rotate-left animate-delay-2">
                 <div class="timeline-dot"></div>
                 <p class="timeline-date">Tháng 6, 2023</p>
                 <h3 class="timeline-title">Cùng Nhau Đi Xa</h3>
                 <p class="timeline-desc">Cùng nhau trải qua những chuyến đi, những khoảnh khắc đáng nhớ — tình yêu ngày càng gắn kết bền chặt.</p>
                 <div class="timeline-photo"><img src="customer/anh_3.webp" alt="" loading="lazy"></div>
             </div>
-            <div class="timeline-item animate-fade-up animate-delay-3">
+            <div class="timeline-item animate-slide-rotate-right animate-delay-3">
                 <div class="timeline-dot"></div>
                 <p class="timeline-date">Tháng 12, 2025</p>
                 <h3 class="timeline-title">Lời Cầu Hôn</h3>
@@ -856,12 +902,12 @@
 <!-- ===== EVENT CARDS ===== -->
 <section class="section event-section" id="events">
     <div class="container text-center">
-        <div class="section-heading animate-fade-up">
+        <div class="section-heading animate-swing">
             <p class="section-subtitle">Wedding Ceremony</p>
             <h2 class="section-title">Lễ Cưới</h2>
         </div>
         <div class="event-grid">
-            <div class="event-card animate-fade-up animate-delay-1">
+            <div class="event-card animate-bounce-left animate-delay-1">
                 <div class="event-icon"><i data-lucide="home" style="width:22px;height:22px;"></i></div>
                 <p class="event-type">Lễ Vu Quy</p>
                 <p class="event-date">Chủ Nhật, 02/08/2026</p>
@@ -869,7 +915,7 @@
                 <p class="event-venue">Tư Gia Nhà Gái</p>
                 <p class="event-address">Thôn An Lương, Xã Tam Anh, TP. Đà Nẵng</p>
             </div>
-            <div class="event-card animate-fade-up animate-delay-2">
+            <div class="event-card animate-bounce-right animate-delay-2">
                 <div class="event-icon"><i data-lucide="gem" style="width:22px;height:22px;"></i></div>
                 <p class="event-type">Lễ Thành Hôn</p>
                 <p class="event-date">Chủ Nhật, 02/08/2026</p>
@@ -882,7 +928,7 @@
 </section>
 
 <!-- Photo strip 2 -->
-<div class="photo-strip animate-fade-up">
+<div class="photo-strip animate-zoom-fade">
     <div class="photo-strip-item"><img src="customer/anh_5.webp" alt="" loading="lazy"></div>
     <div class="photo-strip-item"><img src="customer/anh_4.webp" alt="" loading="lazy"></div>
     <div class="photo-strip-item"><img src="customer/anh_7.webp" alt="" loading="lazy"></div>
@@ -891,17 +937,17 @@
 <!-- ===== CALENDAR MONTH ===== -->
 <section class="section cal-section" id="calendar-month">
     <div class="container text-center">
-        <div class="section-heading animate-fade-up">
+        <div class="section-heading animate-bounce-up">
             <p class="section-subtitle">Save The Date</p>
             <h2 class="section-title">Ngày Trọng Đại</h2>
         </div>
-        <div id="weddingCalendar" class="animate-fade-up animate-delay-1"></div>
+        <div id="weddingCalendar" class="animate-flip-y animate-delay-1"></div>
     </div>
 </section>
 
 <!-- ===== FLY PHOTOS + CHIBI ===== -->
 <div class="fly-section">
-    <div class="fly-wrapper animate-fade-up">
+    <div class="fly-wrapper animate-bounce-in">
         <div class="fly-photo"><img src="customer/anh_6.webp" alt="" loading="lazy"></div>
         <img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="fly-chibi" alt="Chibi couple">
         <div class="fly-photo"><img src="customer/anh_1.webp" alt="" loading="lazy"></div>
@@ -911,7 +957,7 @@
 <!-- ===== GALLERY ===== -->
 <section class="section gallery-section" id="gallery">
     <div class="container text-center">
-        <div class="section-heading animate-fade-up">
+        <div class="section-heading animate-fade-up-big">
             <p class="section-subtitle">Our Moments</p>
             <h2 class="section-title">Album Ảnh Cưới</h2>
         </div>
@@ -934,11 +980,11 @@
 <!-- ===== RSVP ===== -->
 <section class="section rsvp-section" id="rsvp">
     <div class="container text-center">
-        <div class="section-heading animate-fade-up">
+        <div class="section-heading animate-flip-y">
             <p class="section-subtitle">RSVP</p>
             <h2 class="section-title">Xác Nhận Tham Dự</h2>
         </div>
-        <form class="rsvp-form animate-fade-up animate-delay-1" id="rsvpForm" onsubmit="return false;">
+        <form class="rsvp-form animate-bounce-up animate-delay-1" id="rsvpForm" onsubmit="return false;">
             <div class="rsvp-row"><label class="rsvp-label">Họ và tên *</label><input type="text" class="rsvp-input" placeholder="Nhập họ tên của bạn" required></div>
             <div class="rsvp-row"><label class="rsvp-label">Số điện thoại</label><input type="tel" class="rsvp-input" placeholder="Nhập số điện thoại"></div>
             <div class="rsvp-row"><label class="rsvp-label">Số khách tham dự</label><select class="rsvp-select"><option value="1">1 người</option><option value="2">2 người</option><option value="3">3 người</option><option value="4">4 người</option><option value="5">5 người</option></select></div>
@@ -951,20 +997,20 @@
 <!-- ===== WISHES ===== -->
 <section class="section wishes-section" id="wishes">
     <div class="container text-center">
-        <div class="section-heading animate-fade-up">
+        <div class="section-heading animate-bounce-up">
             <p class="section-subtitle">Guestbook</p>
             <h2 class="section-title">Sổ Lưu Bút</h2>
         </div>
-        <div class="wishes-photo-accent animate-fade-up"><img src="customer/anh_7.webp" alt=""></div>
+        <div class="wishes-photo-accent animate-zoom-fade"><img src="customer/anh_7.webp" alt=""></div>
         <form class="wishes-form animate-fade-up animate-delay-1" id="wishesForm" onsubmit="return false;">
             <input type="text" class="wishes-input" placeholder="Nhập tên của bạn *" id="wishName" required>
             <textarea class="wishes-textarea" placeholder="Nhập lời chúc của bạn *" id="wishMessage" rows="3" required></textarea>
             <button type="submit" class="wishes-submit" id="wishSubmitBtn"><i data-lucide="send" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:6px;"></i>Gửi Lời Chúc</button>
         </form>
         <div class="wishes-list" id="wishesList">
-            <div class="wish-card animate-fade-up"><p class="wish-text">Chúc hai bạn trăm năm hạnh phúc, sớm có tin vui nhé!</p><p class="wish-author">— Minh Anh</p></div>
-            <div class="wish-card animate-fade-up animate-delay-1"><p class="wish-text">Congratulations! Wishing you both a lifetime of love and happiness.</p><p class="wish-author">— Thanh Tùng</p></div>
-            <div class="wish-card animate-fade-up animate-delay-2"><p class="wish-text">Hạnh phúc mãi mãi bên nhau nha! Thương hai đứa nhiều lắm.</p><p class="wish-author">— Thu Hà</p></div>
+            <div class="wish-card animate-slide-rotate-left"><p class="wish-text">Chúc hai bạn trăm năm hạnh phúc, sớm có tin vui nhé!</p><p class="wish-author">— Minh Anh</p></div>
+            <div class="wish-card animate-slide-rotate-right animate-delay-1"><p class="wish-text">Congratulations! Wishing you both a lifetime of love and happiness.</p><p class="wish-author">— Thanh Tùng</p></div>
+            <div class="wish-card animate-slide-rotate-left animate-delay-2"><p class="wish-text">Hạnh phúc mãi mãi bên nhau nha! Thương hai đứa nhiều lắm.</p><p class="wish-author">— Thu Hà</p></div>
         </div>
     </div>
 </section>
@@ -975,19 +1021,19 @@
 <!-- ===== GIFT BOX ===== -->
 <section class="section gift-section" id="gift">
     <div class="container text-center">
-        <div class="section-heading animate-fade-up">
+        <div class="section-heading animate-swing">
             <p class="section-subtitle">Wedding Gift</p>
             <h2 class="section-title">Hộp Mừng Cưới</h2>
         </div>
         <div class="gift-grid">
-            <div class="gift-card animate-fade-up animate-delay-1">
+            <div class="gift-card animate-bounce-left animate-delay-1">
                 <div class="gift-bank-icon"><i data-lucide="landmark" style="width:24px;height:24px;"></i></div>
                 <p class="gift-bank-name">Ngân Hàng</p>
                 <p class="gift-account-name">Huỳnh Thị Diễm Phúc</p>
                 <p class="gift-account-num">XXXX XXXX XXXX</p>
                 <button class="gift-copy-btn" data-account="XXXXXXXXXXXX"><i data-lucide="copy" style="width:14px;height:14px;"></i> Sao chép STK</button>
             </div>
-            <div class="gift-card animate-fade-up animate-delay-2">
+            <div class="gift-card animate-bounce-right animate-delay-2">
                 <div class="gift-bank-icon"><i data-lucide="landmark" style="width:24px;height:24px;"></i></div>
                 <p class="gift-bank-name">Ngân Hàng</p>
                 <p class="gift-account-name">Nguyễn Minh Đáng</p>
@@ -1001,9 +1047,9 @@
 <!-- ===== THANK YOU ===== -->
 <section class="section--breathe thankyou-section" id="thankyou">
     <div class="container text-center">
-        <img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="thankyou-chibi animate-fade-up" alt="Chibi couple">
-        <p class="thankyou-text animate-fade-up animate-delay-1">Sự hiện diện của quý khách là niềm vinh hạnh<br>của gia đình chúng tôi!</p>
-        <p class="thankyou-names animate-fade-up animate-delay-2">Minh Đáng & Diễm Phúc</p>
+        <img src="../../../shared/images/wedding/icons/couple-chibi.webp" class="thankyou-chibi animate-bounce-in" alt="Chibi couple">
+        <p class="thankyou-text animate-zoom-fade animate-delay-1">Sự hiện diện của quý khách là niềm vinh hạnh<br>của gia đình chúng tôi!</p>
+        <p class="thankyou-names animate-flip-y animate-delay-2">Minh Đáng & Diễm Phúc</p>
     </div>
 </section>
 
