@@ -108,7 +108,7 @@ var WEDDING = {
         src: '../../products/Invitation/Wedding/khach_dang-phuc/code.html',
         title: 'Minh Đáng & Diễm Phúc — Wedding Invitation',
         description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 02/08/2026 tại Thôn Long Thạnh, Xã Tam Xuân, TP. Đà Nẵng',
-        image: '../../products/Invitation/Wedding/khach_dang-phuc/customer/anh_4.webp',
+        image: '../../products/Invitation/Wedding/khach_dang-phuc/og-cover.jpg',
     },
     'duc-anh-ngoc-trang': {
         src: '../../products/Invitation/Wedding/gen_216_dam-ngo-song-hy/index.html',
