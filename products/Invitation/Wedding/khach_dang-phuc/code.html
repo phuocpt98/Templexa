@@ -62,7 +62,7 @@
 
         .section-title {
             font-family: var(--font-heading);
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-size: clamp(1.3rem, 4vw, 1.7rem);
             font-weight: 500;
             color: var(--red-deep);
             letter-spacing: 0.12em;
@@ -71,7 +71,7 @@
         }
         .section-subtitle {
             font-family: var(--font-accent);
-            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
             font-style: italic;
             color: var(--text-faint);
             letter-spacing: 0.2em;
@@ -85,7 +85,7 @@
             text-align: center;
             padding: 1.2rem 0;
             color: var(--red);
-            font-size: 0.75rem;
+            font-size: 0.88rem;
             letter-spacing: 0.5em;
         }
         .ornament::before, .ornament::after {
@@ -106,6 +106,19 @@
         .animate-delay-3 { transition-delay: 0.75s; }
         .animate-delay-4 { transition-delay: 1s; }
         .animate-delay-5 { transition-delay: 1.25s; }
+
+        /* Gallery reveal — bay vào từ 2 bên + zoom */
+        .gallery-item[class*="animate-"] { opacity: 0; transform: scale(0.7) translateX(-40px); transition: opacity 1.4s cubic-bezier(0.16,1,0.3,1), transform 1.4s cubic-bezier(0.16,1,0.3,1); }
+        .gallery-item[class*="animate-"]:nth-child(even) { transform: scale(0.7) translateX(40px); }
+        .gallery-item[class*="animate-"].is-visible { opacity: 1; transform: scale(1) translateX(0); }
+        .gallery-item[class*="animate-"].is-visible:nth-child(1) { transform: scale(1) rotate(-1.5deg); }
+        .gallery-item[class*="animate-"].is-visible:nth-child(2) { transform: scale(1) rotate(0.5deg) translateY(8px); }
+        .gallery-item[class*="animate-"].is-visible:nth-child(3) { transform: scale(1) rotate(2deg); }
+        .gallery-item[class*="animate-"].is-visible:nth-child(4) { transform: scale(1) rotate(1deg) translateY(-5px); }
+        .gallery-item[class*="animate-"].is-visible:nth-child(5) { transform: scale(1) rotate(-2deg) translateY(10px); }
+        .gallery-item[class*="animate-"].is-visible:nth-child(6) { transform: scale(1) rotate(0.8deg); }
+        .gallery-item[class*="animate-"].is-visible:nth-child(7) { transform: scale(1) rotate(-0.5deg) translateY(6px); }
+        .gallery-item[class*="animate-"].is-visible:nth-child(8) { transform: scale(1) rotate(1.5deg); }
 
         /* ===== ENVELOPE ===== */
         .envelope {
@@ -137,7 +150,7 @@
         @keyframes pulse-gentle { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .envelope-label {
             font-family: var(--font-accent);
-            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
             color: var(--text-faint);
             letter-spacing: 0.3em;
             text-transform: uppercase;
@@ -145,21 +158,22 @@
         }
         .envelope-names {
             font-family: var(--font-script);
-            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-size: clamp(2.8rem, 9vw, 4.5rem);
             color: var(--red-deep);
             line-height: 1.2;
             margin-bottom: 0.4rem;
+            white-space: nowrap;
         }
         .envelope-date {
             font-family: var(--font-accent);
-            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-size: clamp(1.05rem, 3vw, 1.3rem);
             color: var(--text-sub);
             letter-spacing: 0.15em;
             margin-bottom: 0.4rem;
         }
         .envelope-invite {
             font-family: var(--font-accent);
-            font-size: 1rem;
+            font-size: 1.15rem;
             color: var(--text-faint);
             letter-spacing: 0.1em;
             margin-bottom: 1.2rem;
@@ -201,7 +215,7 @@
             gap: 8px;
             padding: 14px 48px;
             font-family: var(--font-heading);
-            font-size: 0.85rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--white);
@@ -215,7 +229,7 @@
         .envelope-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(211,47,47,0.45); }
         .hero-amp {
             font-family: var(--font-accent);
-            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             color: var(--red);
             font-style: italic;
             margin: 0 0.3em;
@@ -257,12 +271,12 @@
             filter: drop-shadow(0 2px 8px rgba(211,47,47,0.15));
             animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s both;
         }
-        .hero-label { font-family: var(--font-accent); font-size: clamp(0.7rem, 2vw, 0.85rem); color: var(--text-faint); letter-spacing: 0.35em; text-transform: uppercase; margin-bottom: 0.8rem; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 0.6s both; }
-        .hero-names { font-family: var(--font-script); font-size: clamp(3rem, 10vw, 5rem); color: var(--red-deep); line-height: 1.15; margin-bottom: 0.3rem; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 0.9s both; }
+        .hero-label { font-family: var(--font-accent); font-size: clamp(0.85rem, 2.5vw, 1rem); color: var(--text-faint); letter-spacing: 0.35em; text-transform: uppercase; margin-bottom: 0.8rem; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 0.6s both; }
+        .hero-names { font-family: var(--font-script); font-size: clamp(3.2rem, 11vw, 5.5rem); color: var(--red-deep); line-height: 1.15; margin-bottom: 0.3rem; white-space: nowrap; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 0.9s both; }
         .hero-ornament-line { width: 80px; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); margin: 0.8rem auto; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 1.2s both; }
-        .hero-title { font-family: var(--font-heading); font-size: clamp(0.65rem, 2vw, 0.8rem); color: var(--text-sub); letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 1rem; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 1.4s both; }
-        .hero-date { font-family: var(--font-accent); font-size: clamp(1rem, 3vw, 1.3rem); color: var(--red); letter-spacing: 0.1em; margin-bottom: 0.5rem; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 1.6s both; }
-        .hero-venue { font-family: var(--font-body); font-size: clamp(0.75rem, 2vw, 0.85rem); color: var(--text-faint); letter-spacing: 0.05em; font-weight: 300; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 1.8s both; }
+        .hero-title { font-family: var(--font-heading); font-size: clamp(0.8rem, 2.5vw, 1rem); color: var(--text-sub); letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 1rem; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 1.4s both; }
+        .hero-date { font-family: var(--font-accent); font-size: clamp(1.15rem, 3.5vw, 1.5rem); color: var(--red); letter-spacing: 0.1em; margin-bottom: 0.5rem; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 1.6s both; }
+        .hero-venue { font-family: var(--font-body); font-size: clamp(0.88rem, 2.5vw, 1rem); color: var(--text-faint); letter-spacing: 0.05em; font-weight: 300; animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 1.8s both; }
         .hero-chibi { width: clamp(200px, 50vw, 320px); margin-top: 1.5rem; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.1)); animation: suh 1.4s cubic-bezier(0.16,1,0.3,1) 2s both; }
         @keyframes suh { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -312,12 +326,12 @@
         .family-card:last-child { transform: rotate(0.8deg); margin-top: 12px; }
         .family-card:hover { transform: rotate(0deg) translateY(-3px); }
         .family-card::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(90deg, var(--red), var(--gold)); border-radius: 2px; }
-        .family-side { font-family: var(--font-heading); font-size: clamp(0.6rem, 1.8vw, 0.7rem); color: var(--red); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.8rem; margin-top: 0.5rem; }
-        .family-parent { font-family: var(--font-accent); font-size: clamp(1rem, 2.5vw, 1.15rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
-        .family-role { font-size: 0.75rem; color: var(--text-faint); letter-spacing: 0.1em; }
+        .family-side { font-family: var(--font-heading); font-size: clamp(0.75rem, 2.2vw, 0.85rem); color: var(--red); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.8rem; margin-top: 0.5rem; }
+        .family-parent { font-family: var(--font-accent); font-size: clamp(1.1rem, 3vw, 1.3rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
+        .family-role { font-size: clamp(0.82rem, 2.2vw, 0.92rem); color: var(--text-faint); letter-spacing: 0.1em; }
         .family-child { margin-top: 1rem; padding-top: 0.8rem; border-top: 1px dashed var(--red-light); }
-        .family-child-name { font-family: var(--font-script); font-size: clamp(1.8rem, 5vw, 2.5rem); color: var(--red-deep); line-height: 1.2; }
-        .family-child-role { font-size: 0.72rem; color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; }
+        .family-child-name { font-family: var(--font-script); font-size: clamp(2rem, 6vw, 2.8rem); color: var(--red-deep); line-height: 1.2; white-space: nowrap; }
+        .family-child-role { font-size: clamp(0.8rem, 2vw, 0.88rem); color: var(--text-faint); letter-spacing: 0.15em; text-transform: uppercase; }
         /* Family photos */
         .family-photo {
             width: 80px; height: 80px;
@@ -364,8 +378,8 @@
         .countdown-item:nth-child(3) { transform: translateY(-6px); }
         .countdown-item:nth-child(5) { transform: rotate(1deg); }
         .countdown-item:nth-child(7) { transform: rotate(-0.5deg) translateY(4px); }
-        .countdown-num { font-family: var(--font-heading); font-size: clamp(2rem, 6vw, 3rem); font-weight: 600; color: var(--white); line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .countdown-label { font-family: var(--font-accent); font-size: clamp(0.6rem, 1.5vw, 0.72rem); color: rgba(255,255,255,0.5); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.3rem; }
+        .countdown-num { font-family: var(--font-heading); font-size: clamp(2.2rem, 7vw, 3.5rem); font-weight: 600; color: var(--white); line-height: 1; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .countdown-label { font-family: var(--font-accent); font-size: clamp(0.72rem, 2vw, 0.85rem); color: rgba(255,255,255,0.5); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.3rem; }
         .countdown-sep { font-family: var(--font-heading); font-size: clamp(1.5rem, 4vw, 2rem); color: rgba(255,255,255,0.2); align-self: center; }
 
         /* ===== LOVE STORY ===== */
@@ -384,9 +398,9 @@
         .timeline-item:nth-child(even) { transform: translateX(6px); }
         .timeline-dot { position: absolute; left: -26px; top: 6px; width: 18px; height: 18px; background: var(--white); border: 3px solid var(--red); border-radius: 50%; z-index: 1; }
         .timeline-dot::after { content: ''; position: absolute; inset: 3px; background: var(--red); border-radius: 50%; }
-        .timeline-date { font-family: var(--font-accent); font-size: 0.8rem; color: var(--red); letter-spacing: 0.1em; font-style: italic; margin-bottom: 0.2rem; }
-        .timeline-title { font-family: var(--font-accent); font-size: clamp(0.95rem, 2.5vw, 1.15rem); font-weight: 600; color: var(--text-main); letter-spacing: 0.03em; margin-bottom: 0.3rem; }
-        .timeline-desc { font-size: clamp(0.8rem, 2vw, 0.88rem); color: var(--text-sub); line-height: 1.6; font-weight: 300; }
+        .timeline-date { font-family: var(--font-accent); font-size: clamp(0.88rem, 2.2vw, 0.95rem); color: var(--red); letter-spacing: 0.1em; font-style: italic; margin-bottom: 0.2rem; }
+        .timeline-title { font-family: var(--font-accent); font-size: clamp(1.1rem, 3vw, 1.3rem); font-weight: 600; color: var(--text-main); letter-spacing: 0.03em; margin-bottom: 0.3rem; }
+        .timeline-desc { font-size: clamp(0.9rem, 2.5vw, 1rem); color: var(--text-sub); line-height: 1.7; font-weight: 300; }
         .timeline-photo {
             width: 100%;
             max-width: 280px;
@@ -419,11 +433,11 @@
         .event-card:hover { transform: rotate(0deg) translateY(-3px); }
         .event-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--red), var(--gold)); }
         .event-icon { width: 50px; height: 50px; border-radius: 50%; background: var(--red-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--red); }
-        .event-type { font-family: var(--font-heading); font-size: clamp(0.6rem, 1.8vw, 0.7rem); color: var(--red); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.8rem; }
-        .event-date { font-family: var(--font-accent); font-size: clamp(0.95rem, 2.5vw, 1.1rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
-        .event-time { font-size: 0.85rem; color: var(--red); font-weight: 500; margin-bottom: 0.5rem; }
-        .event-venue { font-family: var(--font-accent); font-size: clamp(0.85rem, 2.2vw, 0.95rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.2rem; }
-        .event-address { font-size: 0.78rem; color: var(--text-faint); line-height: 1.5; }
+        .event-type { font-family: var(--font-heading); font-size: clamp(0.75rem, 2.2vw, 0.85rem); color: var(--red); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.8rem; }
+        .event-date { font-family: var(--font-accent); font-size: clamp(1.05rem, 3vw, 1.25rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
+        .event-time { font-size: clamp(0.95rem, 2.5vw, 1.05rem); color: var(--red); font-weight: 500; margin-bottom: 0.5rem; }
+        .event-venue { font-family: var(--font-accent); font-size: clamp(0.95rem, 2.5vw, 1.1rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.2rem; }
+        .event-address { font-size: clamp(0.85rem, 2.2vw, 0.95rem); color: var(--text-faint); line-height: 1.6; }
         @media (max-width: 560px) {
             .event-grid { grid-template-columns: 1fr; }
             .event-card:first-child { transform: rotate(-0.5deg); }
@@ -540,20 +554,20 @@
         .rsvp-section .section-subtitle { color: rgba(255,255,255,0.5); }
         .rsvp-form { max-width: 440px; margin: 0 auto; position: relative; }
         .rsvp-row { margin-bottom: 1rem; }
-        .rsvp-label { display: block; font-size: 0.78rem; color: rgba(255,255,255,0.7); letter-spacing: 0.1em; margin-bottom: 0.3rem; text-align: left; }
-        .rsvp-input, .rsvp-select, .rsvp-textarea { width: 100%; padding: 12px 16px; font-family: var(--font-body); font-size: 0.88rem; color: var(--text-main); background: var(--white); border: 2px solid transparent; border-radius: 14px; outline: none; transition: border-color 0.3s; }
+        .rsvp-label { display: block; font-size: clamp(0.85rem, 2.2vw, 0.95rem); color: rgba(255,255,255,0.7); letter-spacing: 0.1em; margin-bottom: 0.3rem; text-align: left; }
+        .rsvp-input, .rsvp-select, .rsvp-textarea { width: 100%; padding: 14px 18px; font-family: var(--font-body); font-size: clamp(0.95rem, 2.5vw, 1.05rem); color: var(--text-main); background: var(--white); border: 2px solid transparent; border-radius: 14px; outline: none; transition: border-color 0.3s; }
         .rsvp-input:focus, .rsvp-select:focus, .rsvp-textarea:focus { border-color: var(--gold); }
         .rsvp-textarea { resize: vertical; min-height: 80px; }
-        .rsvp-submit { width: 100%; padding: 14px; font-family: var(--font-heading); font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-deep); background: linear-gradient(135deg, var(--gold), var(--gold-light)); border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 6px 20px rgba(212,175,55,0.3); transition: transform 0.3s; margin-top: 0.5rem; }
+        .rsvp-submit { width: 100%; padding: 16px; font-family: var(--font-heading); font-size: clamp(0.9rem, 2.5vw, 1rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-deep); background: linear-gradient(135deg, var(--gold), var(--gold-light)); border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 6px 20px rgba(212,175,55,0.3); transition: transform 0.3s; margin-top: 0.5rem; }
         .rsvp-submit:hover { transform: translateY(-2px); }
 
         /* ===== WISHES ===== */
         .wishes-section { background: var(--white); }
         .wishes-form { max-width: 440px; margin: 0 auto 2rem; }
-        .wishes-input, .wishes-textarea { width: 100%; padding: 12px 16px; font-family: var(--font-body); font-size: 0.88rem; color: var(--text-main); background: var(--red-bg); border: 2px solid var(--red-light); border-radius: 14px; outline: none; margin-bottom: 0.8rem; transition: border-color 0.3s; }
+        .wishes-input, .wishes-textarea { width: 100%; padding: 14px 18px; font-family: var(--font-body); font-size: clamp(0.95rem, 2.5vw, 1.05rem); color: var(--text-main); background: var(--red-bg); border: 2px solid var(--red-light); border-radius: 14px; outline: none; margin-bottom: 0.8rem; transition: border-color 0.3s; }
         .wishes-input:focus, .wishes-textarea:focus { border-color: var(--red); }
         .wishes-textarea { resize: vertical; min-height: 80px; }
-        .wishes-submit { width: 100%; padding: 12px; font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); background: linear-gradient(135deg, var(--red), var(--red-deep)); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.3s; }
+        .wishes-submit { width: 100%; padding: 14px; font-family: var(--font-heading); font-size: clamp(0.88rem, 2.3vw, 0.95rem); letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); background: linear-gradient(135deg, var(--red), var(--red-deep)); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.3s; }
         .wishes-submit:hover { transform: translateY(-2px); }
         .wishes-list { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
         .wish-card {
@@ -568,8 +582,8 @@
         .wish-card:nth-child(even) { transform: rotate(0.4deg) translateX(8px); }
         .wish-card:hover { transform: rotate(0deg) translateY(-2px); }
         .wish-card::before { content: '\201C'; font-family: var(--font-accent); font-size: 2.5rem; color: var(--red-light); position: absolute; top: 5px; left: 12px; line-height: 1; }
-        .wish-text { font-family: var(--font-accent); font-size: 0.95rem; color: var(--text-main); font-style: italic; line-height: 1.6; padding-left: 1rem; }
-        .wish-author { font-size: 0.78rem; color: var(--red); font-weight: 500; margin-top: 0.5rem; padding-left: 1rem; }
+        .wish-text { font-family: var(--font-accent); font-size: clamp(1rem, 2.8vw, 1.15rem); color: var(--text-main); font-style: italic; line-height: 1.7; padding-left: 1rem; }
+        .wish-author { font-size: clamp(0.85rem, 2.2vw, 0.95rem); color: var(--red); font-weight: 500; margin-top: 0.5rem; padding-left: 1rem; }
         /* Small photo accent in wishes */
         .wishes-photo-accent {
             width: 90px; height: 90px;
@@ -597,10 +611,10 @@
         .gift-card:last-child { transform: rotate(0.6deg); margin-top: 10px; }
         .gift-card:hover { transform: rotate(0deg) translateY(-3px); }
         .gift-bank-icon { width: 50px; height: 50px; border-radius: 14px; background: var(--red-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--red); }
-        .gift-bank-name { font-family: var(--font-heading); font-size: clamp(0.65rem, 1.8vw, 0.75rem); color: var(--red); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
-        .gift-account-name { font-family: var(--font-accent); font-size: clamp(0.9rem, 2.2vw, 1rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; }
-        .gift-account-num { font-size: 0.85rem; color: var(--text-sub); letter-spacing: 0.05em; margin-bottom: 1rem; }
-        .gift-copy-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; font-family: var(--font-body); font-size: 0.75rem; color: var(--red); background: var(--red-bg); border: 1px solid var(--red-light); border-radius: 50px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+        .gift-bank-name { font-family: var(--font-heading); font-size: clamp(0.8rem, 2.2vw, 0.9rem); color: var(--red); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .gift-account-name { font-family: var(--font-accent); font-size: clamp(1rem, 2.8vw, 1.15rem); color: var(--text-main); font-weight: 500; margin-bottom: 0.3rem; white-space: nowrap; }
+        .gift-account-num { font-size: clamp(0.92rem, 2.3vw, 1rem); color: var(--text-sub); letter-spacing: 0.05em; margin-bottom: 1rem; }
+        .gift-copy-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px; font-family: var(--font-body); font-size: clamp(0.82rem, 2vw, 0.9rem); color: var(--red); background: var(--red-bg); border: 1px solid var(--red-light); border-radius: 50px; cursor: pointer; transition: background 0.2s, color 0.2s; }
         .gift-copy-btn:hover { background: var(--red); color: var(--white); }
         @media (max-width: 480px) {
             .gift-grid { grid-template-columns: 1fr; }
@@ -620,11 +634,11 @@
             pointer-events: none;
         }
         .thankyou-chibi { width: clamp(160px, 38vw, 250px); margin-bottom: 1.5rem; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.15)); position: relative; }
-        .thankyou-text { font-family: var(--font-accent); font-size: clamp(1rem, 2.5vw, 1.2rem); color: rgba(255,255,255,0.8); font-style: italic; line-height: 1.7; max-width: 400px; margin: 0 auto 1.5rem; position: relative; }
-        .thankyou-names { font-family: var(--font-script); font-size: clamp(2rem, 6vw, 3rem); color: var(--gold-light); position: relative; }
+        .thankyou-text { font-family: var(--font-accent); font-size: clamp(1.1rem, 3vw, 1.35rem); color: rgba(255,255,255,0.8); font-style: italic; line-height: 1.7; max-width: 400px; margin: 0 auto 1.5rem; position: relative; }
+        .thankyou-names { font-family: var(--font-script); font-size: clamp(2.2rem, 7vw, 3.5rem); color: var(--gold-light); position: relative; white-space: nowrap; }
 
         /* ===== FOOTER ===== */
-        .footer { background: var(--red-dark); color: rgba(255,255,255,0.4); text-align: center; padding: 1.5rem 1rem; font-size: 0.75rem; }
+        .footer { background: var(--red-dark); color: rgba(255,255,255,0.4); text-align: center; padding: 1.5rem 1rem; font-size: clamp(0.8rem, 2vw, 0.88rem); }
         .footer a { color: var(--gold); text-decoration: none; }
 
         /* ===== MUSIC ===== */
