@@ -116,4 +116,16 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự Lễ Dạm Ngõ của Đức Anh & Ngọc Trang — 08.07.2026 tại Nhà hàng Hưng Vân, Nghĩa Lộ, Lào Cai',
         image: '../../products/Invitation/Wedding/gen_216_dam-ngo-song-hy/og-cover.jpg',
     },
+    'ba-hung-khanh-nha': {
+        src: '../../products/Invitation/Wedding/khach_hung_khanhnha/nha-trai.html',
+        title: 'Bá Hưng & Khánh Nhã — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 02.08.2026 tại Không Gian, Khánh Hòa',
+        image: '../../products/Invitation/Wedding/khach_hung_khanhnha/og-cover.jpg',
+    },
+    'khanh-nha-ba-hung': {
+        src: '../../products/Invitation/Wedding/khach_hung_khanhnha/nha-gai.html',
+        title: 'Khánh Nhã & Bá Hưng — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự lễ vu quy của chúng tôi — 01.08.2026 tại Golden Palace, Lâm Đồng',
+        image: '../../products/Invitation/Wedding/khach_hung_khanhnha/og-cover.jpg',
+    },
 };
