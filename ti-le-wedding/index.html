@@ -189,9 +189,11 @@ section{position:relative;padding:clamp(70px,9vw,120px) 0}
 /* about */
 .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
 .about-art{position:relative;aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--line);
-  background:linear-gradient(160deg,#16161d,#0d0d12);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center}
+  background:linear-gradient(160deg,#16161d,#0d0d12);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;
+  perspective:1000px;transition:transform .5s var(--ease)}
+.about-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .about-art .mono{font-family:"Playfair Display",serif;font-size:190px;font-weight:800;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.9}
-.about-art .deco-ring{position:absolute;width:78%;aspect-ratio:1;border:1px solid var(--line);border-radius:50%}
+.about-art .deco-ring{position:absolute;width:78%;aspect-ratio:1;border:1px solid var(--line);border-radius:50%;z-index:2}
 .about-art .deco-ring.r2{width:92%;border-style:dashed;border-color:rgba(212,175,55,.14)}
 .about h3{font-family:"Playfair Display",serif;font-size:clamp(26px,3vw,38px);font-weight:700;margin-bottom:20px;line-height:1.15}
 .about p{color:var(--muted);margin-bottom:16px}
@@ -215,21 +217,25 @@ section{position:relative;padding:clamp(70px,9vw,120px) 0}
 .svc p{color:var(--muted);font-size:14.5px}
 
 /* showcase */
-.show-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.card-inv{aspect-ratio:3/4.2;border-radius:var(--radius);position:relative;overflow:hidden;padding:26px 22px;
-  display:flex;flex-direction:column;justify-content:space-between;transition:.55s var(--ease);cursor:default;border:1px solid var(--line-soft)}
-.card-inv:hover{transform:translateY(-10px) rotate(-1deg);box-shadow:var(--shadow)}
-.card-inv .k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.75}
-.card-inv .mid{text-align:center}
-.card-inv .amp{font-family:"Dancing Script",cursive;font-size:34px;line-height:1}
-.card-inv .nm{font-family:"Playfair Display",serif;font-size:23px;line-height:1.15;margin:6px 0}
-.card-inv .dt{font-size:11px;letter-spacing:.2em;opacity:.8}
-.card-inv .foot{font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-align:center;opacity:.7}
-.card-inv .frame{position:absolute;inset:12px;border:1px solid currentColor;opacity:.35;border-radius:14px;pointer-events:none}
-.inv-1{background:linear-gradient(160deg,#141019,#0c0910);color:var(--gold-bright)}
-.inv-2{background:linear-gradient(160deg,#1c1608,#0f0c05);color:#F3E4B0}
-.inv-3{background:linear-gradient(160deg,#12140f,#0b0d09);color:#D9C98A}
-.inv-4{background:linear-gradient(160deg,#191111,#0d0808);color:#E8C97C}
+.show-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;perspective:1400px}
+.inv-card{position:relative;aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line-soft);
+  transform-style:preserve-3d;transition:transform .5s var(--ease),box-shadow .5s var(--ease);will-change:transform;
+  background:linear-gradient(160deg,#16121b,#0c0910)}
+.inv-card:hover{box-shadow:var(--shadow)}
+.inv-card::after{content:"";position:absolute;inset:0;border-radius:var(--radius);border:1px solid var(--line);opacity:.55;pointer-events:none;z-index:5}
+.inv-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:1}
+.inv-fallback .mono{font-family:"Playfair Display",serif;font-size:64px;background:var(--grad-gold);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.55}
+.inv-fallback small{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted-2)}
+.inv-media{position:absolute;inset:0;z-index:2}
+.inv-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.inv-card:hover .inv-media img{transform:scale(1.06)}
+.inv-cap{position:absolute;left:0;right:0;bottom:0;padding:52px 20px 20px;z-index:4;transform:translateZ(38px);
+  background:linear-gradient(to top,rgba(8,7,10,.94),rgba(8,7,10,.55) 55%,transparent)}
+.inv-cap .tg{display:inline-block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-bright);
+  border:1px solid var(--line);border-radius:999px;padding:4px 11px;margin-bottom:10px;background:rgba(212,175,55,.1)}
+.inv-cap h4{font-family:"Playfair Display",serif;font-size:21px;line-height:1.12;margin-bottom:4px}
+.inv-cap h4 .amp{font-family:"Dancing Script",cursive;color:var(--gold-soft)}
+.inv-cap p{font-size:12.5px;color:var(--muted);letter-spacing:.02em}
 
 /* process */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;position:relative}
@@ -450,9 +456,10 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap about">
-    <div class="about-art reveal left">
-      <div class="deco-ring"></div><div class="deco-ring r2"></div>
+    <div class="about-art reveal left" data-tilt>
       <div class="mono">TL</div>
+      <img src="gallery/about-hero.webp" alt="Thiệp cưới cao cấp Tile" onerror="this.remove()">
+      <div class="deco-ring"></div><div class="deco-ring r2"></div>
     </div>
     <div class="about-copy">
       <span class="tag reveal">Về Tile</span>
@@ -497,10 +504,36 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
       <p class="reveal d2">Mỗi bộ sưu tập một cá tính — từ cổ điển vương giả đến tối giản thanh lịch.</p>
     </div>
     <div class="show-grid">
-      <div class="card-inv inv-1 reveal d1"><div class="frame"></div><div class="k">Save the date</div><div class="mid"><div class="nm">Ngọc Anh</div><div class="amp">&amp;</div><div class="nm">Minh Khang</div><div class="dt">20 · 10 · 2026</div></div><div class="foot">Royal Classic</div></div>
-      <div class="card-inv inv-2 reveal d2"><div class="frame"></div><div class="k">Wedding</div><div class="mid"><div class="nm">Thu Hà</div><div class="amp">&amp;</div><div class="nm">Đức Huy</div><div class="dt">Ép kim vàng</div></div><div class="foot">Gold Luxury</div></div>
-      <div class="card-inv inv-3 reveal d3"><div class="frame"></div><div class="k">Invitation</div><div class="mid"><div class="nm">Mai Linh</div><div class="amp">&amp;</div><div class="nm">Quốc Bảo</div><div class="dt">Hoa văn dập nổi</div></div><div class="foot">Botanic Soft</div></div>
-      <div class="card-inv inv-4 reveal d4"><div class="frame"></div><div class="k">Save the date</div><div class="mid"><div class="nm">Phương Vy</div><div class="amp">&amp;</div><div class="nm">Gia Bảo</div><div class="dt">Tối giản</div></div><div class="foot">Minimal Chic</div></div>
+      <figure class="inv-card reveal d1" data-tilt>
+        <div class="inv-fallback"><span class="mono">TL</span><small>Royal Classic</small></div>
+        <div class="inv-media"><img src="gallery/inv-1.webp" alt="Mẫu thiệp cưới Royal Classic — Thiệp Cưới Tile" loading="lazy" onerror="this.remove()"></div>
+        <figcaption class="inv-cap"><span class="tg">Royal Classic</span><h4>Ngọc Anh <span class="amp">&amp;</span> Minh Khang</h4><p>Ép kim vàng · giấy mỹ thuật</p></figcaption>
+      </figure>
+      <figure class="inv-card reveal d2" data-tilt>
+        <div class="inv-fallback"><span class="mono">TL</span><small>Gold Luxury</small></div>
+        <div class="inv-media"><img src="gallery/inv-2.webp" alt="Mẫu thiệp cưới Gold Luxury — Thiệp Cưới Tile" loading="lazy" onerror="this.remove()"></div>
+        <figcaption class="inv-cap"><span class="tg">Gold Luxury</span><h4>Thu Hà <span class="amp">&amp;</span> Đức Huy</h4><p>Dập nổi · cán mờ sang trọng</p></figcaption>
+      </figure>
+      <figure class="inv-card reveal d3" data-tilt>
+        <div class="inv-fallback"><span class="mono">TL</span><small>Botanic Soft</small></div>
+        <div class="inv-media"><img src="gallery/inv-3.webp" alt="Mẫu thiệp cưới Botanic Soft — Thiệp Cưới Tile" loading="lazy" onerror="this.remove()"></div>
+        <figcaption class="inv-cap"><span class="tg">Botanic Soft</span><h4>Mai Linh <span class="amp">&amp;</span> Quốc Bảo</h4><p>Hoa văn hoạ tiết thực vật</p></figcaption>
+      </figure>
+      <figure class="inv-card reveal d1" data-tilt>
+        <div class="inv-fallback"><span class="mono">TL</span><small>Minimal Chic</small></div>
+        <div class="inv-media"><img src="gallery/inv-4.webp" alt="Mẫu thiệp cưới Minimal Chic — Thiệp Cưới Tile" loading="lazy" onerror="this.remove()"></div>
+        <figcaption class="inv-cap"><span class="tg">Minimal Chic</span><h4>Phương Vy <span class="amp">&amp;</span> Gia Bảo</h4><p>Tối giản · thanh lịch</p></figcaption>
+      </figure>
+      <figure class="inv-card reveal d2" data-tilt>
+        <div class="inv-fallback"><span class="mono">TL</span><small>Vintage Rosé</small></div>
+        <div class="inv-media"><img src="gallery/inv-5.webp" alt="Mẫu thiệp cưới Vintage Rosé — Thiệp Cưới Tile" loading="lazy" onerror="this.remove()"></div>
+        <figcaption class="inv-cap"><span class="tg">Vintage Rosé</span><h4>Hải Yến <span class="amp">&amp;</span> Trung Kiên</h4><p>Tông hồng đất cổ điển</p></figcaption>
+      </figure>
+      <figure class="inv-card reveal d3" data-tilt>
+        <div class="inv-fallback"><span class="mono">TL</span><small>Modern Noir</small></div>
+        <div class="inv-media"><img src="gallery/inv-6.webp" alt="Mẫu thiệp cưới Modern Noir — Thiệp Cưới Tile" loading="lazy" onerror="this.remove()"></div>
+        <figcaption class="inv-cap"><span class="tg">Modern Noir</span><h4>Bảo Trân <span class="amp">&amp;</span> Nhật Minh</h4><p>Đen — vàng hiện đại</p></figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -808,6 +841,26 @@ window.addEventListener('scroll', function(){
     orbits.forEach(function(o,i){ o.style.transform = 'translate(-50%,-50%) translateY('+ (y*(0.04+i*0.02)) +'px)'; });
   }
 }, {passive:true});
+
+/* ---------- 3D tilt (chuột) ---------- */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(matchMedia('(hover: none)').matches) return;
+  var MAX = 9;
+  document.querySelectorAll('[data-tilt]').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ el.style.transition = 'transform .12s ease-out'; });
+    el.addEventListener('mousemove', function(e){
+      var r = el.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = 'rotateY(' + (px*MAX) + 'deg) rotateX(' + (-py*MAX) + 'deg) translateY(-6px)';
+    });
+    el.addEventListener('mouseleave', function(){
+      el.style.transition = 'transform .55s cubic-bezier(.22,.61,.36,1)';
+      el.style.transform = '';
+    });
+  });
+})();
 
 /* ---------- wedding form ---------- */
 (function(){
