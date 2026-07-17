@@ -576,8 +576,8 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
       <p class="reveal d2">Nhập đầy đủ thông tin hai họ, lễ gia tiên và đãi tiệc. Xem trước nhanh trước khi gửi cho Tile hoặc in / lưu PDF.</p>
     </div>
 
-    <form id="weddingForm" class="form-wrap reveal zoom">
-      <div class="form-head">
+    <form id="weddingForm" class="form-wrap">
+      <div class="form-head reveal d3">
         <div><h3>Thao tác nhanh</h3><p>Biểu mẫu tự lưu nháp trên trình duyệt. Bấm “Xem demo” để cập nhật nội dung thiệp.</p></div>
         <div class="form-actions">
           <button id="clearBtn" type="button" class="btn btn-ghost">Xóa nháp</button>
@@ -589,7 +589,7 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
       <div class="wf-body">
         <div class="families">
           <!-- Nhà gái -->
-          <div class="fam">
+          <div class="fam reveal left d4">
             <div class="fam-title"><h4>Nhà gái</h4><span>Bride family</span></div>
             <div class="grid2">
               <div class="field"><label for="brideFather">Tên Ông</label><input id="brideFather" name="brideFather" autocomplete="off" placeholder="VD: Nguyễn Văn A"></div>
@@ -622,7 +622,7 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
           </div>
 
           <!-- Nhà trai -->
-          <div class="fam">
+          <div class="fam reveal right d4">
             <div class="fam-title"><h4>Nhà trai</h4><span>Groom family</span></div>
             <div class="grid2">
               <div class="field"><label for="groomFather">Tên Ông</label><input id="groomFather" name="groomFather" autocomplete="off" placeholder="VD: Phạm Văn C"></div>
@@ -655,7 +655,7 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
           </div>
         </div>
 
-        <div id="weddingInfoSection">
+        <div id="weddingInfoSection" class="reveal d5">
           <div class="demo-bar">
             <p>Nhập thông tin xong bấm “Xem demo” để hiện và cập nhật nội dung thiệp báo tin &amp; thiệp mời.</p>
             <button id="showDemoBtn" type="button" class="btn btn-gold">Xem demo</button>
@@ -805,6 +805,21 @@ var io = new IntersectionObserver(function(entries){
   });
 },{threshold:.14, rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+/* Form rất cao nên không đợi threshold của chính nó: khi sec-head của #form
+   hiện lên thì cho các khối trong form cascade theo luôn (đồng bộ với tiêu đề). */
+var formHead = document.querySelector('#form .sec-head');
+if(formHead){
+  var ioForm = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        document.querySelectorAll('#form .reveal').forEach(function(el){ el.classList.add('in'); io.unobserve(el); });
+        ioForm.disconnect();
+      }
+    });
+  },{threshold:.3, rootMargin:'0px 0px -8% 0px'});
+  ioForm.observe(formHead);
+}
 
 /* ---------- count up ---------- */
 var counted = false;
