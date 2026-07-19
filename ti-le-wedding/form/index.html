@@ -80,9 +80,8 @@ header.scrolled{background:rgba(11,11,13,.78);backdrop-filter:blur(16px);border-
   min-height:100svh;padding:80px 0 40px;overflow:hidden}
 .hero-bg-logo{position:absolute;top:50%;left:50%;translate:-50% -50%;width:clamp(280px,40vw,480px);height:auto;opacity:.12;pointer-events:none;z-index:0;filter:grayscale(.2)}
 .hero-orbit{position:absolute;border:1px solid var(--line-soft);border-radius:50%;top:50%;left:50%;translate:-50% -50%;pointer-events:none}
-.hero-orbit.o1{width:420px;height:420px;animation:spin 60s linear infinite}
-.hero-orbit.o2{width:660px;height:660px;animation:spin 90s linear infinite reverse;border-color:rgba(212,175,55,.10)}
-@keyframes spin{to{transform:rotate(360deg)}}
+.hero-orbit.o1{width:420px;height:420px}
+.hero-orbit.o2{width:660px;height:660px;border-color:rgba(212,175,55,.10)}
 .hero-content{position:relative;z-index:1;max-width:720px}
 .eyebrow{display:inline-flex;align-items:center;justify-content:center;gap:12px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-soft);font-weight:600;margin-bottom:20px;width:100%}
 .slogan{font-family:"Cormorant Garamond",serif;font-size:clamp(20px,2.6vw,26px);font-style:italic;color:var(--gold-soft);letter-spacing:.04em;margin-bottom:8px}
@@ -127,10 +126,10 @@ section{position:relative;padding:clamp(50px,6vw,80px) 0}
 .field.full{grid-column:1/-1}
 label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:600}
 input,select,textarea{width:100%;background:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.5);color:#1a1a22;border-radius:13px;padding:12px 14px;
-  color:var(--cream);font-family:inherit;font-size:15px;transition:.3s}
+  font-family:inherit;font-size:15px;transition:.3s}
 input::placeholder,textarea::placeholder{color:#999}
 select.placeholder{color:#999}
-select option{background:#15151c;color:var(--cream)}
+select option{background:#fff;color:#1a1a22}
 select option[value=""]{color:#999}
 textarea{min-height:70px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.95);box-shadow:0 0 0 4px rgba(212,175,55,.12)}
@@ -190,6 +189,16 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
   .foot-top{grid-template-columns:1fr}
 }
 
+/* success popup */
+.popup-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.4s var(--ease)}
+.popup-overlay.show{opacity:1;visibility:visible}
+.popup-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-lg);padding:clamp(32px,5vw,52px);max-width:440px;width:90%;text-align:center;transform:scale(.88) translateY(24px);transition:.45s var(--ease);box-shadow:0 40px 100px rgba(0,0,0,.6)}
+.popup-overlay.show .popup-box{transform:none}
+.popup-ico{width:80px;height:80px;margin:0 auto 22px;border-radius:50%;background:rgba(212,175,55,.12);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:38px}
+.popup-box h3{font-family:"Playfair Display",serif;font-size:clamp(24px,3.4vw,32px);margin-bottom:12px;color:var(--gold-bright)}
+.popup-box p{color:var(--muted);font-size:15px;margin-bottom:6px}
+.popup-box .btn{margin-top:22px}
+
 /* print */
 @media print{
   @page{size:A4;margin:12mm}
@@ -238,7 +247,7 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
   <div class="hero-orbit o1"></div><div class="hero-orbit o2"></div>
   <img src="../logo.webp" alt="" class="hero-bg-logo" aria-hidden="true">
   <div class="wrap hero-content">
-    <div class="eyebrow reveal"><span style="white-space:nowrap">Thiệp cưới</span> <span style="white-space:nowrap"> Bảo Lộc</span></div>
+    <div class="eyebrow reveal"><span style="white-space:nowrap">Thiệp cưới Bảo Lộc</span></div>
     <div class="slogan reveal d1"><span style="white-space:nowrap">Mỗi tấm thiệp</span> <span style="white-space:nowrap">— Một câu chuyện tình</span></div>
     <h1 class="reveal d1">Điền thông tin <br><span class="gt">Thiệp Cưới</span></h1>
     <div class="script reveal d2">Chỉ cần vài phút — Tile lo phần còn lại</div>
@@ -258,7 +267,6 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
         <div><h3>Phiếu thông tin cưới</h3><p>Biểu mẫu tự lưu nháp trên trình duyệt. Bấm "Xem demo" để xem trước nội dung thiệp.</p></div>
         <div class="form-actions">
           <button id="clearBtn" type="button" class="btn btn-ghost">Xóa nháp</button>
-          <button id="printBtn" type="button" class="btn btn-ghost">In / lưu PDF</button>
           <button id="sendBtn" type="button" class="btn btn-gold">Gửi cho Tile</button>
         </div>
       </div>
@@ -291,9 +299,7 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
                 <div class="field full"><label for="bridePartyAddress">Địa chỉ</label><textarea id="bridePartyAddress" name="bridePartyAddress" placeholder="Địa chỉ đãi tiệc"></textarea></div>
                 <div class="field"><label for="bridePartyTime">Giờ tiệc</label><input id="bridePartyTime" name="bridePartyTime" placeholder="VD: 18:00"></div>
                 <div class="field"><label for="bridePartyDate">Ngày tiệc</label><input id="bridePartyDate" name="bridePartyDate" placeholder="VD: Thứ bảy, 19.10.2026"></div>
-                <div class="field"><label for="brideWelcomeTime">Giờ đón khách</label><input id="brideWelcomeTime" name="brideWelcomeTime" placeholder="VD: 17:30"></div>
-                <div class="field"><label for="brideDinnerTime">Giờ nhập tiệc</label><input id="brideDinnerTime" name="brideDinnerTime" placeholder="VD: 18:30"></div>
-                <div class="field full"><label for="bridePartyLunar">Ngày âm tiệc (tùy chọn)</label><input id="bridePartyLunar" name="bridePartyLunar" placeholder="Ngày âm nếu cần in"></div>
+                <div class="field full"><label for="bridePartyLunar">Âm lịch tiệc (tuỳ chọn)</label><input id="bridePartyLunar" name="bridePartyLunar" placeholder="Ngày âm nếu cần in"></div>
               </div>
             </div>
           </div>
@@ -324,9 +330,7 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
                 <div class="field full"><label for="groomPartyAddress">Địa chỉ</label><textarea id="groomPartyAddress" name="groomPartyAddress" placeholder="Địa chỉ đãi tiệc"></textarea></div>
                 <div class="field"><label for="groomPartyTime">Giờ tiệc</label><input id="groomPartyTime" name="groomPartyTime" placeholder="VD: 18:00"></div>
                 <div class="field"><label for="groomPartyDate">Ngày tiệc</label><input id="groomPartyDate" name="groomPartyDate" placeholder="VD: Chủ nhật, 20.10.2026"></div>
-                <div class="field"><label for="groomWelcomeTime">Giờ đón khách</label><input id="groomWelcomeTime" name="groomWelcomeTime" placeholder="VD: 17:30"></div>
-                <div class="field"><label for="groomDinnerTime">Giờ nhập tiệc</label><input id="groomDinnerTime" name="groomDinnerTime" placeholder="VD: 18:30"></div>
-                <div class="field full"><label for="groomPartyLunar">Ngày âm tiệc (tùy chọn)</label><input id="groomPartyLunar" name="groomPartyLunar" placeholder="Ngày âm nếu cần in"></div>
+                <div class="field full"><label for="groomPartyLunar">Âm lịch tiệc (tuỳ chọn)</label><input id="groomPartyLunar" name="groomPartyLunar" placeholder="Ngày âm nếu cần in"></div>
               </div>
             </div>
           </div>
@@ -358,8 +362,8 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
               <div class="pv-names"><span data-preview="brideName">Cô dâu</span> <span class="amp">&amp;</span> <span data-preview="groomName">Chú rể</span></div>
               <p><strong>Cô dâu:</strong> <span data-preview="brideChildOrder">Vai vế cô dâu</span> · <strong>Chú rể:</strong> <span data-preview="groomChildOrder">Vai vế chú rể</span></p>
               <div class="pv-grid">
-                <div class="pv-box"><h6>Đãi tiệc nhà gái</h6><p><strong>Tại:</strong> <span data-preview="bridePartyPlace">Địa điểm tiệc</span></p><p><strong>Sảnh:</strong> <span data-preview="bridePartyHall">Sảnh</span></p><p><strong>Địa chỉ:</strong> <span data-preview="bridePartyAddress">Địa chỉ tiệc</span></p><p><strong>Thời gian:</strong> <span data-preview="bridePartyTime">Giờ</span> · <span data-preview="bridePartyDate">Ngày</span></p><p><strong>Đón khách:</strong> <span data-preview="brideWelcomeTime">Giờ</span> · <strong>Nhập tiệc:</strong> <span data-preview="brideDinnerTime">Giờ</span></p></div>
-                <div class="pv-box"><h6>Đãi tiệc nhà trai</h6><p><strong>Tại:</strong> <span data-preview="groomPartyPlace">Địa điểm tiệc</span></p><p><strong>Sảnh:</strong> <span data-preview="groomPartyHall">Sảnh</span></p><p><strong>Địa chỉ:</strong> <span data-preview="groomPartyAddress">Địa chỉ tiệc</span></p><p><strong>Thời gian:</strong> <span data-preview="groomPartyTime">Giờ</span> · <span data-preview="groomPartyDate">Ngày</span></p><p><strong>Đón khách:</strong> <span data-preview="groomWelcomeTime">Giờ</span> · <strong>Nhập tiệc:</strong> <span data-preview="groomDinnerTime">Giờ</span></p></div>
+                <div class="pv-box"><h6>Đãi tiệc nhà gái</h6><p><strong>Tại:</strong> <span data-preview="bridePartyPlace">Địa điểm tiệc</span></p><p><strong>Sảnh:</strong> <span data-preview="bridePartyHall">Sảnh</span></p><p><strong>Địa chỉ:</strong> <span data-preview="bridePartyAddress">Địa chỉ tiệc</span></p><p><strong>Thời gian:</strong> <span data-preview="bridePartyTime">Giờ</span> · <span data-preview="bridePartyDate">Ngày</span></p></div>
+                <div class="pv-box"><h6>Đãi tiệc nhà trai</h6><p><strong>Tại:</strong> <span data-preview="groomPartyPlace">Địa điểm tiệc</span></p><p><strong>Sảnh:</strong> <span data-preview="groomPartyHall">Sảnh</span></p><p><strong>Địa chỉ:</strong> <span data-preview="groomPartyAddress">Địa chỉ tiệc</span></p><p><strong>Thời gian:</strong> <span data-preview="groomPartyTime">Giờ</span> · <span data-preview="groomPartyDate">Ngày</span></p></div>
               </div>
               <p><strong>Ghi chú thêm:</strong> <span data-preview="extraNote">Yêu cầu khác nếu có</span></p>
               <p>Sự hiện diện của Quý Khách là niềm vinh hạnh của gia đình chúng tôi. Kính mời!</p>
@@ -396,13 +400,12 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
         <h5>Khám phá</h5>
         <a href="../">Trang chủ</a>
         <a href="../#services">Dịch vụ</a>
-        <a href="../#showcase">Bộ sưu tập</a>
         <a href="../#process">Quy trình</a>
       </div>
       <div class="foot-col">
         <h5>Liên hệ</h5>
         <a href="tel:0916116853">0916.116.853</a>
-        <a href="../#contact">115 Phan Chu Trinh, P.3, Bảo Lộc</a>
+        <a href="../#contact">115 Phan Chu Trinh, P.3 Bảo Lộc</a>
         <a href="../#contact">08:00 – 20:00 hằng ngày</a>
       </div>
     </div>
@@ -415,6 +418,16 @@ footer{border-top:1px solid var(--line-soft);padding:56px 0 32px;margin-top:40px
 
 <button id="toTop" aria-label="Lên đầu trang">↑</button>
 <div id="toast" role="status" aria-live="polite">Đã lưu nháp</div>
+
+<div class="popup-overlay" id="successPopup">
+  <div class="popup-box">
+    <div class="popup-ico">✓</div>
+    <h3>Gửi thành công!</h3>
+    <p>Cảm ơn Quý Khách đã tin tưởng Thiệp Cưới Tile.</p>
+    <p>Tile sẽ liên hệ lại trong thời gian sớm nhất.</p>
+    <button class="btn btn-gold" id="closePopup">Đóng</button>
+  </div>
+</div>
 
 <div class="chat-bubbles">
   <a href="https://zalo.me/0916116853" target="_blank" rel="noopener" class="chat-bubble chat-bubble-zalo" aria-label="Chat Zalo">
@@ -499,12 +512,6 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
     document.getElementById('weddingDemo').classList.add('demo-hidden');
     showToast('Đã xóa nháp');
   });
-  document.getElementById('printBtn').addEventListener('click', function(){
-    saveDraft(); updatePreview();
-    document.getElementById('weddingDemo').classList.remove('demo-hidden');
-    showToast('Đang mở hộp thoại in');
-    setTimeout(function(){ window.print(); }, 300);
-  });
   var demo = document.getElementById('weddingDemo');
   document.getElementById('showDemoBtn').addEventListener('click', function(){
     saveDraft(); updatePreview();
@@ -513,8 +520,8 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
   });
 
   /* ---- Gửi lên Google Sheet ---- */
-  var SHEET_API = 'https://script.google.com/macros/s/AKfycbypRzazRGzTQwcEpynlIOQIHAE4cR56OZRvsV8-oyQ4iiXc-RQmKUlwxNugQ1IPik8/exec';
-  var SHEET_ID = 'thiep_cuoi_tile';
+  var SHEET_API = 'https://script.google.com/macros/s/AKfycbwYgYq8X3fa0VlX6q1kecKvQ-hvDOf2FR4lhtPY014nsDyUWPMHCCOmHk52AZgKa-Qg/exec';
+  var SHEET_ID = 'data';
 
   function postToSheet(columns){
     var payload = { sheet_id: SHEET_ID };
@@ -537,11 +544,11 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
       ['— NHÀ GÁI —',''],
       ['Ông', d.brideFather],['Bà', d.brideMother],['Cô dâu', d.brideName],['Con thứ', d.brideChildOrder],['Địa chỉ', d.brideAddress],
       ['Lễ', d.brideCeremonyType],['Giờ lễ', d.brideCeremonyTime],['Nơi lễ', d.brideCeremonyPlace],['Ngày lễ', d.brideCeremonyDate],['Âm lễ', d.brideCeremonyLunar],
-      ['Tiệc tại', d.bridePartyPlace],['Sảnh', d.bridePartyHall],['Đ/c tiệc', d.bridePartyAddress],['Giờ tiệc', d.bridePartyTime],['Ngày tiệc', d.bridePartyDate],['Đón khách', d.brideWelcomeTime],['Nhập tiệc', d.brideDinnerTime],['Âm tiệc', d.bridePartyLunar],
+      ['Tiệc tại', d.bridePartyPlace],['Sảnh', d.bridePartyHall],['Đ/c tiệc', d.bridePartyAddress],['Giờ tiệc', d.bridePartyTime],['Ngày tiệc', d.bridePartyDate],['Âm tiệc', d.bridePartyLunar],
       ['— NHÀ TRAI —',''],
       ['Ông', d.groomFather],['Bà', d.groomMother],['Chú rể', d.groomName],['Con thứ', d.groomChildOrder],['Địa chỉ', d.groomAddress],
       ['Lễ', d.groomCeremonyType],['Giờ lễ', d.groomCeremonyTime],['Nơi lễ', d.groomCeremonyPlace],['Ngày lễ', d.groomCeremonyDate],['Âm lễ', d.groomCeremonyLunar],
-      ['Tiệc tại', d.groomPartyPlace],['Sảnh', d.groomPartyHall],['Đ/c tiệc', d.groomPartyAddress],['Giờ tiệc', d.groomPartyTime],['Ngày tiệc', d.groomPartyDate],['Đón khách', d.groomWelcomeTime],['Nhập tiệc', d.groomDinnerTime],['Âm tiệc', d.groomPartyLunar]
+      ['Tiệc tại', d.groomPartyPlace],['Sảnh', d.groomPartyHall],['Đ/c tiệc', d.groomPartyAddress],['Giờ tiệc', d.groomPartyTime],['Ngày tiệc', d.groomPartyDate],['Âm tiệc', d.groomPartyLunar]
     ];
     return L.map(function(row){
       if(!row[1] && row[0].indexOf('—')===0) return '\n'+row[0];
@@ -577,7 +584,7 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
       F: buildDetails(d),
       G: (d.extraNote||'').trim()
     }).then(function(){
-      showToast('Đã gửi cho Tile — cảm ơn bạn!');
+      document.getElementById('successPopup').classList.add('show');
     }).catch(function(){
       showToast('Gửi lỗi, vui lòng gọi 0916.116.853');
     }).finally(function(){
@@ -589,6 +596,10 @@ document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
     var b = document.getElementById(id);
     if(b) b.addEventListener('click', function(){ sendToTile(b); });
   });
+
+  var popup = document.getElementById('successPopup');
+  document.getElementById('closePopup').addEventListener('click', function(){ popup.classList.remove('show'); });
+  popup.addEventListener('click', function(e){ if(e.target === popup) popup.classList.remove('show'); });
 
   loadDraft();
   updatePreview();
