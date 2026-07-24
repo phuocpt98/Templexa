@@ -34,4 +34,6 @@ var GUEST_LIST = [
     { id: 33, name: "V/C Bạn Đạo" },
     { id: 34, name: "V/C Chị Trang" },
     { id: 35, name: "V/C Sơn" },
+    { id: 36, name: "Vc chị Nhi" },
+    { id: 37, name: "A quý+" },
 ];
