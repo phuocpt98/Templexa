@@ -134,4 +134,16 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự lễ vu quy của chúng tôi — 01.08.2026 tại Golden Palace, Lâm Đồng',
         image: '../../products/Invitation/Wedding/khach_hung_khanhnha/og-cover.jpg',
     },
+    'nhat-long-thanh-thuy': {
+        src: '../../products/Invitation/Wedding/khach_nhat-long-thanh-thuy/nha-trai.html',
+        title: 'Nhật Long & Thanh Thủy — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 10.08.2026 tại Huyền My Palace, Quảng Trị',
+        image: '../../products/Invitation/Wedding/khach_nhat-long-thanh-thuy/og-cover.jpg',
+    },
+    'thanh-thuy-nhat-long': {
+        src: '../../products/Invitation/Wedding/khach_nhat-long-thanh-thuy/nha-gai.html',
+        title: 'Thanh Thủy & Nhật Long — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự lễ vu quy của chúng tôi — 08.08.2026 tại Nhà Cộng Đồng TDP Tứ Chánh, Huế',
+        image: '../../products/Invitation/Wedding/khach_nhat-long-thanh-thuy/og-cover.jpg',
+    },
 };
