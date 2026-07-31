@@ -146,4 +146,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự lễ vu quy của chúng tôi — 08.08.2026 tại Nhà Cộng Đồng TDP Tứ Chánh, Huế',
         image: '../../products/Invitation/Wedding/khach_nhat-long-thanh-thuy/og-cover.jpg',
     },
+    'anh-thu-minh-thong': {
+        src: '../../products/Invitation/Wedding/khach_anh-thu-minh-thong/index.html',
+        title: 'Anh Thư & Minh Thông — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự Lễ Vu Quy — 04.10.2026 tại Tư Gia, Vĩnh Long',
+        image: '../../products/Invitation/Wedding/khach_anh-thu-minh-thong/customer/anh_5.webp',
+    },
 };
