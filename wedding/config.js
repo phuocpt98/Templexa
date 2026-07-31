@@ -150,6 +150,6 @@ var WEDDING = {
         src: '../../products/Invitation/Wedding/khach_anh-thu-minh-thong/index.html',
         title: 'Anh Thư & Minh Thông — Thiệp Mời Cưới',
         description: 'Trân trọng kính mời bạn đến dự Lễ Vu Quy — 04.10.2026 tại Tư Gia, Vĩnh Long',
-        image: '../../products/Invitation/Wedding/khach_anh-thu-minh-thong/customer/anh_5.webp',
+        image: '../../products/Invitation/Wedding/khach_anh-thu-minh-thong/og-cover.jpg',
     },
 };
