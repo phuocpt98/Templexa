@@ -682,10 +682,11 @@
     }
     .polaroid-caption {
       font-family: 'Pinyon Script', cursive;
-      font-size: 1.6rem;
+      font-size: clamp(1.1rem, 4.5vw, 1.6rem);
       color: var(--sub);
       padding: 8px 4px 0;
       line-height: 1;
+      white-space: nowrap;
     }
     /* ===== RSVP FORM ===== */
     .rsvp-form {
@@ -1097,6 +1098,7 @@
     const overlay = document.getElementById('envelope-overlay');
     const openBtn = document.getElementById('open-envelope-btn');
     const music   = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
 
     function openEnvelope() {
       overlay.classList.add('opening');
@@ -1135,7 +1137,6 @@
     }, { passive: true });
 
     /* ---- MUSIC TOGGLE ---- */
-    const musicBtn = document.getElementById('music-btn');
     musicBtn.addEventListener('click', () => {
       if (music.paused) {
         music.volume = 0.55;
