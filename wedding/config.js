@@ -154,7 +154,7 @@ var WEDDING = {
     },
     'vinh-hien-nguyen-hoa': {
         src: '../../products/Invitation/Wedding/khach_vinh-hien-hoa/customer/index.html',
-        title: 'Vĩnh Hiển & Nguyễn Hòa — Thiệp Mời Cưới',
+        title: 'Nguyễn Vinh Hiển & Nguyễn Thị Hòa — Thiệp Mời Cưới',
         description: 'Trân trọng kính mời bạn đến dự Lễ Hôn Phối và Tiệc Cưới — 06.09.2026 tại Thánh Đường Giáo Xứ Tân Bùi',
         image: '../../products/Invitation/Wedding/khach_vinh-hien-hoa/og-cover.jpg',
     },
