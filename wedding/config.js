@@ -152,7 +152,7 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự Lễ Vu Quy — 04.10.2026 tại Tư Gia, Vĩnh Long',
         image: '../../products/Invitation/Wedding/khach_anh-thu-minh-thong/og-cover.jpg',
     },
-    'vinh-hien-nguyen-hoa': {
+    'hien-hoa': {
         src: '../../products/Invitation/Wedding/khach_vinh-hien-hoa/customer/index.html',
         title: 'Nguyễn Vinh Hiển & Nguyễn Thị Hòa — Thiệp Mời Cưới',
         description: 'Trân trọng kính mời bạn đến dự Lễ Hôn Phối và Tiệc Cưới — 06.09.2026 tại Thánh Đường Giáo Xứ Tân Bùi',
