@@ -15,6 +15,7 @@ music/
 ├── ambient-relax/         # Ambient, spa, thiền, yoga
 ├── classical-elegant/     # Nhạc cổ điển, thanh lịch
 ├── festive-holiday/       # Nhạc lễ hội, Tết, Giáng sinh, sinh nhật
+├── traditional-vietnamese/ # Dân ca, nhạc quê hương, giỗ tổ, lễ họ
 └── corporate-professional/ # Nhạc doanh nghiệp, startup, chuyên nghiệp
 ```
 
@@ -26,6 +27,7 @@ music/
 | Spa, yoga, wellness | `ambient-relax` |
 | Gym, sport, fitness | `upbeat-energy` |
 | Wedding planner, thiệp cưới | `wedding` |
+| Thiệp giỗ tổ, lễ họ, tân gia, đình chùa | `traditional-vietnamese` |
 | Studio ảnh cưới | `romantic`, `wedding` |
 | Portfolio, blog cá nhân | `lofi-chill` |
 | Công ty, startup, agency | `corporate-professional` |

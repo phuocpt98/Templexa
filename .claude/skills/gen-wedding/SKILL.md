@@ -122,6 +122,36 @@ Và đọc `products/shared/animations.css` để chọn scroll animations.
 
 **Ưu tiên copy từ thư viện** thay vì viết mới. Nếu tạo component mới → thêm vào thư viện sau (Bước 9).
 
+### Bước 2b: Chọn ảnh trang trí từ catalog
+
+`products/shared/wedding-data.js` là **catalog duy nhất** cho toàn bộ ảnh trang trí —
+`WEDDING_DATA.backgrounds` / `.icons` / `.elements`, mỗi item có `tags` + `usage` để lọc.
+Đừng tự đi `ls` từng folder ảnh, cũng đừng vẽ lại bằng CSS thứ catalog đã có sẵn.
+
+```bash
+node -e "
+const fs=require('fs'),vm=require('vm');
+const ctx={}; vm.createContext(ctx);
+vm.runInContext(fs.readFileSync('products/shared/wedding-data.js','utf8'), ctx);
+const D=ctx.WEDDING_DATA;
+// Đổi 'gold' thành tag cần tìm: heritage, floral, watercolor, corner, divider, frame...
+D.elements.items.filter(e=>e.tags.includes('gold'))
+  .forEach(e=>console.log(D.elements.basePath+e.file, '|', e.tags.join(',')));
+"
+```
+
+Hai bộ element:
+
+| Folder | Nội dung | Hợp với |
+|--------|----------|---------|
+| `wedding-elements/` | Hoa lá watercolor, khung, vòng hoa, chibi, art deco | Thiệp cưới hiện đại, pastel, botanical |
+| `heritage-elements/` | Vàng kim truyền thống Việt: rồng, hạc chầu rùa, vân mây, hồi văn, sen, lư hương, trống đồng, câu đối, cuốn thư | Giỗ tổ, lễ họ, tân gia, khánh thành, **thiệp cưới tông đỏ/vàng cổ điển** |
+
+⚠ Ảnh `heritage-elements/` có **alpha thật** → đặt lên nền màu bất kỳ không lộ viền, KHÔNG cần `mask-image`.
+Ảnh cũ trong `wedding-elements/` nhiều cái nền trắng → vẫn cần `mask-image` (xem wedding-lessons.md).
+
+Xem trực quan cả bộ: mở `thu-vien-hieu-ung.html`.
+
 ### Bước 3: Tìm ID tiếp theo
 
 Đọc `assets/js/data.js` → tìm `id:` lớn nhất → ID mới = max + 1.

@@ -432,7 +432,33 @@ var WEDDING_DATA = {
 
             // Batch 2026-04-10 — CineLove-style pink pastel elements
             { id: 'circle-pink-sparkle', file: 'wedding-elements/circle-pink-sparkle.webp', name: 'Vong tron hong sparkle', tags: ['circle', 'pink', 'pastel', 'sparkle', 'soft', 'decorative'], usage: ['background-deco', 'section-deco', 'scatter-deco'] },
-            { id: 'hearts-floating-pink', file: 'wedding-elements/hearts-floating-pink.webp', name: 'Trai tim hong bay', tags: ['heart', 'pink', 'floating', 'romantic', 'pastel'], usage: ['floating-deco', 'scatter-deco', 'background-deco'] }
+            { id: 'hearts-floating-pink', file: 'wedding-elements/hearts-floating-pink.webp', name: 'Trai tim hong bay', tags: ['heart', 'pink', 'floating', 'romantic', 'pastel'], usage: ['floating-deco', 'scatter-deco', 'background-deco'] },
+
+            /* Batch 2026-08-09 — Heritage vàng kim (giỗ tổ / lễ họ / đình chùa)
+               Folder riêng `heritage-elements/`, KHÔNG phải wedding-elements.
+               Tất cả có alpha thật → đặt lên nền màu bất kỳ không lộ viền trắng,
+               không cần mask-image. Dùng cho thiệp giỗ tổ, lễ họ, tân gia,
+               khánh thành, lễ hội truyền thống — và thiệp cưới tông đỏ/vàng cổ điển. */
+            { id: 'corner-cloud-fret-tl', file: 'heritage-elements/corner-cloud-fret-tl.webp', name: 'Goc van may hoi van trai tren', tags: ['heritage', 'gold', 'cloud', 'fret', 'corner', 'traditional', 'vietnamese'], usage: ['corner-deco'] },
+            { id: 'corner-cloud-fret-tr', file: 'heritage-elements/corner-cloud-fret-tr.webp', name: 'Goc van may hoi van phai tren', tags: ['heritage', 'gold', 'cloud', 'fret', 'corner', 'traditional', 'vietnamese'], usage: ['corner-deco'] },
+            { id: 'corner-cloud-fret-bl', file: 'heritage-elements/corner-cloud-fret-bl.webp', name: 'Goc van may hoi van trai duoi', tags: ['heritage', 'gold', 'cloud', 'fret', 'corner', 'traditional', 'vietnamese'], usage: ['corner-deco'] },
+            { id: 'corner-cloud-fret-br', file: 'heritage-elements/corner-cloud-fret-br.webp', name: 'Goc van may hoi van phai duoi', tags: ['heritage', 'gold', 'cloud', 'fret', 'corner', 'traditional', 'vietnamese'], usage: ['corner-deco'] },
+            { id: 'crest-dragon-pair', file: 'heritage-elements/crest-dragon-pair.webp', name: 'Doi rong chau ngoc lua', tags: ['heritage', 'gold', 'dragon', 'crest', 'luxury', 'traditional', 'vietnamese'], usage: ['hero-deco', 'envelope-top', 'section-header'] },
+            { id: 'medallion-lotus-ring', file: 'heritage-elements/medallion-lotus-ring.webp', name: 'Khung tron sen may giua rong', tags: ['heritage', 'gold', 'lotus', 'medallion', 'frame', 'monogram'], usage: ['monogram-frame', 'hero-deco'] },
+            { id: 'divider-lotus-cloud', file: 'heritage-elements/divider-lotus-cloud.webp', name: 'Divider sen may vang', tags: ['heritage', 'gold', 'lotus', 'cloud', 'divider'], usage: ['section-divider'] },
+            { id: 'border-fret-vertical', file: 'heritage-elements/border-fret-vertical.webp', name: 'Dai doc hoi van lap', tags: ['heritage', 'gold', 'fret', 'border', 'vertical', 'pattern'], usage: ['side-deco-left', 'side-deco-right', 'edge-border'] },
+            { id: 'ornament-lotus-bloom', file: 'heritage-elements/ornament-lotus-bloom.webp', name: 'Hoa sen no vang', tags: ['heritage', 'gold', 'lotus', 'ornament'], usage: ['footer-deco', 'section-deco'] },
+            { id: 'crane-turtle-left', file: 'heritage-elements/crane-turtle-left.webp', name: 'Hac chau rua quay trai', tags: ['heritage', 'gold', 'crane', 'turtle', 'longevity', 'traditional', 'vietnamese'], usage: ['side-deco-left', 'altar-deco', 'section-deco'] },
+            { id: 'crane-turtle-right', file: 'heritage-elements/crane-turtle-right.webp', name: 'Hac chau rua quay phai', tags: ['heritage', 'gold', 'crane', 'turtle', 'longevity', 'traditional', 'vietnamese'], usage: ['side-deco-right', 'altar-deco', 'section-deco'] },
+            { id: 'incense-burner', file: 'heritage-elements/incense-burner.webp', name: 'Lu huong ba chan khoi may', tags: ['heritage', 'gold', 'incense', 'altar', 'ancestral', 'traditional'], usage: ['section-header', 'altar-deco', 'hero-deco'] },
+            { id: 'scroll-banner', file: 'heritage-elements/scroll-banner.webp', name: 'Cuon thu ngang giua rong', tags: ['heritage', 'gold', 'scroll', 'banner', 'frame'], usage: ['title-background', 'section-header'] },
+            { id: 'coin-ancient', file: 'heritage-elements/coin-ancient.webp', name: 'Dong tien co lo vuong', tags: ['heritage', 'gold', 'coin', 'prosperity', 'badge'], usage: ['inline-icon', 'bullet-deco', 'badge'] },
+            { id: 'blossom-branch', file: 'heritage-elements/blossom-branch.webp', name: 'Canh mai dao vang', tags: ['heritage', 'gold', 'blossom', 'branch', 'floral', 'tet'], usage: ['corner-deco', 'background-deco', 'scatter-deco'] },
+            { id: 'bronze-drum', file: 'heritage-elements/bronze-drum.webp', name: 'Trong dong Dong Son', tags: ['heritage', 'gold', 'drum', 'dongson', 'origin', 'vietnamese'], usage: ['section-deco', 'background-deco', 'watermark'] },
+            { id: 'couplet-pair', file: 'heritage-elements/couplet-pair.webp', name: 'Doi cau doi doc giua rong', tags: ['heritage', 'gold', 'couplet', 'frame', 'vertical'], usage: ['side-deco', 'hero-deco'] },
+            { id: 'couplet-left', file: 'heritage-elements/couplet-left.webp', name: 'Cau doi doc ve trai', tags: ['heritage', 'gold', 'couplet', 'frame', 'vertical'], usage: ['side-deco-left'] },
+            { id: 'couplet-right', file: 'heritage-elements/couplet-right.webp', name: 'Cau doi doc ve phai', tags: ['heritage', 'gold', 'couplet', 'frame', 'vertical'], usage: ['side-deco-right'] },
+            { id: 'frame-square-fret', file: 'heritage-elements/frame-square-fret.webp', name: 'Khung vuong hoi van', tags: ['heritage', 'gold', 'fret', 'frame', 'square'], usage: ['photo-frame', 'icon-frame'] }
         ]
     },
 

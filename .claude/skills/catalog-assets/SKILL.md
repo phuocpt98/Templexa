@@ -112,6 +112,13 @@ sharp('INPUT_PATH').webp({ quality: 90 }).toFile('OUTPUT_PATH').then(info => {
 | Background | `products/shared/images/wedding/backgrounds/{category}/` | `backgrounds/floral-watercolor/` |
 | Icon | `products/shared/images/wedding/icons/` | `icons/` |
 | Element | `products/shared/images/wedding-elements/` | `wedding-elements/` |
+| Element **heritage** | `products/shared/images/heritage-elements/` | `heritage-elements/` |
+
+**Khi nào dùng `heritage-elements/`:** hoa văn truyền thống Việt vàng kim — rồng, phượng,
+hạc, rùa, vân mây, hồi văn, sen, lư hương, trống đồng, câu đối, cuốn thư, đồng tiền cổ.
+Dùng cho thiệp giỗ tổ, lễ họ, tân gia, khánh thành, lễ hội, và thiệp cưới tông đỏ/vàng cổ điển.
+Vẫn khai báo trong `WEDDING_DATA.elements.items[]` như element thường, chỉ khác tiền tố `file`.
+Xem `products/shared/images/heritage-elements/README.md` để biết bộ hiện có + cách gen thêm.
 
 ### 3.4 Quy trình di chuyển
 
