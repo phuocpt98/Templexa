@@ -26,9 +26,12 @@
   --bronze:#8B6914;
   --ink:#1A1A1A;
   --ink-soft:#2E2A24;
-  --paper:#FDFBF4;
-  --paper-warm:#F4EBD6;
+  --paper:#FBF2DA;
+  --paper-warm:#F3E5C0;
   --bg-outer:#26241f;
+  /* Làm hoạ tiết vàng đậm/nịnh mắt hơn trên nền giấy ngả vàng —
+     ảnh gốc là vàng champagne nhạt, để nguyên sẽ chìm vào nền. */
+  --el-tone:saturate(1.35) contrast(1.12) brightness(.9);
   --font-head:'Cormorant Garamond', serif;
   --font-body:'Be Vietnam Pro', sans-serif;
   --font-hanzi:'Noto Serif SC', serif;
@@ -89,9 +92,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .invitation{
   max-width:680px;
   margin:0 auto;
-  /* giấy ngà ấm, hơi chuyển sắc theo chiều dọc như giấy mỹ thuật */
+  /* giấy ngả vàng ấm, hơi chuyển sắc theo chiều dọc như giấy mỹ thuật */
   background:
-    linear-gradient(180deg,#FDFBF4 0%,#FBF6E9 38%,#FDFBF4 62%,#FAF5E7 100%);
+    linear-gradient(180deg,#FBF2DA 0%,#F7E9C6 38%,#FAF0D4 62%,#F4E4BC 100%);
   position:relative;
   /* bóng đổ nhiều lớp — tờ giấy dày đặt trên bàn */
   box-shadow:
@@ -144,16 +147,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .el-divider{
   display:block;width:min(88%,320px);height:46px;
   object-fit:contain;margin:2.2rem auto;
-  opacity:.78;
+  opacity:.92;filter:var(--el-tone);
 }
 .el-bloom{
   display:block;width:min(58%,220px);height:auto;
-  margin:2.4rem auto 0;opacity:.5;
+  margin:2.4rem auto 0;opacity:.78;filter:var(--el-tone);
 }
 .el-branch{
   position:absolute;pointer-events:none;
   width:clamp(170px,46vw,260px);height:auto;
-  opacity:.15;z-index:0;
+  opacity:.24;z-index:0;filter:var(--el-tone);
 }
 .el-branch-tr{top:-26px;right:-58px;}
 .el-branch-bl{bottom:-24px;left:-62px;transform:scaleX(-1);}
@@ -506,20 +509,23 @@ section > *{position:relative;z-index:1;}
    8. PROGRAMME TIMELINE
    ============================================ */
 .prog-timeline{margin-top:2.4rem;position:relative;}
+/* Cột giờ rộng 92px vì nhãn là khoảng thời gian ("9h30–10h"), không phải mốc đơn.
+   Đường kẻ dọc phải nằm giữa cột đồng tiền: 92 + 28/2 = 106px. */
 .prog-timeline::before{
-  content:'';position:absolute;left:78px;top:10px;bottom:10px;width:1px;
+  content:'';position:absolute;left:106px;top:10px;bottom:10px;width:1px;
   background:linear-gradient(to bottom, rgba(212,175,55,0), rgba(212,175,55,.75) 10%, rgba(212,175,55,.75) 90%, rgba(212,175,55,0));
 }
 .prog-item{
-  display:grid;grid-template-columns:64px 28px 1fr;align-items:start;
+  display:grid;grid-template-columns:92px 28px 1fr;align-items:start;
   margin-bottom:1.9rem;
 }
 .prog-item:last-child{margin-bottom:0;}
 .prog-time{
   text-align:right;padding-right:.8rem;
-  font-family:var(--font-head);font-weight:500;
-  font-size:1rem;color:var(--gold-deep);
+  font-family:var(--font-head);font-weight:600;
+  font-size:.98rem;color:var(--gold-deep);
   padding-top:.15rem;
+  white-space:nowrap;   /* khoảng giờ không được ngắt dòng */
 }
 /* mốc thời gian = đồng tiền cổ vàng, thay chấm tròn khô */
 .prog-dot{
@@ -725,12 +731,12 @@ footer.foot::before{
 /* element trang trí vào chậm hơn nội dung một nhịp */
 .el-divider,.el-bloom{opacity:0;transition:opacity 1.2s ease .25s, transform 1.2s ease .25s;transform:translateY(10px);}
 .in-view .el-divider,.in-view .el-bloom,.el-divider.in-view,.el-bloom.in-view{transform:none;}
-.in-view .el-divider,.el-divider.in-view{opacity:.78;}
-.in-view .el-bloom,.el-bloom.in-view{opacity:.5;}
+.in-view .el-divider,.el-divider.in-view{opacity:.92;}
+.in-view .el-bloom,.el-bloom.in-view{opacity:.78;}
 @media (prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;filter:none;transition:none;}
-  .el-divider{opacity:.78;transform:none;transition:none;}
-  .el-bloom{opacity:.5;transform:none;transition:none;}
+  .el-divider{opacity:.92;transform:none;transition:none;}
+  .el-bloom{opacity:.78;transform:none;transition:none;}
   .dust-layer{display:none;}
   .hero-scroll,.envelope-hint,.gold-text,.gold-text-slow,.date-num,.dot-motif span,.music-toggle.spin svg{animation:none !important;}
   .gallery-item,.gold-btn,.rsvp-submit{transition:none;}
@@ -741,14 +747,15 @@ footer.foot::before{
    ============================================ */
 @media (max-width:480px){
   section{padding:3.5rem 1.35rem;}
-  .prog-timeline::before{left:67px;}
-  .prog-item{grid-template-columns:54px 26px 1fr;}
+  /* Vẫn phải đủ chỗ cho nhãn dài nhất "10h–10h30" → 82px, kẻ dọc ở 82+26/2=95px */
+  .prog-timeline::before{left:95px;}
+  .prog-item{grid-template-columns:82px 26px 1fr;}
   .prog-dot{width:20px;height:20px;}
-  .prog-time{font-size:.88rem;}
+  .prog-time{font-size:.86rem;padding-right:.6rem;}
   .gallery-grid{gap:.45rem;}
   .invitation::after{inset:7px;}
   .el-divider{width:min(84%,260px);height:40px;margin:1.8rem auto;}
-  .el-branch{width:clamp(150px,44vw,210px);opacity:.13;}
+  .el-branch{width:clamp(150px,44vw,210px);opacity:.2;}
   .el-branch-tr{right:-48px;top:-18px;}
   .el-branch-bl{left:-50px;bottom:-16px;}
   .cal-wrap{padding:1rem .8rem .85rem;}
@@ -848,31 +855,39 @@ footer.foot::before{
   <section id="programme" class="reveal reveal-left">
     <img class="el-branch el-branch-tr" src="../../../../shared/images/heritage-elements/blossom-branch.webp" alt="" aria-hidden="true" loading="lazy">
     <p class="section-eyebrow">Chương Trình</p>
-    <h2 class="section-title">Lễ Giỗ Tổ 8h – 14h</h2>
+    <h2 class="section-title">Lễ Giỗ Tổ 7h – 14h</h2>
     <div class="prog-timeline" id="progTimeline">
       <div class="prog-item">
-        <span class="prog-time">08:00</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
-        <div class="prog-content"><h3>Đón Tiếp Con Cháu</h3><p>Con cháu các chi họ tề tựu về nhà thờ tổ</p></div>
+        <span class="prog-time">7h–7h30</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
+        <div class="prog-content"><h3>Đón Tiếp Con Cháu</h3></div>
       </div>
       <div class="prog-item">
-        <span class="prog-time">08:30</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
-        <div class="prog-content"><h3>Dâng Hương Khai Lễ</h3><p>Đại diện gia tộc dâng hương khai lễ giỗ tổ</p></div>
+        <span class="prog-time">8h</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
+        <div class="prog-content"><h3>Nghi Thức Dâng Hương Khai Lễ Cáo Yết</h3></div>
       </div>
       <div class="prog-item">
-        <span class="prog-time">09:00</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
-        <div class="prog-content"><h3>Tế Tổ — Đọc Chúc Văn</h3><p>Cử hành nghi lễ tế tổ, đọc chúc văn tưởng nhớ tổ tiên</p></div>
+        <span class="prog-time">8h15–9h</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
+        <div class="prog-content"><h3>Nghi Lễ Cúng Hội Đồng Phật Thánh — Thiên Quan — Thổ Công</h3></div>
       </div>
       <div class="prog-item">
-        <span class="prog-time">10:00</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
-        <div class="prog-content"><h3>Con Cháu Dâng Hương</h3><p>Toàn thể con cháu nội ngoại lần lượt dâng hương</p></div>
+        <span class="prog-time">9h–9h30</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
+        <div class="prog-content"><h3>Nghi Lễ Tụng Kinh Vu Lan Báo Hiếu</h3></div>
       </div>
       <div class="prog-item">
-        <span class="prog-time">11:00</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
-        <div class="prog-content"><h3>Thụ Lộc — Liên Hoan</h3><p>Gia tộc cùng thụ lộc, liên hoan gắn kết tình thân</p></div>
+        <span class="prog-time">9h30–10h</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
+        <div class="prog-content"><h3>Nghi Lễ Cúng Chúc Thực Gia Tiên Họ Đỗ</h3></div>
       </div>
       <div class="prog-item">
-        <span class="prog-time">14:00</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
-        <div class="prog-content"><h3>Bế Mạc</h3><p>Kết thúc đại lễ giỗ tổ họ Đỗ</p></div>
+        <span class="prog-time">10h–10h30</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
+        <div class="prog-content"><h3>Nghi Lễ Phóng Sinh — Trợ Thí Cô Hồn</h3></div>
+      </div>
+      <div class="prog-item">
+        <span class="prog-time">11h</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
+        <div class="prog-content"><h3>Thụ Lộc</h3></div>
+      </div>
+      <div class="prog-item">
+        <span class="prog-time">14h</span><img class="prog-dot" src="../../../../shared/images/heritage-elements/coin-ancient.webp" alt="" aria-hidden="true" loading="lazy">
+        <div class="prog-content"><h3>Hoàn Mãn</h3></div>
       </div>
     </div>
   </section>
