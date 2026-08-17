@@ -158,4 +158,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự Lễ Hôn Phối và Tiệc Cưới — 06.09.2026 tại Thánh Đường Giáo Xứ Tân Bùi',
         image: '../../products/Invitation/Wedding/khach_vinh-hien-hoa/og-cover.jpg',
     },
+    'thanh-ngan-cat-tuong': {
+        src: '../../products/Invitation/Wedding/khach_ngan-tuong/code.html',
+        title: 'Thanh Ngân & Cát Tường — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự Lễ Vu Quy — 30.08.2026 tại Ấp Trung Tín, Xã Trung Thành, Tỉnh Vĩnh Long',
+        image: '../../products/Invitation/Wedding/khach_ngan-tuong/og-cover.jpg',
+    },
 };
