@@ -164,10 +164,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự Lễ Vu Quy — 30.08.2026 tại Ấp Trung Tín, Xã Trung Thành, Tỉnh Vĩnh Long',
         image: '../../products/Invitation/Wedding/khach_ngan-tuong/og-cover.jpg',
     },
-    'khai-kiet-hong-han': {
-        src: '../../products/Invitation/Wedding/khach_khai-kiet-hong-han/index.html',
-        title: 'Khai Kiệt & Hồng Hân — Thiệp Mời Cưới',
+    'khui-kiet-hong-han': {
+        src: '../../products/Invitation/Wedding/khach_khui-kiet-hong-han/index.html',
+        title: 'Khui Kiệt & Hồng Hân — Thiệp Mời Cưới',
         description: 'Trân trọng kính mời bạn đến dự Lễ Thành Hôn — 12.09.2026 tại Diamond Center (Hoàng Lộc 3), Buôn Ma Thuột, Đắk Lắk',
-        image: '../../products/Invitation/Wedding/khach_khai-kiet-hong-han/og-cover.jpg',
+        image: '../../products/Invitation/Wedding/khach_khui-kiet-hong-han/og-cover.jpg',
     },
 };
