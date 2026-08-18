@@ -982,6 +982,20 @@
 
         var SHEET_ID = 'khach_24';
 
+        function formatVN(str) {
+            if (!str) return '';
+            var d = new Date(str);
+            if (isNaN(d.getTime())) return str;
+            var vn = new Date(d.getTime() + (d.getTimezoneOffset() + 420) * 60000);
+            var Y = vn.getFullYear();
+            var M = ('0' + (vn.getMonth() + 1)).slice(-2);
+            var D = ('0' + vn.getDate()).slice(-2);
+            var h = ('0' + vn.getHours()).slice(-2);
+            var m = ('0' + vn.getMinutes()).slice(-2);
+            return Y + '/' + M + '/' + D + ' ' + h + ':' + m;
+        }
+        function vnNow() { return formatVN(new Date().toISOString()); }
+
         // === MUSIC ===
         var musicBtn = document.getElementById('musicBtn');
         var bgMusic = document.getElementById('bgMusic');
@@ -1132,8 +1146,7 @@
                 var name = document.getElementById('rsvpName').value.trim();
                 var attend = rsvpForm.querySelector('input[name="attend"]:checked').value;
                 var guests = document.getElementById('rsvpGuests').value;
-                var now = new Date();
-                var ts = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                var ts = vnNow();
                 sheetsAPI.post(SHEET_ID, {
                     A: 'RSVP', B: name, C: attend === 'yes' ? 'Tham dự' : 'Không tham dự', D: guests + ' khách', E: ts
                 }).then(function() {
@@ -1157,7 +1170,7 @@
                 wishes.slice().reverse().forEach(function(w) {
                     var div = document.createElement('div');
                     div.className = 'wish-item';
-                    div.innerHTML = '<div class="wish-item-name">' + (w.B || '') + '</div><div class="wish-item-msg">' + (w.C || '') + '</div><div class="wish-item-time">' + (w.D || '') + '</div>';
+                    div.innerHTML = '<div class="wish-item-name">' + (w.B || '') + '</div><div class="wish-item-msg">' + (w.C || '') + '</div><div class="wish-item-time">' + formatVN(w.D) + '</div>';
                     container.appendChild(div);
                 });
             }).catch(function() {});
@@ -1171,8 +1184,7 @@
                 var name = document.getElementById('wishName').value.trim();
                 var msg = document.getElementById('wishMessage').value.trim();
                 if (!name || !msg) return;
-                var now = new Date();
-                var ts = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                var ts = vnNow();
                 sheetsAPI.post(SHEET_ID, {
                     A: 'WISH', B: name, C: msg, D: ts
                 }).then(function() {
