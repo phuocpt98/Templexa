@@ -170,4 +170,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự Lễ Thành Hôn — 12.09.2026 tại Diamond Center (Hoàng Lộc 3), Buôn Ma Thuột, Đắk Lắk',
         image: '../../products/Invitation/Wedding/khach_khui-kiet-hong-han/og-cover.jpg',
     },
+    'van-hoang-tran-ly': {
+        src: '../../products/Invitation/Wedding/van-hoang-tran-ly/index.html',
+        title: 'Văn Hoàng & Trần Lý — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 26.09.2026 tại Phường Tân Hoà, Phú Thọ',
+        image: '../../products/Invitation/Wedding/van-hoang-tran-ly/og-cover.jpg',
+    },
 };
