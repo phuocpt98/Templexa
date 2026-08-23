@@ -254,3 +254,82 @@ ${groupsHTML}
 
 fs.writeFileSync(path.join(ROOT, PAGE), html);
 console.log(`✓ ${PAGE}: ${faq.groups.length} nhóm, ${allItems.length} câu hỏi`);
+
+// ---------- Nhúng FAQ vào các trang khác (marker <!-- FAQ:START/END --> và <!-- FAQ-LD:START/END -->) ----------
+const INLINE = {
+    'thiep-online.html': {
+        title: 'Câu hỏi thường gặp về thiệp cưới online',
+        intro: 'Giải đáp nhanh về giá, thời gian giao, cách gửi và tính năng thiệp mời online của Templexa.',
+        questions: [
+            'Thiệp cưới online là gì?',
+            'Thiệp cưới online giá bao nhiêu?',
+            'Làm thiệp cưới online mất bao lâu?',
+            'Gửi thiệp cưới online cho khách bằng cách nào?',
+            'Có thiệp cưới online miễn phí không?',
+            'Khách có cần cài app để xem thiệp online không?',
+            'Thiệp thôi nôi, đầy tháng online có những gì?',
+            'Link thiệp cưới online có thời hạn không?',
+        ],
+    },
+    'index.html': {
+        title: 'Câu hỏi thường gặp',
+        intro: 'Những điều cặp đôi hay hỏi trước khi đặt thiệp cưới online.',
+        questions: [
+            'Thiệp cưới online là gì?',
+            'Thiệp cưới online giá bao nhiêu?',
+            'Làm thiệp cưới online mất bao lâu?',
+            'Đặt thiệp cưới online cần chuẩn bị những gì?',
+            'Thiệp cưới online có phí duy trì hàng năm không?',
+        ],
+    },
+};
+
+function findItem(qText) {
+    const it = allItems.find(i => i.q === qText);
+    if (!it) throw new Error('Không tìm thấy câu hỏi trong faq.json: ' + qText);
+    return it;
+}
+
+function inlineSection(cfg, items) {
+    return `<!-- FAQ:START — sinh tự động từ assets/data/faq.json (node scripts/build-faq.js), đừng sửa tay -->
+    <section class="products-section faq-inline" id="faq">
+        <div class="container container-section">
+            <div class="section-header">
+                <h2>${esc(cfg.title)}</h2>
+                <p>${esc(cfg.intro)}</p>
+            </div>
+            <div class="svc-faq-list">
+${items.map(it => `                <details class="svc-faq-item faq-item">
+                    <summary><h3>${esc(it.q)}</h3>${chevron}</summary>
+                    <div class="svc-faq-answer faq-answer"><p>${esc(it.a)}</p></div>
+                </details>`).join('\n')}
+            </div>
+            <p class="faq-inline-more"><a href="${PAGE}">Xem tất cả ${allItems.length} câu hỏi thường gặp →</a></p>
+        </div>
+    </section>
+    <!-- FAQ:END -->`;
+}
+
+function inlineLd(pageFile, items) {
+    const ld = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': `${SITE}/${pageFile}#faq`,
+        'inLanguage': 'vi',
+        'mainEntity': items.map(it => ({ '@type': 'Question', 'name': it.q, 'acceptedAnswer': { '@type': 'Answer', 'text': it.a } })),
+    };
+    return `<!-- FAQ-LD:START -->\n    <script type="application/ld+json">\n${JSON.stringify(ld, null, 4)}\n    </script>\n    <!-- FAQ-LD:END -->`;
+}
+
+for (const [file, cfg] of Object.entries(INLINE)) {
+    const fp = path.join(ROOT, file);
+    if (!fs.existsSync(fp)) continue;
+    let html = fs.readFileSync(fp, 'utf8');
+    const items = cfg.questions.map(findItem);
+    const rxSec = /<!-- FAQ:START[\s\S]*?<!-- FAQ:END -->/;
+    const rxLd = /<!-- FAQ-LD:START -->[\s\S]*?<!-- FAQ-LD:END -->/;
+    if (!rxSec.test(html) || !rxLd.test(html)) { console.warn(`⚠ ${file}: thiếu marker FAQ — bỏ qua`); continue; }
+    html = html.replace(rxSec, inlineSection(cfg, items)).replace(rxLd, inlineLd(file, items));
+    fs.writeFileSync(fp, html);
+    console.log(`✓ ${file}: nhúng ${items.length} câu hỏi`);
+}
