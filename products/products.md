@@ -26,13 +26,13 @@ products/
 | Loai chinh | Loai nho | Tong | Public |
 |------------|----------|------|--------|
 | **Invitation** | other | 52 | 44 |
-| **Invitation** | wedding | 78 | 48 |
+| **Invitation** | wedding | 81 | 48 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **250** | **212** |
+| | **Tong** | **253** | **212** |
 
 _Cap nhat tu data.js: 2026-08-23 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -207,7 +207,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 250 | Thiệp Giỗ Tổ Dòng Họ — Hoành Phi | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 | 251 | Thiệp Giỗ Tổ Dòng Họ — Kim Tối Giản | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 
-### Invitation / wedding (78)
+### Invitation / wedding (81)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -258,7 +258,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 213 | Thiệp Cưới Chibi Hoa Pastel Dễ Thương | `Invitation/Wedding/gen_213_chibi-floral-pastel-cute` | floral / wedding | public, featured, trending |
 | 214 | Thiệp Cưới Đông Phương Mộng Mơ — Việt Phục | `Invitation/Wedding/gen_214_dong-phuong-mong-mo` | traditional / wedding | public, featured |
 | 215 | Thiệp Cưới Song Hỷ — Double Happiness | `Invitation/Wedding/gen_215_double-happiness-song-hy` | traditional / wedding | public, featured, bestseller |
-| 216 | Thiệp Cưới Hoa Trắng Mộng Mơ | `Invitation/Wedding/gen_215_white-floral-dream` | floral / wedding | public, featured |
+| 216 | Thiệp Cưới Hoa Trắng Mộng Mơ | `Invitation/Wedding/gen_215_white-floral-dream` | floral / wedding | public, featured, 2 variants |
 | 217 | Thiệp Cưới Garden Gate — Cổng Vườn Xanh | `Invitation/Wedding/gen_216_garden-gate-outdoor` | floral / wedding | public, featured, bestseller, 2 variants |
 | 218 | Thiệp Cưới Silk Veil — Ethereal Dreamy | `Invitation/Wedding/gen_218_silk-veil-ethereal` | luxury / wedding | public, featured |
 | 219 | Thiệp Cưới Porcelain Bloom — Kintsugi | `Invitation/Wedding/gen_219_porcelain-bloom-kintsugi` | luxury / wedding | public, featured, bestseller |
@@ -270,7 +270,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 225 | Thiệp Cưới - Heritage Illustrated Venue | `Invitation/Wedding/gen_225_heritage-illustrated-venue` | traditional / wedding | public, featured, bestseller |
 | 233 | Thiệp Cưới Pink Pastel Korean | `Invitation/Wedding/gen_233_cuoi-pink-pastel-korean` | modern / wedding | public |
 | 235 | Thiệp Cưới - Pink Pastel | `Invitation/Wedding/gen_235_cuoi-cinelove-pink-pastel` | traditional / wedding | public |
-| 241 | Thiệp Cưới - Kim Vương & Quỳnh Thương | `Invitation/Wedding/khach_quynhthuong_kimvuong` | luxury / wedding | public, 5 variants |
+| 241 | Thiệp Cưới Vintage Phong Bì Lá — Khung Phim | `Invitation/Wedding/khach_quynhthuong_kimvuong` | luxury / wedding | public, 5 variants |
 | 242 | Thiệp Cưới - Majestic Olive Classic | `Invitation/Wedding/gen_236_majestic-olive-classic` | luxury / wedding | public |
 | 243 | Thiệp Cưới Nhà Trai - Minh Đức & Ngô Thuỳ | `Invitation/Wedding/khach_duc-thuy-nha-trai` | vintage / wedding | hidden |
 | 244 | Thiệp Cưới Nhà Gái - Minh Đức & Ngô Thuỳ | `Invitation/Wedding/khach_duc-thuy-nha-gai` | vintage / wedding | hidden |
@@ -289,6 +289,9 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 260 | Thiệp Cưới Sage Green Polaroid Hai Lễ | `Invitation/Wedding/khach_3` | vintage / wedding | hidden |
 | 261 | Thiệp Cưới Phong Bì Hoa Lá Cổ Điển | `Invitation/Wedding/van-hoang-tran-ly` | floral / wedding | hidden |
 | 262 | Thiệp Cưới Giấy Dập Nổi — Sage | `Invitation/Wedding/gen_262_emboss-paper-sage` | floral / wedding | public |
+| 263 | Thiệp Cưới Chibi Pastel — Ngộ Nghĩnh Đáng Yêu | `Invitation/Wedding/gen_263_chibi-pastel-cute` | modern / wedding | hidden |
+| 264 | Thiệp Cưới Tranh Thêu Cườm — Đèn Chùm Lãng Mạn | `Invitation/Wedding/gen_264_romantic-beaded-chandelier` | luxury / wedding | hidden |
+| 265 | Thiệp Cưới Hoa Trắng Mộng Mơ — Lễ Hôn Phối | `Invitation/Wedding/khach_vinh-hien-hoa` | floral / wedding | hidden |
 
 ### Web / e-commerce (33)
 
