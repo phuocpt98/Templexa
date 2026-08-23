@@ -3020,8 +3020,8 @@ const PRODUCTS = [
         priority: 0,
         downloads: 6,
         rating: 4.9,
-        showInSlider: false,
-        isPublic: false,
+        showInSlider: true,
+        isPublic: true,
         updatedAt: '2026-08-23',
     },
     {
@@ -3057,8 +3057,8 @@ const PRODUCTS = [
         priority: 0,
         downloads: 5,
         rating: 4.9,
-        showInSlider: false,
-        isPublic: false,
+        showInSlider: true,
+        isPublic: true,
         updatedAt: '2026-08-23',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 52 ──────────────
