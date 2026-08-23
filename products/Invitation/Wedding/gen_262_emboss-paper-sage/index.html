@@ -95,9 +95,22 @@ a { color: inherit; text-decoration: none; }
 .envelope-names {
   font-family: var(--font-heading); font-weight: 700;
   font-size: clamp(1.15rem, 4.6vw, 1.4rem); letter-spacing: 0.42em; text-transform: uppercase;
-  color: #2F4636; margin-bottom: 2rem; padding-left: 0.42em;
-  text-shadow: 0 0 10px rgba(247,244,238,1), 0 0 22px rgba(247,244,238,0.9), 0 1px 0 rgba(255,255,255,0.7);
-  opacity: 0; animation: fadeUp 1.2s var(--ease-out) 0.3s forwards;
+  margin-bottom: 2rem; padding-left: 0.42em;
+  opacity: 0; animation: fadeUp 1.2s var(--ease-out) 0.3s forwards, embossLight 7s ease-in-out 1.6s infinite alternate;
+}
+/* Chữ dập nổi 3D: màu gần giấy, viền sáng trên-trái + bóng dưới-phải; ánh sáng xoay chậm */
+.emboss {
+  color: #4F6B55;
+  text-shadow:
+    -1px -1px 0 rgba(255,255,255,0.95),
+    -2px -2px 1px rgba(255,255,255,0.6),
+     1px  1px 0 rgba(40,60,46,0.55),
+     2px  3px 4px rgba(40,60,46,0.4),
+     4px  6px 14px rgba(40,60,46,0.22);
+}
+@keyframes embossLight {
+  0%   { text-shadow: -1px -1px 0 rgba(255,255,255,0.95), -2px -2px 1px rgba(255,255,255,0.6), 1px 1px 0 rgba(40,60,46,0.55), 2px 3px 4px rgba(40,60,46,0.4), 4px 6px 14px rgba(40,60,46,0.22); }
+  100% { text-shadow: -1px -1.4px 0 rgba(255,255,255,0.95), -1px -2.4px 1px rgba(255,255,255,0.6), 1.4px 0.8px 0 rgba(40,60,46,0.55), 3px 2px 4px rgba(40,60,46,0.4), 7px 4px 14px rgba(40,60,46,0.22); }
 }
 .envelope-seal {
   position: relative; width: clamp(150px, 42vw, 190px); aspect-ratio: 1;
@@ -108,11 +121,9 @@ a { color: inherit; text-decoration: none; }
 .envelope-seal img { width: 100%; height: 100%; object-fit: contain; }
 .envelope.opening .envelope-seal { animation: sealPress 0.55s var(--ease-out) forwards; }
 .envelope-invite {
-  font-family: var(--font-script); font-weight: 700; font-size: clamp(2.1rem, 7.8vw, 2.8rem);
-  color: #2F4636; margin-top: 2.4rem; line-height: 1.25; text-align: center;
-  padding: 8px 20px; border-radius: 16px; background: rgba(247,244,238,0.5);
-  text-shadow: 0 0 12px rgba(247,244,238,1), 0 0 26px rgba(247,244,238,0.95), 0 1px 0 rgba(255,255,255,0.8);
-  opacity: 0; animation: fadeUp 1.2s var(--ease-out) 0.9s forwards;
+  font-family: var(--font-script); font-weight: 700; font-size: clamp(2.2rem, 8.2vw, 2.9rem);
+  margin-top: 2.4rem; line-height: 1.25; text-align: center;
+  opacity: 0; animation: fadeUp 1.2s var(--ease-out) 0.9s forwards, embossLight 7s ease-in-out 2s infinite alternate;
 }
 .envelope-hint {
   position: absolute; bottom: max(34px, env(safe-area-inset-bottom, 34px));
@@ -359,9 +370,9 @@ section + section { padding-top: 0; }
 
 <!-- Phong bì -->
 <div class="envelope" id="envelope" role="button" aria-label="Chạm để mở thiệp">
-  <div class="envelope-names">Minh &nbsp;·&nbsp; Linh</div>
+  <div class="envelope-names emboss">Minh &nbsp;·&nbsp; Linh</div>
   <div class="envelope-seal"><img src="assets/wax-seal.webp" alt="Dấu sáp M&L"></div>
-  <div class="envelope-invite">Trân trọng kính mời<br>quý khách</div>
+  <div class="envelope-invite emboss">Trân trọng kính mời<br>quý khách</div>
   <div class="envelope-hint">Chạm để mở thiệp</div>
 </div>
 
