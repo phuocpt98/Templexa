@@ -26,13 +26,13 @@ products/
 | Loai chinh | Loai nho | Tong | Public |
 |------------|----------|------|--------|
 | **Invitation** | other | 52 | 44 |
-| **Invitation** | wedding | 77 | 47 |
+| **Invitation** | wedding | 78 | 47 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **249** | **211** |
+| | **Tong** | **250** | **211** |
 
 _Cap nhat tu data.js: 2026-08-23 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -207,7 +207,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 250 | Thiệp Giỗ Tổ Dòng Họ — Hoành Phi | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 | 251 | Thiệp Giỗ Tổ Dòng Họ — Kim Tối Giản | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 
-### Invitation / wedding (77)
+### Invitation / wedding (78)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -288,6 +288,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 259 | Thiệp Cưới Đỏ Vàng Cổ Điển Sang Trọng | `Invitation/Wedding/khach_thien-ngoe-my-dan` | traditional / wedding | public |
 | 260 | Thiệp Cưới Sage Green Polaroid Hai Lễ | `Invitation/Wedding/khach_3` | vintage / wedding | hidden |
 | 261 | Thiệp Cưới Phong Bì Hoa Lá Cổ Điển | `Invitation/Wedding/van-hoang-tran-ly` | floral / wedding | hidden |
+| 262 | Thiệp Cưới Giấy Dập Nổi — Sage | `Invitation/Wedding/gen_262_emboss-paper-sage` | floral / wedding | hidden |
 
 ### Web / e-commerce (33)
 

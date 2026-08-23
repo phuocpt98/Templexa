@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 77 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 78 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -2895,6 +2895,43 @@ const PRODUCTS = [
         priority: 0,
         downloads: 4,
         rating: 4.7,
+        showInSlider: false,
+        isPublic: false,
+        updatedAt: '2026-08-23',
+    },
+    {
+        id: 262,
+        name: 'Thiệp Cưới Giấy Dập Nổi — Sage',
+        slug: 'thiep-cuoi-giay-dap-noi-sage',
+        description: 'Phong bì giấy kem dập nổi hoa hồng với dấu sáp xanh sage, mở ra nền tranh hoa trắng watercolor mờ; nội dung đặt trên lớp voan kem, chữ script xanh rêu, hiệu ứng mềm mại, cánh hoa rơi, đầy đủ countdown, lịch, địa điểm minh hoạ, love story, album, mừng cưới QR và RSVP.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'floral',
+        event: 'wedding',
+        tags: ['wedding', 'emboss', 'paper', 'sage', 'white-floral', 'watercolor', 'wax-seal', 'elegant', 'rsvp', 'countdown', 'love-story', 'qr'],
+        price: 'free',
+        images: [
+            './products/Invitation/Wedding/gen_262_emboss-paper-sage/shots/open.webp',
+            './products/Invitation/Wedding/gen_262_emboss-paper-sage/shots/sec-1.webp',
+            './products/Invitation/Wedding/gen_262_emboss-paper-sage/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_262_emboss-paper-sage/shots/open.webp',
+        mobileView: './products/Invitation/Wedding/gen_262_emboss-paper-sage/shots/open.webp',
+        path: './products/Invitation/Wedding/gen_262_emboss-paper-sage/',
+        demoUrl: './products/Invitation/Wedding/gen_262_emboss-paper-sage/index.html',
+        variants: [],
+        features: [
+            'Phong bì giấy dập nổi hoa + dấu sáp sage, chạm để mở',
+            'Nền tranh hoa trắng watercolor mờ, parallax nhẹ, cánh hoa rơi',
+            'Countdown, lịch đánh dấu ngày, thêm vào lịch (.ics)',
+            'Địa điểm có tranh minh hoạ + Google Maps, Love story timeline, album polaroid',
+            'Mừng cưới QR hai bên, RSVP và sổ lưu bút lưu Google Sheets',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 4,
+        rating: 4.9,
         showInSlider: false,
         isPublic: false,
         updatedAt: '2026-08-23',
