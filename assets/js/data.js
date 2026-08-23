@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 82 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 83 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3096,6 +3096,43 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: true,
         isPublic: true,
+        updatedAt: '2026-08-23',
+    },
+    {
+        id: 270,
+        name: 'Thiệp Cưới Garden Weekend — Rèm Trắng & Đèn Nến',
+        slug: 'thiep-cuoi-garden-weekend-rem-trang-den-nen',
+        description: 'Thiệp cưới hai ngày (wedding weekend) phong cách vườn trắng watercolor: cổng hoa, cột đá, rèm voan lay theo cuộn trang, lịch trình tiệc du thuyền và lễ cưới, gợi ý khách sạn, dress code và RSVP song ngữ Việt – Anh.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'floral',
+        event: 'wedding',
+        tags: ['wedding', 'garden', 'white-roses', 'cypress', 'curtain', 'candles', 'itinerary', 'weekend', 'watercolor', 'elegant', 'rsvp', 'countdown', 'bilingual'],
+        price: 'free',
+        images: [
+            './products/Invitation/Wedding/gen_270_excellence-istanbul-garden/shots/open.webp',
+            './products/Invitation/Wedding/gen_270_excellence-istanbul-garden/shots/sec-1.webp',
+            './products/Invitation/Wedding/gen_270_excellence-istanbul-garden/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_270_excellence-istanbul-garden/shots/open.webp',
+        mobileView: './products/Invitation/Wedding/gen_270_excellence-istanbul-garden/shots/open.webp',
+        path: './products/Invitation/Wedding/gen_270_excellence-istanbul-garden/',
+        demoUrl: './products/Invitation/Wedding/gen_270_excellence-istanbul-garden/index.html',
+        variants: [],
+        features: [
+            'Hero cổng hoa trắng watercolor, đếm ngược giữa hai cột đá',
+            'Lịch trình 2 ngày (du thuyền + lễ cưới) với rèm voan lay theo cuộn trang',
+            'Dress code kèm bảng màu, 3 khách sạn gợi ý xen kẽ trái – phải',
+            'Mừng cưới thu gọn + RSVP & sổ lưu bút qua Google Sheets',
+            'Chuyển ngữ VI | EN, nhạc nền, monogram kết thúc',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 5,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 54 ──────────────
