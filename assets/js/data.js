@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 78 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 79 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -1788,7 +1788,22 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/gen_215_white-floral-dream/shots/open.webp',
         path: './products/Invitation/Wedding/gen_215_white-floral-dream/',
         demoUrl: './products/Invitation/Wedding/gen_215_white-floral-dream/index.html',
-        variants: [],
+        variants: [
+            {
+                id: 216,
+                thumbnail: './products/Invitation/Wedding/gen_215_white-floral-dream/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/gen_215_white-floral-dream/index.html',
+                label: 'Mẫu gốc',
+                kind: 'master',
+            },
+            {
+                id: 265,
+                thumbnail: './products/Invitation/Wedding/khach_vinh-hien-hoa/customer/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_vinh-hien-hoa/customer/index.html',
+                label: 'Lễ Hôn Phối',
+                kind: 'sample',
+            },
+        ],
         features: [
             'Glass frost reveal mở thiệp, dreamy vignette hero, floating bokeh',
             'Filmstrip memory lane, masonry gallery, Polaroid closing',
@@ -2934,6 +2949,42 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: true,
         isPublic: true,
+        updatedAt: '2026-08-23',
+    },
+    {
+        id: 265,
+        name: 'Thiệp Cưới Hoa Trắng Mộng Mơ — Lễ Hôn Phối',
+        slug: 'thiep-cuoi-hoa-trang-mong-mo-le-hon-phoi',
+        description: 'Thiệp cưới tông trắng hoa mộng mơ, phiên bản cho lễ hôn phối tại thánh đường, kế thừa mẫu Hoa Trắng Mộng Mơ với countdown, love story, album và RSVP.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'floral',
+        event: 'wedding',
+        tags: ['website', 'invitation', 'wedding', 'white', 'korean', 'dreamy', 'sage-green', 'elegant'],
+        price: 'free',
+        images: [
+            './products/Invitation/Wedding/khach_vinh-hien-hoa/customer/shots/open.webp',
+            './products/Invitation/Wedding/khach_vinh-hien-hoa/customer/shots/sec-1.webp',
+            './products/Invitation/Wedding/khach_vinh-hien-hoa/customer/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/khach_vinh-hien-hoa/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/khach_vinh-hien-hoa/customer/shots/open.webp',
+        path: './products/Invitation/Wedding/khach_vinh-hien-hoa/customer/',
+        demoUrl: './products/Invitation/Wedding/khach_vinh-hien-hoa/customer/index.html',
+        variants: [],
+        templateOf: 216,
+        features: [
+            'Glass frost reveal mở thiệp, dreamy vignette hero, floating bokeh',
+            'Filmstrip memory lane, masonry gallery, Polaroid closing',
+            'Nhạc nền Beautiful In White, lightbox, scroll reveal mượt',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 3,
+        rating: 4.8,
+        showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 52 ──────────────
