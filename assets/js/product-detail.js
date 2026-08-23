@@ -182,11 +182,21 @@
         </a>` : '';
 
     // Variant chips (thiệp có nhiều phiên bản / màu)
-    const variantsHTML = (isInvitation && Array.isArray(product.variants) && product.variants.length > 1) ? `
+    let variantsHTML = '';
+    if (isInvitation && Array.isArray(product.variants) && product.variants.length > 1) {
+        const isSample = product.variants.some(v => v.kind === 'sample');
+        variantsHTML = isSample ? `
+        <div class="sample-list" id="detailVariants">
+            <p class="sample-list-title">Thiệp đã làm từ mẫu này <span>(${product.variants.length - 1})</span></p>
+            <div class="sample-grid">
+                ${product.variants.map(v => `<a href="product-detail.html?id=${v.id}" class="sample-item${v.id === product.id ? ' active' : ''}" title="${v.label}"><img src="${v.thumbnail}" alt="${v.label}" loading="lazy"><span>${v.label}</span></a>`).join('')}
+            </div>
+        </div>` : `
         <div class="variant-chips" id="detailVariants">
             <span class="variant-chips-label">Phiên bản:</span>
             ${product.variants.map(v => `<a href="product-detail.html?id=${v.id}" class="variant-chip${v.id === product.id ? ' active' : ''}">${v.label}</a>`).join('')}
-        </div>` : '';
+        </div>`;
+    }
 
     // Gallery markup — phone frame for invitation, standard for the rest
     const galleryHTML = isInvitation ? `

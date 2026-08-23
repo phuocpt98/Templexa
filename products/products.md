@@ -26,13 +26,13 @@ products/
 | Loai chinh | Loai nho | Tong | Public |
 |------------|----------|------|--------|
 | **Invitation** | other | 52 | 44 |
-| **Invitation** | wedding | 77 | 58 |
+| **Invitation** | wedding | 77 | 47 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **249** | **222** |
+| | **Tong** | **249** | **211** |
 
 _Cap nhat tu data.js: 2026-08-23 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -225,8 +225,8 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 156 | Thiệp Cưới Tropical Luxe — Hải Đăng & Kiều My | `Invitation/Wedding/gen_156_wedding-tropical-luxe` | luxury / wedding | public |
 | 171 | Thiệp Mời Cưới - Minh Anh & Thùy Linh | `Invitation/Wedding/gen_171_wedding-invitation-elegant` | modern / wedding | public |
 | 173 | Thiệp Cưới Tương Tác - Hoàng Nam & Ngọc Mai | `Invitation/Wedding/gen_173_wedding-card-interactive` | modern / wedding | hidden |
-| 175 | Cuốn Phim Ký Ức — Thiệp Cưới Vintage | `Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding` | floral / wedding | public |
-| 176 | Chuyện Của Đôi Mình — Thiệp Cưới Tươi Sáng | `Invitation/Wedding/gen_176_fresh-bright-wedding` | modern / wedding | public |
+| 175 | Cuốn Phim Ký Ức — Thiệp Cưới Vintage | `Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding` | floral / wedding | public, 2 variants |
+| 176 | Chuyện Của Đôi Mình — Thiệp Cưới Tươi Sáng | `Invitation/Wedding/gen_176_fresh-bright-wedding` | modern / wedding | hidden |
 | 178 | Thiệp Cưới Truyền Thống - Song Long Đỏ | `Invitation/Wedding/gen_178_traditional-red-wedding` | traditional / wedding | public |
 | 179 | Thiệp Cưới - Blue Romantic | `Invitation/Wedding/gen_179_blue-romantic-wedding` | modern / wedding | public |
 | 180 | Thiệp Cưới Modern Blue Romantic | `Invitation/Wedding/gen_180_modern-blue-romantic` | modern / wedding | public, 2 variants |
@@ -239,8 +239,8 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 187 | Thiệp Cưới Chibi Đỏ — Dễ Thương Truyền Thống | `Invitation/Wedding/gen_clone_chibi-red` | traditional / wedding | public, 2 variants |
 | 188 | Thiệp Cưới Rèm Đỏ — Burgundy & Gold Sang Trọng | `Invitation/Wedding/thiep-cuoi-rem-do` | luxury / wedding | public |
 | 189 | Thiệp Cưới - Korean 90s Classic Beige | `Invitation/Wedding/gen_189_korean-90s-classic-beige` | minimalist / wedding | public |
-| 190 | Thiệp Cưới - Viet Green Fresh | `Invitation/Wedding/gen_190_viet-green-fresh` | modern / wedding | public, featured |
-| 191 | Thiệp Cưới - Việt Mềm Mại Hỷ | `Invitation/Wedding/gen_191_viet-mem-mai-hy` | traditional / wedding | public, featured |
+| 190 | Thiệp Cưới - Viet Green Fresh | `Invitation/Wedding/gen_190_viet-green-fresh` | modern / wedding | public, featured, 2 variants |
+| 191 | Thiệp Cưới - Việt Mềm Mại Hỷ | `Invitation/Wedding/gen_191_viet-mem-mai-hy` | traditional / wedding | hidden, featured |
 | 192 | Thiệp Cưới - Phúc & Thảo Navy Lavender | `Invitation/Wedding/gen_192_navy-lavender-elegant` | luxury / wedding | hidden |
 | 193 | Thiệp Cưới #193 Modern Romantic Red (Tuấn & Hương) | `Invitation/Wedding/gen_193_modern-romantic-red` | modern / wedding | hidden |
 | 194 | Thiệp Cưới - Modern Romantic White (Burgundy & Gold) | `Invitation/Wedding/gen_194_modern-romantic-white` | luxury / wedding | hidden |
@@ -252,14 +252,14 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 202 | Thiệp Cưới Miinso Minimalist White | `Invitation/Wedding/gen_202_miinso-minimalist-white` | minimalist / wedding | public |
 | 203 | Thiệp Cưới - Weddingday Traditional | `Invitation/Wedding/gen_202_weddingday-clone` | traditional / wedding | public |
 | 204 | Thiệp Ăn Hỏi — Truyền Thống Đỏ Vàng | `Invitation/Wedding/gen_204_an-hoi-traditional-red-gold` | traditional / an-hoi | public, trending |
-| 210 | Thiệp Cưới Sage Green Vintage — Quang Huy & Thanh Hằng | `Invitation/Wedding/gen_198_sage-green-vintage-wedding` | floral / wedding | public, featured, bestseller |
+| 210 | Thiệp Cưới Sage Green Vintage — Quang Huy & Thanh Hằng | `Invitation/Wedding/gen_198_sage-green-vintage-wedding` | floral / wedding | public, featured, bestseller, 10 variants |
 | 211 | Thiệp Cưới Blush Romantic — Viết & Trang Hoa | `Invitation/Wedding/gen_211_viet-trang-hoa` | floral / wedding | public, featured, bestseller |
 | 212 | Thiệp Cưới Cinematic Light & Shadow Editorial | `Invitation/Wedding/gen_212_cinematic-light-shadow-editorial` | luxury / wedding | hidden |
 | 213 | Thiệp Cưới Chibi Hoa Pastel Dễ Thương | `Invitation/Wedding/gen_213_chibi-floral-pastel-cute` | floral / wedding | public, featured, trending |
 | 214 | Thiệp Cưới Đông Phương Mộng Mơ — Việt Phục | `Invitation/Wedding/gen_214_dong-phuong-mong-mo` | traditional / wedding | public, featured |
 | 215 | Thiệp Cưới Song Hỷ — Double Happiness | `Invitation/Wedding/gen_215_double-happiness-song-hy` | traditional / wedding | public, featured, bestseller |
 | 216 | Thiệp Cưới Hoa Trắng Mộng Mơ | `Invitation/Wedding/gen_215_white-floral-dream` | floral / wedding | public, featured |
-| 217 | Thiệp Cưới Garden Gate — Cổng Vườn Xanh | `Invitation/Wedding/gen_216_garden-gate-outdoor` | floral / wedding | public, featured, bestseller |
+| 217 | Thiệp Cưới Garden Gate — Cổng Vườn Xanh | `Invitation/Wedding/gen_216_garden-gate-outdoor` | floral / wedding | public, featured, bestseller, 2 variants |
 | 218 | Thiệp Cưới Silk Veil — Ethereal Dreamy | `Invitation/Wedding/gen_218_silk-veil-ethereal` | luxury / wedding | public, featured |
 | 219 | Thiệp Cưới Porcelain Bloom — Kintsugi | `Invitation/Wedding/gen_219_porcelain-bloom-kintsugi` | luxury / wedding | public, featured, bestseller |
 | 220 | Thiệp Cưới Midnight Sapphire Luxury | `Invitation/Wedding/gen_220_midnight-sapphire-luxury` | luxury / wedding | hidden |
@@ -270,7 +270,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 225 | Thiệp Cưới - Heritage Illustrated Venue | `Invitation/Wedding/gen_225_heritage-illustrated-venue` | traditional / wedding | public, featured, bestseller |
 | 233 | Thiệp Cưới Pink Pastel Korean | `Invitation/Wedding/gen_233_cuoi-pink-pastel-korean` | modern / wedding | public |
 | 235 | Thiệp Cưới - Pink Pastel | `Invitation/Wedding/gen_235_cuoi-cinelove-pink-pastel` | traditional / wedding | public |
-| 241 | Thiệp Cưới - Kim Vương & Quỳnh Thương | `Invitation/Wedding/khach_quynhthuong_kimvuong` | luxury / wedding | public |
+| 241 | Thiệp Cưới - Kim Vương & Quỳnh Thương | `Invitation/Wedding/khach_quynhthuong_kimvuong` | luxury / wedding | public, 5 variants |
 | 242 | Thiệp Cưới - Majestic Olive Classic | `Invitation/Wedding/gen_236_majestic-olive-classic` | luxury / wedding | public |
 | 243 | Thiệp Cưới Nhà Trai - Minh Đức & Ngô Thuỳ | `Invitation/Wedding/khach_duc-thuy-nha-trai` | vintage / wedding | hidden |
 | 244 | Thiệp Cưới Nhà Gái - Minh Đức & Ngô Thuỳ | `Invitation/Wedding/khach_duc-thuy-nha-gai` | vintage / wedding | hidden |
@@ -278,16 +278,16 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 246 | Thiệp Cưới - Thanh Tùng & Hoài Thu | `Invitation/Wedding/khach_hoaithu_thanhtung` | luxury / wedding | hidden |
 | 247 | Thiệp Dạm Ngõ Song Hỷ Đỏ Truyền Thống | `Invitation/Wedding/gen_216_dam-ngo-song-hy` | traditional / dam-ngo | public |
 | 248 | Thiệp Cưới Hành Trình Yêu Thương Điện Ảnh | `Invitation/Wedding/gen_223_love-story-cinematic` | modern / wedding | public |
-| 252 | Thiệp Cưới Vintage Khung Phim Lá Xanh | `Invitation/Wedding/khach_anh-thu-minh-thong` | vintage / wedding | public |
-| 253 | Thiệp Cưới Tối Giản Sang Trọng Niêm Phong Sáp | `Invitation/Wedding/khach_cong-minh-ngoc-huyen` | luxury / wedding | public |
-| 254 | Thiệp Cưới Vintage Cổ Điển Phong Bì Lá | `Invitation/Wedding/khach_duy-hiep-anna-le` | vintage / wedding | public |
-| 255 | Thiệp Cưới Vàng Đồng Thanh Lịch Mở Bằng Dấu Sáp | `Invitation/Wedding/khach_khui-kiet-hong-han` | luxury / wedding | public |
-| 256 | Thiệp Cưới Sage Green Polaroid Vintage | `Invitation/Wedding/khach_minh-linh` | vintage / wedding | public |
-| 257 | Thiệp Cưới Sage Green Áo Dài Cổ Điển | `Invitation/Wedding/khach_nguyen-bao-uyen-nhi` | vintage / wedding | public |
-| 258 | Thiệp Cưới Sage Green Lời Chúc Trực Tuyến | `Invitation/Wedding/khach_uyen-nhi-nguyen-bao` | vintage / wedding | public |
+| 252 | Thiệp Cưới Vintage Khung Phim Lá Xanh | `Invitation/Wedding/khach_anh-thu-minh-thong` | vintage / wedding | hidden |
+| 253 | Thiệp Cưới Tối Giản Sang Trọng Niêm Phong Sáp | `Invitation/Wedding/khach_cong-minh-ngoc-huyen` | luxury / wedding | hidden |
+| 254 | Thiệp Cưới Vintage Cổ Điển Phong Bì Lá | `Invitation/Wedding/khach_duy-hiep-anna-le` | vintage / wedding | hidden |
+| 255 | Thiệp Cưới Vàng Đồng Thanh Lịch Mở Bằng Dấu Sáp | `Invitation/Wedding/khach_khui-kiet-hong-han` | luxury / wedding | hidden |
+| 256 | Thiệp Cưới Sage Green Polaroid Vintage | `Invitation/Wedding/khach_minh-linh` | vintage / wedding | hidden |
+| 257 | Thiệp Cưới Sage Green Áo Dài Cổ Điển | `Invitation/Wedding/khach_nguyen-bao-uyen-nhi` | vintage / wedding | hidden |
+| 258 | Thiệp Cưới Sage Green Lời Chúc Trực Tuyến | `Invitation/Wedding/khach_uyen-nhi-nguyen-bao` | vintage / wedding | hidden |
 | 259 | Thiệp Cưới Đỏ Vàng Cổ Điển Sang Trọng | `Invitation/Wedding/khach_thien-ngoe-my-dan` | traditional / wedding | public |
-| 260 | Thiệp Cưới Sage Green Polaroid Hai Lễ | `Invitation/Wedding/khach_3` | vintage / wedding | public |
-| 261 | Thiệp Cưới Phong Bì Hoa Lá Cổ Điển | `Invitation/Wedding/van-hoang-tran-ly` | floral / wedding | public |
+| 260 | Thiệp Cưới Sage Green Polaroid Hai Lễ | `Invitation/Wedding/khach_3` | vintage / wedding | hidden |
+| 261 | Thiệp Cưới Phong Bì Hoa Lá Cổ Điển | `Invitation/Wedding/van-hoang-tran-ly` | floral / wedding | hidden |
 
 ### Web / e-commerce (33)
 

@@ -503,7 +503,22 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding/shots/cover.webp',
         path: './products/Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding/',
         demoUrl: './products/Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding/code.html',
-        variants: [],
+        variants: [
+            {
+                id: 175,
+                thumbnail: './products/Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding/shots/cover.webp',
+                demoUrl: './products/Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding/code.html',
+                label: 'Mẫu gốc',
+                kind: 'master',
+            },
+            {
+                id: 176,
+                thumbnail: './products/Invitation/Wedding/gen_176_fresh-bright-wedding/shots/cover.webp',
+                demoUrl: './products/Invitation/Wedding/gen_176_fresh-bright-wedding/code.html',
+                label: 'Tươi Sáng',
+                kind: 'sample',
+            },
+        ],
         features: [
             'Countdown, nhạc nền, gallery ảnh, hiệu ứng hoa rơi',
             'RSVP xác nhận, lời chúc realtime, Google Maps chỉ đường',
@@ -537,6 +552,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/gen_176_fresh-bright-wedding/',
         demoUrl: './products/Invitation/Wedding/gen_176_fresh-bright-wedding/code.html',
         variants: [],
+        templateOf: 175,
         features: [
             'Countdown, nhạc nền, gallery ảnh, hiệu ứng hoa rơi',
             'RSVP xác nhận, lời chúc realtime, Google Maps chỉ đường',
@@ -548,6 +564,7 @@ const PRODUCTS = [
         downloads: 6,
         rating: 4.8,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     {
@@ -1023,7 +1040,22 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/gen_190_viet-green-fresh/shots/open.webp',
         path: './products/Invitation/Wedding/gen_190_viet-green-fresh/',
         demoUrl: './products/Invitation/Wedding/gen_190_viet-green-fresh/code.html',
-        variants: [],
+        variants: [
+            {
+                id: 190,
+                thumbnail: './products/Invitation/Wedding/gen_190_viet-green-fresh/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/gen_190_viet-green-fresh/code.html',
+                label: 'Mẫu gốc',
+                kind: 'master',
+            },
+            {
+                id: 191,
+                thumbnail: './products/Invitation/Wedding/gen_191_viet-mem-mai-hy/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/gen_191_viet-mem-mai-hy/code.html',
+                label: 'Mềm Mại Hỷ',
+                kind: 'sample',
+            },
+        ],
         features: [
             'Countdown, nhạc nền, gallery ảnh, hiệu ứng hoa rơi',
             'RSVP xác nhận, lời chúc realtime, Google Maps chỉ đường',
@@ -1058,6 +1090,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/gen_191_viet-mem-mai-hy/',
         demoUrl: './products/Invitation/Wedding/gen_191_viet-mem-mai-hy/code.html',
         variants: [],
+        templateOf: 190,
         features: [
             'Countdown, nhạc nền, gallery ảnh, hiệu ứng hoa rơi',
             'RSVP xác nhận, lời chúc realtime, Google Maps chỉ đường',
@@ -1069,6 +1102,7 @@ const PRODUCTS = [
         downloads: 6,
         rating: 4.9,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     {
@@ -1232,6 +1266,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_1_v1/',
         demoUrl: './products/Invitation/Wedding/khach_1_v1/index.html',
         variants: [],
+        templateOf: 210,
         features: [
             'Countdown, nhạc nền, gallery ảnh, hiệu ứng hoa rơi',
             'RSVP xác nhận, lời chúc realtime, Google Maps chỉ đường',
@@ -1473,7 +1508,78 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/shots/open.webp',
         path: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/',
         demoUrl: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/index.html',
-        variants: [],
+        variants: [
+            {
+                id: 210,
+                thumbnail: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/gen_198_sage-green-vintage-wedding/index.html',
+                label: 'Mẫu gốc',
+                kind: 'master',
+            },
+            {
+                id: 198,
+                thumbnail: './products/Invitation/Wedding/khach_1_v1/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_1_v1/index.html',
+                label: 'Sage Green v1',
+                kind: 'sample',
+            },
+            {
+                id: 243,
+                thumbnail: './products/Invitation/Wedding/khach_duc-thuy-nha-trai/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_duc-thuy-nha-trai/index.html',
+                label: 'Nhà Trai',
+                kind: 'sample',
+            },
+            {
+                id: 244,
+                thumbnail: './products/Invitation/Wedding/khach_duc-thuy-nha-gai/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_duc-thuy-nha-gai/index.html',
+                label: 'Nhà Gái',
+                kind: 'sample',
+            },
+            {
+                id: 253,
+                thumbnail: './products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/index.html',
+                label: 'Tối Giản Sáp',
+                kind: 'sample',
+            },
+            {
+                id: 255,
+                thumbnail: './products/Invitation/Wedding/khach_khui-kiet-hong-han/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_khui-kiet-hong-han/index.html',
+                label: 'Vàng Đồng',
+                kind: 'sample',
+            },
+            {
+                id: 256,
+                thumbnail: './products/Invitation/Wedding/khach_minh-linh/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_minh-linh/index.html',
+                label: 'Polaroid',
+                kind: 'sample',
+            },
+            {
+                id: 257,
+                thumbnail: './products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/index.html',
+                label: 'Áo Dài',
+                kind: 'sample',
+            },
+            {
+                id: 258,
+                thumbnail: './products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/index.html',
+                label: 'Lời Chúc Bay',
+                kind: 'sample',
+            },
+            {
+                id: 260,
+                thumbnail: './products/Invitation/Wedding/khach_3/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_3/index.html',
+                label: 'Hai Lễ',
+                kind: 'sample',
+            },
+        ],
         features: [
             'Countdown, nhạc nền, gallery ảnh, hiệu ứng hoa rơi',
             'RSVP xác nhận, lời chúc realtime, Google Maps chỉ đường',
@@ -1718,7 +1824,22 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/gen_216_garden-gate-outdoor/shots/cover.webp',
         path: './products/Invitation/Wedding/gen_216_garden-gate-outdoor/',
         demoUrl: './products/Invitation/Wedding/gen_216_garden-gate-outdoor/index.html',
-        variants: [],
+        variants: [
+            {
+                id: 217,
+                thumbnail: './products/Invitation/Wedding/gen_216_garden-gate-outdoor/shots/cover.webp',
+                demoUrl: './products/Invitation/Wedding/gen_216_garden-gate-outdoor/index.html',
+                label: 'Mẫu gốc',
+                kind: 'master',
+            },
+            {
+                id: 245,
+                thumbnail: './products/Invitation/Wedding/khach_thuy-dung_thien-duc/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_thuy-dung_thien-duc/index.html',
+                label: 'Garden v2',
+                kind: 'sample',
+            },
+        ],
         features: [
             'Cổng sắt uốn 3D perspective mở, hạt bồ công anh bay, SVG botanical frame',
             'Polaroid clothesline, garden path stepping stones, biển gỗ signpost',
@@ -2097,7 +2218,43 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/khach_quynhthuong_kimvuong/shots/open.webp',
         path: './products/Invitation/Wedding/khach_quynhthuong_kimvuong/',
         demoUrl: './products/Invitation/Wedding/khach_quynhthuong_kimvuong/code.html',
-        variants: [],
+        variants: [
+            {
+                id: 241,
+                thumbnail: './products/Invitation/Wedding/khach_quynhthuong_kimvuong/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_quynhthuong_kimvuong/code.html',
+                label: 'Mẫu gốc',
+                kind: 'master',
+            },
+            {
+                id: 246,
+                thumbnail: './products/Invitation/Wedding/khach_hoaithu_thanhtung/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_hoaithu_thanhtung/code.html',
+                label: 'Vintage v2',
+                kind: 'sample',
+            },
+            {
+                id: 252,
+                thumbnail: './products/Invitation/Wedding/khach_anh-thu-minh-thong/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_anh-thu-minh-thong/index.html',
+                label: 'Khung Phim',
+                kind: 'sample',
+            },
+            {
+                id: 254,
+                thumbnail: './products/Invitation/Wedding/khach_duy-hiep-anna-le/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_duy-hiep-anna-le/index.html',
+                label: 'Phong Bì Lá',
+                kind: 'sample',
+            },
+            {
+                id: 261,
+                thumbnail: './products/Invitation/Wedding/van-hoang-tran-ly/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/van-hoang-tran-ly/index.html',
+                label: 'Hoa Lá Cổ Điển',
+                kind: 'sample',
+            },
+        ],
         features: [
             'Envelope glass-morphism + ảnh quân phục blur + peek polaroid + ribbon bow',
             'Sage green & gold palette + falling leaves + countdown + calendar tháng 5',
@@ -2168,6 +2325,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_duc-thuy-nha-trai/',
         demoUrl: './products/Invitation/Wedding/khach_duc-thuy-nha-trai/index.html',
         variants: [],
+        templateOf: 210,
         features: [
             'Sage green vintage — polaroid hero + ảnh full-width + gallery 8 ảnh',
             'Countdown + calendar tháng 6/2026 + timeline lễ cưới + Google Maps',
@@ -2203,6 +2361,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_duc-thuy-nha-gai/',
         demoUrl: './products/Invitation/Wedding/khach_duc-thuy-nha-gai/index.html',
         variants: [],
+        templateOf: 210,
         features: [
             'Sage green vintage — polaroid hero + ảnh full-width + gallery 8 ảnh',
             'Countdown + calendar tháng 6/2026 + timeline lễ vu quy + Google Maps',
@@ -2238,6 +2397,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_thuy-dung_thien-duc/',
         demoUrl: './products/Invitation/Wedding/khach_thuy-dung_thien-duc/index.html',
         variants: [],
+        templateOf: 217,
         features: [
             'Garden gate outdoor — cổng hoa 3D mở + leaf burst + polaroid clothesline',
             'Love story 6 chương + timeline tiệc cưới + calendar tháng 7/2026 + countdown',
@@ -2273,6 +2433,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_hoaithu_thanhtung/',
         demoUrl: './products/Invitation/Wedding/khach_hoaithu_thanhtung/code.html',
         variants: [],
+        templateOf: 241,
         features: [
             'Envelope glass-morphism + ảnh cô dâu chú rể blur + peek polaroid + ribbon bow',
             'Sage green & gold palette + countdown + calendar tháng 8',
@@ -2381,6 +2542,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_anh-thu-minh-thong/',
         demoUrl: './products/Invitation/Wedding/khach_anh-thu-minh-thong/index.html',
         variants: [],
+        templateOf: 241,
         features: [
             'Hiệu ứng mở phong bì hé lộ hai ảnh cưới đôi',
             'Gallery ảnh dạng khung phim (film-strip) phong cách vintage',
@@ -2394,7 +2556,7 @@ const PRODUCTS = [
         downloads: 4,
         rating: 4.8,
         showInSlider: false,
-        isPublic: true,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     {
@@ -2418,6 +2580,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/',
         demoUrl: './products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/index.html',
         variants: [],
+        templateOf: 210,
         features: [
             'Trang bìa mở bằng hiệu ứng bóc dấu niêm phong sáp (wax seal)',
             'Cá nhân hoá tên khách mời tự động qua tham số ?id= trên liên kết gửi',
@@ -2431,7 +2594,7 @@ const PRODUCTS = [
         downloads: 7,
         rating: 4.9,
         showInSlider: false,
-        isPublic: true,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     {
@@ -2455,6 +2618,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_duy-hiep-anna-le/',
         demoUrl: './products/Invitation/Wedding/khach_duy-hiep-anna-le/index.html',
         variants: [],
+        templateOf: 241,
         features: [
             'Hiệu ứng mở phong bì hé lộ hai ảnh cưới đôi',
             'Gallery ảnh dạng khung phim (film-strip) phong cách vintage',
@@ -2468,7 +2632,7 @@ const PRODUCTS = [
         downloads: 3,
         rating: 4.7,
         showInSlider: false,
-        isPublic: true,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     {
@@ -2492,6 +2656,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_khui-kiet-hong-han/',
         demoUrl: './products/Invitation/Wedding/khach_khui-kiet-hong-han/index.html',
         variants: [],
+        templateOf: 210,
         features: [
             'Trang bìa mở bằng hiệu ứng bóc dấu niêm phong sáp (wax seal)',
             'Cá nhân hoá tên khách mời tự động qua tham số ?id= trên liên kết gửi',
@@ -2505,7 +2670,7 @@ const PRODUCTS = [
         downloads: 6,
         rating: 4.8,
         showInSlider: false,
-        isPublic: true,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     {
@@ -2529,6 +2694,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_minh-linh/',
         demoUrl: './products/Invitation/Wedding/khach_minh-linh/index.html',
         variants: [],
+        templateOf: 210,
         features: [
             'Màn hình niêm phong mở thiệp bằng hiệu ứng wax seal',
             'Card ảnh polaroid lồng hoa lá ở phần hero',
@@ -2542,7 +2708,7 @@ const PRODUCTS = [
         downloads: 6,
         rating: 4.8,
         showInSlider: false,
-        isPublic: true,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     {
@@ -2566,6 +2732,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/',
         demoUrl: './products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/index.html',
         variants: [],
+        templateOf: 210,
         features: [
             'Màn hình niêm phong mở thiệp trước khi vào trang chính',
             'Card ảnh polaroid hero kèm hoa lá trang trí ở mép thiệp',
@@ -2579,7 +2746,7 @@ const PRODUCTS = [
         downloads: 4,
         rating: 4.7,
         showInSlider: false,
-        isPublic: true,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     {
@@ -2603,6 +2770,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/',
         demoUrl: './products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/index.html',
         variants: [],
+        templateOf: 210,
         features: [
             'Bảng lời chúc nổi trôi thời gian thực với nút bật/tắt hiển thị',
             'Màn hình niêm phong mở thiệp trước khi vào trang chính',
@@ -2616,7 +2784,7 @@ const PRODUCTS = [
         downloads: 8,
         rating: 4.9,
         showInSlider: false,
-        isPublic: true,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     {
@@ -2676,6 +2844,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/khach_3/',
         demoUrl: './products/Invitation/Wedding/khach_3/index.html',
         variants: [],
+        templateOf: 210,
         features: [
             'Hiệu ứng mở phong bì thiệp khi vào trang',
             '2 ảnh polaroid cặp đôi nổi bật trên hero',
@@ -2689,7 +2858,7 @@ const PRODUCTS = [
         downloads: 8,
         rating: 4.9,
         showInSlider: false,
-        isPublic: true,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     {
@@ -2713,6 +2882,7 @@ const PRODUCTS = [
         path: './products/Invitation/Wedding/van-hoang-tran-ly/',
         demoUrl: './products/Invitation/Wedding/van-hoang-tran-ly/index.html',
         variants: [],
+        templateOf: 241,
         features: [
             'Hiệu ứng mở phong bì thiệp với hoạ tiết lá',
             'Câu chuyện tình yêu song song ảnh cô dâu chú rể',
@@ -2726,7 +2896,7 @@ const PRODUCTS = [
         downloads: 4,
         rating: 4.7,
         showInSlider: false,
-        isPublic: true,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 52 ──────────────
@@ -6860,9 +7030,12 @@ const INVITATION_PRICING = [
  * Lấy danh sách sản phẩm hiển thị trên slider trang chủ
  */
 function getSliderProducts() {
-    return PRODUCTS
-        .filter(p => p.type === 'invitation' && p.isPublic !== false)
-        .sort((a, b) => (a.priority - b.priority) || (b.id - a.id))
+    // Ưu tiên showInSlider, rồi theo thứ tự chung (featured → bestseller → mới); không lặp cùng template
+    const seen = new Set();
+    return getProductsSorted()
+        .filter(p => p.type === 'invitation')
+        .sort((a, b) => (b.showInSlider ? 1 : 0) - (a.showInSlider ? 1 : 0))
+        .filter(p => { const k = p.templateOf || p.id; if (seen.has(k)) return false; seen.add(k); return true; })
         .slice(0, 6);
 }
 

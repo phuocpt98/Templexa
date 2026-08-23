@@ -1478,33 +1478,6 @@ ul {
     box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
 }
 
-/* Category filters — pill/chip style */
-.filters-category .filter-btn {
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: none;
-    background: #F3F4F6;
-    color: #6B7280;
-    font-size: 0.85rem;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.3s;
-    white-space: nowrap;
-}
-
-.filters-category .filter-btn:hover {
-    background: var(--accent-light);
-    color: var(--accent);
-}
-
-.filters-category .filter-btn.active {
-    background: var(--accent-light);
-    border: 1px solid #C7D2FE;
-    color: var(--accent);
-    font-weight: 600;
-}
-
 .filter-btn-other {
     color: #9CA3AF;
     cursor: default;
@@ -3826,15 +3799,96 @@ ul {
     background: #0B1220;
 }
 
-/* Chip hàng 2 (phong cách / sự kiện) */
+/* Chip lọc — pill mềm, bo tròn (danh mục + phong cách/sự kiện) */
 .filters-group--sub { padding-top: 0; }
-.filters-sub .filter-btn { font-size: 0.86rem; padding: 7px 14px; }
+.filters-category .filter-btn,
+.filters-sub .filter-btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: 0.86rem;
+    font-weight: 500;
+    font-family: inherit;
+    line-height: 1.2;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.15s;
+}
+.filters-category .filter-btn:hover,
+.filters-sub .filter-btn:hover {
+    background: var(--accent-light);
+    color: var(--accent);
+    border-color: transparent;
+}
+.filters-category .filter-btn.active,
+.filters-sub .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.22);
+}
+.filters-category .filter-btn:active,
+.filters-sub .filter-btn:active { transform: scale(0.97); }
 .filter-count {
     display: inline-block;
-    margin-left: 4px;
-    font-size: 0.74rem;
-    opacity: 0.65;
+    margin-left: 5px;
+    padding: 1px 7px;
+    border-radius: var(--radius-pill);
+    background: rgba(99, 102, 241, 0.10);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
 }
+.filter-btn.active .filter-count {
+    background: rgba(255, 255, 255, 0.22);
+    color: #fff;
+}
+[data-theme="dark"] .filters-category .filter-btn,
+[data-theme="dark"] .filters-sub .filter-btn { background: var(--bg-tertiary); }
+[data-theme="dark"] .filter-count { background: rgba(129, 140, 248, 0.18); }
+
+/* Thiệp đã làm từ mẫu này (popup + detail) */
+.sample-list { margin-top: 18px; }
+.sample-list-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+.sample-list-title span { color: var(--text-tertiary); font-weight: 500; }
+.sample-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+    gap: 10px;
+}
+.sample-item {
+    display: block;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: var(--bg-secondary);
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+    font-family: inherit;
+    transition: border-color 0.2s, transform 0.2s;
+}
+.sample-item img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; object-position: top; display: block; }
+.sample-item span {
+    display: block;
+    padding: 4px 4px 6px;
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sample-item:hover { transform: translateY(-2px); border-color: var(--accent-light); }
+.sample-item.active { border-color: var(--accent); }
+.sample-item.active span { color: var(--accent); font-weight: 600; }
 
 /* Variant chips (popup + detail) */
 .variant-chips {

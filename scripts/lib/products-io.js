@@ -13,7 +13,7 @@ const DATA = path.join(__dirname, '..', '..', 'assets/js/data.js');
 const RX = /(const PRODUCTS\s*=\s*)(\[[\s\S]*?\n\]);/;
 
 const KEY_ORDER = ['id', 'name', 'slug', 'description', 'category', 'type', 'style', 'event', 'tags', 'price',
-    'images', 'thumbnail', 'mobileView', 'path', 'demoUrl', 'variants', 'features', 'status', 'featured',
+    'images', 'thumbnail', 'mobileView', 'path', 'demoUrl', 'variants', 'templateOf', 'features', 'status', 'featured',
     'priority', 'downloads', 'rating', 'showInSlider', 'isPublic', 'updatedAt'];
 
 const q = (s) => "'" + String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'") + "'";

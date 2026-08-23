@@ -498,10 +498,22 @@
 
         var variantsHTML = '';
         if (Array.isArray(product.variants) && product.variants.length > 1) {
-            variantsHTML = '<div class="variant-chips" id="popupVariants"><span class="variant-chips-label">Phiên bản:</span>' +
-                product.variants.map(function (v) {
-                    return '<button type="button" class="variant-chip' + (v.id === product.id ? ' active' : '') + '" data-variant-id="' + v.id + '">' + v.label + '</button>';
-                }).join('') + '</div>';
+            var isSample = product.variants.some(function (v) { return v.kind === 'sample'; });
+            if (isSample) {
+                // Cùng template: lưới thumbnail các thiệp đã làm từ mẫu này
+                variantsHTML = '<div class="sample-list" id="popupVariants">' +
+                    '<p class="sample-list-title">Thiệp đã làm từ mẫu này <span>(' + (product.variants.length - 1) + ')</span></p>' +
+                    '<div class="sample-grid">' +
+                    product.variants.map(function (v) {
+                        return '<button type="button" class="sample-item' + (v.id === product.id ? ' active' : '') + '" data-variant-id="' + v.id + '" title="' + v.label + '">' +
+                            '<img src="' + v.thumbnail + '" alt="' + v.label + '" loading="lazy"><span>' + v.label + '</span></button>';
+                    }).join('') + '</div></div>';
+            } else {
+                variantsHTML = '<div class="variant-chips" id="popupVariants"><span class="variant-chips-label">Phiên bản:</span>' +
+                    product.variants.map(function (v) {
+                        return '<button type="button" class="variant-chip' + (v.id === product.id ? ' active' : '') + '" data-variant-id="' + v.id + '">' + v.label + '</button>';
+                    }).join('') + '</div>';
+            }
         }
 
         var thumbsHTML = images.map(function (img, i) {
@@ -550,7 +562,7 @@
         popupCurrentProduct.images = images;
 
         // Đổi phiên bản → render lại popup với entry variant (giữ variants của master)
-        popupBody.querySelectorAll('.variant-chip').forEach(function (chip) {
+        popupBody.querySelectorAll('.variant-chip, .sample-item').forEach(function (chip) {
             chip.addEventListener('click', function () {
                 var vid = Number(chip.dataset.variantId);
                 if (vid === product.id) return;
