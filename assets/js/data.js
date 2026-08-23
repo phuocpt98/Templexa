@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 82 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 81 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3051,43 +3051,6 @@ const PRODUCTS = [
             'Countdown pill hồng/mint, lịch tháng với ngày cưới trong trái tim, nút lưu .ics',
             'Love story timeline tròn + album polaroid dán băng keo pastel',
             'RSVP Tới liền!/Tiếc quá, sổ lưu bút Google Sheets, QR mừng cưới, nhạc nền',
-        ],
-        status: '',
-        featured: false,
-        priority: 0,
-        downloads: 5,
-        rating: 4.9,
-        showInSlider: false,
-        isPublic: false,
-        updatedAt: '2026-08-23',
-    },
-    {
-        id: 266,
-        name: 'Thiệp Cưới Vườn Trắng — Wedding Weekend',
-        slug: 'thiep-cuoi-vuon-trang-wedding-weekend',
-        description: 'Thiệp cưới online phong cách wedding weekend: phong bì giấy dập nổi với dấu sáp sage, cảnh vườn trắng watercolor cố định và các khung viền mảnh thanh lịch. Lịch trình 2 ngày (tiệc du thuyền, lễ, tiệc cưới), dress code, nơi lưu trú, RSVP và chuyển đổi VI/EN.',
-        category: 'wedding',
-        type: 'invitation',
-        style: 'floral',
-        event: 'wedding',
-        tags: ['wedding', 'white-garden', 'cypress', 'watercolor', 'wax-seal', 'emboss', 'itinerary', 'weekend', 'elegant', 'rsvp', 'countdown', 'bilingual'],
-        price: 'free',
-        images: [
-            './products/Invitation/Wedding/gen_266_excellence-white-garden/shots/open.webp',
-            './products/Invitation/Wedding/gen_266_excellence-white-garden/shots/sec-1.webp',
-            './products/Invitation/Wedding/gen_266_excellence-white-garden/shots/cover.webp',
-        ],
-        thumbnail: './products/Invitation/Wedding/gen_266_excellence-white-garden/shots/open.webp',
-        mobileView: './products/Invitation/Wedding/gen_266_excellence-white-garden/shots/open.webp',
-        path: './products/Invitation/Wedding/gen_266_excellence-white-garden/',
-        demoUrl: './products/Invitation/Wedding/gen_266_excellence-white-garden/index.html',
-        variants: [],
-        features: [
-            'Phong bì giấy dập nổi + dấu sáp sage, chữ emboss 3D',
-            'Cảnh vườn trắng watercolor cố định, khung viền mảnh không nền',
-            'Lịch trình cuối tuần 3 sự kiện với tranh minh hoạ, bản đồ, thêm vào lịch',
-            'Dress code, nơi lưu trú, love story, album vòm, mừng cưới QR',
-            'RSVP + sổ lưu bút Google Sheets, đếm ngược, cánh hoa rơi, toggle VI/EN',
         ],
         status: '',
         featured: false,

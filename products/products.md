@@ -26,13 +26,13 @@ products/
 | Loai chinh | Loai nho | Tong | Public |
 |------------|----------|------|--------|
 | **Invitation** | other | 52 | 44 |
-| **Invitation** | wedding | 82 | 48 |
+| **Invitation** | wedding | 81 | 48 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **254** | **212** |
+| | **Tong** | **253** | **212** |
 
 _Cap nhat tu data.js: 2026-08-23 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -207,7 +207,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 250 | Thiệp Giỗ Tổ Dòng Họ — Hoành Phi | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 | 251 | Thiệp Giỗ Tổ Dòng Họ — Kim Tối Giản | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 
-### Invitation / wedding (82)
+### Invitation / wedding (81)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -292,7 +292,6 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 263 | Thiệp Cưới Chibi Pastel — Ngộ Nghĩnh Đáng Yêu | `Invitation/Wedding/gen_263_chibi-pastel-cute` | modern / wedding | hidden |
 | 264 | Thiệp Cưới Tranh Thêu Cườm — Đèn Chùm Lãng Mạn | `Invitation/Wedding/gen_264_romantic-beaded-chandelier` | luxury / wedding | hidden |
 | 265 | Thiệp Cưới Hoa Trắng Mộng Mơ — Lễ Hôn Phối | `Invitation/Wedding/khach_vinh-hien-hoa` | floral / wedding | hidden |
-| 266 | Thiệp Cưới Vườn Trắng — Wedding Weekend | `Invitation/Wedding/gen_266_excellence-white-garden` | floral / wedding | hidden |
 
 ### Web / e-commerce (33)
 
