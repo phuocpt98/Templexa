@@ -2,6 +2,8 @@
 
 > Tạo 23/08/2026. Làm tuần tự từng đợt, mỗi đợt 1 commit, xong đợt nào tick đợt đó.
 > Trạng thái: `[ ]` chưa làm · `[~]` đang dở · `[x]` xong
+>
+> **23/08 — ĐÃ HOÀN THÀNH đợt 0–8** (9 commit trên `redesign-thiep-online`). Còn lại: rename `--gold-gradient` (bỏ, giữ tên), `protect-wedding` + merge về `main` khi user duyệt. #200 (Valentine Pink) khoá PIN → giữ ảnh cũ; #163 thiếu dấu tiếng Việt (lỗi font template) → sửa sau.
 
 ## 0. Đã xong (để tham chiếu)
 
