@@ -41,7 +41,7 @@ Argument: $ARGUMENTS — mô tả yêu cầu, URL/ảnh tham khảo, hoặc fold
 │  Tự chỉnh nếu chưa đạt                        │
 ├─────────────────────────────────────────────────┤
 │  PHASE 4: DELIVERY                              │
-│  data.js + products.md + báo cáo               │
+│  phân loại → data.js → shoot:mobile → build:seo  │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -299,18 +299,76 @@ Sau khi score ≥ 70%:
 
 ---
 
-## PHASE 4: Delivery
+## PHASE 4: Delivery — phân loại + đưa vào catalog
 
-Chạy ĐÚNG quy trình `/gen-wedding`:
-- Bước 6: Chụp screenshot chính thức (desktop + mobile) — **SAU KHI user confirm**
-- Bước 6b: Convert PNG → WebP
-- Bước 7: Thêm entry vào data.js (**LUÔN đặt `isPublic: false`** — user tự chuyển true sau)
-- Bước 8: Cập nhật products.md
-- Bước 9: Cập nhật thư viện (nếu có component mới)
-- Bước 9b: Gen QR (nếu có base URL)
-- Bước 10: Báo cáo
+> Từ 08/2026 catalog thiệp chạy theo schema mới (xem `CLAUDE.md` mục "PRODUCTS structure"). Không còn `assets/data/invitation.json`, không còn ảnh ngang `screen.png`. Mọi thao tác `data.js` dùng `scripts/lib/products-io.js`.
 
-### Báo cáo PRO (bổ sung thêm):
+### 4A. Phân loại thiệp (BẮT BUỘC trước khi thêm entry)
+
+| Field | Giá trị | Cách chọn |
+|-------|---------|-----------|
+| `category` | `wedding` \| `other` | Thiệp cưới / dạm ngõ / ăn hỏi → `wedding`; còn lại → `other` |
+| `style` (wedding) | `traditional` · `modern` · `minimalist` · `luxury` · `floral` · `vintage` | Theo Design Spec Phase 1: đỏ-vàng/song hỷ/long phụng → traditional; gold/black/chandelier → luxury; polaroid/film/retro → vintage; hoa lá/sage/garden → floral; trắng/ít chi tiết → minimalist; còn lại → modern |
+| `event` | wedding: `wedding` · `dam-ngo` · `an-hoi` / other: `birthday` · `thoi-noi` · `anniversary` · `reunion` · `gio-to` · `confession` · `graduation` · `holiday` | Theo dịp |
+| `tags` | 6–10 tag thường | palette, phong cách, tính năng (`rsvp`, `countdown`, `qr`, `love-story`…) |
+| `templateOf` | id master | **Chỉ khi** thiệp clone từ template đã có trong catalog (khách đặt mẫu X) → entry `isPublic:false`, thêm vào `variants` của master với `kind:'sample'` |
+| `variants` | `[]` | Để trống với thiệp mới hoàn toàn |
+| `featured` | `false` | User tự pin |
+| `status` | `''` | KHÔNG dùng `'new'` — badge NEW tự tính theo `updatedAt` (30 ngày) |
+| `priority` | `0` | Không đặt số lẻ/âm |
+| `isPublic` | `false` | User tự chuyển `true` sau khi duyệt |
+
+**Kiểm tra trùng template trước khi thêm** (tránh catalog lặp mẫu):
+```bash
+node -e "
+const fs=require('fs');const {load}=require('./scripts/lib/products-io');const P=load().products.filter(p=>p.type==='invitation'&&fs.existsSync(p.demoUrl));
+const cls=f=>new Set((fs.readFileSync(f,'utf8').match(/class=\"([^\"]+)\"/g)||[]).flatMap(m=>m.slice(7,-1).split(/\s+/)));
+const me=cls('<folder>/index.html');const jac=(a,b)=>{let i=0;for(const x of a)if(b.has(x))i++;return i/(a.size+b.size-i)};
+P.map(p=>[p.id,p.name,jac(me,cls(p.demoUrl)).toFixed(2)]).filter(x=>x[2]>=0.7).forEach(x=>console.log(x.join(' | ')));"
+```
+- Có kết quả ≥ 0.7 → là **cùng template** → đặt `templateOf`, ẩn entry, thêm vào `variants` master.
+- Không có → thiệp mới, hiện bình thường.
+
+### 4B. Thêm entry vào `data.js`
+
+Dùng script (không sửa tay để giữ key order):
+```bash
+node -e "
+const {load,save}=require('./scripts/lib/products-io');const {products,src}=load();
+const id=Math.max(...products.map(p=>p.id))+1;
+products.push({ id, name:'<Tên theo phong cách — KHÔNG tên riêng khách>', slug:'<kebab>', description:'<1–2 câu>',
+  category:'wedding', type:'invitation', style:'<style>', event:'wedding', tags:[...], price:'free',
+  images:[], thumbnail:'<folder>/og-cover.jpg', mobileView:'', path:'<folder>/', demoUrl:'<folder>/index.html',
+  variants:[], features:['...','...','...'], status:'', featured:false, priority:0,
+  downloads:<1-10>, rating:<4.7-4.9>, showInSlider:false, isPublic:false, updatedAt:'<YYYY-MM-DD>' });
+save(products,src);console.log('added',id);"
+```
+
+### 4C. Chụp ảnh dọc (thay cho screenshot desktop/mobile cũ)
+
+```bash
+npm run shoot:mobile -- --ids <id>        # → <folder>/shots/cover.webp (phong bì), open.webp (hero), sec-1.webp
+```
+- Script tự mở phong bì, ẩn bong bóng lời chúc, đóng băng đồng hồ (countdown có số), tối đa 3 ảnh.
+- **Xem ảnh** `open.webp` bằng Read: phải là màn hero sạch, không cắt chữ, không overlay. Nếu phong bì không mở được → sửa selector nút mở trong thiệp (script thử `#openBtn`, `.envelope`, text "Mở thiệp"…).
+- Áp vào data.js (ảnh đại diện = **hero/open**):
+```bash
+echo '{"<id>":{"main":"open","order":["open","sec-1","cover"]}}' > /tmp/sel.json && node scripts/apply-shots.js /tmp/sel.json
+```
+
+### 4D. Build file sinh tự động
+```bash
+npm run build:seo        # sitemap.xml + products.md (+ FAQ nếu có đổi faq.json)
+```
+
+### 4E. Checklist trước khi báo cáo
+- [ ] `node --check assets/js/data.js` OK
+- [ ] Entry có đủ `style`/`event`, tên không chứa tên riêng khách
+- [ ] `mobileView` trỏ `shots/open.webp` tồn tại, `images.length ≤ 3`
+- [ ] Không trùng template (4A) hoặc đã gắn `templateOf`
+- [ ] `isPublic:false`
+
+### Báo cáo PRO:
 
 ```
 ✅ Đã tạo thiệp cưới PRO:
@@ -318,17 +376,20 @@ Chạy ĐÚNG quy trình `/gen-wedding`:
 | Mục | Chi tiết |
 |-----|---------|
 | ID | #XXX |
-| Tên | Thiệp Cưới - A & B |
+| Tên | Thiệp Cưới <Phong cách> |
+| Phân loại | category / style / event |
+| Template | mới  ·  hoặc: clone của #YYY (đã gắn templateOf + variants) |
 | Design Source | [ảnh tham khảo / URL / mô tả] |
 | Palette | #hex1, #hex2, #hex3, #hex4 |
 | Fonts | Script + Heading + Body |
 | Animation | CSS / CSS + Anime.js |
 | Effects | Hoa rơi / Sparkles / Hearts |
 | Quality Score | XX% (đạt) |
-| Demo | [link] |
+| Ảnh | shots/open.webp (hero) + cover + sec-1 |
+| Demo | product-detail.html?id=XXX |
 
 🎨 Design spec đã extract và áp dụng
-📸 Chưa chụp screenshot chính thức — bạn kiểm tra trước nhé!
+🔒 isPublic: false — duyệt xong đổi true, chạy `npm run build:seo`
 ```
 
 ---
