@@ -700,7 +700,20 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/gen_180_modern-blue-romantic/mobile.webp',
         path: './products/Invitation/Wedding/gen_180_modern-blue-romantic/',
         demoUrl: './products/Invitation/Wedding/gen_180_modern-blue-romantic/code.html',
-        variants: [],
+        variants: [
+            {
+                id: 180,
+                thumbnail: './products/Invitation/Wedding/gen_180_modern-blue-romantic/mobile.webp',
+                demoUrl: './products/Invitation/Wedding/gen_180_modern-blue-romantic/code.html',
+                label: 'Blue Romantic',
+            },
+            {
+                id: 181,
+                thumbnail: './products/Invitation/Wedding/gen_181_modern-blue-romantic/mobile.webp',
+                demoUrl: './products/Invitation/Wedding/gen_181_modern-blue-romantic/code.html',
+                label: 'Cinelove Blue',
+            },
+        ],
         features: [
             'Countdown, nhạc nền, gallery ảnh, hiệu ứng hoa rơi',
             'RSVP xác nhận, lời chúc realtime, Google Maps chỉ đường',
@@ -748,6 +761,7 @@ const PRODUCTS = [
         downloads: 3,
         rating: 4.8,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-03-16',
     },
     {
@@ -825,7 +839,7 @@ const PRODUCTS = [
     },
     {
         id: 184,
-        name: 'Thiệp Cưới Modern Romantic',
+        name: 'Thiệp Cưới Modern Romantic (3 màu)',
         slug: 'thiep-cuoi-modern-romantic',
         description: 'Thiệp cưới phong cách modern romantic — trắng hồng, storytelling dọc, love story timeline, hearts floating. Clone style Cinelove #2.',
         category: 'wedding',
@@ -845,7 +859,26 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/gen_184_modern-romantic-wedding/mobile.webp',
         path: './products/Invitation/Wedding/gen_184_modern-romantic-wedding/',
         demoUrl: './products/Invitation/Wedding/gen_184_modern-romantic-wedding/code.html',
-        variants: [],
+        variants: [
+            {
+                id: 184,
+                thumbnail: './products/Invitation/Wedding/gen_184_modern-romantic-wedding/mobile.webp',
+                demoUrl: './products/Invitation/Wedding/gen_184_modern-romantic-wedding/code.html',
+                label: 'Hồng',
+            },
+            {
+                id: 193,
+                thumbnail: './products/Invitation/Wedding/gen_193_modern-romantic-red/mobile.webp',
+                demoUrl: './products/Invitation/Wedding/gen_193_modern-romantic-red/code.html',
+                label: 'Đỏ',
+            },
+            {
+                id: 194,
+                thumbnail: './products/Invitation/Wedding/gen_194_modern-romantic-white/mobile.webp',
+                demoUrl: './products/Invitation/Wedding/gen_194_modern-romantic-white/code.html',
+                label: 'Trắng & Burgundy',
+            },
+        ],
         features: [
             'Countdown, nhạc nền, gallery ảnh, hiệu ứng hoa rơi',
             'RSVP xác nhận, lời chúc realtime, Google Maps chỉ đường',
@@ -953,7 +986,20 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/gen_clone_chibi-red/mobile.webp',
         path: './products/Invitation/Wedding/gen_clone_chibi-red/',
         demoUrl: './products/Invitation/Wedding/gen_clone_chibi-red/code.html',
-        variants: [],
+        variants: [
+            {
+                id: 187,
+                thumbnail: './products/Invitation/Wedding/gen_clone_chibi-red/mobile.webp',
+                demoUrl: './products/Invitation/Wedding/gen_clone_chibi-red/code.html',
+                label: 'Chibi Đỏ',
+            },
+            {
+                id: 199,
+                thumbnail: './products/Invitation/Wedding/chibi demo/mobile.webp',
+                demoUrl: './products/Invitation/Wedding/chibi demo/code.html',
+                label: 'Chibi Demo',
+            },
+        ],
         features: [
             'Countdown, nhạc nền, gallery ảnh, hiệu ứng hoa rơi',
             'RSVP xác nhận, lời chúc realtime, Google Maps chỉ đường',
@@ -3640,8 +3686,8 @@ const PRODUCTS = [
     },
     {
         id: 157,
-        name: 'Gửi Anh — Lời Yêu Thương Ngày 14/3 | Phương Thuỳ',
-        slug: 'gui-anh-loi-yeu-thuong-ngay-14-3-phuong-thuy',
+        name: 'Thiệp Tỏ Tình "Gửi Anh" — Thư Tình Ngày 14/3',
+        slug: 'thiep-to-tinh-gui-anh-thu-tinh-14-3',
         description: 'Trang tâm sự ngày White Day 14/3 — Phương Thuỳ gửi lời yêu thương và cảm ơn đến Anh, ấm cúng và chân thành.',
         category: 'other',
         type: 'invitation',
@@ -3660,7 +3706,38 @@ const PRODUCTS = [
         mobileView: 'products/Invitation/Other/gen_157_white-day-love-letter-thuy/mobile.webp',
         path: './products/Invitation/Other/gen_157_white-day-love-letter-thuy/',
         demoUrl: './products/Invitation/Other/gen_157_white-day-love-letter-thuy/code.html',
-        variants: [],
+        variants: [
+            {
+                id: 157,
+                thumbnail: 'products/Invitation/Other/gen_157_white-day-love-letter-thuy/mobile.webp',
+                demoUrl: './products/Invitation/Other/gen_157_white-day-love-letter-thuy/code.html',
+                label: 'Gửi Anh — Thư tình',
+            },
+            {
+                id: 165,
+                thumbnail: 'products/Invitation/Other/gen_165_white-day-quynh-quynh/mobile.webp',
+                demoUrl: './products/Invitation/Other/gen_165_white-day-quynh-quynh/code.html',
+                label: 'Gửi Anh v2',
+            },
+            {
+                id: 166,
+                thumbnail: 'products/Invitation/Other/gen_166_white-day-minh-huyen/mobile.webp',
+                demoUrl: './products/Invitation/Other/gen_166_white-day-minh-huyen/code.html',
+                label: 'Gửi Anh v3',
+            },
+            {
+                id: 167,
+                thumbnail: 'products/Invitation/Other/gen_167_white-day-ha-thu/mobile.webp',
+                demoUrl: './products/Invitation/Other/gen_167_white-day-ha-thu/code.html',
+                label: 'Gửi Anh v4',
+            },
+            {
+                id: 169,
+                thumbnail: 'products/Invitation/Other/gen_169_white-day-do-trang/mobile.webp',
+                demoUrl: './products/Invitation/Other/gen_169_white-day-do-trang/code.html',
+                label: 'Gửi Anh v5',
+            },
+        ],
         features: [
             'Thiết kế ấm cúng tông nâu warm + rose nhẹ nhàng',
             'Lá thư tay + timeline kỷ niệm + gallery ảnh đẹp',
@@ -3676,8 +3753,8 @@ const PRODUCTS = [
     },
     {
         id: 158,
-        name: 'Gửi Em — Vũ Đức Mạnh',
-        slug: 'gui-em-vu-duc-manh',
+        name: 'Thiệp Tỏ Tình "Gửi Em" — Thư Tình Ngày 14/3',
+        slug: 'thiep-to-tinh-gui-em-thu-tinh-14-3',
         description: 'Lời yêu thương và cảm ơn từ Vũ Đức Mạnh gửi đến Em nhân ngày White Day 14/3 — ấm cúng, lãng mạn với nhạc nền.',
         category: 'other',
         type: 'invitation',
@@ -3696,7 +3773,20 @@ const PRODUCTS = [
         mobileView: 'products/Invitation/Other/gen_158_white-day-love-manh/mobile.webp',
         path: './products/Invitation/Other/gen_158_white-day-love-manh/',
         demoUrl: './products/Invitation/Other/gen_158_white-day-love-manh/code.html',
-        variants: [],
+        variants: [
+            {
+                id: 158,
+                thumbnail: 'products/Invitation/Other/gen_158_white-day-love-manh/mobile.webp',
+                demoUrl: './products/Invitation/Other/gen_158_white-day-love-manh/code.html',
+                label: 'Gửi Em — Thư tình',
+            },
+            {
+                id: 170,
+                thumbnail: 'products/Invitation/Other/gen_170_white-day-the-duc/mobile.webp',
+                demoUrl: './products/Invitation/Other/gen_170_white-day-the-duc/code.html',
+                label: 'Gửi Em v2',
+            },
+        ],
         features: [
             'Thiết kế ấm cúng tông rose + gold, cánh hoa rơi lãng mạn',
             'Lá thư tay + lý do yêu em + lời hứa trọn đời',
@@ -3748,8 +3838,8 @@ const PRODUCTS = [
     },
     {
         id: 160,
-        name: 'Nhật Ký Tình Yêu',
-        slug: 'nhat-ky-tinh-yeu',
+        name: 'Thiệp Tỏ Tình — Nhật Ký Tình Yêu',
+        slug: 'thiep-to-tinh-nhat-ky-tinh-yeu',
         description: 'Landing page 14/3 phong cách nhật ký/scrapbook, ảnh polaroid với băng keo, chữ viết tay Dancing Script, tông kem - hồng ấm áp',
         category: 'other',
         type: 'invitation',
@@ -3768,7 +3858,20 @@ const PRODUCTS = [
         mobileView: 'products/Invitation/Other/gen_160_white-day-love-diary/mobile.webp',
         path: './products/Invitation/Other/gen_160_white-day-love-diary/',
         demoUrl: './products/Invitation/Other/gen_160_white-day-love-diary/code.html',
-        variants: [],
+        variants: [
+            {
+                id: 160,
+                thumbnail: 'products/Invitation/Other/gen_160_white-day-love-diary/mobile.webp',
+                demoUrl: './products/Invitation/Other/gen_160_white-day-love-diary/code.html',
+                label: 'Nhật ký tình yêu',
+            },
+            {
+                id: 168,
+                thumbnail: 'products/Invitation/Other/gen_168_white-day-thanh-phuong/mobile.webp',
+                demoUrl: './products/Invitation/Other/gen_168_white-day-thanh-phuong/code.html',
+                label: 'Nhật ký gửi anh',
+            },
+        ],
         features: [
             'Phong cách nhật ký viết tay, ảnh polaroid có băng keo',
             'Nhạc nền lãng mạn, hiệu ứng wiggle và tape-appear',
@@ -3961,6 +4064,7 @@ const PRODUCTS = [
         downloads: 4,
         rating: 4.8,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-03-12',
     },
     {
@@ -3997,6 +4101,7 @@ const PRODUCTS = [
         downloads: 7,
         rating: 4.9,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-03-12',
     },
     {
@@ -4033,6 +4138,7 @@ const PRODUCTS = [
         downloads: 5,
         rating: 4.8,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-03-12',
     },
     {
@@ -4069,6 +4175,7 @@ const PRODUCTS = [
         downloads: 3,
         rating: 4.9,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-03-12',
     },
     {
@@ -4105,6 +4212,7 @@ const PRODUCTS = [
         downloads: 6,
         rating: 4.8,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-03-12',
     },
     {
@@ -4141,6 +4249,7 @@ const PRODUCTS = [
         downloads: 8,
         rating: 4.9,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-03-12',
     },
     {
