@@ -156,6 +156,15 @@ Xem trực quan cả bộ: mở `thu-vien-hieu-ung.html`.
 
 Đọc `assets/js/data.js` → tìm `id:` lớn nhất → ID mới = max + 1.
 
+### Bước 3b: Dòng thương hiệu cuối thiệp (BẮT BUỘC)
+
+Section cuối (Closing / Cảm ơn) **luôn** có link `templexa.vn` — ghi hẳn đường dẫn, không ghi "Templexa" suông:
+
+```html
+<a class="closing-brand" href="https://templexa.vn" target="_blank" rel="noopener">Thiệp cưới online · <b>templexa.vn</b></a>
+```
+Biến thể: `Made with love · templexa.vn` · `Thiết kế bởi templexa.vn`. Chữ nhỏ, chữ hoa giãn cách, màu phụ, opacity ~0.7. Chi tiết: `/gen-wedding-pro` mục 4D-bis.
+
 ### Bước 4: Chọn nhạc nền (BẮT BUỘC)
 
 **Thiệp cưới LUÔN có nhạc nền.**

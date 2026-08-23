@@ -361,12 +361,27 @@ echo '{"<id>":{"main":"open","order":["open","sec-1","cover"]}}' > /tmp/sel.json
 npm run build:seo        # sitemap.xml + products.md (+ FAQ nếu có đổi faq.json)
 ```
 
+### 4D-bis. Dòng thương hiệu cuối thiệp (BẮT BUỘC)
+
+Mọi thiệp gen ra phải có dòng chữ ký ở **section Closing** (cuối cùng), ghi **đường dẫn `templexa.vn`** chứ không chỉ chữ "Templexa":
+
+```html
+<a class="closing-brand" href="https://templexa.vn" target="_blank" rel="noopener">
+  Thiệp cưới online · <b>templexa.vn</b>
+</a>
+```
+- Các biến thể chấp nhận: `Made with love · templexa.vn` · `Thiết kế bởi templexa.vn` · `Thiệp cưới online · templexa.vn`
+- Chữ nhỏ (0.62–0.7rem), chữ hoa giãn cách, màu chữ phụ, opacity ~0.7 — đủ thấy nhưng không lấn thiệp; `templexa.vn` in đậm nhẹ
+- Là link `https://templexa.vn` (target _blank) — khách mở thiệp có thể bấm sang
+- Không viết "Templexa", "Templexa Studio" suông; không dùng logo ảnh
+
 ### 4E. Checklist trước khi báo cáo
 - [ ] `node --check assets/js/data.js` OK
 - [ ] Entry có đủ `style`/`event`, tên không chứa tên riêng khách
 - [ ] `mobileView` trỏ `shots/open.webp` tồn tại, `images.length ≤ 3`
 - [ ] Không trùng template (4A) hoặc đã gắn `templateOf`
 - [ ] `isPublic:false`
+- [ ] Closing có dòng `templexa.vn` (link) — xem 4D-bis
 
 ### Báo cáo PRO:
 
