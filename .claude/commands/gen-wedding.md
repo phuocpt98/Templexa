@@ -183,40 +183,43 @@ Chèn trước `];` đóng mảng PRODUCTS:
 ```javascript
     {
         id: <auto_increment>,
-        isPublic: false,
         name: 'Thiệp Cưới - <Tên Chú Rể> & <Tên Cô Dâu>',
         slug: 'thiep-cuoi-<slug>',
         description: 'Thiệp mời đám cưới <phong cách>...',
-        category: 'invitation',
-        type: 'website',
-        tags: ['website', 'invitation', 'wedding', '<đơn|đôi>', '<phong cách>'],
+        category: 'wedding',            // 'wedding' | 'other' (dạm ngõ/ăn hỏi vẫn 'wedding', phân biệt bằng event)
+        type: 'invitation',
+        style: '<traditional|modern|minimalist|luxury|floral|vintage>',
+        event: '<wedding|dam-ngo|an-hoi|...>',
+        tags: ['wedding', '<đơn|đôi>', '<phong cách>'],
         price: '',
-        images: ['./<folder>/screen.webp', './<folder>/anh_1.webp'],
-        thumbnail: './<folder>/screen.webp',
+        images: ['./<folder>/screen_1.webp', './<folder>/screen_2.webp'],
+        thumbnail: './<folder>/screen_1.webp',
+        mobileView: '',                 // gán sau khi chạy shoot:mobile (bên dưới)
         path: './<folder>/',
         demoUrl: './<folder>/code.html',
+        variants: [],                   // chỉ điền nếu mẫu có nhiều phiên bản (xem fact 5 — mỗi phiên bản là 1 entry riêng, variants:false)
         features: ['Đếm ngược ngày cưới realtime', 'Nhạc nền lãng mạn', 'Hiệu ứng hoa rơi / sparkles'],
-        status: 'new',
+        status: '',                     // KHÔNG dùng 'new' — badge NEW tự tính từ updatedAt (isNewProduct)
+        featured: false,
         priority: 0,
         downloads: <random 1-10>,
         rating: <random 4.7-4.9>,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '<YYYY-MM-DD>',
     },
 ```
 
-Cũng cập nhật `assets/data/invitation.json`:
-```json
-"<id>": {
-    "images": ["./<folder>/screen.webp", "./<folder>/anh_1.webp"],
-    "mobileView": "./<folder>/mobile.webp",
-    "path": "./<folder>/",
-    "features": ["...", "...", "..."]
-}
+Sau khi entry đã có trong `data.js`, chụp ảnh mobile + chọn `mobileView` (KHÔNG còn `assets/data/invitation.json` — đã xoá, mọi dữ liệu thiệp nằm inline trong `data.js`):
+
+```bash
+npm run shoot:mobile -- --ids <id>
 ```
 
-- `mobileView` là field riêng, KHÔNG nằm trong `images[]`
-- **Priority** luôn `0` khi gen mới. **Tags** luôn bao gồm `'wedding'`, `'invitation'`.
+Script xuất `<folder>/shots/{cover,open,sec-N,full}.webp` + `manifest.json` (KHÔNG tự sửa `data.js`). Chọn ảnh đẹp nhất (thường `cover.webp` hoặc `open.webp`) → gán vào `mobileView`, thêm các shot dọc phù hợp vào `images[]`, rồi chạy `npm run build:sitemap`.
+
+- **Priority** luôn `0` khi gen mới (chỉ là bucket, không phải thứ tự hiển thị chi tiết — `100` chỉ dành cho mẫu legacy cũ). **Tags** luôn bao gồm `'wedding'`.
+- Sửa `data.js` bằng tay dễ lệch định dạng — có thể dùng `scripts/lib/products-io.js` (`load()`/`save()`) khi sửa bằng script.
 
 ### Bước 8: Cập nhật `products/products.md`
 

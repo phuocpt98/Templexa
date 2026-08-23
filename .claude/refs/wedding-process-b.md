@@ -91,30 +91,35 @@ Thêm entry mới (KHÔNG thay thế mẫu gốc):
 ```javascript
     {
         id: <auto_increment>,
-        isPublic: false,
         name: 'Thiệp Cưới - <Tên Chú Rể> & <Tên Cô Dâu>',
         slug: 'thiep-cuoi-<slug>',
         description: 'Thiệp mời đám cưới của <tên>...',
-        category: 'invitation',
-        type: 'website',
-        tags: ['website', 'invitation', 'wedding', 'custom', '<phong-cách>'],
+        category: 'wedding',            // 'wedding' | 'other'
+        type: 'invitation',
+        style: '<traditional|modern|minimalist|luxury|floral|vintage>',
+        event: '<wedding|dam-ngo|an-hoi|...>',
+        tags: ['wedding', 'custom', '<phong-cách>'],
         // tag 'custom' để phân biệt với mẫu gốc
         price: '',
-        images: ['./<folder-khách>/screen.webp', ...],
-        thumbnail: './<folder-khách>/screen.webp',
+        images: ['./<folder-khách>/screen_1.webp', ...],
+        thumbnail: './<folder-khách>/screen_1.webp',
+        mobileView: '',                 // gán sau khi chạy shoot:mobile
         path: './<folder-khách>/',
         demoUrl: './<folder-khách>/code.html',
+        variants: [],
         features: [...],   // copy từ mẫu gốc
-        status: 'new',
+        status: '',                     // KHÔNG dùng 'new' — badge NEW tự tính từ updatedAt
+        featured: false,
         priority: 0,
         downloads: <random 1-10>,
         rating: <random 4.7-4.9>,
         showInSlider: false,
+        isPublic: false,
         updatedAt: '<YYYY-MM-DD>',
     },
 ```
 
-Cũng cập nhật `assets/data/invitation.json` — thêm entry với `mobileView` (giống Bước 7).
+Sau khi entry đã có trong `data.js`, chạy `npm run shoot:mobile -- --ids <id>` → chọn ảnh đẹp nhất gán vào `mobileView` (giống Bước 7). KHÔNG còn `assets/data/invitation.json` — mọi dữ liệu thiệp nằm inline trong `data.js`.
 
 ### Bước B6: Báo cáo
 

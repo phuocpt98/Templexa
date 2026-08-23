@@ -1,7 +1,7 @@
 # Templexa — System Overview
 
 > File dành cho AI đọc khi bắt đầu conversation mới.
-> Cập nhật lần cuối: 2026-07-02
+> Cập nhật lần cuối: 2026-08-23
 
 ---
 
@@ -12,19 +12,27 @@
 - Repo: `git@github.com:phuocpt98/Templexa.git`
 - Ngôn ngữ giao diện: **Tiếng Việt**
 - Tech: **Vanilla HTML/CSS/JS** — không framework, không bundler
-- Sản phẩm: **233 mẫu** trong `data.js` (Invitation 113 + Website 115 + Google-sheet 5)
+- Sản phẩm: **249 entries** trong `data.js`, **222 public** (`isPublic !== false`) — Invitation 129 (public 102: wedding 58, other 44) + Website 115 + Google-sheet 5
 - Khách hàng mục tiêu: Cặp đôi/cá nhân cần thiệp cưới, sinh nhật, sự kiện online nhanh — phụ: doanh nghiệp nhỏ cần website
 
 ---
 
 ## Redesign 2026-07 (nhánh `redesign-thiep-online`)
 
-- Design system đổi từ indigo/purple sang **"Wedding Elegant"** (gold `#A67C2E` / terracotta `#C0654B`), font Playfair Display + Be Vietnam Pro — xem chi tiết trong `CLAUDE.md`.
 - Trang chủ (`index.html`) rebuild invitation-first: hero phone-frame mockup, slider thiệp, categories, 8 feature card, pricing từ `INVITATION_PRICING`, quy trình 4 bước, dải web demoted cuối trang.
 - `thiep-online.html` (mới) — catalog thiệp flagship, dùng chung `products.js`/`data.js` với `products.html` nhưng force `type=invitation`.
 - `products.html` đổi thành "Mẫu Web & Google Sheet" — loại trừ hoàn toàn `type=invitation`; `?type=invitation` và `?category=wedding|other` redirect sang `thiep-online.html`.
 - `product-detail.html` branch UI theo `product.type`: gallery phone-frame + CTA "Đặt thiệp này"/"Xem báo giá" cho invitation, giữ layout cũ cho website/google-sheet.
 - `contact.html` trở thành trang Dịch vụ & Báo giá duy nhất — 2 khối: `#pricing-section` (`INVITATION_PRICING`, flagship) + `#web-design` (`PRICING` web cũ, phụ). `bang-gia-thiep-cuoi.html` chỉ còn là stub redirect (noindex) sang `contact.html#pricing-section`.
+- Design system trong giai đoạn này từng đổi sang "Wedding Elegant" (gold/terracotta, Playfair Display + Be Vietnam Pro) — **đã bị revert lại Indigo/Purple + Inter** (xem mục 5 bên dưới), giữ nguyên phần layout/kiến trúc invitation-first ở trên.
+
+## Cập nhật 2026-08 — SEO/AEO + catalog thiệp phong phú hoá
+
+- `assets/data/invitation.json` bị xoá — mọi dữ liệu thiệp (ảnh, path, features, `mobileView`, `variants`) nay nằm inline trong `assets/js/data.js`; `data-loader.js` trả thẳng product cho `type: 'invitation'`.
+- Thêm field cho invitation: `style` (traditional/modern/minimalist/luxury/floral/vintage), `event` (wedding/dam-ngo/an-hoi/birthday/thoi-noi/anniversary/reunion/gio-to/confession/graduation/holiday/other), `featured`, `variants` (nhiều phiên bản 1 mẫu), `mobileView` (screenshot dọc 9:16).
+- `thiep-online.html` có hàng chip lọc phụ theo `style`/`event` tuỳ category.
+- Trang FAQ/AEO mới `cau-hoi-thuong-gap.html` (sinh từ `scripts/build-faq.js` + `assets/data/faq.json`, 35 câu/7 nhóm) + nhúng FAQ rút gọn vào `thiep-online.html`/`index.html`. Thêm `llms.txt`/`llms-full.txt`, mở `robots.txt` cho bot AI, `sitemap.xml` tự sinh (234 URL).
+- `scripts/shoot-mobile.js` (Puppeteer + sharp) chụp ảnh mobile cho `mobileView`/`images[]`.
 
 ---
 
@@ -32,31 +40,35 @@
 
 ```
 Templexa/
-├── index.html                  # Trang chủ
-├── products.html               # Danh sách thiết kế (grid + filter + search)
-├── product-detail.html         # Chi tiết 1 sản phẩm (gallery + sidebar + modal)
-├── contact.html                # Dịch vụ & bảng giá (pricing cards + form)
+├── index.html                  # Trang chủ (invitation-first)
+├── thiep-online.html           # Catalog thiệp — flagship, dùng chung products.js (force type=invitation)
+├── products.html               # Kho mẫu Web & Google Sheet (KHÔNG còn thiệp mời)
+├── product-detail.html         # Chi tiết 1 sản phẩm (branch UI theo type: invitation | website | google-sheet)
+├── contact.html                # Dịch vụ & bảng giá (2 khối: #pricing-section thiệp + #web-design web)
 ├── products-admin.html         # Admin: hiện tất cả SP kể cả ẩn
+├── cau-hoi-thuong-gap.html     # FAQ/AEO — sinh tự động từ scripts/build-faq.js
 ├── thu-vien-hieu-ung.html      # Thư viện assets thiệp cưới (dark theme, accordion)
-├── bang-gia-thiep-cuoi.html    # Bảng giá thiệp cưới riêng
+├── bang-gia-thiep-cuoi.html    # Stub redirect (noindex) → contact.html#pricing-section
 ├── preview.html                # Preview template
+├── llms.txt / llms-full.txt    # Cho AI crawler (cập nhật tay khi faq.json đổi)
+├── robots.txt / sitemap.xml    # sitemap.xml tự sinh bởi scripts/build-sitemap.js (234 URL)
 │
 ├── assets/
-│   ├── css/style.css           # Stylesheet chính (~3660 dòng)
+│   ├── css/style.css           # Stylesheet chính (~4960 dòng)
 │   ├── js/
-│   │   ├── data.js             # ★ Data chính: PRODUCTS[], CATEGORIES, PRICING, helpers (4294 dòng)
+│   │   ├── data.js             # ★ Data chính: PRODUCTS[] (249 entries), PRICING, INVITATION_PRICING, helpers (~7290 dòng)
 │   │   ├── main.js             # Dark mode, hamburger menu, scroll animations
 │   │   ├── products.js         # Grid render, search debounce, filter, pagination
 │   │   ├── product-detail.js   # Gallery, sidebar, modal nhận mẫu, related products
 │   │   ├── contact.js          # Pricing cards, form validation + submit
-│   │   ├── data-loader.js      # Lazy load detail JSON theo category
+│   │   ├── data-loader.js      # Lazy load JSON theo category (invitation trả thẳng từ data.js, không fetch)
 │   │   └── products-admin.js   # Override: show all + sort by newest
-│   ├── data/                   # Detail data (tách ra để lazy load)
+│   ├── data/                   # Detail data (tách ra để lazy load — invitation.json ĐÃ XOÁ)
 │   │   ├── e-commerce.json
 │   │   ├── education.json
-│   │   ├── invitation.json     # 72KB — nhiều nhất
 │   │   ├── onepage.json
-│   │   └── portfolio.json
+│   │   ├── portfolio.json
+│   │   └── faq.json            # 35 câu hỏi, 7 nhóm — nguồn cho cau-hoi-thuong-gap.html
 │   └── images/                 # Logo, icons, hero bg, OG image
 │
 ├── products/                   # ★ Folder chứa tất cả sản phẩm mẫu
@@ -67,12 +79,9 @@ Templexa/
 │   │   └── Portfolio/          # category: portfolio
 │   ├── Invitation/             # type: invitation
 │   │   ├── Wedding/            # category: wedding
-│   │   ├── Other/              # category: other (birthday, anniversary, holiday...)
-│   │   └── Google-sheet/       # Thiệp Google Sheet
+│   │   └── Other/              # category: other (birthday, anniversary, holiday...)
 │   ├── Google-sheet/           # type: google-sheet
-│   │   ├── E-commerce/
-│   │   ├── Education/
-│   │   └── Portfolio/
+│   │   └── E-commerce/
 │   └── shared/                 # ★ Assets dùng chung cho thiệp cưới
 │       ├── wedding-data.js     # Single source of truth (855 dòng)
 │       ├── animations.css      # Thư viện animation cho thiệp
@@ -88,6 +97,7 @@ Templexa/
 │       ├── music/              # Nhạc nền thiệp (11 bài)
 │       └── new/                # Ảnh mới chờ catalog
 │
+├── scripts/                    # build-faq.js, build-sitemap.js, shoot-mobile.js, lib/products-io.js, ...
 ├── docs/                       # Tài liệu
 ├── .claude/                    # Claude Code config
 │   ├── settings.local.json     # Permissions
@@ -104,7 +114,7 @@ Templexa/
 
 ### 3.1 PRODUCTS (data.js)
 
-Mảng `PRODUCTS[]` chứa 233 object (`isPublic !== false`), mỗi product có:
+Mảng `PRODUCTS[]` chứa **249 entries** (222 `isPublic !== false`), mỗi product có (thứ tự key chuẩn xem `scripts/lib/products-io.js`):
 
 ```javascript
 {
@@ -114,25 +124,34 @@ Mảng `PRODUCTS[]` chứa 233 object (`isPublic !== false`), mỗi product có:
     description: 'Mô tả...',
     category: 'e-commerce',     // onepage | e-commerce | education | portfolio | wedding | other
     type: 'website',            // website | google-sheet | invitation
+    style: '',                  // (invitation) traditional | modern | minimalist | luxury | floral | vintage | ''
+    event: '',                  // (invitation) wedding | dam-ngo | an-hoi | birthday | thoi-noi | anniversary | reunion | gio-to | confession | graduation | holiday | other
     tags: ['tag1', 'tag2'],
     price: 'free',              // 'free' hoặc giá
     images: ['./products/.../screen.png', ...],  // screen.png luôn đầu
     thumbnail: './products/.../screen.png',
+    mobileView: '',             // (invitation) screenshot dọc 9:16
+    path: './products/.../',
     demoUrl: './products/.../index.html',
+    variants: [],                // [{ id, label, demoUrl, thumbnail }] — các phiên bản khác của cùng mẫu
     features: ['Feature 1', 'Feature 2', 'Feature 3'],
-    status: 'new',              // new | hot | featured | ''
-    priority: 0,                // Nhỏ = hiển thị trước
-    downloads: 3,               // 1-10 (display)
-    rating: 4.9,                // 4.7-4.9 (display)
-    showInSlider: true,         // Hiện trên slider trang chủ
-    isPublic: true,             // false = ẩn khỏi danh sách (chỉ hiện ở admin)
+    status: '',                  // '' | bestseller | trending | hot — KHÔNG còn 'new' (dùng isNewProduct())
+    featured: false,             // true = pin lên đầu danh sách
+    priority: 0,                 // bucket: 0 bình thường, 100 = legacy đẩy cuối
+    downloads: 3,                // 1-10 (display)
+    rating: 4.9,                 // 4.7-4.9 (display)
+    showInSlider: true,          // legacy, không còn dùng trong getSliderProducts()
+    isPublic: true,              // false = ẩn khỏi danh sách (chỉ hiện ở admin)
     updatedAt: '2026-03-24',
 }
 ```
 
-### 3.2 PRICING (data.js)
+`assets/data/invitation.json` đã bị xoá — dữ liệu invitation nằm inline ở trên; `data-loader.js` trả thẳng product cho `type: 'invitation'` (không fetch). Các category còn lại vẫn lazy-load qua `assets/data/{category}.json`.
 
-4 gói dịch vụ, render trên `contact.html`:
+### 3.2 PRICING & INVITATION_PRICING (data.js)
+
+- **`INVITATION_PRICING`** — bảng giá **chính** (flagship), render vào `#pricingGrid` (`contact.html`) và `#homePricingGrid` (`index.html`): 3 gói `thiep-basic` (150.000đ), `thiep-pro` tên hiển thị "Premium" (199.000đ, `highlighted: true`, badge "PHỔ BIẾN NHẤT"), `thiep-custom` (Liên hệ).
+- **`PRICING`** — bảng giá **phụ** cho web, chỉ còn render ở `#webPricingGrid` (`contact.html` section `#web-design`):
 
 | Gói | Giá | Gốc | Giảm | Highlighted |
 |-----|-----|-----|------|-------------|
@@ -276,7 +295,7 @@ submitToGoogleSheet(formData)
 
 ### 5.5 Font & Components
 
-- Font: **Inter** (body) + **Averia Serif Libre** (logo)
+- Font: **Inter** cho cả display lẫn body (400–800) — không còn font riêng cho logo, logo là ảnh (`assets/images/logo_v2.svg`)
 - Cards: `border-radius: 12-24px`, shadow `0 4px 15px rgba(0,0,0,0.05)`
 - Buttons: `border-radius: 30-34px` pill, gradient `#6366F1 → #8B5CF6`
 
@@ -329,14 +348,21 @@ Mỗi thiệp cưới là 1 folder trong `products/Invitation/Wedding/` hoặc `
 
 | Trang | Param | Tác dụng |
 |-------|-------|----------|
-| products.html | `?category=onepage` | Filter theo danh mục |
-| products.html | `?type=website` | Filter theo loại |
-| products.html | `?type=invitation` | Filter thiệp mời |
-| products.html | `?search=keyword` | Tìm kiếm |
-| contact.html | `?service=pro` | Auto-select gói dịch vụ |
-| contact.html | `#pricing-section` | Scroll tới pricing |
+| products.html | `?category=onepage\|e-commerce\|portfolio\|education` | Filter danh mục (KHÔNG có wedding/other) |
+| products.html | `?type=website\|google-sheet` | Filter loại (KHÔNG có invitation) |
+| products.html | `?type=invitation` hoặc `?category=wedding\|other` | **Redirect** → `thiep-online.html` |
+| thiep-online.html | `?category=wedding\|other` | Filter danh mục thiệp (type luôn = invitation) |
+| thiep-online.html | `?style=...` | Sub-filter chip khi category=wedding |
+| thiep-online.html | `?event=...` | Sub-filter chip khi category=other |
+| products.html / thiep-online.html | `?search=keyword` | Tìm kiếm |
+| contact.html | `?service=thiep-basic\|thiep-pro\|thiep-custom` | Auto-select gói thiệp (`#pricingGrid`) |
+| contact.html | `?service=basic\|pro\|premium\|custom` | Auto-select gói web (`#webPricingGrid`) |
+| contact.html | `#pricing-section` | Scroll tới pricing thiệp (mặc định) |
+| contact.html | `#web-design` | Scroll tới pricing web |
 | contact.html | `#contactForm` | Scroll tới form |
-| product-detail.html | `?id=123` | Load sản phẩm theo ID |
+| product-detail.html | `?id=123` | Load sản phẩm theo ID, branch UI theo `product.type` |
+
+> Chi tiết đầy đủ (kể cả các redirect legacy) xem bảng "URL Parameters" trong `CLAUDE.md`.
 
 ---
 
@@ -347,6 +373,8 @@ Mỗi thiệp cưới là 1 folder trong `products/Invitation/Wedding/` hoặc `
 - `sharp` ^0.34.5 — Image processing (convert WebP, crop, resize)
 - `puppeteer` ^24.39.0 — Headless browser (screenshot sản phẩm)
 - `qrcode` ^1.5.4 — Gen mã QR
+
+npm scripts: `build:faq` (sinh `cau-hoi-thuong-gap.html` + nhúng FAQ), `build:sitemap` (sinh `sitemap.xml`), `build:seo` (cả hai), `shoot:mobile` (chụp ảnh mobile cho thiệp — `npm run shoot:mobile -- --ids <id> | --missing | --all`).
 
 ### 8.2 Claude Code Skills (/.claude/commands/)
 
@@ -381,7 +409,8 @@ Mỗi thiệp cưới là 1 folder trong `products/Invitation/Wedding/` hoặc `
 
 1. Chạy `/gen-wedding` hoặc `/gen-wedding-pro` với thông tin cô dâu/chú rể
 2. AI chọn assets từ WEDDING_DATA, gen HTML thiệp
-3. Output: folder sản phẩm + entry data.js
+3. Output: folder sản phẩm + entry data.js (đủ field `style`/`event`/`featured`/`variants`/`mobileView`)
+4. Chạy `npm run shoot:mobile -- --ids <id>` → chọn ảnh đẹp nhất gán `mobileView` → `npm run build:sitemap`
 
 ---
 
@@ -394,7 +423,7 @@ Mỗi thiệp cưới là 1 folder trong `products/Invitation/Wedding/` hoặc `
 - Khi thêm CSS hardcode màu → thêm `[data-theme="dark"]` override
 - JS: Vanilla ES6+, IIFE pattern, không thêm thư viện mới
 - Responsive-first: kiểm tra mobile
-- Footer + Header giống nhau 4 trang chính
+- Footer giống nhau trên 7 trang (index, thiep-online, products, product-detail, contact, products-admin, cau-hoi-thuong-gap); Header/Nav giống nhau trên các trang chính
 
 ### wedding-data.js gotchas
 
@@ -402,11 +431,13 @@ Mỗi thiệp cưới là 1 folder trong `products/Invitation/Wedding/` hoặc `
 - `elements` không có issue này: `basePath` = `.../images/`, `file` = `wedding-elements/xxx.webp`
 - File có `module.exports` ở cuối → dùng được cả browser và Node.js
 
-### SEO
+### SEO / AEO
 
-- Mỗi trang có đầy đủ: meta description, OG tags, Twitter Card, JSON-LD
+- Mỗi trang có đầy đủ: meta description, OG tags, Twitter Card, JSON-LD, `robots: index, follow, max-snippet:-1, max-image-preview:large` (admin giữ noindex)
 - `product-detail.js` cập nhật dynamic: title, meta, OG khi load sản phẩm
-- OG image: `assets/images/lgo-v2.png`
+- OG image: `assets/images/og-image.png` (1200×630)
+- FAQ/AEO: `cau-hoi-thuong-gap.html` (sinh từ `scripts/build-faq.js` + `assets/data/faq.json`) + FAQ nhúng vào `thiep-online.html`/`index.html` giữa marker `<!-- FAQ:START/END -->` — sửa `faq.json` rồi `npm run build:faq`, không sửa tay trong marker
+- `llms.txt`/`llms-full.txt` (cập nhật tay), `robots.txt` mở cho bot AI, `sitemap.xml` tự sinh (`npm run build:sitemap`)
 
 ---
 
@@ -423,3 +454,5 @@ Mỗi thiệp cưới là 1 folder trong `products/Invitation/Wedding/` hoặc `
 | Xem design system chi tiết | `CLAUDE.md` |
 | Xem danh sách sản phẩm | `products/products.md` |
 | Xem thư viện hiệu ứng | `thu-vien-hieu-ung.html` |
+| Sửa FAQ/AEO | `assets/data/faq.json` + `npm run build:faq` |
+| Sửa data theo script (an toàn, không lệch format) | `scripts/lib/products-io.js` |
