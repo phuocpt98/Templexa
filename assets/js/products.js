@@ -32,6 +32,7 @@
         categoryFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 currentCategory = btn.dataset.category;
+                currentStyle = 'all'; currentEvent = 'all';
                 currentPage = 1;
                 render();
                 if (filtersWrapper) filtersWrapper.classList.add('category-locked');
@@ -96,7 +97,12 @@
     let currentCategory = urlParams.get('category') || 'all';
     let currentType = urlParams.get('type') || 'all';
     let currentSearch = urlParams.get('search') || '';
+    let currentStyle = urlParams.get('style') || 'all';
+    let currentEvent = urlParams.get('event') || 'all';
     let currentPage = parseInt(urlParams.get('page')) || 1;
+    const subFiltersEl = document.getElementById('subFilters');
+    const subFiltersGroup = document.getElementById('subFiltersGroup');
+    const subFiltersLabel = document.getElementById('subFiltersLabel');
     let perPage = 9;
 
     if (currentSearch && searchInput) {
@@ -123,6 +129,37 @@
         return allowed;
     }
 
+    // ── Chip hàng 2: phong cách (thiệp cưới) / sự kiện (thiệp khác) — chỉ trên thiep-online ──
+    function renderSubFilters() {
+        if (!subFiltersEl || !subFiltersGroup || currentType !== 'invitation') {
+            if (subFiltersGroup) subFiltersGroup.style.display = 'none';
+            return;
+        }
+        const pool = filterProducts({ category: currentCategory, type: 'invitation', search: currentSearch });
+        let key, labels, current;
+        if (currentCategory === 'wedding') { key = 'style'; labels = STYLE_LABELS; current = currentStyle; }
+        else if (currentCategory === 'other') { key = 'event'; labels = EVENT_LABELS; current = currentEvent; }
+        else { subFiltersGroup.style.display = 'none'; return; }
+
+        const counts = {};
+        pool.forEach(p => { if (p[key]) counts[p[key]] = (counts[p[key]] || 0) + 1; });
+        const keys = Object.keys(labels).filter(k => counts[k]);
+        if (keys.length < 2) { subFiltersGroup.style.display = 'none'; return; }
+
+        subFiltersLabel.textContent = key === 'style' ? 'Phong cách' : 'Sự kiện';
+        subFiltersGroup.style.display = '';
+        subFiltersEl.innerHTML = [`<button class="filter-btn${current === 'all' ? ' active' : ''}" data-sub="all">Tất cả</button>`]
+            .concat(keys.map(k => `<button class="filter-btn${current === k ? ' active' : ''}" data-sub="${k}">${labels[k]} <span class="filter-count">${counts[k]}</span></button>`))
+            .join('');
+        subFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (key === 'style') currentStyle = btn.dataset.sub; else currentEvent = btn.dataset.sub;
+                currentPage = 1;
+                render();
+            });
+        });
+    }
+
     function renderFilters() {
         // Category filters — chỉ hiện categories phù hợp với type đang chọn
         const allowedCats = getAllowedCategories(currentType);
@@ -142,11 +179,14 @@
         categoryFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 currentCategory = btn.dataset.category;
+                currentStyle = 'all'; currentEvent = 'all';
                 currentPage = 1;
                 render();
                 if (filtersWrapper) filtersWrapper.classList.add('category-locked');
             });
         });
+
+        renderSubFilters();
 
         // When type filter is hidden, always show category row
         if (typeFilterHidden) {
@@ -201,25 +241,34 @@
                 if (p.isPublic === false) badgeHTML = '<span class="product-badge hot">HIDDEN</span>';
                 else badgeHTML = '<span class="product-badge new">PUBLIC</span>';
             } else {
-                if (p.status === 'new') badgeHTML = '<span class="product-badge new">NEW</span>';
-                else if (p.status === 'hot') badgeHTML = '<span class="product-badge hot">HOT</span>';
-                else if (p.status === 'bestseller') badgeHTML = '<span class="product-badge bestseller">BEST SELLER</span>';
+                if (p.status === 'bestseller') badgeHTML = '<span class="product-badge bestseller">BEST SELLER</span>';
                 else if (p.status === 'trending') badgeHTML = '<span class="product-badge trending">TRENDING</span>';
+                else if (p.status === 'hot') badgeHTML = '<span class="product-badge hot">HOT</span>';
+                else if (typeof isNewProduct === 'function' && isNewProduct(p)) badgeHTML = '<span class="product-badge new">NEW</span>';
             }
-            if (p.price === 'free') badgeHTML += '<span class="product-badge free" style="top:auto;bottom:12px;right:12px;">FREE</span>';
+            if (p.price === 'free' && p.type !== 'invitation') badgeHTML += '<span class="product-badge free" style="top:auto;bottom:12px;right:12px;">FREE</span>';
 
             const showMobile = isInvitation || (p.type === 'invitation' && window.location.pathname.includes('products-admin'));
             const imgSrc = (showMobile && p.mobileView) || p.thumbnail;
+            const variantCount = Array.isArray(p.variants) ? p.variants.length : 0;
+
+            // Sub-label: thiệp cưới → phong cách, thiệp khác → sự kiện, còn lại → danh mục
+            let subLabel = categoryLabel;
+            if (p.type === 'invitation') {
+                if (p.category === 'wedding' && p.style && typeof STYLE_LABELS !== 'undefined') subLabel = 'Thiệp cưới · ' + (STYLE_LABELS[p.style] || p.style);
+                else if (p.event && typeof EVENT_LABELS !== 'undefined') subLabel = EVENT_LABELS[p.event] || categoryLabel;
+            }
+            if (variantCount > 1) subLabel += ` · ${variantCount} phiên bản`;
 
             return `
-                <a href="product-detail.html?id=${p.id}" class="product-card" data-product-id="${p.id}"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
+                <a href="product-detail.html?id=${p.id}" class="product-card${p.type === 'invitation' ? ' product-card-invitation' : ''}" data-product-id="${p.id}"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
                     <div class="product-card-image">
                         <img src="${imgSrc}" alt="${p.name}" loading="lazy">
                         ${badgeHTML}
                     </div>
                     <div class="product-card-info">
                         <h3>${p.name}</h3>
-                        <p>${categoryLabel}</p>
+                        <p>${subLabel}</p>
                     </div>
                 </a>
             `;
@@ -279,6 +328,8 @@
         if (currentCategory !== 'all') params.set('category', currentCategory);
         if (currentType !== 'all') params.set('type', currentType);
         if (currentSearch) params.set('search', currentSearch);
+        if (currentStyle !== 'all') params.set('style', currentStyle);
+        if (currentEvent !== 'all') params.set('event', currentEvent);
         if (currentPage > 1) params.set('page', currentPage);
         // Preserve pid if popup is open
         var existingPid = new URLSearchParams(window.location.search).get('pid');
@@ -441,6 +492,17 @@
         }).join('');
 
         var images = product.images || [product.thumbnail];
+        if (product.type === 'invitation' && product.mobileView) {
+            images = [product.mobileView].concat(images.filter(function (i) { return i !== product.mobileView; }));
+        }
+
+        var variantsHTML = '';
+        if (Array.isArray(product.variants) && product.variants.length > 1) {
+            variantsHTML = '<div class="variant-chips" id="popupVariants"><span class="variant-chips-label">Phiên bản:</span>' +
+                product.variants.map(function (v) {
+                    return '<button type="button" class="variant-chip' + (v.id === product.id ? ' active' : '') + '" data-variant-id="' + v.id + '">' + v.label + '</button>';
+                }).join('') + '</div>';
+        }
 
         var thumbsHTML = images.map(function (img, i) {
             return '<div class="gallery-thumb' + (i === 0 ? ' active' : '') + '" data-index="' + i + '"><img src="' + img + '" alt="Thumb ' + (i + 1) + '"></div>';
@@ -471,6 +533,7 @@
                         '<img src="' + images[0] + '" alt="' + product.name + '" id="popupMainImg">' +
                     '</div>' +
                     (images.length > 1 ? '<div class="gallery-thumbs">' + thumbsHTML + '</div>' : '') +
+                    variantsHTML +
                 '</div>' +
                 '<div class="popup-sidebar">' +
                     (priceLabel ? '<span class="price-badge ' + priceClass + '">' + priceLabel + '</span>' : '') +
@@ -484,6 +547,18 @@
 
         // Init gallery
         initPopupGallery();
+        popupCurrentProduct.images = images;
+
+        // Đổi phiên bản → render lại popup với entry variant (giữ variants của master)
+        popupBody.querySelectorAll('.variant-chip').forEach(function (chip) {
+            chip.addEventListener('click', function () {
+                var vid = Number(chip.dataset.variantId);
+                if (vid === product.id) return;
+                var v = getProductById(vid);
+                if (!v) return;
+                renderPopup(Object.assign({}, v, { variants: product.variants, name: v.name }));
+            });
+        });
 
         // "Dùng ngay" → open modal form
         var btnGetTemplate = popupBody.querySelector('#popupBtnGetTemplate');
@@ -580,6 +655,8 @@
             category: currentCategory,
             type: currentType,
             search: currentSearch,
+            style: currentStyle,
+            event: currentEvent,
         }));
 
         const { items, totalPages } = paginateProducts(filtered, currentPage, perPage);

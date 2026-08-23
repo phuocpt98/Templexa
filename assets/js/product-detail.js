@@ -72,6 +72,11 @@
     let product;
     try {
         product = await ProductDetail.getFullProduct(productId);
+        // Nếu đây là 1 phiên bản (ẩn) của master khác → kế thừa danh sách variants để chip hiển thị đủ
+        if (product && (!product.variants || !product.variants.length)) {
+            const master = PRODUCTS.find(m => Array.isArray(m.variants) && m.variants.some(v => v.id === product.id));
+            if (master) product = Object.assign({}, product, { variants: master.variants });
+        }
     } catch (e) {
         console.error('Failed to load product detail:', e);
         // Fallback: use summary data with empty detail fields
@@ -176,6 +181,13 @@
             Xem demo
         </a>` : '';
 
+    // Variant chips (thiệp có nhiều phiên bản / màu)
+    const variantsHTML = (isInvitation && Array.isArray(product.variants) && product.variants.length > 1) ? `
+        <div class="variant-chips" id="detailVariants">
+            <span class="variant-chips-label">Phiên bản:</span>
+            ${product.variants.map(v => `<a href="product-detail.html?id=${v.id}" class="variant-chip${v.id === product.id ? ' active' : ''}">${v.label}</a>`).join('')}
+        </div>` : '';
+
     // Gallery markup — phone frame for invitation, standard for the rest
     const galleryHTML = isInvitation ? `
         <div class="detail-gallery detail-gallery-invitation">
@@ -187,6 +199,7 @@
                 </div>
             </div>
             ${galleryImages.length > 1 ? `<div class="gallery-thumbs">${thumbsHTML}</div>` : ''}
+            ${variantsHTML}
         </div>` : `
         <div class="detail-gallery">
             <div class="gallery-main">

@@ -29,8 +29,8 @@ const PRODUCTS = [
         description: 'Mẫu thiệp mời — Trang thiệp mời đám cưới hoa cổ điển. Thiết kế hiện đại, chuyên nghiệp, sẵn sàng sử dụng.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'vintage',
+        event: 'wedding',
         tags: ['invitation', 'wedding', 'classic', 'floral', 'invitaion'],
         price: '',
         images: [
@@ -66,8 +66,8 @@ const PRODUCTS = [
         description: 'Mẫu thiệp mời — Trang thiệp mời đám cưới Boho của Sara & David. Thiết kế hiện đại, chuyên nghiệp, sẵn sàng sử dụng.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['invitation', 'wedding', 'boho', 'chic', 'invite'],
         price: '',
         images: [
@@ -103,8 +103,8 @@ const PRODUCTS = [
         description: 'Mẫu thiệp mời — Trang save the date phong cách lan tím sang trọng. Thiết kế hiện đại, chuyên nghiệp, sẵn sàng sử dụng.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['invitation', 'wedding', 'luxury', 'dark', 'orchid', 'invite'],
         price: '',
         images: [
@@ -140,8 +140,8 @@ const PRODUCTS = [
         description: 'Mẫu thiệp mời — Trang thiệp mời cưới tối giản kiểu editorial (A + J). Thiết kế hiện đại, chuyên nghiệp, sẵn sàng sử dụng.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'minimalist',
+        event: 'wedding',
         tags: ['invitation', 'wedding', 'minimalist', 'editorial', 'invation'],
         price: '',
         images: [
@@ -177,8 +177,8 @@ const PRODUCTS = [
         description: 'Mẫu thiệp mời — Trang thiệp mời tiệc sang trọng Mary & Anno. Thiết kế hiện đại, chuyên nghiệp, sẵn sàng sử dụng.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['invitation', 'wedding', 'lxxury', 'dark', 'mode', 'celebration', 'landing', 'page'],
         price: '',
         images: [
@@ -214,8 +214,8 @@ const PRODUCTS = [
         description: 'Mẫu thiệp mời — Trang thiệp mời đám cưới Mary & Anno. Thiết kế hiện đại, chuyên nghiệp, sẵn sàng sử dụng.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['invitation', 'wedding', 'soft', 'romantic', 'floral', 'landing', 'page'],
         price: '',
         images: [
@@ -251,8 +251,8 @@ const PRODUCTS = [
         description: 'Mẫu thiệp mời — Trang thiệp mời đám cưới Marcus & Elena. Thiết kế hiện đại, chuyên nghiệp, sẵn sàng sử dụng.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['invitation', 'wedding', 'elegant'],
         price: '',
         images: [
@@ -288,8 +288,8 @@ const PRODUCTS = [
         description: 'Thiệp mời cưới phong cách cổ điển sang trọng, tông vàng gold và trắng ngà, viền trang trí tinh tế.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'classic', 'elegant', 'gold'],
         price: '',
         images: [
@@ -324,8 +324,8 @@ const PRODUCTS = [
         description: 'Thiệp mời cưới phong cách vườn mộc mạc, tông xanh lá và nâu đất, cảm hứng từ thiên nhiên.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'rustic', 'garden', 'botanical'],
         price: '',
         images: [
@@ -360,8 +360,8 @@ const PRODUCTS = [
         description: 'Thiệp mời cưới phong cách tối giản hiện đại, đen trắng tinh tế, nhiều khoảng trắng, đường nét hình học.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'minimalist',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'modern', 'minimalist', 'monochrome'],
         price: '',
         images: [
@@ -396,8 +396,8 @@ const PRODUCTS = [
         description: 'Thiệp mời cưới phong cách lãng mạn, tông hồng pastel và rose gold, gradient mơ màng, hoa cánh rơi.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'romantic', 'blush', 'pink', 'pastel'],
         price: '',
         images: [
@@ -432,8 +432,8 @@ const PRODUCTS = [
         description: 'Thiệp mời cưới phong cách nhiệt đới sang trọng, tông xanh ngọc và vàng gold, cảm hứng resort biển.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'tropical', 'luxe', 'beach', 'gold'],
         price: '',
         images: [
@@ -468,8 +468,8 @@ const PRODUCTS = [
         description: 'Thiệp mời đám cưới sang trọng với hiệu ứng chuyển cảnh độc đáo, album ảnh cưới, đếm ngược, mã QR mừng cưới và form xác nhận tham dự',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiep-cuoi', 'dam-cuoi', 'countdown', 'rsvp', 'qr-code', 'album'],
         price: '',
         images: [
@@ -504,8 +504,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới tương tác dạng no-scroll, mở phong bì click khám phá từng trang. 8 hiệu ứng chuyển cảnh, album ảnh, QR code, đếm ngược, gửi lời chúc, nhạc nền.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiep-cuoi', 'interactive', 'no-scroll', 'envelope', 'album', 'countdown', 'rsvp', 'qr-code'],
         price: '',
         images: [
@@ -541,8 +541,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách vintage pha hiện đại — 12 cảnh chuyển động tự động kể câu chuyện tình yêu, tone beige ấm áp, nhạc nền lãng mạn.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'vintage', 'film', 'ky-uc', 'auto-slideshow'],
         price: '',
         images: [
@@ -577,8 +577,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách tươi sáng mát mẻ — 12 cảnh chuyển động tự động, tone xanh mint pastel, hiệu ứng hiện đại, nhạc nền lãng mạn.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'fresh', 'mint', 'bright', 'auto-slideshow'],
         price: '',
         images: [
@@ -613,8 +613,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách truyền thống Việt Nam với tông đỏ vàng sang trọng, đầy đủ tính năng: phong bì mở thiệp, đếm ngược, love story, gallery lightbox, sổ lưu bút, RSVP, hộp mừng cưới',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'traditional', 'red-gold', 'song-long'],
         price: '',
         images: [
@@ -649,8 +649,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới xanh dương lãng mạn — phong bì 3D mở thư, hearts bay, countdown, love story timeline, gallery lightbox, RSVP, lời chúc, QR mừng cưới, lịch tháng, nút chỉ đường.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'blue-romantic', 'classic'],
         price: '',
         images: [
@@ -685,8 +685,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách hiện đại, tông xanh dương - xám nhạt, cặp đôi Hàn Quốc studio. Đầy đủ: phong bì, countdown, lịch tháng, gallery slider, RSVP, lời chúc, mừng cưới QR, dresscode.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'modern', 'blue', 'romantic'],
         price: '',
         images: [
@@ -734,8 +734,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách Cinelove — modern romantic, tông xanh dương nhạt, typography lớn, whitespace sạch sẽ. Đầy đủ: phong bì, countdown, lịch tháng, love story, gallery lightbox, RSVP, lời chúc, mừng cưới.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'modern', 'blue', 'romantic', 'cinelove'],
         price: '',
         images: [
@@ -771,8 +771,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách Cinelove #7 — burgundy romantic, story-driven với 3 chương tình yêu, thiệp đôi (nhà trai + nhà gái). Đầy đủ: phong bì, countdown, lịch tháng, love story, gallery lightbox, RSVP, lời chúc, mừng cưới.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đôi', 'burgundy', 'romantic', 'story', 'cinelove'],
         price: '',
         images: [
@@ -808,8 +808,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách sang trọng — tông đen trắng vàng champagne, hoa trang trí, khung ảnh decorative, phong bì wax seal. Clone style Cinelove #44.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'elegant', 'black', 'gold', 'classic', 'cinelove'],
         price: '',
         images: [
@@ -844,8 +844,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách modern romantic — trắng hồng, storytelling dọc, love story timeline, hearts floating. Clone style Cinelove #2.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'modern', 'romantic', 'pink', 'cinelove'],
         price: '',
         images: [
@@ -899,8 +899,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách coral minimalist — trắng + san hô (#ee8584), geometric SVG ornaments, hero diagonal clip-path, split-gradient, ảnh vuông + tròn. Clone style HuyThanh Jewelry.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'minimalist',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'coral', 'minimalist', 'modern', 'huythanh'],
         price: '',
         images: [
@@ -935,8 +935,8 @@ const PRODUCTS = [
         description: 'Thiệp mời đám cưới phong cách Long Phụng Đỏ truyền thống Việt Nam. Tông đỏ đậm - vàng ánh kim sang trọng, envelope mở thiệp, countdown, love story, RSVP, sổ lưu bút.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'traditional', 'red-gold', 'vietnamese', 'long-phung'],
         price: '',
         images: [
@@ -971,8 +971,8 @@ const PRODUCTS = [
         description: 'Thiệp mời đám cưới phong cách Chibi dễ thương kết hợp tông đỏ truyền thống. Hình minh hoạ chibi couple, hoa đào, song hỷ, envelope mở thiệp, countdown, RSVP, sổ lưu bút, hộp mừng cưới.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đôi', 'chibi', 'red', 'cute', 'traditional'],
         price: '',
         images: [
@@ -1020,8 +1020,8 @@ const PRODUCTS = [
         description: 'Thiệp mời đám cưới phong cách Burgundy & Gold sang trọng với hiệu ứng mở màn rèm đỏ (curtain opening). Sparkles lấp lánh, countdown realtime, love story timeline, gallery lightbox, RSVP, lời chúc, hộp mừng cưới.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'burgundy', 'gold', 'curtain', 'elegant'],
         price: '',
         images: [
@@ -1056,8 +1056,8 @@ const PRODUCTS = [
         description: 'Thiệp mời đám cưới phong cách Hàn Quốc thập niên 90, tông beige kem cổ điển, dreamy vintage với hiệu ứng hoa rơi và sparkles',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'minimalist',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'korean', '90s', 'classic', 'beige', 'vintage'],
         price: '',
         images: [
@@ -1092,8 +1092,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách xanh lá tươi trẻ, hiện đại với nhiều hiệu ứng: lá rơi, bong bóng lời chúc bay lên, sparkles, hearts floating. Có countdown, love story timeline, gallery lightbox, RSVP, guestbook.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'green', 'fresh', 'trẻ trung', 'hiệu ứng'],
         price: '',
         images: [
@@ -1128,8 +1128,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách truyền thống Việt, tông đỏ hồng mềm mại, chữ Hỷ (囍) trang trọng, chim yến bay, hoa lớn trang trí, nơ ruy-băng đỏ cởi mở thiệp.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'truyền thống', 'đỏ', 'hỷ', 'chim yến', 'mềm mại'],
         price: '',
         images: [
@@ -1164,8 +1164,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới Phúc & Thảo phong cách thanh lịch tông xanh navy & tím lavender, studio Hàn Quốc, hiệu ứng sparkles + hoa rơi, đầy đủ tính năng.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'navy', 'lavender', 'elegant', 'korean-studio'],
         price: '',
         images: [
@@ -1201,8 +1201,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách Modern Romantic Red — nền kem, accent đỏ burgundy, hoa rải rác, ảnh overlap, letter envelope, phong bì ribbon bow, gallery stagger, ảnh nền mờ xuyên suốt.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'modern', 'romantic', 'red', 'burgundy', 'minimal'],
         price: '',
         images: [
@@ -1238,8 +1238,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới đôi phong cách Modern Romantic — nền trắng kem ivory, accent burgundy + vàng gold. Lấy cảm hứng mẫu Cinelove. Ảnh bộ modern-romantic.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đôi', 'burgundy', 'gold', 'romantic', 'modern', 'cinelove'],
         price: '',
         images: [
@@ -1275,8 +1275,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới sage green — nền cream tinh, outdoor xanh mát, mobile-first 420px, image-centric staggered layout, hoa rơi, wax seal.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'minimalist',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'custom', 'minimal', 'sage-green', 'jmiiwedding', 'white'],
         price: '',
         images: [
@@ -1310,8 +1310,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới Trọng Nghĩa & Thu Thuỷ — phong cách vintage sage green, phong bì mở + 2 ảnh polaroid, hoa lan trang trí, 2 lễ: Thành Hôn (Điện Biên) + Báo Hỷ (Hà Nội).',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'custom', 'vintage', 'sage-green', 'polaroid', 'envelope'],
         price: '',
         images: [
@@ -1346,8 +1346,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách chibi đỏ truyền thống, dành cho demo',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'chibi', 'red', 'demo'],
         price: '',
         images: [
@@ -1381,8 +1381,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách Valentine hồng lãng mạn, mở khóa 4 số, bong bóng bay, love letter giấy nhám, gia đình 2 bên',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'valentine', 'pink', 'romantic', 'hearts', 'lock-screen', 'celebration'],
         price: '',
         images: [
@@ -1416,8 +1416,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới minimalist trắng sang trọng — con dấu sáp mở thiệp, bottom nav 5 tabs, dark/light mode, confetti, sliders love story, gallery carousel, lời chúc',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'minimalist',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'minimalist', 'white', 'elegant', 'dark-mode', 'miinso', 'seal'],
         price: '',
         images: [
@@ -1451,8 +1451,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách truyền thống đỏ — rèm nhung đỏ, khung vàng, confetti đỏ rơi, countdown, gallery slider, RSVP, mừng cưới QR.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đơn', 'red', 'traditional', 'curtain', 'gold'],
         price: '',
         images: [
@@ -1486,8 +1486,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách truyền thống Việt — rèm đỏ, hoa sen, oval frame, calendar highlight, countdown tròn, sổ lưu bút, mừng cưới QR.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'thiệp-đôi', 'traditional', 'red', 'cream', 'vietnamese'],
         price: '',
         images: [
@@ -1522,8 +1522,8 @@ const PRODUCTS = [
         description: 'Thiệp mời lễ ăn hỏi phong cách Classic truyền thống Việt Nam — tông đỏ tươi vàng kim, song hỷ 囍, rồng phượng, sính lễ truyền thống, bố cục đối xứng trang trọng.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'an-hoi',
         tags: ['invitation', 'wedding', 'ăn-hỏi', 'traditional', 'red-gold', 'vietnamese', 'classic', 'song-hy'],
         price: '',
         images: [
@@ -1558,8 +1558,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách vintage sage green — phong bì mở + 2 ảnh polaroid, hoa lan trang trí, countdown, love story, gallery, RSVP, sổ lưu bút, mừng cưới QR.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'vintage', 'sage-green', 'polaroid', 'envelope'],
         price: '',
         images: [
@@ -1593,8 +1593,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách blush romantic — phong bì wax seal cầu kỳ, hoa hồng pastel, falling petals, gallery, RSVP, sổ lưu bút, mừng cưới QR.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'blush', 'romantic', 'pastel', 'rose', 'wax-seal'],
         price: '',
         images: [
@@ -1627,8 +1627,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách tạp chí thời trang cao cấp — 3 chương ánh sáng: Golden Hour, B&W Vintage, Sparkle Night. Envelope cinematic, film grain, editorial typography.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'cinematic', 'editorial', 'magazine', 'light-shadow', 'film', 'korean-studio'],
         price: '',
         images: [
@@ -1661,8 +1661,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách chibi dễ thương — trang trí hoa watercolor pastel, thiết kế tối giản chỉ gồm thông tin cơ bản: gia đình, lễ cưới, gallery nhỏ.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'chibi', 'cute', 'pastel', 'floral', 'minimal'],
         price: '',
         images: [
@@ -1696,8 +1696,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách cổ trang Việt Phục kết hợp aesthetic mộng mơ — tông beige ấm, gold, lá trúc rơi, vầng trăng tròn, gallery ảnh Nhật Bình + váy cưới.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'viet-phuc', 'traditional', 'dreamy', 'beige', 'gold', 'moon'],
         price: '',
         images: [
@@ -1731,8 +1731,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách Trung Hoa hiện đại — chữ 囍 tách đôi mở thiệp, nền đỏ rực, gold confetti, gallery, RSVP, sổ lưu bút, mừng cưới QR.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'chinese', 'red', 'gold', 'double-happiness', 'song-hy', 'traditional'],
         price: '',
         images: [
@@ -1766,8 +1766,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách Korean studio trắng tinh khiết — glass frost reveal, dreamy vignette, filmstrip memory, floating bokeh, gallery masonry.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'white', 'korean', 'dreamy', 'sage-green', 'elegant'],
         price: '',
         images: [
@@ -1801,8 +1801,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới outdoor garden — cổng sắt uốn 3D mở ra, hạt bồ công anh bay, Polaroid treo dây phơi, lối đi vườn stepping stones, biển chỉ đường gỗ, đom đóm.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'garden', 'outdoor', 'green', 'sage', 'gate', 'nature', 'fireflies'],
         price: '',
         images: [
@@ -1836,8 +1836,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách mơ màng ethereal — voan lụa nhấc lên, typography mist reveal, silk thread ambient, scattered polaroids, palette lavender mist.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'ethereal', 'dreamy', 'silk', 'lavender', 'korean'],
         price: '',
         images: [
@@ -1871,8 +1871,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách gốm sứ & kintsugi — bình gốm nứt vàng, ink wash typography, love story 4 giai đoạn nung lò, gallery triển lãm, trái tim kintsugi.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'porcelain', 'kintsugi', 'ceramic', 'elegant', 'vietnamese-studio'],
         price: '',
         images: [
@@ -1906,8 +1906,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới đêm xa hoa — Midnight Editorial x Royal Sapphire. Wax seal vỡ + ring zoom + photo reveal, split layout sapphire/ivory, dark monogram close. Chỉ 4 section. Bold tuyệt đối.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'luxury', 'midnight', 'sapphire', 'dark', 'editorial', 'bold', 'gold'],
         price: '',
         images: [
@@ -1940,8 +1940,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách giấy emboss hoa nổi — nền giấy kem hoạ tiết in nổi, ảnh xếp hình trái tim, botanical eucalyptus corners, sage green accent, countdown, gallery lightbox.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'sage-green', 'emboss', 'paper', 'botanical', 'heart-collage', 'elegant'],
         price: '',
         images: [
@@ -1975,8 +1975,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới dạng interactive storytelling slide — kể hành trình yêu nhau qua 10 chương, tone nhí nhảnh Gen Z, chat bubbles, tap reveal, confetti burst, floating hearts, Anime.js v4.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['invitation', 'wedding', 'storytelling', 'interactive', 'slide', 'love-story', 'gen-z', 'animejs', 'confetti', 'chat-bubbles'],
         price: '',
         images: [
@@ -2013,8 +2013,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách tạp chí thời trang — arch photos, polaroid gallery rải tự nhiên, gold timeline Love Story 5 chương, cinema letterbox envelope, countdown, RSVP, guestbook.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['invitation', 'wedding', 'editorial', 'fashion', 'arch-photo', 'polaroid', 'gold', 'timeline', 'korean-studio'],
         price: '',
         images: [
@@ -2049,8 +2049,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới luxury glass morphism, hiệu ứng pháo hoa giấy confetti khi mở, gold shimmer ring, diamond sparkle rơi, countdown flip, gallery lightbox, RSVP form.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['invitation', 'wedding', 'luxury', 'crystal', 'chandelier', 'glass-morphism', 'confetti', 'gold', 'elegant'],
         price: '',
         images: [
@@ -2083,8 +2083,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách cổ điển warm với illustration venue vẽ tay, tông terracotta kem, font Cormorant Garamond + Great Vibes',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['wedding', 'heritage', 'classic', 'illustration', 'warm', 'terracotta'],
         price: '',
         images: [
@@ -2113,8 +2113,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách Korean pastel — nền kem hồng dịu dàng, chữ Carlytte script cho tên cặp đôi, PlayfairDisplay cho tiêu đề. Có envelope opening animation với wax seal, floating hearts, countdown, gallery lightbox, lịch tháng 5, bản đồ, RSVP form, lời chúc. Nhạc nền lãng mạn. Demo: Đức Anh & Phương Anh, 11.05.2026.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'modern',
+        event: 'wedding',
         tags: ['wedding', 'thiep-cuoi', 'korean', 'pastel', 'pink', 'cream', 'romantic', 'script', 'envelope'],
         price: '',
         images: [
@@ -2148,8 +2148,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách CineLove — phong bì hồng mở flap, ảnh cặp đôi polaroid scrapbook, lịch tháng 05/2026 có tim đỏ ngày cưới, love quote My Love monogram, invitation Arcittya Begatri ampersand, RSVP xác nhận, countdown, floating hearts. HoaTay1 + Chetta Vissto + BrikeyMoura.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'traditional',
+        event: 'wedding',
         tags: ['thiệp-cưới', 'cinelove', 'pink', 'pastel', 'phong-bì', 'polaroid', 'scrapbook', 'hoatay', 'korean-style'],
         price: '',
         images: [
@@ -2184,8 +2184,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách Sage Green & Gold cho lễ thành hôn Nguyễn Kim Vương & Trần Quỳnh Thương - 24/05/2026 tại Nghệ An',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'sage-green', 'gold', 'elegant', 'khach'],
         price: '',
         images: [
@@ -2226,8 +2226,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách Olive Sage & Gold sang trọng — intro video mở màn, hero video loop, countdown, venue details với ornate badge, dress code, order of the day timeline, gift registry, RSVP form. Font TypeKit classic-script + span.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['thiệp-cưới', 'olive', 'sage', 'gold', 'classic', 'majestic', 'video-intro', 'elegant', 'western-style'],
         price: '',
         images: [
@@ -2263,8 +2263,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới nhà trai phong cách sage green vintage — polaroid hero, lễ thành hôn, countdown, gallery 8 ảnh, RSVP form, QR chú rể.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'vintage',
+        event: 'wedding',
         tags: ['thiệp-cưới', 'nhà-trai', 'sage-green', 'vintage', 'polaroid', 'lễ-thành-hôn'],
         price: '',
         images: [
@@ -2297,8 +2297,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới nhà gái phong cách sage green vintage — polaroid hero, lễ vu quy, countdown, gallery 8 ảnh, RSVP form, QR cô dâu.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'vintage',
+        event: 'wedding',
         tags: ['thiệp-cưới', 'nhà-gái', 'sage-green', 'vintage', 'polaroid', 'lễ-vu-quy'],
         price: '',
         images: [
@@ -2331,8 +2331,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới garden gate outdoor — cổng hoa 3D, love story 6 chương, gallery 20 ảnh, countdown, RSVP + lời chúc + QR mừng cưới.',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'floral',
+        event: 'wedding',
         tags: ['thiệp-cưới', 'garden-gate', 'outdoor', 'sage-green', 'cổng-hoa'],
         price: '',
         images: [
@@ -2365,8 +2365,8 @@ const PRODUCTS = [
         description: 'Thiệp cưới phong cách Sage Green & Gold cho lễ thành hôn Thanh Tùng & Hoài Thu - 09/08/2026 tại真的好京漾飯店, New Taipei, Đài Loan',
         category: 'wedding',
         type: 'invitation',
-        style: '',
-        event: '',
+        style: 'luxury',
+        event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'sage-green', 'gold', 'elegant', 'khach', 'custom'],
         price: '',
         images: [
@@ -2897,7 +2897,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'birthday',
         tags: ['invitation', 'birthday', 'modern', 'neon', 'birrthday', 'invite'],
         price: '',
         images: [
@@ -2930,7 +2930,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'birthday',
         tags: ['invitation', 'birthday', 'whimsical', 'first', 'invite'],
         price: '',
         images: [
@@ -2963,7 +2963,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'birthday',
         tags: ['invitation', 'birthday', 'modern', 'vibrant', '30th'],
         price: '',
         images: [
@@ -2996,7 +2996,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'birthday',
         tags: ['invitation', 'birthday', 'whimsical', 'illustrated', 'kids'],
         price: '',
         images: [
@@ -3029,7 +3029,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'birthday',
         tags: ['invitation', 'birthday', 'vibrant', '21st'],
         price: '',
         images: [
@@ -3062,7 +3062,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'anniversary',
         tags: ['invitation', 'annivesary', 'silver', 'anniversary'],
         price: '',
         images: [
@@ -3095,7 +3095,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'anniversary',
         tags: ['invitation', 'annivesary', 'corporate', '10th', 'anniversary'],
         price: '',
         images: [
@@ -3128,7 +3128,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'anniversary',
         tags: ['invitation', 'annivesary', 'golden', 'anniversary'],
         price: '',
         images: [
@@ -3161,7 +3161,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'anniversary',
         tags: ['invitation', 'annivesary', 'arrt', 'gallery', 'opening', 'invite'],
         price: '',
         images: [
@@ -3194,7 +3194,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'reunion',
         tags: ['invitation', 'annivesary', 'high', 'school', 'reunion'],
         price: '',
         images: [
@@ -3227,7 +3227,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'anniversary',
         tags: ['invitation', 'annivesary', 'charity', 'gala'],
         price: '',
         images: [
@@ -3260,7 +3260,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'modern', 'minimalist', 'christmas', 'gala'],
         price: '',
         images: [
@@ -3293,7 +3293,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'retro', '50s', 'christmas', 'party', 'invite'],
         price: '',
         images: [
@@ -3326,7 +3326,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'luxury', 'gold', 'charcoal'],
         price: '',
         images: [
@@ -3359,7 +3359,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'rustic', 'cozy', 'cabin', 'christmas'],
         price: '',
         images: [
@@ -3392,7 +3392,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'interactive', 'kids', 'christmas', 'workshop'],
         price: '',
         images: [
@@ -3425,7 +3425,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'festive', 'christmas', 'party'],
         price: '',
         images: [
@@ -3458,7 +3458,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'lunar', 'new', 'year', 'celebration'],
         price: '',
         images: [
@@ -3491,7 +3491,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'summer', 'beach', 'bash'],
         price: '',
         images: [
@@ -3524,7 +3524,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'winter', 'wonderland', 'retreat'],
         price: '',
         images: [
@@ -3557,7 +3557,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'autum', 'harvest', 'festival'],
         price: '',
         images: [
@@ -3590,7 +3590,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'holiday',
         tags: ['invitation', 'holiday', 'tropical', 'spring', 'break'],
         price: '',
         images: [
@@ -3623,7 +3623,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'fireworks', 'love', 'romantic'],
         price: '',
         images: [
@@ -3658,7 +3658,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'white-day', '14-3', 'valentine', 'yeu-thuong', 'lang-man'],
         price: '',
         images: [
@@ -3692,7 +3692,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'white-day', '14-3', 'love-letter', 'yeu-thuong', 'cam-on'],
         price: '',
         images: [
@@ -3759,7 +3759,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'white-day', 'love', 'valentine', '14-3', 'romantic'],
         price: '',
         images: [
@@ -3808,7 +3808,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', '14-3', 'white-day', 'love-story', 'timeline'],
         price: '',
         images: [
@@ -3844,7 +3844,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', '14-3', 'white-day', 'diary', 'scrapbook'],
         price: '',
         images: [
@@ -3893,7 +3893,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', '14-3', 'white-day', 'love-letter', 'elegant'],
         price: '',
         images: [
@@ -3929,7 +3929,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', '14-3', 'white-day', 'photo-album', 'memories'],
         price: '',
         images: [
@@ -3965,7 +3965,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', '14-3', 'white-day', 'journey', 'milestones'],
         price: '',
         images: [
@@ -4001,7 +4001,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'tỏ tình', 'love', 'playful', 'confetti'],
         price: '',
         images: [
@@ -4038,7 +4038,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'white-day', '14-3', 'love', 'romantic', 'quynh-quynh'],
         price: '',
         images: [
@@ -4075,7 +4075,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'white-day', '14-3', 'love', 'moonlight', 'minh-huyen'],
         price: '',
         images: [
@@ -4112,7 +4112,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'white-day', '14-3', 'love', 'autumn', 'ha-thu'],
         price: '',
         images: [
@@ -4149,7 +4149,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'white-day', '14-3', 'love', 'diary', 'thanh-phuong'],
         price: '',
         images: [
@@ -4186,7 +4186,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'white-day', '14-3', 'love', 'flowers', 'do-trang'],
         price: '',
         images: [
@@ -4223,7 +4223,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'confession',
         tags: ['trending', 'confession', 'white-day', '14-3', 'love', 'promise', 'the-duc'],
         price: '',
         images: [
@@ -4260,7 +4260,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'thoi-noi',
         tags: ['baby', 'đầy-tháng', 'bé-trai', 'pastel', 'cute', 'sky-blue', 'lavender'],
         price: '',
         images: [
@@ -4297,7 +4297,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'birthday',
         tags: ['birthday', 'sinh-nhật', 'tuổi-30', 'gold-luxury', 'black-tie', 'milestone', 'elegant'],
         price: '',
         images: [
@@ -4327,7 +4327,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'anniversary',
         tags: ['anniversary', 'kỷ-niệm-cưới', '10-năm', 'vintage', 'warm', 'terracotta', 'romantic'],
         price: '',
         images: [
@@ -4361,7 +4361,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'birthday',
         tags: ['birthday', 'sinh-nhật', '18-plus', 'white-gold', 'bling-bling', 'glam-chic', 'elegant', 'luxury', 'ty-ni'],
         price: '',
         images: [
@@ -4394,7 +4394,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'thoi-noi',
         tags: ['birthday', 'thôi-nôi', 'baby', '1-tuoi', 'pastel', 'dreamy', 'pink', 'cream', 'floral', 'cute'],
         price: '',
         images: [
@@ -4427,7 +4427,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'thoi-noi',
         tags: ['baby', 'đầy-tháng', 'bé-trai', 'nautical', 'sailor', 'navy', 'coral', 'vintage', 'adventure'],
         price: '',
         images: [
@@ -4460,7 +4460,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'anniversary',
         tags: ['graduation', 'tốt-nghiệp', 'mầm-non', 'kindergarten', 'bé', 'lễ-tốt-nghiệp'],
         price: 'free',
         images: [
@@ -4499,7 +4499,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'reunion',
         tags: ['invitation', 'hop-lop', 'class-reunion', 'retro', 'so-lien-lac', 'hoc-tro', 'nostalgia'],
         price: 'free',
         images: [
@@ -4536,7 +4536,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'reunion',
         tags: ['invitation', 'lien-hoan', 'gap-mat', 'class-reunion', 'cinema', 'film', 'vhs', 'retro'],
         price: 'free',
         images: [
@@ -4573,7 +4573,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'reunion',
         tags: ['invitation', 'lien-hoan', 'gap-mat', 'class-reunion', 'cork-board', 'bang-tin', 'school'],
         price: 'free',
         images: [
@@ -4610,7 +4610,7 @@ const PRODUCTS = [
         category: 'other',
         type: 'invitation',
         style: '',
-        event: '',
+        event: 'reunion',
         tags: ['invitation', 'lien-hoan', 'gap-mat', 'class-reunion', 'elegant', 'trang-trong', 'champagne', 'gold'],
         price: 'free',
         images: [
@@ -7189,32 +7189,50 @@ function getProductBySlug(slug) {
  * Lấy danh sách products đã sort theo priority
  */
 function getProductsSorted() {
-    const isFullpage = (p) =>
-        p.demoUrl && (p.demoUrl.toLowerCase().includes('fullpage') || p.demoUrl.toLowerCase().includes('/home/code'));
-
     const typeOrder = { 'invitation': 0, 'website': 1, 'google-sheet': 2 };
+    const statusRank = { 'bestseller': 0, 'trending': 1, 'hot': 2 };
+    const rank = (p) => statusRank[p.status] ?? 9;
+    const time = (p) => Date.parse(p.updatedAt || '2000-01-01') || 0;
 
     return [...PRODUCTS].filter(p => p.isPublic !== false).sort((a, b) => {
-        const aType = typeOrder[a.type] ?? 3;
-        const bType = typeOrder[b.type] ?? 3;
+        const aType = typeOrder[a.type] ?? 3, bType = typeOrder[b.type] ?? 3;
         if (aType !== bType) return aType - bType;
-
-        const aFull = isFullpage(a) ? 1 : 0;
-        const bFull = isFullpage(b) ? 1 : 0;
-        if (aFull !== bFull) return bFull - aFull;
-
-        if (a.priority !== b.priority) return a.priority - b.priority;
+        // priority chỉ còn là "bucket": 0 = bình thường, 100 = legacy đẩy cuối
+        if ((a.priority || 0) !== (b.priority || 0)) return (a.priority || 0) - (b.priority || 0);
+        if (!!a.featured !== !!b.featured) return a.featured ? -1 : 1;
+        if (rank(a) !== rank(b)) return rank(a) - rank(b);
+        if (time(a) !== time(b)) return time(b) - time(a);
         return b.id - a.id;
     });
 }
 
+/** NEW = cập nhật trong 30 ngày gần đây (tự tính, không dùng status:'new') */
+function isNewProduct(p) {
+    const t = Date.parse(p.updatedAt || '');
+    return !!t && (Date.now() - t) < 30 * 86400000;
+}
+
+// Nhãn phong cách (thiệp cưới) và sự kiện (thiệp khác) — dùng cho chip lọc + sub-label card
+const STYLE_LABELS = {
+    traditional: 'Truyền thống', modern: 'Hiện đại', minimalist: 'Tối giản',
+    luxury: 'Sang trọng', floral: 'Hoa lá', vintage: 'Vintage',
+};
+const EVENT_LABELS = {
+    wedding: 'Đám cưới', 'dam-ngo': 'Dạm ngõ', 'an-hoi': 'Ăn hỏi',
+    birthday: 'Sinh nhật', 'thoi-noi': 'Thôi nôi & Đầy tháng', anniversary: 'Kỷ niệm',
+    reunion: 'Họp lớp', 'gio-to': 'Giỗ tổ', confession: 'Tỏ tình', graduation: 'Tốt nghiệp',
+    holiday: 'Lễ hội', other: 'Khác',
+};
+
 /**
  * Lọc products theo category, type, và search keyword
  */
-function filterProducts({ category = 'all', type = 'all', search = '' } = {}) {
+function filterProducts({ category = 'all', type = 'all', search = '', style = 'all', event = 'all' } = {}) {
     return getProductsSorted().filter(p => {
         const matchCategory = category === 'all' || p.category === category;
         const matchType = type === 'all' || p.type === type;
+        if (style !== 'all' && p.style !== style) return false;
+        if (event !== 'all' && p.event !== event) return false;
         const matchSearch = !search ||
             p.name.toLowerCase().includes(search.toLowerCase()) ||
             p.description.toLowerCase().includes(search.toLowerCase()) ||
