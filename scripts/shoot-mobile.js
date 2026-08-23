@@ -22,6 +22,7 @@ const PORT = Number(process.env.SHOT_PORT || (process.argv.includes("--port") ? 
 const VIEW = { width: 390, height: 844, deviceScaleFactor: 2 };
 const MAX_SECTIONS = 1;   // chỉ 1 màn dưới hero (tổng 3 ảnh: cover, open, sec-1)
 const QUALITY = 82;
+const FREEZE_DATE = Date.parse(process.env.SHOT_DATE || '2026-01-15T10:00:00+07:00'); // thời điểm giả khi chụp (đổi bằng SHOT_DATE=...)
 
 const args = process.argv.slice(2);
 const opt = (k) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : null; };
@@ -191,6 +192,12 @@ async function shot(page, file) {
         fs.mkdirSync(t.outDir, { recursive: true });
         const page = await browser.newPage();
         await page.setViewport(VIEW);
+        // Đóng băng đồng hồ về FREEZE_DATE để countdown của thiệp demo (ngày đã qua) vẫn hiện số
+        await page.evaluateOnNewDocument((ts) => {
+            const RealDate = Date; const offset = ts - RealDate.now();
+            class FakeDate extends RealDate { constructor(...a) { a.length ? super(...a) : super(RealDate.now() + offset); } static now() { return RealDate.now() + offset; } }
+            window.Date = FakeDate;
+        }, FREEZE_DATE);
         await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1');
         const manifest = { id: t.id, name: t.name, demoUrl: t.demoUrl, shots: [], opened: null, error: null };
         try {
