@@ -358,7 +358,9 @@ section + section { padding-top: 0; }
 @media (min-width: 700px) { .page { padding-bottom: 120px; } }
 
 /* Tên không bao giờ gãy giữa chừng: mỗi tên 1 khối, JS co chữ nếu quá rộng */
-.hero-names > span:not(.amp) { white-space: nowrap; overflow-wrap: normal; display: inline-block; max-width: 100%; }
+.hero-names > span { white-space: nowrap; overflow-wrap: normal; flex-shrink: 0; }
+.hero-names { max-width: 100%; overflow: visible; }
+[data-fit] { white-space: nowrap; display: inline-block; max-width: 100%; }
 </style>
 </head>
 <body class="locked">
@@ -373,7 +375,7 @@ section + section { padding-top: 0; }
 
 <!-- Phong bì -->
 <div class="envelope" id="envelope" role="button" aria-label="Chạm để mở thiệp">
-  <div class="envelope-names emboss">Minh &nbsp;·&nbsp; Linh</div>
+  <div class="envelope-names emboss" data-fit>Minh &nbsp;·&nbsp; Linh</div>
   <div class="envelope-seal"><img src="assets/wax-seal.webp" alt="Dấu sáp M&L"></div>
   <div class="envelope-invite emboss">Trân trọng kính mời<br>quý khách</div>
   <div class="envelope-hint">Chạm để mở thiệp</div>
@@ -600,12 +602,26 @@ section + section { padding-top: 0; }
       h.style.fontSize = '';
       var max = h.clientWidth || h.parentElement.clientWidth;
       var size = parseFloat(getComputedStyle(h).fontSize), guard = 0;
-      var widest = function () { return Math.max.apply(null, Array.prototype.map.call(h.querySelectorAll('span:not(.amp)'), function (s) { return s.scrollWidth; })); };
-      while (widest() > max - 4 && size > 16 && guard++ < 40) { size -= 1; h.style.fontSize = size + 'px'; }
+      var need = function () {
+        var kids = Array.prototype.slice.call(h.children), row = getComputedStyle(h).flexDirection === 'row';
+        var ws = kids.map(function (s) { return s.scrollWidth; });
+        if (!row) return Math.max.apply(null, ws);
+        var gap = parseFloat(getComputedStyle(h).columnGap || getComputedStyle(h).gap) || 0;
+        return ws.reduce(function (a, b) { return a + b; }, 0) + gap * (kids.length - 1);
+      };
+      while (need() > max - 4 && size > 16 && guard++ < 60) { size -= 1; h.style.fontSize = size + 'px'; }
     });
   }
-  window.addEventListener('load', fitNames); window.addEventListener('resize', fitNames);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitNames);
+  function fitLines() {
+    document.querySelectorAll('[data-fit]').forEach(function (el) {
+      el.style.fontSize = '';
+      var max = el.parentElement.clientWidth - 8, size = parseFloat(getComputedStyle(el).fontSize), guard = 0;
+      while (el.scrollWidth > max && size > 12 && guard++ < 60) { size -= 1; el.style.fontSize = size + 'px'; }
+    });
+  }
+  var _fitAll = function () { fitNames(); fitLines(); };
+  window.addEventListener('load', _fitAll); window.addEventListener('resize', _fitAll); setTimeout(_fitAll, 50);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(_fitAll);
 
   /* ---------- Countdown ---------- */
   var nums = {}; document.querySelectorAll('.count-num').forEach(function (n) { nums[n.dataset.k] = n; });
