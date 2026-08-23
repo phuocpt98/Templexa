@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 81 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 82 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3059,6 +3059,43 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: true,
         isPublic: true,
+        updatedAt: '2026-08-23',
+    },
+    {
+        id: 269,
+        name: 'Thiệp Cưới Hồng Tro Flat-lay — Phong Bì Hoa Khô',
+        slug: 'thiep-cuoi-hong-tro-flat-lay-phong-bi-hoa-kho',
+        description: 'Thiệp cưới phong cách flat-lay văn phòng phẩm: phong bì nhung hồng tro mở ra hoa khô, thiệp dập nổi nơ satin, đĩa than xoay theo nhạc, dấu sáp và ngọc trai trên nền giấy trắng. Khách chạm mở phong bì, xem chi tiết lễ, album, love story và gửi RSVP.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'vintage',
+        event: 'wedding',
+        tags: ['wedding', 'dusty-rose', 'flat-lay', 'collage', 'envelope', 'dried-flowers', 'wax-seal', 'vinyl', 'pearls', 'rsvp', 'countdown', 'love-story'],
+        price: 'free',
+        images: [
+            './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/shots/open.webp',
+            './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/shots/sec-1.webp',
+            './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/shots/open.webp',
+        mobileView: './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/shots/open.webp',
+        path: './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/',
+        demoUrl: './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/index.html',
+        variants: [],
+        features: [
+            'Cổng phong bì nhung hồng tro — chạm mở, tên khách qua ?guest=',
+            'Hero collage flat-lay: phong bì hoa khô, ảnh đen trắng, thiệp nơ satin, đĩa than, thẻ scallop',
+            'Đĩa than xoay đồng bộ nhạc nền + cánh hoa hồng rơi',
+            'Thiệp mời hồng dập nổi: ngày giờ, âm lịch, địa điểm, chỉ đường, thêm vào lịch (.ics)',
+            'Countdown, album ngọc trai, hộp quà mừng cưới, love story, RSVP + sổ lời chúc',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 6,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: false,
         updatedAt: '2026-08-23',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 54 ──────────────
