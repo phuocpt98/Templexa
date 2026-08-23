@@ -18,7 +18,7 @@ const puppeteer = require('puppeteer');
 const sharp = require('sharp');
 
 const ROOT = path.join(__dirname, '..');
-const PORT = 8791;
+const PORT = Number(process.env.SHOT_PORT || (process.argv.includes("--port") ? process.argv[process.argv.indexOf("--port") + 1] : 8791));
 const VIEW = { width: 390, height: 844, deviceScaleFactor: 2 };
 const MAX_SECTIONS = 6;
 const QUALITY = 82;
@@ -80,19 +80,96 @@ async function hideNoise(page) {
         html { scrollbar-width: none !important; }
         .music-btn, .music-toggle, #musicBtn, #musicToggle, .audio-btn, .btn-music,
         .scroll-down, .scroll-hint, .back-to-top, #backToTop, .cookie, .watermark-badge { opacity: 0 !important; }
+        /* lời chúc bay / chat bubble / nút chat — dữ liệu test không nên lên ảnh catalog */
+        [class*="wish-bubble"], [class*="wishes-float"], [class*="floating-wish"], [class*="wish-float"],
+        [class*="bubble-wish"], [id*="wishBubble"], [id*="floatingWish"], [class*="chat-bubble"],
+        [class*="wishes-toggle"], [class*="wish-toggle"], [class*="chat-toggle"], [class*="wishes-fab"],
+        [class*="live-wish"], [class*="wish-stream"], [class*="wish-marquee"] { display: none !important; }
     ` });
 }
+async function pageSignature(page) {
+    return page.evaluate(() => {
+        const se = document.scrollingElement || document.body;
+        const fixed = Array.from(document.querySelectorAll('body *')).filter(el => {
+            const cs = getComputedStyle(el);
+            if (cs.position !== 'fixed' || cs.visibility === 'hidden' || cs.display === 'none' || +cs.opacity === 0) return false;
+            const r = el.getBoundingClientRect();
+            return r.width >= innerWidth * 0.9 && r.height >= innerHeight * 0.8;
+        }).length;
+        return { sh: se.scrollHeight, overflow: getComputedStyle(document.body).overflow + '/' + getComputedStyle(document.documentElement).overflow, fixed };
+    });
+}
+async function clickByText(page) {
+    return page.evaluate(() => {
+        const words = ['mở thiệp', 'mở thư', 'xem thiệp', 'open', 'mở', 'enter', 'bắt đầu', 'chạm để mở', 'tap to open', 'click to open'];
+        const els = Array.from(document.querySelectorAll('button, a, div, span, p, img'));
+        for (const el of els) {
+            const t = (el.innerText || el.getAttribute('aria-label') || el.getAttribute('alt') || '').trim().toLowerCase();
+            if (!t || t.length > 40) continue;
+            if (words.some(w => t === w || t.includes(w))) {
+                const r = el.getBoundingClientRect();
+                if (r.width > 4 && r.height > 4) { el.click(); return t; }
+            }
+        }
+        return null;
+    });
+}
+async function clickFixedOverlay(page) {
+    return page.evaluate(() => {
+        const cands = Array.from(document.querySelectorAll('body *')).filter(el => {
+            const cs = getComputedStyle(el);
+            if (cs.position !== 'fixed' || cs.visibility === 'hidden' || cs.display === 'none') return false;
+            const r = el.getBoundingClientRect();
+            return r.width >= innerWidth * 0.9 && r.height >= innerHeight * 0.8;
+        }).sort((a, b) => (+getComputedStyle(b).zIndex || 0) - (+getComputedStyle(a).zIndex || 0));
+        if (!cands.length) return null;
+        const top = cands[0];
+        // click phần tử tương tác bên trong overlay trước, rồi overlay
+        const inner = top.querySelector('button, a, [onclick], [class*="seal"], [class*="btn"], [class*="open"], img');
+        (inner || top).click();
+        return top.className || top.id || top.tagName;
+    });
+}
+async function removeFixedOverlay(page) {
+    return page.evaluate(() => {
+        const cands = Array.from(document.querySelectorAll('body *')).filter(el => {
+            const cs = getComputedStyle(el);
+            if (cs.position !== 'fixed') return false;
+            const r = el.getBoundingClientRect();
+            return r.width >= innerWidth * 0.9 && r.height >= innerHeight * 0.8;
+        });
+        cands.forEach(el => el.remove());
+        document.body.style.overflow = 'auto'; document.documentElement.style.overflow = 'auto';
+        document.body.classList.remove('no-scroll', 'locked', 'lock', 'overflow-hidden', 'envelope-closed');
+        return cands.length;
+    });
+}
 async function tryOpen(page) {
+    const before = await pageSignature(page);
+    const changed = async () => { const a = await pageSignature(page); return a.sh !== before.sh || a.fixed !== before.fixed || a.overflow !== before.overflow; };
+    const steps = [];
+    // 1. selector quen thuộc
     for (const sel of OPEN_SELECTORS) {
         const el = await page.$(sel);
         if (!el) continue;
         const box = await el.boundingBox();
         if (!box || box.width < 4 || box.height < 4) continue;
-        try { await el.click({ delay: 50 }); return sel; } catch (e) { /* next */ }
+        try { await el.click({ delay: 50 }); steps.push(sel); } catch (e) { continue; }
+        await new Promise(r => setTimeout(r, 1500));
+        if (await changed()) return steps.join('>');
     }
-    // fallback: click giữa màn hình (nhiều thiệp mở bằng tap bất kỳ)
-    await page.mouse.click(VIEW.width / 2, VIEW.height / 2);
-    return 'center-tap';
+    // 2. nút theo chữ
+    const t = await clickByText(page); if (t) { steps.push('text:' + t); await new Promise(r => setTimeout(r, 1500)); if (await changed()) return steps.join('>'); }
+    // 3. tap giữa màn hình
+    await page.mouse.click(VIEW.width / 2, VIEW.height / 2); steps.push('center-tap');
+    await new Promise(r => setTimeout(r, 1500));
+    if (await changed()) return steps.join('>');
+    // 4. click overlay fixed (phong bì phủ toàn màn)
+    const ov = await clickFixedOverlay(page); if (ov) { steps.push('overlay:' + ov); await new Promise(r => setTimeout(r, 1800)); if (await changed()) return steps.join('>'); }
+    // 5. vẫn kẹt → gỡ overlay để chụp được nội dung bên trong
+    const after = await pageSignature(page);
+    if (after.fixed > 0 || after.sh <= VIEW.height + 50) { const n = await removeFixedOverlay(page); steps.push('removed:' + n); }
+    return steps.join('>');
 }
 async function shot(page, file) {
     const png = await page.screenshot({ type: 'png', captureBeyondViewport: false });
@@ -126,13 +203,26 @@ async function shot(page, file) {
             await settle(page, 2800);
             manifest.shots.push(Object.assign({ key: 'open' }, await shot(page, path.join(t.outDir, 'open.webp'))));
 
-            // sections
+            // sections — hỗ trợ cả trang cuộn bằng container riêng (body overflow:hidden)
             const sections = await page.evaluate((maxH) => {
-                const els = Array.from(document.querySelectorAll('section, [class*="section"], main > div'));
+                const se = document.scrollingElement || document.documentElement;
+                let scroller = null;
+                if (se.scrollHeight <= innerHeight + 50) {
+                    const cands = Array.from(document.querySelectorAll('body *')).filter(el => {
+                        const cs = getComputedStyle(el);
+                        return /(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 200 && el.clientHeight >= innerHeight * 0.6;
+                    }).sort((a, b) => b.scrollHeight - a.scrollHeight);
+                    scroller = cands[0] || null;
+                    if (scroller) { scroller.setAttribute('data-shot-scroller', '1'); }
+                }
+                const base = scroller ? scroller.getBoundingClientRect().top : 0;
+                const scrollY = scroller ? scroller.scrollTop : window.scrollY;
+                const root = scroller || document;
+                const els = Array.from(root.querySelectorAll('section, [class*="section"], main > div'));
                 const out = [];
                 for (const el of els) {
                     const r = el.getBoundingClientRect();
-                    const top = r.top + window.scrollY;
+                    const top = r.top - base + scrollY;
                     if (r.height < 260 || r.width < 200) continue;
                     if (out.some(o => Math.abs(o.top - top) < 200)) continue;
                     out.push({ top, h: r.height });
@@ -140,14 +230,27 @@ async function shot(page, file) {
                 return out.sort((a, b) => a.top - b.top).slice(0, maxH);
             }, MAX_SECTIONS + 2);
             let i = 0;
+            let lastHash = null;
             for (const s of sections) {
                 if (s.top < 400) continue; // đã có trong cover/open
                 if (i >= MAX_SECTIONS) break;
-                i++;
-                await page.evaluate((y) => window.scrollTo({ top: y, behavior: 'instant' }), s.top);
+                await page.evaluate((y) => {
+                    const sc = document.querySelector('[data-shot-scroller]');
+                    if (sc) sc.scrollTo({ top: y, behavior: 'instant' }); else window.scrollTo({ top: y, behavior: 'instant' });
+                }, s.top);
                 await settle(page, 1100);
-                manifest.shots.push(Object.assign({ key: `sec-${i}`, top: Math.round(s.top) }, await shot(page, path.join(t.outDir, `sec-${i}.webp`))));
+                const png = await page.screenshot({ type: 'png' });
+                const hash = require('crypto').createHash('md5').update(png).digest('hex');
+                if (hash === lastHash) continue;             // frame không đổi → bỏ qua
+                lastHash = hash;
+                i++;
+                const file = path.join(t.outDir, `sec-${i}.webp`);
+                await sharp(png).webp({ quality: QUALITY }).toFile(file);
+                const meta = await sharp(file).metadata();
+                manifest.shots.push({ key: `sec-${i}`, top: Math.round(s.top), file: path.basename(file), w: meta.width, h: meta.height, bytes: fs.statSync(file).size });
             }
+            // xoá sec-* cũ thừa từ lần chụp trước
+            for (let k = i + 1; k <= 12; k++) { const f = path.join(t.outDir, `sec-${k}.webp`); if (fs.existsSync(f)) fs.unlinkSync(f); }
 
             // full page (giới hạn 8 màn hình để tránh ảnh quá dài)
             await page.evaluate(() => window.scrollTo(0, 0));
