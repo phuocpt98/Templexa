@@ -3753,22 +3753,119 @@ ul {
     background: var(--bg-primary);
 }
 
-/* ── Invitation grid — portrait phone-screen cards ── */
+/* ── Invitation grid — portrait phone-screen cards (đợt 6) ── */
 .invitation-theme .products-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: clamp(12px, 1.5vw, 16px);
+    gap: clamp(14px, 1.6vw, 20px);
 }
 
 .invitation-theme .product-card {
-    border-radius: clamp(16px, 2vw, 20px);
+    border-radius: clamp(14px, 1.8vw, 18px);
 }
 
 .invitation-theme .product-card-image {
     aspect-ratio: 9 / 16;
+    background: var(--bg-secondary);
 }
 
+.invitation-theme .product-card-image img {
+    object-fit: cover;
+    object-position: top center;
+}
+
+/* Hiện lại tên + sub-label, gọn 2 dòng */
 .invitation-theme .product-card-info {
-    display: none;
+    display: block;
+    padding: 10px 12px 12px;
+}
+
+.invitation-theme .product-card-info h3 {
+    font-size: 0.92rem;
+    line-height: 1.35;
+    margin-bottom: 2px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.invitation-theme .product-card-info p {
+    font-size: 0.78rem;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Popup gallery cho thiệp: khung dọc căn giữa, 2 bên nền xám nhạt, không vỡ ảnh */
+.invitation-theme .popup-gallery .gallery-main {
+    aspect-ratio: 9 / 16;
+    max-height: 72vh;
+    margin: 0 auto;
+    background: var(--bg-secondary);
+    display: flex;
+    justify-content: center;
+    border-radius: 14px;
+}
+
+.invitation-theme .popup-gallery .gallery-main img {
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.invitation-theme .popup-gallery .gallery-thumb {
+    aspect-ratio: 9 / 16;
+    width: 52px;
+    height: auto;
+}
+
+[data-theme="dark"] .invitation-theme .popup-gallery .gallery-main,
+[data-theme="dark"] .invitation-theme .product-card-image {
+    background: #0B1220;
+}
+
+/* Chip hàng 2 (phong cách / sự kiện) */
+.filters-group--sub { padding-top: 0; }
+.filters-sub .filter-btn { font-size: 0.86rem; padding: 7px 14px; }
+.filter-count {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 0.74rem;
+    opacity: 0.65;
+}
+
+/* Variant chips (popup + detail) */
+.variant-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+}
+.variant-chips-label {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    margin-right: 2px;
+}
+.variant-chip {
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+.variant-chip:hover { border-color: var(--accent); color: var(--accent); }
+.variant-chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
 }
 
 @media (max-width: 1024px) {
@@ -3779,8 +3876,29 @@ ul {
 
 @media (max-width: 768px) {
     .invitation-theme .products-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
+    .invitation-theme .popup-gallery .gallery-main {
+        max-height: none;
+        aspect-ratio: 9 / 16;
+        width: 100%;
+    }
+    .invitation-theme .popup-gallery .gallery-main img {
+        width: 100%;
+        object-fit: cover;
+        object-position: top center;
+    }
+}
+
+@media (max-width: 480px) {
+    .invitation-theme .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .invitation-theme .product-card-info { padding: 8px 10px 10px; }
+    .invitation-theme .product-card-info h3 { font-size: 0.84rem; }
+    .invitation-theme .product-card-info p { font-size: 0.72rem; }
 }
 
 /* ── Chat bubbles responsive ── */
