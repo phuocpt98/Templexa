@@ -37,6 +37,7 @@ for (const [idStr, sel] of Object.entries(SEL)) {
     const main = keys.includes(sel.main) ? sel.main : (keys.includes('open') ? 'open' : keys[0]);
     let order = Array.isArray(sel.order) && sel.order.length ? sel.order.filter(k => keys.includes(k)) : [];
     if (!order.includes(main)) order.unshift(main);
+    order = [...new Set(order)];
     for (const k of keys) if (!order.includes(k)) order.push(k);
 
     const rel = (k) => `${dir}/shots/${k}.webp`;

@@ -463,7 +463,6 @@ const PRODUCTS = [
         price: '',
         images: [
             './products/Invitation/Wedding/gen_173_wedding-card-interactive/shots/open.webp',
-            './products/Invitation/Wedding/gen_173_wedding-card-interactive/shots/open.webp',
             './products/Invitation/Wedding/gen_173_wedding-card-interactive/shots/cover.webp',
         ],
         thumbnail: './products/Invitation/Wedding/gen_173_wedding-card-interactive/screen.webp',
@@ -499,7 +498,6 @@ const PRODUCTS = [
         images: [
             './products/Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding/shots/cover.webp',
             './products/Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding/shots/open.webp',
-            './products/Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding/shots/cover.webp',
         ],
         thumbnail: './products/Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding/screen.webp',
         mobileView: './products/Invitation/Wedding/gen_175_cuon-phim-ky-uc-wedding/shots/cover.webp',
@@ -533,7 +531,6 @@ const PRODUCTS = [
         images: [
             './products/Invitation/Wedding/gen_176_fresh-bright-wedding/shots/cover.webp',
             './products/Invitation/Wedding/gen_176_fresh-bright-wedding/shots/open.webp',
-            './products/Invitation/Wedding/gen_176_fresh-bright-wedding/shots/cover.webp',
         ],
         thumbnail: './products/Invitation/Wedding/gen_176_fresh-bright-wedding/screen.webp',
         mobileView: './products/Invitation/Wedding/gen_176_fresh-bright-wedding/shots/cover.webp',
@@ -1889,7 +1886,6 @@ const PRODUCTS = [
         price: '',
         images: [
             './products/Invitation/Wedding/gen_222_love-story-slide-interactive/shots/open.webp',
-            './products/Invitation/Wedding/gen_222_love-story-slide-interactive/shots/open.webp',
             './products/Invitation/Wedding/gen_222_love-story-slide-interactive/shots/cover.webp',
         ],
         thumbnail: './products/Invitation/Wedding/gen_222_love-story-slide-interactive/screen_1.webp',
@@ -2199,7 +2195,6 @@ const PRODUCTS = [
         price: '',
         images: [
             './products/Invitation/Wedding/khach_duc-thuy-nha-gai/shots/open.webp',
-            './products/Invitation/Wedding/khach_duc-thuy-nha-gai/shots/open.webp',
             './products/Invitation/Wedding/khach_duc-thuy-nha-gai/shots/cover.webp',
             './products/Invitation/Wedding/khach_duc-thuy-nha-gai/shots/sec-1.webp',
         ],
@@ -2342,7 +2337,6 @@ const PRODUCTS = [
         price: 'free',
         images: [
             './products/Invitation/Wedding/gen_223_love-story-cinematic/shots/open.webp',
-            './products/Invitation/Wedding/gen_223_love-story-cinematic/shots/open.webp',
             './products/Invitation/Wedding/gen_223_love-story-cinematic/shots/cover.webp',
         ],
         thumbnail: './products/Invitation/Wedding/gen_223_love-story-cinematic/shots/open.webp',
@@ -2415,7 +2409,6 @@ const PRODUCTS = [
         tags: ['wedding', 'minimalist', 'luxury', 'wax-seal', 'guest-personalization', 'countdown', 'rsvp', 'calendar', 'love-story'],
         price: 'free',
         images: [
-            './products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/shots/open.webp',
             './products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/shots/open.webp',
             './products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/shots/cover.webp',
             './products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/shots/sec-1.webp',
@@ -2491,7 +2484,6 @@ const PRODUCTS = [
         price: 'free',
         images: [
             './products/Invitation/Wedding/khach_khui-kiet-hong-han/shots/open.webp',
-            './products/Invitation/Wedding/khach_khui-kiet-hong-han/shots/open.webp',
             './products/Invitation/Wedding/khach_khui-kiet-hong-han/shots/cover.webp',
             './products/Invitation/Wedding/khach_khui-kiet-hong-han/shots/sec-1.webp',
         ],
@@ -2528,7 +2520,6 @@ const PRODUCTS = [
         tags: ['thiep-cuoi', 'sage-green', 'vintage', 'polaroid', 'envelope', 'wax-seal', 'countdown', 'gallery', 'gift-qr'],
         price: 'free',
         images: [
-            './products/Invitation/Wedding/khach_minh-linh/shots/open.webp',
             './products/Invitation/Wedding/khach_minh-linh/shots/open.webp',
             './products/Invitation/Wedding/khach_minh-linh/shots/cover.webp',
             './products/Invitation/Wedding/khach_minh-linh/shots/sec-1.webp',
@@ -2604,7 +2595,6 @@ const PRODUCTS = [
         price: 'free',
         images: [
             './products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/shots/open.webp',
-            './products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/shots/open.webp',
             './products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/shots/cover.webp',
             './products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/shots/sec-1.webp',
         ],
@@ -2677,7 +2667,6 @@ const PRODUCTS = [
         tags: ['thiep-cuoi', 'vintage', 'sage-green', 'polaroid', 'dem-nguoc', 'rsvp', 'ca-nhan-hoa', 'nhac-nen', 'hai-le'],
         price: 'free',
         images: [
-            './products/Invitation/Wedding/khach_3/shots/open.webp',
             './products/Invitation/Wedding/khach_3/shots/open.webp',
             './products/Invitation/Wedding/khach_3/shots/cover.webp',
             './products/Invitation/Wedding/khach_3/shots/sec-1.webp',
@@ -3391,7 +3380,6 @@ const PRODUCTS = [
         images: [
             './products/Invitation/Other/rồi ai sẽ ngắm pháo hoa/shots/cover.webp',
             './products/Invitation/Other/rồi ai sẽ ngắm pháo hoa/shots/open.webp',
-            './products/Invitation/Other/rồi ai sẽ ngắm pháo hoa/shots/cover.webp',
         ],
         thumbnail: './products/Invitation/Other/rồi ai sẽ ngắm pháo hoa/thumbnail.webp',
         mobileView: './products/Invitation/Other/rồi ai sẽ ngắm pháo hoa/shots/cover.webp',
@@ -3746,7 +3734,6 @@ const PRODUCTS = [
         images: [
             './products/Invitation/Other/gen_164_love-confession-playful/shots/cover.webp',
             './products/Invitation/Other/gen_164_love-confession-playful/shots/open.webp',
-            './products/Invitation/Other/gen_164_love-confession-playful/shots/cover.webp',
         ],
         thumbnail: './products/Invitation/Other/gen_164_love-confession-playful/screen.webp',
         mobileView: './products/Invitation/Other/gen_164_love-confession-playful/shots/cover.webp',
