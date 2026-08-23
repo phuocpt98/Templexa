@@ -172,7 +172,6 @@ section + section { padding-top: 0; }
 @keyframes sway { 0%, 100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.2deg); } }
 .hero-couple .sticker { width: 58px; height: 58px; }
 .hero-names { font-family: var(--font-head); font-weight: 800; color: var(--pink-deep); font-size: clamp(1.9rem, 9vw, 3rem); line-height: 1.08; margin: 12px 0 0; display: flex; flex-direction: column; align-items: center; max-width: 100%; }
-.hero-names > span:not(.amp) { max-width: 100%; overflow-wrap: anywhere; position: relative; padding: 0 6px; }
 .hero-names > span:not(.amp) svg { position: absolute; left: 8%; right: 8%; bottom: -7px; width: 84%; height: 10px; }
 .hero-names .amp { font-family: var(--font-script); font-size: 0.55em; color: var(--mint-deep); line-height: 1.3; }
 .hero-names .bride { color: #D66B8A; }
@@ -338,6 +337,9 @@ section + section { padding-top: 0; }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } .env-card, .env-couple { opacity: 1; } }
 @media (min-width: 700px) { .page { padding-bottom: 120px; } .sticker { width: 76px; height: 76px; } }
+
+/* Tên không bao giờ gãy giữa chừng: mỗi tên 1 khối, JS co chữ nếu quá rộng */
+.hero-names > span:not(.amp) { white-space: nowrap; overflow-wrap: normal; display: inline-block; max-width: 100%; }
 </style>
 </head>
 <body class="locked">
@@ -609,6 +611,20 @@ section + section { padding-top: 0; }
     entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
   document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+
+  /* ---------- Co chữ tên cho vừa màn hình (không gãy tên) ---------- */
+  function fitNames() {
+    document.querySelectorAll('.hero-names').forEach(function (h) {
+      h.style.fontSize = '';
+      var max = h.clientWidth || h.parentElement.clientWidth;
+      var size = parseFloat(getComputedStyle(h).fontSize), guard = 0;
+      var widest = function () { return Math.max.apply(null, Array.prototype.map.call(h.querySelectorAll('span:not(.amp)'), function (s) { return s.scrollWidth; })); };
+      while (widest() > max - 4 && size > 16 && guard++ < 40) { size -= 1; h.style.fontSize = size + 'px'; }
+    });
+  }
+  window.addEventListener('load', fitNames); window.addEventListener('resize', fitNames);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitNames);
 
   /* ---------- Countdown ---------- */
   var nums = {}; document.querySelectorAll('.count-num').forEach(function (n) { nums[n.dataset.k] = n; });

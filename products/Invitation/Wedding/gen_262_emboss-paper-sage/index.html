@@ -189,7 +189,6 @@ section + section { padding-top: 0; }
   display: flex; flex-direction: column; align-items: center; gap: 2px;
 }
 .hero-names .amp { font-size: 0.55em; line-height: 1; color: var(--sage-wax); }
-.hero-names > span:not(.amp) { max-width: 100%; overflow-wrap: anywhere; }
 .hero-date {
   font-family: var(--font-heading); font-size: clamp(0.95rem, 3.9vw, 1.15rem); letter-spacing: 0.16em; color: var(--ink); margin-top: 10px;
   display: flex; flex-wrap: wrap; justify-content: center; gap: 0 0.3em; padding: 0 6px;
@@ -357,6 +356,9 @@ section + section { padding-top: 0; }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
 @media (min-width: 700px) { .page { padding-bottom: 120px; } }
+
+/* Tên không bao giờ gãy giữa chừng: mỗi tên 1 khối, JS co chữ nếu quá rộng */
+.hero-names > span:not(.amp) { white-space: nowrap; overflow-wrap: normal; display: inline-block; max-width: 100%; }
 </style>
 </head>
 <body class="locked">
@@ -590,6 +592,20 @@ section + section { padding-top: 0; }
     entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
   document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+
+  /* ---------- Co chữ tên cho vừa màn hình (không gãy tên) ---------- */
+  function fitNames() {
+    document.querySelectorAll('.hero-names').forEach(function (h) {
+      h.style.fontSize = '';
+      var max = h.clientWidth || h.parentElement.clientWidth;
+      var size = parseFloat(getComputedStyle(h).fontSize), guard = 0;
+      var widest = function () { return Math.max.apply(null, Array.prototype.map.call(h.querySelectorAll('span:not(.amp)'), function (s) { return s.scrollWidth; })); };
+      while (widest() > max - 4 && size > 16 && guard++ < 40) { size -= 1; h.style.fontSize = size + 'px'; }
+    });
+  }
+  window.addEventListener('load', fitNames); window.addEventListener('resize', fitNames);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitNames);
 
   /* ---------- Countdown ---------- */
   var nums = {}; document.querySelectorAll('.count-num').forEach(function (n) { nums[n.dataset.k] = n; });
