@@ -14,9 +14,6 @@
 
     if (!grid) return;
 
-    // ── Detail data cache for mobileView ─────
-    let detailDataCache = {};
-
     // ── Popup elements ─────────────────────────
     const popupOverlay = document.getElementById('productPopup');
     const popupBody = document.getElementById('popupBody');
@@ -195,7 +192,6 @@
         emptyState.style.display = 'none';
 
         const isInvitation = document.body.classList.contains('invitation-theme');
-        const invDetail = detailDataCache['invitation'];
 
         grid.innerHTML = products.map(p => {
             const categoryLabel = CATEGORIES.find(c => c.id === p.category)?.label || p.category;
@@ -213,7 +209,7 @@
             if (p.price === 'free') badgeHTML += '<span class="product-badge free" style="top:auto;bottom:12px;right:12px;">FREE</span>';
 
             const showMobile = isInvitation || (p.type === 'invitation' && window.location.pathname.includes('products-admin'));
-            const imgSrc = (showMobile && p.mobileView) || (isInvitation && invDetail && invDetail[p.id] && invDetail[p.id].mobileView) || p.thumbnail;
+            const imgSrc = (showMobile && p.mobileView) || p.thumbnail;
 
             return `
                 <a href="product-detail.html?id=${p.id}" class="product-card" data-product-id="${p.id}"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
@@ -572,14 +568,6 @@
 
         // Update nav link cho Dịch Vụ
         updateServiceNavLink();
-
-        // Fetch invitation detail data (mobileView) nếu chưa có
-        if (currentType === 'invitation' && !detailDataCache['invitation']) {
-            ProductDetail.fetchCategoryData('invitation').then(function (data) {
-                detailDataCache['invitation'] = data;
-                renderCore(); // re-render với mobileView
-            }).catch(function () {});
-        }
 
         renderCore();
     }

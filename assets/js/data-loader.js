@@ -32,6 +32,9 @@ const ProductDetail = (function () {
         const product = getProductById(id);
         if (!product) return null;
 
+        // Thiệp mời: dữ liệu đã nằm đầy đủ trong data.js (đợt 2) — không cần fetch JSON
+        if (product.type === 'invitation' || (product.images && product.images.length)) return product;
+
         const detail = await fetchCategory(product.category);
         const extra = detail[product.id];
 
@@ -45,7 +48,7 @@ const ProductDetail = (function () {
      */
     function prefetch(id) {
         const product = getProductById(id);
-        if (!product) return;
+        if (!product || product.type === 'invitation') return;
         const file = DETAIL_FILE_MAP[product.category] || product.category;
         if (!cache[file]) {
             fetchCategory(product.category).catch(function () {});
