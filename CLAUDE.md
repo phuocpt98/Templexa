@@ -303,7 +303,7 @@ products/
 
 ## SEO/AEO nâng cao (FAQ, llms.txt, sitemap)
 
-- **`cau-hoi-thuong-gap.html`** — sinh bởi `node scripts/build-faq.js` từ `assets/data/faq.json` (35 câu hỏi, 7 nhóm). Cùng script này còn nhúng FAQ rút gọn vào 2 trang khác giữa các marker cố định — **không sửa tay bên trong marker**, sửa `faq.json` rồi chạy lại `npm run build:faq`:
+- **`cau-hoi-thuong-gap.html`** — sinh bởi `node scripts/build-faq.js` từ `assets/data/faq.json` (37 câu hỏi, 7 nhóm). Cùng script này còn nhúng FAQ rút gọn vào 2 trang khác giữa các marker cố định — **không sửa tay bên trong marker**, sửa `faq.json` rồi chạy lại `npm run build:faq`:
   - `<!-- FAQ:START --> ... <!-- FAQ:END -->` — nội dung HTML section FAQ
   - `<!-- FAQ-LD:START --> ... <!-- FAQ-LD:END -->` — JSON-LD `FAQPage` tương ứng
   - `thiep-online.html`: 8 câu | `index.html`: 5 câu
