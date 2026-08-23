@@ -25,14 +25,14 @@ products/
 
 | Loai chinh | Loai nho | Tong | Public |
 |------------|----------|------|--------|
-| **Invitation** | other | 54 | 44 |
+| **Invitation** | other | 54 | 46 |
 | **Invitation** | wedding | 81 | 50 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **255** | **214** |
+| | **Tong** | **255** | **216** |
 
 _Cap nhat tu data.js: 2026-08-23 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -206,8 +206,8 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 249 | Thiệp Giỗ Tổ Dòng Họ — Thiệp Cuộn | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 | 250 | Thiệp Giỗ Tổ Dòng Họ — Hoành Phi | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 | 251 | Thiệp Giỗ Tổ Dòng Họ — Kim Tối Giản | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
-| 267 | Thiệp Sinh Nhật Bé — Bear Party Pastel | `Invitation/Other/gen_267_sinh-nhat-be-bear-party` | birthday | hidden |
-| 268 | Thiệp Thôi Nôi Bé — Bunny & Cloud Pastel | `Invitation/Other/gen_268_thoi-noi-be-bunny-cloud` | thoi-noi | hidden |
+| 267 | Thiệp Sinh Nhật Bé — Bear Party Pastel | `Invitation/Other/gen_267_sinh-nhat-be-bear-party` | birthday | public |
+| 268 | Thiệp Thôi Nôi Bé — Bunny & Cloud Pastel | `Invitation/Other/gen_268_thoi-noi-be-bunny-cloud` | thoi-noi | public |
 
 ### Invitation / wedding (81)
 

@@ -4814,7 +4814,7 @@ const PRODUCTS = [
         downloads: 4,
         rating: 4.9,
         showInSlider: false,
-        isPublic: false,
+        isPublic: true,
         updatedAt: '2026-08-23',
     },
     {
@@ -4851,7 +4851,7 @@ const PRODUCTS = [
         downloads: 4,
         rating: 4.9,
         showInSlider: false,
-        isPublic: false,
+        isPublic: true,
         updatedAt: '2026-08-23',
     },
     // ── WEBSITE — 115 ──────────────
