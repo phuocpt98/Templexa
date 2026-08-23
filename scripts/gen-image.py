@@ -7,6 +7,8 @@ Khoá truy cập KHÔNG nằm trong repo — script đọc thẳng từ file c�
 Dùng:
     python3 scripts/gen-image.py -p "mô tả ảnh" -o products/.../hero.webp
     python3 scripts/gen-image.py -p "..." -o out.png --size 1536x1024 -n 3
+    python3 scripts/gen-image.py -p "..." -o assets/ornament.webp --knockout   # tách nền trắng → trong suốt
+    python3 scripts/gen-image.py --knockout-only assets/co-san.webp            # chỉ tách nền file có sẵn
 """
 
 import argparse
@@ -92,19 +94,37 @@ def generate(prompt: str, model: str, size: str, count: int) -> list[bytes]:
     return out
 
 
-def save(raw: bytes, path: str, quality: int) -> str:
-    """Ghi ra đĩa. Đuôi .webp thì convert, còn lại giữ nguyên PNG."""
+def knockout(img, hi: int = 246, lo: int = 215):
+    """Nền trắng → trong suốt. Pixel có min(R,G,B) >= hi thành alpha 0,
+    <= lo giữ nguyên, ở giữa giảm dần — mép mềm, không răng cưa.
+    Dùng cho ảnh gen nền trắng (hoa văn, wax seal, tranh minh hoạ)."""
+    from PIL import ImageChops
+
+    img = img.convert("RGBA")
+    r, g, b, a = img.split()
+    m = ImageChops.darker(ImageChops.darker(r, g), b)          # min(R,G,B)
+    lut = [255 if v <= lo else 0 if v >= hi else int(255 * (hi - v) / (hi - lo)) for v in range(256)]
+    ramp = m.point(lut)
+    img.putalpha(ImageChops.multiply(a, ramp))
+    return img.crop(img.getbbox() or (0, 0, img.width, img.height))  # cắt viền thừa
+
+
+def save(raw: bytes, path: str, quality: int, knock: bool = False) -> str:
+    """Ghi ra đĩa. Đuôi .webp thì convert (giữ alpha nếu --knockout), còn lại giữ nguyên PNG."""
     os.makedirs(os.path.dirname(os.path.abspath(path)) or ".", exist_ok=True)
-    if path.lower().endswith(".webp"):
+    if path.lower().endswith(".webp") or knock:
         try:
             from PIL import Image
         except ImportError:
-            sys.exit("Cần Pillow để xuất .webp — chạy: pip3 install Pillow")
+            sys.exit("Cần Pillow để xuất .webp / tách nền — chạy: pip3 install Pillow")
         import io
 
-        Image.open(io.BytesIO(raw)).convert("RGB").save(
-            path, "WEBP", quality=quality, method=6
-        )
+        img = Image.open(io.BytesIO(raw))
+        if knock:
+            img = knockout(img)
+            img.save(path, "WEBP" if path.lower().endswith(".webp") else "PNG", quality=quality, method=6)
+        else:
+            img.convert("RGB").save(path, "WEBP", quality=quality, method=6)
     else:
         with open(path, "wb") as fh:
             fh.write(raw)
@@ -114,21 +134,34 @@ def save(raw: bytes, path: str, quality: int) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("-p", "--prompt", required=True, help="mô tả ảnh, viết bằng tiếng Anh cho kết quả tốt hơn")
-    ap.add_argument("-o", "--out", required=True, help="đường dẫn ra; đuôi .webp sẽ tự convert")
+    ap.add_argument("-p", "--prompt", help="mô tả ảnh, viết bằng tiếng Anh cho kết quả tốt hơn")
+    ap.add_argument("-o", "--out", help="đường dẫn ra; đuôi .webp sẽ tự convert")
+    ap.add_argument("-k", "--knockout", action="store_true", help="tách nền trắng → trong suốt (cho hoạ tiết, seal, tranh nền trắng)")
+    ap.add_argument("--knockout-only", metavar="FILE", help="không gen, chỉ tách nền trắng của FILE có sẵn (ghi đè, hoặc -o để ra file khác)")
     ap.add_argument("-m", "--model", default=MODELS[0], choices=MODELS)
     ap.add_argument("-s", "--size", default="1024x1024", choices=SIZES)
     ap.add_argument("-n", "--count", type=int, default=1, help="số ảnh, mặc định 1")
     ap.add_argument("-q", "--quality", type=int, default=88, help="chất lượng WebP, mặc định 88")
     args = ap.parse_args()
 
+    if args.knockout_only:
+        with open(args.knockout_only, "rb") as fh:
+            raw = fh.read()
+        out = args.out or args.knockout_only
+        saved = save(raw, out, args.quality, knock=True)
+        print(f"{saved}  ({os.path.getsize(saved):,} bytes)  [knockout]")
+        return
+
+    if not args.prompt or not args.out:
+        ap.error("cần -p và -o (hoặc --knockout-only FILE)")
+
     images = generate(args.prompt, args.model, args.size, args.count)
 
     base, ext = os.path.splitext(args.out)
     for idx, raw in enumerate(images):
         path = args.out if len(images) == 1 else f"{base}-{idx + 1}{ext}"
-        saved = save(raw, path, args.quality)
-        print(f"{saved}  ({os.path.getsize(saved):,} bytes)")
+        saved = save(raw, path, args.quality, knock=args.knockout)
+        print(f"{saved}  ({os.path.getsize(saved):,} bytes){'  [knockout]' if args.knockout else ''}")
 
 
 if __name__ == "__main__":
