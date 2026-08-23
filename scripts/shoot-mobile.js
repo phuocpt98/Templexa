@@ -7,7 +7,7 @@
  *   node scripts/shoot-mobile.js --all                    # tất cả thiệp
  *   node scripts/shoot-mobile.js --url ./products/.../index.html --out ./tmp/x   # 1 trang bất kỳ
  *
- * Kết quả: <folder thiệp>/shots/cover.webp, open.webp, sec-1..N.webp, full.webp
+ * Kết quả: <folder thiệp>/shots/cover.webp (phong bì), open.webp (hero sau khi mở), sec-1.webp (1 màn dưới hero)
  *          + shots/manifest.json (kích thước, thứ tự). KHÔNG sửa data.js —
  *          việc chọn ảnh đẹp nhất làm ở bước sau (subagent xem ảnh rồi quyết).
  */
@@ -20,7 +20,7 @@ const sharp = require('sharp');
 const ROOT = path.join(__dirname, '..');
 const PORT = Number(process.env.SHOT_PORT || (process.argv.includes("--port") ? process.argv[process.argv.indexOf("--port") + 1] : 8791));
 const VIEW = { width: 390, height: 844, deviceScaleFactor: 2 };
-const MAX_SECTIONS = 6;
+const MAX_SECTIONS = 1;   // chỉ 1 màn dưới hero (tổng 3 ảnh: cover, open, sec-1)
 const QUALITY = 82;
 
 const args = process.argv.slice(2);
@@ -201,68 +201,59 @@ async function shot(page, file) {
 
             manifest.opened = await tryOpen(page);
             await settle(page, 2800);
+            // Đảm bảo trang cuộn được (nhiều thiệp giữ body.no-scroll sau khi mở, hoặc animation dài)
+            for (let attempt = 0; attempt < 3; attempt++) {
+                const sg = await pageSignature(page);
+                if (sg.sh > VIEW.height + 50) break;
+                if (attempt === 0) { await new Promise(r => setTimeout(r, 2500)); continue; }
+                const n = await removeFixedOverlay(page);
+                await page.evaluate(() => {
+                    document.body.className = document.body.className.replace(/\b(no-scroll|noscroll|locked|lock|overflow-hidden|envelope-closed|is-locked|fixed)\b/g, '');
+                    document.documentElement.style.overflow = 'auto'; document.body.style.overflow = 'auto';
+                    document.documentElement.style.height = 'auto'; document.body.style.height = 'auto';
+                });
+                manifest.opened += `>unlock:${n}`;
+                await settle(page, 800);
+            }
             manifest.shots.push(Object.assign({ key: 'open' }, await shot(page, path.join(t.outDir, 'open.webp'))));
 
-            // sections — hỗ trợ cả trang cuộn bằng container riêng (body overflow:hidden)
-            const sections = await page.evaluate((maxH) => {
-                const se = document.scrollingElement || document.documentElement;
-                let scroller = null;
-                if (se.scrollHeight <= innerHeight + 50) {
-                    const cands = Array.from(document.querySelectorAll('body *')).filter(el => {
-                        const cs = getComputedStyle(el);
-                        return /(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 200 && el.clientHeight >= innerHeight * 0.6;
-                    }).sort((a, b) => b.scrollHeight - a.scrollHeight);
-                    scroller = cands[0] || null;
-                    if (scroller) { scroller.setAttribute('data-shot-scroller', '1'); }
-                }
-                const base = scroller ? scroller.getBoundingClientRect().top : 0;
-                const scrollY = scroller ? scroller.scrollTop : window.scrollY;
-                const root = scroller || document;
-                const els = Array.from(root.querySelectorAll('section, [class*="section"], main > div'));
-                const out = [];
-                for (const el of els) {
-                    const r = el.getBoundingClientRect();
-                    const top = r.top - base + scrollY;
-                    if (r.height < 260 || r.width < 200) continue;
-                    if (out.some(o => Math.abs(o.top - top) < 200)) continue;
-                    out.push({ top, h: r.height });
-                }
-                return out.sort((a, b) => a.top - b.top).slice(0, maxH);
-            }, MAX_SECTIONS + 2);
+            // sec-1: đúng 1 màn hình dưới hero (cuộn 1 viewport) — hỗ trợ container cuộn riêng
             let i = 0;
-            let lastHash = null;
-            for (const s of sections) {
-                if (s.top < 400) continue; // đã có trong cover/open
-                if (i >= MAX_SECTIONS) break;
-                await page.evaluate((y) => {
-                    const sc = document.querySelector('[data-shot-scroller]');
-                    if (sc) sc.scrollTo({ top: y, behavior: 'instant' }); else window.scrollTo({ top: y, behavior: 'instant' });
-                }, s.top);
-                await settle(page, 1100);
-                const png = await page.screenshot({ type: 'png' });
-                const hash = require('crypto').createHash('md5').update(png).digest('hex');
-                if (hash === lastHash) continue;             // frame không đổi → bỏ qua
-                lastHash = hash;
-                i++;
-                const file = path.join(t.outDir, `sec-${i}.webp`);
-                await sharp(png).webp({ quality: QUALITY }).toFile(file);
-                const meta = await sharp(file).metadata();
-                manifest.shots.push({ key: `sec-${i}`, top: Math.round(s.top), file: path.basename(file), w: meta.width, h: meta.height, bytes: fs.statSync(file).size });
+            {
+                const scrolled = await page.evaluate((vh) => {
+                    const se = document.scrollingElement || document.documentElement;
+                    let scroller = null;
+                    if (se.scrollHeight <= innerHeight + 50) {
+                        const cands = Array.from(document.querySelectorAll('body *')).filter(el => {
+                            const cs = getComputedStyle(el);
+                            return /(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 200 && el.clientHeight >= innerHeight * 0.6;
+                        }).sort((a, b) => b.scrollHeight - a.scrollHeight);
+                        scroller = cands[0] || null;
+                    }
+                    if (scroller) { scroller.scrollTo({ top: vh, behavior: 'instant' }); return scroller.scrollTop; }
+                    window.scrollTo({ top: vh, behavior: 'instant' }); return window.scrollY;
+                }, VIEW.height);
+                if (scrolled > 200) {
+                    await settle(page, 1100);
+                    const png = await page.screenshot({ type: 'png' });
+                    const openFile = path.join(t.outDir, 'open.webp');
+                    const same = fs.existsSync(openFile) && await (async () => {
+                        const a = await sharp(png).resize(24, 48, { fit: 'fill' }).grayscale().raw().toBuffer();
+                        const b = await sharp(openFile).resize(24, 48, { fit: 'fill' }).grayscale().raw().toBuffer();
+                        let d = 0; for (let k = 0; k < a.length; k++) d += Math.abs(a[k] - b[k]); return d / a.length < 6;
+                    })();
+                    if (!same) {
+                        i = 1;
+                        const file = path.join(t.outDir, 'sec-1.webp');
+                        await sharp(png).webp({ quality: QUALITY }).toFile(file);
+                        const meta = await sharp(file).metadata();
+                        manifest.shots.push({ key: 'sec-1', top: scrolled, file: 'sec-1.webp', w: meta.width, h: meta.height, bytes: fs.statSync(file).size });
+                    }
+                }
             }
             // xoá sec-* cũ thừa từ lần chụp trước
             for (let k = i + 1; k <= 12; k++) { const f = path.join(t.outDir, `sec-${k}.webp`); if (fs.existsSync(f)) fs.unlinkSync(f); }
 
-            // full page (giới hạn 8 màn hình để tránh ảnh quá dài)
-            await page.evaluate(() => window.scrollTo(0, 0));
-            await settle(page, 600);
-            const fullPng = await page.screenshot({ type: 'png', fullPage: true });
-            const fullFile = path.join(t.outDir, 'full.webp');
-            const img = sharp(fullPng);
-            const md = await img.metadata();
-            const maxH = VIEW.height * VIEW.deviceScaleFactor * 8;
-            await (md.height > maxH ? img.extract({ left: 0, top: 0, width: md.width, height: maxH }) : img).webp({ quality: QUALITY - 8 }).toFile(fullFile);
-            const fm = await sharp(fullFile).metadata();
-            manifest.shots.push({ key: 'full', file: 'full.webp', w: fm.width, h: fm.height, bytes: fs.statSync(fullFile).size });
         } catch (e) {
             manifest.error = String(e.message || e);
         }
