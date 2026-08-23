@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Thiệp Thôi Nôi Bé Mimi — 11.10.2026</title>
+<meta name="description" content="Mimi tròn 1 tuổi rồi! Mời cô chú, anh chị đến chung vui lễ thôi nôi của bé — Chủ Nhật, 11.10.2026.">
+<meta property="og:title" content="Thiệp Thôi Nôi Bé Mimi — 11.10.2026">
+<meta property="og:description" content="Mimi tròn 1 tuổi rồi! Mời cô chú, anh chị đến chung vui lễ thôi nôi của bé nhé.">
+<meta property="og:image" content="og-cover.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THIỆP THÔI NÔI — BUNNY & CLOUD · PASTEL XANH / HỒNG PHẤN
+   Concept: thỏ ngủ trên trăng, mây bông, sao lấp lánh,
+   thẻ trắng bo tròn viền pastel, nhịp điệu đều, 2 sticker / thẻ.
+   ============================================================ */
+:root {
+  --sky: #DCEBFA;
+  --sky-deep: #8FB8E8;
+  --sky-soft: #EEF5FD;
+  --blush: #F9D5DC;
+  --blush-deep: #E89AAA;
+  --blush-soft: #FDEEF1;
+  --cream: #FFFBF5;
+  --butter: #FFF0C2;
+  --ink: #4E5A6B;
+  --ink-soft: #8894A3;
+  --white: #FFFFFF;
+  --shadow: 0 10px 28px rgba(143,184,232,0.22);
+  --font-head: 'Baloo 2', 'Quicksand', system-ui, sans-serif;
+  --font-script: 'Dancing Script', cursive;
+  --font-body: 'Quicksand', system-ui, sans-serif;
+  --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --max: 440px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-body); font-weight: 400; color: var(--ink);
+  background: var(--sky); line-height: 1.65; overflow-x: hidden;
+}
+body.locked { overflow: hidden; height: 100vh; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ---------- Nền cố định ---------- */
+.bg-stage { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: var(--sky); }
+.bg-stage .bg-pattern { position: absolute; inset: 0; background: url('assets/bg-pattern.webp') center / 420px repeat; opacity: 0.95; }
+.bg-stage .bg-veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.3), rgba(255,255,255,0) 28%, rgba(255,255,255,0) 72%, rgba(255,255,255,0.35)); }
+
+/* ---------- Sticker (sheet 3×3, đều ô) ---------- */
+.sticker {
+  position: absolute; width: 64px; height: 64px; pointer-events: none; z-index: 3;
+  background: url('assets/baby-stickers.webp') no-repeat; background-size: 300% 300%;
+  filter: drop-shadow(0 4px 8px rgba(143,184,232,0.3));
+  animation: bob var(--dur, 4.5s) ease-in-out var(--delay, 0s) infinite;
+}
+.sticker[data-s="bottle"]   { background-position: 0% 0%; }
+.sticker[data-s="pacifier"] { background-position: 50% 0%; }
+.sticker[data-s="cloud"]    { background-position: 100% 0%; }
+.sticker[data-s="moon"]     { background-position: 0% 50%; }
+.sticker[data-s="star"]     { background-position: 50% 50%; }
+.sticker[data-s="rattle"]   { background-position: 100% 50%; }
+.sticker[data-s="socks"]    { background-position: 0% 100%; }
+.sticker[data-s="balloon"]  { background-position: 50% 100%; }
+.sticker[data-s="duck"]     { background-position: 100% 100%; }
+.sticker.inline { position: static; display: inline-block; width: 44px; height: 44px; animation: none; filter: none; }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(var(--rot, -6deg)); } 50% { transform: translateY(-6px) rotate(calc(var(--rot, -6deg) + 5deg)); } }
+
+/* ---------- Sao lấp lánh ---------- */
+.twinkle { position: absolute; width: 8px; height: 8px; pointer-events: none; z-index: 2; color: var(--sky-deep); animation: twinkle var(--dur, 2.4s) ease-in-out var(--delay, 0s) infinite; }
+.twinkle::before { content: '✦'; font-size: 12px; line-height: 1; display: block; }
+.twinkle.pink { color: var(--blush-deep); }
+.twinkle.gold { color: #F2C75C; }
+@keyframes twinkle { 0%, 100% { opacity: 0.15; transform: scale(0.7); } 50% { opacity: 1; transform: scale(1.15); } }
+
+/* ---------- Phong bì ---------- */
+.envelope {
+  position: fixed; inset: 0; z-index: 100; cursor: pointer; overflow: hidden;
+  background: var(--sky) url('assets/bg-pattern.webp') center / 420px repeat;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.9s var(--ease-out);
+}
+.envelope::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 75% 60% at 50% 45%, rgba(255,255,255,0.55), transparent 70%); pointer-events: none; }
+.env-clouds { position: absolute; left: 50%; bottom: 1%; width: 140%; max-width: 760px; transform: translateX(-50%); opacity: 0.95; pointer-events: none; animation: cloudDrift 9s ease-in-out infinite; }
+@keyframes cloudDrift { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
+.env-wrap { position: relative; width: min(78vw, 320px); margin-top: -4vh; }
+.env-bunny {
+  position: absolute; left: 50%; bottom: 86%; width: 58%; transform: translateX(-50%) rotate(0deg);
+  filter: drop-shadow(0 10px 16px rgba(143,184,232,0.4)); z-index: 1; transform-origin: 50% 100%;
+  animation: peek 1s var(--bounce) 0.2s both, floaty 4.5s ease-in-out 1.2s infinite;
+}
+.env-bunny img { width: 100%; }
+.env-card {
+  position: relative; z-index: 2; background: var(--white); border-radius: 28px;
+  padding: 44px 22px 34px; text-align: center; border: 2px solid var(--sky);
+  box-shadow: 0 18px 40px rgba(143,184,232,0.35); transform-origin: 50% 100%;
+  animation: cardIn 0.9s var(--bounce) both;
+}
+.env-label { font-weight: 600; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sky-deep); }
+.env-names { font-family: var(--font-head); font-weight: 800; font-size: clamp(1.7rem, 7.4vw, 2.1rem); color: var(--ink); line-height: 1.15; margin-top: 4px; }
+.env-names b { color: var(--blush-deep); font-weight: 800; }
+.env-sub { font-family: var(--font-script); font-size: clamp(1.4rem, 5.6vw, 1.65rem); color: var(--sky-deep); margin-top: 2px; }
+.env-date { display: inline-block; margin-top: 14px; padding: 6px 16px; border-radius: 999px; background: var(--blush-soft); border: 2px solid var(--blush); font-weight: 600; font-size: 0.82rem; color: var(--ink); }
+.env-hint {
+  position: absolute; left: 50%; bottom: max(40px, env(safe-area-inset-bottom, 40px)); transform: translateX(-50%); z-index: 3;
+  font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: var(--sky-deep); white-space: nowrap;
+  background: var(--white); padding: 10px 22px; border-radius: 999px; box-shadow: var(--shadow); border: 2px solid var(--sky);
+  animation: hintBob 1.4s ease-in-out infinite;
+}
+.envelope.opening .env-bunny { animation: swing 0.9s ease-in-out forwards; }
+.envelope.opening .env-card { animation: cardLift 0.75s ease-in 0.15s forwards; }
+.envelope.opening .env-hint { opacity: 0; transition: opacity 0.3s; }
+.envelope.open { opacity: 0; pointer-events: none; }
+@keyframes cardIn { from { opacity: 0; transform: translateY(40px) scale(0.9); } to { opacity: 1; transform: none; } }
+@keyframes peek { from { opacity: 0; transform: translateX(-50%) translateY(50%); } to { opacity: 1; transform: translateX(-50%); } }
+@keyframes floaty { 0%, 100% { transform: translateX(-50%) translateY(0) rotate(-2deg); } 50% { transform: translateX(-50%) translateY(-10px) rotate(2deg); } }
+@keyframes swing { 0% { transform: translateX(-50%) rotate(0); } 30% { transform: translateX(-50%) rotate(-9deg); } 60% { transform: translateX(-50%) rotate(7deg) translateY(-10px); } 100% { transform: translateX(-50%) rotate(0) translateY(-60px) scale(1.1); opacity: 0; } }
+@keyframes cardLift { to { transform: translateY(-40px) scale(0.96); opacity: 0; } }
+@keyframes hintBob { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-7px); } }
+
+/* Bùng nổ sao / tim */
+.confetti { position: fixed; left: 50%; top: 50%; z-index: 101; pointer-events: none; font-size: 18px; line-height: 1; color: var(--c, #E89AAA); animation: burst 1.2s var(--ease-out) forwards; }
+@keyframes burst { 0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; } 100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.2) rotate(var(--r)); opacity: 0; } }
+
+/* ---------- Khung trang ---------- */
+.page { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 18px 80px; overflow-x: clip; }
+section { position: relative; padding: clamp(52px, 11vw, 68px) 0; }
+section + section { padding-top: 0; }
+
+.card {
+  position: relative; background: var(--white); border-radius: 28px;
+  padding: clamp(30px, 7vw, 40px) clamp(18px, 5vw, 26px);
+  box-shadow: var(--shadow); border: 2px solid var(--sky);
+}
+.card.blush { border-color: var(--blush); }
+.card.cream { background: var(--cream); border-color: var(--butter); }
+.card > * { position: relative; }
+.card > .sticker { position: absolute; }
+
+.eyebrow { font-weight: 600; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sky-deep); text-align: center; margin-bottom: 2px; }
+.card.blush .eyebrow { color: var(--blush-deep); }
+.title { font-family: var(--font-head); font-weight: 800; font-size: clamp(1.6rem, 6.8vw, 1.95rem); color: var(--ink); text-align: center; line-height: 1.15; }
+.title em { font-style: normal; color: var(--blush-deep); }
+.wave { display: block; width: 90px; height: 12px; margin: 10px auto 20px; }
+.lead { text-align: center; color: var(--ink-soft); font-size: 0.94rem; }
+.center { text-align: center; }
+.pill {
+  display: inline-block; padding: 9px 20px; border-radius: 999px; font-family: var(--font-head); font-weight: 700; font-size: 0.9rem;
+  background: var(--sky-soft); border: 2px solid var(--sky); color: #5E8FC9;
+  transition: transform 0.3s var(--bounce), background 0.3s, color 0.3s;
+  max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pill:hover { transform: translateY(-2px) scale(1.03); background: var(--sky-deep); color: var(--white); }
+.pill.blush { background: var(--blush-soft); border-color: var(--blush); color: var(--blush-deep); }
+.pill.blush:hover { background: var(--blush-deep); color: var(--white); }
+.actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+
+/* ---------- Hero ---------- */
+.hero { padding-top: clamp(28px, 7vw, 48px); text-align: center; }
+.hero-card { position: relative; background: var(--white); border: 2px solid var(--sky); border-radius: 28px; padding: 38px 20px 0; box-shadow: var(--shadow); margin-top: 34px; }
+/* Viền mây trên thẻ hero */
+.hero-card::before {
+  content: ''; position: absolute; left: 14px; right: 14px; top: -22px; height: 44px; pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 100%, var(--white) 24px, transparent 25px),
+    radial-gradient(circle at 30% 100%, var(--white) 30px, transparent 31px),
+    radial-gradient(circle at 50% 100%, var(--white) 26px, transparent 27px),
+    radial-gradient(circle at 70% 100%, var(--white) 32px, transparent 33px),
+    radial-gradient(circle at 90% 100%, var(--white) 24px, transparent 25px);
+  filter: drop-shadow(0 -2px 0 var(--sky));
+}
+.hero-label { font-weight: 600; font-size: 0.74rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--sky-deep); }
+.hero-name { font-family: var(--font-head); font-weight: 800; color: var(--blush-deep); font-size: clamp(3.2rem, 17vw, 4.6rem); line-height: 1; margin-top: 4px; }
+.hero-age { font-family: var(--font-script); font-size: clamp(1.6rem, 7vw, 2rem); color: var(--ink); line-height: 1.2; margin-top: 2px; }
+.hero-date { margin-top: 14px; }
+.hero-photo { position: relative; width: min(64%, 240px); margin: 22px auto -30px; z-index: 2; }
+.hero-photo img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 6px solid var(--white); box-shadow: 0 14px 30px rgba(232,154,170,0.35); animation: floatSlow 5s ease-in-out infinite; }
+@keyframes floatSlow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.hero-photo .sticker { width: 58px; height: 58px; }
+.hero-clouds { position: relative; width: 108%; max-width: 480px; margin: 0 -4% 0; z-index: 1; pointer-events: none; }
+.hero-clouds img { width: 100%; }
+.hero-invite { margin-top: 6px; font-family: var(--font-script); font-size: clamp(1.5rem, 6vw, 1.8rem); color: var(--ink); }
+.hero-sub { color: var(--ink-soft); font-size: 0.92rem; margin-top: 2px; padding: 0 10px; }
+
+/* ---------- Hồ sơ bé ---------- */
+.avatar { width: 110px; height: 110px; margin: 0 auto 12px; border-radius: 50%; overflow: hidden; border: 5px solid var(--white); box-shadow: 0 8px 20px rgba(143,184,232,0.35); outline: 2px solid var(--sky); }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.baby-name { font-family: var(--font-head); font-weight: 800; font-size: 1.5rem; color: var(--ink); text-align: center; line-height: 1.2; }
+.baby-name em { font-style: normal; color: var(--blush-deep); }
+.baby-full { text-align: center; color: var(--ink-soft); font-size: 0.9rem; }
+.baby-nick { text-align: center; margin-top: 8px; }
+.baby-nick span { display: inline-block; padding: 4px 14px; border-radius: 999px; background: var(--blush-soft); border: 2px solid var(--blush); font-family: var(--font-head); font-weight: 700; font-size: 0.84rem; color: var(--blush-deep); }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+.stat { min-width: 0; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 12px 8px 10px; border-radius: 20px; background: var(--sky-soft); border: 2px solid var(--sky); }
+.stat:nth-child(even) { background: var(--blush-soft); border-color: var(--blush); }
+.stat .sticker.inline { width: 44px; height: 44px; }
+.stat > div { min-width: 0; }
+.stat .cap { display: block; font-weight: 600; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-soft); line-height: 1.3; }
+.stat .val { display: block; font-family: var(--font-head); font-weight: 800; font-size: 0.95rem; color: var(--ink); line-height: 1.25; white-space: nowrap; }
+.parents { text-align: center; margin-top: 18px; font-weight: 600; font-size: 0.92rem; color: var(--ink); }
+.parents b { font-family: var(--font-head); font-weight: 800; color: #5E8FC9; }
+
+/* ---------- Hành trình 12 tháng ---------- */
+.journey { position: relative; margin-top: 6px; padding-left: 52px; }
+.journey::before { content: ''; position: absolute; left: 20px; top: 14px; bottom: 24px; width: 4px; border-radius: 4px; background: repeating-linear-gradient(180deg, var(--sky) 0 10px, transparent 10px 18px); }
+.ms { position: relative; padding: 0 0 26px; }
+.ms:last-child { padding-bottom: 0; }
+.ms-dot { position: absolute; left: -54px; top: -6px; width: 46px; height: 46px; background: url('assets/baby-stickers.webp') 100% 0% / 300% 300% no-repeat; filter: drop-shadow(0 3px 6px rgba(143,184,232,0.35)); transform: scale(0.5); opacity: 0; transition: transform 0.6s var(--bounce) 0.2s, opacity 0.4s 0.2s; }
+.ms.in-view .ms-dot { transform: scale(1); opacity: 1; }
+.ms-month { display: inline-block; font-family: var(--font-head); font-weight: 800; font-size: 0.82rem; color: #5E8FC9; background: var(--sky-soft); padding: 2px 12px; border-radius: 999px; }
+.ms:nth-child(even) .ms-month { color: var(--blush-deep); background: var(--blush-soft); }
+.ms-title { font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: var(--ink); margin-top: 6px; line-height: 1.3; }
+.ms-text { color: var(--ink-soft); font-size: 0.9rem; margin-top: 2px; }
+.ms-img { width: min(100%, 220px); margin: 12px 0 0; border-radius: 20px; aspect-ratio: 4/3; object-fit: cover; border: 4px solid var(--white); box-shadow: 0 8px 18px rgba(143,184,232,0.3); transform: rotate(-1.5deg); }
+.ms:nth-child(even) .ms-img { transform: rotate(1.5deg); }
+
+/* ---------- Lễ thôi nôi ---------- */
+.time-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 4px; }
+.time-cell { min-width: 0; text-align: center; padding: 16px 8px; border-radius: 20px; background: var(--sky-soft); border: 2px solid var(--sky); }
+.time-cell:nth-child(2) { background: var(--blush-soft); border-color: var(--blush); }
+.time-cell .cap { display: block; font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-soft); }
+.time-cell .big-time { font-family: var(--font-head); font-weight: 800; font-size: 1.6rem; color: #5E8FC9; line-height: 1.2; }
+.time-cell:nth-child(2) .big-time { color: var(--blush-deep); }
+.time-cell small { display: block; color: var(--ink-soft); font-size: 0.8rem; }
+.venue-pin { width: 80px; height: 80px; margin: 22px auto 10px; border-radius: 50%; background: var(--blush-soft); border: 2px solid var(--blush); display: grid; place-items: center; }
+.venue-pin svg { width: 38px; height: 38px; }
+.venue-name { font-family: var(--font-head); font-weight: 800; font-size: 1.25rem; color: var(--ink); text-align: center; line-height: 1.25; }
+.venue-addr { text-align: center; color: var(--ink-soft); font-size: 0.92rem; margin: 6px 0 0; }
+
+/* ---------- Countdown ---------- */
+.count { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
+.count-item { text-align: center; min-width: 0; }
+.count-num { font-family: var(--font-head); font-weight: 800; font-size: clamp(1.5rem, 6.4vw, 1.95rem); line-height: 1; padding: 12px 4px 10px; border-radius: 20px; border: 2px solid; transition: transform 0.3s var(--bounce); }
+.count-item:nth-child(odd) .count-num { background: var(--sky-soft); border-color: var(--sky); color: #5E8FC9; }
+.count-item:nth-child(even) .count-num { background: var(--blush-soft); border-color: var(--blush); color: var(--blush-deep); }
+.count-num.tick { transform: scale(1.08); }
+.count-lbl { font-weight: 600; font-size: 0.72rem; color: var(--ink-soft); margin-top: 8px; }
+
+/* ---------- Lịch ---------- */
+.cal { width: 100%; max-width: 300px; margin: 4px auto 0; border-collapse: collapse; font-family: var(--font-head); }
+.cal th { font-weight: 700; font-size: 0.76rem; color: var(--sky-deep); padding-bottom: 8px; }
+.cal td { text-align: center; padding: 6px 0; font-size: 0.98rem; font-weight: 700; color: var(--ink); position: relative; height: 40px; }
+.cal td.muted { color: rgba(78,90,107,0.22); }
+.cal td.sun { color: var(--blush-deep); }
+.cal td.big { color: var(--white); z-index: 1; }
+.cal td.big::before { content: '♥'; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -52%); font-size: 2.5rem; line-height: 1; color: var(--blush-deep); z-index: -1; animation: heartBeat 1.6s ease-in-out infinite; }
+@keyframes heartBeat { 0%, 100% { transform: translate(-50%, -52%) scale(1); } 30% { transform: translate(-50%, -52%) scale(1.14); } 55% { transform: translate(-50%, -52%) scale(1); } }
+
+/* ---------- Mâm bắt miếng ---------- */
+.picks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 6px; }
+.pick { min-width: 0; text-align: center; padding: 14px 6px 12px; border-radius: 22px; background: var(--sky-soft); border: 2px solid var(--sky); transition: transform 0.4s var(--bounce); }
+.pick:nth-child(3n+2) { background: var(--blush-soft); border-color: var(--blush); }
+.pick:nth-child(3n) { background: var(--cream); border-color: var(--butter); }
+.pick:hover { transform: translateY(-4px) rotate(-2deg); }
+.pick .ico { font-size: 2rem; line-height: 1; display: block; }
+.pick .nm { display: block; font-family: var(--font-head); font-weight: 800; font-size: 0.95rem; color: var(--ink); margin-top: 8px; line-height: 1.2; }
+.pick .cap { display: block; color: var(--ink-soft); font-size: 0.74rem; line-height: 1.35; margin-top: 2px; }
+.guess { margin-top: 18px; text-align: center; font-family: var(--font-script); font-size: 1.35rem; color: var(--blush-deep); }
+
+/* ---------- Album ---------- */
+.gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px; }
+.shot { position: relative; border-radius: 22px; overflow: hidden; border: 4px solid var(--white); box-shadow: 0 8px 20px rgba(143,184,232,0.3); transition: transform 0.5s var(--bounce); background: var(--sky-soft); }
+.shot img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+.shot.wide { grid-column: 1 / -1; }
+.shot.wide img { aspect-ratio: 16/10; object-position: center 30%; }
+.shot:hover { transform: scale(1.03) rotate(-1deg); z-index: 2; }
+.shot::after { content: ''; position: absolute; inset: 0; border-radius: 18px; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.6); pointer-events: none; }
+
+/* ---------- Mẹ nhắn nhỏ ---------- */
+.notes { list-style: none; margin-top: 6px; display: grid; gap: 10px; }
+.notes li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 18px; background: var(--white); border: 2px solid var(--blush-soft); font-size: 0.92rem; color: var(--ink); }
+.notes li .ico { flex: 0 0 30px; width: 30px; height: 30px; border-radius: 50%; background: var(--blush-soft); border: 2px solid var(--blush); display: grid; place-items: center; font-size: 0.9rem; line-height: 1; }
+.notes li:nth-child(even) .ico { background: var(--sky-soft); border-color: var(--sky); }
+
+/* ---------- RSVP ---------- */
+.form { margin-top: 20px; display: grid; gap: 14px; }
+.field label { display: block; font-weight: 600; font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 6px; padding-left: 6px; }
+.field input, .field textarea, .field select {
+  width: 100%; border: 2px solid var(--sky); border-radius: 14px; background: var(--white);
+  font-family: var(--font-body); font-weight: 600; font-size: 0.96rem; color: var(--ink);
+  padding: 11px 14px; outline: none; transition: border-color 0.3s, box-shadow 0.3s; -webkit-appearance: none; appearance: none;
+}
+.field input::placeholder, .field textarea::placeholder { color: #B3BCC8; font-weight: 400; }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--blush-deep); box-shadow: 0 0 0 4px rgba(249,213,220,0.55); }
+.field textarea { resize: vertical; min-height: 80px; }
+.choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.choice { position: relative; min-width: 0; }
+.choice input { position: absolute; opacity: 0; }
+.choice span {
+  display: block; text-align: center; padding: 12px 10px; border-radius: 999px; border: 2px solid var(--sky); background: var(--white);
+  font-family: var(--font-head); font-weight: 700; font-size: 0.98rem; color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; transition: all 0.3s var(--bounce);
+}
+.choice input:checked + span { background: var(--sky-deep); border-color: var(--sky-deep); color: var(--white); transform: scale(1.03); }
+.choice:nth-child(2) input:checked + span { background: var(--blush-deep); border-color: var(--blush-deep); }
+.btn {
+  display: block; width: 100%; margin-top: 4px; padding: 15px 18px; border: 0; border-radius: 999px;
+  background: linear-gradient(135deg, var(--blush-deep), #F2B3C0); color: var(--white);
+  font-family: var(--font-head); font-weight: 800; font-size: 1.05rem; cursor: pointer;
+  box-shadow: 0 10px 24px rgba(232,154,170,0.38); transition: transform 0.3s var(--bounce), box-shadow 0.3s;
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 14px 28px rgba(232,154,170,0.45); }
+.btn[disabled] { opacity: 0.7; cursor: default; transform: none; }
+.form-msg { text-align: center; font-size: 0.88rem; font-weight: 600; color: #5E8FC9; margin-top: 4px; min-height: 1.4em; }
+.divider { display: flex; align-items: center; gap: 10px; margin: 30px 0 22px; color: var(--sky-deep); }
+.divider::before, .divider::after { content: ''; flex: 1; height: 2px; border-radius: 2px; background: var(--sky-soft); }
+
+/* ---------- Lời chúc ---------- */
+.wishes { margin-top: 16px; display: grid; gap: 10px; }
+.wish { position: relative; background: var(--sky-soft); border: 2px solid var(--sky); border-radius: 18px; padding: 12px 14px 12px 18px; }
+.wish::before { content: '☁'; position: absolute; left: -8px; top: -11px; width: 24px; height: 24px; border-radius: 50%; background: var(--sky-deep); color: var(--white); font-size: 0.75rem; display: grid; place-items: center; }
+.wish:nth-child(even) { background: var(--blush-soft); border-color: var(--blush); }
+.wish:nth-child(even)::before { content: '♥'; background: var(--blush-deep); }
+.wish b { font-family: var(--font-head); font-weight: 800; color: var(--ink); font-size: 0.98rem; }
+.wish p { color: var(--ink-soft); font-size: 0.88rem; margin-top: 2px; }
+.wish-empty { text-align: center; color: var(--ink-soft); font-size: 0.88rem; }
+
+/* ---------- Closing ---------- */
+.closing { text-align: center; padding-bottom: 30px; }
+.closing-bunny { width: min(52%, 210px); margin: 0 auto; filter: drop-shadow(0 12px 20px rgba(143,184,232,0.4)); animation: floatSlow 5s ease-in-out infinite; }
+.closing-thanks { font-family: var(--font-head); font-weight: 800; font-size: clamp(1.45rem, 6.2vw, 1.8rem); color: var(--ink); margin-top: 12px; line-height: 1.25; padding: 0 8px; }
+.closing-thanks em { font-style: normal; color: var(--blush-deep); }
+.closing-names { font-family: var(--font-script); font-size: 1.5rem; color: var(--sky-deep); margin-top: 6px; }
+.closing-sub { color: var(--ink-soft); font-size: 0.9rem; margin-top: 6px; padding: 0 12px; }
+.closing-brand { display: block; margin-top: 36px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; font-size: 0.62rem; color: var(--ink-soft); opacity: 0.75; }
+.closing-brand b { font-weight: 700; color: var(--blush-deep); }
+
+/* ---------- Nhạc ---------- */
+.music-btn {
+  position: fixed; right: 16px; bottom: max(16px, env(safe-area-inset-bottom, 16px)); z-index: 50;
+  width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--sky);
+  background: var(--white); display: grid; place-items: center; cursor: pointer;
+  box-shadow: var(--shadow); opacity: 0; transition: opacity 0.6s, transform 0.3s var(--bounce);
+}
+.music-btn:hover { transform: scale(1.08); }
+.music-btn.show { opacity: 1; }
+.music-btn svg { width: 18px; height: 18px; }
+.music-btn .bars rect { transform-origin: bottom; animation: bar 1s ease-in-out infinite; fill: var(--sky-deep); }
+.music-btn .bars rect:nth-child(2) { animation-delay: 0.15s; } .music-btn .bars rect:nth-child(3) { animation-delay: 0.3s; }
+.music-btn:not(.playing) .bars rect { animation-play-state: paused; transform: scaleY(0.4); }
+@keyframes bar { 0%,100% { transform: scaleY(0.35); } 50% { transform: scaleY(1); } }
+
+/* ---------- Sao rơi ---------- */
+.petals { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.petal { position: absolute; top: -30px; font-size: 14px; line-height: 1; color: var(--c, #8FB8E8); animation: fall linear forwards; opacity: 0.85; text-shadow: 0 2px 4px rgba(143,184,232,0.25); }
+@keyframes fall { to { transform: translate3d(var(--dx, 30px), 110vh, 0) rotate(var(--rot, 300deg)); opacity: 0.1; } }
+
+/* ---------- Reveal ---------- */
+.reveal { opacity: 0; transform: translateY(22px) scale(0.98); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--bounce); }
+.reveal.in-view { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: 0.1s; } .reveal.d2 { transition-delay: 0.2s; } .reveal.d3 { transition-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } .env-card, .env-bunny { opacity: 1; } }
+@media (min-width: 700px) { .page { padding-bottom: 120px; } .sticker { width: 76px; height: 76px; } }
+@media (max-width: 340px) { .picks { grid-template-columns: 1fr 1fr; } .stats { grid-template-columns: 1fr; } }
+
+/* Tên luôn 1 dòng: JS co chữ nếu quá rộng */
+[data-fit] { white-space: nowrap; display: inline-block; max-width: 100%; }
+</style>
+</head>
+<body class="locked">
+
+<!-- Nền cố định -->
+<div class="bg-stage" aria-hidden="true">
+  <div class="bg-pattern"></div>
+  <div class="bg-veil"></div>
+</div>
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<!-- Phong bì -->
+<div class="envelope" id="envelope" role="button" aria-label="Chạm để mở thiệp">
+  <span class="twinkle" style="left:12%;top:12%;--dur:2.2s"></span>
+  <span class="twinkle pink" style="left:22%;top:26%;--dur:3s;--delay:.5s"></span>
+  <span class="twinkle gold" style="right:14%;top:10%;--dur:2.6s;--delay:.9s"></span>
+  <span class="twinkle" style="right:24%;top:22%;--dur:3.4s;--delay:1.3s"></span>
+  <span class="twinkle pink" style="left:8%;top:44%;--dur:2.8s;--delay:.2s"></span>
+  <span class="twinkle gold" style="right:9%;top:40%;--dur:2.4s;--delay:1.7s"></span>
+  <span class="twinkle" style="left:30%;top:6%;--dur:3.2s;--delay:.7s"></span>
+  <span class="twinkle pink" style="right:32%;top:8%;--dur:2.3s;--delay:1.1s"></span>
+  <img class="env-clouds" src="assets/clouds.webp" alt="" aria-hidden="true">
+  <div class="env-wrap">
+    <div class="env-bunny"><img src="assets/bunny-moon.webp" alt="Thỏ con ngủ trên trăng"></div>
+    <div class="env-card">
+      <div class="env-label">Thiệp mời thôi nôi</div>
+      <div class="env-names" data-fit>Mimi <b>tròn 1 tuổi</b></div>
+      <div class="env-sub">Thôi nôi</div>
+      <div class="env-date">Chủ Nhật · 11.10.2026</div>
+    </div>
+  </div>
+  <div class="env-hint">Chạm để mở thiệp</div>
+</div>
+
+<audio id="bgm" loop preload="none" src="../../../shared/music/festive-holiday/happy-birthday-en.mp3"></audio>
+<button class="music-btn" id="musicBtn" aria-label="Bật / tắt nhạc">
+  <svg viewBox="0 0 24 24" class="bars"><rect x="4" y="6" width="3" height="14" rx="1.5"/><rect x="10.5" y="3" width="3" height="17" rx="1.5"/><rect x="17" y="8" width="3" height="12" rx="1.5"/></svg>
+</button>
+
+<main class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="twinkle" style="left:4%;top:2%;--dur:2.4s"></span>
+    <span class="twinkle pink" style="right:6%;top:4%;--dur:3s;--delay:.6s"></span>
+    <span class="twinkle gold" style="left:10%;top:14%;--dur:2.7s;--delay:1.2s"></span>
+    <span class="twinkle" style="right:12%;top:18%;--dur:3.3s;--delay:.3s"></span>
+    <div class="hero-card reveal">
+      <span class="sticker" data-s="moon" style="left:-18px;top:-14px;--rot:-8deg;--dur:4.8s"></span>
+      <span class="sticker" data-s="star" style="right:-16px;top:-10px;--rot:10deg;--dur:4s;--delay:.5s"></span>
+      <p class="hero-label">Lễ thôi nôi</p>
+      <h1 class="hero-name" data-fit>Mimi</h1>
+      <p class="hero-age">tròn 1 tuổi</p>
+      <p class="hero-date"><span class="pill blush">Chủ Nhật · 11.10.2026</span></p>
+      <div class="hero-photo">
+        <img src="../../../shared/images/baby/mimi/mimi-03-knit.webp" alt="Bé Mimi">
+      </div>
+      <div class="hero-clouds"><img src="assets/clouds.webp" alt="" aria-hidden="true"></div>
+    </div>
+    <p class="hero-invite reveal d2">Mời cô chú, anh chị đến chung vui</p>
+    <p class="hero-sub reveal d3">Bố mẹ Mimi trân trọng mời cả nhà tới dự lễ thôi nôi đầu đời của bé.</p>
+  </section>
+
+  <!-- HỒ SƠ BÉ -->
+  <section>
+    <div class="card reveal">
+      <span class="sticker" data-s="bottle" style="right:-14px;top:-26px;--rot:8deg;--dur:4.2s"></span>
+      <p class="eyebrow">Bé nhà mình</p>
+      <h2 class="title">Xin chào, mình là <em>Mimi</em></h2>
+      <svg class="wave" viewBox="0 0 90 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 9 1 16 7 T 30 7 T 44 7 T 58 7 T 72 7 T 88 7" fill="none" stroke="#F9D5DC" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="avatar"><img src="../../../shared/images/baby/mimi/mimi-04-bunny.webp" alt="Bé Mimi mặc đồ thỏ" loading="lazy"></div>
+      <p class="baby-name"><span data-fit>Bé <em>Mimi</em></span></p>
+      <p class="baby-full"><span data-fit>Nguyễn Ngọc Minh Mi</span></p>
+      <p class="baby-nick"><span>Biệt danh: Mimi</span></p>
+      <div class="stats">
+        <div class="stat"><span class="sticker inline" data-s="bottle"></span><div><span class="cap">Lúc sinh</span><span class="val">3,2 kg · 50 cm</span></div></div>
+        <div class="stat"><span class="sticker inline" data-s="socks"></span><div><span class="cap">Hiện tại</span><span class="val">9,5 kg · 75 cm</span></div></div>
+        <div class="stat"><span class="sticker inline" data-s="cloud"></span><div><span class="cap">Ngày sinh</span><span class="val">12.10.2025</span></div></div>
+        <div class="stat"><span class="sticker inline" data-s="star"></span><div><span class="cap">Sinh lúc</span><span class="val">08:15 sáng</span></div></div>
+      </div>
+      <p class="parents"><span data-fit>Bố mẹ: <b>Anh Tuấn</b> &amp; <b>Thu Hà</b></span></p>
+    </div>
+  </section>
+
+  <!-- HÀNH TRÌNH 12 THÁNG -->
+  <section>
+    <div class="card blush reveal">
+      <span class="sticker" data-s="balloon" style="left:-16px;top:-28px;--rot:-6deg;--dur:5s;--delay:.3s"></span>
+      <p class="eyebrow">Hành trình 12 tháng</p>
+      <h2 class="title">Mimi tròn <em>1 tuổi</em></h2>
+      <svg class="wave" viewBox="0 0 90 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 9 1 16 7 T 30 7 T 44 7 T 58 7 T 72 7 T 88 7" fill="none" stroke="#DCEBFA" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="journey">
+        <div class="ms reveal"><span class="ms-dot" aria-hidden="true"></span><span class="ms-month">Tháng 1</span><div class="ms-title">Nụ cười đầu tiên</div><p class="ms-text">Mimi cười toe với mẹ lúc đang thay tã — cả nhà tan chảy.</p><img class="ms-img" src="../../../shared/images/baby/mimi/mimi-08-angel.webp" alt="Mimi tháng 1" loading="lazy"></div>
+        <div class="ms reveal"><span class="ms-dot" aria-hidden="true"></span><span class="ms-month">Tháng 3</span><div class="ms-title">Biết lẫy rồi nè</div><p class="ms-text">Lật một phát là xong, xong rồi nằm sấp ngắm cả thế giới.</p></div>
+        <div class="ms reveal"><span class="ms-dot" aria-hidden="true"></span><span class="ms-month">Tháng 6</span><div class="ms-title">Bữa ăn dặm đầu tiên</div><p class="ms-text">Cháo bí đỏ dính đầy mặt, nhưng Mimi chấm 5 sao.</p><img class="ms-img" src="../../../shared/images/baby/mimi/mimi-07-sailor.webp" alt="Mimi tháng 6" loading="lazy"></div>
+        <div class="ms reveal"><span class="ms-dot" aria-hidden="true"></span><span class="ms-month">Tháng 8</span><div class="ms-title">Bò khắp nhà</div><p class="ms-text">Đặt xuống là bò, mục tiêu số một: cái remote tivi.</p></div>
+        <div class="ms reveal"><span class="ms-dot" aria-hidden="true"></span><span class="ms-month">Tháng 10</span><div class="ms-title">Tự đứng lên</div><p class="ms-text">Vịn bàn đứng dậy, quay lại nhìn mẹ cười đầy tự hào.</p><img class="ms-img" src="../../../shared/images/baby/mimi/mimi-01-ao-dai.webp" alt="Mimi tháng 10" loading="lazy"></div>
+        <div class="ms reveal"><span class="ms-dot" aria-hidden="true"></span><span class="ms-month">Tháng 12</span><div class="ms-title">Bước đi đầu tiên</div><p class="ms-text">Ba bước chập chững về phía bố — và bắt đầu hành trình mới.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LỄ THÔI NÔI -->
+  <section>
+    <div class="card reveal">
+      <span class="sticker" data-s="rattle" style="right:-14px;top:-26px;--rot:10deg;--dur:4.4s;--delay:.2s"></span>
+      <p class="eyebrow">Lễ thôi nôi</p>
+      <h2 class="title">Hẹn cả nhà ngày này nhé</h2>
+      <svg class="wave" viewBox="0 0 90 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 9 1 16 7 T 30 7 T 44 7 T 58 7 T 72 7 T 88 7" fill="none" stroke="#F9D5DC" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="time-grid">
+        <div class="time-cell"><span class="cap">Lễ bắt miếng</span><div class="big-time">10:00</div><small>Chủ Nhật, 11.10.2026</small></div>
+        <div class="time-cell"><span class="cap">Tiệc thôi nôi</span><div class="big-time">11:00</div><small>Cùng ngày</small></div>
+      </div>
+      <div class="venue-pin" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#E89AAA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.6" fill="#8FB8E8" stroke="none"/></svg></div>
+      <p class="venue-name">Nhà hàng Hoa Sen</p>
+      <p class="venue-addr">15 Nguyễn Văn Trỗi, Phú Nhuận, TP.HCM</p>
+      <div class="actions">
+        <a class="pill" href="https://maps.google.com/?q=Nh%C3%A0+h%C3%A0ng+Hoa+Sen+15+Nguy%E1%BB%85n+V%C4%83n+Tr%E1%BB%97i+Ph%C3%BA+Nhu%E1%BA%ADn" target="_blank" rel="noopener">📍 Xem bản đồ</a>
+        <a class="pill blush" href="#" id="icsLink">📅 Thêm vào lịch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section>
+    <div class="card blush reveal">
+      <span class="sticker" data-s="star" style="left:-14px;top:-26px;--rot:-10deg;--dur:3.8s"></span>
+      <p class="eyebrow">Đếm ngược</p>
+      <h2 class="title">Đếm ngược<br>tới ngày thôi nôi</h2>
+      <svg class="wave" viewBox="0 0 90 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 9 1 16 7 T 30 7 T 44 7 T 58 7 T 72 7 T 88 7" fill="none" stroke="#DCEBFA" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="count" id="count">
+        <div class="count-item"><div class="count-num" data-k="d">00</div><div class="count-lbl">Ngày</div></div>
+        <div class="count-item"><div class="count-num" data-k="h">00</div><div class="count-lbl">Giờ</div></div>
+        <div class="count-item"><div class="count-num" data-k="m">00</div><div class="count-lbl">Phút</div></div>
+        <div class="count-item"><div class="count-num" data-k="s">00</div><div class="count-lbl">Giây</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LỊCH -->
+  <section>
+    <div class="card reveal">
+      <span class="sticker" data-s="cloud" style="right:-16px;top:-24px;--rot:6deg;--dur:4.6s;--delay:.4s"></span>
+      <p class="eyebrow">Tháng 10 · 2026</p>
+      <h2 class="title">Khoanh tròn ngày <em>11</em> nhé</h2>
+      <svg class="wave" viewBox="0 0 90 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 9 1 16 7 T 30 7 T 44 7 T 58 7 T 72 7 T 88 7" fill="none" stroke="#F9D5DC" stroke-width="3" stroke-linecap="round"/></svg>
+      <table class="cal" aria-label="Lịch tháng 10 năm 2026">
+        <thead><tr><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th></tr></thead>
+        <tbody id="calBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MÂM BẮT MIẾNG -->
+  <section>
+    <div class="card blush reveal">
+      <span class="sticker" data-s="duck" style="left:-14px;top:-28px;--rot:-8deg;--dur:4.2s;--delay:.6s"></span>
+      <p class="eyebrow">Mâm bắt miếng</p>
+      <h2 class="title">Mimi sẽ chọn gì nhỉ?</h2>
+      <svg class="wave" viewBox="0 0 90 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 9 1 16 7 T 30 7 T 44 7 T 58 7 T 72 7 T 88 7" fill="none" stroke="#DCEBFA" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="picks">
+        <div class="pick"><span class="ico">💄</span><span class="nm">Gương</span><span class="cap">Xinh đẹp, duyên dáng</span></div>
+        <div class="pick"><span class="ico">🪮</span><span class="nm">Lược</span><span class="cap">Khéo léo, chỉn chu</span></div>
+        <div class="pick"><span class="ico">✏️</span><span class="nm">Bút</span><span class="cap">Học giỏi, sáng tạo</span></div>
+        <div class="pick"><span class="ico">📖</span><span class="nm">Sách</span><span class="cap">Ham học, thông thái</span></div>
+        <div class="pick"><span class="ico">💰</span><span class="nm">Tiền</span><span class="cap">Giàu sang, sung túc</span></div>
+        <div class="pick"><span class="ico">✂️</span><span class="nm">Kéo</span><span class="cap">Khéo tay, tài hoa</span></div>
+      </div>
+      <p class="guess">Bạn đoán bé chọn gì? ☁️</p>
+    </div>
+  </section>
+
+  <!-- ALBUM -->
+  <section>
+    <div class="card reveal">
+      <span class="sticker" data-s="pacifier" style="right:-14px;top:-26px;--rot:10deg;--dur:4s;--delay:.3s"></span>
+      <p class="eyebrow">Khoảnh khắc</p>
+      <h2 class="title">Album của <em>Mimi</em></h2>
+      <svg class="wave" viewBox="0 0 90 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 9 1 16 7 T 30 7 T 44 7 T 58 7 T 72 7 T 88 7" fill="none" stroke="#F9D5DC" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="gallery">
+        <figure class="shot"><img src="../../../shared/images/baby/mimi/mimi-06-flower-crown.webp" alt="Mimi đội vòng hoa" loading="lazy"></figure>
+        <figure class="shot"><img src="../../../shared/images/baby/mimi/mimi-02-princess.webp" alt="Mimi công chúa" loading="lazy"></figure>
+        <figure class="shot"><img src="../../../shared/images/baby/mimi/mimi-09-ballerina.webp" alt="Mimi ballerina" loading="lazy"></figure>
+        <figure class="shot"><img src="../../../shared/images/baby/mimi/mimi-12-phi-cong.webp" alt="Mimi phi công" loading="lazy"></figure>
+        <figure class="shot wide"><img src="../../../shared/images/baby/mimi/mimi-05-cake-smash.webp" alt="Mimi với bánh sinh nhật" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- MẸ NHẮN NHỎ -->
+  <section>
+    <div class="card cream reveal">
+      <span class="sticker" data-s="socks" style="left:-14px;top:-26px;--rot:-8deg;--dur:4.4s"></span>
+      <p class="eyebrow">Lưu ý nhỏ</p>
+      <h2 class="title">Mẹ nhắn nhỏ</h2>
+      <svg class="wave" viewBox="0 0 90 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 9 1 16 7 T 30 7 T 44 7 T 58 7 T 72 7 T 88 7" fill="none" stroke="#F9D5DC" stroke-width="3" stroke-linecap="round"/></svg>
+      <ul class="notes">
+        <li><span class="ico">☁️</span><span>Cả nhà mặc tông pastel xanh – hồng nhẹ nhàng cho hợp với Mimi nhé.</span></li>
+        <li><span class="ico">🧸</span><span>Có góc chơi riêng cho các bé, ba mẹ cứ yên tâm dẫn con theo.</span></li>
+        <li><span class="ico">🎁</span><span>Sự có mặt của cô chú, anh chị là món quà lớn nhất với Mimi rồi.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section>
+    <div class="card reveal">
+      <span class="sticker" data-s="moon" style="right:-14px;top:-26px;--rot:10deg;--dur:4.6s;--delay:.3s"></span>
+      <p class="eyebrow">Xác nhận tham dự</p>
+      <h2 class="title">Đến chung vui với <em>Mimi</em> nhé?</h2>
+      <svg class="wave" viewBox="0 0 90 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 Q 9 1 16 7 T 30 7 T 44 7 T 58 7 T 72 7 T 88 7" fill="none" stroke="#F9D5DC" stroke-width="3" stroke-linecap="round"/></svg>
+      <p class="lead">Bố mẹ Mimi mong nhận tin trước ngày 04.10.2026 để chuẩn bị chỗ ngồi chu đáo nhé!</p>
+      <form class="form" id="rsvpForm" autocomplete="off">
+        <div class="field"><label for="fName">Tên của bạn</label><input id="fName" name="name" required placeholder="Nguyễn Văn A"></div>
+        <div class="field"><label for="fPhone">Số điện thoại</label><input id="fPhone" name="phone" inputmode="tel" placeholder="09xx xxx xxx"></div>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="attend" value="Có" checked><span>Sẽ đến ☁️</span></label>
+          <label class="choice"><input type="radio" name="attend" value="Không"><span>Rất tiếc 🥲</span></label>
+        </div>
+        <div class="field"><label for="fGuests">Số người đi cùng</label><select id="fGuests" name="guests"><option value="0">Chỉ mình tôi</option><option value="1">+ 1 người</option><option value="2">+ 2 người</option><option value="3">+ 3 người</option><option value="4">+ 4 người</option></select></div>
+        <div class="field"><label for="fMsg">Lời chúc cho Mimi</label><textarea id="fMsg" name="message" placeholder="Chúc Mimi hay ăn chóng lớn…"></textarea></div>
+        <button class="btn" type="submit" id="rsvpBtn">Gửi xác nhận ♥</button>
+        <p class="form-msg" id="rsvpMsg"></p>
+      </form>
+      <div class="divider" aria-hidden="true">☁</div>
+      <p class="eyebrow">Lời chúc cho Mimi</p>
+      <div class="wishes" id="wishes"><p class="wish-empty">Hãy là người đầu tiên gửi lời chúc cho Mimi nhé ♥</p></div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing">
+    <img class="closing-bunny reveal" src="assets/bunny-moon.webp" alt="Thỏ con ngủ trên trăng" loading="lazy">
+    <p class="closing-thanks reveal d1">Cảm ơn cô chú, anh chị<br>đã thương <em>Mimi</em></p>
+    <p class="closing-names reveal d2">Gia đình Anh Tuấn &amp; Thu Hà</p>
+    <p class="closing-sub reveal d2">Hẹn gặp cả nhà trong ngày vui đầu đời của bé.</p>
+    <a class="closing-brand" href="https://templexa.vn" target="_blank" rel="noopener">Thiệp mời online · <b>templexa.vn</b></a>
+  </section>
+
+</main>
+
+<script defer src="../../../shared/wedding/wishes-api.js"></script>
+<script>
+(function () {
+  var SHEET_ID = 'demo_268';                          // đổi theo khách
+  var EVENT_AT = new Date('2026-10-11T10:00:00+07:00');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Phong bì ---------- */
+  var env = document.getElementById('envelope'), bgm = document.getElementById('bgm'), musicBtn = document.getElementById('musicBtn');
+  var opened = false;
+  function openEnvelope() {
+    if (opened) return; opened = true;
+    env.classList.add('opening');
+    burst();
+    setTimeout(function () {
+      env.classList.add('open');
+      document.body.classList.remove('locked');
+      musicBtn.classList.add('show');
+      playMusic();
+      startPetals();
+      setTimeout(function () { env.remove(); }, 1000);
+    }, 750);
+  }
+  env.addEventListener('click', openEnvelope);
+  env.addEventListener('touchend', function (e) { e.preventDefault(); openEnvelope(); }, { passive: false });
+
+  /* ---------- Bùng nổ sao / tim ---------- */
+  var COLORS = ['#8FB8E8', '#DCEBFA', '#E89AAA', '#F9D5DC', '#F2C75C', '#FFFFFF'];
+  var GLYPHS = ['✦', '★', '♥', '✦', '☁'];
+  function burst() {
+    if (reduced) return;
+    for (var i = 0; i < 26; i++) {
+      var h = document.createElement('span'); h.className = 'confetti'; h.textContent = GLYPHS[i % GLYPHS.length];
+      var ang = (i / 26) * Math.PI * 2 + Math.random() * 0.4, dist = 120 + Math.random() * 150;
+      h.style.setProperty('--x', Math.cos(ang) * dist + 'px');
+      h.style.setProperty('--y', Math.sin(ang) * dist + 'px');
+      h.style.setProperty('--r', (Math.random() * 360 - 180) + 'deg');
+      h.style.setProperty('--c', COLORS[i % COLORS.length]);
+      h.style.fontSize = (12 + Math.random() * 14) + 'px';
+      document.body.appendChild(h);
+      (function (el) { setTimeout(function () { el.remove(); }, 1300); })(h);
+    }
+  }
+
+  /* ---------- Nhạc ---------- */
+  function playMusic() { bgm.play().then(function () { musicBtn.classList.add('playing'); }).catch(function () {}); }
+  musicBtn.addEventListener('click', function () {
+    if (bgm.paused) playMusic(); else { bgm.pause(); musicBtn.classList.remove('playing'); }
+  });
+
+  /* ---------- Reveal ---------- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  /* ---------- Co chữ 1 dòng ---------- */
+  function fitLines() {
+    document.querySelectorAll('[data-fit]').forEach(function (el) {
+      el.style.fontSize = '';
+      var max = el.parentElement.clientWidth - 8, size = parseFloat(getComputedStyle(el).fontSize), guard = 0;
+      while (el.scrollWidth > max && size > 12 && guard++ < 80) { size -= 1; el.style.fontSize = size + 'px'; }
+    });
+  }
+  window.addEventListener('load', fitLines); window.addEventListener('resize', fitLines); setTimeout(fitLines, 50);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLines);
+
+  /* ---------- Countdown ---------- */
+  var nums = {}; document.querySelectorAll('.count-num').forEach(function (n) { nums[n.dataset.k] = n; });
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var diff = Math.max(0, EVENT_AT - Date.now());
+    var d = Math.floor(diff / 864e5), h = Math.floor(diff % 864e5 / 36e5), m = Math.floor(diff % 36e5 / 6e4), s = Math.floor(diff % 6e4 / 1e3);
+    var v = { d: pad(d), h: pad(h), m: pad(m), s: pad(s) };
+    Object.keys(v).forEach(function (k) {
+      if (nums[k].textContent !== v[k]) { nums[k].textContent = v[k]; nums[k].classList.add('tick'); setTimeout(function () { nums[k].classList.remove('tick'); }, 300); }
+    });
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ---------- Lịch tháng 10/2026 ---------- */
+  (function () {
+    var body = document.getElementById('calBody'), first = new Date(2026, 9, 1), days = 31, big = 11;
+    var start = (first.getDay() + 6) % 7; // T2 = 0
+    var html = '<tr>', col = 0;
+    for (var i = 0; i < start; i++) { html += '<td class="muted"></td>'; col++; }
+    for (var d = 1; d <= days; d++) {
+      var sun = col % 7 === 6;
+      html += '<td class="' + (d === big ? 'big' : sun ? 'sun' : '') + '">' + d + '</td>'; col++;
+      if (col % 7 === 0 && d < days) html += '</tr><tr>';
+    }
+    while (col % 7 !== 0) { html += '<td class="muted"></td>'; col++; }
+    body.innerHTML = html + '</tr>';
+  })();
+
+  /* ---------- Thêm vào lịch (.ics) ---------- */
+  document.getElementById('icsLink').addEventListener('click', function (e) {
+    e.preventDefault();
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'BEGIN:VEVENT', 'DTSTART:20261011T030000Z', 'DTEND:20261011T060000Z',
+      'SUMMARY:Lễ thôi nôi bé Mimi', 'LOCATION:Nhà hàng Hoa Sen, 15 Nguyễn Văn Trỗi, Phú Nhuận, TP.HCM', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    var a = document.createElement('a'); a.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics); a.download = 'thoi-noi-be-mimi.ics'; a.click();
+  });
+
+  /* ---------- Sao rơi ---------- */
+  function startPetals() {
+    var wrap = document.getElementById('petals');
+    if (reduced) return;
+    setInterval(function () {
+      if (document.hidden || wrap.childElementCount > 14) return;
+      var p = document.createElement('span'); p.className = 'petal'; p.textContent = Math.random() < 0.7 ? '✦' : '♥';
+      p.style.left = Math.random() * 100 + 'vw'; p.style.fontSize = (10 + Math.random() * 10) + 'px';
+      p.style.setProperty('--c', COLORS[Math.floor(Math.random() * 5)]);
+      p.style.setProperty('--dx', (Math.random() * 120 - 60) + 'px'); p.style.setProperty('--rot', (180 + Math.random() * 360) + 'deg');
+      p.style.animationDuration = (11 + Math.random() * 7) + 's';
+      wrap.appendChild(p); setTimeout(function () { p.remove(); }, 19000);
+    }, 1500);
+  }
+
+  /* ---------- RSVP + Lời chúc (Google Sheets qua wishes-api.js) ---------- */
+  var form = document.getElementById('rsvpForm'), btn = document.getElementById('rsvpBtn'), msg = document.getElementById('rsvpMsg'), list = document.getElementById('wishes');
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function renderWishes(rows) {
+    var items = (rows || []).filter(function (r) { return r && r.E; }).slice(-12).reverse();
+    if (!items.length) return;
+    list.innerHTML = items.map(function (r) { return '<div class="wish"><b>' + esc(r.A) + '</b><p>' + esc(r.E) + '</p></div>'; }).join('');
+  }
+  function loadWishes() { if (window.sheetsAPI) sheetsAPI.get(SHEET_ID).then(renderWishes).catch(function () {}); }
+  window.addEventListener('load', function () { setTimeout(loadWishes, 800); });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = form.name.value.trim(); if (!name) { form.name.focus(); return; }
+    btn.disabled = true; btn.textContent = 'Đang gửi…';
+    var now = new Date(), ts = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear() + ' ' + now.getHours() + ':' + pad(now.getMinutes());
+    var data = { A: name, B: form.phone.value.trim(), C: form.attend.value, D: form.guests.value, E: form.message.value.trim(), F: ts };
+    var done = function () {
+      msg.textContent = 'Cảm ơn ' + name + ' nhé! Bố mẹ Mimi đã nhận được rồi ♥';
+      btn.textContent = 'Đã gửi ✓';
+      if (data.E) { if (list.querySelector('.wish-empty')) list.innerHTML = ''; list.insertAdjacentHTML('afterbegin', '<div class="wish"><b>' + esc(name) + '</b><p>' + esc(data.E) + '</p></div>'); }
+      form.reset();
+    };
+    if (window.sheetsAPI) sheetsAPI.post(SHEET_ID, data).then(done).catch(function () { done(); });
+    else done();
+  });
+})();
+</script>
+</body>
+</html>
