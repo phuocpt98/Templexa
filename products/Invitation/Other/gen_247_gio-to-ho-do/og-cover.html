@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>OG Cover — Giỗ Tổ Họ Đỗ</title>
+<!--
+  Trang dựng ảnh chia sẻ (og-cover) 1200×630 cho thiệp giỗ tổ họ Đỗ.
+  KHÔNG phải trang cho khách xem — chỉ dùng để chụp màn hình sinh ra og-cover.jpg.
+
+  Chụp lại khi đổi nội dung:
+    node scripts/build-og-cover.js
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Be+Vietnam+Pro:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --gold-pale: #F5E6B8;
+        --gold: #D4AF37;
+        --gold-deep: #A67C00;
+        --bronze: #8B6914;
+        --ink: #14100A;
+    }
+
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+
+    .cover {
+        position: relative;
+        width: 1200px; height: 630px;
+        background: var(--ink);
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        overflow: hidden;
+    }
+
+    /* Nền: ảnh từ đường làm mờ sâu để chỉ còn lại chiều sâu không gian, không rối chi tiết */
+    .bg {
+        position: absolute; inset: 0;
+        background: url('photos/nha-tho-to-1.webp') center 32% / cover no-repeat;
+        filter: blur(15px) brightness(0.46) saturate(0.72);
+        transform: scale(1.12);
+    }
+    /* Phủ tối + hắt vàng từ giữa cho chữ nổi */
+    .bg-veil {
+        position: absolute; inset: 0;
+        background:
+            radial-gradient(ellipse 60% 70% at 50% 46%, rgba(212,175,55,0.16), transparent 68%),
+            linear-gradient(180deg, rgba(10,8,4,0.82) 0%, rgba(10,8,4,0.55) 42%, rgba(10,8,4,0.88) 100%);
+    }
+
+    /* Khung viền vàng kép sát mép */
+    .frame {
+        position: absolute; inset: 22px;
+        border: 2px solid rgba(212,175,55,0.55);
+        border-radius: 4px;
+    }
+    .frame::after {
+        content: ''; position: absolute; inset: 6px;
+        border: 1px solid rgba(212,175,55,0.28);
+        border-radius: 2px;
+    }
+
+    .corner { position: absolute; width: 132px; opacity: 0.85; }
+    .corner.tl { top: 14px; left: 14px; }
+    .corner.tr { top: 14px; right: 14px; }
+    .corner.bl { bottom: 14px; left: 14px; }
+    .corner.br { bottom: 14px; right: 14px; }
+
+    .inner {
+        position: relative; z-index: 2;
+        display: flex; flex-direction: column; align-items: center;
+        text-align: center;
+    }
+
+    .crest {
+        width: 384px;
+        margin-bottom: 14px;
+        filter: drop-shadow(0 0 22px rgba(212,175,55,0.4)) drop-shadow(0 4px 10px rgba(0,0,0,0.8));
+    }
+
+    /* Nhãn nằm ngay dưới cụm mây của rồng — cần nền tối riêng và chữ sáng
+       thì mới tách khỏi hoa văn phía trên */
+    .eyebrow {
+        font-family: 'Be Vietnam Pro', sans-serif;
+        font-size: 15px; font-weight: 500;
+        letter-spacing: 0.42em; text-indent: 0.42em;
+        color: var(--gold-pale);
+        margin-bottom: 14px;
+        text-shadow: 0 1px 6px rgba(10,8,4,0.95), 0 0 14px rgba(10,8,4,0.8);
+    }
+
+    /* Chữ vàng ánh kim nổi khối — dùng gradient nhiều chặng thay màu phẳng */
+    .title {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: 82px; line-height: 1;
+        letter-spacing: 0.06em;
+        background: linear-gradient(168deg, #8B6914 0%, #D4AF37 26%, #F7EEC9 50%, #D4AF37 72%, #8B6914 100%);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent; color: transparent;
+        filter: drop-shadow(0 2px 2px rgba(0,0,0,0.85)) drop-shadow(0 -1px 0 rgba(247,238,201,0.2));
+    }
+
+    .subtitle {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 30px; font-weight: 400;
+        color: var(--gold-pale);
+        margin-top: 10px;
+        opacity: 0.94;
+    }
+
+    .divider { width: 340px; margin: 16px 0 14px; opacity: 0.9; }
+
+    .date {
+        font-family: 'Playfair Display', serif;
+        font-weight: 600;
+        font-size: 38px;
+        letter-spacing: 0.16em; text-indent: 0.16em;
+        color: var(--gold);
+        /* Cormorant/Playfair có thể dùng số oldstyle — ép số thẳng hàng */
+        font-variant-numeric: lining-nums;
+        font-feature-settings: "lnum" 1;
+    }
+
+    .venue {
+        font-family: 'Be Vietnam Pro', sans-serif;
+        font-size: 16px; font-weight: 300;
+        letter-spacing: 0.14em;
+        color: rgba(244,235,214,0.78);
+        margin-top: 12px;
+    }
+</style>
+</head>
+<body>
+<div class="cover">
+    <div class="bg"></div>
+    <div class="bg-veil"></div>
+    <div class="frame"></div>
+
+    <img class="corner tl" src="../../../shared/images/heritage-elements/corner-cloud-fret-tl.webp" alt="">
+    <img class="corner tr" src="../../../shared/images/heritage-elements/corner-cloud-fret-tr.webp" alt="">
+    <img class="corner bl" src="../../../shared/images/heritage-elements/corner-cloud-fret-bl.webp" alt="">
+    <img class="corner br" src="../../../shared/images/heritage-elements/corner-cloud-fret-br.webp" alt="">
+
+    <div class="inner">
+        <img class="crest" src="../../../shared/images/heritage-elements/crest-dragon-pair.webp" alt="">
+        <p class="eyebrow">TỪ ĐƯỜNG HỌ ĐỖ</p>
+        <h1 class="title">THÔNG BẠCH</h1>
+        <p class="subtitle">Đại lễ giỗ tổ họ Đỗ</p>
+        <img class="divider" src="../../../shared/images/heritage-elements/divider-lotus-cloud.webp" alt="">
+        <p class="date">18 · 08 · 2026</p>
+        <p class="venue">Thôn Đoài — Làng Cầu Cổ — Xã Ý Yên — Ninh Bình</p>
+    </div>
+</div>
+</body>
+</html>

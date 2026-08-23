@@ -83,6 +83,48 @@
 - Prompt 1 gen quá đậm → thêm "chỉ 4-5 bông" + "relief RẤT NHẸ" để fix
 - Luôn nói "Không có chữ, không có người, không có khung viền" ở cuối
 
+## Thiệp #247 — Giỗ Tổ Họ Đỗ (3 bản: Sắc Phong / Hoành Phi / Kim Tối Giản)
+
+**Bài học font:**
+- **Cinzel LỖI glyph tiếng Việt** với `ư`/`ơ` — chữ "Ngược", "Chương", "Dương" bị fallback giữa chữ, gãy nét.
+  Dùng **Playfair Display** thay thế (đủ dấu, cùng mood serif trang trọng).
+- Danh sách font đã xác nhận đủ dấu tiếng Việt: Playfair Display, Cormorant Garamond, Be Vietnam Pro,
+  Dancing Script, Quicksand, Nunito. **Great Vibes THIẾU dấu** — chỉ dùng cho chữ không dấu.
+- **Cormorant Garamond mặc định dùng oldstyle numerals** → "18" hiện thành "ı8", "10:00" thành "ıo:oo".
+  Bắt buộc ép khi hiển thị số (ngày, giờ, countdown):
+  `font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1;`
+
+**Bài học element AI gen (bộ `heritage-elements`):**
+- Prompt lưới 3×3 cho AI gen ảnh hiệu quả — 9 element/lần, nhất quán style, tiết kiệm công
+- Cắt bằng `scripts/cut-element-grid.js`. Ba cạm bẫy đã vấp:
+  1. **Tách nền theo độ sáng làm thủng element** — vàng nhạt `#F5E6B8` sáng 245, gần bằng nền trắng.
+     → Phải lọc theo **chroma** (max−min RGB): trắng ≈0, vàng ≥40. Chỉ pixel *vừa sáng vừa trung tính* mới là nền.
+  2. **Lưới cứng cắt cụt element** — đôi rồng rộng hơn 1/3 ảnh, bị xén hai bên.
+  3. **Gộp theo bbox làm dính cả hàng** — góc chữ L có bbox rộng, chồng bbox element bên cạnh dù không chạm pixel.
+     → Giải pháp đúng: **gán component theo tâm về ô lưới, rồi hợp bbox** — vừa gộp đúng mảnh rời
+     (rồng + viên ngọc, dải dọc 3 thanh), vừa cho tràn biên ô.
+- Element có **alpha thật** thì không cần `mask-image` vá víu → luôn ưu tiên gen bộ mới thay vì tái dùng ảnh nền trắng
+
+**Bài học chống "thô và khô":**
+- Feedback "thô/khô" thường KHÔNG phải thiếu hoa văn mà **thiếu chất liệu**. Chữa theo thứ tự:
+  1. **Grain giấy** — SVG `feTurbulence` overlay opacity 0.04–0.08
+  2. **Vàng phải là gradient ánh kim** (bronze→gold→champagne→gold→bronze) + shimmer chậm 6–10s,
+     KHÔNG dùng một mã hex phẳng
+  3. **Đường kẻ dùng `linear-gradient(90deg, transparent, gold, transparent)`** — tan dần hai đầu,
+     mềm hơn hẳn `border` đặc
+  4. **Bóng đổ nhiều lớp** (3 lớp: 1–2px, 8–24px, 24–64px) → cảm giác giấy dày thật
+  5. Trên nền tối: `filter: drop-shadow(0 0 12px rgba(gold,.25))` cho element → ánh vàng toả, rất sang
+- Mật độ trang trí phải **theo concept**: bản tối giản chỉ 4–6 element; bản cổ điển/nền đen dùng đậm.
+  Nhồi hoa văn vào bản tối giản = phá concept, không phải chữa lỗi.
+
+**Bài học chạy nhiều agent song song:**
+- Agent song song **đè screenshot của nhau** do trùng tên file + trùng cổng HTTP server trong scratchpad chung.
+  → Khi spawn, cấp sẵn cho mỗi agent: **prefix tên file riêng** (`v1sp-`, `v2hp-`, `v3-`) và **cổng riêng** (8791/8793/…)
+
+**Bài học biến thể nội dung:**
+- Nhiều thiệp chỉ khác 1–2 dòng (chi họ, nhánh, đơn vị) → **1 file + URL param** (`?chi=bac-ninh` + map object),
+  KHÔNG nhân bản file. Thêm nhánh mới chỉ cần thêm key vào map.
+
 ## Review Checklist
 
 - [ ] Responsive mobile (max-width: 420px)

@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiệp Cưới — Nguyễn Vinh Hiển & Nguyễn Thị Hòa</title>
+  <meta name="description" content="Thiệp cưới Nguyễn Vinh Hiển & Nguyễn Thị Hòa, 06/09/2026 — Thánh Đường Giáo Xứ Tân Bùi" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --snow:       #FAFAFA;
+      --sage:       #A8B5A2;
+      --sage-light: rgba(168,181,162,0.08);
+      --sage-mid:   rgba(168,181,162,0.18);
+      --pink:       #F2D7D9;
+      --pink-light: rgba(242,215,217,0.08);
+      --ivory:      #FFF9F0;
+      --dark:       #2C2C2C;
+      --sub:        #6B6B6B;
+      --card-bg:    #FFFFFF;
+      --shadow:     0 4px 20px rgba(44,44,44,0.10);
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      color: var(--dark);
+      background: var(--snow);
+      max-width: 520px;
+      margin: 0 auto;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ===== BOKEH AMBIENT ===== */
+    .bokeh-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9990;
+      overflow: hidden;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatOrb linear infinite;
+    }
+    .orb:nth-child(1)  { width:8px;  height:8px;  left:8%;   background:rgba(255,255,255,0.25); animation-duration:10s; animation-delay:0s;   bottom:-20px; }
+    .orb:nth-child(2)  { width:14px; height:14px; left:20%;  background:rgba(168,181,162,0.20); animation-duration:13s; animation-delay:1.5s; bottom:-20px; }
+    .orb:nth-child(3)  { width:6px;  height:6px;  left:35%;  background:rgba(242,215,217,0.25); animation-duration:9s;  animation-delay:3s;   bottom:-20px; }
+    .orb:nth-child(4)  { width:18px; height:18px; left:50%;  background:rgba(255,255,255,0.18); animation-duration:14s; animation-delay:0.5s; bottom:-20px; }
+    .orb:nth-child(5)  { width:10px; height:10px; left:62%;  background:rgba(168,181,162,0.22); animation-duration:11s; animation-delay:2s;   bottom:-20px; }
+    .orb:nth-child(6)  { width:7px;  height:7px;  left:75%;  background:rgba(242,215,217,0.20); animation-duration:12s; animation-delay:4s;   bottom:-20px; }
+    .orb:nth-child(7)  { width:20px; height:20px; left:85%;  background:rgba(255,255,255,0.15); animation-duration:15s; animation-delay:1s;   bottom:-20px; }
+    .orb:nth-child(8)  { width:9px;  height:9px;  left:42%;  background:rgba(168,181,162,0.18); animation-duration:8s;  animation-delay:5s;   bottom:-20px; }
+    .orb:nth-child(9)  { width:12px; height:12px; left:15%;  background:rgba(242,215,217,0.22); animation-duration:13s; animation-delay:2.5s; bottom:-20px; }
+    .orb:nth-child(10) { width:16px; height:16px; left:90%;  background:rgba(255,255,255,0.20); animation-duration:11s; animation-delay:6s;   bottom:-20px; }
+
+    @keyframes floatOrb {
+      0%   { transform: translateY(0) translateX(0);    opacity: 0; }
+      10%  { opacity: 1; }
+      50%  { transform: translateY(-50vh) translateX(12px); }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-105vh) translateX(-8px); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .orb { animation: none; opacity: 0; } }
+
+    /* ===== MUSIC BUTTON ===== */
+    #music-btn {
+      position: fixed;
+      bottom: 20px; right: 16px;
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.90);
+      border: 1.5px solid var(--sage);
+      box-shadow: 0 2px 12px rgba(168,181,162,0.25);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #music-btn:hover { transform: scale(1.08); box-shadow: 0 4px 18px rgba(168,181,162,0.35); }
+    #music-btn svg  { color: var(--sage); width: 20px; height: 20px; }
+    #music-btn.playing svg { color: var(--dark); }
+
+    /* ===== SECTION LABEL ===== */
+    .section-label {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .section-label .script {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 2.4rem;
+      color: var(--dark);
+      line-height: 1.1;
+      display: block;
+    }
+    .section-label .divider-img {
+      height: 80px;
+      width: auto;
+      margin: 8px auto 0;
+      display: block;
+      opacity: 0.7;
+      object-fit: contain;
+    }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left  { opacity: 0; transform: translateX(-24px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-right { opacity: 0; transform: translateX(24px);  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal-left, .reveal-right, .masonry-item { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* =============================================
+       1. ENVELOPE — Glass Frost Reveal
+    ============================================= */
+    #envelope-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    #envelope-overlay .env-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('r5k_0353.webp');
+      background-size: cover;
+      background-position: center;
+    }
+    #envelope-overlay .env-frost {
+      position: absolute;
+      inset: 0;
+      background: rgba(250,250,250,0.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    /* 4 corner decorations */
+    #envelope-overlay .env-corner {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-image: url('../../../../shared/images/wedding/icons/blossom-branch-blush-watercolor.webp');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.75;
+    }
+    #envelope-overlay .env-corner.tl { top: 12px;  left: 12px;  background-position: top left;  transform: none; }
+    #envelope-overlay .env-corner.tr { top: 12px;  right: 12px; background-position: top right; transform: scaleX(-1); }
+    #envelope-overlay .env-corner.bl { bottom: 12px; left: 12px;  background-position: bottom left;  transform: scaleY(-1); }
+    #envelope-overlay .env-corner.br { bottom: 12px; right: 12px; background-position: bottom right; transform: scale(-1); }
+
+    #envelope-overlay .env-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    #envelope-overlay .env-groom {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(1.8rem, 8vw, 2.8rem);
+      color: var(--dark);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    #envelope-overlay .env-ring {
+      height: 2.2rem;
+      width: auto;
+      object-fit: contain;
+      margin: 4px 0;
+    }
+    #envelope-overlay .env-bride {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(1.8rem, 8vw, 2.8rem);
+      color: var(--dark);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    #envelope-overlay .env-date {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--sub);
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+    #envelope-overlay .env-divider {
+      width: 120px;
+      opacity: 0.65;
+      margin: 2px 0;
+    }
+    .env-open-btn {
+      margin-top: 16px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 1.5px solid var(--sage);
+      background: rgba(255,255,255,0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      animation: pulseSage 2s ease-in-out infinite;
+      transition: transform 0.2s;
+      text-decoration: none;
+    }
+    .env-open-btn:hover { transform: scale(1.06); }
+    .env-open-btn span {
+      font-family: 'Lora', serif;
+      font-size: 0.6rem;
+      color: var(--sage);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .env-open-btn svg { color: var(--sage); width: 18px; height: 18px; }
+    @keyframes pulseSage {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(168,181,162,0.35); }
+      50%       { box-shadow: 0 0 0 12px rgba(168,181,162,0); }
+    }
+    /* Frost dissolve animation */
+    #envelope-overlay.opening {
+      animation: frostDissolve 1.2s ease-in forwards;
+    }
+    @keyframes frostDissolve {
+      0%   { clip-path: circle(100% at 50% 50%); opacity: 1; }
+      100% { clip-path: circle(0% at 50% 50%);  opacity: 0; }
+    }
+    #envelope-overlay.hidden { display: none; }
+
+    /* =============================================
+       2. HERO — Dreamy Vignette Portrait
+    ============================================= */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 580px;
+      overflow: hidden;
+    }
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      will-change: transform;
+    }
+    .hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 35%, rgba(250,250,250,0.82) 100%);
+    }
+    .hero-bottom-fade {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 55%;
+      background: linear-gradient(to top, rgba(250,250,250,0.92) 0%, transparent 100%);
+    }
+    .hero-text {
+      position: absolute;
+      bottom: 60px;
+      left: 0; right: 0;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hero-text .pre-title {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sub);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.2s;
+    }
+    .hero-text .couple-names {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(2.2rem, 9vw, 3.5rem);
+      color: var(--dark);
+      white-space: nowrap;
+      line-height: 1.1;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.5s;
+    }
+    .hero-text .couple-amp {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--sub);
+      margin: 2px 0;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.65s;
+    }
+    .hero-text .wedding-date {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      color: var(--sub);
+      margin-top: 6px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 0.8s;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-text .pre-title,
+      .hero-text .couple-names,
+      .hero-text .couple-amp,
+      .hero-text .wedding-date { opacity: 1; animation: none; transform: none; }
+    }
+    /* Scroll hint arrow */
+    .scroll-hint {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      opacity: 0.6;
+      animation: bounceDown 1.8s ease-in-out infinite;
+    }
+    .scroll-hint svg { color: var(--sage); width: 20px; height: 20px; }
+    @keyframes bounceDown {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* =============================================
+       3. GIA ĐÌNH — Overlapping Panels
+    ============================================= */
+    #family {
+      background: var(--ivory);
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Background decorations for family section */
+    .family-bg-deco {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.25;
+    }
+    .family-bg-deco.top-right {
+      top: -20px; right: -30px;
+      width: 180px; height: auto;
+      transform: rotate(15deg);
+    }
+    .family-bg-deco.bottom-left {
+      bottom: -20px; left: -30px;
+      width: 160px; height: auto;
+      transform: rotate(-20deg) scaleX(-1);
+    }
+    .family-panels {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 8px;
+      z-index: 1;
+    }
+    .family-panel {
+      padding: 24px 18px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .family-panel.groom-panel {
+      background: rgba(168,181,162,0.15);
+      border-left: 3px solid var(--sage);
+      border-radius: 10px 0 0 10px;
+      margin-right: -10px;
+      z-index: 1;
+    }
+    .family-panel.bride-panel {
+      background: rgba(242,215,217,0.18);
+      border-right: 3px solid #D4A0A6;
+      border-radius: 0 10px 10px 0;
+      margin-left: -10px;
+      z-index: 0;
+    }
+    .family-panel-title {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #7A8F73;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    .bride-panel .family-panel-title { color: #B5787E; text-align: right; }
+    .family-member { margin-bottom: 12px; }
+    .family-member .role {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 2px;
+    }
+    .family-member .name {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #1E1E1E;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+    .bride-panel .family-member .role  { text-align: right; }
+    .bride-panel .family-member .name  { text-align: right; }
+    .couple-name-highlight {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 1.5rem;
+      color: #1E1E1E;
+      display: block;
+    }
+    .bride-panel .couple-name-highlight { text-align: right; }
+
+    /* Family center background watermark */
+    .family-bg-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px; height: 200px;
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Dresscode */
+    /* =============================================
+       5. LỄ CƯỚI — Elegant Ticket
+    ============================================= */
+    #wedding-ceremony {
+      background: var(--snow);
+      padding: 60px 20px;
+    }
+    .ticket-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .ticket-card {
+      background: var(--card-bg);
+      border: 1px dashed var(--sage);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      min-height: 130px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    /* Perforation left edge */
+    .ticket-perf {
+      width: 22px;
+      flex-shrink: 0;
+      background: var(--ivory);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      padding: 12px 0;
+      border-right: 1px dashed var(--sage);
+    }
+    .ticket-perf::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 22px;
+      background-image: repeating-radial-gradient(
+        circle at 11px,
+        var(--snow) 0px, var(--snow) 5px,
+        transparent 5px, transparent 14px
+      );
+      background-size: 22px 18px;
+    }
+    .ticket-body {
+      flex: 1;
+      padding: 18px 20px 18px 16px;
+    }
+    .ticket-type {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 6px;
+    }
+    .ticket-name {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .ticket-detail {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem;
+      color: var(--sub);
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+    .ticket-detail svg { width: 14px; height: 14px; color: var(--sage); flex-shrink: 0; }
+    .ticket-map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      padding: 5px 12px;
+      border: 1px solid var(--sage);
+      border-radius: 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--sage);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .ticket-map-btn:hover { background: var(--sage); color: #fff; }
+    .ticket-map-btn svg { width: 12px; height: 12px; }
+
+    /* =============================================
+       6. GALLERY — Masonry Waterfall
+    ============================================= */
+    #gallery {
+      background: var(--ivory);
+      padding: 60px 16px;
+    }
+    .masonry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .masonry-item {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 14px rgba(44,44,44,0.08);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .masonry-item:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(44,44,44,0.14); }
+    .masonry-item img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    /* Alternate left-right slide */
+    .masonry-item:nth-child(odd) {
+      opacity: 0; transform: translateX(-30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .masonry-item:nth-child(even) {
+      opacity: 0; transform: translateX(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .masonry-item.visible { opacity: 1; transform: translateX(0); }
+    .masonry-item:nth-child(1), .masonry-item:nth-child(2) { transition-delay: 0s; }
+    .masonry-item:nth-child(3), .masonry-item:nth-child(4) { transition-delay: 0.15s; }
+    .masonry-item:nth-child(5), .masonry-item:nth-child(6) { transition-delay: 0.3s; }
+    .masonry-item:nth-child(7), .masonry-item:nth-child(8) { transition-delay: 0.45s; }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(20,20,20,0.95);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      border-radius: 6px;
+      object-fit: contain;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    .lb-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      border-radius: 50%;
+      width: 40px; height: 40px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lb-close svg { color: #fff; width: 20px; height: 20px; }
+    .lb-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.12);
+      border: none;
+      border-radius: 50%;
+      width: 44px; height: 44px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lb-nav:hover { background: rgba(255,255,255,0.25); }
+    .lb-nav svg  { color: #fff; width: 22px; height: 22px; }
+    .lb-prev { left: 12px; }
+    .lb-next { right: 12px; }
+
+    /* =============================================
+       7. CLOSING — Fading Polaroid Memory
+    ============================================= */
+    #closing {
+      background: linear-gradient(180deg, #B8C4B0 0%, var(--ivory) 100%);
+      padding: 60px 20px 50px;
+      text-align: center;
+    }
+    .polaroid-wrap {
+      display: inline-block;
+      animation: polaroidFloat 4s ease-in-out infinite;
+    }
+    @keyframes polaroidFloat {
+      0%, 100% { transform: rotate(-1.5deg) translateY(0); }
+      50%       { transform: rotate(1deg) translateY(-8px); }
+    }
+    @media (prefers-reduced-motion: reduce) { .polaroid-wrap { animation: none; } }
+    .polaroid-card {
+      background: #fff;
+      padding: 10px 10px 52px;
+      box-shadow: 0 8px 32px rgba(44,44,44,0.18), 0 2px 8px rgba(44,44,44,0.08);
+      border-radius: 3px;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+    .polaroid-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 1px;
+    }
+    .polaroid-caption {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(1.1rem, 4.5vw, 1.6rem);
+      color: var(--sub);
+      padding: 8px 4px 0;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    /* ===== RSVP FORM ===== */
+    .rsvp-form {
+      max-width: 380px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .rsvp-field label {
+      font-family: 'Lora', serif;
+      font-size: 0.82rem;
+      color: var(--sub);
+      display: block;
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+    .rsvp-field input[type="text"],
+    .rsvp-field select,
+    .rsvp-field textarea {
+      width: 100%;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      color: var(--dark);
+      background: var(--card-bg);
+      border: 1.5px solid var(--sage-mid);
+      border-radius: 10px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .rsvp-field input:focus,
+    .rsvp-field select:focus,
+    .rsvp-field textarea:focus { border-color: var(--sage); }
+    .rsvp-field textarea { resize: vertical; min-height: 70px; }
+    .rsvp-radio-group { display: flex; gap: 12px; }
+    .rsvp-radio {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      color: var(--dark);
+    }
+    .rsvp-radio input[type="radio"] { accent-color: var(--sage); width: 16px; height: 16px; }
+    .rsvp-submit {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #fff;
+      background: var(--sage);
+      border: none;
+      border-radius: 28px;
+      padding: 12px 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 8px auto 0;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .rsvp-submit:hover { background: #8FA389; transform: scale(1.03); }
+    .rsvp-submit svg { width: 16px; height: 16px; }
+    .rsvp-msg {
+      text-align: center;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--sage);
+      margin-top: 8px;
+      min-height: 1.2em;
+    }
+
+    .closing-names {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(1.6rem, 7vw, 2.8rem);
+      color: var(--dark);
+      margin-top: 28px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .closing-message {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--sub);
+      margin-top: 14px;
+      line-height: 1.7;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .closing-hearts {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      letter-spacing: 6px;
+    }
+    .closing-credit {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      color: rgba(107,107,107,0.5);
+      margin-top: 32px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== BOKEH AMBIENT ===== -->
+  <div class="bokeh-container" aria-hidden="true">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn">
+    <button class="lb-close" id="lb-close" aria-label="Đóng"><i data-lucide="x"></i></button>
+    <button class="lb-nav lb-prev" id="lb-prev" aria-label="Ảnh trước"><i data-lucide="chevron-left"></i></button>
+    <img id="lb-img" src="" alt="Gallery photo" />
+    <button class="lb-nav lb-next" id="lb-next" aria-label="Ảnh tiếp"><i data-lucide="chevron-right"></i></button>
+  </div>
+
+  <!-- ===== MUSIC ===== -->
+  <audio id="bg-music" loop preload="none">
+    <source src="../../../../shared/music/wedding/Beautiful In White.mp3" type="audio/mpeg" />
+  </audio>
+  <button id="music-btn" aria-label="Nhạc nền">
+    <i data-lucide="music-2"></i>
+  </button>
+
+  <!-- =============================================
+       1. ENVELOPE
+  ============================================= -->
+  <div id="envelope-overlay" role="dialog" aria-modal="true" aria-label="Mở thiệp cưới">
+    <div class="env-bg"></div>
+    <div class="env-frost"></div>
+    <!-- 4 corners -->
+    <div class="env-corner tl" aria-hidden="true"></div>
+    <div class="env-corner tr" aria-hidden="true"></div>
+    <div class="env-corner bl" aria-hidden="true"></div>
+    <div class="env-corner br" aria-hidden="true"></div>
+    <!-- Content -->
+    <div class="env-content">
+      <p class="env-groom">Nguyễn Vinh Hiển</p>
+      <img class="env-ring" src="../../../../shared/images/wedding/icons/wedding-rings-gold.webp" alt="Nhẫn cưới" />
+      <p class="env-bride">Nguyễn Thị Hòa</p>
+      <img class="env-divider" src="../../../../shared/images/wedding/icons/divider-lavender.webp" alt="" />
+      <p class="env-date">Chủ Nhật · 06 · 09 · 2026</p>
+      <button class="env-open-btn" id="open-envelope-btn" aria-label="Chạm để mở thiệp">
+        <i data-lucide="sparkles"></i>
+        <span>Chạm<br>để Mở</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- =============================================
+       2. HERO
+  ============================================= -->
+  <section id="hero" aria-label="Ảnh cô dâu chú rể">
+    <img
+      class="hero-img"
+      id="hero-img"
+      src="dscf9718.webp"
+      alt="Cô dâu chú rể khiêu vũ trước nhà thờ"
+      loading="eager"
+    />
+    <div class="hero-vignette" aria-hidden="true"></div>
+    <div class="hero-bottom-fade" aria-hidden="true"></div>
+    <div class="hero-text">
+      <p class="pre-title">The Wedding Of</p>
+      <p class="couple-names">Nguyễn Vinh Hiển</p>
+      <p class="couple-amp">&amp;</p>
+      <p class="couple-names">Nguyễn Thị Hòa</p>
+      <p class="wedding-date">06 &nbsp;·&nbsp; 09 &nbsp;·&nbsp; 2026</p>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <i data-lucide="chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- =============================================
+       3. GIA ĐÌNH
+  ============================================= -->
+  <section id="family" aria-label="Gia đình hai họ">
+    <!-- Background floral decorations -->
+    <img class="family-bg-deco top-right" src="../../../../shared/images/wedding/icons/flowers-watercolor-pastel.webp" alt="" aria-hidden="true" />
+    <img class="family-bg-deco bottom-left" src="../../../../shared/images/wedding/icons/flower-branch-watercolor.webp" alt="" aria-hidden="true" />
+    <div class="section-label reveal">
+      <span class="script">Gia Đình</span>
+      <img class="divider-img" src="../../../../shared/images/wedding/icons/divider-lavender.webp" alt="" />
+    </div>
+    <img class="family-bg-center" src="../../../../shared/images/wedding/icons/bouquet-small-watercolor-pink-purple.webp" alt="" aria-hidden="true" />
+    <div class="family-panels">
+      <div class="family-panel groom-panel reveal-left">
+        <p class="family-panel-title">Nhà Trai</p>
+        <div class="family-member">
+          <p class="role">Ông</p>
+          <p class="name">Nguyễn Thanh Hùng (Hồng)</p>
+        </div>
+        <div class="family-member">
+          <p class="role">Bà</p>
+          <p class="name">Nguyễn Thị Ngọc Điệp</p>
+        </div>
+        <div class="family-member" style="margin-top:8px;">
+          <p class="role">Chú Rể</p>
+          <span class="couple-name-highlight">Nguyễn Vinh Hiển</span>
+        </div>
+      </div>
+      <div class="family-panel bride-panel reveal-right">
+        <p class="family-panel-title">Nhà Gái</p>
+        <div class="family-member">
+          <p class="role">Bà Quả Phụ</p>
+          <p class="name">Nguyễn Thị Vân</p>
+        </div>
+        <div class="family-member">
+          <p class="role">&nbsp;</p>
+          <p class="name">&nbsp;</p>
+        </div>
+        <div class="family-member" style="margin-top:8px;">
+          <p class="role">Cô Dâu</p>
+          <span class="couple-name-highlight">Nguyễn Thị Hòa</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- =============================================
+       5. LỄ CƯỚI — Elegant Ticket
+  ============================================= -->
+  <section id="wedding-ceremony" aria-label="Thông tin lễ cưới">
+    <div class="section-label reveal">
+      <span class="script">Lễ Cưới</span>
+      <img class="divider-img" src="../../../../shared/images/wedding/icons/divider-lavender.webp" alt="" />
+    </div>
+    <div class="ticket-stack">
+      <!-- Ticket 1: Lễ Hôn Phối -->
+      <div class="ticket-card reveal">
+        <div class="ticket-perf" aria-hidden="true"></div>
+        <div class="ticket-body">
+          <p class="ticket-type">Lễ Hôn Phối</p>
+          <p class="ticket-name">Thánh Đường Giáo Xứ Tân Bùi</p>
+          <div class="ticket-detail">
+            <i data-lucide="calendar"></i>
+            <span>Chủ Nhật, 06 tháng 09 năm 2026</span>
+          </div>
+          <div class="ticket-detail">
+            <i data-lucide="clock"></i>
+            <span>10:00 sáng</span>
+          </div>
+          <div class="ticket-detail">
+            <i data-lucide="map-pin"></i>
+            <span>Thánh Đường Giáo Xứ Tân Bùi</span>
+          </div>
+          <a href="https://maps.app.goo.gl/STYF29DsERB3HZHaA" target="_blank" rel="noopener" class="ticket-map-btn">
+            <i data-lucide="map"></i> Xem Bản Đồ
+          </a>
+        </div>
+      </div>
+      <!-- Ticket 2: Tiệc Cưới -->
+      <div class="ticket-card reveal">
+        <div class="ticket-perf" aria-hidden="true"></div>
+        <div class="ticket-body">
+          <p class="ticket-type">Tiệc Cưới</p>
+          <p class="ticket-name">Hội Trường Giáo Xứ Tân Bùi</p>
+          <div class="ticket-detail">
+            <i data-lucide="calendar"></i>
+            <span>Chủ Nhật, 06 tháng 09 năm 2026</span>
+          </div>
+          <div class="ticket-detail">
+            <i data-lucide="clock"></i>
+            <span>11:30 trưa</span>
+          </div>
+          <div class="ticket-detail">
+            <i data-lucide="map-pin"></i>
+            <span>Hội Trường Giáo Xứ Tân Bùi</span>
+          </div>
+          <a href="https://maps.app.goo.gl/STYF29DsERB3HZHaA" target="_blank" rel="noopener" class="ticket-map-btn">
+            <i data-lucide="map"></i> Xem Bản Đồ
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       6. GALLERY — Masonry Waterfall
+  ============================================= -->
+  <section id="gallery" aria-label="Bộ ảnh cưới">
+    <div class="section-label reveal">
+      <span class="script">Khoảnh Khắc</span>
+      <img class="divider-img" src="../../../../shared/images/wedding/icons/divider-lavender.webp" alt="" />
+    </div>
+    <div class="masonry-grid" id="masonry-grid">
+      <div class="masonry-item" data-idx="0">
+        <img src="r5k_0215.webp" alt="Couple trước cầu thang đá" loading="lazy" />
+      </div>
+      <div class="masonry-item" data-idx="1">
+        <img src="r5k_0221.webp" alt="Close-up cô dâu" loading="lazy" />
+      </div>
+      <div class="masonry-item" data-idx="2">
+        <img src="r5k_0398.webp" alt="Couple dang tay trên cầu" loading="lazy" />
+      </div>
+      <div class="masonry-item" data-idx="3">
+        <img src="r5k_0644.webp" alt="Couple đi bộ trên phố" loading="lazy" />
+      </div>
+      <div class="masonry-item" data-idx="4">
+        <img src="r5k_0465.webp" alt="Couple khiêu vũ dưới cây" loading="lazy" />
+      </div>
+      <div class="masonry-item" data-idx="5">
+        <img src="r5k_0528.webp" alt="Couple trên đài quan sát" loading="lazy" />
+      </div>
+      <div class="masonry-item" data-idx="6">
+        <img src="r5k_0714.webp" alt="Couple nắm tay trước cổng vòm" loading="lazy" />
+      </div>
+      <div class="masonry-item" data-idx="7">
+        <img src="r5k_0320.webp" alt="Close-up cầm bó hoa" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       7. CLOSING — Fading Polaroid
+  ============================================= -->
+  <!-- =============================================
+       RSVP — Xác Nhận Tham Gia
+  ============================================= -->
+  <section id="rsvp" aria-label="Xác nhận tham gia" style="background:var(--ivory);padding:60px 16px;">
+    <div class="section-label reveal">
+      <span class="script">Xác Nhận Tham Gia</span>
+      <img class="divider-img" src="../../../../shared/images/wedding/icons/divider-lavender.webp" alt="" />
+    </div>
+    <form id="rsvp-form" class="rsvp-form reveal" onsubmit="return false;">
+      <div class="rsvp-field">
+        <label for="rsvp-name">Họ và tên</label>
+        <input type="text" id="rsvp-name" placeholder="Nhập họ tên của bạn" required />
+      </div>
+      <div class="rsvp-field">
+        <label for="rsvp-guests">Số người tham dự</label>
+        <select id="rsvp-guests">
+          <option value="1">1 người</option>
+          <option value="2" selected>2 người</option>
+          <option value="3">3 người</option>
+          <option value="4">4 người</option>
+          <option value="5">5 người trở lên</option>
+        </select>
+      </div>
+      <div class="rsvp-field">
+        <label>Bạn sẽ tham dự chứ?</label>
+        <div class="rsvp-radio-group">
+          <label class="rsvp-radio"><input type="radio" name="rsvp-attend" value="yes" checked /><span>Sẽ tham dự</span></label>
+          <label class="rsvp-radio"><input type="radio" name="rsvp-attend" value="no" /><span>Không thể tham dự</span></label>
+        </div>
+      </div>
+      <div class="rsvp-field">
+        <label for="rsvp-wish">Lời chúc đến cô dâu chú rể</label>
+        <textarea id="rsvp-wish" rows="3" placeholder="Viết lời chúc..."></textarea>
+      </div>
+      <button type="submit" class="rsvp-submit" id="rsvp-submit-btn">
+        <i data-lucide="heart"></i> Gửi Xác Nhận
+      </button>
+      <p class="rsvp-msg" id="rsvp-msg"></p>
+    </form>
+  </section>
+
+  <!-- =============================================
+       CLOSING
+  ============================================= -->
+  <section id="closing" aria-label="Lời cảm ơn">
+    <div class="polaroid-wrap reveal">
+      <div class="polaroid-card">
+        <img
+          src="r5k_0539.webp"
+          alt="Couple tựa đầu lãng mạn"
+          loading="lazy"
+        />
+        <p class="polaroid-caption">Mãi mãi bắt đầu từ hôm nay</p>
+      </div>
+    </div>
+    <p class="closing-names reveal">Vinh Hiển &amp; Thị Hòa</p>
+    <p class="closing-message reveal">
+      Cảm ơn bạn đã đồng hành cùng chúng mình trong ngày trọng đại này.
+    </p>
+    <p class="closing-hearts reveal">💕</p>
+    <p class="closing-credit">Made with love · Templexa</p>
+  </section>
+
+  <script src="../../../../shared/wedding/wishes-api.js"></script>
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // Init Lucide icons
+    if (window.lucide) lucide.createIcons();
+
+    /* ---- ENVELOPE OPEN ---- */
+    const overlay = document.getElementById('envelope-overlay');
+    const openBtn = document.getElementById('open-envelope-btn');
+    const music   = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+
+    function openEnvelope() {
+      overlay.classList.add('opening');
+      overlay.addEventListener('animationend', () => {
+        overlay.classList.add('hidden');
+        // Auto-play music after open
+        music.volume = 0.55;
+        music.play().catch(() => {});
+        musicBtn.classList.add('playing');
+        musicBtn.querySelector('[data-lucide]').setAttribute('data-lucide', 'volume-2');
+        if (window.lucide) lucide.createIcons();
+      }, { once: true });
+    }
+
+    overlay.addEventListener('click', openEnvelope);
+    // Keyboard open
+    overlay.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
+    });
+    overlay.setAttribute('tabindex', '0');
+
+    /* ---- HERO PARALLAX ---- */
+    const heroImg = document.getElementById('hero-img');
+    function onScroll() {
+      const scrolled = window.scrollY;
+      if (heroImg && scrolled < window.innerHeight) {
+        heroImg.style.transform = `translateY(${scrolled * 0.28}px)`;
+      }
+    }
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => { onScroll(); ticking = false; });
+        ticking = true;
+      }
+    }, { passive: true });
+
+    /* ---- MUSIC TOGGLE ---- */
+    musicBtn.addEventListener('click', () => {
+      if (music.paused) {
+        music.volume = 0.55;
+        music.play().catch(() => {});
+        musicBtn.classList.add('playing');
+        musicBtn.querySelector('[data-lucide]').setAttribute('data-lucide', 'volume-2');
+      } else {
+        music.pause();
+        musicBtn.classList.remove('playing');
+        musicBtn.querySelector('[data-lucide]').setAttribute('data-lucide', 'music-2');
+      }
+      if (window.lucide) lucide.createIcons();
+    });
+
+    /* ---- SCROLL REVEAL ---- */
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .masonry-item');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    /* ---- LIGHTBOX ---- */
+    const galleryImgs = Array.from(document.querySelectorAll('.masonry-item img'));
+    const lightbox    = document.getElementById('lightbox');
+    const lbImg       = document.getElementById('lb-img');
+    const lbClose     = document.getElementById('lb-close');
+    const lbPrev      = document.getElementById('lb-prev');
+    const lbNext      = document.getElementById('lb-next');
+    let   lbIndex     = 0;
+
+    function openLightbox(idx) {
+      lbIndex = idx;
+      lbImg.src = galleryImgs[idx].src;
+      lbImg.alt = galleryImgs[idx].alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    }
+    function showLbImg(idx) {
+      lbIndex = (idx + galleryImgs.length) % galleryImgs.length;
+      lbImg.src = galleryImgs[lbIndex].src;
+      lbImg.alt = galleryImgs[lbIndex].alt;
+    }
+
+    document.querySelectorAll('.masonry-item').forEach((item, i) => {
+      item.addEventListener('click', () => openLightbox(i));
+    });
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', () => showLbImg(lbIndex - 1));
+    lbNext.addEventListener('click', () => showLbImg(lbIndex + 1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape')      closeLightbox();
+      if (e.key === 'ArrowLeft')   showLbImg(lbIndex - 1);
+      if (e.key === 'ArrowRight')  showLbImg(lbIndex + 1);
+    });
+
+    // Touch/swipe for lightbox
+    let lbTouchStartX = 0;
+    lightbox.addEventListener('touchstart', (e) => { lbTouchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    lightbox.addEventListener('touchend', (e) => {
+      const diff = lbTouchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 40) showLbImg(diff > 0 ? lbIndex + 1 : lbIndex - 1);
+    });
+
+    /* ===== RANDOM DIVIDER IMAGES ===== */
+    (function() {
+      var florals = [
+        '../../../../shared/images/wedding/icons/divider-lavender.webp',
+        '../../../../shared/images/wedding/icons/divider-roses-pink.webp',
+        '../../../../shared/images/wedding/icons/flowers-watercolor-pastel.webp',
+        '../../../../shared/images/wedding/icons/flower-branch-watercolor.webp',
+        '../../../../shared/images/wedding/icons/peony-watercolor-pink.webp',
+        '../../../../shared/images/wedding/icons/bouquet-small-watercolor-pastel.webp',
+        '../../../../shared/images/wedding/icons/blossom-branch-blush-watercolor.webp',
+        '../../../../shared/images/wedding/icons/lotus-lineart-gold.webp',
+      ];
+      document.querySelectorAll('.section-label .divider-img').forEach(function(img) {
+        img.src = florals[Math.floor(Math.random() * florals.length)];
+      });
+    })();
+
+    /* ===== RSVP FORM ===== */
+    (function() {
+      var form = document.getElementById('rsvp-form');
+      var msg = document.getElementById('rsvp-msg');
+      var btn = document.getElementById('rsvp-submit-btn');
+      if (!form) return;
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = document.getElementById('rsvp-name').value.trim();
+        if (!name) { msg.textContent = 'Vui lòng nhập họ tên.'; msg.style.color = '#c0392b'; return; }
+        var guests = document.getElementById('rsvp-guests').value;
+        var attend = document.querySelector('input[name="rsvp-attend"]:checked').value;
+        var wish = document.getElementById('rsvp-wish').value.trim();
+        btn.disabled = true;
+        btn.textContent = 'Đang gửi...';
+        sheetsAPI.post('khach_22', {
+          A: name,
+          B: guests,
+          C: attend,
+          D: wish,
+          E: new Date().toLocaleString('vi-VN')
+        }).then(function() {
+          msg.textContent = 'Cảm ơn bạn đã xác nhận! 💕';
+          msg.style.color = 'var(--sage)';
+          btn.textContent = 'Đã gửi ✓';
+        }).catch(function() {
+          msg.textContent = 'Có lỗi xảy ra, vui lòng thử lại.';
+          msg.style.color = '#c0392b';
+          btn.disabled = false;
+          btn.innerHTML = '<i data-lucide="heart"></i> Gửi Xác Nhận';
+          if (window.lucide) lucide.createIcons();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

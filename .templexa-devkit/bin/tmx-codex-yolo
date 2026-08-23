@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+if ! command -v codex >/dev/null 2>&1; then
+  echo "codex not found in PATH" >&2
+  exit 127
+fi
+
+if [[ ! -d "$REPO_ROOT/.templexa-devkit" ]]; then
+  echo "Cannot find .templexa-devkit from $SCRIPT_DIR" >&2
+  exit 1
+fi
+
+echo "Starting Codex yolo for Templexa:"
+echo "  repo: $REPO_ROOT"
+echo "  mode: dangerously bypass approvals and sandbox"
+echo "  guard source: .templexa-devkit/hooks/pre-command-policy.sh"
+echo
+echo "Use only on a trusted local machine or inside an external sandbox."
+echo
+
+exec codex -C "$REPO_ROOT" --dangerously-bypass-approvals-and-sandbox "$@"
+

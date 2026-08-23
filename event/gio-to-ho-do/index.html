@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thông Bạch — Đại Lễ Giỗ Tổ Họ Đỗ</title>
+    <meta name="description" content="Trân trọng kính mời toàn thể anh em, con cháu, nội ngoại tộc họ Đỗ về dự đại lễ giỗ tổ — 18.08.2026 tại Từ đường họ Đỗ, Ý Yên, Ninh Bình.">
+
+    <!-- OG Meta — Facebook, Zalo, Messenger preview.
+         Crawler KHÔNG chạy JS nên mọi ?id= đều dùng chung ảnh preview này. -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thông Bạch — Đại Lễ Giỗ Tổ Họ Đỗ">
+    <meta property="og:description" content="Trân trọng kính mời toàn thể anh em, con cháu, nội ngoại tộc họ Đỗ về dự đại lễ giỗ tổ — 18.08.2026 (mùng 6 tháng 7 Bính Ngọ) tại Từ đường họ Đỗ, Ý Yên, Ninh Bình.">
+    <meta property="og:image" content="https://templexa.vn/products/Invitation/Other/gen_247_gio-to-ho-do/og-cover.jpg?v=1">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://templexa.vn/event/gio-to-ho-do/index.html">
+    <meta property="og:site_name" content="Templexa">
+    <meta property="og:locale" content="vi_VN">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Thông Bạch — Đại Lễ Giỗ Tổ Họ Đỗ">
+    <meta name="twitter:description" content="Đại lễ giỗ tổ họ Đỗ — 18.08.2026 tại Từ đường họ Đỗ, Ý Yên, Ninh Bình.">
+    <meta name="twitter:image" content="https://templexa.vn/products/Invitation/Other/gen_247_gio-to-ho-do/og-cover.jpg?v=1">
+
+    <style>
+        * { margin: 0; padding: 0; }
+        html, body { width: 100%; height: 100%; overflow: hidden; position: fixed; background: #14100A; }
+        iframe { position: fixed; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .fallback {
+            display: flex; align-items: center; justify-content: center;
+            height: 100%; padding: 40px; text-align: center;
+            font-family: system-ui, sans-serif; color: #D4AF37; line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="f" allowfullscreen allow="autoplay"></iframe>
+    <script src="../config.js"></script>
+    <script>
+        (function () {
+            var parts = location.pathname.replace(/\/index\.html$/i, '').split('/').filter(Boolean);
+            var slug = parts[parts.length - 1];
+            var entry = (typeof EVENT !== 'undefined') && EVENT[slug];
+
+            if (!entry) return showError();
+
+            var base = location.pathname.replace(/\/event\/[^/]+\/.*$/, '/');
+            var params = new URLSearchParams(location.search);
+            var src;
+
+            if (entry.variants) {
+                // Nhiều biến thể — ?id= chọn bản thiết kế + nội dung
+                var id = params.get('id') || entry.defaultId;
+                var variant = entry.variants[id];
+                if (!variant) return showError('Không tìm thấy mẫu thiệp với mã "' + id + '".');
+
+                // Giữ lại các query khác của khách, bỏ `id` vì nó chỉ dùng ở lớp này
+                params.delete('id');
+                var extra = params.toString();
+                var query = [variant.query, extra].filter(Boolean).join('&');
+
+                src = base
+                    + entry.base.replace(/^\.\.\/\.\.\//, '')
+                    + variant.dir + '/index.html'
+                    + (query ? '?' + query : '');
+            } else {
+                src = base + entry.src.replace(/^\.\.\/\.\.\//, '') + location.search;
+            }
+
+            document.getElementById('f').src = src + location.hash;
+
+            function showError(msg) {
+                document.body.innerHTML = '<div class="fallback"><p>'
+                    + (msg || 'Không tìm thấy thiệp. Vui lòng kiểm tra lại đường dẫn.')
+                    + '</p></div>';
+            }
+        })();
+    </script>
+</body>
+</html>
