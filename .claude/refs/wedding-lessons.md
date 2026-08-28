@@ -136,3 +136,39 @@
 - [ ] Hero fit 1 màn mobile (không scroll để thấy tên)
 - [ ] Mỗi section có animation riêng (không chung reveal)
 - [ ] Ảnh trang trí không có checkered/nền trắng lộ
+
+## Thiệp #271 — Bích Ngọc Trai (clone ziuwedding: vophong + phongbi + mxm)
+
+**Bài học font (SỬA lại ghi chú cũ ở #247):**
+- **Great Vibes ĐÃ có subset `vietnamese`** trên Google Fonts và render đủ dấu ("Chú rể", "Cô dâu") —
+  ghi chú "Great Vibes THIẾU dấu" ở mục #247 đã lỗi thời. Vẫn nên kiểm chứng bằng cách render thật
+  thay vì tin danh sách cũ.
+- Cách kiểm tra nhanh subset: `curl -H "User-Agent: <UA Chrome>" "https://fonts.googleapis.com/css2?family=X" | grep vietnamese`.
+  **Bắt buộc gửi UA trình duyệt** — UA mặc định của curl trả CSS không có comment subset → grep luôn ra 0, dễ kết luận sai.
+- Font script đủ dấu đã render-verify: **Pinyon Script** (copperplate mảnh, sang — hợp navy/luxury),
+  **Italianno**, **Great Vibes**, **Dancing Script**, **Charm**.
+  Pinyon Script khớp nhất với chữ script trên thiệp LadiPage thương mại (1FTV Askilon / Imperial Script).
+
+**Bài học thu hoạch element từ site tham khảo:**
+- `scripts/mirror-site.js` bắt được TOÀN BỘ ảnh element gốc của trang LadiPage → nguồn element
+  chất lượng cao, **alpha thật**, tốt hơn hẳn gen mới. Luôn mirror trước khi nghĩ đến gen ảnh.
+- Dựng **contact sheet** (sharp composite lên nền xám xanh) để xem một lượt cả bộ + kiểm alpha —
+  nhanh hơn mở từng file rất nhiều.
+- Trang "phong bì" và trang thiệp thật thường là **2 URL riêng** (`/vophongbixanhduong` → link sang
+  `/phongbixanhduong`). Click không mở được thì soi `<a href>` trong DOM, đừng cố click mãi.
+
+**Bài học bong bóng lời chúc (floating wishes):**
+- `position: fixed; bottom: 70px` **che tiêu đề section** ở gần như mọi màn — lỗi nặng, phát hiện qua screenshot.
+  Chữa: `bottom: 9px`, tối đa **2** bong bóng, và **tắt hẳn khi hero / closing đang trong viewport**
+  (IntersectionObserver, thêm class `.muted { opacity: 0 }`) — tên cô dâu chú rể không bao giờ bị che.
+
+**Bài học ảnh nền hero/closing full-bleed:**
+- Ảnh cưới studio nền TRẮNG + veil navy nhạt → chữ trắng chìm hẳn. Veil phải **đậm và bắt đầu sớm**:
+  `linear-gradient(to bottom, transparent 18%, .26 42%, .72 68%, .97 100%)`. Bản đầu dùng `.55 62%` là quá nhạt.
+- **Hạt hiệu ứng (petal/sparkle) đè lên MẶT người trong ảnh** trông như vết bẩn ở ảnh chụp tĩnh.
+  Giữ `opacity ≤ .35` + `filter: blur(1px)` + size 5–11px → đọc ra bokeh chứ không ra đốm trắng.
+
+**Bài học vặt:**
+- `build-og-cover.js` **không có `--help`** — gọi kèm cờ lạ là nó chạy luôn target mặc định (gen_247),
+  ghi đè file của sản phẩm khác. Đọc docstring trước, đừng dò bằng `--help`.
+- `apply-shots.js` tự set luôn `thumbnail` = ảnh main → không cần og-cover.jpg riêng cho thiệp mới.

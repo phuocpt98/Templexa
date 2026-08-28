@@ -26,15 +26,15 @@ products/
 | Loai chinh | Loai nho | Tong | Public |
 |------------|----------|------|--------|
 | **Invitation** | other | 54 | 46 |
-| **Invitation** | wedding | 83 | 52 |
+| **Invitation** | wedding | 84 | 53 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **257** | **218** |
+| | **Tong** | **258** | **219** |
 
-_Cap nhat tu data.js: 2026-08-23 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-08-28 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 
@@ -209,7 +209,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 267 | Thiệp Sinh Nhật Bé — Bear Party Pastel | `Invitation/Other/gen_267_sinh-nhat-be-bear-party` | birthday | public |
 | 268 | Thiệp Thôi Nôi Bé — Bunny & Cloud Pastel | `Invitation/Other/gen_268_thoi-noi-be-bunny-cloud` | thoi-noi | public |
 
-### Invitation / wedding (83)
+### Invitation / wedding (84)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -296,6 +296,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 265 | Thiệp Cưới Hoa Trắng Mộng Mơ — Lễ Hôn Phối | `Invitation/Wedding/khach_vinh-hien-hoa` | floral / wedding | hidden |
 | 269 | Thiệp Cưới Hồng Tro Flat-lay — Phong Bì Hoa Khô | `Invitation/Wedding/gen_269_dusty-rose-flatlay` | vintage / wedding | public |
 | 270 | Thiệp Cưới Garden Weekend — Rèm Trắng & Đèn Nến | `Invitation/Wedding/gen_270_excellence-istanbul-garden` | floral / wedding | public |
+| 271 | Thiệp Cưới Bích Ngọc Trai — Phong Bì Navy & Song Hỷ | `Invitation/Wedding/gen_271_navy-pearl-song-hy` | luxury / wedding | public |
 
 ### Web / e-commerce (33)
 

@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 83 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 84 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3134,6 +3134,48 @@ const PRODUCTS = [
         showInSlider: true,
         isPublic: true,
         updatedAt: '2026-08-23',
+    },
+    {
+        id: 271,
+        name: 'Thiệp Cưới Bích Ngọc Trai — Phong Bì Navy & Song Hỷ',
+        slug: 'thiep-cuoi-bich-ngoc-trai-navy-song-hy',
+        description: 'Thiệp cưới tông xanh navy sang trọng — phong bì navy niêm dấu sáp Song Hỷ vàng, ngọc trai và hoa trắng, ảnh cưới full-bleed chuyển sắc navy, chữ script thanh mảnh trên nền giấy ngà.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'luxury',
+        event: 'wedding',
+        tags: ['wedding', 'navy', 'xanh-navy', 'ngoc-trai', 'song-hy', 'sang-trong', 'rsvp', 'countdown', 'love-story', 'dresscode'],
+        price: 'free',
+        images: [
+            './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/shots/open.webp',
+            './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/shots/sec-1.webp',
+            './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/shots/open.webp',
+        mobileView: './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/shots/open.webp',
+        path: './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/',
+        demoUrl: './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/index.html',
+        variants: [],
+        features: [
+            'Phong bì navy + dấu sáp Song Hỷ, chạm bất kỳ đâu để mở',
+            'Đếm ngược ngày cưới realtime',
+            'Nhạc nền Beautiful In White',
+            'Hiệu ứng cánh hoa rơi + lấp lánh ngọc trai',
+            'Album ảnh + lightbox vuốt xem',
+            'Dải phim ngang cuộn vô tận',
+            'Timeline chương trình + Dresscode 4 gam màu',
+            'Form RSVP + lời chúc bay',
+            'Mừng cưới: sao chép số tài khoản 1 chạm',
+            'Cá nhân hoá tên khách qua ?guest=',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 4,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-08-28',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 54 ──────────────
     {
