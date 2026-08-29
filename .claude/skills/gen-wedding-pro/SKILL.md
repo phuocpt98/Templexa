@@ -375,6 +375,35 @@ Mọi thiệp gen ra phải có dòng chữ ký ở **section Closing** (cuối 
 - Là link `https://templexa.vn` (target _blank) — khách mở thiệp có thể bấm sang
 - Không viết "Templexa", "Templexa Studio" suông; không dùng logo ảnh
 
+### 4D-ter. RSVP chỉ MỘT nút submit (BẮT BUỘC)
+
+Form RSVP **luôn chỉ có duy nhất 1 nút submit**, gộp cả hai việc trong một lần bấm:
+**gửi lời chúc + xác nhận tham dự**.
+
+- Mẫu tham khảo hay có **2 nút** ("Gửi lời nhắn và xác nhận" + "Gửi mừng cưới") →
+  **KHÔNG clone 2 nút**. Bỏ nút thứ hai, giữ đúng 1 nút submit.
+- Nút phụ kiểu "Gửi mừng cưới" chỉ để cuộn xuống section quà → **bỏ hẳn**;
+  khách vẫn tới section mừng cưới bằng cách cuộn tiếp bình thường.
+- Nhãn nút nên nói rõ làm cả hai việc, ví dụ: `Gửi lời chúc & xác nhận`.
+  Nhãn dài hơn (`… & xác nhận tham dự`) bị xuống 2 dòng khi nút in hoa + giãn chữ ở màn 430px —
+  kiểm bằng `Range.getClientRects().length` trước khi chốt.
+- Một lần submit phải xử lý trọn: validate tên → lưu/gửi lời chúc → ghi nhận lựa chọn
+  tham dự → hiện thông báo cảm ơn → `form.reset()`.
+
+```html
+<form id="rsvpForm">
+  <input class="field" id="rsvpName" placeholder="Tên của bạn" required>
+  <textarea class="field" id="rsvpMsg" placeholder="Lời chúc của bạn"></textarea>
+  <div class="opts">… 3 lựa chọn tham dự …</div>
+  <!-- ĐÚNG: chỉ 1 nút, không thêm nút "Gửi mừng cưới" -->
+  <button class="btn" type="submit">Gửi lời chúc &amp; xác nhận tham dự</button>
+  <p class="msg" id="rsvpMsgOut"></p>
+</form>
+```
+
+Lý do: 2 nút cạnh nhau làm khách phân vân bấm cái nào, và nút "Gửi mừng cưới" trông như
+một hành động gửi tiền thật trong khi nó chỉ cuộn trang — dễ gây hiểu nhầm.
+
 ### 4E. Checklist trước khi báo cáo
 - [ ] `node --check assets/js/data.js` OK
 - [ ] Entry có đủ `style`/`event`, tên không chứa tên riêng khách
@@ -382,6 +411,7 @@ Mọi thiệp gen ra phải có dòng chữ ký ở **section Closing** (cuối 
 - [ ] Không trùng template (4A) hoặc đã gắn `templateOf`
 - [ ] `isPublic:false`
 - [ ] Closing có dòng `templexa.vn` (link) — xem 4D-bis
+- [ ] **RSVP chỉ có 1 nút submit** (lời chúc + xác nhận gộp chung) — xem 4D-ter
 
 ### Báo cáo PRO:
 
@@ -417,6 +447,7 @@ Mọi thiệp gen ra phải có dòng chữ ký ở **section Closing** (cuối 
 4. **Anime.js là tuỳ chọn** — chỉ dùng khi animation phức tạp, không bắt buộc
 5. **Không thêm dependency ngoài**: Google Fonts, Lucide Icons, Tailwind CDN, Anime.js CDN (tuỳ chọn)
 6. **Kế thừa TẤT CẢ ràng buộc của /gen-wedding** — nhạc, countdown, effects, RSVP, font Việt, organic style, envelope trang trí...
+7. **RSVP chỉ 1 nút submit** — gộp gửi lời chúc + xác nhận tham dự, kể cả khi mẫu tham khảo có 2 nút (xem 4D-ter)
 
 ---
 
