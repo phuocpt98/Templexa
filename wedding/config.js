@@ -14,6 +14,12 @@
  * trong mỗi index.html vì Facebook/Zalo crawler không chạy JS.
  */
 var WEDDING = {
+    'minh-thong-anh-thu': {
+        src: '../../products/Invitation/Wedding/khach_minh-thong-anh-thu/index.html',
+        title: 'Minh Thông & Anh Thư — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự Lễ Thành Hôn — 05.10.2026 tại Tư Gia, Xã Mỹ Chánh Hòa, Vĩnh Long',
+        image: '../../products/Invitation/Wedding/khach_minh-thong-anh-thu/og-cover.jpg',
+    },
     'van-tri-ngoc-linh': {
         src: '../../products/Invitation/Wedding/van-tri-ngoc-linh/index.html',
         title: 'Vạn Trí & Ngọc Linh — Thiệp Mời Đính Hôn',
