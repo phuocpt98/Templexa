@@ -13,109 +13,124 @@ function showInvite() {
 }
 
 // ============================================================
-// INTRO SCREEN
+// MÀN MỞ ĐẦU — bấm là chạy thẳng video hero (không còn video intro riêng)
 // ============================================================
 (function () {
   var screen   = document.getElementById('intro-screen');
-  var video    = document.getElementById('intro-video');
-  var fade     = document.getElementById('intro-fade');
   var mainSite = document.getElementById('main-site');
-  if (!screen || !video || !mainSite) return;
+  var fade     = document.getElementById('intro-fade');
+  var hv       = document.getElementById('hero-video');
+  if (!screen || !mainSite) return;
 
-  var started  = false;
-  var fadingIn = false;
+  var started = false;
 
-  video.addEventListener('timeupdate', function () {
-    if (!fadingIn && video.duration && video.currentTime >= video.duration - 0.2) {
-      fadingIn = true;
-      if (fade) {
-        fade.style.transition = 'opacity 0.2s ease';
-        fade.style.opacity = '0.65';
-      }
-    }
-  });
+  var unlocked = false;
+  function unlock() {
+    if (unlocked) return;
+    unlocked = true;
+    document.body.style.overflow = '';
+    showInvite();
+    var sb = document.getElementById('scroll-btn');
+    if (sb) sb.style.display = 'flex';
+    startAutoScroll();
+  }
 
   screen.addEventListener('click', function () {
     if (started) return;
     started = true;
+
     startBgMusic();
-    video.style.display = 'block';
-    var p = video.play();
-    console.log('[intro] click → play called');
-    if (p) p.catch(function (e) {
-      console.log('[intro] play() failed:', e);
-      started = false;
-      video.style.display = 'none';
-      if (fade) { fade.style.opacity = '0'; }
+
+    // hiện thiệp, ẩn màn mở đầu
+    mainSite.style.display = 'block';
+    mainSite.style.transition = 'none';
+    mainSite.getBoundingClientRect();
+    mainSite.style.transition = 'opacity 1s ease';
+    mainSite.style.opacity = '1';
+    screen.classList.add('is-out');
+    setTimeout(function () { screen.style.display = 'none'; }, 800);
+    if (fade) { fade.style.display = 'none'; }
+
+    startMusicBtn();
+    initCountdown();
+    initReveal();
+
+    if (!hv) { unlock(); return; }
+
+    // khoá cuộn trong lúc video hero chạy
+    document.body.style.overflow = 'hidden';
+
+    hv.play().catch(function () {
+      // không phát được -> hiện thiệp ngay, dùng poster làm nền tĩnh
+      unlock();
     });
-  });
 
-  video.addEventListener('ended', function () {
-    console.log('[intro] video ENDED - starting transition');
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        screen.style.display = 'none';
-        mainSite.style.display = 'block';
-        mainSite.style.transition = 'none';
-        mainSite.getBoundingClientRect();
-        mainSite.style.transition = 'opacity 1s ease';
-        mainSite.style.opacity = '1';
-
-        var hv = document.getElementById('hero-video');
-        if (hv) {
-          document.body.style.overflow = 'hidden'; // lock scroll trong lúc hero video chạy
-          hv.play().then(function () {
-            console.log('[hero] video playing ok');
-          }).catch(function (e) {
-            console.log('[hero] play failed:', e.message);
-            hv.style.display = 'none';
-            // play thất bại → unlock ngay + hiện thiệp
-            document.body.style.overflow = '';
-            showInvite();
-            var sb = document.getElementById('scroll-btn');
-            if (sb) sb.style.display = 'flex';
-          });
-
-          // Thiệp hiện dần khi video sắp hết
-          var LEAD = 3.6; // giây trước khi video kết thúc
-          hv.addEventListener('timeupdate', function () {
-            if (hv.duration && hv.currentTime >= hv.duration - LEAD) showInvite();
-          });
-
-          hv.addEventListener('ended', function () {
-            document.body.style.overflow = '';
-            showInvite();
-            var sb = document.getElementById('scroll-btn');
-            if (sb) {
-              sb.style.display = 'flex';
-            }
-          }, { once: true });
-
-          // phòng khi video lỗi/không chạy: vẫn hiện thiệp sau 12s
-          setTimeout(function () {
-            showInvite();
-            document.body.style.overflow = '';
-            var sb = document.getElementById('scroll-btn');
-            if (sb && sb.style.display === 'none') sb.style.display = 'flex';
-          }, 12000);
-        }
-
-        startMusicBtn();
-        initCountdown();
-        initReveal();
-
-        // Làm mờ lớp phủ tối để lộ video hero
-        if (fade) {
-          setTimeout(function () {
-            fade.style.transition = 'opacity 2s ease';
-            fade.style.opacity = '0';
-            setTimeout(function () { fade.style.display = 'none'; }, 2100);
-          }, 500);
-        }
-      });
+    // thiệp hiện dần khi video sắp hết
+    var LEAD = 3.6;
+    hv.addEventListener('timeupdate', function () {
+      if (hv.duration && hv.currentTime >= hv.duration - LEAD) showInvite();
     });
+
+    hv.addEventListener('ended', unlock, { once: true });
+
+    // phòng khi video treo: vẫn mở khoá sau 12 giây
+    setTimeout(unlock, 12000);
   });
 })();
+
+// ============================================================
+// TỰ CUỘN THIỆP — chạy sau khi mở thiệp, khách chạm vào là dừng hẳn
+// ============================================================
+var autoScrollId = null;
+
+function stopAutoScroll() {
+  if (autoScrollId === null) return;
+  cancelAnimationFrame(autoScrollId);
+  autoScrollId = null;
+}
+
+function startAutoScroll() {
+  // tôn trọng thiết lập giảm chuyển động của máy khách
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (autoScrollId !== null) return;
+
+  var SPEED = 70;      // px mỗi giây
+  var DELAY = 2600;    // chờ hiệu ứng hiện chữ ở hero xong rồi mới chạy
+
+  // bất kỳ thao tác nào của khách -> dừng, không chạy lại
+  var cancelled = false;
+  var EVENTS = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
+  function bailOut() {
+    cancelled = true;              // chặn cả khi khách vuốt trong lúc còn đang chờ
+    stopAutoScroll();
+    EVENTS.forEach(function (e) { window.removeEventListener(e, bailOut); });
+  }
+  EVENTS.forEach(function (e) { window.addEventListener(e, bailOut, { passive: true }); });
+
+  setTimeout(function () {
+    if (!cancelled && autoScrollId === null) {
+      var last = null;
+      var pos  = window.scrollY;   // giữ vị trí riêng: CSS có scroll-behavior:smooth,
+                                   // đọc window.scrollY ngay sau khi cuộn sẽ ra số cũ
+      function step(now) {
+        if (last === null) last = now;
+        var dt = Math.min((now - last) / 1000, 0.1);   // chặn bước nhảy khi tab bị ẩn
+        last = now;
+
+        var max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        pos += SPEED * dt;
+        if (pos >= max) {
+          window.scrollTo({ top: max, behavior: 'instant' });
+          bailOut();
+          return;
+        }
+        window.scrollTo({ top: pos, behavior: 'instant' });
+        autoScrollId = requestAnimationFrame(step);
+      }
+      autoScrollId = requestAnimationFrame(step);
+    }
+  }, DELAY);
+}
 
 // ============================================================
 // BACKGROUND MUSIC
