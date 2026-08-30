@@ -40,6 +40,7 @@ Danh sách font đã kiểm tra hỗ trợ tiếng Việt, dùng cho thiệp m�
 | great-vibes.woff2 | Great Vibes | ❌ | CHỈ dùng cho tên KHÔNG DẤU |
 | cormorant-garamond-*.woff2 | Cormorant Garamond | ✅ | Serif elegant |
 | playfairdisplay.woff2 | Playfair Display | ✅ | Serif heading |
+| ergisa.otf | Ergisa | ✅ | Serif display cong mềm — tên cô dâu/chú rể, tiêu đề lớn (381 glyph, đủ dấu tiếng Việt; rộng hơn Great Vibes ~6% nên cần giảm cỡ chữ khi thay) |
 
 ## Combo An Toàn Cho Thiệp Mời Tiếng Việt
 

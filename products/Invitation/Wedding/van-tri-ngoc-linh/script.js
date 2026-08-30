@@ -274,7 +274,7 @@ function initReveal() {
   var btn = document.getElementById('scroll-btn');
   if (!btn) return;
   btn.addEventListener('click', function () {
-    var target = document.getElementById('countdown');
+    var target = document.getElementById('with-love') || document.getElementById('countdown');
     if (target) target.scrollIntoView({ behavior: 'smooth' });
   });
 })();
@@ -340,89 +340,62 @@ function initReveal() {
 })();
 
 // ============================================================
-// RSVP — attendance toggle
+// LỜI CHÚC + XÁC NHẬN THAM DỰ  ->  Google Sheet (sheet_id = khach_27)
+// Gộp 1 nút submit duy nhất: vừa gửi lời chúc vừa xác nhận tham dự.
 // ============================================================
 (function () {
-  var form          = document.getElementById('rsvp-form');
+  var SHEET_ID = 'khach_27';
+
+  var form = document.getElementById('rsvpForm');
   if (!form) return;
-  var radios        = form.querySelectorAll('input[name="attendance"]');
-  var attendingDiv  = document.getElementById('attending-fields');
-  var notAttending  = document.getElementById('not-attending-fields');
+  var btn  = document.getElementById('rvBtn');
+  var note = document.getElementById('rvNote');
 
-  radios.forEach(function (r) {
-    r.addEventListener('change', function () {
-      var val = r.value;
-      if (attendingDiv) attendingDiv.style.display = val === 'yes' ? '' : 'none';
-      if (notAttending) notAttending.style.display = val === 'no'  ? '' : 'none';
-    });
-  });
-})();
-
-// ============================================================
-// RSVP — submit to Supabase
-// ============================================================
-(function () {
-  var form    = document.getElementById('rsvp-form');
-  var thanksY = document.getElementById('thanks-yes');
-  var thanksN = document.getElementById('thanks-no');
-  var errEl   = document.getElementById('rsvp-error');
-  var submitBtn = document.getElementById('rsvp-submit-btn');
-  if (!form) return;
-
-  var SUPA_URL = 'https://juapsfiyfhtzdmulsany.supabase.co';
-  var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp1YXBzZml5Zmh0emRtdWxzYW55Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MjQ3MDIsImV4cCI6MjA5MTQwMDcwMn0.sCPudvbC25SG-di2qcvDWLjEPvHI90RO-ZUQ7AgPH88';
+  function say(msg, cls) {
+    if (!note) return;
+    note.textContent = msg;
+    note.className = 'rv-note ' + cls;
+    note.style.display = '';
+  }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (errEl) errEl.style.display = 'none';
 
-    var att  = form.querySelector('input[name="attendance"]:checked');
-    if (!att) { alert('Kính mong Quý vị chọn mục xác nhận tham dự.'); return; }
+    var name = (document.getElementById('rvName').value || '').trim();
+    var msg  = (document.getElementById('rvMsg').value  || '').trim();
+    var going = document.getElementById('rvGo').checked;
 
-    var nameField = form.querySelector('input[name="name_decline"]');
-    if (att.value === 'yes' || !nameField) nameField = form.querySelector('input[name="name"]');
-    var name = nameField ? nameField.value.trim() : '';
-    if (!name) { alert('Kính mong Quý vị nhập họ và tên.'); return; }
+    if (!name) { say('Kính mong Quý vị nhập họ và tên.', 'err'); return; }
+    if (!msg)  { say('Kính mong Quý vị gửi đôi lời chúc.', 'err'); return; }
 
-    var events = Array.from(form.querySelectorAll('input[name="events"]:checked')).map(function (c) { return c.value; });
-    var dietary = (form.querySelector('input[name="dietary"]') || {}).value || '';
-    var email   = (form.querySelector('input[name="email"]') || {}).value || '';
-    var guests  = parseInt((form.querySelector('input[name="guest_count"]') || {}).value) || 1;
-    var message = (form.querySelector('textarea[name="message"]') || {}).value || '';
+    if (typeof sheetsAPI === 'undefined') { say('Không kết nối được máy chủ. Vui lòng thử lại.', 'err'); return; }
 
-    var payload = {
-      full_name: name,
-      email: email || undefined,
-      attendance: att.value,
-      guest_count: guests,
-      adult_count: guests,
-      attending_events: events.join(', ') || undefined,
-      dietary_requirements: dietary || undefined,
-      message: message || undefined,
-      wedding_date: '2026-09-20',
-      venue_location: 'Tư gia nhà gái, Buôn Ma Thuột, Đắk Lắk'
-    };
+    btn.disabled = true;
+    btn.textContent = 'Đang gửi…';
+    if (note) note.style.display = 'none';
 
-    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Đang gửi…'; }
+    // Sheet khach_27 dùng 4 cột: A=họ tên, B=lời chúc, C=tham dự, D=thời gian
+    var attend = going ? 'Tôi sẽ tham dự' : 'Rất tiếc tôi bận mất rồi';
 
-    fetch(SUPA_URL + '/functions/v1/submit-rsvp', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + SUPA_KEY
-      },
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      if (!res.ok) throw new Error('Network error');
-      form.style.display = 'none';
-      var thanks = att.value === 'yes' ? thanksY : thanksN;
-      if (thanks) {
-        thanks.style.display = '';
-        thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+    sheetsAPI.post(SHEET_ID, {
+      A: name,
+      B: msg,
+      C: attend,
+      D: new Date().toISOString()
+    }).then(function () {
+      form.reset();
+      btn.textContent = 'Đã gửi — cảm ơn Quý vị!';
+      say(going
+        ? 'Cảm ơn Quý vị. Hẹn gặp trong ngày vui của chúng tôi!'
+        : 'Cảm ơn Quý vị đã gửi lời chúc đến chúng tôi.', 'ok');
+      setTimeout(function () {
+        btn.disabled = false;
+        btn.textContent = 'Gửi lời chúc';
+      }, 3000);
     }).catch(function () {
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Gửi phản hồi'; }
-      if (errEl) errEl.style.display = '';
+      btn.disabled = false;
+      btn.textContent = 'Gửi lời chúc';
+      say('Gửi chưa thành công, Quý vị vui lòng thử lại.', 'err');
     });
   });
 })();

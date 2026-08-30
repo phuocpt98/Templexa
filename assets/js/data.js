@@ -3320,7 +3320,7 @@ const PRODUCTS = [
         price: 'free',
         images: [
             './products/Invitation/Wedding/van-tri-ngoc-linh/shots/open.webp',
-            './products/Invitation/Wedding/van-tri-ngoc-linh/shots/sec-1.webp',
+            './products/Invitation/Wedding/van-tri-ngoc-linh/shots/sec-2.webp',
             './products/Invitation/Wedding/van-tri-ngoc-linh/shots/cover.webp',
         ],
         thumbnail: './products/Invitation/Wedding/van-tri-ngoc-linh/shots/open.webp',
@@ -3347,7 +3347,7 @@ const PRODUCTS = [
         rating: 4.9,
         showInSlider: false,
         isPublic: true,
-        updatedAt: '2026-08-29',
+        updatedAt: '2026-08-30',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 54 ──────────────
     {

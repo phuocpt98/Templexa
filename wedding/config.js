@@ -30,7 +30,7 @@ var WEDDING = {
         src: '../../products/Invitation/Wedding/khach_1_v1/index.html',
         title: 'Trọng Nghĩa & Thu Thuỷ — Wedding Invitation',
         description: 'Trân trọng kính mời bạn tới dự bữa cơm thân mật chung vui cùng gia đình chúng tôi',
-        image: '../../products/Invitation/Wedding/khach_1_v1/customer/a2.webp',
+        image: '../../products/Invitation/Wedding/khach_1_v1/customer/og-cover.jpg',
     },
     'duc-quan-thanh-tuyen': {
         src: '../../products/Invitation/Wedding/khach_3/index.html',
@@ -78,7 +78,7 @@ var WEDDING = {
         src: '../../products/Invitation/Wedding/khach_thien-ngoe-my-dan/index.html',
         title: 'Thiện Ngọc & Mỹ Dân — Thiệp Mời Cưới',
         description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 26.07.2026 tại Inorta Palace, Lâm Đồng',
-        image: '../../products/Invitation/Wedding/khach_thien-ngoe-my-dan/og-cover.jpg',
+        image: '../../wedding/thien-ngoc-my-dan/og-cover.jpg',
     },
     'thinh-quynh': {
         src: '../../products/Invitation/Wedding/gen_225_heritage-illustrated-venue/index.html',
@@ -108,13 +108,13 @@ var WEDDING = {
         src: '../../products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/index.html',
         title: 'Nguyên Bảo & Uyên Nhi — Thiệp Mời (Nhà Trai)',
         description: 'Trân trọng kính mời bạn tới dự lễ cưới của Nguyên Bảo & Uyên Nhi — 03.07.2026 tại Hà Nội',
-        image: '../../products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/customer/anh_doi_1.webp',
+        image: '../../products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/og-cover.jpg',
     },
     'uyen-nhi-nguyen-bao': {
         src: '../../products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/index.html',
         title: 'Nguyên Bảo & Uyên Nhi — Thiệp Mời',
         description: 'Trân trọng kính mời bạn tới dự lễ cưới của Nguyên Bảo & Uyên Nhi — 03.07.2026 tại Hà Nội',
-        image: '../../products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/customer/anh_doi_1.webp',
+        image: '../../products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/og-cover.jpg',
     },
     'thien-duc-thuy-dung': {
         src: '../../products/Invitation/Wedding/khach_thuy-dung_thien-duc/index.html',
