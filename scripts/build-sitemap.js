@@ -41,6 +41,7 @@ const STATIC = [
     { loc: '/thiep-online.html?category=other&event=thoi-noi',    lastmod: newestInv, freq: 'weekly', pri: '0.75' },
 
     { loc: '/contact.html', lastmod: mtime('contact.html'), freq: 'monthly', pri: '0.9' },
+    { loc: '/xem-ngay-cuoi-dep.html', lastmod: mtime('xem-ngay-cuoi-dep.html'), freq: 'monthly', pri: '0.9' },
     { loc: '/cau-hoi-thuong-gap.html', lastmod: mtime('cau-hoi-thuong-gap.html'), freq: 'monthly', pri: '0.85' },
     { loc: '/products.html', lastmod: mtime('products.html'), freq: 'weekly', pri: '0.7' },
     { loc: '/products.html?category=onepage', lastmod: mtime('products.html'), freq: 'weekly', pri: '0.6' },
