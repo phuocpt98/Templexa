@@ -42,16 +42,62 @@
         },
     };
 
+    // Bộ lọc con của thiệp: ?style= (thiệp cưới) và ?event= (dịp khác).
+    // Mỗi bộ lọc nhắm một từ khoá riêng, không dùng chung title với trang gốc.
+    const SUB = {
+        style: {
+            luxury:      { t: 'Thiệp Cưới Sang Trọng — Mẫu Thiệp Cưới Online Cao Cấp | Templexa',
+                           d: 'Mẫu thiệp cưới online phong cách sang trọng: tông vàng đồng, ánh kim, hoạ tiết cổ điển. Xem demo trực tiếp, đặt riêng theo tên cô dâu chú rể.' },
+            traditional: { t: 'Thiệp Cưới Truyền Thống — Song Hỷ, Long Phụng, Đỏ Vàng | Templexa',
+                           d: 'Mẫu thiệp cưới online truyền thống Việt Nam: chữ Song Hỷ, long phụng, tông đỏ vàng. Hợp lễ gia tiên, dạm ngõ, ăn hỏi.' },
+            floral:      { t: 'Thiệp Cưới Hoa — Mẫu Thiệp Cưới Online Hoa Lá Nhẹ Nhàng | Templexa',
+                           d: 'Mẫu thiệp cưới online hoạ tiết hoa lá, màu nước, tông pastel nhẹ nhàng. Có đếm ngược, xác nhận tham dự, gửi lời chúc.' },
+            modern:      { t: 'Thiệp Cưới Hiện Đại — Mẫu Thiệp Cưới Online Tối Giản | Templexa',
+                           d: 'Mẫu thiệp cưới online phong cách hiện đại, bố cục thoáng, hiệu ứng mượt. Gửi qua Zalo/Facebook, không cần in ấn.' },
+        },
+        event: {
+            holiday:     { t: 'Thiệp Mời Sự Kiện Online — Tất Niên, Khai Trương, Liên Hoan | Templexa',
+                           d: 'Mẫu thiệp mời online cho sự kiện: tất niên, khai trương, liên hoan, gặp mặt. Gửi link là xong, khách xác nhận tham dự ngay trên thiệp.' },
+            confession:  { t: 'Thiệp Tỏ Tình Online — Lời Tỏ Tình Dễ Thương Gửi Qua Link | Templexa',
+                           d: 'Mẫu thiệp tỏ tình online dễ thương, có hiệu ứng và nhạc nền. Gửi link qua Zalo/Messenger, bất ngờ và riêng tư.' },
+            birthday:    { t: 'Thiệp Sinh Nhật Online — Mẫu Thiệp Mời Sinh Nhật Đẹp | Templexa',
+                           d: 'Mẫu thiệp mời sinh nhật online có nhạc, đếm ngược và xác nhận tham dự. Gửi qua Zalo/Facebook, không cần in.' },
+            anniversary: { t: 'Thiệp Kỷ Niệm Ngày Cưới Online — Mẫu Thiệp Mời Đẹp | Templexa',
+                           d: 'Mẫu thiệp mời online cho lễ kỷ niệm ngày cưới, đám cưới bạc, đám cưới vàng. Có timeline chuyện tình và album ảnh.' },
+            reunion:     { t: 'Thiệp Mời Họp Lớp Online — Mẫu Thiệp Họp Lớp, Gặp Mặt | Templexa',
+                           d: 'Mẫu thiệp mời họp lớp online, có xác nhận tham dự và điểm danh. Gửi vào nhóm Zalo/Facebook là cả lớp nhận được.' },
+            'thoi-noi':  { t: 'Thiệp Thôi Nôi, Đầy Tháng Online — Mẫu Thiệp Mời Bé | Templexa',
+                           d: 'Mẫu thiệp mời thôi nôi, đầy tháng cho bé: hình minh hoạ dễ thương, album ảnh, xác nhận tham dự. Gửi qua Zalo.' },
+        },
+    };
+
     const page = location.pathname.split('/').pop() || 'index.html';
     const table = SEO[page];
     if (!table) return;
 
-    const cat = new URLSearchParams(location.search).get('category');
+    const qs = new URLSearchParams(location.search);
+    const cat = qs.get('category');
     const base = 'https://templexa.vn/' + page;
-    const entry = cat && table[cat];
 
-    // canonical + og:url luôn trỏ đúng URL đang xem (kể cả khi không lọc)
-    const selfUrl = entry ? base + '?category=' + encodeURIComponent(cat) : base;
+    // Bộ lọc con thắng bộ lọc danh mục khi cả hai cùng có
+    let entry = null;
+    let query = '';
+    for (const key of ['style', 'event']) {
+        const val = qs.get(key);
+        const hit = val && SUB[key] && SUB[key][val];
+        if (hit) {
+            entry = { title: hit.t, desc: hit.d };
+            query = (cat ? 'category=' + encodeURIComponent(cat) + '&' : '') + key + '=' + encodeURIComponent(val);
+            break;
+        }
+    }
+    if (!entry && cat && table[cat]) {
+        entry = table[cat];
+        query = 'category=' + encodeURIComponent(cat);
+    }
+
+    // canonical + og:url luôn trỏ đúng URL đang xem
+    const selfUrl = query ? base + '?' + query : base;
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.href = selfUrl;
     const ogUrl = document.querySelector('meta[property="og:url"]');

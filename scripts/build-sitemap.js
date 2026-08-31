@@ -25,6 +25,21 @@ const STATIC = [
     { loc: '/thiep-online.html', lastmod: newestInv, freq: 'weekly', pri: '0.95' },
     { loc: '/thiep-online.html?category=wedding', lastmod: newestInv, freq: 'weekly', pri: '0.9' },
     { loc: '/thiep-online.html?category=other', lastmod: newestInv, freq: 'weekly', pri: '0.85' },
+
+    // Trang lọc theo phong cách thiệp cưới — mỗi trang nhắm một từ khoá riêng
+    { loc: '/thiep-online.html?category=wedding&style=luxury',      lastmod: newestInv, freq: 'weekly', pri: '0.8' },
+    { loc: '/thiep-online.html?category=wedding&style=traditional', lastmod: newestInv, freq: 'weekly', pri: '0.8' },
+    { loc: '/thiep-online.html?category=wedding&style=floral',      lastmod: newestInv, freq: 'weekly', pri: '0.8' },
+    { loc: '/thiep-online.html?category=wedding&style=modern',      lastmod: newestInv, freq: 'weekly', pri: '0.8' },
+
+    // Trang lọc theo dịp — chỉ đưa vào các dịp đã đủ mẫu (>= 4 thiệp)
+    { loc: '/thiep-online.html?category=other&event=holiday',     lastmod: newestInv, freq: 'weekly', pri: '0.8' },
+    { loc: '/thiep-online.html?category=other&event=confession',  lastmod: newestInv, freq: 'weekly', pri: '0.8' },
+    { loc: '/thiep-online.html?category=other&event=birthday',    lastmod: newestInv, freq: 'weekly', pri: '0.8' },
+    { loc: '/thiep-online.html?category=other&event=anniversary', lastmod: newestInv, freq: 'weekly', pri: '0.75' },
+    { loc: '/thiep-online.html?category=other&event=reunion',     lastmod: newestInv, freq: 'weekly', pri: '0.75' },
+    { loc: '/thiep-online.html?category=other&event=thoi-noi',    lastmod: newestInv, freq: 'weekly', pri: '0.75' },
+
     { loc: '/contact.html', lastmod: mtime('contact.html'), freq: 'monthly', pri: '0.9' },
     { loc: '/cau-hoi-thuong-gap.html', lastmod: mtime('cau-hoi-thuong-gap.html'), freq: 'monthly', pri: '0.85' },
     { loc: '/products.html', lastmod: mtime('products.html'), freq: 'weekly', pri: '0.7' },
