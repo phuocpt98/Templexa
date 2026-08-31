@@ -63,22 +63,10 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
     <!-- Trang chính — sinh tự động: node scripts/build-sitemap.js -->
 ${STATIC.map(url).join('\n')}
 
-    <!-- Khách doanh nghiệp -->
-    <url>
-        <loc>${SITE}/ti-le-wedding/</loc>
-        <lastmod>2026-07-17</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-        <image:image>
-            <image:loc>${SITE}/ti-le-wedding/og-cover.jpg</image:loc>
-            <image:title>Thiệp Cưới Tile — In Thiệp Cưới Cao Cấp Bảo Lộc</image:title>
-        </image:image>
-    </url>
-
     <!-- Sản phẩm public (${productUrls.length}) -->
 ${productUrls.join('\n')}
 
 </urlset>
 `;
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml);
-console.log(`✓ sitemap.xml: ${STATIC.length + 1 + productUrls.length} URL (${productUrls.length} sản phẩm)`);
+console.log(`✓ sitemap.xml: ${STATIC.length + productUrls.length} URL (${productUrls.length} sản phẩm)`);

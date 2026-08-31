@@ -308,7 +308,9 @@ products/
   - `<!-- FAQ-LD:START --> ... <!-- FAQ-LD:END -->` — JSON-LD `FAQPage` tương ứng
   - `thiep-online.html`: 8 câu | `index.html`: 5 câu
 - **`llms.txt`** / **`llms-full.txt`** (ở root) — cho AI crawler đọc nhanh, sinh từ nội dung `faq.json` nhưng phải **cập nhật tay** khi FAQ đổi (không có script tự sinh).
-- **`robots.txt`** — 1 nhóm `User-agent: *`, không chặn bot AI (GPTBot, ClaudeBot, PerplexityBot, Google-Extended...). `Disallow`: `products-admin.html`, `preview.html`, `/products/shared/`, `/wedding/`, `/event/`, `/birthday/`, `/scripts/`, `/plans/`, `/docs/`. `Allow: /ti-le-wedding/`. Trỏ `Sitemap: https://templexa.vn/sitemap.xml`.
+- **`robots.txt`** — 1 nhóm `User-agent: *`, không chặn bot AI (GPTBot, ClaudeBot, PerplexityBot, Google-Extended...). `Disallow`: `products-admin.html`, `preview.html`, `/products/shared/`, `/scripts/`, `/plans/`, `/docs/`. Trỏ `Sitemap: https://templexa.vn/sitemap.xml`.
+- **Thiệp riêng của khách KHÔNG chặn bằng `Disallow`** — `Disallow` chỉ chặn *tải* trang chứ không chặn *index*, và còn khiến Google không đọc được thẻ `noindex`. Thay vào đó mỗi trang tự khai báo `<meta name="robots" content="noindex, nofollow">`, cộng `X-Robots-Tag` trong `_headers` (Cloudflare Pages) theo mẫu `/wedding/*`, `/event/*`, `/birthday/*`, `khach_*`.
+  **Khi thêm thiệp khách mới**: nếu tên thư mục có tiền tố `khach_` thì `_headers` tự lo; nếu không (vd `van-tri-ngoc-linh`) phải thêm dòng riêng vào `_headers`. Thẻ `noindex` trong `<head>` thì luôn phải có. Thiệp mẫu catalog `gen_*` KHÔNG được gắn noindex.
 - **`sitemap.xml`** — sinh bởi `node scripts/build-sitemap.js` (`npm run build:sitemap`), 234 URL bao gồm `product-detail.html?id=` cho mỗi sản phẩm public có ảnh.
 - Chạy cả hai cùng lúc: `npm run build:seo` (= `build:faq` + `build:sitemap`).
 - Mọi trang có `<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">` (riêng trang admin giữ `noindex`).
