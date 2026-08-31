@@ -34,7 +34,7 @@ products/
 | **Google-sheet** | e-commerce | 5 | 5 |
 | | **Tong** | **262** | **223** |
 
-_Cap nhat tu data.js: 2026-08-30 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-08-31 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 

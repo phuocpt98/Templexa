@@ -1,19 +1,21 @@
 # Templexa — robots.txt
 # Mọi bot (Googlebot, Bingbot, GPTBot, ClaudeBot, PerplexityBot, Google-Extended, ...)
 # đều được đọc nội dung công khai. Không chặn bot AI — nội dung FAQ/llms.txt viết để được trích dẫn.
-# Thiệp của khách (/wedding/, /event/, /birthday/) là link riêng tư → không index.
+#
+# Thiệp của khách (/wedding/, /event/, /birthday/ và file thiệp trong products/)
+# KHÔNG chặn ở đây nữa. Lý do: Disallow chỉ chặn TẢI trang, không chặn INDEX —
+# URL vẫn có thể lọt vào kết quả tìm kiếm nếu được chia sẻ trên Facebook/Zalo,
+# mà lại khiến Google không đọc được thẻ noindex. Nay các trang đó tự khai báo
+# <meta name="robots" content="noindex, nofollow"> + header X-Robots-Tag (_headers),
+# nên phải CHO PHÉP tải thì Google mới đọc được và mới thật sự loại khỏi index.
 
 User-agent: *
 Allow: /
 Disallow: /products-admin.html
 Disallow: /preview.html
 Disallow: /products/shared/
-Disallow: /wedding/
-Disallow: /event/
-Disallow: /birthday/
 Disallow: /scripts/
 Disallow: /plans/
 Disallow: /docs/
-Allow: /ti-le-wedding/
 
 Sitemap: https://templexa.vn/sitemap.xml
