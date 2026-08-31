@@ -28,7 +28,7 @@
     <link rel="icon" type="image/svg+xml" href="./assets/images/logo_v2.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
 
     <script type="application/ld+json">
@@ -120,7 +120,7 @@
                     <p class="xn-hero-sub">Miễn phí · Không cần đăng ký · Tính theo âm lịch Việt Nam</p>
                 </div>
                 <div class="xn-hero-art">
-                    <img src="./assets/images/xem-ngay/hero-lich-cuoi.webp" alt="" width="420" height="420" loading="eager">
+                    <img src="./assets/images/xem-ngay/hero-lich-am.webp" alt="" width="420" height="420" loading="eager">
                 </div>
             </div>
         </div>
@@ -130,26 +130,41 @@
     <section class="xn-form-section">
         <div class="container container-section">
             <form class="xn-form" id="xnForm" novalidate>
-                <div class="xn-form-row">
-                    <div class="xn-field">
-                        <label for="xnGroom">Ngày sinh chú rể</label>
-                        <input type="date" id="xnGroom" required>
+                <div class="xn-pair">
+                    <div class="xn-person groom">
+                        <span class="xn-person-cap">Chú rể</span>
+                        <div class="xn-dmy">
+                            <select id="xnGroomD" aria-label="Ngày sinh chú rể"></select>
+                            <select id="xnGroomM" aria-label="Tháng sinh chú rể"></select>
+                            <select id="xnGroomY" aria-label="Năm sinh chú rể"></select>
+                        </div>
                     </div>
-                    <div class="xn-field">
-                        <label for="xnBride">Ngày sinh cô dâu</label>
-                        <input type="date" id="xnBride" required>
+                    <span class="xn-amp" aria-hidden="true">&amp;</span>
+                    <div class="xn-person bride">
+                        <span class="xn-person-cap">Cô dâu</span>
+                        <div class="xn-dmy">
+                            <select id="xnBrideD" aria-label="Ngày sinh cô dâu"></select>
+                            <select id="xnBrideM" aria-label="Tháng sinh cô dâu"></select>
+                            <select id="xnBrideY" aria-label="Năm sinh cô dâu"></select>
+                        </div>
                     </div>
                 </div>
-                <div class="xn-form-row">
-                    <div class="xn-field">
-                        <label for="xnFrom">Dự định cưới từ tháng</label>
-                        <input type="month" id="xnFrom" required>
-                    </div>
-                    <div class="xn-field">
-                        <label for="xnTo">Đến tháng</label>
-                        <input type="month" id="xnTo" required>
+
+                <div class="xn-range">
+                    <span class="xn-range-cap">Dự định tổ chức trong khoảng</span>
+                    <div class="xn-range-row">
+                        <div class="xn-my">
+                            <select id="xnFromM" aria-label="Từ tháng"></select>
+                            <select id="xnFromY" aria-label="Từ năm"></select>
+                        </div>
+                        <span class="xn-range-arrow" aria-hidden="true">→</span>
+                        <div class="xn-my">
+                            <select id="xnToM" aria-label="Đến tháng"></select>
+                            <select id="xnToY" aria-label="Đến năm"></select>
+                        </div>
                     </div>
                 </div>
+
                 <label class="xn-check" for="xnWeekend">
                     <input type="checkbox" id="xnWeekend" checked>
                     <span>Chỉ hiện thứ Bảy và Chủ Nhật</span>
@@ -163,12 +178,14 @@
     <!-- Kết quả -->
     <section class="xn-result" id="xnResult" hidden>
         <div class="container container-section">
-            <img src="./assets/images/xem-ngay/divider-sen.webp" alt="" class="xn-divider" width="600" height="60" loading="lazy">
+            
 
             <h2 class="xn-h2">Tuổi của hai bạn</h2>
             <div class="xn-ages" id="xnAges"></div>
 
-            <h2 class="xn-h2" id="xnDaysTitle">Ngày đẹp gợi ý</h2>
+            <div id="xnBest"></div>
+
+            <h2 class="xn-h2" id="xnDaysTitle">Những ngày đẹp khác</h2>
             <p class="xn-days-note" id="xnDaysNote"></p>
             <div class="xn-days" id="xnDays"></div>
 
