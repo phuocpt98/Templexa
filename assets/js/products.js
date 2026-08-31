@@ -2,6 +2,76 @@
 // PRODUCTS PAGE — Search, Filter, Render, Paginate + Product Popup
 // ============================================
 
+// ============================================
+// SEO cho trang lọc theo danh mục (?category=)
+// ------------------------------------------------------------------
+// Các URL ?category= nằm trong sitemap nhưng trước đây dùng chung title,
+// description và canonical với trang gốc -> Google thấy 6 trang y hệt nhau,
+// gộp lại và loại phần còn lại khỏi index. Nay mỗi danh mục tự khai
+// title/description riêng và canonical trỏ đúng chính nó.
+// ============================================
+(function () {
+    const SEO = {
+        'thiep-online.html': {
+            wedding: {
+                title: 'Thiệp Cưới Online Đẹp — Mẫu Thiệp Mời Cưới Điện Tử | Templexa',
+                desc: 'Bộ sưu tập mẫu thiệp cưới online đẹp, gửi qua Zalo/Facebook. Có đếm ngược, xác nhận tham dự, gửi lời chúc, nhạc nền. Xem demo và đặt riêng theo tên cô dâu chú rể.',
+            },
+            other: {
+                title: 'Thiệp Mời Online — Sinh Nhật, Thôi Nôi, Kỷ Niệm, Họp Lớp | Templexa',
+                desc: 'Mẫu thiệp mời online cho sinh nhật, thôi nôi, đầy tháng, kỷ niệm ngày cưới, họp lớp, giỗ tổ. Gửi link là xong, không cần in ấn.',
+            },
+        },
+        'products.html': {
+            onepage: {
+                title: 'Mẫu Website Onepage — Landing Page Một Trang | Templexa',
+                desc: 'Kho mẫu website onepage / landing page một trang, tải nhanh, chuẩn mobile. Xem demo trực tiếp trước khi đặt.',
+            },
+            'e-commerce': {
+                title: 'Mẫu Website Bán Hàng — Giao Diện E-commerce | Templexa',
+                desc: 'Mẫu website bán hàng online: trang danh mục, chi tiết sản phẩm, giỏ hàng. Xem demo trực tiếp trước khi đặt.',
+            },
+            portfolio: {
+                title: 'Mẫu Website Portfolio — Hồ Sơ Năng Lực Cá Nhân | Templexa',
+                desc: 'Mẫu website portfolio cho freelancer, nhiếp ảnh, thiết kế: trưng bày dự án, hồ sơ năng lực. Xem demo trực tiếp.',
+            },
+            education: {
+                title: 'Mẫu Website Giáo Dục — Trung Tâm, Khoá Học | Templexa',
+                desc: 'Mẫu website cho trung tâm giáo dục, khoá học, gia sư: giới thiệu chương trình, lịch khai giảng, đăng ký học.',
+            },
+        },
+    };
+
+    const page = location.pathname.split('/').pop() || 'index.html';
+    const table = SEO[page];
+    if (!table) return;
+
+    const cat = new URLSearchParams(location.search).get('category');
+    const base = 'https://templexa.vn/' + page;
+    const entry = cat && table[cat];
+
+    // canonical + og:url luôn trỏ đúng URL đang xem (kể cả khi không lọc)
+    const selfUrl = entry ? base + '?category=' + encodeURIComponent(cat) : base;
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = selfUrl;
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.content = selfUrl;
+
+    if (!entry) return;
+
+    document.title = entry.title;
+    const set = (sel, prop, val) => {
+        const el = document.querySelector(sel);
+        if (el) el[prop] = val;
+    };
+    set('meta[name="description"]', 'content', entry.desc);
+    set('meta[property="og:title"]', 'content', entry.title);
+    set('meta[property="og:description"]', 'content', entry.desc);
+    set('meta[name="twitter:title"]', 'content', entry.title);
+    set('meta[name="twitter:description"]', 'content', entry.desc);
+})();
+
+
 (function () {
     const grid = document.getElementById('productsGrid');
     const emptyState = document.getElementById('productsEmpty');

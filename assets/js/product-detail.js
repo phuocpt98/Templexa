@@ -55,6 +55,15 @@
     const twitterImage = document.querySelector('meta[name="twitter:image"]');
     if (twitterImage && productSummary.thumbnail) twitterImage.content = toAbsUrl(productSummary.thumbnail);
 
+    // Canonical + og:url phải trỏ ĐÚNG URL có ?id=. Trước đây cả 223 trang sản phẩm
+    // đều khai canonical về product-detail.html trống -> Google coi là trùng lặp,
+    // gộp hết làm một và loại phần còn lại khỏi index.
+    const selfUrl = `${baseUrl}product-detail.html?id=${encodeURIComponent(productId)}`;
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = selfUrl;
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.content = selfUrl;
+
     // Show loading state
     contentEl.innerHTML = `
         <div style="display:flex;justify-content:center;align-items:center;min-height:400px">
