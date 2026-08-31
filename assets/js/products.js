@@ -16,10 +16,14 @@
             wedding: {
                 title: 'Thiệp Cưới Online Đẹp — Mẫu Thiệp Mời Cưới Điện Tử | Templexa',
                 desc: 'Bộ sưu tập mẫu thiệp cưới online đẹp, gửi qua Zalo/Facebook. Có đếm ngược, xác nhận tham dự, gửi lời chúc, nhạc nền. Xem demo và đặt riêng theo tên cô dâu chú rể.',
+                h1: '<span class="gradient-text">Thiệp Cưới Online</span><br>Mẫu Thiệp Mời Cưới Điện Tử Đẹp',
+                intro: 'Bộ sưu tập <strong>thiệp cưới online</strong> cho lễ thành hôn, vu quy và đính hôn. Mỗi mẫu đều có đếm ngược ngày cưới, xác nhận tham dự và sổ lưu bút gửi lời chúc. Gửi link qua Zalo hoặc Facebook, khách mở trên điện thoại là xem được ngay.',
             },
             other: {
                 title: 'Thiệp Mời Online — Sinh Nhật, Thôi Nôi, Kỷ Niệm, Họp Lớp | Templexa',
                 desc: 'Mẫu thiệp mời online cho sinh nhật, thôi nôi, đầy tháng, kỷ niệm ngày cưới, họp lớp, giỗ tổ. Gửi link là xong, không cần in ấn.',
+                h1: '<span class="gradient-text">Thiệp Mời Online</span><br>Sinh Nhật, Thôi Nôi, Kỷ Niệm, Họp Lớp',
+                intro: 'Thiệp mời điện tử cho mọi dịp ngoài đám cưới: <strong>sinh nhật</strong>, thôi nôi, đầy tháng, kỷ niệm ngày cưới, họp lớp và tất niên. Không cần in ấn, không cần đi phát — gửi một đường link là xong.',
             },
         },
         'products.html': {
@@ -38,36 +42,72 @@
             education: {
                 title: 'Mẫu Website Giáo Dục — Trung Tâm, Khoá Học | Templexa',
                 desc: 'Mẫu website cho trung tâm giáo dục, khoá học, gia sư: giới thiệu chương trình, lịch khai giảng, đăng ký học.',
+                h1: 'Mẫu <span class="gradient-text">Website Giáo Dục</span><br>Trung Tâm, Khoá Học, Gia Sư',
+                intro: 'Giao diện website cho trung tâm giáo dục và lớp học: giới thiệu chương trình, đội ngũ giảng viên, lịch khai giảng và biểu mẫu đăng ký học. Xem demo trực tiếp trước khi đặt.',
             },
         },
     };
+
+    // Bổ sung h1 + intro cho 3 danh mục web còn lại
+    Object.assign(SEO['products.html'].onepage, {
+        h1: 'Mẫu <span class="gradient-text">Website Onepage</span><br>Landing Page Một Trang',
+        intro: 'Giao diện website một trang, cuộn từ đầu tới cuối là hết nội dung. Tải nhanh, chuẩn mobile, hợp cho trang giới thiệu dịch vụ, sự kiện hoặc ra mắt sản phẩm.',
+    });
+    Object.assign(SEO['products.html']['e-commerce'], {
+        h1: 'Mẫu <span class="gradient-text">Website Bán Hàng</span><br>Giao Diện E-commerce',
+        intro: 'Giao diện website bán hàng online: trang danh mục, chi tiết sản phẩm, giỏ hàng và thanh toán. Xem demo trực tiếp trước khi đặt.',
+    });
+    Object.assign(SEO['products.html'].portfolio, {
+        h1: 'Mẫu <span class="gradient-text">Website Portfolio</span><br>Hồ Sơ Năng Lực Cá Nhân',
+        intro: 'Giao diện portfolio cho freelancer, nhiếp ảnh gia và nhà thiết kế: trưng bày dự án, hồ sơ năng lực và thông tin liên hệ. Xem demo trực tiếp.',
+    });
 
     // Bộ lọc con của thiệp: ?style= (thiệp cưới) và ?event= (dịp khác).
     // Mỗi bộ lọc nhắm một từ khoá riêng, không dùng chung title với trang gốc.
     const SUB = {
         style: {
             luxury:      { t: 'Thiệp Cưới Sang Trọng — Mẫu Thiệp Cưới Online Cao Cấp | Templexa',
-                           d: 'Mẫu thiệp cưới online phong cách sang trọng: tông vàng đồng, ánh kim, hoạ tiết cổ điển. Xem demo trực tiếp, đặt riêng theo tên cô dâu chú rể.' },
+                           d: 'Mẫu thiệp cưới online phong cách sang trọng: tông vàng đồng, ánh kim, hoạ tiết cổ điển. Xem demo trực tiếp, đặt riêng theo tên cô dâu chú rể.',
+                           h1: '<span class="gradient-text">Thiệp Cưới Sang Trọng</span><br>Tông Vàng Đồng, Ánh Kim Cao Cấp',
+                           intro: 'Những mẫu <strong>thiệp cưới sang trọng</strong> mang hơi hướng tiệc cưới cao cấp: tông vàng đồng, ánh kim, hoạ tiết cổ điển và khung viền tinh xảo. Hợp với tiệc tổ chức ở khách sạn hoặc trung tâm hội nghị.' },
             traditional: { t: 'Thiệp Cưới Truyền Thống — Song Hỷ, Long Phụng, Đỏ Vàng | Templexa',
-                           d: 'Mẫu thiệp cưới online truyền thống Việt Nam: chữ Song Hỷ, long phụng, tông đỏ vàng. Hợp lễ gia tiên, dạm ngõ, ăn hỏi.' },
+                           d: 'Mẫu thiệp cưới online truyền thống Việt Nam: chữ Song Hỷ, long phụng, tông đỏ vàng. Hợp lễ gia tiên, dạm ngõ, ăn hỏi.',
+                           h1: '<span class="gradient-text">Thiệp Cưới Truyền Thống</span><br>Song Hỷ, Long Phụng, Đỏ Vàng',
+                           intro: 'Thiệp cưới online theo phong cách <strong>truyền thống Việt Nam</strong>: chữ Song Hỷ, hoạ tiết long phụng, tông đỏ vàng may mắn. Phù hợp cho lễ gia tiên, dạm ngõ và ăn hỏi.' },
             floral:      { t: 'Thiệp Cưới Hoa — Mẫu Thiệp Cưới Online Hoa Lá Nhẹ Nhàng | Templexa',
-                           d: 'Mẫu thiệp cưới online hoạ tiết hoa lá, màu nước, tông pastel nhẹ nhàng. Có đếm ngược, xác nhận tham dự, gửi lời chúc.' },
+                           d: 'Mẫu thiệp cưới online hoạ tiết hoa lá, màu nước, tông pastel nhẹ nhàng. Có đếm ngược, xác nhận tham dự, gửi lời chúc.',
+                           h1: '<span class="gradient-text">Thiệp Cưới Hoa</span><br>Màu Nước Nhẹ Nhàng, Tông Pastel',
+                           intro: '<strong>Thiệp cưới hoa</strong> vẽ theo lối màu nước, tông pastel nhẹ nhàng. Hợp với tiệc cưới ngoài trời, tiệc vườn và những cặp đôi thích sự mềm mại, nữ tính.' },
             modern:      { t: 'Thiệp Cưới Hiện Đại — Mẫu Thiệp Cưới Online Tối Giản | Templexa',
-                           d: 'Mẫu thiệp cưới online phong cách hiện đại, bố cục thoáng, hiệu ứng mượt. Gửi qua Zalo/Facebook, không cần in ấn.' },
+                           d: 'Mẫu thiệp cưới online phong cách hiện đại, bố cục thoáng, hiệu ứng mượt. Gửi qua Zalo/Facebook, không cần in ấn.',
+                           h1: '<span class="gradient-text">Thiệp Cưới Hiện Đại</span><br>Bố Cục Tối Giản, Hiệu Ứng Mượt',
+                           intro: '<strong>Thiệp cưới hiện đại</strong> với bố cục thoáng, ít hoạ tiết, tập trung vào ảnh cưới và hiệu ứng chuyển động mượt. Dành cho cặp đôi thích sự gọn gàng, tinh tế.' },
         },
         event: {
             holiday:     { t: 'Thiệp Mời Sự Kiện Online — Tất Niên, Khai Trương, Liên Hoan | Templexa',
-                           d: 'Mẫu thiệp mời online cho sự kiện: tất niên, khai trương, liên hoan, gặp mặt. Gửi link là xong, khách xác nhận tham dự ngay trên thiệp.' },
+                           d: 'Mẫu thiệp mời online cho sự kiện: tất niên, khai trương, liên hoan, gặp mặt. Gửi link là xong, khách xác nhận tham dự ngay trên thiệp.',
+                           h1: '<span class="gradient-text">Thiệp Mời Sự Kiện</span><br>Tất Niên, Khai Trương, Liên Hoan',
+                           intro: '<strong>Thiệp mời sự kiện</strong> online cho tiệc tất niên, khai trương, liên hoan và gặp mặt cuối năm. Có xác nhận tham dự để bạn nắm số lượng khách trước khi đặt tiệc.' },
             confession:  { t: 'Thiệp Tỏ Tình Online — Lời Tỏ Tình Dễ Thương Gửi Qua Link | Templexa',
-                           d: 'Mẫu thiệp tỏ tình online dễ thương, có hiệu ứng và nhạc nền. Gửi link qua Zalo/Messenger, bất ngờ và riêng tư.' },
+                           d: 'Mẫu thiệp tỏ tình online dễ thương, có hiệu ứng và nhạc nền. Gửi link qua Zalo/Messenger, bất ngờ và riêng tư.',
+                           h1: '<span class="gradient-text">Thiệp Tỏ Tình Online</span><br>Gửi Riêng Qua Một Đường Link',
+                           intro: 'Những trang <strong>tỏ tình online</strong> nhỏ xinh có hiệu ứng và nhạc nền, gửi riêng qua Zalo hoặc Messenger. Chỉ người nhận mở link mới xem được — bất ngờ và kín đáo.' },
             birthday:    { t: 'Thiệp Sinh Nhật Online — Mẫu Thiệp Mời Sinh Nhật Đẹp | Templexa',
-                           d: 'Mẫu thiệp mời sinh nhật online có nhạc, đếm ngược và xác nhận tham dự. Gửi qua Zalo/Facebook, không cần in.' },
+                           d: 'Mẫu thiệp mời sinh nhật online có nhạc, đếm ngược và xác nhận tham dự. Gửi qua Zalo/Facebook, không cần in.',
+                           h1: '<span class="gradient-text">Thiệp Sinh Nhật Online</span><br>Mẫu Thiệp Mời Sinh Nhật Đẹp',
+                           intro: '<strong>Thiệp mời sinh nhật</strong> điện tử có nhạc nền, đếm ngược và xác nhận tham dự. Gửi vào nhóm chat là cả hội cùng nhận, không cần in thiệp giấy.' },
             anniversary: { t: 'Thiệp Kỷ Niệm Ngày Cưới Online — Mẫu Thiệp Mời Đẹp | Templexa',
-                           d: 'Mẫu thiệp mời online cho lễ kỷ niệm ngày cưới, đám cưới bạc, đám cưới vàng. Có timeline chuyện tình và album ảnh.' },
+                           d: 'Mẫu thiệp mời online cho lễ kỷ niệm ngày cưới, đám cưới bạc, đám cưới vàng. Có timeline chuyện tình và album ảnh.',
+                           h1: '<span class="gradient-text">Thiệp Kỷ Niệm Ngày Cưới</span><br>Đám Cưới Bạc, Đám Cưới Vàng',
+                           intro: 'Thiệp mời cho lễ <strong>kỷ niệm ngày cưới</strong>, đám cưới bạc và đám cưới vàng. Có timeline chặng đường chung và album ảnh gia đình qua năm tháng.' },
             reunion:     { t: 'Thiệp Mời Họp Lớp Online — Mẫu Thiệp Họp Lớp, Gặp Mặt | Templexa',
-                           d: 'Mẫu thiệp mời họp lớp online, có xác nhận tham dự và điểm danh. Gửi vào nhóm Zalo/Facebook là cả lớp nhận được.' },
+                           d: 'Mẫu thiệp mời họp lớp online, có xác nhận tham dự và điểm danh. Gửi vào nhóm Zalo/Facebook là cả lớp nhận được.',
+                           h1: '<span class="gradient-text">Thiệp Mời Họp Lớp</span><br>Gặp Mặt Bạn Cũ Sau Nhiều Năm',
+                           intro: '<strong>Thiệp mời họp lớp</strong> online có xác nhận tham dự và điểm danh, giúp ban tổ chức biết ai đến, ai vắng. Gửi vào nhóm Zalo lớp là xong.' },
             'thoi-noi':  { t: 'Thiệp Thôi Nôi, Đầy Tháng Online — Mẫu Thiệp Mời Bé | Templexa',
-                           d: 'Mẫu thiệp mời thôi nôi, đầy tháng cho bé: hình minh hoạ dễ thương, album ảnh, xác nhận tham dự. Gửi qua Zalo.' },
+                           d: 'Mẫu thiệp mời thôi nôi, đầy tháng cho bé: hình minh hoạ dễ thương, album ảnh, xác nhận tham dự. Gửi qua Zalo.',
+                           h1: '<span class="gradient-text">Thiệp Thôi Nôi, Đầy Tháng</span><br>Mẫu Thiệp Mời Cho Bé',
+                           intro: 'Thiệp mời <strong>thôi nôi</strong> và đầy tháng cho bé với hình minh hoạ dễ thương, album ảnh và xác nhận tham dự. Gửi qua Zalo cho họ hàng, ông bà xem trên điện thoại rất dễ.' },
         },
     };
 
@@ -86,7 +126,7 @@
         const val = qs.get(key);
         const hit = val && SUB[key] && SUB[key][val];
         if (hit) {
-            entry = { title: hit.t, desc: hit.d };
+            entry = { title: hit.t, desc: hit.d, h1: hit.h1, intro: hit.intro };
             query = (cat ? 'category=' + encodeURIComponent(cat) + '&' : '') + key + '=' + encodeURIComponent(val);
             break;
         }
@@ -115,6 +155,14 @@
     set('meta[property="og:description"]', 'content', entry.desc);
     set('meta[name="twitter:title"]', 'content', entry.title);
     set('meta[name="twitter:description"]', 'content', entry.desc);
+
+    // H1 + đoạn giới thiệu hiển thị trên trang.
+    // Trước đây mọi bộ lọc dùng chung một H1 nên không khớp từ khoá của title,
+    // và trang lọc gần như chỉ có lưới ảnh — Google thiếu chữ để hiểu trang nói gì.
+    const heroTitle = document.getElementById('heroTitle');
+    if (heroTitle && entry.h1) heroTitle.innerHTML = entry.h1;
+    const heroIntro = document.getElementById('heroIntro');
+    if (heroIntro && entry.intro) heroIntro.innerHTML = entry.intro;
 })();
 
 
