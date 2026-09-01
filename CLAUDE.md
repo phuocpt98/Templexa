@@ -16,6 +16,7 @@ Templexa/
 ├── thu-vien-hieu-ung.html      # Thư viện hiệu ứng / animations demo
 ├── preview.html                # Preview tool
 ├── assets/
+│   ├── css/blog.css            # Style riêng cho blogs/ (.bl-* danh sách, .bp-* bài viết)
 │   ├── css/style.css           # Stylesheet chính (~4700 dòng)
 │   ├── js/
 │   │   ├── data.js             # Data products, categories, pricing, helpers
@@ -24,8 +25,10 @@ Templexa/
 │   │   ├── products.js         # Search, filter, grid, phân trang
 │   │   ├── product-detail.js   # Detail render, gallery, modals
 │   │   ├── products-admin.js   # Admin CRUD UI
+│   │   ├── blog.js             # Bài blog: copy link, highlight mục lục
 │   │   └── contact.js          # Pricing render, form submit
 │   └── images/                 # Logo, icons, backgrounds (đa số WebP)
+├── blogs/                      # Cẩm nang cưới hỏi (blog SEO) — index.html SINH TỰ ĐỘNG, mỗi bài 1 file HTML tĩnh + images/<slug>/
 ├── cau-hoi-thuong-gap.html     # FAQ (AEO) — sinh tự động từ scripts/build-faq.js
 ├── llms.txt / llms-full.txt    # Cho AI crawler — sinh tay từ faq.json, cập nhật thủ công khi faq đổi
 ├── robots.txt / sitemap.xml    # sitemap.xml sinh tự động (scripts/build-sitemap.js)
@@ -56,7 +59,12 @@ Templexa/
 │   ├── update-webp-refs.js     # Cập nhật references
 │   ├── protect-wedding.js      # Bảo vệ thiệp cưới khi merge
 │   ├── build-faq.js            # Sinh cau-hoi-thuong-gap.html + nhúng FAQ vào thiep-online.html/index.html
+│   ├── build-blog.js           # Quét blogs/*.html → sinh blogs/index.html, TOC, bài liên quan, assets/data/blog-index.json
+│   ├── blog-image.js           # Tải/convert ảnh blog → WebP đúng cỡ (cover 1600×900, trong bài 1200×800)
+│   ├── verify-blog.js          # Kiểm bài blog: meta, JSON-LD, link, console, cuộn ngang
+│   ├── gen-tuoi-hop.js         # Sinh bài "Nam/Nữ YYYY hợp tuổi nào" từ engine wedding-date.js
 │   ├── build-sitemap.js        # Sinh sitemap.xml
+│   ├── build-xem-ngay.js       # Sinh bảng ngày đẹp/tra tuổi tĩnh + JSON-LD cho xem-ngay-cuoi-dep.html
 │   ├── build-og-cover.js       # Sinh ảnh OG cover
 │   ├── shoot-mobile.js         # Puppeteer+sharp: chụp mobile shots cho thiệp (npm run shoot:mobile)
 │   ├── screenshot-products.js  # Chụp screenshot sản phẩm
@@ -69,7 +77,7 @@ Templexa/
 │   ├── workflow-protect-deploy.md
 │   └── memory/                 # Feedback files cho AI
 ├── plans/                      # Plans + reports
-└── package.json                # npm scripts: build:faq, build:sitemap, build:seo, shoot:mobile
+└── package.json                # npm scripts: build:faq, build:xem-ngay, build:llms, build:sitemap, build:seo, shoot:mobile
 ```
 
 **Tổng số sản phẩm (`data.js`):** 249 entries, 222 public (`isPublic !== false`) — Invitation 129 (public 102: wedding 58, other 44) + Website 115 + Google-sheet 5.
@@ -303,22 +311,39 @@ products/
 
 ## SEO/AEO nâng cao (FAQ, llms.txt, sitemap)
 
-- **`cau-hoi-thuong-gap.html`** — sinh bởi `node scripts/build-faq.js` từ `assets/data/faq.json` (37 câu hỏi, 7 nhóm). Cùng script này còn nhúng FAQ rút gọn vào 2 trang khác giữa các marker cố định — **không sửa tay bên trong marker**, sửa `faq.json` rồi chạy lại `npm run build:faq`:
+- **`cau-hoi-thuong-gap.html`** — sinh bởi `node scripts/build-faq.js` từ `assets/data/faq.json` (42 câu hỏi, 8 nhóm). Cùng script này còn nhúng FAQ rút gọn vào 3 trang khác giữa các marker cố định — **không sửa tay bên trong marker**, sửa `faq.json` rồi chạy lại `npm run build:faq`:
   - `<!-- FAQ:START --> ... <!-- FAQ:END -->` — nội dung HTML section FAQ
   - `<!-- FAQ-LD:START --> ... <!-- FAQ-LD:END -->` — JSON-LD `FAQPage` tương ứng
-  - `thiep-online.html`: 8 câu | `index.html`: 5 câu
-- **`llms.txt`** / **`llms-full.txt`** (ở root) — cho AI crawler đọc nhanh, sinh từ nội dung `faq.json` nhưng phải **cập nhật tay** khi FAQ đổi (không có script tự sinh).
-- **`robots.txt`** — 1 nhóm `User-agent: *`, không chặn bot AI (GPTBot, ClaudeBot, PerplexityBot, Google-Extended...). `Disallow`: `products-admin.html`, `preview.html`, `/products/shared/`, `/scripts/`, `/plans/`, `/docs/`. Trỏ `Sitemap: https://templexa.vn/sitemap.xml`.
+  - `thiep-online.html`: 8 câu | `index.html`: 5 câu | `xem-ngay-cuoi-dep.html`: 5 câu (nhóm `xem-ngay`, thêm class `xn-faq`)
+- **`llms.txt`** (viết tay, tóm tắt + link các trang) / **`llms-full.txt`** (sinh tự động từ `faq.json` bằng `npm run build:llms`) — cho AI crawler đọc nhanh. Khi FAQ đổi chỉ cần chạy build; `llms.txt` sửa tay khi thêm trang mới.
+- **`robots.txt`** — 1 nhóm `User-agent: *`, không chặn bot AI (GPTBot, ClaudeBot, PerplexityBot, Google-Extended...). `Disallow`: `/products/shared/`, `/scripts/`, `/plans/`, `/docs/` (admin/preview không Disallow — dùng `noindex` trong head). Trỏ `Sitemap: https://templexa.vn/sitemap.xml`.
 - **Thiệp riêng của khách KHÔNG chặn bằng `Disallow`** — `Disallow` chỉ chặn *tải* trang chứ không chặn *index*, và còn khiến Google không đọc được thẻ `noindex`. Thay vào đó mỗi trang tự khai báo `<meta name="robots" content="noindex, nofollow">`, cộng `X-Robots-Tag` trong `_headers` (Cloudflare Pages) theo mẫu `/wedding/*`, `/event/*`, `/birthday/*`, `khach_*`.
   **Khi thêm thiệp khách mới**: nếu tên thư mục có tiền tố `khach_` thì `_headers` tự lo; nếu không (vd `van-tri-ngoc-linh`) phải thêm dòng riêng vào `_headers`. Thẻ `noindex` trong `<head>` thì luôn phải có. Thiệp mẫu catalog `gen_*` KHÔNG được gắn noindex.
-- **`sitemap.xml`** — sinh bởi `node scripts/build-sitemap.js` (`npm run build:sitemap`), 234 URL bao gồm `product-detail.html?id=` cho mỗi sản phẩm public có ảnh.
-- Chạy cả hai cùng lúc: `npm run build:seo` (= `build:faq` + `build:sitemap`).
+- **`sitemap.xml`** — sinh bởi `node scripts/build-sitemap.js` (`npm run build:sitemap`), ~245 URL bao gồm `product-detail?id=` cho mỗi sản phẩm public có ảnh.
+- **Trang xem ngày cưới** (`xem-ngay-cuoi-dep.html`) có phần nội dung tĩnh sinh bởi `node scripts/build-xem-ngay.js` (`npm run build:xem-ngay`) từ chính engine `lunar.js` + `wedding-date.js`: bảng ngày đẹp theo tháng (tháng hiện tại → hết năm sau), bảng tra kim lâu/hoang ốc/tam tai theo năm sinh, và JSON-LD (`WebApplication` + `WebPage` có `datePublished`/`dateModified` + `BreadcrumbList`). Nội dung nằm giữa marker `<!-- XN-STATIC:START/END -->` (body) và `<!-- XN-LD:START/END -->` (head) — **không sửa tay**. FAQ trên trang này cũng nhúng qua marker `FAQ:START/END` (5 câu nhóm `xem-ngay` trong `faq.json`). Chạy lại mỗi tháng (hoặc khi đổi luật xem ngày) để `dateModified` và bảng tháng luôn mới.
+- Chạy tất cả cùng lúc: `npm run build:seo` (= `build:faq` + `build:xem-ngay` + `build:llms` + `build:sitemap` + `build:products-md`).
+
 - Mọi trang có `<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">` (riêng trang admin giữ `noindex`).
+
+### Clean URL (không đuôi `.html`) — cơ chế LAI
+Cloudflare Pages tự redirect `308` mọi `/trang.html` → `/trang` (`/index.html` → `/`). Quy ước:
+- **URL tuyệt đối cho SEO** (canonical, `og:url`, JSON-LD `@id`/`item`/`url`, `sitemap.xml`, `llms.txt`, `faq.json`, `selfUrl` trong `product-detail.js`, `base` trong `products.js`) → **không `.html`**: `https://templexa.vn/thiep-online?category=wedding`, `https://templexa.vn/product-detail?id=1`. Đây là thứ sửa lỗi "canonical trỏ vào URL bị redirect".
+- **Link nội bộ** (`href`, `location.replace`, `data-href`) → **giữ `.html`** (`thiep-online.html`, `index.html`) để chạy được trên server local không hỗ trợ clean URL (IntelliJ built-in `localhost:63342`, `python -m http.server`, `file://`). Trên production, click link `.html` chỉ bị 308 sang URL sạch — không ảnh hưởng SEO vì canonical đã trỏ đúng URL đích.
+- JS nhận diện trang bằng tên **không đuôi** (`products.js` → `page`/`pageName`, đã `.replace(/\.html$/, '')`) nên chạy đúng cả `/products` (production) lẫn `/products.html` (local).
 
 ### Lưu ý khi deploy
 - Domain thực đã áp dụng: `https://templexa.vn/`
 - `og:image`/`twitter:image`: `assets/images/og-image.png` (file thật, 1200×630px, đã verify tồn tại)
 - `theme-color`: `#6366F1` — màu thanh trình duyệt trên mobile
+
+## Cẩm nang / Blog (`blogs/`)
+
+- Mỗi bài là **một file HTML tĩnh** `blogs/<slug>.html` + ảnh `blogs/images/<slug>/` (cover 1600×900, trong bài 1200×800, WebP). Viết bằng skill **`/gen-blog`** (template + quy tắc ở `.claude/skills/gen-blog/`). Bài "tuổi hợp" sinh bằng `node scripts/gen-tuoi-hop.js <năm> <nam|nu>`.
+- **Nguồn sự thật là `<head>` của bài**: `title`, `description`, `og:image`, `article:published_time`, `article:section` (id chuyên mục trong `CATEGORIES` của `scripts/build-blog.js`: `chuan-bi-cuoi` · `phong-tuc-cuoi-hoi` · `thiep-cuoi` · `tiec-cuoi` · `tinh-yeu` · `su-kien`), `article:tag`, `blog:featured`.
+- `npm run build:blog` (đã nằm trong `build:seo`, chạy trước `build:sitemap`) → sinh `blogs/index.html` (KHÔNG sửa tay), ghi đè vùng marker trong từng bài `<!-- TOC:START/END -->`, `<!-- RELATED:START/END -->`, `<span data-readtime>`, và `assets/data/blog-index.json` (sitemap đọc file này → `/blogs/` + `/blogs/<slug>`).
+- Link nội bộ trong bài giữ `.html` (`../thiep-online.html`, `index.html?category=…`); URL SEO tuyệt đối bỏ `.html` (`https://templexa.vn/blogs/<slug>`).
+- Nav 6 mục (thêm "Cẩm nang" → `blogs/index.html`) trên 7 trang + template `build-faq.js`; footer cột "Thiệp Mời Online" có "Cẩm nang cưới hỏi". Header/footer trong bài blog dùng đường dẫn `../`.
+- Kiểm trước khi báo: `node scripts/verify-blog.js <slug> --shots`.
 
 ## Hiển thị ảnh sản phẩm
 

@@ -12,7 +12,7 @@
 // ============================================
 (function () {
     const SEO = {
-        'thiep-online.html': {
+        'thiep-online': {
             wedding: {
                 title: 'Thiệp Cưới Online Đẹp — Mẫu Thiệp Mời Cưới Điện Tử | Templexa',
                 desc: 'Bộ sưu tập mẫu thiệp cưới online đẹp, gửi qua Zalo/Facebook. Có đếm ngược, xác nhận tham dự, gửi lời chúc, nhạc nền. Xem demo và đặt riêng theo tên cô dâu chú rể.',
@@ -26,7 +26,7 @@
                 intro: 'Thiệp mời điện tử cho mọi dịp ngoài đám cưới: <strong>sinh nhật</strong>, thôi nôi, đầy tháng, kỷ niệm ngày cưới, họp lớp và tất niên. Không cần in ấn, không cần đi phát — gửi một đường link là xong.',
             },
         },
-        'products.html': {
+        'products': {
             onepage: {
                 title: 'Mẫu Website Onepage — Landing Page Một Trang | Templexa',
                 desc: 'Kho mẫu website onepage / landing page một trang, tải nhanh, chuẩn mobile. Xem demo trực tiếp trước khi đặt.',
@@ -49,15 +49,15 @@
     };
 
     // Bổ sung h1 + intro cho 3 danh mục web còn lại
-    Object.assign(SEO['products.html'].onepage, {
+    Object.assign(SEO['products'].onepage, {
         h1: 'Mẫu <span class="gradient-text">Website Onepage</span><br>Landing Page Một Trang',
         intro: 'Giao diện website một trang, cuộn từ đầu tới cuối là hết nội dung. Tải nhanh, chuẩn mobile, hợp cho trang giới thiệu dịch vụ, sự kiện hoặc ra mắt sản phẩm.',
     });
-    Object.assign(SEO['products.html']['e-commerce'], {
+    Object.assign(SEO['products']['e-commerce'], {
         h1: 'Mẫu <span class="gradient-text">Website Bán Hàng</span><br>Giao Diện E-commerce',
         intro: 'Giao diện website bán hàng online: trang danh mục, chi tiết sản phẩm, giỏ hàng và thanh toán. Xem demo trực tiếp trước khi đặt.',
     });
-    Object.assign(SEO['products.html'].portfolio, {
+    Object.assign(SEO['products'].portfolio, {
         h1: 'Mẫu <span class="gradient-text">Website Portfolio</span><br>Hồ Sơ Năng Lực Cá Nhân',
         intro: 'Giao diện portfolio cho freelancer, nhiếp ảnh gia và nhà thiết kế: trưng bày dự án, hồ sơ năng lực và thông tin liên hệ. Xem demo trực tiếp.',
     });
@@ -111,13 +111,14 @@
         },
     };
 
-    const page = location.pathname.split('/').pop() || 'index.html';
+    // Cloudflare Pages phục vụ clean URL (/thiep-online) nhưng local có thể là /thiep-online.html — chấp nhận cả hai
+    const page = (location.pathname.split('/').pop() || 'index').replace(/\.html$/, '');
     const table = SEO[page];
     if (!table) return;
 
     const qs = new URLSearchParams(location.search);
     const cat = qs.get('category');
-    const base = 'https://templexa.vn/' + page;
+    const base = 'https://templexa.vn/' + page;   // canonical dạng clean URL, không .html
 
     // Bộ lọc con thắng bộ lọc danh mục khi cả hai cùng có
     let entry = null;
@@ -235,8 +236,11 @@
 
     // ── Legacy URL redirects ──
     const urlParams = new URLSearchParams(window.location.search);
+    // Tên trang không đuôi .html: production (Cloudflare clean URL) là /products, local có thể là /products.html
+    const pageName = (window.location.pathname.split('/').pop() || 'index').replace(/\.html$/, '');
+    const isProductsPath = pageName === 'products';
     // Redirect products.html?type=invitation → thiep-online.html
-    if (window.location.pathname.includes('products.html') && urlParams.get('type') === 'invitation') {
+    if (isProductsPath && urlParams.get('type') === 'invitation') {
         urlParams.delete('type');
         var remaining = urlParams.toString();
         window.location.replace('thiep-online.html' + (remaining ? '?' + remaining : ''));
@@ -244,7 +248,7 @@
     }
     // Redirect products.html?category=wedding|other → thiep-online.html?category=X
     var invitationCategoryParam = urlParams.get('category');
-    if (window.location.pathname.includes('products.html') && (invitationCategoryParam === 'wedding' || invitationCategoryParam === 'other')) {
+    if (isProductsPath && (invitationCategoryParam === 'wedding' || invitationCategoryParam === 'other')) {
         window.location.replace('thiep-online.html?category=' + invitationCategoryParam);
         return;
     }
@@ -278,7 +282,7 @@
     const typeFilterHidden = typeFiltersEl && typeFiltersEl.parentElement && typeFiltersEl.parentElement.style.display === 'none';
     // products.html (kho web/google-sheet) — KHÔNG phải thiep-online.html (typeFilterHidden=false)
     // và KHÔNG phải products-admin.html (path khác 'products.html')
-    const isProductsListingPage = !typeFilterHidden && window.location.pathname.includes('products.html');
+    const isProductsListingPage = !typeFilterHidden && isProductsPath;
 
     // ── Loại bỏ sản phẩm/loại/danh mục thiệp mời khỏi products.html (không đụng thiep-online.html / products-admin.html) ──
     function excludeInvitation(list) {
@@ -583,7 +587,7 @@
             name: popupForm.name.value,
             phone: popupForm.phone.value,
             reference: popupCurrentProduct
-                ? window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + 'product-detail.html?id=' + popupCurrentProduct.id
+                ? window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + 'product-detail?id=' + popupCurrentProduct.id
                 : window.location.href,
             service: '',
             note: '',

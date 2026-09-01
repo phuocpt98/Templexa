@@ -58,7 +58,8 @@
     // Canonical + og:url phải trỏ ĐÚNG URL có ?id=. Trước đây cả 223 trang sản phẩm
     // đều khai canonical về product-detail.html trống -> Google coi là trùng lặp,
     // gộp hết làm một và loại phần còn lại khỏi index.
-    const selfUrl = `${baseUrl}product-detail.html?id=${encodeURIComponent(productId)}`;
+    // Dạng clean URL (Cloudflare Pages 308 /product-detail.html → /product-detail) để canonical trỏ thẳng URL đích.
+    const selfUrl = `${baseUrl}product-detail?id=${encodeURIComponent(productId)}`;
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.href = selfUrl;
     const ogUrl = document.querySelector('meta[property="og:url"]');

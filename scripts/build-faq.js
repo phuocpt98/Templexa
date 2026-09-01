@@ -11,6 +11,9 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://templexa.vn';
 const PAGE = 'cau-hoi-thuong-gap.html';
+// Cloudflare Pages phục vụ clean URL (…/cau-hoi-thuong-gap, không .html) — mọi URL tuyệt đối dùng dạng này
+const PAGE_URL = `${SITE}/cau-hoi-thuong-gap`;
+const cleanUrl = (file) => file === 'index.html' ? `${SITE}/` : `${SITE}/${file.replace(/\.html$/, '')}`;
 const faq = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets/data/faq.json'), 'utf8'));
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -24,7 +27,7 @@ const allItems = faq.groups.flatMap(g => g.items);
 const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    '@id': `${SITE}/${PAGE}#faq`,
+    '@id': `${PAGE_URL}#faq`,
     'inLanguage': 'vi',
     'dateModified': faq.updated,
     'mainEntity': allItems.map(it => ({
@@ -38,13 +41,13 @@ const breadcrumb = {
     '@type': 'BreadcrumbList',
     'itemListElement': [
         { '@type': 'ListItem', 'position': 1, 'name': 'Trang chủ', 'item': `${SITE}/` },
-        { '@type': 'ListItem', 'position': 2, 'name': 'Câu hỏi thường gặp', 'item': `${SITE}/${PAGE}` },
+        { '@type': 'ListItem', 'position': 2, 'name': 'Câu hỏi thường gặp', 'item': PAGE_URL },
     ],
 };
 const webpage = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    '@id': `${SITE}/${PAGE}`,
+    '@id': PAGE_URL,
     'name': 'Câu hỏi thường gặp về thiệp cưới online — Templexa',
     'description': 'Giải đáp 30+ câu hỏi về thiệp cưới online: giá bao nhiêu, làm mất bao lâu, gửi cho khách thế nào, RSVP, QR mừng cưới, lời chúc realtime.',
     'inLanguage': 'vi',
@@ -82,7 +85,7 @@ const html = `<!DOCTYPE html>
     <meta name="author" content="Templexa Studio">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <meta name="theme-color" content="#6366F1">
-    <link rel="canonical" href="${SITE}/${PAGE}">
+    <link rel="canonical" href="${PAGE_URL}">
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="Câu Hỏi Thường Gặp Về Thiệp Cưới Online — Templexa">
@@ -90,7 +93,7 @@ const html = `<!DOCTYPE html>
     <meta property="og:image" content="${SITE}/assets/images/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:url" content="${SITE}/${PAGE}">
+    <meta property="og:url" content="${PAGE_URL}">
     <meta property="og:site_name" content="Templexa">
     <meta property="og:locale" content="vi_VN">
     <meta name="twitter:card" content="summary_large_image">
@@ -140,6 +143,7 @@ ${JSON.stringify(webpage, null, 4)}
                     <li><a href="index.html">Trang chủ</a></li>
                     <li><a href="thiep-online.html">Mẫu thiệp</a></li>
                     <li><a href="xem-ngay-cuoi-dep.html">Xem ngày cưới</a></li>
+                    <li><a href="blogs/index.html">Cẩm nang</a></li>
                     <li><a href="products.html">Mẫu web</a></li>
                     <li><a href="contact.html">Dịch vụ</a></li>
                 </ul>
@@ -214,6 +218,7 @@ ${groupsHTML}
                         <li><a href="thiep-online.html?category=other">Thiệp sinh nhật, thôi nôi</a></li>
                         <li><a href="contact.html#pricing-section">Bảng giá thiệp</a></li>
                         <li><a href="xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a></li>
+                        <li><a href="blogs/index.html">Cẩm nang cưới hỏi</a></li>
                         <li><a href="cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
                     </ul>
                 </div>
@@ -285,6 +290,18 @@ const INLINE = {
             'Thiệp cưới online có phí duy trì hàng năm không?',
         ],
     },
+    'xem-ngay-cuoi-dep.html': {
+        title: 'Câu hỏi thường gặp khi xem ngày cưới',
+        intro: 'Kim lâu, hoang ốc, tam tai là gì và phạm thì có cưới được không.',
+        sectionClass: 'xn-faq',
+        questions: [
+            'Xem ngày cưới đẹp ở đâu miễn phí?',
+            'Kim lâu là gì và tính thế nào?',
+            'Hoang ốc và tam tai khác nhau thế nào?',
+            'Phạm kim lâu thì có cưới được không?',
+            'Chọn được ngày cưới rồi thì đặt thiệp thế nào?',
+        ],
+    },
 };
 
 function findItem(qText) {
@@ -295,7 +312,7 @@ function findItem(qText) {
 
 function inlineSection(cfg, items) {
     return `<!-- FAQ:START — sinh tự động từ assets/data/faq.json (node scripts/build-faq.js), đừng sửa tay -->
-    <section class="products-section faq-inline" id="faq">
+    <section class="products-section faq-inline${cfg.sectionClass ? ' ' + cfg.sectionClass : ''}" id="faq">
         <div class="container container-section">
             <div class="section-header">
                 <h2>${esc(cfg.title)}</h2>
@@ -307,7 +324,7 @@ ${items.map(it => `                <details class="svc-faq-item faq-item">
                     <div class="svc-faq-answer faq-answer"><p>${esc(it.a)}</p></div>
                 </details>`).join('\n')}
             </div>
-            <p class="faq-inline-more"><a href="${PAGE}">Xem tất cả ${allItems.length} câu hỏi thường gặp →</a></p>
+            <p class="faq-inline-more"><a href="cau-hoi-thuong-gap.html">Xem tất cả ${allItems.length} câu hỏi thường gặp →</a></p>
         </div>
     </section>
     <!-- FAQ:END -->`;
@@ -317,7 +334,7 @@ function inlineLd(pageFile, items) {
     const ld = {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        '@id': `${SITE}/${pageFile}#faq`,
+        '@id': `${cleanUrl(pageFile)}#faq`,
         'inLanguage': 'vi',
         'mainEntity': items.map(it => ({ '@type': 'Question', 'name': it.q, 'acceptedAnswer': { '@type': 'Answer', 'text': it.a } })),
     };

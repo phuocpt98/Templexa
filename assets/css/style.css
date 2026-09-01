@@ -181,6 +181,7 @@ ul {
     font-weight: 500;
     font-size: clamp(1.02rem, 1.32vw, 1.14rem);
     transition: color 0.5s;
+    white-space: nowrap;
 }
 
 .nav-menu a:hover,
@@ -3095,7 +3096,7 @@ ul {
    Tông ấm theo phong cách thiệp cưới: kem, sage, hồng phấn, vàng đồng.
    Đặt biến riêng trong .xn-scope để không ảnh hưởng phần còn lại của site.
    ============================================================ */
-.xn-hero, .xn-form-section, .xn-result, .xn-explain {
+.xn-hero, .xn-form-section, .xn-result, .xn-explain, .xn-static, .xn-faq {
   --w-bg:      #FAF7F2;
   --w-card:    #FFFDFA;
   --w-line:    #E7DED0;
@@ -3109,7 +3110,8 @@ ul {
   --w-tint:    #F3EEE5;
 }
 [data-theme="dark"] .xn-hero, [data-theme="dark"] .xn-form-section,
-[data-theme="dark"] .xn-result, [data-theme="dark"] .xn-explain {
+[data-theme="dark"] .xn-result, [data-theme="dark"] .xn-explain,
+[data-theme="dark"] .xn-static, [data-theme="dark"] .xn-faq {
   --w-bg:      #1A1714;
   --w-card:    #241F1B;
   --w-line:    #3B342D;
@@ -3133,6 +3135,9 @@ ul {
               -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .xn-hero p { color: var(--w-text-2); font-size: clamp(15px, 1.6vw, 17px); line-height: 1.8; max-width: 34em; }
 .xn-hero p strong { color: var(--w-sage-d); }
+.xn-breadcrumb { padding: 0 0 14px; font-size: 13px; color: var(--w-text-3); }
+.xn-breadcrumb a { color: var(--w-text-3); }
+.xn-breadcrumb a:hover { color: var(--w-sage-d); }
 .xn-hero-sub { margin-top: 14px; font-size: 13px !important; color: var(--w-text-3) !important; letter-spacing: .04em; }
 .xn-hero-art { display: flex; justify-content: center; }
 .xn-hero-art img { width: min(100%, 400px); height: auto; }
@@ -3272,6 +3277,65 @@ ul {
            border-left: 3px solid var(--w-gold); border-radius: 12px; }
 .xn-note strong { color: var(--w-text); }
 
+/* ---- Bảng tĩnh: ngày đẹp theo tháng + tra tuổi (sinh bởi scripts/build-xem-ngay.js) ---- */
+.xn-static { background: var(--w-bg); padding: clamp(44px, 6vw, 76px) 0; border-top: 1px solid var(--w-line); }
+.xn-static-intro { text-align: center; max-width: 54em; margin: 0 auto 28px; font-size: 14.5px;
+                   line-height: 1.8; color: var(--w-text-2); }
+.xn-static-intro strong { color: var(--w-text); }
+.xn-updated { color: var(--w-text-3); font-size: 13px; }
+.xn-months { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-bottom: clamp(44px, 6vw, 72px); }
+.xn-month { background: var(--w-card); border: 1px solid var(--w-line); border-radius: 18px; padding: 20px 22px; min-width: 0; }
+.xn-month h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 20px;
+               color: var(--w-text); margin-bottom: 2px; }
+.xn-month-sub { font-size: 12.5px; color: var(--w-text-3); margin-bottom: 12px; line-height: 1.6; }
+.xn-tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.xn-tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.xn-tbl th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+             color: var(--w-text-3); padding: 6px 8px; border-bottom: 1px solid var(--w-line); white-space: nowrap; }
+.xn-tbl td { padding: 9px 8px; border-bottom: 1px solid var(--w-line); color: var(--w-text-2);
+             vertical-align: top; line-height: 1.5; }
+.xn-tbl tbody tr:last-child td { border-bottom: 0; }
+.xn-tbl td:first-child { color: var(--w-text); font-weight: 600; white-space: nowrap; }
+.xn-tbl td.diem { white-space: nowrap; }
+.xn-tbl .wk { display: inline-block; margin-left: 7px; font-size: 10.5px; font-weight: 600; letter-spacing: .05em;
+              text-transform: uppercase; color: var(--w-sage-d); background: var(--w-tint);
+              padding: 2px 7px; border-radius: 999px; vertical-align: middle; }
+.xn-tbl th.diem, .xn-tbl td.diem { text-align: right; }
+.xn-tbl td.diem { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 16px; color: var(--w-gold); }
+.xn-tbl .ok { color: var(--w-sage-d); font-weight: 500; }
+.xn-tbl .warn { color: var(--w-rose); font-weight: 500; }
+.xn-year { background: var(--w-card); border: 1px solid var(--w-line); border-radius: 18px; margin-top: 16px; }
+.xn-year summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
+                   gap: 12px; padding: 18px 22px; font-family: 'Playfair Display', Georgia, serif;
+                   font-weight: 600; font-size: 19px; color: var(--w-text); }
+.xn-year summary::-webkit-details-marker { display: none; }
+.xn-year summary::after { content: '+'; flex: none; font-family: 'Inter', sans-serif; font-weight: 400;
+                          font-size: 24px; line-height: 1; color: var(--w-text-3); }
+.xn-year[open] summary::after { content: '−'; }
+.xn-year summary small { display: block; margin-top: 3px; font-family: 'Inter', sans-serif; font-weight: 400;
+                         font-size: 13px; color: var(--w-text-3); }
+.xn-year .xn-tbl-scroll { padding: 0 22px 18px; }
+.xn-scroll-hint { display: none; margin: 0 22px 10px; font-size: 12px; color: var(--w-text-3); }
+.xn-year .xn-tbl td { white-space: nowrap; }
+.xn-more { margin-top: 18px; }
+.xn-more > summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+                     padding: 18px 22px; background: var(--w-card); border: 1px solid var(--w-line); border-radius: 18px;
+                     font-family: 'Playfair Display', Georgia, serif; font-weight: 600; font-size: 19px; color: var(--w-text); }
+.xn-more > summary::-webkit-details-marker { display: none; }
+.xn-more > summary::after { content: '+'; flex: none; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 24px; line-height: 1; color: var(--w-text-3); }
+.xn-more[open] > summary { margin-bottom: 18px; }
+.xn-more[open] > summary::after { content: '−'; }
+.xn-more > summary small { display: block; margin-top: 3px; font-family: 'Inter', sans-serif; font-weight: 400; font-size: 13px; color: var(--w-text-3); }
+.xn-more .xn-months { margin-bottom: 0; }
+
+/* ---- FAQ nhúng trên trang xem ngày (build-faq.js, sectionClass: xn-faq) ---- */
+.xn-faq { background: var(--w-tint); padding: clamp(44px, 6vw, 76px) 0 !important; }
+.xn-faq .section-header h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; color: var(--w-text); }
+.xn-faq .section-header p, .xn-faq .faq-answer p { color: var(--w-text-2); }
+.xn-faq .svc-faq-item { background: var(--w-card); border-color: var(--w-line); }
+.xn-faq .svc-faq-item summary, .xn-faq .svc-faq-item summary h3 { color: var(--w-text); }
+.xn-faq .faq-inline-more a { color: var(--w-sage-d); }
+
 @media (max-width: 1024px) {
     .xn-hero-grid { grid-template-columns: 1fr; text-align: center; }
     .xn-hero p { margin-left: auto; margin-right: auto; }
@@ -3292,6 +3356,21 @@ ul {
     .xn-days { grid-template-columns: 1fr; }
     .xn-explain-grid { grid-template-columns: 1fr; }
     .xn-best-goc { width: 96px; }
+    .xn-months { grid-template-columns: 1fr; }
+    .xn-month { padding: 16px 14px; }
+    .xn-year .xn-tbl-scroll { padding: 0 14px 14px; }
+    .xn-year summary, .xn-more > summary { padding: 16px 14px; font-size: 17px; }
+    .xn-tbl { font-size: 13px; }
+    /* Bảng tháng: bỏ dạng cột, mỗi ngày là một khối (ngày trên, chi tiết dưới, điểm bên phải)
+       — 3 cột trên màn 390px thì cột ngày nuốt hết chiều ngang, cột chi tiết vỡ thành 6–7 dòng. */
+    .xn-month .xn-tbl thead { display: none; }
+    .xn-month .xn-tbl, .xn-month .xn-tbl tbody, .xn-month .xn-tbl tr, .xn-month .xn-tbl td { display: block; }
+    .xn-month .xn-tbl tr { position: relative; padding: 10px 48px 10px 0; border-bottom: 1px solid var(--w-line); }
+    .xn-month .xn-tbl tbody tr:last-child { border-bottom: 0; }
+    .xn-month .xn-tbl td { padding: 0; border: 0; }
+    .xn-month .xn-tbl td:first-child { white-space: normal; margin-bottom: 3px; }
+    .xn-month .xn-tbl td.diem { position: absolute; right: 0; top: 9px; }
+    .xn-scroll-hint { display: block; margin: 0 14px 8px; }
 }
 
 /* ============================================
@@ -3702,6 +3781,14 @@ ul {
 /* ============================================
    ADDITIONAL RESPONSIVE
    ============================================ */
+
+/* Nav 6 mục (có "Cẩm nang"): thu gap/chữ ở 769–900px để không đè lên logo */
+@media (max-width: 900px) and (min-width: 769px) {
+    .nav-menu { gap: 12px; }
+    .nav-menu a { font-size: 0.94rem; }
+    /* Bỏ căn giữa tuyệt đối, dồn nav sang phải cạnh nút dark mode để không đè logo */
+    .header .nav { left: auto; right: 64px; transform: none; }
+}
 @media (max-width: 1024px) {
     .products-grid {
         grid-template-columns: repeat(2, 1fr);

@@ -12,7 +12,7 @@ Mỗi trang HTML đều có đầy đủ SEO tags trong `<head>`:
 <meta name="author" content="Templexa Studio">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="theme-color" content="#6366F1">
-<link rel="canonical" href="https://templexa.vn/{page}">
+<link rel="canonical" href="https://templexa.vn/{page}">   <!-- {page} KHÔNG có đuôi .html — Cloudflare Pages redirect 308 /x.html → /x -->
 
 <!-- Open Graph (Facebook, Zalo, ...) -->
 <meta property="og:type" content="website">

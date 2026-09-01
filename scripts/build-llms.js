@@ -28,7 +28,7 @@ const updated = faq.updated || new Date().toISOString().slice(0, 10);
 const out = [];
 out.push(`# Templexa — Câu hỏi thường gặp đầy đủ (${total})`);
 out.push('');
-out.push(`Nguồn: https://templexa.vn/cau-hoi-thuong-gap.html · Cập nhật ${updated}`);
+out.push(`Nguồn: https://templexa.vn/cau-hoi-thuong-gap · Cập nhật ${updated}`);
 out.push('');
 
 groups.forEach((g) => {
