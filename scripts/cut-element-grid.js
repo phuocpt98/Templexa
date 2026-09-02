@@ -17,7 +17,7 @@
  *
  * Ví dụ:
  *   node scripts/cut-element-grid.js \
- *     --input products/shared/new/elements-3x3.png \
+ *     --input ../inputs/elements-3x3.png \
  *     --out products/shared/images/heritage-elements \
  *     --names corner-cloud-fret-tl,crest-dragon-pair,corner-cloud-fret-tr,\
  * medallion-lotus-ring,divider-lotus-cloud,border-fret-vertical,\

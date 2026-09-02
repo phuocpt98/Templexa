@@ -4,10 +4,10 @@
  * (html/js/css/ảnh/video/font/json) và ghi xuống đúng đường dẫn gốc, tách theo host.
  * Phát lại bằng server đi kèm (--serve) — server map host ngoài (typekit, api...) về thư mục đã lưu.
  *
- *   node scripts/mirror-site.js https://example.com/ ./products/shared/new/example   # tải
- *   node scripts/mirror-site.js --serve ./products/shared/new/example [port]         # chạy offline
+ *   node scripts/mirror-site.js https://example.com/ ../inputs/example   # tải
+ *   node scripts/mirror-site.js --serve ../inputs/example [port]         # chạy offline
  *
- * Chỉ dùng để tham khảo/so sánh nội bộ. Thư mục products/shared/new/ nằm trong .gitignore.
+ * Chỉ dùng để tham khảo/so sánh nội bộ. Thư mục ../inputs/ nằm ngoài repo, không deploy.
  */
 const fs = require('fs');
 const path = require('path');
