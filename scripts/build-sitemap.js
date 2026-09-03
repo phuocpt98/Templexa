@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Sinh sitemap.xml: trang tĩnh + category + từng sản phẩm public (product-detail.html?id=).
+ * Sinh sitemap.xml: trang tĩnh + landing category/style/event + blog.
+ * Từ 09/2026 KHÔNG còn URL sản phẩm riêng: product-detail.html đã bỏ, chi tiết mở bằng popup ?pid= trên thiep-online/products (cùng canonical với trang hub).
  *   node scripts/build-sitemap.js
  */
 const fs = require('fs');
@@ -63,17 +64,6 @@ const url = (o) => `    <url>
         </image:image>` : ''}
     </url>`;
 
-const productUrls = pub
-    .sort((a, b) => (a.type === 'invitation' ? 0 : 1) - (b.type === 'invitation' ? 0 : 1) || b.id - a.id)
-    .map(p => url({
-        loc: `/product-detail?id=${p.id}`,
-        lastmod: p.updatedAt || TODAY,
-        freq: 'monthly',
-        pri: p.type === 'invitation' ? (p.featured ? '0.8' : '0.7') : '0.5',
-        image: p.mobileView || p.thumbnail,
-        title: p.name,
-    }));
-
 // Cẩm nang (blogs/) — đọc assets/data/blog-index.json do scripts/build-blog.js sinh ra
 let blogUrls = [];
 try {
@@ -92,10 +82,8 @@ ${STATIC.map(url).join('\n')}
     <!-- Cẩm nang cưới hỏi (${blogUrls.length}) -->
 ${blogUrls.join('\n')}
 
-    <!-- Sản phẩm public (${productUrls.length}) -->
-${productUrls.join('\n')}
 
 </urlset>
 `;
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml);
-console.log(`✓ sitemap.xml: ${STATIC.length + blogUrls.length + productUrls.length} URL (${productUrls.length} sản phẩm, ${blogUrls.length} blog)`);
+console.log(`✓ sitemap.xml: ${STATIC.length + blogUrls.length} URL (${STATIC.length} trang/landing, ${blogUrls.length} blog)`);

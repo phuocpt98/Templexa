@@ -429,7 +429,7 @@
             if (variantCount > 1) subLabel += ` · ${variantCount} phiên bản`;
 
             return `
-                <a href="product-detail.html?id=${p.id}" class="product-card${p.type === 'invitation' ? ' product-card-invitation' : ''}" data-product-id="${p.id}"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
+                <a href="${p.type === 'invitation' ? 'thiep-online' : 'products'}.html?pid=${p.id}" class="product-card${p.type === 'invitation' ? ' product-card-invitation' : ''}" data-product-id="${p.id}"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
                     <div class="product-card-image">
                         <img src="${imgSrc}" alt="${p.name}" loading="lazy">
                         ${badgeHTML}
@@ -587,7 +587,7 @@
             name: popupForm.name.value,
             phone: popupForm.phone.value,
             reference: popupCurrentProduct
-                ? window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + 'product-detail?id=' + popupCurrentProduct.id
+                ? window.location.origin + window.location.pathname.replace(/[^/]*$/, '') + (popupCurrentProduct.type === 'invitation' ? 'thiep-online' : 'products') + '?pid=' + popupCurrentProduct.id
                 : window.location.href,
             service: '',
             note: '',
@@ -868,7 +868,8 @@
     render();
 
     // ── Auto-open popup if ?pid= exists ─────────
-    var pidParam = urlParams.get('pid');
+    // ?id= là alias cho link cũ product-detail?id= (trang đó đã bỏ 09/2026, _redirects đưa về đây)
+    var pidParam = urlParams.get('pid') || urlParams.get('id');
     if (pidParam) {
         showPopupLoading();
         openPopup();
@@ -877,6 +878,13 @@
                 popupBody.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-tertiary)">Không tìm thấy sản phẩm</div>';
                 return;
             }
+            // Mở nhầm hub (thiệp trên products.html hoặc web trên thiep-online.html) → sang đúng hub
+            var wantHub = product.type === 'invitation' ? 'thiep-online' : 'products';
+            if (pageName !== wantHub) {
+                window.location.replace(wantHub + '.html?pid=' + product.id);
+                return;
+            }
+            if (!urlParams.get('pid')) setPopupURL(product.id);
             renderPopup(product);
         }).catch(function () {
             var summary = getProductById(pidParam);

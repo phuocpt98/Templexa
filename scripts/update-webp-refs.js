@@ -4,7 +4,7 @@
  * Usage:
  *   node scripts/update-webp-refs.js
  *
- * Scan: data.js, style.css, index.html, products.html, product-detail.html, contact.html
+ * Scan: data.js, style.css, index.html, products.html, contact.html
  * KHÔNG replace: favicon, SVG, external URL images (og:image, twitter:image)
  */
 
@@ -23,7 +23,6 @@ const FILES_TO_SCAN = [
     'assets/css/style.css',
     'index.html',
     'products.html',
-    'product-detail.html',
     'contact.html',
 ];
 

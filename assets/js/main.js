@@ -79,7 +79,7 @@
     track.innerHTML = sliderProducts.map((p, i) => {
         const catLabel = CATEGORIES.find(c => c.id === p.category)?.label || p.category;
         return `
-            <div class="template-card" data-index="${i}" data-href="product-detail.html?id=${p.id}">
+            <div class="template-card" data-index="${i}" data-href="thiep-online.html?pid=${p.id}">
                 <div class="template-frame">
                     <span class="template-badge">Most Popular</span>
                     <div class="template-image">
