@@ -3,3 +3,15 @@
 # _redirects không match được query string nên link cũ /product-detail?id=N về catalog thiệp (mất id).
 /product-detail /thiep-online 301
 /product-detail.html /thiep-online 301
+
+# 12 landing lọc (09/2026): chuyển từ query string sang file tĩnh riêng
+#   /thiep-online?category=wedding            → /thiep-cuoi
+#   /thiep-online?category=wedding&style=…    → /thiep-cuoi-sang-trong, -truyen-thong, -hoa, -hien-dai
+#   /thiep-online?category=other              → /thiep-moi-online
+#   /thiep-online?category=other&event=…      → /thiep-moi-su-kien, /thiep-to-tinh, /thiep-sinh-nhat,
+#                                               /thiep-ky-niem-ngay-cuoi, /thiep-moi-hop-lop, /thiep-thoi-noi-day-thang
+# KHÔNG khai báo 301 ở đây được: _redirects của Cloudflare Pages không match query string.
+# URL cũ vẫn trả 200 (hub tự lọc bằng JS) và canonical trỏ về landing tĩnh tương ứng
+# (bảng LANDING_MAP trong assets/js/products.js) nên tín hiệu vẫn gom về URL mới.
+# Nếu GSC cho thấy URL cũ còn được index sau ~8 tuần: thêm Redirect Rule ở dashboard
+# Cloudflare (Rules → Redirect Rules, match cả query string) thay vì sửa file này.

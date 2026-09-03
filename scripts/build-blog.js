@@ -231,7 +231,7 @@ ${gridPosts.map(p => cardHtml(p).split('\n').map(l => '                ' + l).jo
                 <h2>Đọc xong rồi, tới lúc gửi thiệp?</h2>
                 <p>Thiệp cưới online Templexa có đếm ngược, bản đồ, xác nhận tham dự và sổ lưu bút — giao trong 24h, từ 150.000đ. Gửi qua Zalo là khách nhận được ngay.</p>
                 <div class="bl-cta-actions">
-                    <a class="bl-btn" href="../thiep-online.html?category=wedding">Xem mẫu thiệp cưới</a>
+                    <a class="bl-btn" href="../thiep-cuoi.html">Xem mẫu thiệp cưới</a>
                     <a class="bl-btn bl-btn--ghost" href="../xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a>
                 </div>
             </section>
@@ -340,14 +340,25 @@ function footerHtml(rel) {
                     <p>Thiệp cưới &amp; thiệp sự kiện online sang trọng, giao trong 24h. Kèm kho mẫu website cá nhân hoá cho riêng bạn.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Thiệp Mời Online</h4>
+                    <h4>Thiệp Cưới Online</h4>
                     <ul>
-                        <li><a href="${rel}thiep-online.html?category=wedding">Thiệp cưới online</a></li>
-                        <li><a href="${rel}thiep-online.html?category=other">Thiệp sinh nhật, thôi nôi</a></li>
-                        <li><a href="${rel}contact.html#pricing-section">Bảng giá thiệp</a></li>
-                        <li><a href="${rel}xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a></li>
-                        <li><a href="${rel}blogs/index.html">Cẩm nang cưới hỏi</a></li>
-                        <li><a href="${rel}cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
+                        <li><a href="${rel}thiep-cuoi.html">Thiệp cưới online</a></li>
+                        <li><a href="${rel}thiep-cuoi-sang-trong.html">Thiệp cưới sang trọng</a></li>
+                        <li><a href="${rel}thiep-cuoi-truyen-thong.html">Thiệp cưới truyền thống</a></li>
+                        <li><a href="${rel}thiep-cuoi-hoa.html">Thiệp cưới hoa</a></li>
+                        <li><a href="${rel}thiep-cuoi-hien-dai.html">Thiệp cưới hiện đại</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Thiệp Mời Sự Kiện</h4>
+                    <ul>
+                        <li><a href="${rel}thiep-moi-online.html">Thiệp mời online (dịp khác)</a></li>
+                        <li><a href="${rel}thiep-sinh-nhat.html">Thiệp sinh nhật</a></li>
+                        <li><a href="${rel}thiep-thoi-noi-day-thang.html">Thiệp thôi nôi, đầy tháng</a></li>
+                        <li><a href="${rel}thiep-ky-niem-ngay-cuoi.html">Thiệp kỷ niệm ngày cưới</a></li>
+                        <li><a href="${rel}thiep-moi-hop-lop.html">Thiệp mời họp lớp</a></li>
+                        <li><a href="${rel}thiep-moi-su-kien.html">Thiệp mời sự kiện</a></li>
+                        <li><a href="${rel}thiep-to-tinh.html">Thiệp tỏ tình</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -361,8 +372,12 @@ function footerHtml(rel) {
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Liên Hệ</h4>
+                    <h4>Hỗ Trợ &amp; Liên Hệ</h4>
                     <ul>
+                        <li><a href="${rel}contact.html#pricing-section">Bảng giá thiệp</a></li>
+                        <li><a href="${rel}xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a></li>
+                        <li><a href="${rel}blogs/index.html">Cẩm nang cưới hỏi</a></li>
+                        <li><a href="${rel}cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
                         <li><a href="${rel}contact.html#contactForm">Yêu cầu báo giá</a></li>
                         <li><a href="https://zalo.me/0334884895" target="_blank" rel="noopener">Zalo 0334 884 895</a></li>
                         <li><a href="mailto:templexa.contact@gmail.com">templexa.contact@gmail.com</a></li>

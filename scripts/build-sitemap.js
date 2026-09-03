@@ -7,6 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 const { load } = require('./lib/products-io');
+const { LANDINGS } = require('./lib/landings');
 
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://templexa.vn';
@@ -23,25 +24,20 @@ const mtime = (file) => {
 const pub = products.filter(p => p.isPublic !== false);
 const newestInv = pub.filter(p => p.type === 'invitation').map(p => p.updatedAt).sort().pop() || TODAY;
 
+// Landing thiệp cưới ưu tiên cao hơn landing dịp khác (lưu lượng chính)
+const LANDING_URLS = LANDINGS.map(l => ({
+    loc: '/' + l.slug,
+    lastmod: newestInv,
+    freq: 'weekly',
+    pri: l.style || l.event ? '0.8' : (l.category === 'wedding' ? '0.9' : '0.85'),
+}));
+
 const STATIC = [
     { loc: '/', lastmod: mtime('index.html'), freq: 'weekly', pri: '1.0' },
     { loc: '/thiep-online', lastmod: newestInv, freq: 'weekly', pri: '0.95' },
-    { loc: '/thiep-online?category=wedding', lastmod: newestInv, freq: 'weekly', pri: '0.9' },
-    { loc: '/thiep-online?category=other', lastmod: newestInv, freq: 'weekly', pri: '0.85' },
-
-    // Trang lọc theo phong cách thiệp cưới — mỗi trang nhắm một từ khoá riêng
-    { loc: '/thiep-online?category=wedding&style=luxury',      lastmod: newestInv, freq: 'weekly', pri: '0.8' },
-    { loc: '/thiep-online?category=wedding&style=traditional', lastmod: newestInv, freq: 'weekly', pri: '0.8' },
-    { loc: '/thiep-online?category=wedding&style=floral',      lastmod: newestInv, freq: 'weekly', pri: '0.8' },
-    { loc: '/thiep-online?category=wedding&style=modern',      lastmod: newestInv, freq: 'weekly', pri: '0.8' },
-
-    // Trang lọc theo dịp — chỉ đưa vào các dịp đã đủ mẫu (>= 4 thiệp)
-    { loc: '/thiep-online?category=other&event=holiday',     lastmod: newestInv, freq: 'weekly', pri: '0.8' },
-    { loc: '/thiep-online?category=other&event=confession',  lastmod: newestInv, freq: 'weekly', pri: '0.8' },
-    { loc: '/thiep-online?category=other&event=birthday',    lastmod: newestInv, freq: 'weekly', pri: '0.8' },
-    { loc: '/thiep-online?category=other&event=anniversary', lastmod: newestInv, freq: 'weekly', pri: '0.75' },
-    { loc: '/thiep-online?category=other&event=reunion',     lastmod: newestInv, freq: 'weekly', pri: '0.75' },
-    { loc: '/thiep-online?category=other&event=thoi-noi',    lastmod: newestInv, freq: 'weekly', pri: '0.75' },
+    // 12 landing lọc — từ 09/2026 là file HTML tĩnh riêng (scripts/build-landing.js),
+    // không còn URL query string. Danh sách lấy thẳng từ scripts/lib/landings.js.
+    ...LANDING_URLS,
 
     { loc: '/contact', lastmod: mtime('contact.html'), freq: 'monthly', pri: '0.9' },
     { loc: '/xem-ngay-cuoi-dep', lastmod: mtime('xem-ngay-cuoi-dep.html'), freq: 'monthly', pri: '0.9' },

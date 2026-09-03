@@ -212,14 +212,25 @@ ${groupsHTML}
                     <p>Thiệp cưới &amp; thiệp sự kiện online sang trọng, giao trong 24h. Kèm kho mẫu website cá nhân hoá cho riêng bạn.</p>
                 </div>
                 <div class="footer-col">
-                    <h4>Thiệp Mời Online</h4>
+                    <h4>Thiệp Cưới Online</h4>
                     <ul>
-                        <li><a href="thiep-online.html?category=wedding">Thiệp cưới online</a></li>
-                        <li><a href="thiep-online.html?category=other">Thiệp sinh nhật, thôi nôi</a></li>
-                        <li><a href="contact.html#pricing-section">Bảng giá thiệp</a></li>
-                        <li><a href="xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a></li>
-                        <li><a href="blogs/index.html">Cẩm nang cưới hỏi</a></li>
-                        <li><a href="cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
+                        <li><a href="thiep-cuoi.html">Thiệp cưới online</a></li>
+                        <li><a href="thiep-cuoi-sang-trong.html">Thiệp cưới sang trọng</a></li>
+                        <li><a href="thiep-cuoi-truyen-thong.html">Thiệp cưới truyền thống</a></li>
+                        <li><a href="thiep-cuoi-hoa.html">Thiệp cưới hoa</a></li>
+                        <li><a href="thiep-cuoi-hien-dai.html">Thiệp cưới hiện đại</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Thiệp Mời Sự Kiện</h4>
+                    <ul>
+                        <li><a href="thiep-moi-online.html">Thiệp mời online (dịp khác)</a></li>
+                        <li><a href="thiep-sinh-nhat.html">Thiệp sinh nhật</a></li>
+                        <li><a href="thiep-thoi-noi-day-thang.html">Thiệp thôi nôi, đầy tháng</a></li>
+                        <li><a href="thiep-ky-niem-ngay-cuoi.html">Thiệp kỷ niệm ngày cưới</a></li>
+                        <li><a href="thiep-moi-hop-lop.html">Thiệp mời họp lớp</a></li>
+                        <li><a href="thiep-moi-su-kien.html">Thiệp mời sự kiện</a></li>
+                        <li><a href="thiep-to-tinh.html">Thiệp tỏ tình</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -233,8 +244,12 @@ ${groupsHTML}
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h4>Liên Hệ</h4>
+                    <h4>Hỗ Trợ &amp; Liên Hệ</h4>
                     <ul>
+                        <li><a href="contact.html#pricing-section">Bảng giá thiệp</a></li>
+                        <li><a href="xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a></li>
+                        <li><a href="blogs/index.html">Cẩm nang cưới hỏi</a></li>
+                        <li><a href="cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
                         <li><a href="contact.html#contactForm">Yêu cầu báo giá</a></li>
                         <li><a href="https://zalo.me/0334884895" target="_blank" rel="noopener">Zalo 0334 884 895</a></li>
                         <li><a href="mailto:templexa.contact@gmail.com">templexa.contact@gmail.com</a></li>

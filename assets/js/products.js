@@ -3,6 +3,32 @@
 // ============================================
 
 // ============================================
+// LANDING_MAP — bộ lọc (category/style/event) → trang landing tĩnh tương ứng.
+// 12 landing lọc nay là file HTML riêng (thiep-cuoi.html, thiep-cuoi-sang-trong.html…)
+// sinh bởi scripts/build-landing.js. Bảng dưới dùng cho 2 việc:
+//   1. canonical của hub khi đang bật bộ lọc  → trỏ về landing tĩnh
+//   2. href thật cho chip lọc (crawler thấy link, người dùng vẫn lọc bằng JS)
+// ============================================
+/* LANDING-MAP:START — sinh bởi scripts/build-landing.js, đừng sửa tay */
+const LANDING_MAP = {
+    'wedding': 'thiep-cuoi',
+    'wedding|style:luxury': 'thiep-cuoi-sang-trong',
+    'wedding|style:traditional': 'thiep-cuoi-truyen-thong',
+    'wedding|style:floral': 'thiep-cuoi-hoa',
+    'wedding|style:modern': 'thiep-cuoi-hien-dai',
+    'other': 'thiep-moi-online',
+    'other|event:holiday': 'thiep-moi-su-kien',
+    'other|event:confession': 'thiep-to-tinh',
+    'other|event:birthday': 'thiep-sinh-nhat',
+    'other|event:anniversary': 'thiep-ky-niem-ngay-cuoi',
+    'other|event:reunion': 'thiep-moi-hop-lop',
+    'other|event:thoi-noi': 'thiep-thoi-noi-day-thang',
+};
+/* LANDING-MAP:END */
+
+const landingHref = (slug) => slug + '.html';
+
+// ============================================
 // SEO cho trang lọc theo danh mục (?category=)
 // ------------------------------------------------------------------
 // Các URL ?category= nằm trong sitemap nhưng trước đây dùng chung title,
@@ -123,12 +149,14 @@
     // Bộ lọc con thắng bộ lọc danh mục khi cả hai cùng có
     let entry = null;
     let query = '';
+    let landing = null;
     for (const key of ['style', 'event']) {
         const val = qs.get(key);
         const hit = val && SUB[key] && SUB[key][val];
         if (hit) {
             entry = { title: hit.t, desc: hit.d, h1: hit.h1, intro: hit.intro };
             query = (cat ? 'category=' + encodeURIComponent(cat) + '&' : '') + key + '=' + encodeURIComponent(val);
+            landing = LANDING_MAP[cat + '|' + key + ':' + val] || null;
             break;
         }
     }
@@ -136,9 +164,12 @@
         entry = table[cat];
         query = 'category=' + encodeURIComponent(cat);
     }
+    // Bộ lọc đang bật có trang landing tĩnh riêng (thiep-cuoi-sang-trong.html…)
+    // → canonical trỏ về đó để gom tín hiệu, thay vì tự trỏ URL query string.
+    if (!landing && cat && page === 'thiep-online') landing = LANDING_MAP[cat] || null;
 
-    // canonical + og:url luôn trỏ đúng URL đang xem
-    const selfUrl = query ? base + '?' + query : base;
+    // canonical + og:url: landing tĩnh nếu có, còn lại tự trỏ URL đang xem
+    const selfUrl = landing ? 'https://templexa.vn/' + landing : (query ? base + '?' + query : base);
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.href = selfUrl;
     const ogUrl = document.querySelector('meta[property="og:url"]');
@@ -179,6 +210,18 @@
 
     if (!grid) return;
 
+    // ── Trang landing tĩnh (thiep-cuoi.html, thiep-cuoi-sang-trong.html…) ──
+    // Bộ lọc nằm sẵn trong HTML qua data-landing-*, không lấy từ query string.
+    // Trên landing, chip lọc là link thật → để trình duyệt điều hướng sang
+    // landing khác thay vì lọc tại chỗ (mỗi bộ lọc có một URL riêng).
+    const ds = document.body.dataset;
+    const LANDING = ds.landing ? {
+        slug: ds.landing,
+        category: ds.landingCategory || 'all',
+        style: ds.landingStyle || 'all',
+        event: ds.landingEvent || 'all',
+    } : null;
+
     // ── Popup elements ─────────────────────────
     const popupOverlay = document.getElementById('productPopup');
     const popupBody = document.getElementById('popupBody');
@@ -186,16 +229,38 @@
     const popupModalForm = document.getElementById('popupModalForm');
     const popupModalSuccess = document.getElementById('popupModalSuccess');
 
+    // ── Chip lọc là <a href> thật ─────────────────────────────────────────
+    // Trước 09/2026 chip là <button> nên 12 landing lọc không có link nội bộ nào
+    // trỏ tới (audit lỗ hổng #3). Nay chip trỏ thẳng vào landing tĩnh:
+    //  - trên hub  : JS chặn điều hướng, lọc tại chỗ như cũ
+    //  - trên landing: để trình duyệt đi tới landing tương ứng
+    function categoryHref(id) {
+        // products.html và trang admin dùng chung danh mục web → href về products.html
+        if (isProductsListingPage || pageName === 'products-admin') {
+            return id === 'all' ? 'products.html' : 'products.html?category=' + encodeURIComponent(id);
+        }
+        if (id === 'all') return 'thiep-online.html';
+        return LANDING_MAP[id] ? landingHref(LANDING_MAP[id]) : 'thiep-online.html?category=' + encodeURIComponent(id);
+    }
+    function subHref(key, val) {
+        if (val === 'all') return categoryHref(currentCategory);
+        var slug = LANDING_MAP[currentCategory + '|' + key + ':' + val];
+        return slug ? landingHref(slug)
+            : 'thiep-online.html?category=' + encodeURIComponent(currentCategory) + '&' + key + '=' + encodeURIComponent(val);
+    }
+
     // ── Two-level filter: show category on type hover ──
     function showCategoryFor(type) {
         const allowed = getAllowedCategories(type);
         const cats = CATEGORIES.filter(c => allowed.includes(c.id));
         categoryFiltersEl.innerHTML = cats.map(cat =>
-            `<button class="filter-btn${cat.id === currentCategory ? ' active' : ''}" data-category="${cat.id}">${cat.label}</button>`
+            `<a class="filter-btn${cat.id === currentCategory ? ' active' : ''}" href="${categoryHref(cat.id)}" data-category="${cat.id}">${cat.label}</a>`
         ).join('');
         // Re-bind category click
         categoryFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                if (LANDING) return;   // landing: để link tự điều hướng
+                e.preventDefault();
                 currentCategory = btn.dataset.category;
                 currentStyle = 'all'; currentEvent = 'all';
                 currentPage = 1;
@@ -268,6 +333,12 @@
     let currentStyle = urlParams.get('style') || 'all';
     let currentEvent = urlParams.get('event') || 'all';
     let currentPage = parseInt(urlParams.get('page')) || 1;
+    if (LANDING) {
+        currentType = 'invitation';
+        currentCategory = LANDING.category;
+        currentStyle = LANDING.style;
+        currentEvent = LANDING.event;
+    }
     const subFiltersEl = document.getElementById('subFilters');
     const subFiltersGroup = document.getElementById('subFiltersGroup');
     const subFiltersLabel = document.getElementById('subFiltersLabel');
@@ -316,11 +387,13 @@
 
         subFiltersLabel.textContent = key === 'style' ? 'Phong cách' : 'Sự kiện';
         subFiltersGroup.style.display = '';
-        subFiltersEl.innerHTML = [`<button class="filter-btn${current === 'all' ? ' active' : ''}" data-sub="all">Tất cả</button>`]
-            .concat(keys.map(k => `<button class="filter-btn${current === k ? ' active' : ''}" data-sub="${k}">${labels[k]} <span class="filter-count">${counts[k]}</span></button>`))
+        subFiltersEl.innerHTML = [`<a class="filter-btn${current === 'all' ? ' active' : ''}" href="${subHref(key, 'all')}" data-sub="all">Tất cả</a>`]
+            .concat(keys.map(k => `<a class="filter-btn${current === k ? ' active' : ''}" href="${subHref(key, k)}" data-sub="${k}">${labels[k]} <span class="filter-count">${counts[k]}</span></a>`))
             .join('');
         subFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                if (LANDING) return;   // landing: để link tự điều hướng
+                e.preventDefault();
                 if (key === 'style') currentStyle = btn.dataset.sub; else currentEvent = btn.dataset.sub;
                 currentPage = 1;
                 render();
@@ -334,7 +407,7 @@
         const visibleCategories = CATEGORIES.filter(cat => allowedCats.includes(cat.id));
 
         categoryFiltersEl.innerHTML = visibleCategories.map(cat =>
-            `<button class="filter-btn${cat.id === currentCategory ? ' active' : ''}" data-category="${cat.id}">${cat.label}</button>`
+            `<a class="filter-btn${cat.id === currentCategory ? ' active' : ''}" href="${categoryHref(cat.id)}" data-category="${cat.id}">${cat.label}</a>`
         ).join('');
 
         // Type filters — bỏ "Thiệp mời" trên products.html
@@ -345,7 +418,9 @@
 
         // Event listeners — category
         categoryFiltersEl.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                if (LANDING) return;   // landing: để link tự điều hướng
+                e.preventDefault();
                 currentCategory = btn.dataset.category;
                 currentStyle = 'all'; currentEvent = 'all';
                 currentPage = 1;
@@ -493,11 +568,15 @@
     // ── Update URL params ──────────────────────
     function updateURL() {
         const params = new URLSearchParams();
-        if (currentCategory !== 'all') params.set('category', currentCategory);
-        if (currentType !== 'all') params.set('type', currentType);
+        // Landing tĩnh: bộ lọc đã nằm trong đường dẫn, không lặp lại ở query string
+        // (nếu ghi thì URL hiển thị lệch canonical của trang).
+        if (!LANDING) {
+            if (currentCategory !== 'all') params.set('category', currentCategory);
+            if (currentType !== 'all') params.set('type', currentType);
+            if (currentStyle !== 'all') params.set('style', currentStyle);
+            if (currentEvent !== 'all') params.set('event', currentEvent);
+        }
         if (currentSearch) params.set('search', currentSearch);
-        if (currentStyle !== 'all') params.set('style', currentStyle);
-        if (currentEvent !== 'all') params.set('event', currentEvent);
         if (currentPage > 1) params.set('page', currentPage);
         // Preserve pid if popup is open
         var existingPid = new URLSearchParams(window.location.search).get('pid');
@@ -878,10 +957,12 @@
                 popupBody.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-tertiary)">Không tìm thấy sản phẩm</div>';
                 return;
             }
-            // Mở nhầm hub (thiệp trên products.html hoặc web trên thiep-online.html) → sang đúng hub
-            var wantHub = product.type === 'invitation' ? 'thiep-online' : 'products';
-            if (pageName !== wantHub) {
-                window.location.replace(wantHub + '.html?pid=' + product.id);
+            // Mở nhầm hub (thiệp trên products.html hoặc web trên thiep-online.html) → sang đúng hub.
+            // 12 landing tĩnh cũng là hub thiệp nên popup ?pid= mở tại chỗ, không chuyển trang.
+            var wantInvitation = product.type === 'invitation';
+            var onInvitationHub = pageName === 'thiep-online' || !!LANDING;
+            if (wantInvitation !== onInvitationHub) {
+                window.location.replace((wantInvitation ? 'thiep-online' : 'products') + '.html?pid=' + product.id);
                 return;
             }
             if (!urlParams.get('pid')) setPopupURL(product.id);

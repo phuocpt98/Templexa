@@ -902,7 +902,9 @@ ul {
 
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    /* 5 cột: brand + Thiệp cưới + Thiệp sự kiện + Mẫu web + Hỗ trợ (09/2026 tách
+       cột "Thiệp Mời Online" cũ thành 2 cột để chứa link 12 landing lọc) */
+    grid-template-columns: 1.4fr repeat(4, 1fr);
     gap: clamp(20px, 3vw, 40px);
     margin-bottom: clamp(25px, 3vw, 40px);
 }
@@ -1006,7 +1008,7 @@ ul {
     }
 
     .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .showcase .container {
@@ -5305,5 +5307,229 @@ ul {
         padding: 11px 8px;
         gap: 6px;
         font-size: 0.92rem;
+    }
+}
+
+/* =======================================================
+   LANDING LỌC TĨNH — breadcrumb, khối nội dung, link chéo
+   (12 trang sinh bởi scripts/build-landing.js)
+   ======================================================= */
+
+/* Chip lọc nay là <a href> thật (crawler đi được sang landing) —
+   reset gạch chân/màu link, giữ nguyên dáng pill như khi còn là <button> */
+a.filter-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+}
+
+a.filter-btn:hover {
+    text-decoration: none;
+}
+
+.filters-category a.filter-btn.active,
+.filters-sub a.filter-btn.active {
+    color: #fff;
+}
+
+/* Breadcrumb đầu trang landing */
+.landing-crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: clamp(10px, 1.5vw, 16px);
+    font-size: clamp(0.82rem, 1vw, 0.9rem);
+    color: var(--text-tertiary);
+}
+
+.landing-crumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.landing-crumb a:hover {
+    color: var(--accent);
+}
+
+.landing-crumb-sep {
+    color: var(--text-tertiary);
+    opacity: 0.7;
+}
+
+.landing-crumb [aria-current="page"] {
+    color: var(--text-tertiary);
+}
+
+/* Khối nội dung 150–300 từ + cột link chéo */
+.landing-copy {
+    padding: clamp(30px, 4vw, 56px) 0;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+}
+
+.landing-copy > .container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: start;
+}
+
+.landing-copy-text h2 {
+    font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+    color: var(--text-primary);
+    margin-bottom: clamp(10px, 1.2vw, 14px);
+}
+
+.landing-copy-text h2:not(:first-child) {
+    margin-top: clamp(20px, 2.5vw, 30px);
+}
+
+.landing-copy-text p {
+    color: var(--text-secondary);
+    font-size: clamp(0.96rem, 1.15vw, 1.06rem);
+    line-height: 1.8;
+    margin-bottom: clamp(10px, 1.2vw, 14px);
+}
+
+.landing-copy-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0 0 clamp(10px, 1.2vw, 14px);
+    padding: 0;
+    list-style: none;
+}
+
+.landing-copy-list li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--text-secondary);
+    font-size: clamp(0.96rem, 1.15vw, 1.06rem);
+    line-height: 1.7;
+}
+
+.landing-copy-list li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0.72em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.landing-links {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: clamp(18px, 2.4vw, 26px);
+}
+
+.landing-links h2 {
+    font-size: clamp(1rem, 1.3vw, 1.12rem);
+    color: var(--text-primary);
+    margin-bottom: clamp(12px, 1.5vw, 16px);
+}
+
+.landing-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.landing-links a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    color: var(--text-secondary);
+    font-size: clamp(0.92rem, 1.1vw, 1rem);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.landing-links a:hover {
+    color: var(--accent);
+}
+
+.landing-links-count {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    color: var(--text-tertiary);
+}
+
+/* Trang chủ — bảng chọn nhanh 12 landing */
+.home-collections {
+    padding: clamp(40px, 5vw, 70px) 0;
+    background: var(--bg-secondary);
+}
+
+.home-collections-group + .home-collections-group {
+    margin-top: clamp(24px, 3vw, 36px);
+}
+
+.home-collections-group h3 {
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    color: var(--text-primary);
+    margin-bottom: clamp(12px, 1.5vw, 16px);
+}
+
+.home-collections-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: clamp(10px, 1.4vw, 14px);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.home-collections-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: clamp(0.92rem, 1.1vw, 1rem);
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.home-collections-list a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow);
+}
+
+.home-collections-list span {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    color: var(--text-tertiary);
+}
+
+.home-collections-list a:hover span {
+    color: var(--accent);
+}
+
+@media (max-width: 1024px) {
+    .landing-copy > .container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-collections-list {
+        grid-template-columns: 1fr;
     }
 }

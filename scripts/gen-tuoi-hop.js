@@ -360,7 +360,7 @@ ${faq.map(([q, a]) => `                    <details><summary>${esc(q)}</summary>
                 </div>
 
                 <h2 data-toc="skip">Lời cuối</h2>
-                <p>Bảng tuổi nói cho bạn biết ông bà sẽ gật hay lắc. Nó không nói cho bạn biết hai người có sống được với nhau không — chuyện đó do cách hai bạn cãi nhau và làm lành quyết định. Hãy dùng bài này để chuẩn bị cho cuộc nói chuyện với gia đình, rồi <a href="../xem-ngay-cuoi-dep.html">chọn ngày</a>, <a href="../thiep-online.html?category=wedding">gửi thiệp</a>, và bắt đầu phần thật sự quan trọng.</p>
+                <p>Bảng tuổi nói cho bạn biết ông bà sẽ gật hay lắc. Nó không nói cho bạn biết hai người có sống được với nhau không — chuyện đó do cách hai bạn cãi nhau và làm lành quyết định. Hãy dùng bài này để chuẩn bị cho cuộc nói chuyện với gia đình, rồi <a href="../xem-ngay-cuoi-dep.html">chọn ngày</a>, <a href="../thiep-cuoi.html">gửi thiệp</a>, và bắt đầu phần thật sự quan trọng.</p>
                 <p><em>Nội dung dựa trên quan niệm dân gian (nạp âm, thiên can địa chi, bát trạch), mang tính tham khảo. Cách tính có dị bản giữa các sách; bài này dùng cách phổ biến nhất ở Việt Nam.</em></p>
 
                 <div class="bp-tags">
@@ -393,7 +393,7 @@ ${faq.map(([q, a]) => `                    <details><summary>${esc(q)}</summary>
                 <div class="bp-aside-card">
                     <h4>Thiệp cưới online</h4>
                     <p>Hợp tuổi, chọn ngày xong — tới lúc gửi thiệp. Hơn 50 mẫu có đếm ngược, bản đồ, xác nhận tham dự. Giao trong 24h.</p>
-                    <a class="bl-btn" href="../thiep-online.html?category=wedding">Xem mẫu thiệp</a>
+                    <a class="bl-btn" href="../thiep-cuoi.html">Xem mẫu thiệp</a>
                 </div>
             </aside>
         </div>
