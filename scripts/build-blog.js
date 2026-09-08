@@ -138,7 +138,7 @@ const chips = [`<button class="bl-chip active" type="button" data-cat="all">Tấ
     .concat(CATEGORIES.filter(c => counts[c.id] > 0).map(c => `<button class="bl-chip" type="button" data-cat="${c.id}">${esc(c.label)} <small>${counts[c.id]}</small></button>`)).join('\n                ');
 const catLd = CATEGORIES.filter(c => counts[c.id] > 0);
 const itemListLd = posts.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: p.url, name: p.title }));
-const desc = 'Cẩm nang cưới hỏi Templexa: phong tục ba miền, checklist chuẩn bị cưới, cách viết thiệp mời, xem ngày cưới, tổ chức tiệc — viết ngắn gọn, dễ áp dụng cho các cặp đôi Việt.';
+const desc = 'Blogs Templexa: phong tục ba miền, checklist chuẩn bị cưới, cách viết thiệp mời, xem ngày cưới, tổ chức tiệc — viết ngắn gọn, dễ áp dụng cho các cặp đôi Việt.';
 const newest = posts[0] ? posts[0].modified.slice(0, 10) : new Date().toISOString().slice(0, 10);
 
 const indexHtml = `<!DOCTYPE html>
@@ -146,7 +146,7 @@ const indexHtml = `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cẩm Nang Cưới Hỏi — Kinh Nghiệm Chuẩn Bị Đám Cưới Từ A–Z | Templexa</title>
+    <title>Blogs | Templexa</title>
     <meta name="description" content="${esc(desc)}">
     <meta name="keywords" content="cẩm nang cưới hỏi, kinh nghiệm chuẩn bị đám cưới, phong tục cưới hỏi, thiệp cưới, xem ngày cưới, tổ chức tiệc cưới, blog cưới">
     <meta name="author" content="Templexa Studio">
@@ -155,21 +155,21 @@ const indexHtml = `<!DOCTYPE html>
     <link rel="canonical" href="${SITE}/blogs/">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Cẩm Nang Cưới Hỏi — Kinh Nghiệm Chuẩn Bị Đám Cưới Từ A–Z | Templexa">
+    <meta property="og:title" content="Blogs | Templexa">
     <meta property="og:description" content="${esc(desc)}">
     <meta property="og:image" content="${featured ? featured.coverUrl : SITE + '/assets/images/og-image.png'}">
     <meta property="og:url" content="${SITE}/blogs/">
     <meta property="og:site_name" content="Templexa">
     <meta property="og:locale" content="vi_VN">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Cẩm Nang Cưới Hỏi | Templexa">
+    <meta name="twitter:title" content="Blogs | Templexa">
     <meta name="twitter:description" content="${esc(desc)}">
     <meta name="twitter:image" content="${featured ? featured.coverUrl : SITE + '/assets/images/og-image.png'}">
 
     <link rel="icon" type="image/svg+xml" href="../assets/images/logo_v2.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/blog.css">
 
@@ -177,13 +177,13 @@ const indexHtml = `<!DOCTYPE html>
     ${JSON.stringify({
         '@context': 'https://schema.org',
         '@graph': [
-            { '@type': 'CollectionPage', '@id': `${SITE}/blogs/`, url: `${SITE}/blogs/`, name: 'Cẩm nang cưới hỏi', description: desc, inLanguage: 'vi-VN', dateModified: newest,
+            { '@type': 'CollectionPage', '@id': `${SITE}/blogs/`, url: `${SITE}/blogs/`, name: 'Blogs', description: desc, inLanguage: 'vi-VN', dateModified: newest,
               isPartOf: { '@type': 'WebSite', name: 'Templexa', url: `${SITE}/` },
               publisher: { '@type': 'Organization', name: 'Templexa', url: `${SITE}/`, logo: { '@type': 'ImageObject', url: `${SITE}/assets/images/logo_v2.svg` } },
               mainEntity: { '@type': 'ItemList', itemListElement: itemListLd } },
             { '@type': 'BreadcrumbList', itemListElement: [
                 { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${SITE}/` },
-                { '@type': 'ListItem', position: 2, name: 'Cẩm nang cưới hỏi', item: `${SITE}/blogs/` } ] },
+                { '@type': 'ListItem', position: 2, name: 'Blogs', item: `${SITE}/blogs/` } ] },
         ],
     }, null, 2).replace(/\n/g, '\n    ')}
     </script>
@@ -201,8 +201,8 @@ ${headerHtml('../', 'blogs')}
 
     <section class="bl-hero">
         <div class="container container-section">
-            <nav class="bl-crumb" aria-label="Breadcrumb"><a href="../">Trang chủ</a><span aria-hidden="true">›</span><span aria-current="page">Cẩm nang cưới hỏi</span></nav>
-            <h1>Cẩm nang cưới hỏi<br><em>viết cho người sắp cưới</em></h1>
+            <nav class="bl-crumb" aria-label="Breadcrumb"><a href="../">Trang chủ</a><span aria-hidden="true">›</span><span aria-current="page">Blogs</span></nav>
+            <h1>Blogs<br><em>viết cho người sắp cưới</em></h1>
             <p>Những gì hai bạn cần biết từ lúc tính chuyện tới lúc tiệc tan: phong tục ba miền, checklist chuẩn bị, cách viết thiệp mời, xem ngày, tổ chức tiệc. Viết ngắn, có ví dụ, áp dụng được ngay.</p>
             <div class="bl-chips" id="blChips" role="tablist" aria-label="Lọc theo chuyên mục">
                 ${chips}
@@ -301,7 +301,7 @@ function headerHtml(rel, active) {
                     <li><a href="${rel}"${a('home')}>Trang chủ</a></li>
                     <li><a href="${rel}thiep-online.html"${a('thiep')}>Mẫu thiệp</a></li>
                     <li><a href="${rel}xem-ngay-cuoi-dep.html"${a('xem-ngay')}>Xem ngày cưới</a></li>
-                    <li><a href="${rel}blogs/index.html"${a('blogs')}>Cẩm nang</a></li>
+                    <li><a href="${rel}blogs/index.html"${a('blogs')}>Blogs</a></li>
                     <li><a href="${rel}products.html"${a('products')}>Mẫu web</a></li>
                     <li><a href="${rel}contact.html"${a('contact')}>Dịch vụ</a></li>
                 </ul>
@@ -376,7 +376,7 @@ function footerHtml(rel) {
                     <ul>
                         <li><a href="${rel}contact.html#pricing-section">Bảng giá thiệp</a></li>
                         <li><a href="${rel}xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a></li>
-                        <li><a href="${rel}blogs/index.html">Cẩm nang cưới hỏi</a></li>
+                        <li><a href="${rel}blogs/index.html">Blogs</a></li>
                         <li><a href="${rel}cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
                         <li><a href="${rel}contact.html#contactForm">Yêu cầu báo giá</a></li>
                         <li><a href="https://zalo.me/0334884895" target="_blank" rel="noopener">Zalo 0334 884 895</a></li>

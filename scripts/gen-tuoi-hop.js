@@ -210,7 +210,7 @@ const html = `<!DOCTYPE html>
     <link rel="icon" type="image/svg+xml" href="../assets/images/logo_v2.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/blog.css">
 
@@ -225,7 +225,7 @@ const html = `<!DOCTYPE html>
               publisher: { '@type': 'Organization', name: 'Templexa', url: `${SITE}/`, logo: { '@type': 'ImageObject', url: `${SITE}/assets/images/logo_v2.svg` } } },
             { '@type': 'BreadcrumbList', itemListElement: [
                 { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: `${SITE}/` },
-                { '@type': 'ListItem', position: 2, name: 'Cẩm nang cưới hỏi', item: `${SITE}/blogs/` },
+                { '@type': 'ListItem', position: 2, name: 'Blogs', item: `${SITE}/blogs/` },
                 { '@type': 'ListItem', position: 3, name: 'Phong tục & nghi lễ', item: `${SITE}/blogs/?category=phong-tuc-cuoi-hoi` },
                 { '@type': 'ListItem', position: 4, name: shortTitle } ] },
             { '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
@@ -248,7 +248,7 @@ const html = `<!DOCTYPE html>
         <div class="container container-section">
             <nav class="bl-crumb" aria-label="Breadcrumb">
                 <a href="../">Trang chủ</a><span aria-hidden="true">›</span>
-                <a href="index.html">Cẩm nang cưới hỏi</a><span aria-hidden="true">›</span>
+                <a href="index.html">Blogs</a><span aria-hidden="true">›</span>
                 <a href="index.html?category=phong-tuc-cuoi-hoi">Phong tục &amp; nghi lễ</a>
             </nav>
             <span class="bl-cat">Phong tục &amp; nghi lễ</span>

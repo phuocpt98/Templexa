@@ -143,7 +143,7 @@ ${JSON.stringify(webpage, null, 4)}
                     <li><a href="index.html">Trang chủ</a></li>
                     <li><a href="thiep-online.html">Mẫu thiệp</a></li>
                     <li><a href="xem-ngay-cuoi-dep.html">Xem ngày cưới</a></li>
-                    <li><a href="blogs/index.html">Cẩm nang</a></li>
+                    <li><a href="blogs/index.html">Blogs</a></li>
                     <li><a href="products.html">Mẫu web</a></li>
                     <li><a href="contact.html">Dịch vụ</a></li>
                 </ul>
@@ -248,7 +248,7 @@ ${groupsHTML}
                     <ul>
                         <li><a href="contact.html#pricing-section">Bảng giá thiệp</a></li>
                         <li><a href="xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a></li>
-                        <li><a href="blogs/index.html">Cẩm nang cưới hỏi</a></li>
+                        <li><a href="blogs/index.html">Blogs</a></li>
                         <li><a href="cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
                         <li><a href="contact.html#contactForm">Yêu cầu báo giá</a></li>
                         <li><a href="https://zalo.me/0334884895" target="_blank" rel="noopener">Zalo 0334 884 895</a></li>
