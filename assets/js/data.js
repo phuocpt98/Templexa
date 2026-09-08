@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 89 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 90 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3162,7 +3162,22 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/shots/open.webp',
         path: './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/',
         demoUrl: './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/index.html',
-        variants: [],
+        variants: [
+            {
+                id: 271,
+                thumbnail: './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/index.html',
+                label: 'Mẫu gốc',
+                kind: 'master',
+            },
+            {
+                id: 277,
+                thumbnail: './products/Invitation/Wedding/khach_hien-thuc-tien-dat/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_hien-thuc-tien-dat/index.html',
+                label: 'Ba nghi lễ · Công giáo',
+                kind: 'sample',
+            },
+        ],
         features: [
             'Phong bì navy + dấu sáp Song Hỷ, chạm bất kỳ đâu để mở',
             'Đếm ngược ngày cưới realtime',
@@ -3382,6 +3397,42 @@ const PRODUCTS = [
             'Màn mở thiệp niêm sáp + phong bì ảnh đôi, tông trắng ngà — khaki',
             'Đếm ngược, lịch tháng cưới, timeline 2 sự kiện (tiệc cưới + lễ vu quy)',
             'Sổ lưu bút 1 nút gửi (gộp lời chúc + xác nhận tham dự) + QR mừng cưới',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 2,
+        rating: 4.8,
+        showInSlider: false,
+        isPublic: false,
+        updatedAt: '2026-09-08',
+    },
+    {
+        id: 277,
+        name: 'Thiệp Cưới Navy Ngọc Trai — Ba Nghi Lễ',
+        slug: 'thiep-cuoi-navy-ngoc-trai-ba-nghi-le',
+        description: 'Thiệp cưới navy — ngọc trai, dấu sáp monogram, bố cục ba nghi lễ (phép chuẩn, vu quy, tân hôn) kèm tiệc trà tư gia và QR mừng cưới.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'luxury',
+        event: 'wedding',
+        tags: ['wedding', 'navy', 'ngoc-trai', 'cong-giao', 'sang-trong', 'rsvp', 'countdown', 'qr', 'love-story', 'khach'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/khach_hien-thuc-tien-dat/shots/open.webp',
+            './products/Invitation/Wedding/khach_hien-thuc-tien-dat/shots/sec-1.webp',
+            './products/Invitation/Wedding/khach_hien-thuc-tien-dat/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/khach_hien-thuc-tien-dat/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/khach_hien-thuc-tien-dat/shots/open.webp',
+        path: './products/Invitation/Wedding/khach_hien-thuc-tien-dat/',
+        demoUrl: './products/Invitation/Wedding/khach_hien-thuc-tien-dat/index.html',
+        variants: [],
+        templateOf: 271,
+        features: [
+            'Phong bì navy + dấu sáp monogram riêng của cô dâu chú rể',
+            'Ba nghi lễ trên cùng một thiệp + tiệc trà tư gia hai bên, có nút chỉ đường',
+            'Xác nhận tham dự 1 nút (gộp lời chúc) + QR mừng cưới chạm để phóng to',
         ],
         status: '',
         featured: false,
