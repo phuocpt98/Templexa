@@ -727,8 +727,7 @@ textarea.field{resize:vertical;min-height:74px}
         <label class="opt"><input type="radio" name="att" value="Thật tiếc mình bận mất rồi"> Thật tiếc mình bận mất rồi</label>
         <label class="opt"><input type="radio" name="att" value="Mình đang cân nhắc"> Mình đang cân nhắc</label>
       </div>
-      <button class="btn btn-out" type="submit">Gửi lời nhắn và xác nhận</button>
-      <button class="btn btn-fill" type="button" id="giftJump">Gửi mừng cưới</button>
+      <button class="btn btn-fill" type="submit" id="rsvpBtn">Gửi lời chúc &amp; xác nhận</button>
       <p class="msg" id="rsvpMsgOut"></p>
     </form>
   </section>
@@ -793,9 +792,14 @@ textarea.field{resize:vertical;min-height:74px}
   <button class="lb-nav lb-next" aria-label="Ảnh sau">›</button>
 </div>
 
+<script src="../../../shared/wedding/wishes-api.js"></script>
 <script>
 (function () {
   'use strict';
+
+  /* Clone cho khách: điền 'khach_XX' để lưu + đọc lời chúc từ Google Sheet.
+     Để trống = bản demo trong catalog, dùng lời chúc mẫu bên dưới. */
+  var SHEET_ID = '';
 
   var PHOTO_DIR = '../../../shared/images/wedding/douple-white/';
   var PHOTOS = [
@@ -967,6 +971,16 @@ textarea.field{resize:vertical;min-height:74px}
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     els.forEach(function (e) { io.observe(e); });
+
+    /* Phần tử sát đáy trang (dòng thương hiệu) nằm lọt trong vùng rootMargin âm
+       nên không bao giờ intersect — cuộn hết trang thì hiện nốt. */
+    window.addEventListener('scroll', function () {
+      if (window.scrollY + window.innerHeight < document.documentElement.scrollHeight - 4) return;
+      document.querySelectorAll('.rv:not(.in-view)').forEach(function (e) {
+        e.classList.add('in-view');
+        io.unobserve(e);
+      });
+    }, { passive: true });
   }
   // quan sát cả ảnh album được thêm sau
   function revealLate() {
@@ -1010,13 +1024,25 @@ textarea.field{resize:vertical;min-height:74px}
   }
 
   /* ── Lời chúc bay (local, không cần API) ── */
-  var DEFAULT_WISHES = [
+  /* Lời chúc mẫu — chỉ hiện ở bản demo. Clone có SHEET_ID sẽ đọc lời chúc thật. */
+  var DEMO_WISHES = [
     { name: 'Hoài Thu', message: 'Chúc hai bạn trăm năm hạnh phúc nhé!' },
     { name: 'Quang Duy', message: 'Đẹp đôi quá, mừng cho hai bạn!' },
     { name: 'Bảo Ngọc', message: 'Chúc anh chị sớm có tin vui ạ' },
     { name: 'Minh Khôi', message: 'Hạnh phúc trọn vẹn nha hai bạn!' },
     { name: 'Thanh Vân', message: 'Mãi bên nhau nhé, chúc mừng!' }
   ];
+  var DEFAULT_WISHES = SHEET_ID ? [] : DEMO_WISHES;
+  var ATT_CHOICES = ['Mình sẽ tham dự', 'Thật tiếc mình bận mất rồi', 'Mình đang cân nhắc'];
+  function cleanWish(t) {
+    t = (t || '').trim();
+    for (var i = 0; i < ATT_CHOICES.length; i++) {
+      if (t === ATT_CHOICES[i]) return '';
+      var tail = ' — ' + ATT_CHOICES[i];
+      if (t.slice(-tail.length) === tail) return t.slice(0, -tail.length).trim();
+    }
+    return t;
+  }
   var wishPool = DEFAULT_WISHES.slice();
   var wishIdx = 0;
   function initFloatingWishes() {
@@ -1026,6 +1052,16 @@ textarea.field{resize:vertical;min-height:74px}
       var st = JSON.parse(localStorage.getItem('navy_pearl_wishes'));
       if (Array.isArray(st)) wishPool = wishPool.concat(st);
     } catch (e) {}
+
+    if (SHEET_ID && typeof sheetsAPI !== 'undefined') {
+      sheetsAPI.get(SHEET_ID).then(function (rows) {
+        (rows || []).forEach(function (r) {
+          var n = (r.A || '').trim();
+          var m = cleanWish(r.B);
+          if (n && m) wishPool.push({ name: n, message: m });
+        });
+      }).catch(function () {});
+    }
     function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
     function bubble(name, msg) {
       var el = document.createElement('div');
@@ -1054,7 +1090,7 @@ textarea.field{resize:vertical;min-height:74px}
 
     setTimeout(function () {
       function next() {
-        if (document.hidden || muted) return;
+        if (document.hidden || muted || !wishPool.length) return;
         var w = wishPool[wishIdx % wishPool.length];
         bubble(w.name, w.message);
         wishIdx++;
@@ -1077,7 +1113,9 @@ textarea.field{resize:vertical;min-height:74px}
   function initForms(wishes) {
     var form = document.getElementById('rsvpForm');
     var out = document.getElementById('rsvpMsgOut');
+    var btn = document.getElementById('rsvpBtn');
     if (form) {
+      var label = btn ? btn.textContent : '';
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         var name = document.getElementById('rsvpName').value.trim();
@@ -1086,18 +1124,31 @@ textarea.field{resize:vertical;min-height:74px}
         if (!name) {
           out.textContent = 'Bạn cho chúng mình xin tên nhé!';
           out.className = 'msg err';
+          document.getElementById('rsvpName').focus();
           return;
         }
-        out.textContent = 'Cảm ơn ' + name + '! Chúng mình đã nhận được lời nhắn của bạn.';
-        out.className = 'msg ok';
-        if (wishes && msg) wishes.add(name, msg);
-        form.reset();
-      });
-    }
-    var jump = document.getElementById('giftJump');
-    if (jump) {
-      jump.addEventListener('click', function () {
-        document.getElementById('gift').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        var choice = att ? att.value : '';
+
+        function done() {
+          out.textContent = 'Cảm ơn ' + name + '! Chúng mình đã nhận được lời chúc và xác nhận của bạn.';
+          out.className = 'msg ok';
+          if (wishes && msg) wishes.add(name, msg);
+          form.reset();
+          if (btn) { btn.disabled = false; btn.textContent = label; }
+        }
+        if (!SHEET_ID || typeof sheetsAPI === 'undefined') { done(); return; }
+
+        if (btn) { btn.disabled = true; btn.textContent = 'Đang gửi...'; }
+        out.textContent = ''; out.className = 'msg';
+        var now = new Date();
+        var time = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN');
+        sheetsAPI.post(SHEET_ID, { A: name, B: (msg ? msg + ' — ' : '') + choice, C: time })
+          .then(done)
+          .catch(function () {
+            out.textContent = 'Gửi chưa thành công, bạn thử lại giúp mình nhé!';
+            out.className = 'msg err';
+            if (btn) { btn.disabled = false; btn.textContent = label; }
+          });
       });
     }
     document.querySelectorAll('.btn-copy').forEach(function (btn) {
