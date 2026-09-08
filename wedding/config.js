@@ -188,4 +188,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự lễ thành hôn của chúng tôi — 26.09.2026 tại Phường Tân Hoà, Phú Thọ',
         image: '../../products/Invitation/Wedding/van-hoang-tran-ly/og-cover.jpg',
     },
+    'tra-giang-quoc-truong': {
+        src: '../../products/Invitation/Wedding/khach_tra-giang-quoc-truong/index.html',
+        title: 'Trà Giang & Quốc Trường — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự Lễ Vu Quy & Tiệc Cưới — 19.09.2026 tại Nhà hàng tiệc cưới Bá Hùng, TP. Hồ Chí Minh',
+        image: '../../products/Invitation/Wedding/khach_tra-giang-quoc-truong/og-cover.jpg',
+    },
 };

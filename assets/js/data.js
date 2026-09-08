@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 88 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 89 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -2268,6 +2268,13 @@ const PRODUCTS = [
                 label: 'Hoa lá cổ điển',
                 kind: 'sample',
             },
+            {
+                id: 276,
+                thumbnail: './products/Invitation/Wedding/khach_tra-giang-quoc-truong/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_tra-giang-quoc-truong/index.html',
+                label: 'Trắng ngà nhẹ (bản dựng lại)',
+                kind: 'sample',
+            },
         ],
         features: [
             'Envelope glass-morphism + ảnh quân phục blur + peek polaroid + ribbon bow',
@@ -3348,6 +3355,42 @@ const PRODUCTS = [
         showInSlider: false,
         isPublic: true,
         updatedAt: '2026-08-30',
+    },
+    {
+        id: 276,
+        name: 'Thiệp Cưới Vintage Khung Phim Trắng Ngà',
+        slug: 'thiep-cuoi-vintage-khung-phim-trang-nga',
+        description: 'Thiệp cưới vintage tông trắng ngà — khaki, phong bì ảnh, khung phim và lịch tháng cưới; bản dựng lại nhẹ trên thư viện tpl-vintage-film.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'vintage',
+        event: 'wedding',
+        tags: ['website', 'invitation', 'wedding', 'vintage', 'khaki', 'ivory', 'film-frame', 'rsvp', 'countdown', 'qr', 'khach'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/khach_tra-giang-quoc-truong/shots/open.webp',
+            './products/Invitation/Wedding/khach_tra-giang-quoc-truong/shots/sec-1.webp',
+            './products/Invitation/Wedding/khach_tra-giang-quoc-truong/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/khach_tra-giang-quoc-truong/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/khach_tra-giang-quoc-truong/shots/open.webp',
+        path: './products/Invitation/Wedding/khach_tra-giang-quoc-truong/',
+        demoUrl: './products/Invitation/Wedding/khach_tra-giang-quoc-truong/index.html',
+        variants: [],
+        templateOf: 241,
+        features: [
+            'Màn mở thiệp niêm sáp + phong bì ảnh đôi, tông trắng ngà — khaki',
+            'Đếm ngược, lịch tháng cưới, timeline 2 sự kiện (tiệc cưới + lễ vu quy)',
+            'Sổ lưu bút 1 nút gửi (gộp lời chúc + xác nhận tham dự) + QR mừng cưới',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 2,
+        rating: 4.8,
+        showInSlider: false,
+        isPublic: false,
+        updatedAt: '2026-09-08',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 54 ──────────────
     {

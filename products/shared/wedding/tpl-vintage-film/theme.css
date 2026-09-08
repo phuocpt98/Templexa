@@ -1,0 +1,978 @@
+/* ============================================================
+ * TEMPLEXA — Template "Vintage Film" (thư viện dùng chung)
+ * ------------------------------------------------------------
+ * Bản viết lại sạch của mẫu #241 (khach_quynhthuong_kimvuong).
+ * Bỏ Bootstrap / bootstrap-icons / jQuery / Masonry / WOW.js /
+ * animate.css và 4 font nhúng base64 (~1.6MB) — giữ nguyên bố
+ * cục, màu sắc và hiệu ứng.
+ *
+ * Cách dùng trong thiệp của khách:
+ *   <link rel="stylesheet" href="../../../shared/wedding/tpl-vintage-film/theme.css">
+ *   <script src="../../../shared/wedding/tpl-vintage-film/theme.js" defer></script>
+ *
+ * Đổi màu chủ đạo: ghi đè --color-primary + --color-primary-raw
+ * trên .card-wrapper trong file thiệp (xem README.md).
+ * ============================================================ */
+
+/* ---------- 1. Fonts ---------- */
+@font-face {
+  font-family: "Lora";
+  src: url("fonts/Lora-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lora";
+  src: url("fonts/Lora-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Ergisa";
+  src: url("fonts/Ergisa.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "High Spirited";
+  src: url("fonts/HighSpirited.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font1 { font-family: "High Spirited", cursive; }
+.font2 { font-family: "Ergisa", serif; }
+
+/* ---------- 2. Base ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: #333;
+  font-family: "Lora", Georgia, serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+body a { text-decoration: none; color: inherit; }
+body img { max-width: 100%; }
+h1, h2, h3 { font-weight: 400; margin: 0; }
+p { margin: 0; }
+
+.card-wrapper {
+  max-width: 480px;
+  margin: auto;
+  background-color: #fff;
+  overflow: hidden;
+  /* Màu chủ đạo — ghi đè trong file thiệp nếu cần */
+  --color-primary: rgb(146, 131, 98);
+  --color-primary-raw: 146, 131, 98;
+  --text-color-primary: rgb(146, 131, 98);
+}
+
+.card-section { position: relative; padding: 50px 0; }
+
+/* Nền giấy lặp dùng chung cho nhiều section */
+.paper-bg {
+  background-image: url("assets/bg-0.webp");
+  background-repeat: repeat-y;
+  background-position: center center;
+  background-size: contain;
+}
+
+/* ---------- 3. Hiệu ứng cuộn (thay WOW.js + animate.css) ---------- */
+.reveal { opacity: 0; }
+.reveal.in {
+  opacity: 1;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+}
+.reveal.slow.in { animation-duration: 2s; }
+.reveal.d2.in { animation-delay: .25s; }
+.reveal.d3.in { animation-delay: .5s; }
+.reveal.d4.in { animation-delay: .8s; }
+
+.reveal[data-anim="up"].in    { animation-name: fadeInUpSlow; }
+.reveal[data-anim="down"].in  { animation-name: fadeInDownSlow; }
+.reveal[data-anim="left"].in  { animation-name: fadeInLeftSlow; }
+.reveal[data-anim="right"].in { animation-name: fadeInRightSlow; }
+.reveal[data-anim="in"].in    { animation-name: fadeInSoft; }
+.reveal[data-anim="zoom"].in  { animation-name: zoomInSoft; }
+.reveal[data-anim="rotate-left"].in  { animation-name: rotateInDownLeft; transform-origin: left bottom; }
+.reveal[data-anim="rotate-right"].in { animation-name: rotateInDownRight; transform-origin: right bottom; }
+
+@keyframes fadeInUpSlow    { from { opacity: 0; transform: translateY(20px); }  to { opacity: 1; transform: none; } }
+@keyframes fadeInDownSlow  { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: none; } }
+@keyframes fadeInLeftSlow  { from { opacity: 0; transform: translateX(-5%); }   to { opacity: 1; transform: none; } }
+@keyframes fadeInRightSlow { from { opacity: 0; transform: translateX(20px); }  to { opacity: 1; transform: none; } }
+@keyframes fadeInSoft      { from { opacity: 0; } to { opacity: 1; } }
+@keyframes zoomInSoft      { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+@keyframes rotateInDownLeft  { from { opacity: 0; transform: rotate3d(0, 0, 1, -45deg); } to { opacity: 1; transform: none; } }
+@keyframes rotateInDownRight { from { opacity: 0; transform: rotate3d(0, 0, 1, 45deg); }  to { opacity: 1; transform: none; } }
+@keyframes softPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+@keyframes heartPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.25); } }
+@keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+
+.anim-pulse { animation: softPulse 1.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.in { opacity: 1; animation: none !important; }
+  .anim-pulse { animation: none; }
+}
+
+/* ---------- 4. Màn mở thiệp ---------- */
+#card-opening-sides {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  max-width: var(--slide-card-max-width, 480px);
+  overflow: hidden;
+  z-index: 99;
+}
+#card-opening-sides .card-side {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 68%;
+  animation-duration: 4s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-delay: .5s;
+  animation-play-state: paused;
+}
+#card-opening-sides._animating .card-side { animation-play-state: running; }
+#card-opening-sides .card-side.right {
+  right: 0;
+  width: 50%;
+  z-index: 0;
+  background-color: var(--slide-card-color, #fff8ed);
+  animation-name: slideOutRight;
+}
+#card-opening-sides .card-side.left {
+  left: 0;
+  width: 74%;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: cover;
+  animation-name: slideOutLeft;
+}
+#card-opening-sides .open-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12%;
+  z-index: 2;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-primary, #928362);
+  animation: fadeInSoft 1.2s ease-out both, softPulse 2.4s ease-in-out 1.2s infinite;
+}
+#card-opening-sides._animating .open-hint { opacity: 0; transition: opacity .3s; }
+@keyframes slideOutRight { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@keyframes slideOutLeft  { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+/* ---------- 5. Banner ---------- */
+#card-banner {
+  aspect-ratio: 420 / 652;
+  padding: 0;
+  position: relative;
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#card-banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 260px;
+  background: linear-gradient(rgba(253, 251, 251, 0), rgba(1, 1, 1, .5));
+}
+#card-banner .card-banner-inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding: 50px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  color: #fff;
+}
+#card-banner .wedding-text {
+  font-size: 70px;
+  line-height: 1;
+  text-shadow: rgba(0, 0, 0, .2) 1px 2px 3px;
+}
+#card-banner .wedding-name {
+  /* co theo bề ngang để tên cặp đôi luôn nằm trên 1 dòng, kể cả màn 320px */
+  font-size: clamp(14px, 4.5vw, 21px);
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+#card-banner .wedding-date {
+  font-size: 19px;
+  line-height: 1.6;
+  letter-spacing: 3px;
+}
+
+/* ---------- 6. Đếm ngược + phong bì ảnh ---------- */
+#card-countdown {
+  position: relative;
+  overflow: hidden;
+  background-image: url("assets/bg-0.webp");
+  background-repeat: repeat-y;
+  background-position: center center;
+  background-size: contain;
+}
+#card-countdown::before,
+#card-countdown::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 420px;
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: cover;
+}
+#card-countdown::before { background-image: url("assets/bg-1.webp"); top: 0; }
+#card-countdown::after  { background-image: url("assets/bg-2.webp"); bottom: -80px; }
+#card-countdown .card-countdown-inner {
+  position: relative;
+  z-index: 1;
+  padding: 30px 16px;
+  text-align: center;
+  color: var(--text-color-primary);
+}
+#card-countdown .card-countdown-inner h2 {
+  margin: 32px 0 45px;
+  font-size: 90px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+#card-countdown .card-countdown-inner h2 span { display: inline-block; position: relative; margin-left: -10%; }
+#card-countdown .card-countdown-inner h2 span span { position: absolute; left: 40%; top: 35%; transform: rotate(3deg); }
+#card-countdown .card-countdown-inner h3 {
+  font-size: 21px;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#card-countdown .card-countdown-inner .img { margin-top: 24px; padding: 0 16px; }
+
+#countdown .countdown-inner { display: flex; align-items: center; justify-content: center; }
+#countdown .box, #countdown .colon { font-size: 33px; color: var(--text-color-primary); }
+#countdown .colon { padding: 0 12px; }
+#countdown .box { min-width: 45px; }
+
+#envelop-photo { position: relative; }
+#envelop-photo > img { width: 100%; display: block; }
+#envelop-photo > img.front { position: absolute; z-index: 3; left: 0; bottom: 0; }
+#envelop-photo .pt1,
+#envelop-photo .pt2 {
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+#envelop-photo .pt1 { width: 50%; right: 6%; bottom: 36%; z-index: 1; transform: rotate(10deg); }
+#envelop-photo .pt2 {
+  width: 46%;
+  left: 8%;
+  bottom: 23%;
+  z-index: 2;
+  transform: rotate(-2deg);
+  background-color: #fff;
+  border: 5px solid #fff;
+}
+
+/* ---------- 7. Save the date ---------- */
+#card-save-the-date {
+  position: relative;
+  height: 330px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#card-save-the-date::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(1, 1, 1, .3);
+}
+#card-save-the-date h2 {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  bottom: 0;
+  padding: 0 0 10px 24px;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+}
+#card-save-the-date h2 .font1 { font-size: 84px; line-height: 1; text-transform: none; }
+
+/* ---------- 8. Thông tin lễ cưới ---------- */
+#card-info {
+  position: relative;
+  overflow: hidden;
+  background-image: url("assets/bg-0.webp");
+  background-repeat: repeat-y;
+  background-position: center center;
+  background-size: contain;
+}
+#card-info::before,
+#card-info::after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: cover;
+}
+#card-info::before { background-image: url("assets/bg-4.webp"); top: -20px; left: -20px; height: 420px; }
+#card-info::after  { background-image: url("assets/bg-2.webp"); bottom: -70px; height: 210px; background-repeat: repeat-x; }
+#card-info .card-info-inner {
+  position: relative;
+  z-index: 1;
+  padding: 0 12px 30px;
+  text-align: center;
+  color: var(--text-color-primary);
+}
+#card-info .parents {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  margin: 50px 0 36px;
+}
+#card-info .parents .parent { flex: 1; font-size: 14px; text-align: center; }
+#card-info .parents .parent .label { text-transform: uppercase; }
+#card-info .parents .parent .parent-address { margin-top: 6px; font-size: 12px; font-style: italic; opacity: .8; }
+#card-info .parents .v-divider { width: 2px; height: 90px; margin: 0 20px; background-color: var(--color-primary); }
+#card-info .text { font-size: 14px; }
+#card-info .names { margin: 24px 0 16px; }
+#card-info .names .name { font-size: 40px; line-height: 1.3; letter-spacing: 1px; }
+#card-info .names .and { font-size: 59px; line-height: 45px; letter-spacing: 1px; margin-top: -8px; }
+#card-info .event-title {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 7px 28px;
+  border-radius: 24px;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#card-info .date-and-time { margin: 6px 0 4px; }
+#card-info .date-and-time .date-and-time-inner { display: inline-block; padding: 8px 0; }
+#card-info .date-and-time .time { font-size: 26px; line-height: 1.3; text-transform: uppercase; }
+#card-info .date-and-time .date { font-size: 32px; line-height: 1.3; letter-spacing: 1px; }
+#card-info .date-and-time .lunar-date { font-size: 14px; font-style: italic; }
+#card-info .hotel { margin-top: 10px; font-size: 16px; text-transform: uppercase; }
+#card-info .address { font-size: 15px; font-style: italic; }
+#card-info .horizontal-divider { margin: 28px 24px; border-top: 2px dashed var(--color-primary); opacity: .5; }
+#card-info .btn-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 17px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+/* ---------- 9. Chuyện tình yêu ---------- */
+#card-love-story {
+  position: relative;
+  overflow: hidden;
+  background-image: url("assets/bg-0.webp");
+  background-repeat: repeat-y;
+  background-position: center center;
+  background-size: contain;
+}
+#card-love-story .card-love-story-inner { position: relative; z-index: 1; }
+#card-love-story h2 {
+  margin-bottom: 50px;
+  font-size: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+#card-love-story h2 .font1 { font-size: 60px; text-transform: none; }
+#card-love-story .groom-bride { color: var(--text-color-primary); }
+#card-love-story .groom-bride .groom,
+#card-love-story .groom-bride .bride { display: flex; }
+#card-love-story .groom-bride .groom .img,
+#card-love-story .groom-bride .groom .info,
+#card-love-story .groom-bride .bride .img,
+#card-love-story .groom-bride .bride .info { width: 50%; }
+#card-love-story .groom-bride .groom .info > div { top: 40px; left: 45%; transform: translateX(-50%); width: 100%; }
+#card-love-story .groom-bride .bride .info > div { top: 16px; left: 52%; transform: translateX(-50%); width: 100%; }
+#card-love-story .groom-bride .groom .img .img-inner { width: calc(100% + 24px); transform: rotate(-10deg) translateX(-10px); }
+#card-love-story .groom-bride .info { position: relative; }
+#card-love-story .groom-bride .info > div { position: absolute; text-align: center; }
+#card-love-story .groom-bride .info > div .label { font-size: 40px; line-height: 1; font-weight: 500; }
+#card-love-story .groom-bride .info > div .name { font-size: 24px; }
+#card-love-story .groom-bride .img { position: relative; flex: 1; z-index: 1; text-align: center; }
+#card-love-story .groom-bride .img .img-inner {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: rgb(182, 182, 182) 1px 3px 1px 0;
+  transform: rotate(-15deg);
+}
+#card-love-story .groom-bride .img .img-inner img { display: block; width: 100%; }
+#card-love-story .groom-bride .img:last-child { transform: rotate(20deg) translate(-15%, -15%); z-index: 0; }
+
+#card-love-story .story-note {
+  position: relative;
+  margin-top: 46px;
+  padding: 0 26px;
+  color: var(--text-color-primary);
+  text-align: justify;
+  font-size: 15px;
+  line-height: 1.85;
+}
+#card-love-story .story-note .quote-mark {
+  display: block;
+  width: 26px;
+  height: 26px;
+  margin: 0 auto 14px;
+  color: var(--color-primary);
+  opacity: .55;
+}
+
+/* ---------- 10. Album ---------- */
+#card-gallery {
+  position: relative;
+  padding: 0;
+  color: #fff;
+  background-color: #faf8f5;
+  background-image: url("assets/bg-0.webp");
+  background-repeat: repeat-y;
+  background-position: center center;
+  background-size: contain;
+}
+#card-gallery-film-frame { position: relative; }
+#card-gallery-film-frame > img { position: absolute; z-index: 0; left: 0; top: 0; width: 100%; }
+#card-gallery-film-frame .fill-frame-inner { aspect-ratio: 575 / 153; width: 100%; }
+#card-gallery-film-frame .fill-frame-inner > div {
+  height: 100%;
+  padding: 4% 0;
+  margin-left: -18.5%;
+  display: flex;
+  align-items: center;
+  gap: 1.5px;
+}
+#card-gallery-film-frame .fill-frame-inner .img {
+  aspect-ratio: 314 / 216;
+  height: 100%;
+  flex-shrink: 0;
+  background-size: cover;
+  background-position: center center;
+}
+#card-gallery .card-gallery-header { padding: 20px; color: var(--text-color-primary); }
+#card-gallery .card-gallery-header .groom { display: flex; }
+#card-gallery .card-gallery-header .groom .info { width: 50%; }
+#card-gallery .card-gallery-header .groom .info > div { top: 20px; left: -5px; }
+#card-gallery .card-gallery-header .groom .info > div .name { margin-top: -16px; padding-left: 24px; }
+#card-gallery .card-gallery-header .groom .info > div .font1 { font-size: 70px; }
+#card-gallery .card-gallery-header .groom .img { width: 50%; }
+#card-gallery .card-gallery-header .groom .img .img-inner { width: calc(100% + 60px); transform: rotate(-5deg) translateX(-10px); }
+#card-gallery .card-gallery-header .bride { display: flex; margin-top: -80px; }
+#card-gallery .card-gallery-header .bride .info { width: 45%; }
+#card-gallery .card-gallery-header .bride .info > div { bottom: 20%; left: 15%; }
+#card-gallery .card-gallery-header .bride .img { width: 55%; padding-left: 15px; }
+#card-gallery .card-gallery-header .info { position: relative; }
+#card-gallery .card-gallery-header .info > div { position: absolute; }
+#card-gallery .card-gallery-header .info > div .label { font-size: 40px; line-height: 1; font-weight: 500; }
+#card-gallery .card-gallery-header .info > div .name { font-size: 24px; text-transform: uppercase; }
+#card-gallery .card-gallery-header .img { position: relative; flex: 1; z-index: 1; text-align: center; }
+#card-gallery .card-gallery-header .img .img-inner {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: rgb(182, 182, 182) 1px 3px 1px 0;
+  transform: rotate(-8deg);
+}
+#card-gallery .card-gallery-header .img .img-inner img { display: block; width: 100%; }
+#card-gallery .card-gallery-header .img:last-child { transform: rotate(20deg) translate(-15%, -15%); z-index: 0; }
+#card-gallery .card-gallery-header-background {
+  height: 300px;
+  margin-top: -180px;
+  background-image: url("assets/bg-5.webp");
+  background-size: 100%;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+}
+
+.photo-grid { column-count: 2; column-gap: 5px; padding: 0 5px 5px; }
+.photo-grid .photo { display: block; width: 100%; margin-bottom: 5px; break-inside: avoid; cursor: zoom-in; }
+.photo-grid .photo img { display: block; width: 100%; }
+
+/* ---------- 11. Lịch ---------- */
+#card-calendar {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border-bottom: 2px solid var(--color-primary);
+  background-image: url("assets/bg-7.webp");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
+#card-calendar::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 0;
+  top: -20px;
+  left: -20px;
+  width: 100%;
+  height: 420px;
+  background-image: url("assets/bg-1.webp");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: cover;
+}
+#card-calendar > .inner { position: relative; z-index: 1; padding: 36px 16px; }
+#card-calendar .calendar-header { margin-bottom: 30px; }
+#card-calendar .calendar-header .year {
+  font-size: 95px;
+  line-height: 1;
+  margin-bottom: -45px;
+  color: var(--color-primary);
+}
+#card-calendar .calendar-header .month {
+  font-family: "High Spirited", cursive;
+  font-size: 81px;
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+.mini-calendar { position: relative; max-width: 420px; margin: auto; }
+.mini-calendar table {
+  width: 100%;
+  border-collapse: collapse;
+  border-bottom: 1px solid transparent;
+  color: var(--text-color-primary);
+}
+.mini-calendar th {
+  padding: 8px 0;
+  font-size: .9em;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--text-color-primary);
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+.mini-calendar td { padding: 0; height: 35px; text-align: center; color: var(--text-color-primary); }
+.mini-calendar .today { position: relative; display: inline-block; width: 30px; height: 30px; }
+.mini-calendar .today .heart {
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  z-index: 0;
+  font-size: 36px;
+  line-height: 1;
+  color: var(--color-primary);
+  animation: heartPulse 1.2s ease-in-out infinite;
+}
+.mini-calendar .today .heart svg { width: 36px; height: 36px; display: block; }
+.mini-calendar .today .day { position: relative; display: block; font-weight: 700; line-height: 30px; }
+.mini-calendar .today.main .day { color: #fff; }
+.mini-calendar .today.extra .heart { opacity: .45; }
+.mini-calendar .today.extra .day { color: var(--color-primary); }
+
+/* ---------- 12. Timeline ---------- */
+#card-timeline {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  padding: 55px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#card-timeline::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(1, 1, 1, .4);
+}
+#card-timeline .timeline-inner { position: relative; text-align: center; color: #fff; }
+#card-timeline .timeline-title {
+  margin-bottom: 24px;
+  font-size: 40px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+#card-timeline .timeline-items { position: relative; display: flex; justify-content: center; }
+#card-timeline .timeline-items::before {
+  content: "";
+  position: absolute;
+  top: 46px;
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+}
+#card-timeline .timeline-item { position: relative; flex: 1; min-width: 85px; text-align: center; }
+#card-timeline .timeline-item-icon { position: relative; display: inline-block; height: 36px; margin-bottom: 16px; }
+#card-timeline .timeline-item-icon img { max-height: 100%; }
+#card-timeline .timeline-item-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -16px;
+  width: 9px;
+  height: 9px;
+  border-radius: 5px;
+  background-color: #fff;
+  transform: translateX(-50%);
+}
+#card-timeline .timeline-item-content { margin-top: 12px; }
+#card-timeline .timeline-item-content .time { margin-bottom: 4px; font-size: 17px; line-height: 1.1; }
+#card-timeline .timeline-item-content .title { font-size: 10px; line-height: 1.4; text-transform: uppercase; }
+
+/* ---------- 13. Mừng cưới ---------- */
+#card-gift {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid var(--color-primary);
+  background-image: url("assets/bg-7.webp");
+  background-position: center center;
+  background-size: contain;
+}
+#card-gift .inner { position: relative; z-index: 1; padding: 0 20px; }
+#card-gift .present-box { text-align: center; }
+#card-gift .present-box-inner {
+  display: inline-block;
+  margin: auto;
+  padding: 16px;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+#card-gift .present-box-inner img { width: 200px; display: block; }
+
+/* ---------- 14. Sổ lưu bút ---------- */
+#card-comments {
+  position: relative;
+  overflow: hidden;
+  background-image: url("assets/bg-0.webp");
+  background-repeat: repeat-y;
+  background-position: center center;
+  background-size: contain;
+}
+#card-comments::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 100%;
+  height: 420px;
+  background-image: url("assets/bg-6.webp");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: cover;
+}
+#card-comments .inner { position: relative; z-index: 1; padding: 0 20px; }
+#card-comments .thankyou {
+  margin: 32px 0 100px;
+  font-size: 65px;
+  text-align: center;
+  color: var(--color-primary);
+}
+
+.card-section-title {
+  margin-bottom: 0;
+  font-size: 60px;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--color-primary);
+}
+.card-section-subtitle {
+  margin-bottom: 24px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--text-color-primary);
+}
+
+/* Form */
+.comment-form { padding: 16px; background-color: rgba(var(--color-primary-raw), .2); }
+.comment-form .form-group { margin-bottom: 16px; }
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid rgba(var(--color-primary-raw), .45);
+  border-radius: 6px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-control:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(var(--color-primary-raw), .18); }
+textarea.form-control { min-height: 96px; resize: vertical; }
+
+.rsvp-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 4px;
+  cursor: pointer;
+  user-select: none;
+}
+.rsvp-check input[type="checkbox"] { display: none; }
+.rsvp-check-box {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-primary);
+  border-radius: 6px;
+  color: #fff;
+  transition: background-color .2s ease;
+}
+.rsvp-check-box svg { opacity: 0; width: 16px; height: 16px; }
+.rsvp-check input:checked + .rsvp-check-box { background-color: var(--color-primary); }
+.rsvp-check input:checked + .rsvp-check-box svg { opacity: 1; }
+.rsvp-check-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  color: var(--color-primary);
+}
+
+.group-btns { margin-top: 18px; text-align: center; }
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 18px;
+  font-family: inherit;
+  font-size: clamp(12px, 3.3vw, 14px);
+  font-weight: 500;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: filter .2s, opacity .2s;
+}
+.btn-submit:hover { filter: brightness(1.08); }
+.btn-submit:disabled { opacity: .75; cursor: default; }
+
+.form-msg { margin-top: 12px; min-height: 20px; font-size: 14px; text-align: center; color: var(--color-primary); }
+
+.comment-list { margin-top: 20px; padding: 16px 16px 0; border: 1px solid #d8d8d8; background: rgba(255, 255, 255, .55); }
+.comment-list .private-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-bottom: 16px;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--color-primary);
+  opacity: .9;
+}
+
+/* ---------- 15. Nút nổi ---------- */
+#audioToggleBtn, #giftToggleBtn {
+  position: fixed;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .3);
+  z-index: 90;
+}
+#audioToggleBtn { bottom: 20px; background-color: rgba(0, 0, 0, .5); opacity: .45; transition: opacity .3s; }
+#audioToggleBtn:hover { opacity: 1; }
+#audioToggleBtn svg { width: 24px; height: 24px; }
+#audioToggleBtn::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  top: 7px;
+  width: 0;
+  height: 36px;
+  border-left: 3px solid #fff;
+  transform: rotate(45deg);
+}
+#audioToggleBtn.playing { animation: spin 5s linear infinite; opacity: .85; }
+#audioToggleBtn.playing::after { content: none; }
+#giftToggleBtn { bottom: 85px; background-color: #ff4767; }
+#giftToggleBtn svg { width: 24px; height: 24px; }
+
+/* ---------- 16. Modal QR ---------- */
+.tx-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, .55);
+}
+.tx-modal.open { display: flex; animation: fadeInSoft .25s ease-out both; }
+.tx-modal-content {
+  width: 100%;
+  max-width: 420px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 10px;
+}
+.tx-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.tx-modal-header h3 { font-size: 19px; color: var(--color-primary, #928362); }
+.tx-modal-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  line-height: 1;
+  color: #666;
+  cursor: pointer;
+}
+.tx-modal-body { padding: 18px; text-align: center; }
+.qr-code-wrapper + .qr-code-wrapper { margin-top: 24px; }
+.qr-code-header {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  background-color: #f1f1f1;
+  font-weight: 500;
+  font-size: 17px;
+  color: #333;
+}
+.qr-code-img { padding: 5px; background: #f1f1f1; }
+.qr-code-img img { display: block; width: 100%; max-width: 300px; margin: auto; }
+.qr-code-note { margin-top: 6px; font-size: 14px; color: #666; }
+
+/* Xem ảnh phóng to */
+.tx-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 140;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .9);
+  cursor: zoom-out;
+}
+.tx-lightbox.open { display: flex; animation: fadeInSoft .2s ease-out both; }
+.tx-lightbox img { max-width: 94vw; max-height: 92vh; }
+
+/* ---------- 17. Footer ---------- */
+#app-footer > div {
+  max-width: 480px;
+  margin: auto;
+  height: 44px;
+  line-height: 44px;
+  background: #fff;
+  color: #b3ab98;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+#app-footer a { text-decoration: underline; }
+#app-footer b { font-weight: 600; }
+
+/* ---------- 18. Responsive ---------- */
+@media screen and (max-width: 480px) {
+  #card-love-story .groom-bride .info > div .name { font-size: 22px; }
+  #card-love-story .groom-bride .img:last-child { transform: rotate(20deg) translate(-10%, -15%); }
+  #card-info .names .name { font-size: 34px; }
+  .card-section-title { font-size: 52px; }
+}
+@media screen and (min-width: 400px) {
+  #card-banner .wedding-text { font-size: 75px; }
+}
+@media screen and (min-width: 500px) {
+  #card-timeline .timeline-item { min-width: 120px; }
+}
+@media screen and (min-width: 600px) {
+  #card-info::after { bottom: -120px; height: 300px; }
+  #card-love-story .groom-bride .bride .info > div { top: 16px; transform: scale(1.15) translateX(-50%); }
+  #card-love-story .groom-bride .groom .info > div { top: 80px; transform: scale(1.15) translateX(-50%); }
+  #envelop-photo .pt2 { border: 12px solid #fff; }
+}
