@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 93 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 94 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3544,6 +3544,41 @@ const PRODUCTS = [
         priority: 0,
         downloads: 2,
         rating: 4.8,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-09-09',
+    },
+    {
+        id: 281,
+        name: 'Thiệp Cưới Tứ Quân Tử — Tranh Mực Thực Vật',
+        slug: 'thiep-cuoi-tu-quan-tu-tranh-muc-thuc-vat',
+        description: 'Thiệp cưới Nhật tối giản — bộ tranh mực mai, lan, cúc, trúc, sen, diên vĩ điểm màu ô-liu trên giấy washi trắng, kèm dải thiệp bốn mùa vuốt ngang.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'minimalist',
+        event: 'wedding',
+        tags: ['wedding', 'nhat-ban', 'sumi-e', 'tranh-muc', 'tu-quan-tu', 'washi', 'toi-gian', 'rsvp', 'countdown', 'love-story'],
+        price: 'free',
+        images: [
+            './products/Invitation/Wedding/gen_281_sumi-botanical/shots/open.webp',
+            './products/Invitation/Wedding/gen_281_sumi-botanical/shots/sec-1.webp',
+            './products/Invitation/Wedding/gen_281_sumi-botanical/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_281_sumi-botanical/shots/open.webp',
+        mobileView: './products/Invitation/Wedding/gen_281_sumi-botanical/shots/open.webp',
+        path: './products/Invitation/Wedding/gen_281_sumi-botanical/',
+        demoUrl: './products/Invitation/Wedding/gen_281_sumi-botanical/index.html',
+        variants: [],
+        features: [
+            'Phong bì: khóm lan mực tàu hiện dần từ dưới lên như nét bút kéo, dấu son đóng xuống',
+            'Bộ thiệp bốn mùa 8 tấm vuốt ngang — mai, lan, diên vĩ, sen, cúc, phong, trà, trúc',
+            'Mỗi mục một hoạ tiết thực vật riêng làm nền; lá phong rơi thưa, RSVP 1 nút',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 2,
+        rating: 4.9,
         showInSlider: false,
         isPublic: true,
         updatedAt: '2026-09-09',

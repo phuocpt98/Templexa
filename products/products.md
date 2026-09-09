@@ -26,13 +26,13 @@ products/
 | Loai chinh | Loai nho | Tong | Public |
 |------------|----------|------|--------|
 | **Invitation** | other | 54 | 46 |
-| **Invitation** | wedding | 93 | 60 |
+| **Invitation** | wedding | 94 | 61 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **267** | **226** |
+| | **Tong** | **268** | **227** |
 
 _Cap nhat tu data.js: 2026-09-09 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -209,7 +209,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 267 | Thiệp Sinh Nhật Bé — Bear Party Pastel | `Invitation/Other/gen_267_sinh-nhat-be-bear-party` | birthday | public |
 | 268 | Thiệp Thôi Nôi Bé — Bunny & Cloud Pastel | `Invitation/Other/gen_268_thoi-noi-be-bunny-cloud` | thoi-noi | public |
 
-### Invitation / wedding (93)
+### Invitation / wedding (94)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -306,6 +306,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 278 | Thiệp Cưới Mực Loang Sumi-e — Giấy Washi | `Invitation/Wedding/gen_278_sumi-ink-mono` | minimalist / wedding | public |
 | 279 | Thiệp Cưới Mizuhiki — Nút Kết Duyên Đỏ Kim | `Invitation/Wedding/gen_279_mizuhiki-knot` | traditional / wedding | public |
 | 280 | Thiệp Cưới Anh Đào — Sóng Seigaiha | `Invitation/Wedding/gen_280_sakura-seigaiha` | floral / wedding | public |
+| 281 | Thiệp Cưới Tứ Quân Tử — Tranh Mực Thực Vật | `Invitation/Wedding/gen_281_sumi-botanical` | minimalist / wedding | public |
 
 ### Web / e-commerce (33)
 
