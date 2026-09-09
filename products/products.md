@@ -26,15 +26,15 @@ products/
 | Loai chinh | Loai nho | Tong | Public |
 |------------|----------|------|--------|
 | **Invitation** | other | 54 | 46 |
-| **Invitation** | wedding | 90 | 57 |
+| **Invitation** | wedding | 93 | 60 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **264** | **223** |
+| | **Tong** | **267** | **226** |
 
-_Cap nhat tu data.js: 2026-09-08 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-09-09 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 
@@ -209,7 +209,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 267 | Thiệp Sinh Nhật Bé — Bear Party Pastel | `Invitation/Other/gen_267_sinh-nhat-be-bear-party` | birthday | public |
 | 268 | Thiệp Thôi Nôi Bé — Bunny & Cloud Pastel | `Invitation/Other/gen_268_thoi-noi-be-bunny-cloud` | thoi-noi | public |
 
-### Invitation / wedding (90)
+### Invitation / wedding (93)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -303,6 +303,9 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 275 | Thiệp Đính Hôn Cổng Hoa Kiểu Pháp — Xanh Rêu | `Invitation/Wedding/van-tri-ngoc-linh` | luxury / an-hoi | public |
 | 276 | Thiệp Cưới Vintage Khung Phim Trắng Ngà | `Invitation/Wedding/khach_tra-giang-quoc-truong` | vintage / wedding | hidden |
 | 277 | Thiệp Cưới Navy Ngọc Trai — Ba Nghi Lễ | `Invitation/Wedding/khach_hien-thuc-tien-dat` | luxury / wedding | hidden |
+| 278 | Thiệp Cưới Mực Loang Sumi-e — Giấy Washi | `Invitation/Wedding/gen_278_sumi-ink-mono` | minimalist / wedding | public |
+| 279 | Thiệp Cưới Mizuhiki — Nút Kết Duyên Đỏ Kim | `Invitation/Wedding/gen_279_mizuhiki-knot` | traditional / wedding | public |
+| 280 | Thiệp Cưới Anh Đào — Sóng Seigaiha | `Invitation/Wedding/gen_280_sakura-seigaiha` | floral / wedding | public |
 
 ### Web / e-commerce (33)
 
