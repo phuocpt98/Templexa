@@ -194,6 +194,12 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự Lễ Vu Quy & Tiệc Cưới — 19.09.2026 tại Nhà hàng tiệc cưới Bá Hùng, TP. Hồ Chí Minh',
         image: '../../products/Invitation/Wedding/khach_tra-giang-quoc-truong/og-cover.jpg',
     },
+    'anh-quang-tra-my': {
+        src: '../../products/Invitation/Wedding/khach_anh-quang-tra-my/index.html',
+        title: 'Anh Quang & Trà My — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự Lễ Thành Hôn — 17.10.2026 tại Trung Tâm Tiệc Cưới Long Vĩ, Kim Liên, Hà Nội',
+        image: '../../products/Invitation/Wedding/khach_anh-quang-tra-my/hero.webp',
+    },
     'hien-thuc-tien-dat': {
         src: '../../products/Invitation/Wedding/khach_hien-thuc-tien-dat/index.html',
         title: 'Hiền Thục & Tiến Đạt — Thiệp Mời Cưới',
