@@ -4034,7 +4034,7 @@ function(t,e){"object"==typeof module&&module.exports?module.exports=e(t,require
         </div>
 
 
-    <audio id="bgAudio" src="../../../shared/music/wedding/Anh La Cua Em - Karik.mp3" hidden=""></audio>
+    <audio id="bgAudio" src="music.mp3" hidden=""></audio>
     <button id="audioToggleBtn"></button>
 
         <button id="giftToggleBtn" data-bs-toggle="modal" data-bs-target="#weddingGiftModal" title="Quà cưới">
@@ -4080,11 +4080,9 @@ function(t,e){"object"==typeof module&&module.exports?module.exports=e(t,require
   var audioBtn = document.getElementById('audioToggleBtn');
   if(audio && audioBtn){
     audio.volume = 0.3;
-    audio.currentTime = 58;
     var playing = false;
-    var firstPlay = true;
     audio.addEventListener('ended', function(){
-      if(firstPlay){ firstPlay = false; audio.currentTime = 0; }
+      audio.currentTime = 0;
       audio.play().catch(function(){});
     });
     audioBtn.addEventListener('click', function(){
