@@ -105,6 +105,7 @@
     };
 
     var currentLang = 'vi';
+    var isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
     var qrCode = null;
     var currentType = 'url';
     var logoDataUrl = null;
@@ -135,6 +136,10 @@
         bindFrame();
         bindLang();
         applyLang(currentLang);
+        if (isAdmin) {
+            var wm = document.querySelector('.qt-watermark-top');
+            if (wm) wm.hidden = true;
+        }
     }
 
     function getData() {
@@ -398,7 +403,7 @@
                 var qrImg = new Image();
                 qrImg.onload = function () {
                     var pad = 40;
-                    var wmH = 32;
+                    var wmH = isAdmin ? 0 : 32;
                     var ctH = customText ? (textSize + 16) : 0;
                     var cw = qrImg.width + pad * 2;
                     var ch = wmH + qrImg.height + pad + ctH + (customText ? 8 : 0);
@@ -418,12 +423,14 @@
                             ctx.fillRect(0, 0, cw, ch);
                         }
 
-                        ctx.fillStyle = fgColor;
-                        ctx.globalAlpha = 0.4;
-                        ctx.font = '600 20px Inter, system-ui, sans-serif';
-                        ctx.textAlign = 'center';
-                        ctx.fillText('templexa.vn', cw / 2, wmH - 8);
-                        ctx.globalAlpha = 1;
+                        if (!isAdmin) {
+                            ctx.fillStyle = fgColor;
+                            ctx.globalAlpha = 0.4;
+                            ctx.font = '600 20px Inter, system-ui, sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.fillText('templexa.vn', cw / 2, wmH - 8);
+                            ctx.globalAlpha = 1;
+                        }
 
                         ctx.drawImage(qrImg, pad, wmH);
 

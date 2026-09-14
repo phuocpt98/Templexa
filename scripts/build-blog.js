@@ -301,7 +301,6 @@ function headerHtml(rel, active) {
                     <li><a href="${rel}"${a('home')}>Trang chủ</a></li>
                     <li><a href="${rel}thiep-online.html"${a('thiep')}>Mẫu thiệp</a></li>
                     <li><a href="${rel}xem-ngay-cuoi-dep.html"${a('xem-ngay')}>Ngày cưới</a></li>
-                    <li><a href="${rel}tao-ma-qr.html"${a('tao-qr')}>Tạo QR</a></li>
                     <li><a href="${rel}blogs/index.html"${a('blogs')}>Blogs</a></li>
                     <li><a href="${rel}products.html"${a('products')}>Mẫu web</a></li>
                     <li><a href="${rel}contact.html"${a('contact')}>Dịch vụ</a></li>
@@ -377,7 +376,6 @@ function footerHtml(rel) {
                     <ul>
                         <li><a href="${rel}contact.html#pricing-section">Bảng giá thiệp</a></li>
                         <li><a href="${rel}xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a></li>
-                        <li><a href="${rel}tao-ma-qr.html">Tạo mã QR miễn phí</a></li>
                         <li><a href="${rel}blogs/index.html">Blogs</a></li>
                         <li><a href="${rel}cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
                         <li><a href="${rel}contact.html#contactForm">Yêu cầu báo giá</a></li>
