@@ -12,6 +12,7 @@
             typeEmail: 'Email',
             typeVcard: 'Danh thiếp',
             typeDigitalCard: 'Digital Card',
+            typeBank: 'Chuyển khoản',
             urlPlaceholder: 'https://example.com',
             urlLabel: 'Link website',
             textLabel: 'Lời nhắn',
@@ -25,6 +26,14 @@
             emailTo: 'Địa chỉ email',
             emailSubject: 'Tiêu đề',
             emailBody: 'Nội dung',
+            bankName: 'Ngân hàng',
+            bankAccount: 'Số tài khoản',
+            bankAmount: 'Số tiền (VNĐ)',
+            bankAmountPlaceholder: 'VD: 45000',
+            bankContent: 'Nội dung chuyển khoản',
+            bankContentPlaceholder: 'VD: Chuyen khoan tien bun',
+            bankAccountName: 'Chủ tài khoản',
+            bankAccountNamePlaceholder: 'VD: NGUYEN VAN A',
             vcardName: 'Họ và tên',
             vcardPhone: 'Số điện thoại',
             vcardEmail: 'Email',
@@ -74,10 +83,19 @@
             typeEmail: 'Email',
             typeVcard: 'vCard',
             typeDigitalCard: 'Digital Card',
+            typeBank: 'Bank Transfer',
             urlPlaceholder: 'https://example.com',
             urlLabel: 'Website URL',
             textLabel: 'Message',
             textPlaceholder: 'Type your message...',
+            bankName: 'Bank',
+            bankAccount: 'Account number',
+            bankAmount: 'Amount (VND)',
+            bankAmountPlaceholder: 'E.g.: 45000',
+            bankContent: 'Transfer note',
+            bankContentPlaceholder: 'E.g.: Payment for lunch',
+            bankAccountName: 'Account holder',
+            bankAccountNamePlaceholder: 'E.g.: NGUYEN VAN A',
             wifiSsid: 'Network name (SSID)',
             wifiPass: 'Password',
             wifiEnc: 'Encryption',
@@ -247,10 +265,85 @@
                 if (tt) lines.push('URL;type=TikTok:https://www.tiktok.com/@' + tt.replace(/^@/, ''));
                 lines.push('END:VCARD');
                 return lines.join('\n');
+            case 'bank':
+                var bankSel = document.getElementById('qtBankName');
+                var bin = bankSel ? bankSel.value : '970436';
+                var acct = val('qtBankAccount') || '0000000000';
+                var amt = val('qtBankAmount').replace(/\D/g, '');
+                var desc = val('qtBankContent');
+                return buildVietQR(bin, acct, amt, desc);
             default:
                 return 'https://templexa.vn';
         }
     }
+
+    // VietQR (EMVCo) helpers
+    function tlv(tag, value) {
+        var v = String(value);
+        return tag + String(v.length).padStart(2, '0') + v;
+    }
+    function crc16(str) {
+        var crc = 0xFFFF;
+        for (var i = 0; i < str.length; i++) {
+            crc ^= str.charCodeAt(i) << 8;
+            for (var j = 0; j < 8; j++) {
+                crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);
+                crc &= 0xFFFF;
+            }
+        }
+        return crc.toString(16).toUpperCase().padStart(4, '0');
+    }
+    function buildVietQR(bin, account, amount, content) {
+        var qrConsumer = tlv('00', 'A000000727') + tlv('01', bin) + tlv('02', account);
+        var s = tlv('00', '01') + tlv('01', '12') + tlv('38', qrConsumer)
+              + tlv('52', '0000') + tlv('53', '704') + tlv('58', 'VN');
+        if (amount) s += tlv('54', amount);
+        if (content) s += tlv('62', tlv('08', content));
+        s += '6304';
+        s += crc16(s);
+        return s;
+    }
+
+    var BANKS = [
+        { bin: '970436', name: 'Vietcombank (VCB)' },
+        { bin: '970415', name: 'VietinBank (CTG)' },
+        { bin: '970418', name: 'BIDV' },
+        { bin: '970405', name: 'Agribank' },
+        { bin: '970407', name: 'Techcombank (TCB)' },
+        { bin: '970416', name: 'ACB' },
+        { bin: '970423', name: 'TPBank' },
+        { bin: '970448', name: 'OCB' },
+        { bin: '970422', name: 'MB Bank' },
+        { bin: '970432', name: 'VPBank' },
+        { bin: '970403', name: 'Sacombank (STB)' },
+        { bin: '970412', name: 'HDBank' },
+        { bin: '970437', name: 'SHB' },
+        { bin: '970441', name: 'VIB' },
+        { bin: '970443', name: 'MSB' },
+        { bin: '970426', name: 'SeABank' },
+        { bin: '970414', name: 'Ví MoMo' },
+        { bin: '970454', name: 'Việt Capital Bank (Bản Việt)' },
+        { bin: '970449', name: 'LPBank (LienVietPostBank)' },
+        { bin: '970431', name: 'Eximbank (EIB)' },
+        { bin: '970406', name: 'DongA Bank' },
+        { bin: '970427', name: 'Việt Á Bank (VAB)' },
+        { bin: '970429', name: 'SCB' },
+        { bin: '970424', name: 'Shinhan Bank VN' },
+        { bin: '970400', name: 'Saigonbank (SGB)' },
+        { bin: '970452', name: 'KienlongBank' },
+        { bin: '970425', name: 'ABBank' },
+        { bin: '970433', name: 'VietBank' },
+        { bin: '970440', name: 'NCB' },
+        { bin: '970428', name: 'NamABank' },
+        { bin: '970438', name: 'BaoViet Bank' },
+        { bin: '970446', name: 'CIMB Bank VN' },
+        { bin: '970439', name: 'Public Bank VN' },
+        { bin: '970458', name: 'UOB VN' },
+        { bin: '970409', name: 'BacABank' },
+        { bin: '970434', name: 'Indovina Bank (IVB)' },
+        { bin: '422589', name: 'CAKE by VPBank' },
+        { bin: '546034', name: 'Ubank by VPBank' },
+    ];
 
     function escWifi(s) {
         return (s || '').replace(/[\\;,:""]/g, function (c) { return '\\' + c; });
@@ -321,6 +414,15 @@
     }
 
     function bindContent() {
+        var bankSel = document.getElementById('qtBankName');
+        if (bankSel && bankSel.options.length === 0) {
+            BANKS.forEach(function (b) {
+                var opt = document.createElement('option');
+                opt.value = b.bin;
+                opt.textContent = b.name;
+                bankSel.appendChild(opt);
+            });
+        }
         document.querySelectorAll('.qt-content input, .qt-content textarea, .qt-content select').forEach(function (el) {
             el.addEventListener('input', debouncedUpdate);
         });

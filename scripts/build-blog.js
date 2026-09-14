@@ -84,8 +84,9 @@ for (const f of files) {
 posts.sort((a, b) => b.date.localeCompare(a.date));
 
 // ---------- 2. chuẩn hoá từng bài ----------
+const coverRel = c => c.startsWith('blogs/') ? c.slice(6) : `../${c}`;
 const cardHtml = (p, rel = '') => `<article class="bl-card" data-cat="${p.category}">
-    <a class="bl-card-img" href="${rel}${p.slug}.html" aria-hidden="true" tabindex="-1"><img src="${rel}${p.cover.replace(/^blogs\//, '')}" alt="" width="768" height="480" loading="lazy" decoding="async"></a>
+    <a class="bl-card-img" href="${rel}${p.slug}.html" aria-hidden="true" tabindex="-1"><img src="${rel}${coverRel(p.cover)}" alt="" width="768" height="480" loading="lazy" decoding="async"></a>
     <div class="bl-card-body">
         <span class="bl-cat">${esc(p.categoryLabel)}</span>
         <h3><a href="${rel}${p.slug}.html">${esc(p.title)}</a></h3>
@@ -152,6 +153,10 @@ const indexHtml = `<!DOCTYPE html>
     <meta name="author" content="Templexa Studio">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <meta name="theme-color" content="#6366F1">
+    <link rel="icon" href="../favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
     <link rel="canonical" href="${SITE}/blogs/">
 
     <meta property="og:type" content="website">
@@ -213,7 +218,7 @@ ${headerHtml('../', 'blogs')}
     <section class="bl-list">
         <div class="container container-section">
 ${featured ? `            <article class="bl-featured" data-cat="${featured.category}" id="blFeatured">
-                <a class="bl-featured-img" href="${featured.slug}.html" aria-hidden="true" tabindex="-1"><img src="${featured.cover.replace(/^blogs\//, '')}" alt="" width="1152" height="720" loading="eager" fetchpriority="high"></a>
+                <a class="bl-featured-img" href="${featured.slug}.html" aria-hidden="true" tabindex="-1"><img src="${coverRel(featured.cover)}" alt="" width="1152" height="720" loading="eager" fetchpriority="high"></a>
                 <div class="bl-featured-body">
                     <span class="bl-cat">${esc(featured.categoryLabel)}</span>
                     <h2><a href="${featured.slug}.html">${esc(featured.title)}</a></h2>
