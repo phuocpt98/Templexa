@@ -736,14 +736,18 @@
             return base;
         }
 
+        var previewTimer;
         function updatePreview() {
-            previewFrame.src = buildUrl(false);
+            clearTimeout(previewTimer);
+            previewTimer = setTimeout(function () {
+                previewFrame.src = buildUrl(false);
+            }, 2000);
         }
 
         var qrTimer;
         function debouncedQR() {
             clearTimeout(qrTimer);
-            qrTimer = setTimeout(updateQR, 300);
+            qrTimer = setTimeout(updateQR, 2000);
         }
 
         function updateQR() {

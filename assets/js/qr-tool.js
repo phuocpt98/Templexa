@@ -11,6 +11,7 @@
             typePhone: 'Điện thoại',
             typeEmail: 'Email',
             typeVcard: 'Danh thiếp',
+            typeDigitalCard: 'Digital Card',
             urlPlaceholder: 'https://example.com',
             urlLabel: 'Link website',
             textLabel: 'Lời nhắn',
@@ -72,6 +73,7 @@
             typePhone: 'Phone',
             typeEmail: 'Email',
             typeVcard: 'vCard',
+            typeDigitalCard: 'Digital Card',
             urlPlaceholder: 'https://example.com',
             urlLabel: 'Website URL',
             textLabel: 'Message',
@@ -174,6 +176,10 @@
     function switchToType(type) {
         if (type === 'text') {
             window.location.href = 'tao-loi-nhan.html';
+            return;
+        }
+        if (type === 'digital-card') {
+            window.location.href = 'tao-digital-card.html';
             return;
         }
         currentType = type;
