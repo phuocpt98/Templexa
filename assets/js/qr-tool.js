@@ -423,8 +423,11 @@
                 bankSel.appendChild(opt);
             });
         }
-        document.querySelectorAll('.qt-content input, .qt-content textarea, .qt-content select').forEach(function (el) {
+        document.querySelectorAll('.qt-content input, .qt-content textarea').forEach(function (el) {
             el.addEventListener('input', debouncedUpdate);
+        });
+        document.querySelectorAll('.qt-content select').forEach(function (el) {
+            el.addEventListener('change', debouncedUpdate);
         });
     }
 
