@@ -293,10 +293,11 @@ function homeLinks() {
 ${list.map((l) => `                    <li><a href="${href(l)}">${l.navLabel} <span>${COUNT[l.slug]} mẫu</span></a></li>`).join('\n')}
                 </ul>
             </div>`;
-    return '\n' + [
+    const groups = [
         group('Thiệp cưới online', LANDINGS.filter((l) => l.category === 'wedding')),
         group('Thiệp mời dịp khác', LANDINGS.filter((l) => l.category === 'other')),
-    ].join('\n') + '\n            ';
+    ].join('\n');
+    return '\n            <div class="home-collections-wrap">\n' + groups + '\n            </div>\n            ';
 }
 
 const IDX = path.join(ROOT, 'index.html');

@@ -178,7 +178,8 @@
                 <ul class="nav-menu">
                     <li><a href="index.html" class="active">Trang chủ</a></li>
                     <li><a href="thiep-online.html">Mẫu thiệp</a></li>
-                    <li><a href="xem-ngay-cuoi-dep.html">Xem ngày cưới</a></li>
+                    <li><a href="xem-ngay-cuoi-dep.html">Ngày cưới</a></li>
+                    <li><a href="tao-ma-qr.html">Tạo QR</a></li>
                     <li><a href="blogs/index.html">Blogs</a></li>
                     <li><a href="products.html">Mẫu web</a></li>
                     <li><a href="contact.html">Dịch vụ</a></li>
@@ -345,6 +346,7 @@
             </div>
             <!-- LANDING-LINKS:START — sinh tự động bởi node scripts/build-landing.js, đừng sửa tay -->
 
+            <div class="home-collections-wrap">
             <div class="home-collections-group">
                 <h3>Thiệp cưới online</h3>
                 <ul class="home-collections-list">
@@ -366,6 +368,7 @@
                     <li><a href="thiep-moi-hop-lop.html">Thiệp mời họp lớp <span>5 mẫu</span></a></li>
                     <li><a href="thiep-thoi-noi-day-thang.html">Thiệp thôi nôi, đầy tháng <span>4 mẫu</span></a></li>
                 </ul>
+            </div>
             </div>
             <!-- LANDING-LINKS:END -->
         </div>
@@ -480,6 +483,48 @@
         </div>
     </section>
 
+    <!-- Tiện ích miễn phí -->
+    <section class="home-tools">
+        <div class="container container-section">
+            <div class="section-title">
+                <h2>Tiện Ích Miễn Phí</h2>
+                <p>Công cụ hữu ích cho cưới hỏi và cuộc sống — dùng ngay, không cần đăng ký</p>
+            </div>
+            <div class="home-tools-grid">
+                <a href="xem-ngay-cuoi-dep.html" class="home-tool-card home-reveal">
+                    <img class="home-tool-img" src="./assets/images/tools/xem-ngay-cuoi.webp" alt="Minh hoạ xem ngày cưới đẹp theo âm lịch Việt Nam" width="600" height="338" loading="lazy">
+                    <div class="home-tool-body">
+                        <h3>Xem ngày cưới đẹp</h3>
+                        <p>Tra kim lâu, hoang ốc, tam tai theo năm sinh cô dâu chú rể. Lọc ngày hoàng đạo hợp cưới hỏi theo âm lịch Việt Nam.</p>
+                        <span class="home-tool-cta">Xem ngay <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                    </div>
+                </a>
+                <a href="tao-ma-qr.html" class="home-tool-card home-reveal">
+                    <img class="home-tool-img" src="./assets/images/tools/tao-ma-qr.webp" alt="Minh hoạ tạo mã QR tuỳ chỉnh" width="600" height="338" loading="lazy">
+                    <div class="home-tool-body">
+                        <h3>Tạo mã QR miễn phí</h3>
+                        <p>Tạo QR cho website, Wi-Fi, danh thiếp, email, điện thoại. Tuỳ chỉnh màu sắc, kiểu chấm, thêm logo riêng. Tải PNG ngay.</p>
+                        <span class="home-tool-cta">Tạo ngay <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cẩm nang cưới hỏi -->
+    <section class="home-blogs">
+        <div class="container container-section">
+            <div class="section-title">
+                <h2>Cẩm Nang Cưới Hỏi</h2>
+                <p>Kinh nghiệm, phong tục, mẹo chuẩn bị — từ người đã cưới kể lại</p>
+            </div>
+            <div class="home-blogs-grid" id="homeBlogsGrid">
+                <!-- Rendered by inline script from blog-index.json -->
+            </div>
+            <p class="home-blogs-more"><a href="blogs/index.html">Xem tất cả bài viết →</a></p>
+        </div>
+    </section>
+
     <!-- Web strip (demoted) -->
     <!-- FAQ:START — sinh tự động từ assets/data/faq.json (node scripts/build-faq.js), đừng sửa tay -->
     <section class="products-section faq-inline" id="faq">
@@ -572,6 +617,7 @@
                     <ul>
                         <li><a href="contact.html#pricing-section">Bảng giá thiệp</a></li>
                         <li><a href="xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a></li>
+                        <li><a href="tao-ma-qr.html">Tạo mã QR miễn phí</a></li>
                         <li><a href="blogs/index.html">Blogs</a></li>
                         <li><a href="cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
                         <li><a href="contact.html#contactForm">Yêu cầu báo giá</a></li>
@@ -633,6 +679,33 @@
                     '</a>' +
                 '</div>';
         }).join('');
+    })();
+    </script>
+    <!-- Home blogs render -->
+    <script>
+    (function () {
+        var grid = document.getElementById('homeBlogsGrid');
+        if (!grid) return;
+        fetch('./assets/data/blog-index.json')
+            .then(function (r) { return r.json(); })
+            .then(function (posts) {
+                var latest = posts.slice(0, 4);
+                if (!latest.length) { grid.closest('.home-blogs').style.display = 'none'; return; }
+                grid.innerHTML = latest.map(function (p) {
+                    var d = new Date(p.published);
+                    var date = isNaN(d) ? '' : (d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear());
+                    return '<a class="home-blog-card home-reveal" href="blogs/' + p.slug + '.html">' +
+                        '<div class="home-blog-img"><img src="' + (p.cover || '') + '" alt="' + p.title + '" loading="lazy" decoding="async"></div>' +
+                        '<div class="home-blog-body">' +
+                            '<span class="home-blog-cat">' + (p.categoryLabel || '') + '</span>' +
+                            '<h3>' + p.title + '</h3>' +
+                            '<p>' + (p.description || '').slice(0, 120) + '…</p>' +
+                            '<span class="home-blog-meta">' + date + ' · ' + p.readMin + ' phút đọc</span>' +
+                        '</div>' +
+                    '</a>';
+                }).join('');
+            })
+            .catch(function () {});
     })();
     </script>
 </body>

@@ -54,7 +54,6 @@
     hamburger.addEventListener('click', toggleMenu);
     if (overlay) overlay.addEventListener('click', closeMenu);
 
-    // Close menu when clicking a nav link
     nav.querySelectorAll('.nav-menu a').forEach(link => {
         link.addEventListener('click', closeMenu);
     });
