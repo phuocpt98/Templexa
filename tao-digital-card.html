@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tạo danh thiếp số miễn phí — Templexa</title>
-    <meta name="description" content="Tạo danh thiếp số miễn phí với nhiều mẫu đẹp. Quét QR mở danh thiếp ngay — không cần đăng ký.">
+    <meta name="description" content="Tạo danh thiếp số miễn phí với nhiều mẫu đẹp: minimal, dark, gradient. Quét QR mở danh thiếp ngay — chia sẻ Facebook, Zalo, TikTok. Không cần đăng ký.">
+    <meta name="keywords" content="tạo danh thiếp số, digital card miễn phí, danh thiếp QR code, danh thiếp online, business card QR">
+    <meta name="author" content="Templexa Studio">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <meta name="theme-color" content="#6366F1">
     <link rel="canonical" href="https://templexa.vn/tao-digital-card">
@@ -13,18 +15,64 @@
     <meta property="og:title" content="Tạo danh thiếp số miễn phí — Templexa">
     <meta property="og:description" content="Chọn mẫu danh thiếp, nhập thông tin — quét QR mở danh thiếp ngay. Miễn phí, không cần đăng ký.">
     <meta property="og:image" content="https://templexa.vn/assets/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://templexa.vn/tao-digital-card">
     <meta property="og:site_name" content="Templexa">
     <meta property="og:locale" content="vi_VN">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tạo danh thiếp số miễn phí — Templexa">
+    <meta name="twitter:description" content="Chọn mẫu danh thiếp, nhập thông tin — quét QR mở danh thiếp ngay. Miễn phí.">
+    <meta name="twitter:image" content="https://templexa.vn/assets/images/og-image.png">
 
     <link rel="icon" href="./favicon.ico" sizes="48x48">
     <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/qr-tool.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "@id": "https://templexa.vn/tao-digital-card#app",
+        "name": "Tạo danh thiếp số miễn phí",
+        "url": "https://templexa.vn/tao-digital-card",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "vi-VN",
+        "isAccessibleForFree": true,
+        "description": "Tạo danh thiếp số miễn phí với nhiều mẫu đẹp: minimal, dark, gradient. Quét QR mở danh thiếp, chia sẻ mạng xã hội ngay.",
+        "datePublished": "2026-09-14",
+        "dateModified": "2026-09-14",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "VND"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Templexa",
+            "url": "https://templexa.vn/"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://templexa.vn/" },
+            { "@type": "ListItem", "position": 2, "name": "Tiện ích", "item": "https://templexa.vn/tien-ich" },
+            { "@type": "ListItem", "position": 3, "name": "Tạo danh thiếp số" }
+        ]
+    }
+    </script>
 
     <style>
     /* ── Digital Card Tool ── */
@@ -234,6 +282,24 @@
         transition: background 0.15s;
     }
     .mn-qr-download:hover { background: var(--accent-dark); }
+    .mn-qr-actions { display: flex; gap: 8px; justify-content: center; }
+    .mn-qr-copy {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 24px;
+        border-radius: var(--radius-pill);
+        background: transparent;
+        color: var(--accent);
+        border: 2px solid var(--accent);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.15s;
+    }
+    .mn-qr-copy:hover { background: var(--accent); color: #fff; }
+    .mn-qr-copy.copied { background: #22c55e; border-color: #22c55e; color: #fff; }
     .mn-qr-hint {
         font-size: 0.75rem;
         color: var(--text-tertiary);
@@ -287,17 +353,22 @@
         text-align: center;
     }
 
-    /* ── Contact CTA ── */
+    /* ── Contact CTA (top banner + bottom) ── */
     .mn-custom-cta {
-        margin-top: 8px;
-        padding: 16px 20px;
+        padding: 14px 24px;
         border-radius: var(--radius-md);
-        background: var(--bg-tertiary);
-        border: 1px solid var(--border-color);
+        background: linear-gradient(135deg, var(--accent-light), rgba(124,58,237,0.08));
+        border: 1px solid var(--accent);
+        border-left: 4px solid var(--accent);
         text-align: center;
-        font-size: 0.8rem;
-        color: var(--text-secondary);
+        font-size: 0.85rem;
+        color: var(--text-primary);
         line-height: 1.6;
+    }
+    .mn-custom-cta strong {
+        display: block;
+        font-size: 0.95rem;
+        margin-bottom: 2px;
     }
     .mn-custom-cta a {
         color: var(--accent);
@@ -305,6 +376,12 @@
         text-decoration: none;
     }
     .mn-custom-cta a:hover { text-decoration: underline; }
+    .mn-custom-cta--top {
+        margin-bottom: 20px;
+    }
+    .mn-custom-cta--bottom {
+        margin-top: 8px;
+    }
 
     /* ── Responsive ── */
     @media (max-width: 1024px) {
@@ -404,6 +481,11 @@
         </section>
 
         <section class="container">
+            <div class="mn-custom-cta mn-custom-cta--top">
+                <strong>Muốn thiệp riêng, cá tính hơn?</strong>
+                Liên hệ <a href="https://zalo.me/0334884895" target="_blank" rel="noopener">Zalo</a> hoặc
+                <a href="https://m.me/templexa" target="_blank" rel="noopener">Messenger</a> để được tư vấn thiết kế độc quyền.
+            </div>
             <div class="mn-layout">
                 <!-- Left: Form -->
                 <div class="mn-form">
@@ -497,16 +579,22 @@
                     <div class="mn-qr-section">
                         <div class="mn-section-label">Mã QR của bạn</div>
                         <div class="mn-qr-canvas" id="mnQrCanvas"></div>
-                        <button class="mn-qr-download" id="mnDownload">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                            Tải PNG
-                        </button>
+                        <div class="mn-qr-actions">
+                            <button class="mn-qr-download" id="mnDownload">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Tải PNG
+                            </button>
+                            <button class="mn-qr-copy" id="mnCopy">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                <span>Copy ảnh</span>
+                            </button>
+                        </div>
                         <p class="mn-qr-hint">In mã QR này lên danh thiếp, CV, hoặc gửi qua tin nhắn</p>
                     </div>
 
-                    <div class="mn-custom-cta">
-                        Muốn thiệp riêng, cá tính hơn?<br>
-                        <a href="https://zalo.me/0334884895" target="_blank" rel="noopener">Liên hệ Zalo</a> hoặc
+                    <div class="mn-custom-cta mn-custom-cta--bottom">
+                        <strong>Muốn thiệp riêng, cá tính hơn?</strong>
+                        Liên hệ <a href="https://zalo.me/0334884895" target="_blank" rel="noopener">Zalo</a> hoặc
                         <a href="https://m.me/templexa" target="_blank" rel="noopener">Messenger</a> để được tư vấn thiết kế độc quyền.
                     </div>
                 </div>
@@ -584,6 +672,15 @@
             </div>
         </div>
     </footer>
+
+    <div class="chat-bubbles">
+        <a href="https://zalo.me/0334884895" target="_blank" rel="noopener" class="chat-bubble chat-bubble-zalo" aria-label="Chat Zalo">
+            <img src="./assets/images/zalo-icon.ico" alt="Zalo">
+        </a>
+        <a href="https://www.facebook.com/messages/t/linh.pi.359" target="_blank" rel="noopener" class="chat-bubble chat-bubble-messenger" aria-label="Chat Messenger">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.2 5.49 3.12 7.36V22l2.83-1.55c.8.22 1.65.35 2.55.35h.5C17.64 20.8 22 16.67 22 11.7S17.64 2 12 2zm1.13 12.2l-2.79-2.98-5.44 2.98 5.98-6.35 2.86 2.98 5.37-2.98-5.98 6.35z"/></svg>
+        </a>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
     <script src="./assets/js/main.js"></script>
@@ -853,6 +950,22 @@
 
             document.getElementById('mnDownload').addEventListener('click', function () {
                 qrCode.download({ name: 'digital-card-qr', extension: 'png' });
+            });
+
+            var copyBtn = document.getElementById('mnCopy');
+            copyBtn.addEventListener('click', function () {
+                qrCode.getRawData('png').then(function (blob) {
+                    return navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                }).then(function () {
+                    copyBtn.classList.add('copied');
+                    var label = copyBtn.querySelector('span');
+                    var orig = label.textContent;
+                    label.textContent = 'Đã copy!';
+                    setTimeout(function () {
+                        copyBtn.classList.remove('copied');
+                        label.textContent = orig;
+                    }, 1500);
+                });
             });
 
             updatePreview();
