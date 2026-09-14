@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lời nhắn — Thư Tay</title>
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Bạn có lời nhắn mới ✉️">
+    <meta property="og:description" content="Ai đó gửi cho bạn một lá thư tay. Mở link để đọc!">
+    <meta property="og:image" content="https://templexa.vn/assets/images/qr-templates/tpl-letter.webp">
+    <meta property="og:url" content="https://templexa.vn/loi-nhan/thu-tay/">
+    <meta property="og:site_name" content="Templexa">
+    <meta property="og:locale" content="vi_VN">
+
+    <style>
+        * { margin: 0; padding: 0; }
+        html, body { width: 100%; height: 100%; overflow: hidden; }
+        iframe { width: 100%; height: 100%; border: none; display: block; }
+    </style>
+</head>
+<body>
+    <iframe id="f" allowfullscreen></iframe>
+    <script src="../config.js"></script>
+    <script>
+        (function () {
+            var parts = location.pathname.replace(/\/index\.html$/i, '').split('/').filter(Boolean);
+            var slug = parts[parts.length - 1];
+            var entry = (typeof LOI_NHAN !== 'undefined') && LOI_NHAN[slug];
+            if (entry) {
+                var base = location.pathname.replace(/\/loi-nhan\/[^/]+\/.*$/, '/');
+                var src = base + 'qr-msg.html?t=' + entry.tpl;
+                var params = new URLSearchParams(location.search);
+                if (params.get('to')) src += '&to=' + encodeURIComponent(params.get('to'));
+                if (params.get('m')) src += '&m=' + encodeURIComponent(params.get('m'));
+                if (params.get('f')) src += '&f=' + encodeURIComponent(params.get('f'));
+                document.getElementById('f').src = src;
+            } else {
+                document.body.innerHTML = '<p style="text-align:center;padding:40px;font-family:sans-serif;color:#666">Không tìm thấy mẫu. Vui lòng kiểm tra lại đường dẫn.</p>';
+            }
+        })();
+    </script>
+</body>
+</html>

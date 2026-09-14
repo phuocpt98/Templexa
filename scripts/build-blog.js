@@ -301,8 +301,9 @@ function headerHtml(rel, active) {
                     <li><a href="${rel}"${a('home')}>Trang chủ</a></li>
                     <li><a href="${rel}thiep-online.html"${a('thiep')}>Mẫu thiệp</a></li>
                     <li><a href="${rel}xem-ngay-cuoi-dep.html"${a('xem-ngay')}>Ngày cưới</a></li>
+                    <li><a href="${rel}tao-loi-nhan.html"${a('loi-nhan')}>Lời nhắn</a></li>
                     <li><a href="${rel}blogs/index.html"${a('blogs')}>Blogs</a></li>
-                    <li><a href="${rel}products.html"${a('products')}>Mẫu web</a></li>
+                    <li><a href="${rel}tien-ich.html"${a('tien-ich')}>Tiện ích</a></li>
                     <li><a href="${rel}contact.html"${a('contact')}>Dịch vụ</a></li>
                 </ul>
             </nav>

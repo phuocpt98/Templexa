@@ -40,6 +40,9 @@ const STATIC = [
     ...LANDING_URLS,
 
     { loc: '/contact', lastmod: mtime('contact.html'), freq: 'monthly', pri: '0.9' },
+    { loc: '/tao-loi-nhan', lastmod: mtime('tao-loi-nhan.html'), freq: 'monthly', pri: '0.8' },
+    { loc: '/tao-digital-card', lastmod: mtime('tao-digital-card.html'), freq: 'monthly', pri: '0.8' },
+    { loc: '/tien-ich', lastmod: mtime('tien-ich.html'), freq: 'monthly', pri: '0.85' },
     { loc: '/xem-ngay-cuoi-dep', lastmod: mtime('xem-ngay-cuoi-dep.html'), freq: 'monthly', pri: '0.9' },
     { loc: '/cau-hoi-thuong-gap', lastmod: mtime('cau-hoi-thuong-gap.html'), freq: 'monthly', pri: '0.85' },
     { loc: '/products', lastmod: mtime('products.html'), freq: 'weekly', pri: '0.7' },

@@ -772,11 +772,16 @@ const landingHref = (slug) => slug + '.html';
             + '<button class="gallery-arrow next" id="popupGalleryNext" aria-label="Ảnh tiếp"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg></button>'
             : '';
 
+        var isLoiNhan = product.category === 'loi-nhan';
+        var isDigitalCard = product.category === 'digital-card';
+        var isFreeProduct = isLoiNhan || isDigitalCard;
         var demoBtn = product.demoUrl
-            ? '<a href="preview.html?id=' + product.id + '" target="_blank" class="btn-outline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>Xem demo</a>'
+            ? '<a href="preview.html?id=' + product.id + '" target="_blank" class="btn-outline"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>' + (isFreeProduct ? 'Xem trước' : 'Xem demo') + '</a>'
             : '';
 
-        var customBtn = product.type === 'invitation'
+        var customBtn = isFreeProduct
+            ? '<a href="https://zalo.me/0334884895" target="_blank" rel="noopener" class="btn-custom">Liên hệ Zalo — thiết kế riêng</a>'
+            : product.type === 'invitation'
             ? '<a href="contact.html#pricing-section" class="btn-custom">Bảng giá dịch vụ</a>'
             : '<a href="contact.html" class="btn-custom">Yêu cầu tùy chỉnh</a>';
 
@@ -796,7 +801,7 @@ const landingHref = (slug) => slug + '.html';
                 '</div>' +
                 '<div class="popup-sidebar">' +
                     (priceLabel ? '<span class="price-badge ' + priceClass + '">' + priceLabel + '</span>' : '') +
-                    '<button class="btn-primary" id="popupBtnGetTemplate">Dùng ngay <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>' +
+                    '<button class="btn-primary" id="popupBtnGetTemplate">' + (isFreeProduct ? 'Tạo QR ngay' : 'Dùng ngay') + ' <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>' +
                     demoBtn +
                     '<p class="sidebar-features-title">Tính năng nổi bật</p>' +
                     '<ul class="sidebar-features">' + featuresHTML + '</ul>' +
@@ -819,11 +824,23 @@ const landingHref = (slug) => slug + '.html';
             });
         });
 
-        // "Dùng ngay" → open modal form
+        // "Dùng ngay" → open modal form (hoặc redirect nếu lời nhắn QR)
         var btnGetTemplate = popupBody.querySelector('#popupBtnGetTemplate');
         if (btnGetTemplate) {
             btnGetTemplate.addEventListener('click', function () {
-                openModal(popupModalForm);
+                if (product.category === 'loi-nhan' && product.demoUrl) {
+                    var slugMap = {'giay-trang':'plain','thu-tay':'letter','chibi-yeu-thuong':'chibi-love','hoa-la':'floral'};
+                    var slugMatch = product.demoUrl.match(/loi-nhan\/([^/?]+)/);
+                    var tplId = slugMatch && slugMap[slugMatch[1]] ? slugMap[slugMatch[1]] : 'plain';
+                    window.location.href = 'tao-loi-nhan.html?tpl=' + tplId;
+                } else if (product.category === 'digital-card' && product.demoUrl) {
+                    var dcSlugMap = {'minimal':'minimal','dark':'dark','gradient':'gradient'};
+                    var dcMatch = product.demoUrl.match(/card\/([^/?]+)/);
+                    var dcTpl = dcMatch && dcSlugMap[dcMatch[1]] ? dcSlugMap[dcMatch[1]] : 'minimal';
+                    window.location.href = 'tao-digital-card.html?tpl=' + dcTpl;
+                } else {
+                    openModal(popupModalForm);
+                }
             });
         }
     }

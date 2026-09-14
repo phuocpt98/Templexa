@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lời nhắn — Templexa</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta property="og:title" content="Bạn có lời nhắn mới">
+    <meta property="og:description" content="Mở link để đọc lời nhắn. Tạo lời nhắn QR miễn phí tại Templexa.">
+    <meta property="og:image" content="https://templexa.vn/assets/images/og-image.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="./favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@400;500;600&family=Quicksand:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+
+        body{
+            min-height:100dvh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            padding:24px 16px;
+            font-family:'Inter',system-ui,sans-serif;
+            -webkit-font-smoothing:antialiased;
+        }
+
+        .msg-wrap{
+            display:flex;flex-direction:column;align-items:center;
+            width:100%;max-width:440px;
+        }
+
+        @keyframes cardIn{
+            from{opacity:0;transform:translateY(16px) scale(0.97)}
+            to{opacity:1;transform:translateY(0) scale(1)}
+        }
+
+        .msg-card{
+            width:100%;min-height:260px;
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            padding:52px 32px 40px;text-align:center;position:relative;overflow:hidden;
+            animation:cardIn .5s ease-out;
+        }
+
+        .msg-to{
+            font-size:0.85rem;margin-bottom:12px;opacity:0.7;font-style:italic;
+        }
+        .msg-text{
+            font-size:1.15rem;line-height:1.85;word-break:break-word;white-space:pre-wrap;
+            max-width:340px;
+        }
+        .msg-from{margin-top:20px;font-size:0.9rem}
+        .msg-divider{
+            width:40px;height:2px;margin:20px auto 0;border-radius:1px;opacity:0.3;
+        }
+        .msg-brand{
+            font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;
+            opacity:0.2;margin-top:20px;
+        }
+
+        .msg-cta{
+            display:inline-flex;align-items:center;gap:6px;
+            margin-top:20px;padding:10px 24px;border-radius:999px;
+            font-size:0.78rem;font-weight:600;text-decoration:none;
+            transition:transform .15s,box-shadow .15s;
+        }
+        .msg-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,0.12)}
+        .msg-cta:active{transform:scale(0.97)}
+
+        /* ============================
+           TEMPLATE: PLAIN (Giấy trắng)
+           ============================ */
+        .tpl-plain{background:#f0f0f0}
+        .tpl-plain .msg-card{
+            background:#fff;border-radius:16px;
+            box-shadow:0 4px 28px rgba(0,0,0,0.07);
+        }
+        .tpl-plain .msg-to{color:#666}
+        .tpl-plain .msg-text{color:#1a1a1a;font-weight:500}
+        .tpl-plain .msg-from{color:#888}
+        .tpl-plain .msg-divider{background:#ccc}
+        .tpl-plain .msg-brand{color:#999}
+        .tpl-plain .msg-cta{background:#6366F1;color:#fff}
+
+
+        /* ============================
+           TEMPLATE: LETTER (Thư tay)
+           ============================ */
+        .tpl-letter{background:#ede5d4}
+        .tpl-letter .msg-card{
+            background:linear-gradient(180deg,#fdf8ef 0%,#f7edd8 100%);
+            border-radius:3px;
+            box-shadow:2px 3px 24px rgba(100,70,30,0.15);
+            padding:56px 44px 44px 52px;
+            background-image:
+                repeating-linear-gradient(
+                    transparent,transparent 31px,
+                    rgba(170,150,115,0.18) 31px,rgba(170,150,115,0.18) 32px
+                );
+            background-position:0 52px;
+        }
+        .tpl-letter .msg-card::before{
+            content:'';position:absolute;
+            top:0;bottom:0;left:42px;width:2px;
+            background:rgba(200,70,70,0.2);
+        }
+        .tpl-letter .msg-card::after{
+            content:'';position:absolute;
+            bottom:0;right:0;width:28px;height:28px;
+            background:linear-gradient(225deg,#ede5d4 48%,transparent 50%,rgba(0,0,0,0.04) 52%,#f5ecd6 54%);
+        }
+        .tpl-letter .msg-to{
+            font-family:'Caveat',cursive;font-size:1.1rem;color:#8b6914;
+            text-align:left;align-self:flex-start;
+        }
+        .tpl-letter .msg-text{
+            font-family:'Caveat',cursive;font-size:1.45rem;
+            color:#3d2b1f;font-weight:600;line-height:2.05;
+            text-align:left;
+        }
+        .tpl-letter .msg-from{
+            font-family:'Caveat',cursive;font-size:1.15rem;
+            color:#8b6914;font-weight:600;align-self:flex-end;
+        }
+        .tpl-letter .msg-divider{background:#c4a86c}
+        .tpl-letter .msg-brand{color:#8b7a55}
+        .tpl-letter .msg-cta{background:#8b6914;color:#fff}
+
+
+        /* ============================
+           TEMPLATE: CHIBI LOVE (Chibi yêu)
+           ============================ */
+        .tpl-chibi-love{background:linear-gradient(135deg,#fce4ec 0%,#f3e5f5 50%,#e8eaf6 100%)}
+        .tpl-chibi-love .msg-card{
+            background:#fff;border-radius:28px;
+            box-shadow:0 4px 32px rgba(233,30,99,0.1);
+            border:2px solid rgba(233,30,99,0.12);
+            padding:60px 28px 44px;
+        }
+        .tpl-chibi-love .msg-card::before{
+            content:'💕';position:absolute;
+            top:16px;left:50%;transform:translateX(-50%);
+            font-size:1.8rem;
+        }
+        .tpl-chibi-love .msg-card::after{
+            content:'· 🌸 ·   · ✨ ·   · 🌸 ·';
+            position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+            font-size:0.65rem;opacity:0.4;white-space:nowrap;letter-spacing:2px;
+            color:#c2185b;
+        }
+        .tpl-chibi-love .msg-to{
+            font-family:'Quicksand',sans-serif;color:#ad1457;font-style:normal;font-weight:600;
+        }
+        .tpl-chibi-love .msg-text{
+            font-family:'Quicksand',sans-serif;font-size:1.1rem;
+            color:#6a1b9a;font-weight:600;
+        }
+        .tpl-chibi-love .msg-from{
+            font-family:'Quicksand',sans-serif;
+            color:#e91e63;font-weight:700;
+        }
+        .tpl-chibi-love .msg-divider{background:linear-gradient(90deg,#e91e63,#9c27b0)}
+        .tpl-chibi-love .msg-brand{color:#ad1457}
+        .tpl-chibi-love .msg-cta{background:linear-gradient(135deg,#e91e63,#9c27b0);color:#fff}
+
+
+        /* ============================
+           TEMPLATE: FLORAL (Hoa nhỏ)
+           ============================ */
+        .tpl-floral{background:#e8ede4}
+        .tpl-floral .msg-card{
+            background:linear-gradient(160deg,#fdfcf7 0%,#f6f2e6 100%);
+            border-radius:14px;
+            box-shadow:0 3px 22px rgba(60,80,40,0.1);
+            border:1px solid rgba(100,130,70,0.15);
+            padding:56px 36px 44px;
+        }
+        .tpl-floral .msg-card::before{
+            content:'🌿';position:absolute;
+            top:12px;left:18px;font-size:1.5rem;
+            transform:rotate(-30deg);opacity:0.45;
+        }
+        .tpl-floral .msg-card::after{
+            content:'🌿';position:absolute;
+            bottom:12px;right:18px;font-size:1.5rem;
+            transform:rotate(150deg);opacity:0.45;
+        }
+        .tpl-floral .msg-to{
+            font-family:'Playfair Display',serif;color:#5a7247;font-style:normal;
+        }
+        .tpl-floral .msg-text{
+            font-family:'Playfair Display',serif;font-size:1.12rem;
+            color:#2d3b2d;font-style:italic;line-height:1.9;
+        }
+        .tpl-floral .msg-from{
+            font-family:'Playfair Display',serif;
+            color:#5a7247;font-weight:600;font-style:normal;
+        }
+        .tpl-floral .msg-divider{background:#8fa978}
+        .tpl-floral .msg-brand{color:#6b7f5e}
+        .tpl-floral .msg-cta{background:#5a7247;color:#fff}
+
+
+        /* ============================
+           Responsive
+           ============================ */
+        @media(max-width:480px){
+            .msg-card{padding-left:24px;padding-right:24px}
+            .tpl-letter .msg-card{padding-left:40px;padding-right:28px}
+            .tpl-letter .msg-card::before{left:32px}
+            .tpl-letter .msg-text{font-size:1.25rem}
+            .msg-text{font-size:1.05rem}
+        }
+    </style>
+</head>
+<body class="tpl-plain" id="body">
+    <div class="msg-wrap">
+        <div class="msg-card" id="card">
+            <div class="msg-to" id="msgTo"></div>
+            <div class="msg-text" id="msgText"></div>
+            <div class="msg-divider" id="msgDivider"></div>
+            <div class="msg-from" id="msgFrom"></div>
+            <div class="msg-brand">templexa.vn</div>
+        </div>
+        <a class="msg-cta" href="https://templexa.vn/tao-loi-nhan" id="msgCta">
+            💌 Gửi lời nhắn trả lời
+        </a>
+    </div>
+<script>
+(function(){
+    var p = new URLSearchParams(window.location.search);
+    var tpl = p.get('t') || 'plain';
+    var msg = p.get('m') || '';
+    var from = p.get('f') || '';
+    var to = p.get('to') || '';
+
+    var valid = ['plain','letter','chibi-love','floral'];
+    if (valid.indexOf(tpl) === -1) tpl = 'plain';
+
+    document.getElementById('body').className = 'tpl-' + tpl;
+
+    var inIframe = window.self !== window.top;
+    var ctaLink = document.getElementById('msgCta');
+    if (inIframe) {
+        if (ctaLink) ctaLink.hidden = true;
+    } else {
+        if (ctaLink) ctaLink.href = 'https://templexa.vn/tao-loi-nhan?tpl=' + tpl;
+    }
+
+    var toEl = document.getElementById('msgTo');
+    var textEl = document.getElementById('msgText');
+    var fromEl = document.getElementById('msgFrom');
+    var divEl = document.getElementById('msgDivider');
+
+    if (to) {
+        toEl.textContent = 'Gửi ' + to + ',';
+    } else {
+        toEl.hidden = true;
+    }
+
+    if (msg) {
+        textEl.textContent = msg;
+    } else {
+        textEl.textContent = 'Xin chào! 👋';
+    }
+
+    if (from) {
+        fromEl.textContent = '— ' + from;
+    } else {
+        fromEl.hidden = true;
+        divEl.hidden = true;
+    }
+})();
+</script>
+</body>
+</html>

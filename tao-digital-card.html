@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo danh thiếp số miễn phí — Templexa</title>
+    <meta name="description" content="Tạo danh thiếp số miễn phí với nhiều mẫu đẹp. Quét QR mở danh thiếp ngay — không cần đăng ký.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <meta name="theme-color" content="#6366F1">
+    <link rel="canonical" href="https://templexa.vn/tao-digital-card">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tạo danh thiếp số miễn phí — Templexa">
+    <meta property="og:description" content="Chọn mẫu danh thiếp, nhập thông tin — quét QR mở danh thiếp ngay. Miễn phí, không cần đăng ký.">
+    <meta property="og:image" content="https://templexa.vn/assets/images/og-image.png">
+    <meta property="og:url" content="https://templexa.vn/tao-digital-card">
+    <meta property="og:site_name" content="Templexa">
+    <meta property="og:locale" content="vi_VN">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="./favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/qr-tool.css">
+
+    <style>
+    /* ── Digital Card Tool ── */
+    .mn-hero {
+        padding: 48px 0 24px;
+        text-align: center;
+    }
+    .mn-hero h1 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--text-primary);
+    }
+    .mn-hero p {
+        margin-top: 8px;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+    }
+    .mn-hero-links {
+        margin-top: 16px;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        font-size: 0.85rem;
+    }
+    .mn-hero-links a {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 20px;
+        border-radius: var(--radius-pill);
+        text-decoration: none;
+        font-weight: 500;
+        transition: background .15s, transform .1s;
+    }
+    .mn-hero-links a:first-child {
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        background: var(--bg-primary);
+    }
+    .mn-hero-links a:first-child:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+    .mn-hero-links a:last-child {
+        background: var(--accent);
+        color: #fff;
+    }
+    .mn-hero-links a:last-child:hover {
+        background: var(--accent-dark);
+    }
+    .mn-hero-links a:active { transform: scale(0.97); }
+
+    .mn-layout {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 40px;
+        align-items: start;
+        padding-bottom: 60px;
+    }
+
+    /* ── Left: Form ── */
+    .mn-form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .mn-section-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-tertiary);
+        margin-bottom: 4px;
+    }
+
+    /* Template picker */
+    .mn-tpl-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+    .mn-tpl-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 12px 8px;
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-md);
+        background: var(--card-bg);
+        cursor: pointer;
+        transition: border-color 0.15s, background 0.15s;
+        font-family: inherit;
+        font-size: 0.78rem;
+        color: var(--text-secondary);
+    }
+    .mn-tpl-card:hover {
+        border-color: var(--accent);
+    }
+    .mn-tpl-card.active {
+        border-color: var(--accent);
+        background: var(--accent-light);
+        color: var(--accent);
+        font-weight: 600;
+    }
+    .mn-tpl-swatch {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+    .mn-tpl-swatch--minimal { background: #e8e8e8; color: #666; }
+    .mn-tpl-swatch--dark { background: linear-gradient(135deg, #1a1a2e, #16213e); color: #818CF8; }
+    .mn-tpl-swatch--gradient { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+    [data-theme="dark"] .mn-tpl-swatch--minimal { background: #374151; color: #94A3B8; }
+
+    /* Fields */
+    .mn-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .mn-field label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 6px;
+    }
+    .mn-field label small {
+        font-weight: 400;
+        color: var(--text-tertiary);
+    }
+    .mn-field input,
+    .mn-field textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1.5px solid var(--input-border);
+        border-radius: var(--radius-sm);
+        background: var(--input-bg);
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 0.92rem;
+        transition: border-color 0.15s;
+        outline: none;
+    }
+    .mn-field input:focus,
+    .mn-field textarea:focus {
+        border-color: var(--accent);
+    }
+    .mn-field textarea {
+        resize: vertical;
+        min-height: 100px;
+        line-height: 1.6;
+    }
+    .mn-field-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+    .mn-char-count {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        font-variant-numeric: tabular-nums;
+    }
+    .mn-char-count.warn { color: #ef4444; font-weight: 600; }
+
+    /* QR output */
+    .mn-qr-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 24px;
+        border-radius: var(--radius-lg);
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+    }
+    .mn-qr-canvas {
+        width: 200px;
+        height: 200px;
+    }
+    .mn-qr-canvas canvas,
+    .mn-qr-canvas svg {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .mn-qr-download {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 24px;
+        border-radius: var(--radius-pill);
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: background 0.15s;
+    }
+    .mn-qr-download:hover { background: var(--accent-dark); }
+    .mn-qr-hint {
+        font-size: 0.75rem;
+        color: var(--text-tertiary);
+        text-align: center;
+    }
+    /* ── Right: Phone preview ── */
+    .mn-preview {
+        position: sticky;
+        top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    .mn-phone {
+        width: 320px;
+        height: 640px;
+        border-radius: 40px;
+        border: 5px solid #1F2937;
+        box-shadow: 0 0 0 2px #374151, 0 16px 48px rgba(0,0,0,0.15);
+        position: relative;
+        overflow: hidden;
+        background: #fff;
+    }
+    .mn-phone::before {
+        content: '';
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: #374151;
+        border-radius: 10px;
+        z-index: 2;
+    }
+    .mn-phone iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    [data-theme="dark"] .mn-phone {
+        border-color: #475569;
+        box-shadow: 0 0 0 2px #64748B, 0 16px 48px rgba(0,0,0,0.35);
+    }
+    [data-theme="dark"] .mn-phone::before { background: #64748B; }
+
+    .mn-preview-label {
+        font-size: 0.78rem;
+        color: var(--text-tertiary);
+        text-align: center;
+    }
+
+    /* ── Contact CTA ── */
+    .mn-custom-cta {
+        margin-top: 8px;
+        padding: 16px 20px;
+        border-radius: var(--radius-md);
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border-color);
+        text-align: center;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+    .mn-custom-cta a {
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .mn-custom-cta a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+        .mn-layout {
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+        }
+        .mn-phone {
+            width: 280px;
+            height: 560px;
+            border-radius: 36px;
+        }
+    }
+    @media (max-width: 768px) {
+        .mn-layout {
+            grid-template-columns: 1fr;
+        }
+        .mn-preview {
+            position: static;
+        }
+        .mn-phone {
+            width: 260px;
+            height: 520px;
+            border-radius: 32px;
+        }
+        .mn-tpl-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media (max-width: 480px) {
+        .mn-phone {
+            width: 240px;
+            height: 480px;
+            border-radius: 28px;
+        }
+    }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D8ZC2MYYVY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-D8ZC2MYYVY');
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="container container-header">
+            <a href="index.html" class="logo">
+                <img src="./assets/images/logo_v2.svg" alt="Templexa" class="logo-icon">
+            </a>
+            <nav class="nav" id="navMenu">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="thiep-online.html">Mẫu thiệp</a></li>
+                    <li><a href="xem-ngay-cuoi-dep.html">Ngày cưới</a></li>
+                    <li><a href="tao-loi-nhan.html">Lời nhắn</a></li>
+                    <li><a href="blogs/index.html">Blogs</a></li>
+                    <li><a href="tien-ich.html" class="active">Tiện ích</a></li>
+                    <li><a href="contact.html">Dịch vụ</a></li>
+                </ul>
+            </nav>
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <main>
+        <section class="mn-hero">
+            <div class="container">
+                <h1>Tạo danh thiếp số</h1>
+                <p>Chọn mẫu, nhập thông tin — quét QR mở danh thiếp ngay. Miễn phí!</p>
+                <div class="mn-hero-links">
+                    <a href="tao-ma-qr.html">← Tạo QR loại khác (Wi-Fi, link, danh thiếp…)</a>
+                    <a href="tien-ich.html">Xem thêm tiện ích</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="mn-layout">
+                <!-- Left: Form -->
+                <div class="mn-form">
+                    <div>
+                        <div class="mn-section-label">Chọn mẫu danh thiếp</div>
+                        <div class="mn-tpl-grid" id="mnTplGrid"></div>
+                    </div>
+
+                    <div>
+                        <div class="mn-section-label">Thông tin danh thiếp</div>
+                        <div class="mn-fields" id="mnFields"></div>
+                    </div>
+
+                    <div>
+                        <div class="mn-section-label">Tuỳ chỉnh mã QR</div>
+                        <div class="qt-design">
+                            <details open>
+                                <summary>
+                                    <svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="11.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="17" cy="18" r="2.5"/><circle cx="8.5" cy="18.5" r="2.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.04-.23-.29-.38-.63-.38-1.01 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-5.17-4.49-9-10-9z"/></svg>
+                                    <span>Màu sắc</span>
+                                </summary>
+                                <div class="qt-design-body">
+                                    <div class="qt-color-row">
+                                        <label>Màu QR</label>
+                                        <input type="color" id="mnFgColor" value="#000000">
+                                        <input type="text" id="mnFgHex" value="#000000" maxlength="7" spellcheck="false">
+                                    </div>
+                                    <div class="qt-color-row">
+                                        <label>Màu nền</label>
+                                        <input type="color" id="mnBgColor" value="#ffffff">
+                                        <input type="text" id="mnBgHex" value="#ffffff" maxlength="7" spellcheck="false">
+                                    </div>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>
+                                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="4" height="4"/></svg>
+                                    <span>Kiểu chấm</span>
+                                </summary>
+                                <div class="qt-design-body">
+                                    <div class="qt-pattern-grid">
+                                        <button class="qt-pattern-btn" data-dot-type="square" title="Square"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="5" height="5"/><rect x="11" y="4" width="5" height="5"/><rect x="4" y="11" width="5" height="5"/><rect x="11" y="11" width="5" height="5"/></svg></button>
+                                        <button class="qt-pattern-btn active" data-dot-type="rounded" title="Rounded"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="5" height="5" rx="1.5"/><rect x="11" y="4" width="5" height="5" rx="1.5"/><rect x="4" y="11" width="5" height="5" rx="1.5"/><rect x="11" y="11" width="5" height="5" rx="1.5"/></svg></button>
+                                        <button class="qt-pattern-btn" data-dot-type="dots" title="Dots"><svg viewBox="0 0 24 24"><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="13.5" r="2.5"/><circle cx="13.5" cy="13.5" r="2.5"/></svg></button>
+                                        <button class="qt-pattern-btn" data-dot-type="extra-rounded" title="Extra Rounded"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="5" height="5" rx="2.5"/><rect x="11" y="4" width="5" height="5" rx="2.5"/><rect x="4" y="11" width="5" height="5" rx="2.5"/><rect x="11" y="11" width="5" height="5" rx="2.5"/></svg></button>
+                                        <button class="qt-pattern-btn" data-dot-type="classy" title="Classy"><svg viewBox="0 0 24 24"><path d="M4 4h5v5H4z"/><path d="M11 4h5v5h-5z"/><path d="M4 11h5v5H4z"/><path d="M11 11l5 0 0 5-5 0z"/></svg></button>
+                                        <button class="qt-pattern-btn" data-dot-type="classy-rounded" title="Classy Rounded"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="5" height="5" rx="0 2.5 0 0"/><rect x="11" y="4" width="5" height="5" rx="0 2.5 0 0"/><rect x="4" y="11" width="5" height="5" rx="0 2.5 0 0"/><rect x="11" y="11" width="5" height="5" rx="0 2.5 0 0"/></svg></button>
+                                    </div>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>
+                                    <svg viewBox="0 0 24 24"><path d="M2 8V2h6"/><path d="M22 8V2h-6"/><path d="M2 16v6h6"/><rect x="15" y="15" width="7" height="7" rx="1"/></svg>
+                                    <span>Kiểu góc</span>
+                                </summary>
+                                <div class="qt-design-body">
+                                    <label class="qt-field-label">Khung góc</label>
+                                    <div class="qt-pattern-grid">
+                                        <button class="qt-pattern-btn" data-corner-sq="square" title="Square"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"/></svg></button>
+                                        <button class="qt-pattern-btn active" data-corner-sq="extra-rounded" title="Rounded"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="3"/></svg></button>
+                                        <button class="qt-pattern-btn" data-corner-sq="dot" title="Circle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="3"/></svg></button>
+                                    </div>
+                                    <label class="qt-field-label">Chấm góc</label>
+                                    <div class="qt-pattern-grid">
+                                        <button class="qt-pattern-btn" data-corner-dot="square" title="Square"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" fill="currentColor"/></svg></button>
+                                        <button class="qt-pattern-btn active" data-corner-dot="dot" title="Circle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="currentColor"/></svg></button>
+                                    </div>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>
+                                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                    <span>Logo</span>
+                                </summary>
+                                <div class="qt-design-body">
+                                    <div class="qt-logo-upload">
+                                        <button type="button" class="qt-logo-btn" id="mnLogoBtn">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                            <span>Tải logo lên</span>
+                                        </button>
+                                        <img id="mnLogoPreview" class="qt-logo-preview" alt="" hidden>
+                                        <button type="button" class="qt-logo-remove" id="mnLogoRemove" hidden>Xoá</button>
+                                        <input type="file" id="mnLogoFile" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden>
+                                    </div>
+                                    <p style="font-size:0.75rem;color:var(--text-tertiary);margin:0">JPG, PNG, SVG — tối đa 2 MB</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="mn-qr-section">
+                        <div class="mn-section-label">Mã QR của bạn</div>
+                        <div class="mn-qr-canvas" id="mnQrCanvas"></div>
+                        <button class="mn-qr-download" id="mnDownload">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Tải PNG
+                        </button>
+                        <p class="mn-qr-hint">In mã QR này lên danh thiếp, CV, hoặc gửi qua tin nhắn</p>
+                    </div>
+
+                    <div class="mn-custom-cta">
+                        Muốn thiệp riêng, cá tính hơn?<br>
+                        <a href="https://zalo.me/0334884895" target="_blank" rel="noopener">Liên hệ Zalo</a> hoặc
+                        <a href="https://m.me/templexa" target="_blank" rel="noopener">Messenger</a> để được tư vấn thiết kế độc quyền.
+                    </div>
+                </div>
+
+                <!-- Right: Phone preview -->
+                <div class="mn-preview">
+                    <div class="mn-section-label">Xem trước trên điện thoại</div>
+                    <div class="mn-phone">
+                        <iframe id="mnPreview" src="./digital-card.html?t=minimal"></iframe>
+                    </div>
+                    <p class="mn-preview-label">Đây là giao diện người nhận sẽ thấy khi quét mã QR</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container container-footer">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="./assets/images/logo_v2.svg" alt="Templexa" class="logo-icon">
+                    </a>
+                    <p>Thiệp cưới &amp; thiệp sự kiện online sang trọng, giao trong 24h. Kèm kho mẫu website cá nhân hoá cho riêng bạn.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Thiệp Cưới Online</h4>
+                    <ul>
+                        <li><a href="thiep-cuoi.html">Thiệp cưới online</a></li>
+                        <li><a href="thiep-cuoi-sang-trong.html">Thiệp cưới sang trọng</a></li>
+                        <li><a href="thiep-cuoi-truyen-thong.html">Thiệp cưới truyền thống</a></li>
+                        <li><a href="thiep-cuoi-hoa.html">Thiệp cưới hoa</a></li>
+                        <li><a href="thiep-cuoi-hien-dai.html">Thiệp cưới hiện đại</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Thiệp Mời Sự Kiện</h4>
+                    <ul>
+                        <li><a href="thiep-moi-online.html">Thiệp mời online (dịp khác)</a></li>
+                        <li><a href="thiep-sinh-nhat.html">Thiệp sinh nhật</a></li>
+                        <li><a href="thiep-thoi-noi-day-thang.html">Thiệp thôi nôi, đầy tháng</a></li>
+                        <li><a href="thiep-ky-niem-ngay-cuoi.html">Thiệp kỷ niệm ngày cưới</a></li>
+                        <li><a href="thiep-moi-hop-lop.html">Thiệp mời họp lớp</a></li>
+                        <li><a href="thiep-moi-su-kien.html">Thiệp mời sự kiện</a></li>
+                        <li><a href="thiep-to-tinh.html">Thiệp tỏ tình</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Mẫu Website</h4>
+                    <ul>
+                        <li><a href="products.html?category=onepage">One page</a></li>
+                        <li><a href="products.html?category=e-commerce">E-commerce</a></li>
+                        <li><a href="products.html?category=portfolio">Portfolio</a></li>
+                        <li><a href="products.html?category=education">Giáo dục</a></li>
+                        <li><a href="contact.html#web-design">Gói thiết kế web</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hỗ Trợ &amp; Liên Hệ</h4>
+                    <ul>
+                        <li><a href="contact.html#pricing-section">Bảng giá thiệp</a></li>
+                        <li><a href="xem-ngay-cuoi-dep.html">Xem ngày cưới đẹp</a></li>
+                        <li><a href="tao-ma-qr.html">Tạo mã QR miễn phí</a></li>
+                        <li><a href="blogs/index.html">Blogs</a></li>
+                        <li><a href="cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
+                        <li><a href="contact.html#contactForm">Yêu cầu báo giá</a></li>
+                        <li><a href="https://zalo.me/0334884895" target="_blank" rel="noopener">Zalo 0334 884 895</a></li>
+                        <li><a href="mailto:templexa.contact@gmail.com">templexa.contact@gmail.com</a></li>
+                        <li><a href="https://www.tiktok.com/@templexa" target="_blank" rel="noopener">TikTok @templexa</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Templexa Studio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script>
+    (function () {
+        'use strict';
+
+        var CARD_FIELDS = [
+            { param: 'n', label: 'Họ và tên', type: 'text', max: 30, placeholder: 'VD: Nguyễn Văn A' },
+            { param: 'j', label: 'Chức danh', type: 'text', max: 30, placeholder: 'VD: Marketing Manager', optional: true },
+            { param: 'c', label: 'Công ty', type: 'text', max: 30, placeholder: 'VD: Templexa Studio', optional: true },
+            { param: 'p', label: 'Số điện thoại', type: 'text', max: 15, placeholder: 'VD: 0912 345 678', optional: true },
+            { param: 'e', label: 'Email', type: 'text', max: 40, placeholder: 'VD: email@company.com', optional: true },
+            { param: 'b', label: 'Giới thiệu ngắn', type: 'textarea', max: 80, placeholder: 'Một dòng giới thiệu bản thân...', optional: true },
+            { param: 'fb', label: 'Facebook', type: 'text', max: 50, placeholder: 'https://facebook.com/...', optional: true },
+            { param: 'zl', label: 'Zalo', type: 'text', max: 15, placeholder: 'Số điện thoại Zalo', optional: true },
+            { param: 'tk', label: 'TikTok', type: 'text', max: 20, placeholder: '@username', optional: true }
+        ];
+
+        var TEMPLATES = {
+            'minimal': {
+                name: 'Minimal',
+                slug: 'minimal',
+                swatch: 'minimal',
+                icon: 'Aa',
+                fields: CARD_FIELDS
+            },
+            'dark': {
+                name: 'Dark',
+                slug: 'dark',
+                swatch: 'dark',
+                icon: '🌙',
+                fields: CARD_FIELDS
+            },
+            'gradient': {
+                name: 'Gradient',
+                slug: 'gradient',
+                swatch: 'gradient',
+                icon: '🎨',
+                fields: CARD_FIELDS
+            }
+        };
+
+        var TPL_KEYS = ['minimal', 'dark', 'gradient'];
+        var params = new URLSearchParams(location.search);
+        var currentTpl = params.get('tpl') || 'minimal';
+        if (!TEMPLATES[currentTpl]) currentTpl = 'minimal';
+
+        var qrCode = null;
+        var logoDataUrl = null;
+        var qrOpts = {
+            dotsType: 'rounded',
+            cornerSqType: 'extra-rounded',
+            cornerDotType: 'dot'
+        };
+        var previewFrame = document.getElementById('mnPreview');
+        var tplGrid = document.getElementById('mnTplGrid');
+        var fieldsWrap = document.getElementById('mnFields');
+
+        function buildTplPicker() {
+            var html = '';
+            TPL_KEYS.forEach(function (key) {
+                var t = TEMPLATES[key];
+                html += '<button type="button" class="mn-tpl-card' + (key === currentTpl ? ' active' : '') + '" data-tpl="' + key + '">' +
+                    '<div class="mn-tpl-swatch mn-tpl-swatch--' + t.swatch + '"><span>' + t.icon + '</span></div>' +
+                    t.name +
+                '</button>';
+            });
+            tplGrid.innerHTML = html;
+
+            tplGrid.querySelectorAll('.mn-tpl-card').forEach(function (card) {
+                card.addEventListener('click', function () {
+                    currentTpl = card.dataset.tpl;
+                    tplGrid.querySelectorAll('.mn-tpl-card').forEach(function (c) {
+                        c.classList.toggle('active', c.dataset.tpl === currentTpl);
+                    });
+                    buildFields();
+                    updatePreview();
+                    debouncedQR();
+                });
+            });
+        }
+
+        function buildFields() {
+            var tpl = TEMPLATES[currentTpl];
+            var html = '';
+            tpl.fields.forEach(function (f) {
+                html += '<div class="mn-field">';
+                if (f.type === 'textarea') {
+                    html += '<div class="mn-field-head">' +
+                        '<label for="mn_' + f.param + '">' + f.label + (f.optional ? ' <small>(tuỳ chọn)</small>' : '') + '</label>' +
+                        '<span class="mn-char-count"><span id="mn_count_' + f.param + '">0</span>/' + f.max + '</span>' +
+                    '</div>';
+                    html += '<textarea id="mn_' + f.param + '" maxlength="' + f.max + '" placeholder="' + f.placeholder + '" rows="3"></textarea>';
+                } else {
+                    html += '<label for="mn_' + f.param + '">' + f.label + (f.optional ? ' <small>(tuỳ chọn)</small>' : '') + '</label>';
+                    html += '<input type="text" id="mn_' + f.param + '" maxlength="' + f.max + '" placeholder="' + f.placeholder + '">';
+                }
+                html += '</div>';
+            });
+            fieldsWrap.innerHTML = html;
+
+            fieldsWrap.querySelectorAll('input, textarea').forEach(function (el) {
+                el.addEventListener('input', function () {
+                    var counter = document.getElementById('mn_count_' + el.id.replace('mn_', ''));
+                    if (counter) {
+                        counter.textContent = el.value.length;
+                        counter.parentElement.classList.toggle('warn', el.value.length >= el.maxLength - 20);
+                    }
+                    updatePreview();
+                    debouncedQR();
+                });
+            });
+        }
+
+        function getFieldValues() {
+            var tpl = TEMPLATES[currentTpl];
+            var values = {};
+            tpl.fields.forEach(function (f) {
+                var el = document.getElementById('mn_' + f.param);
+                if (el && el.value.trim()) {
+                    values[f.param] = el.value.trim();
+                }
+            });
+            return values;
+        }
+
+        function buildUrl(forQr) {
+            var values = getFieldValues();
+            var base = forQr
+                ? 'https://templexa.vn/card/' + TEMPLATES[currentTpl].slug + '/'
+                : './digital-card.html?t=' + currentTpl;
+            var parts = [];
+            Object.keys(values).forEach(function (k) {
+                parts.push(k + '=' + encodeURIComponent(values[k]));
+            });
+            if (parts.length) {
+                base += (base.indexOf('?') >= 0 ? '&' : '?') + parts.join('&');
+            }
+            return base;
+        }
+
+        function updatePreview() {
+            previewFrame.src = buildUrl(false);
+        }
+
+        var qrTimer;
+        function debouncedQR() {
+            clearTimeout(qrTimer);
+            qrTimer = setTimeout(updateQR, 300);
+        }
+
+        function updateQR() {
+            if (!qrCode) return;
+            var fg = (document.getElementById('mnFgColor') || {}).value || '#000000';
+            var bg = (document.getElementById('mnBgColor') || {}).value || '#ffffff';
+            var opts = {
+                data: buildUrl(true),
+                dotsOptions: { color: fg, type: qrOpts.dotsType },
+                backgroundOptions: { color: bg },
+                cornersSquareOptions: { type: qrOpts.cornerSqType, color: fg },
+                cornersDotOptions: { type: qrOpts.cornerDotType, color: fg }
+            };
+            if (logoDataUrl) {
+                opts.image = logoDataUrl;
+                opts.imageOptions = { crossOrigin: 'anonymous', margin: 8, imageSize: 0.35 };
+            } else {
+                opts.image = '';
+            }
+            qrCode.update(opts);
+        }
+
+        function bindDesign() {
+            var fgColor = document.getElementById('mnFgColor');
+            var bgColor = document.getElementById('mnBgColor');
+            var fgHex = document.getElementById('mnFgHex');
+            var bgHex = document.getElementById('mnBgHex');
+
+            fgColor.addEventListener('input', function () { fgHex.value = fgColor.value; updateQR(); });
+            bgColor.addEventListener('input', function () { bgHex.value = bgColor.value; updateQR(); });
+            fgHex.addEventListener('input', function () {
+                if (/^#[0-9a-f]{6}$/i.test(fgHex.value)) { fgColor.value = fgHex.value; updateQR(); }
+            });
+            bgHex.addEventListener('input', function () {
+                if (/^#[0-9a-f]{6}$/i.test(bgHex.value)) { bgColor.value = bgHex.value; updateQR(); }
+            });
+
+            document.querySelectorAll('[data-dot-type]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('[data-dot-type]').forEach(function (b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    qrOpts.dotsType = btn.dataset.dotType;
+                    updateQR();
+                });
+            });
+            document.querySelectorAll('[data-corner-sq]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('[data-corner-sq]').forEach(function (b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    qrOpts.cornerSqType = btn.dataset.cornerSq;
+                    updateQR();
+                });
+            });
+            document.querySelectorAll('[data-corner-dot]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('[data-corner-dot]').forEach(function (b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    qrOpts.cornerDotType = btn.dataset.cornerDot;
+                    updateQR();
+                });
+            });
+        }
+
+        function bindLogo() {
+            var fileInput = document.getElementById('mnLogoFile');
+            var uploadBtn = document.getElementById('mnLogoBtn');
+            var removeBtn = document.getElementById('mnLogoRemove');
+            var preview = document.getElementById('mnLogoPreview');
+
+            uploadBtn.addEventListener('click', function () { fileInput.click(); });
+            fileInput.addEventListener('change', function () {
+                var file = fileInput.files[0];
+                if (!file) return;
+                if (file.size > 2 * 1024 * 1024) { fileInput.value = ''; return; }
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    logoDataUrl = e.target.result;
+                    preview.src = logoDataUrl;
+                    preview.hidden = false;
+                    removeBtn.hidden = false;
+                    updateQR();
+                };
+                reader.readAsDataURL(file);
+            });
+            removeBtn.addEventListener('click', function () {
+                logoDataUrl = null;
+                fileInput.value = '';
+                preview.hidden = true;
+                removeBtn.hidden = true;
+                updateQR();
+            });
+        }
+
+        function init() {
+            buildTplPicker();
+            buildFields();
+            bindDesign();
+            bindLogo();
+
+            qrCode = new QRCodeStyling({
+                width: 800,
+                height: 800,
+                data: buildUrl(true),
+                margin: 8,
+                type: 'canvas',
+                dotsOptions: { color: '#000000', type: 'rounded' },
+                backgroundOptions: { color: '#ffffff' },
+                cornersSquareOptions: { type: 'extra-rounded', color: '#000000' },
+                cornersDotOptions: { type: 'dot', color: '#000000' },
+                imageOptions: { crossOrigin: 'anonymous', margin: 8, imageSize: 0.35 }
+            });
+            qrCode.append(document.getElementById('mnQrCanvas'));
+
+            document.getElementById('mnDownload').addEventListener('click', function () {
+                qrCode.download({ name: 'digital-card-qr', extension: 'png' });
+            });
+
+            updatePreview();
+        }
+
+        if (typeof QRCodeStyling !== 'undefined') {
+            init();
+        } else {
+            document.querySelector('script[src*="qr-code-styling"]').addEventListener('load', init);
+        }
+    })();
+    </script>
+</body>
+</html>

@@ -32,7 +32,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/qr-tool.css">
 
@@ -167,9 +167,9 @@
                     <li><a href="index.html">Trang chủ</a></li>
                     <li><a href="thiep-online.html">Mẫu thiệp</a></li>
                     <li><a href="xem-ngay-cuoi-dep.html">Ngày cưới</a></li>
-                    <li><a href="tao-ma-qr.html" class="active">Tạo QR</a></li>
+                    <li><a href="tao-loi-nhan.html">Lời nhắn</a></li>
                     <li><a href="blogs/index.html">Blogs</a></li>
-                    <li><a href="products.html">Mẫu web</a></li>
+                    <li><a href="tien-ich.html">Tiện ích</a></li>
                     <li><a href="contact.html">Dịch vụ</a></li>
                 </ul>
             </nav>
@@ -254,9 +254,37 @@
                             </div>
                             <!-- Text -->
                             <div class="qt-input-group" data-type="text">
+                                <div class="qt-tpl-picker">
+                                    <label data-i18n="tplLabel">Mẫu hiển thị</label>
+                                    <div class="qt-tpl-grid">
+                                        <button type="button" class="qt-tpl-card active" data-tpl="plain">
+                                            <div class="qt-tpl-swatch qt-tpl-swatch--plain"><span>Aa</span></div>
+                                            <span data-i18n="tplPlain">Giấy trắng</span>
+                                        </button>
+                                        <button type="button" class="qt-tpl-card" data-tpl="letter">
+                                            <div class="qt-tpl-swatch qt-tpl-swatch--letter"><span>Aa</span></div>
+                                            <span data-i18n="tplLetter">Thư tay</span>
+                                        </button>
+                                        <button type="button" class="qt-tpl-card" data-tpl="chibi-love">
+                                            <div class="qt-tpl-swatch qt-tpl-swatch--chibi"><span>💕</span></div>
+                                            <span data-i18n="tplChibi">Chibi yêu</span>
+                                        </button>
+                                        <button type="button" class="qt-tpl-card" data-tpl="floral">
+                                            <div class="qt-tpl-swatch qt-tpl-swatch--floral"><span>🌿</span></div>
+                                            <span data-i18n="tplFloral">Hoa nhỏ</span>
+                                        </button>
+                                    </div>
+                                </div>
                                 <div class="qt-field">
-                                    <label data-i18n="textLabel">Nội dung</label>
-                                    <textarea id="qtText" placeholder="Nhập văn bản bất kỳ..." data-i18n="textPlaceholder"></textarea>
+                                    <div class="qt-field-head">
+                                        <label data-i18n="textLabel">Lời nhắn</label>
+                                        <span class="qt-char-count"><span id="qtTextCount">0</span>/200</span>
+                                    </div>
+                                    <textarea id="qtText" placeholder="Nhập lời nhắn của bạn..." data-i18n="textPlaceholder" maxlength="200"></textarea>
+                                </div>
+                                <div class="qt-field">
+                                    <label data-i18n="textFromLabel">Người gửi <small>(tuỳ chọn)</small></label>
+                                    <input type="text" id="qtTextFrom" placeholder="VD: Minh" data-i18n="textFromPlaceholder" maxlength="30">
                                 </div>
                             </div>
                             <!-- WiFi -->
@@ -326,6 +354,20 @@
                                     <div class="qt-field">
                                         <label data-i18n="vcardTitle">Chức danh</label>
                                         <input type="text" id="qtVcardTitle" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="qt-field">
+                                    <label data-i18n="vcardFacebook">Facebook</label>
+                                    <input type="url" id="qtVcardFacebook" placeholder="https://facebook.com/...">
+                                </div>
+                                <div class="qt-field-row">
+                                    <div class="qt-field">
+                                        <label data-i18n="vcardZalo">Zalo</label>
+                                        <input type="text" id="qtVcardZalo" placeholder="Số điện thoại Zalo">
+                                    </div>
+                                    <div class="qt-field">
+                                        <label data-i18n="vcardTiktok">TikTok</label>
+                                        <input type="text" id="qtVcardTiktok" placeholder="@username">
                                     </div>
                                 </div>
                             </div>
@@ -498,10 +540,16 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="qt-download" id="qtDownload">
-                            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                            <span data-i18n="download">Tải QR (PNG)</span>
-                        </button>
+                        <div class="qt-actions">
+                            <button type="button" class="qt-download" id="qtDownload">
+                                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                <span data-i18n="download">Tải QR (PNG)</span>
+                            </button>
+                            <button type="button" class="qt-copy" id="qtCopy">
+                                <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                <span data-i18n="copy">Copy ảnh</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -25,6 +25,8 @@ products/
 
 | Loai chinh | Loai nho | Tong | Public |
 |------------|----------|------|--------|
+| **Invitation** | digital-card | 3 | 3 |
+| **Invitation** | loi-nhan | 3 | 3 |
 | **Invitation** | other | 54 | 46 |
 | **Invitation** | wedding | 94 | 61 |
 | **Web** | e-commerce | 33 | 33 |
@@ -32,9 +34,9 @@ products/
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **268** | **227** |
+| | **Tong** | **274** | **233** |
 
-_Cap nhat tu data.js: 2026-09-09 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-09-14 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 
@@ -149,6 +151,22 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 ---
 
 ## Danh sach san pham
+
+### Invitation / digital-card (3)
+
+| ID | Ten | Folder | Style / Event | Trang thai |
+|----|-----|--------|---------------|------------|
+| 285 | Digital Card — Minimal | `./card/minimal` |  | public |
+| 286 | Digital Card — Dark | `./card/dark` |  | public |
+| 287 | Digital Card — Gradient | `./card/gradient` |  | public |
+
+### Invitation / loi-nhan (3)
+
+| ID | Ten | Folder | Style / Event | Trang thai |
+|----|-----|--------|---------------|------------|
+| 282 | Lời Nhắn QR — Thư Tay | `./loi-nhan/thu-tay` |  | public |
+| 283 | Lời Nhắn QR — Chibi Yêu Thương | `./loi-nhan/chibi-yeu-thuong` |  | public |
+| 284 | Lời Nhắn QR — Hoa Lá Nhẹ Nhàng | `./loi-nhan/hoa-la` |  | public |
 
 ### Invitation / other (54)
 

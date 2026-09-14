@@ -13,8 +13,8 @@
             typeVcard: 'Danh thiếp',
             urlPlaceholder: 'https://example.com',
             urlLabel: 'Link website',
-            textLabel: 'Nội dung',
-            textPlaceholder: 'Nhập văn bản bất kỳ...',
+            textLabel: 'Lời nhắn',
+            textPlaceholder: 'Nhập lời nhắn của bạn...',
             wifiSsid: 'Tên mạng (SSID)',
             wifiPass: 'Mật khẩu',
             wifiEnc: 'Mã hoá',
@@ -29,6 +29,9 @@
             vcardEmail: 'Email',
             vcardOrg: 'Công ty',
             vcardTitle: 'Chức danh',
+            vcardFacebook: 'Facebook',
+            vcardZalo: 'Zalo',
+            vcardTiktok: 'TikTok',
             designColors: 'Màu sắc',
             designPattern: 'Kiểu chấm',
             designCorners: 'Kiểu góc',
@@ -40,6 +43,7 @@
             uploadLogo: 'Tải logo lên',
             removeLogo: 'Xoá',
             download: 'Tải QR (PNG)',
+            copy: 'Copy ảnh',
             logoNote: 'JPG, PNG, SVG — tối đa 2 MB',
             customText: 'Văn bản bên dưới QR',
             customTextPlaceholder: 'VD: Quét để xem thiệp cưới',
@@ -50,7 +54,14 @@
             frameNote: 'Ảnh sẽ phủ toàn bộ khung bên ngoài QR',
             textFont: 'Font',
             textColor: 'Màu chữ',
-            textSize: 'Cỡ chữ'
+            textSize: 'Cỡ chữ',
+            tplLabel: 'Mẫu hiển thị',
+            tplPlain: 'Giấy trắng',
+            tplLetter: 'Thư tay',
+            tplChibi: 'Chibi yêu',
+            tplFloral: 'Hoa nhỏ',
+            textFromLabel: 'Người gửi',
+            textFromPlaceholder: 'VD: Minh'
         },
         en: {
             title: 'Free QR Code Generator',
@@ -63,8 +74,8 @@
             typeVcard: 'vCard',
             urlPlaceholder: 'https://example.com',
             urlLabel: 'Website URL',
-            textLabel: 'Content',
-            textPlaceholder: 'Enter any text...',
+            textLabel: 'Message',
+            textPlaceholder: 'Type your message...',
             wifiSsid: 'Network name (SSID)',
             wifiPass: 'Password',
             wifiEnc: 'Encryption',
@@ -79,6 +90,9 @@
             vcardEmail: 'Email',
             vcardOrg: 'Company',
             vcardTitle: 'Job title',
+            vcardFacebook: 'Facebook',
+            vcardZalo: 'Zalo',
+            vcardTiktok: 'TikTok',
             designColors: 'Colors',
             designPattern: 'Dot pattern',
             designCorners: 'Corners',
@@ -90,6 +104,7 @@
             uploadLogo: 'Upload logo',
             removeLogo: 'Remove',
             download: 'Download QR (PNG)',
+            copy: 'Copy image',
             logoNote: 'JPG, PNG, SVG — max 2 MB',
             customText: 'Text below QR',
             customTextPlaceholder: 'E.g.: Scan to view wedding invitation',
@@ -100,14 +115,23 @@
             frameNote: 'Image will cover the entire frame area around QR',
             textFont: 'Font',
             textColor: 'Text color',
-            textSize: 'Font size'
+            textSize: 'Font size',
+            tplLabel: 'Display template',
+            tplPlain: 'White paper',
+            tplLetter: 'Handwritten',
+            tplChibi: 'Chibi love',
+            tplFloral: 'Floral',
+            textFromLabel: 'From',
+            textFromPlaceholder: 'E.g.: Minh'
         }
     };
 
     var currentLang = 'vi';
-    var isAdmin = new URLSearchParams(window.location.search).get('admin') === 'true';
+    var params = new URLSearchParams(window.location.search);
+    var isAdmin = params.get('admin') === 'true';
     var qrCode = null;
     var currentType = 'url';
+    var currentTemplate = params.get('tpl') || 'plain';
     var logoDataUrl = null;
     var frameBgDataUrl = null;
 
@@ -129,6 +153,7 @@
         qrCode.append(document.getElementById('qtCanvas'));
         bindTypes();
         bindContent();
+        bindTemplates();
         bindDesign();
         bindLogo();
         bindDownload();
@@ -140,6 +165,25 @@
             var wm = document.querySelector('.qt-watermark-top');
             if (wm) wm.hidden = true;
         }
+        if (params.get('tpl')) {
+            window.location.replace('tao-loi-nhan.html?tpl=' + encodeURIComponent(params.get('tpl')));
+            return;
+        }
+    }
+
+    function switchToType(type) {
+        if (type === 'text') {
+            window.location.href = 'tao-loi-nhan.html';
+            return;
+        }
+        currentType = type;
+        document.querySelectorAll('.qt-type-btn').forEach(function (b) {
+            b.classList.toggle('active', b.dataset.type === type);
+        });
+        document.querySelectorAll('.qt-input-group').forEach(function (g) {
+            g.classList.toggle('active', g.dataset.type === type);
+        });
+        debouncedUpdate();
     }
 
     function getData() {
@@ -147,7 +191,21 @@
             case 'url':
                 return val('qtUrl') || 'https://templexa.vn';
             case 'text':
-                return val('qtText') || 'Hello from Templexa';
+                var tMsg = val('qtText');
+                var tFrom = val('qtTextFrom');
+                var tplPaths = {
+                    'plain': 'loi-nhan/giay-trang/',
+                    'letter': 'loi-nhan/thu-tay/',
+                    'chibi-love': 'loi-nhan/chibi-yeu-thuong/',
+                    'floral': 'loi-nhan/hoa-la/',
+                };
+                var tpl = currentTemplate || 'plain';
+                var tUrl = 'https://templexa.vn/' + (tplPaths[tpl] || 'loi-nhan/giay-trang/');
+                var tParams = [];
+                if (tMsg) tParams.push('m=' + encodeURIComponent(tMsg));
+                if (tFrom) tParams.push('f=' + encodeURIComponent(tFrom));
+                if (tParams.length) tUrl += '?' + tParams.join('&');
+                return tUrl;
             case 'wifi':
                 var ssid = val('qtWifiSsid');
                 var pass = val('qtWifiPass');
@@ -170,11 +228,17 @@
                 var e = val('qtVcardEmail');
                 var o = val('qtVcardOrg');
                 var t = val('qtVcardTitle');
+                var fb = val('qtVcardFacebook');
+                var zl = val('qtVcardZalo');
+                var tt = val('qtVcardTiktok');
                 var lines = ['BEGIN:VCARD', 'VERSION:3.0', 'FN:' + n];
                 if (p) lines.push('TEL:' + p);
                 if (e) lines.push('EMAIL:' + e);
                 if (o) lines.push('ORG:' + o);
                 if (t) lines.push('TITLE:' + t);
+                if (fb) lines.push('URL;type=Facebook:' + fb);
+                if (zl) lines.push('URL;type=Zalo:https://zalo.me/' + zl.replace(/\D/g, ''));
+                if (tt) lines.push('URL;type=TikTok:https://www.tiktok.com/@' + tt.replace(/^@/, ''));
                 lines.push('END:VCARD');
                 return lines.join('\n');
             default:
@@ -213,17 +277,39 @@
         debounceTimer = setTimeout(updateQR, 200);
     }
 
-    function bindTypes() {
-        var btns = document.querySelectorAll('.qt-type-btn');
-        btns.forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                btns.forEach(function (b) { b.classList.remove('active'); });
-                btn.classList.add('active');
-                currentType = btn.dataset.type;
-                document.querySelectorAll('.qt-input-group').forEach(function (g) {
-                    g.classList.toggle('active', g.dataset.type === currentType);
-                });
+    function bindTemplates() {
+        var cards = document.querySelectorAll('.qt-tpl-card');
+        cards.forEach(function (card) {
+            card.addEventListener('click', function () {
+                cards.forEach(function (c) { c.classList.remove('active'); });
+                card.classList.add('active');
+                currentTemplate = card.dataset.tpl;
                 debouncedUpdate();
+            });
+        });
+
+        var initTpl = params.get('tpl');
+        if (initTpl) {
+            cards.forEach(function (c) {
+                c.classList.toggle('active', c.dataset.tpl === initTpl);
+            });
+        }
+
+        var textarea = document.getElementById('qtText');
+        var counter = document.getElementById('qtTextCount');
+        if (textarea && counter) {
+            textarea.addEventListener('input', function () {
+                var len = textarea.value.length;
+                counter.textContent = len;
+                counter.parentElement.classList.toggle('warn', len >= 180);
+            });
+        }
+    }
+
+    function bindTypes() {
+        document.querySelectorAll('.qt-type-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                switchToType(btn.dataset.type);
             });
         });
     }
@@ -390,79 +476,103 @@
         });
     }
 
+    function renderQrCanvas(callback) {
+        var frameColor = val('qtFrameColor') || '#ffffff';
+        var fgColor = val('qtFgColor') || '#000000';
+        var customText = val('qtCustomText');
+        var textFont = (document.getElementById('qtTextFont') || {}).value || 'Inter';
+        var textColor = val('qtTextColor') || '#000000';
+        var textSize = parseInt((document.getElementById('qtTextSize') || {}).value, 10) || 26;
+
+        qrCode.getRawData('png').then(function (blob) {
+            var qrImg = new Image();
+            qrImg.onload = function () {
+                var pad = 40;
+                var wmH = isAdmin ? 0 : 32;
+                var ctH = customText ? (textSize + 16) : 0;
+                var cw = qrImg.width + pad * 2;
+                var ch = wmH + qrImg.height + pad + ctH + (customText ? 8 : 0);
+                var canvas = document.createElement('canvas');
+                canvas.width = cw;
+                canvas.height = ch;
+                var ctx = canvas.getContext('2d');
+
+                function drawContent(bgImg) {
+                    if (bgImg) {
+                        var scale = Math.max(cw / bgImg.width, ch / bgImg.height);
+                        var sw = bgImg.width * scale;
+                        var sh = bgImg.height * scale;
+                        ctx.drawImage(bgImg, (cw - sw) / 2, (ch - sh) / 2, sw, sh);
+                    } else {
+                        ctx.fillStyle = frameColor;
+                        ctx.fillRect(0, 0, cw, ch);
+                    }
+
+                    if (!isAdmin) {
+                        ctx.fillStyle = fgColor;
+                        ctx.globalAlpha = 0.4;
+                        ctx.font = '600 20px Inter, system-ui, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText('templexa.vn', cw / 2, wmH - 8);
+                        ctx.globalAlpha = 1;
+                    }
+
+                    ctx.drawImage(qrImg, pad, wmH);
+
+                    if (customText) {
+                        ctx.fillStyle = textColor;
+                        ctx.font = '600 ' + textSize + 'px ' + textFont + ', system-ui, sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(customText, cw / 2, wmH + qrImg.height + pad + 4);
+                    }
+
+                    canvas.toBlob(function (b) { callback(b); }, 'image/png');
+                }
+
+                if (frameBgDataUrl) {
+                    var bgImg = new Image();
+                    bgImg.onload = function () { drawContent(bgImg); };
+                    bgImg.src = frameBgDataUrl;
+                } else {
+                    drawContent(null);
+                }
+            };
+            qrImg.src = URL.createObjectURL(blob);
+        });
+    }
+
     function bindDownload() {
         document.getElementById('qtDownload').addEventListener('click', function () {
-            var frameColor = val('qtFrameColor') || '#ffffff';
-            var fgColor = val('qtFgColor') || '#000000';
-            var customText = val('qtCustomText');
-            var textFont = (document.getElementById('qtTextFont') || {}).value || 'Inter';
-            var textColor = val('qtTextColor') || '#000000';
-            var textSize = parseInt((document.getElementById('qtTextSize') || {}).value, 10) || 26;
-
-            qrCode.getRawData('png').then(function (blob) {
-                var qrImg = new Image();
-                qrImg.onload = function () {
-                    var pad = 40;
-                    var wmH = isAdmin ? 0 : 32;
-                    var ctH = customText ? (textSize + 16) : 0;
-                    var cw = qrImg.width + pad * 2;
-                    var ch = wmH + qrImg.height + pad + ctH + (customText ? 8 : 0);
-                    var canvas = document.createElement('canvas');
-                    canvas.width = cw;
-                    canvas.height = ch;
-                    var ctx = canvas.getContext('2d');
-
-                    function drawContent(bgImg) {
-                        if (bgImg) {
-                            var scale = Math.max(cw / bgImg.width, ch / bgImg.height);
-                            var sw = bgImg.width * scale;
-                            var sh = bgImg.height * scale;
-                            ctx.drawImage(bgImg, (cw - sw) / 2, (ch - sh) / 2, sw, sh);
-                        } else {
-                            ctx.fillStyle = frameColor;
-                            ctx.fillRect(0, 0, cw, ch);
-                        }
-
-                        if (!isAdmin) {
-                            ctx.fillStyle = fgColor;
-                            ctx.globalAlpha = 0.4;
-                            ctx.font = '600 20px Inter, system-ui, sans-serif';
-                            ctx.textAlign = 'center';
-                            ctx.fillText('templexa.vn', cw / 2, wmH - 8);
-                            ctx.globalAlpha = 1;
-                        }
-
-                        ctx.drawImage(qrImg, pad, wmH);
-
-                        if (customText) {
-                            ctx.fillStyle = textColor;
-                            ctx.font = '600 ' + textSize + 'px ' + textFont + ', system-ui, sans-serif';
-                            ctx.textAlign = 'center';
-                            ctx.fillText(customText, cw / 2, wmH + qrImg.height + pad + 4);
-                        }
-
-                        canvas.toBlob(function (b) {
-                            var a = document.createElement('a');
-                            a.href = URL.createObjectURL(b);
-                            a.download = 'qr-templexa.png';
-                            document.body.appendChild(a);
-                            a.click();
-                            document.body.removeChild(a);
-                            URL.revokeObjectURL(a.href);
-                        }, 'image/png');
-                    }
-
-                    if (frameBgDataUrl) {
-                        var bgImg = new Image();
-                        bgImg.onload = function () { drawContent(bgImg); };
-                        bgImg.src = frameBgDataUrl;
-                    } else {
-                        drawContent(null);
-                    }
-                };
-                qrImg.src = URL.createObjectURL(blob);
+            renderQrCanvas(function (blob) {
+                var a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'qr-templexa.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(a.href);
             });
         });
+
+        var copyBtn = document.getElementById('qtCopy');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', function () {
+                renderQrCanvas(function (blob) {
+                    navigator.clipboard.write([
+                        new ClipboardItem({ 'image/png': blob })
+                    ]).then(function () {
+                        copyBtn.classList.add('copied');
+                        var label = copyBtn.querySelector('span');
+                        var orig = label.textContent;
+                        label.textContent = 'Đã copy!';
+                        setTimeout(function () {
+                            copyBtn.classList.remove('copied');
+                            label.textContent = orig;
+                        }, 1500);
+                    });
+                });
+            });
+        }
     }
 
     function bindLang() {

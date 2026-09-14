@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Card — Templexa</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta property="og:title" content="Digital Card">
+    <meta property="og:description" content="Danh thiếp số — xem thông tin liên hệ ngay. Tạo miễn phí tại Templexa.">
+    <meta property="og:image" content="https://templexa.vn/assets/images/og-image.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="./favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            min-height:100dvh;display:flex;flex-direction:column;
+            align-items:center;justify-content:center;
+            padding:24px 16px;
+            font-family:'Inter',system-ui,sans-serif;
+            -webkit-font-smoothing:antialiased;
+        }
+
+        .dc-wrap{
+            display:flex;flex-direction:column;align-items:center;
+            width:100%;max-width:400px;
+        }
+
+        @keyframes cardIn{
+            from{opacity:0;transform:translateY(16px) scale(0.97)}
+            to{opacity:1;transform:translateY(0) scale(1)}
+        }
+
+        .dc-card{
+            width:100%;display:flex;flex-direction:column;
+            align-items:center;text-align:center;
+            position:relative;overflow:hidden;
+            animation:cardIn .5s ease-out;
+        }
+
+        .dc-avatar{
+            width:80px;height:80px;border-radius:50%;
+            display:flex;align-items:center;justify-content:center;
+            font-size:1.6rem;font-weight:700;
+            margin-bottom:16px;
+        }
+
+        .dc-name{font-size:1.4rem;font-weight:700;line-height:1.3}
+        .dc-title{font-size:0.85rem;margin-top:4px;opacity:0.7}
+        .dc-company{font-size:0.8rem;margin-top:2px;opacity:0.55;font-weight:500}
+        .dc-bio{
+            font-size:0.88rem;line-height:1.65;margin-top:14px;
+            max-width:320px;opacity:0.8;word-break:break-word;
+        }
+
+        .dc-divider{width:40px;height:2px;margin:18px auto;border-radius:1px;opacity:0.2}
+
+        .dc-contact{
+            display:flex;gap:12px;flex-wrap:wrap;justify-content:center;
+            margin-top:4px;
+        }
+        .dc-contact a{
+            display:inline-flex;align-items:center;gap:6px;
+            padding:8px 16px;border-radius:999px;
+            font-size:0.78rem;font-weight:600;
+            text-decoration:none;transition:transform .1s,opacity .1s;
+        }
+        .dc-contact a:hover{transform:translateY(-1px)}
+        .dc-contact a:active{transform:scale(0.97)}
+        .dc-contact a svg{width:14px;height:14px;flex-shrink:0}
+
+        .dc-social{
+            display:flex;gap:10px;margin-top:16px;
+        }
+        .dc-social a{
+            display:flex;align-items:center;justify-content:center;
+            width:36px;height:36px;border-radius:50%;
+            text-decoration:none;transition:transform .1s,opacity .1s;
+        }
+        .dc-social a:hover{transform:translateY(-2px)}
+        .dc-social a:active{transform:scale(0.95)}
+        .dc-social a svg{width:16px;height:16px}
+
+        .dc-brand{
+            font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;
+            opacity:0.2;margin-top:20px;
+        }
+
+        .dc-cta{
+            display:inline-flex;align-items:center;gap:6px;
+            margin-top:20px;padding:10px 24px;border-radius:999px;
+            font-size:0.78rem;font-weight:600;text-decoration:none;
+            transition:transform .15s,box-shadow .15s;
+        }
+        .dc-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,0.12)}
+        .dc-cta:active{transform:scale(0.97)}
+
+
+        /* ═══════════════════════════
+           TEMPLATE: MINIMAL
+           ═══════════════════════════ */
+        .tpl-minimal{background:#f5f5f5}
+        .tpl-minimal .dc-card{
+            background:#fff;border-radius:20px;padding:44px 32px 36px;
+            box-shadow:0 4px 28px rgba(0,0,0,0.06);
+        }
+        .tpl-minimal .dc-avatar{background:#6366F1;color:#fff}
+        .tpl-minimal .dc-name{color:#111}
+        .tpl-minimal .dc-title{color:#555}
+        .tpl-minimal .dc-company{color:#777}
+        .tpl-minimal .dc-bio{color:#444}
+        .tpl-minimal .dc-divider{background:#ddd}
+        .tpl-minimal .dc-contact a{background:#f0f0f0;color:#333}
+        .tpl-minimal .dc-contact a:hover{background:#e4e4e4}
+        .tpl-minimal .dc-social a{background:#f0f0f0;color:#555}
+        .tpl-minimal .dc-social a:hover{background:#e4e4e4}
+        .tpl-minimal .dc-brand{color:#999}
+        .tpl-minimal .dc-cta{background:#6366F1;color:#fff}
+
+        /* ═══════════════════════════
+           TEMPLATE: DARK
+           ═══════════════════════════ */
+        .tpl-dark{background:#0f0f14}
+        .tpl-dark .dc-card{
+            background:linear-gradient(160deg,#1a1a2e 0%,#16213e 100%);
+            border-radius:20px;padding:44px 32px 36px;
+            box-shadow:0 4px 32px rgba(0,0,0,0.3);
+            border:1px solid rgba(255,255,255,0.06);
+        }
+        .tpl-dark .dc-avatar{
+            background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;
+        }
+        .tpl-dark .dc-name{color:#f1f1f1}
+        .tpl-dark .dc-title{color:#a0a0b8}
+        .tpl-dark .dc-company{color:#7a7a94}
+        .tpl-dark .dc-bio{color:#b0b0c4}
+        .tpl-dark .dc-divider{background:rgba(255,255,255,0.1)}
+        .tpl-dark .dc-contact a{
+            background:rgba(255,255,255,0.08);color:#d0d0e0;
+            border:1px solid rgba(255,255,255,0.08);
+        }
+        .tpl-dark .dc-contact a:hover{background:rgba(255,255,255,0.14)}
+        .tpl-dark .dc-social a{
+            background:rgba(255,255,255,0.08);color:#b0b0c4;
+            border:1px solid rgba(255,255,255,0.06);
+        }
+        .tpl-dark .dc-social a:hover{background:rgba(255,255,255,0.14)}
+        .tpl-dark .dc-brand{color:#555}
+        .tpl-dark .dc-cta{
+            background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;
+        }
+
+        /* ═══════════════════════════
+           TEMPLATE: GRADIENT
+           ═══════════════════════════ */
+        .tpl-gradient{
+            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+        }
+        .tpl-gradient .dc-card{
+            background:rgba(255,255,255,0.95);border-radius:24px;
+            padding:44px 32px 36px;
+            box-shadow:0 8px 40px rgba(0,0,0,0.15);
+        }
+        .tpl-gradient .dc-avatar{
+            background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;
+        }
+        .tpl-gradient .dc-name{color:#1a1a2e}
+        .tpl-gradient .dc-title{color:#667eea}
+        .tpl-gradient .dc-company{color:#764ba2}
+        .tpl-gradient .dc-bio{color:#444}
+        .tpl-gradient .dc-divider{background:linear-gradient(90deg,#667eea,#764ba2)}
+        .tpl-gradient .dc-contact a{
+            background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;
+        }
+        .tpl-gradient .dc-contact a:hover{opacity:0.9}
+        .tpl-gradient .dc-social a{
+            background:rgba(102,126,234,0.12);color:#667eea;
+        }
+        .tpl-gradient .dc-social a:hover{background:rgba(102,126,234,0.22)}
+        .tpl-gradient .dc-brand{color:#999}
+        .tpl-gradient .dc-cta{
+            background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;
+        }
+
+        /* Responsive */
+        @media(max-width:480px){
+            .dc-card{padding-left:24px!important;padding-right:24px!important}
+            .dc-name{font-size:1.2rem}
+            .dc-bio{font-size:0.82rem}
+        }
+    </style>
+</head>
+<body class="tpl-minimal" id="body">
+    <div class="dc-wrap">
+        <div class="dc-card" id="card">
+            <div class="dc-avatar" id="dcAvatar"></div>
+            <div class="dc-name" id="dcName"></div>
+            <div class="dc-title" id="dcTitle"></div>
+            <div class="dc-company" id="dcCompany"></div>
+            <div class="dc-bio" id="dcBio"></div>
+            <div class="dc-divider" id="dcDivider"></div>
+            <div class="dc-contact" id="dcContact"></div>
+            <div class="dc-social" id="dcSocial"></div>
+            <div class="dc-brand">templexa.vn</div>
+        </div>
+        <a class="dc-cta" href="https://templexa.vn/tao-digital-card" id="dcCta">
+            ✨ Tạo danh thiếp số miễn phí
+        </a>
+    </div>
+<script>
+(function(){
+    var p = new URLSearchParams(window.location.search);
+    var tpl = p.get('t') || 'minimal';
+    var name = p.get('n') || '';
+    var job = p.get('j') || '';
+    var company = p.get('c') || '';
+    var phone = p.get('p') || '';
+    var email = p.get('e') || '';
+    var bio = p.get('b') || '';
+    var fb = p.get('fb') || '';
+    var zl = p.get('zl') || '';
+    var tk = p.get('tk') || '';
+    var web = p.get('w') || '';
+
+    var valid = ['minimal','dark','gradient'];
+    if (valid.indexOf(tpl) === -1) tpl = 'minimal';
+    document.getElementById('body').className = 'tpl-' + tpl;
+
+    var inIframe = window.self !== window.top;
+    var ctaEl = document.getElementById('dcCta');
+    if (inIframe) {
+        if (ctaEl) ctaEl.hidden = true;
+    } else {
+        if (ctaEl) ctaEl.href = 'https://templexa.vn/tao-digital-card?tpl=' + tpl;
+    }
+
+    var avatarEl = document.getElementById('dcAvatar');
+    var nameEl = document.getElementById('dcName');
+    var titleEl = document.getElementById('dcTitle');
+    var companyEl = document.getElementById('dcCompany');
+    var bioEl = document.getElementById('dcBio');
+    var divEl = document.getElementById('dcDivider');
+    var contactEl = document.getElementById('dcContact');
+    var socialEl = document.getElementById('dcSocial');
+
+    if (name) {
+        nameEl.textContent = name;
+        var initials = name.split(/\s+/).map(function(w){ return w.charAt(0).toUpperCase(); }).slice(0,2).join('');
+        avatarEl.textContent = initials;
+    } else {
+        nameEl.textContent = 'Tên của bạn';
+        avatarEl.textContent = '?';
+    }
+
+    if (job) { titleEl.textContent = job; } else { titleEl.hidden = true; }
+    if (company) { companyEl.textContent = company; } else { companyEl.hidden = true; }
+    if (bio) { bioEl.textContent = bio; } else { bioEl.hidden = true; }
+
+    var hasContact = phone || email;
+    if (!hasContact && !job && !company && !bio) divEl.hidden = true;
+
+    var contactHtml = '';
+    if (phone) {
+        contactHtml += '<a href="tel:' + phone + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>' + phone + '</a>';
+    }
+    if (email) {
+        contactHtml += '<a href="mailto:' + email + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>' + email + '</a>';
+    }
+    if (contactHtml) { contactEl.innerHTML = contactHtml; } else { contactEl.hidden = true; }
+
+    var socialHtml = '';
+    if (fb) {
+        var fbUrl = fb.indexOf('http') === 0 ? fb : 'https://facebook.com/' + fb;
+        socialHtml += '<a href="' + fbUrl + '" target="_blank" rel="noopener" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>';
+    }
+    if (zl) {
+        var zlNum = zl.replace(/\D/g, '');
+        socialHtml += '<a href="https://zalo.me/' + zlNum + '" target="_blank" rel="noopener" title="Zalo"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" font-family="sans-serif">Z</text></svg></a>';
+    }
+    if (tk) {
+        var tkUser = tk.replace(/^@/, '');
+        socialHtml += '<a href="https://www.tiktok.com/@' + tkUser + '" target="_blank" rel="noopener" title="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1 0-5.78 2.92 2.92 0 0 1 .88.13v-3.5a6.37 6.37 0 0 0-.88-.07A6.26 6.26 0 0 0 3.23 15.2a6.27 6.27 0 0 0 6.26 6.26 6.27 6.27 0 0 0 6.26-6.26V9.05a8.16 8.16 0 0 0 4.84 1.58v-3.5a4.78 4.78 0 0 1-1-.44z"/></svg></a>';
+    }
+    if (web) {
+        var webUrl = web.indexOf('http') === 0 ? web : 'https://' + web;
+        socialHtml += '<a href="' + webUrl + '" target="_blank" rel="noopener" title="Website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></a>';
+    }
+    if (socialHtml) { socialEl.innerHTML = socialHtml; } else { socialEl.hidden = true; }
+})();
+</script>
+</body>
+</html>

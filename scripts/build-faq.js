@@ -143,8 +143,9 @@ ${JSON.stringify(webpage, null, 4)}
                     <li><a href="index.html">Trang chủ</a></li>
                     <li><a href="thiep-online.html">Mẫu thiệp</a></li>
                     <li><a href="xem-ngay-cuoi-dep.html">Ngày cưới</a></li>
+                    <li><a href="tao-loi-nhan.html">Lời nhắn</a></li>
                     <li><a href="blogs/index.html">Blogs</a></li>
-                    <li><a href="products.html">Mẫu web</a></li>
+                    <li><a href="tien-ich.html">Tiện ích</a></li>
                     <li><a href="contact.html">Dịch vụ</a></li>
                 </ul>
             </nav>
