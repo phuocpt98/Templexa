@@ -200,6 +200,12 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự Lễ Thành Hôn — 17.10.2026 tại Trung Tâm Tiệc Cưới Long Vĩ, Kim Liên, Hà Nội',
         image: '../../products/Invitation/Wedding/khach_anh-quang-tra-my/hero.webp',
     },
+    'tra-my-anh-quang': {
+        src: '../../products/Invitation/Wedding/khach_anh-quang-tra-my/tra-my-anh-quang.html',
+        title: 'Trà My & Anh Quang — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời Quý khách đến dự Lễ Thành Hôn — 17:30 ngày 17.10.2026 tại Trung Tâm Tiệc Cưới Long Vĩ, Kim Liên, Hà Nội',
+        image: '../../products/Invitation/Wedding/khach_anh-quang-tra-my/og-cover.jpg',
+    },
     'hien-thuc-tien-dat': {
         src: '../../products/Invitation/Wedding/khach_hien-thuc-tien-dat/index.html',
         title: 'Hiền Thục & Tiến Đạt — Thiệp Mời Cưới',
