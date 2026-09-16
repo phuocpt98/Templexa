@@ -158,6 +158,12 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự lễ vu quy của chúng tôi — 08.08.2026 tại Nhà Cộng Đồng TDP Tứ Chánh, Huế',
         image: '../../products/Invitation/Wedding/khach_nhat-long-thanh-thuy/og-cover.jpg',
     },
+    'phuong-dung-thanh-do': {
+        src: '../../products/Invitation/Wedding/khach_phuong-dung-thanh-do/index.html',
+        title: 'Phương Dung & Thành Đô — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời quý khách đến dự tiệc cưới của chúng tôi — 24.10.2026 tại Nhà hàng Invita Palace, Phan Thiết',
+        image: '../../products/Invitation/Wedding/khach_phuong-dung-thanh-do/og-cover.jpg',
+    },
     'anh-thu-minh-thong': {
         src: '../../products/Invitation/Wedding/khach_anh-thu-minh-thong/index.html',
         title: 'Anh Thư & Minh Thông — Thiệp Mời Cưới',
