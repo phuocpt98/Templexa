@@ -1,0 +1,177 @@
+/* Gold on engraved curves: restrained, continuous motion, behind the typography. */
+.ambient-field {
+  --orbit-gold: #e7c384;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: clip;
+  contain: paint;
+  pointer-events: none;
+  user-select: none;
+  background: radial-gradient(ellipse at 95% 12%, #d7ad6310, transparent 48%);
+}
+.ambient-field svg { display: block; width: 100%; height: 100%; overflow: hidden; }
+.ambient-field use { fill: none; stroke: var(--orbit-gold); vector-effect: non-scaling-stroke; }
+.ambient-trace { stroke-width: .7px; opacity: .12; }
+.ambient-trail {
+  stroke-linecap: round;
+  animation: ambient-orbit var(--orbit-duration, 29s) linear var(--orbit-delay, -7s) infinite;
+}
+.trail-soft { --trail-offset: 38; stroke-dasharray: 38 962; stroke-width: 1px; opacity: .09; }
+.trail-mid { --trail-offset: 18; stroke-dasharray: 18 982; stroke-width: 1px; opacity: .19; }
+.trail-tip { --trail-offset: 6; stroke-dasharray: 6 994; stroke-width: 1.1px; opacity: .38; }
+.trail-head { --trail-offset: .6; stroke-dasharray: .6 999.4; stroke-width: 2.3px; opacity: .85; filter: drop-shadow(0 0 3px #f6d69980); }
+.orbit-1 { --orbit-duration: 37s; opacity: .68; }
+.orbit-2 { --orbit-duration: 33s; opacity: .7; }
+.ambient-field::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: .6;
+  background: radial-gradient(ellipse at 14% 87%, #e3bd6c12, transparent 42%), radial-gradient(ellipse at 88% 19%, #ffdf9510, transparent 32%);
+  animation: ambient-glow 19s ease-in-out infinite alternate;
+}
+@keyframes ambient-orbit {
+  from { stroke-dashoffset: calc(1000 + var(--trail-offset)); }
+  to { stroke-dashoffset: var(--trail-offset); }
+}
+@keyframes ambient-glow {
+  from { transform: translate3d(-3%,2%,0); opacity: .3; }
+  to { transform: translate3d(3%,-2%,0); opacity: .95; }
+}
+
+/* Paint cannot enlarge the hero's scrollable area. Keep one document scroll. */
+main .hero::before { inset: 0; filter: none; opacity: .45; }
+main .hero::after { opacity: .04; }
+main .hero-lines { pointer-events: none; }
+main .thanks .ambient-field svg { transform: rotate(180deg); }
+main .rsvp .ambient-field { opacity: .85; }
+main footer { position: relative; z-index: 2; }
+
+/* The journey is an engraved anniversary spread, not a row of cards. */
+main .timeline {
+  min-height: 100svh;
+  padding: clamp(105px,13vh,155px) 0;
+  background: radial-gradient(ellipse at 8% 90%,#d9c6a04d,transparent 46%),linear-gradient(120deg,#f3ebda,#fcf8ee 58%,#eee4d0);
+}
+main .timeline::before {
+  content: '';
+  position: absolute;
+  inset: 22px;
+  border: 1px solid #ae875d30;
+  pointer-events: none;
+}
+main .timeline .ambient-field { --orbit-gold: #a47a36; background: none; }
+main .timeline .ambient-trace { opacity: .1; }
+main .timeline .trail-head { opacity: .65; filter: drop-shadow(0 0 3px #ad803344); }
+.journey-watermark {
+  position: absolute;
+  top: -65px;
+  right: -8px;
+  color: transparent;
+  -webkit-text-stroke: 1px #b2956122;
+  font: italic 440px/1 var(--serif);
+  letter-spacing: -.08em;
+  pointer-events: none;
+  user-select: none;
+}
+main .timeline .chapter-label { margin-bottom: 25px; letter-spacing: .24em; }
+main .timeline h2 { font-size: clamp(68px,9.5vw,128px); line-height: 1.08; letter-spacing: -.035em; }
+main .timeline h2 em { font-weight: 300; font-size: .68em; color: #ab8856; vertical-align: .09em; }
+.timeline-heading::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 1px;
+  margin: 29px auto 0;
+  background: linear-gradient(90deg,transparent,#9c773b,transparent);
+}
+main .milestones { margin-top: 68px; gap: 0; }
+main .milestones::before, main .milestones::after { top: 72px; }
+main .milestones::before { background: #b19a7140; }
+main .milestones::after { background: linear-gradient(90deg,#8d6c36,#c8ac77,#8d6c36); }
+main .milestones article { padding: 0 23px 26px; }
+main .milestones b { font: 400 36px/1.2 var(--serif); margin-bottom: 59px; letter-spacing: -.025em; color: #998057; transition: color .6s, transform .6s; }
+main .milestones article:first-child b, main .milestones article:nth-child(5) b { color: #244831; font-size: 42px; line-height: 1.03; }
+main .milestones span { display: block; max-width: 165px; margin: auto; font-size: 21px; line-height: 1.5; color: #39503f; }
+main .milestones article::before {
+  content: '';
+  position: absolute;
+  inset: 94px 0 0;
+  background: radial-gradient(ellipse at 50% 0,#cbb07b20,transparent 75%);
+  opacity: 0;
+  transition: opacity .7s;
+  pointer-events: none;
+}
+main .milestones article::after {
+  top: 69px;
+  background: #b49763;
+  width: 6px;
+  height: 6px;
+  border: 1px solid #9d7d47;
+  box-shadow: 0 0 0 5px #f6f0e3,0 0 0 6px #b594582b;
+  transition: box-shadow .7s, background .7s;
+}
+main .milestones article:first-child::after, main .milestones article:nth-child(5)::after {
+  background: #234b34;
+  border-color: #234b34;
+  box-shadow: 0 0 0 5px #f6f0e3,0 0 0 6px #a0814c65;
+}
+main .milestones article:hover::before { opacity: 1; }
+main .milestones article:hover::after { background: #735627; box-shadow: 0 0 0 5px #f6f0e3,0 0 0 8px #af8a4430; }
+main .milestones article:hover b { color: #886a37; transform: translateY(-3px); }
+.journey-track { position: absolute; top: 70px; left: 0; right: 0; height: 5px; overflow: clip; pointer-events: none; z-index: 2; }
+.journey-track i {
+  position: absolute;
+  top: 2px;
+  width: 75px;
+  height: 1px;
+  background: linear-gradient(90deg,transparent,#b5915355,#a57a34);
+  animation: journey-light 18s linear -6s infinite;
+}
+.journey-track i::after { content: ''; position: absolute; right: 0; top: -1px; width: 3px; height: 3px; border-radius: 50%; background: #9e7430; box-shadow: 0 0 5px #b3894a80; }
+@keyframes journey-light { from { left: -75px; } to { left: calc(100% + 75px); } }
+main .timeline .motto { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 44px; font: italic 21px/1.6 var(--serif); text-transform: none; letter-spacing: .015em; color: #806740; }
+main .timeline .motto::before, main .timeline .motto::after { content: ''; width: 38px; height: 1px; background: #ae8e574d; }
+
+/* Loop while a scene is visible; pause off-screen, in another tab or on request. */
+main .panel:not(.scene-active) .ambient-trail,
+main .panel:not(.scene-active) .ambient-field::after,
+main .panel:not(.scene-active) .journey-track i,
+body.locked main .ambient-trail,
+body.locked main .ambient-field::after,
+body.page-hidden main *, body.page-hidden main *::before, body.page-hidden main *::after { animation-play-state: paused; }
+
+@media(max-width:1000px) {
+  main .milestones article { padding-left: 13px; padding-right: 13px; }
+  main .milestones span { font-size: 19px; }
+}
+@media(max-width:760px) {
+  .ambient-field { opacity: .85; }
+  .ambient-trace { opacity: .09; }
+  .orbit-2 { display: none; }
+  main .timeline { padding: 98px 0 80px; }
+  main .timeline::before { inset: 12px; }
+  main .timeline .section-inner { width: calc(100% - 66px); }
+  .journey-watermark { top: 5px; right: -6px; font-size: 265px; }
+  main .timeline h2 { font-size: clamp(47px,11.4vw,83px); white-space: nowrap; }
+  main .timeline .chapter-label { font-size: 12px; letter-spacing: .15em; }
+  .timeline-heading::after { margin-top: 23px; width: 50px; }
+  main .milestones { margin-top: 39px; padding-left: 25px; gap: 0; }
+  main .milestones::before, main .milestones::after { top: 0; left: 3px; }
+  main .milestones article { padding: 24px 0 24px 9px; grid-template-columns: 65px 1fr; gap: 18px; border-color: #baac9336; }
+  main .milestones b, main .milestones article:first-child b, main .milestones article:nth-child(5) b { font-size: 29px; line-height: 1.2; margin: 0; }
+  main .milestones span { max-width: none; margin: 0; font-size: 19px; line-height: 1.45; }
+  main .milestones article::after { top: calc(50% - 3px); left: -25px; }
+  main .milestones article::before { inset: 0; background: linear-gradient(90deg,#cbb07b18,transparent); }
+  .journey-track { top: 0; bottom: 0; left: 1px; right: auto; width: 5px; height: auto; }
+  .journey-track i { left: 2px; width: 1px; height: 60px; background: linear-gradient(180deg,transparent,#b5915355,#a57a34); animation-name: journey-light-vertical; }
+  .journey-track i::after { top: auto; bottom: 0; right: -1px; }
+  main .timeline .motto { display: block; max-width: 270px; margin: 34px auto 0; font-size: 19px; }
+  main .timeline .motto::before, main .timeline .motto::after { content: none; }
+}
+@keyframes journey-light-vertical { from { top: -60px; } to { top: calc(100% + 60px); } }
+@media(prefers-reduced-motion:reduce) {
+  .ambient-trail, .journey-track { display: none; }
+  .ambient-field::after { animation: none; }
+}

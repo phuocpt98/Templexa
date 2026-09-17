@@ -41,4 +41,11 @@ var EVENT = {
         description: 'Trân trọng kính mời toàn thể anh em, con cháu, nội ngoại tộc họ Đỗ về dự đại lễ giỗ tổ — 18.08.2026 (mùng 6 tháng 7 Bính Ngọ) tại Từ đường họ Đỗ, Ý Yên, Ninh Bình.',
         image: '../../products/Invitation/Other/gen_247_gio-to-ho-do/og-cover.jpg',
     },
+
+    'thanh-cong-25-nam': {
+        src: '../../products/Invitation/Other/gen_288_ky-niem-25-nam-thanh-cong/index.html',
+        title: 'Thành Công 25 Năm — Thư Mời Giải Golf & Gala Dinner',
+        description: 'Trân trọng kính mời Quý Anh/Chị tham dự Giao lưu Golf, Lễ kỷ niệm 25 năm thành lập Thành Công và Hội nghị khách hàng 2026.',
+        image: '../../products/Invitation/Other/gen_288_ky-niem-25-nam-thanh-cong/og-cover.jpg',
+    },
 };
