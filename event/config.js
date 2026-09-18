@@ -45,7 +45,7 @@ var EVENT = {
     'thanh-cong-25-nam': {
         src: '../../products/Invitation/Other/gen_288_ky-niem-25-nam-thanh-cong/index.html',
         title: 'Thành Công 25 Năm — Thư Mời Giải Golf & Gala Dinner',
-        description: 'Trân trọng kính mời Quý Anh/Chị tham dự Giao lưu Golf, Lễ kỷ niệm 25 năm thành lập Thành Công và Hội nghị khách hàng 2026.',
+        description: 'Trân trọng kính mời Quý Khách tham dự Giao lưu Golf, Lễ kỷ niệm 25 năm thành lập Thành Công và Hội nghị khách hàng 2026.',
         image: '../../products/Invitation/Other/gen_288_ky-niem-25-nam-thanh-cong/og-cover.jpg',
     },
 };

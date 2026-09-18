@@ -4,12 +4,12 @@
   
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#061a14">
-  <meta name="description" content="Ông Nguyễn Quốc Công — Chủ tịch HĐTV trân trọng kính mời Quý Anh/Chị tham dự Giao lưu Golf, Lễ kỷ niệm 25 năm Thành Công và Hội nghị khách hàng 2026.">
+  <meta name="description" content="Ông Nguyễn Quốc Công — Chủ tịch HĐTV trân trọng kính mời Quý Khách tham dự Giao lưu Golf, Lễ kỷ niệm 25 năm Thành Công và Hội nghị khách hàng 2026.">
   <title>Thành Công — 25 Years</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23071914'/%3E%3Cpath d='M15 20h34M32 20v31M21 34h22' stroke='%23c8a55a' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Thành Công — 25 Năm · Thư Mời Lễ Kỷ Niệm & Giao Lưu Golf">
-  <meta property="og:description" content="Trân trọng kính mời Quý Anh/Chị tham dự Giao lưu Golf, Lễ kỷ niệm 25 năm thành lập Thành Công và Hội nghị khách hàng 2026.">
+  <meta property="og:description" content="Trân trọng kính mời Quý Khách tham dự Giao lưu Golf, Lễ kỷ niệm 25 năm thành lập Thành Công và Hội nghị khách hàng 2026.">
   <meta property="og:image" content="https://templexa.vn/products/Invitation/Other/gen_288_ky-niem-25-nam-thanh-cong/og-cover.jpg">
   <meta property="og:locale" content="vi_VN">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,6 +35,30 @@
     #opening .cover-anniversary { margin-bottom: clamp(6px, 1.6svh, 16px); }
     #opening #openingHeading { margin-top: clamp(4px, 1.2svh, 12px); }
     #opening .cover-invite { margin-top: clamp(14px, 2.6svh, 28px) !important; padding-top: clamp(11px, 2svh, 20px) !important; }
+    /* Dải thanh đỏ (như header trong thiệp) ở cuối màn bìa, 2 nút nằm đè lên */
+    #opening { --cover-bar-h: clamp(52px, 7.2svh, 64px); --cover-bar-tail: calc(30vw - 58px); }
+    #opening .cover-footer-bar { position: absolute; left: 0; right: 0; bottom: 0; height: var(--cover-bar-h); overflow: hidden; z-index: 1; pointer-events: none; background: linear-gradient(110deg, #68192d, #4c0e20); box-shadow: 0 -8px 25px #0003; }
+    #opening .cover-footer-bar::after { content: ''; position: absolute; top: 0; bottom: 0; right: -40px; width: calc(var(--cover-bar-tail) + 40px); background: linear-gradient(110deg, #183c2e, #09271e); transform: skewX(-30deg); }
+    #opening .cover-footer-bar .header-ribbons { position: absolute; top: 0; bottom: 0; right: var(--cover-bar-tail); display: flex; width: clamp(24px, 3vw, 36px); transform: skewX(-30deg); }
+    #opening .cover-footer-bar .header-ribbons i { flex: 1; background: linear-gradient(#24975c, #247847); }
+    #opening .cover-footer-bar .header-ribbons i:nth-child(2) { background: linear-gradient(#f5ca55, #cba040); }
+    #opening .cover-footer-bar .header-ribbons i:nth-child(3) { background: linear-gradient(#d8463b, #a92b32); }
+    #opening .cover-bar-logo { position: absolute; top: 50%; transform: translateY(-50%); left: clamp(16px, 3vw, 40px); display: flex; align-items: center; gap: clamp(7px, 1vw, 12px); }
+    #opening .cover-bar-logo .nav-emblem, #opening .cover-bar-logo .nav-wordmark { display: block; position: relative; overflow: hidden; flex-shrink: 0; }
+    #opening .cover-bar-logo img { position: absolute; display: block; height: auto; max-width: none; max-height: none; filter: brightness(0) invert(1); }
+    #opening .cover-bar-logo .nav-emblem { width: 37px; height: 35px; }
+    #opening .cover-bar-logo .nav-emblem img { width: 95px; top: 0; left: -28px; }
+    #opening .cover-bar-logo .nav-wordmark { width: 151px; height: 17px; }
+    #opening .cover-bar-logo .nav-wordmark img { width: 151px; bottom: 0; left: 0; }
+    @media (max-width: 767px) {
+      #opening .cover-bar-logo .nav-emblem { width: 28px; height: 27px; }
+      #opening .cover-bar-logo .nav-emblem img { width: 72px; left: -21px; }
+      #opening .cover-bar-logo .nav-wordmark { width: 109px; height: 12px; }
+      #opening .cover-bar-logo .nav-wordmark img { width: 109px; }
+    }
+    /* Màn bìa: ẩn nút nhạc và nút xem lại hiệu ứng (nút nhạc vẫn còn trong nội dung thiệp) */
+    #opening .cover-music, #opening .cover-replay { display: none !important; }
+    #opening .cover-layout { padding-bottom: calc(var(--cover-bar-h) + clamp(26px, 4svh, 44px)) !important; }
     /* Nút nhạc: chỉ còn biểu tượng, nút tròn gọn */
     .music-trigger { width: 44px !important; min-width: 44px !important; height: 44px !important; min-height: 44px !important; padding: 0 !important; gap: 0 !important; border-radius: 50% !important; justify-content: center !important; }
     .music-trigger [data-music-label] { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip-path: inset(50%) !important; white-space: nowrap !important; }
@@ -93,10 +117,14 @@
           <span class="wax-mount"><img class="wax-art" src="./images/golf-wax-seal-v4.webp" alt="" width="256" height="256"><span class="wax-shadow" aria-hidden="true"></span></span>
           <span class="open-caption">Mở thiệp mời <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></span>
         </button>
-        <p class="cover-welcome">Trân trọng kính mời Quý Anh/Chị</p>
+        <p class="cover-welcome">Trân trọng kính mời Quý Khách</p>
       </div>
       <button type="button" id="replayOpening" class="cover-replay" aria-label="Xem lại hiệu ứng ghép logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"></path></svg><span>Xem lại hiệu ứng</span></button>
       <button type="button" class="music-trigger cover-music" data-music-trigger="" aria-controls="invitationMusic" aria-pressed="false" aria-label="Bật nhạc"><svg class="golf-symbol" aria-hidden="true"><use href="#icon-music"></use><path class="music-muted-mark" d="m4 4 16 16"></path></svg><span data-music-label="">Bật nhạc</span></button>
+    </div>
+    <div class="cover-footer-bar" aria-hidden="true">
+      <span class="cover-bar-logo"><span class="nav-emblem"><img src="./images/thanhcong-logo.webp" alt="" width="720" height="385"></span><span class="nav-wordmark"><img src="./images/thanhcong-logo.webp" alt="" width="720" height="385"></span></span>
+      <span class="header-ribbons"><i></i><i></i><i></i></span>
     </div>
   </section>
 
@@ -122,7 +150,7 @@
         <div class="invitation-copy">
           <p class="invitation-occasion">Nhân dịp kỷ niệm <span class="keep-phrase">25 năm</span> <span class="keep-phrase">thành lập</span> <span class="keep-phrase">CÔNG TY THÀNH CÔNG</span>,</p>
           <p class="invitation-host"><strong>Ông Nguyễn Quốc Công<span class="host-separator"> – </span><span class="invitation-host-role">Chủ tịch HĐTV</span></strong></p>
-          <p class="invitation-address">trân trọng kính mời <span class="keep-phrase">Quý Anh/Chị</span> tham dự <span class="keep-phrase">chương trình</span></p>
+          <p class="invitation-address">trân trọng kính mời <span class="keep-phrase">Quý Khách</span> tham dự <span class="keep-phrase">chương trình</span></p>
           <p class="invitation-program"><em><span>GIAO LƯU GOLF CHÀO MỪNG <span class="keep-phrase">25 NĂM</span></span> <span>THÀNH LẬP THÀNH CÔNG.</span></em></p>
         </div>
       </div>
@@ -180,8 +208,8 @@
         <div class="closing-rsvp reveal" id="rsvp">
           <span class="thanks-rule" aria-hidden="true"></span>
           <svg class="golf-symbol closing-golf-symbol" aria-hidden="true"><use href="#icon-golf"></use></svg>
-          <h2 id="closingHeading">HẸN GẶP <i>QUÝ ANH/CHỊ</i></h2>
-          <p class="closing-invitation">Sự hiện diện của <span class="keep-phrase">Quý Anh/Chị</span><br> là niềm vinh hạnh đối với <strong class="keep-phrase">Ông Nguyễn Quốc Công</strong><br> và Thành Công trong dấu mốc đặc biệt này.</p>
+          <h2 id="closingHeading">HẸN GẶP <i>QUÝ KHÁCH</i></h2>
+          <p class="closing-invitation">Sự hiện diện của <span class="keep-phrase">Quý Khách</span><br> là niềm vinh hạnh đối với <strong class="keep-phrase">Ông Nguyễn Quốc Công</strong><br> và Thành Công trong dấu mốc đặc biệt này.</p>
           <button type="button" class="rsvp-open-button" id="openRsvp" aria-haspopup="dialog" aria-controls="rsvpDialog"><span>XÁC NHẬN THAM DỰ</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></button>
           <p class="program-line"><span>Giao lưu Golf</span><span aria-hidden="true">•</span><span>Lễ kỷ niệm 25 năm</span><span aria-hidden="true">•</span><span>Hội nghị khách hàng 2026</span></p>
         </div>
@@ -194,12 +222,12 @@
         <form class="rsvp-form" id="rsvpForm">
           <h3 id="rsvpDialogHeading">Xác nhận tham dự</h3>
           <div class="form-fields"><label>Họ và tên<input name="name" autocomplete="name" placeholder="Nhập họ và tên" required="" autofocus=""></label><label>Số điện thoại<input name="phone" type="tel" autocomplete="tel" placeholder="Nhập số điện thoại" required=""></label></div>
-          <fieldset class="attendance-options"><legend>Quý Anh/Chị sẽ tham dự?</legend><label><input type="radio" name="attendance" value="yes" checked=""><span>Tôi sẽ tham dự</span></label><label><input type="radio" name="attendance" value="no"><span>Rất tiếc, tôi không thể</span></label></fieldset>
+          <fieldset class="attendance-options"><legend>Quý Khách sẽ tham dự?</legend><label><input type="radio" name="attendance" value="yes" checked=""><span>Tôi sẽ tham dự</span></label><label><input type="radio" name="attendance" value="no"><span>Rất tiếc, tôi không thể</span></label></fieldset>
           <label class="guests-field">Số khách<select name="guests"><option>01 khách</option><option>02 khách</option><option>03 khách</option><option>04 khách</option></select></label>
           <label>Lời nhắn <span class="optional-label">(không bắt buộc)</span><textarea name="message" rows="2" placeholder="Gửi lời nhắn đến Thành Công"></textarea></label>
           <button type="submit"><span>Gửi xác nhận</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></button>
           <p class="form-note" id="rsvpNote" hidden></p>
-          <div class="form-success" role="status" aria-live="polite"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg><b>Trân trọng cảm ơn!</b><span>Thông tin xác nhận của Quý Anh/Chị đã được gửi đến ban tổ chức.</span></div>
+          <div class="form-success" role="status" aria-live="polite"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"></path></svg><b>Trân trọng cảm ơn!</b><span>Thông tin xác nhận của Quý Khách đã được gửi đến ban tổ chức.</span></div>
         </form>
     </dialog>
   </main>
