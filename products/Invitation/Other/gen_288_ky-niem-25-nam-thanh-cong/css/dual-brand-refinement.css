@@ -1,0 +1,177 @@
+@font-face {
+  font-family: 'Anniversary Script'; font-style: normal; font-weight: 400; font-display: swap;
+  src: url('../images/anniversary-script.woff2') format('woff2');
+}
+
+/* Keep semantic phrases together, allowing enlarged text to reflow when needed. */
+.keep-phrase { display: inline-block; max-width: 100%; vertical-align: baseline; }
+#opening .cover-layout { justify-content: center; padding: 36px 44px 78px; gap: clamp(16px,2.5svh,28px); }
+#opening .cover-brand {
+  --brand-logo-width: 148px;
+  display: grid; grid-template-columns: var(--brand-logo-width) minmax(0,1fr) var(--brand-logo-width);
+  align-items: center; width: min(730px,100%); max-width: none; gap: clamp(20px,3vw,35px);
+}
+#opening .cover-brand > .logo-plaque { display: grid; place-items: center; width: var(--brand-logo-width); height: 96px; padding: 7px; background: #fff; }
+#opening .cover-brand .logo-assembly { width: 130px; }
+#opening .cover-company { max-width: none; text-align: center; font-family: var(--serif); letter-spacing: .04em; line-height: 1.3; }
+#opening .cover-company .company-kind { display: block; margin-bottom: 6px; font: .875rem/1.4 var(--sans); letter-spacing: .23em; }
+#opening .cover-company .company-name { display: block; font-size: clamp(1.625rem,2.6vw,2.25rem); font-weight: 400; }
+#opening .cover-story { width: min(760px,100%); }
+#opening .cover-number { font-size: clamp(120px,19svh,185px); }
+#opening .cover-rule { margin: 0 0 12px; }
+#openingHeading {
+  font-family: 'Anniversary Script', 'Times New Roman', serif; font-style: normal; font-weight: 400;
+  font-size: clamp(3.625rem,5.8vw,5.125rem); line-height: 1.25; letter-spacing: 0;
+  padding: .08em 12px; color: #ffedc7; text-shadow: 0 3px 22px #2a071833;
+}
+#openingHeading span { font: inherit; letter-spacing: 0; margin-top: 0; color: inherit; }
+#opening .cover-invite { width: min(560px,100%); margin-top: 16px; padding-top: 17px; }
+#opening .cover-invite-title { font-size: clamp(1.875rem,2.7vw,2.5rem); letter-spacing: .17em; margin-right: -.17em; }
+#opening .cover-invite .cover-event { font-size: clamp(1.1875rem,1.8vw,1.5rem); line-height: 1.5; margin-top: 10px; letter-spacing: .015em; text-wrap: balance; }
+#opening .cover-invite .cover-event br { display: none; }
+#opening .cover-invite .cover-event > .keep-phrase { color: inherit; margin: 0; }
+
+/* Both marks finish on the supplied, untouched brand images. */
+.partner-logo { position: relative; overflow: hidden; }
+.partner-logo img { display: block; width: 100%; height: 80px; object-fit: contain; }
+.partner-logo::after { content: ''; position: absolute; inset: auto 15% 4px; height: 1px; pointer-events: none; background: linear-gradient(90deg,transparent,#257ca390,transparent); transform: scaleX(0); opacity: 0; }
+.partner-logo.is-arriving img { animation: partner-ink-reveal 2s cubic-bezier(.22,.7,.24,1) .25s both; }
+.partner-logo.is-arriving::after { animation: partner-signature-line 2.2s ease .6s both; }
+.logo-assembly.is-spinning :is(.logo-piece-red,.logo-piece-gold,.logo-piece-green) {
+  transform-origin: var(--logo-pivot-x,49.3%) var(--logo-pivot-y,34.2%);
+  animation: logo-color-orbit 2.5s cubic-bezier(.45,.05,.25,1) both;
+}
+@keyframes logo-color-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes partner-ink-reveal {
+  0% { clip-path: inset(0 0 100% 0); opacity: .3; }
+  55% { opacity: 1; }
+  100% { clip-path: inset(0); opacity: 1; }
+}
+@keyframes partner-signature-line {
+  0% { transform: scaleX(0); opacity: 0; }
+  55% { transform: scaleX(1); opacity: .7; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* Deliberate paragraph and title breaks across the invitation. */
+.invitation-copy { width: 100%; max-width: 880px; }
+.invitation-copy > p { margin: 0; text-wrap: balance; }
+.invitation-copy .invitation-host { margin-top: 14px; }
+.invitation-copy .invitation-host strong { display: block; margin: 0; }
+.invitation-copy .invitation-address { margin-top: 3px; }
+.invitation-copy .invitation-program { margin-top: 14px; }
+.invitation-copy .invitation-program em { display: block; margin: 0; font-style: normal; font-size: .9em; line-height: 1.6; }
+.invitation-program em > span { display: block; text-wrap: balance; }
+.meeting-note, .ceremony-note, .closing-invitation, .host-message p { text-wrap: balance; }
+.host-name { text-wrap: balance; }
+.host-role .role-company { display: inline-block; }
+.program-line > span:not([aria-hidden]) { display: inline-block; }
+
+#invitationMusic { display: none; }
+.music-status { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.music-trigger[aria-pressed='true'] { border-color: #efd2a0; }
+.music-trigger .music-muted-mark { stroke-width: 1.4; }
+.music-trigger[aria-pressed='true'] .music-muted-mark { display: none; }
+
+@media (max-width: 760px) {
+  #opening .cover-layout { padding: max(28px,env(safe-area-inset-top)) 22px max(74px,calc(env(safe-area-inset-bottom) + 62px)); gap: clamp(16px,2.2svh,24px); }
+  #opening .cover-brand { --brand-logo-width: clamp(74px,22vw,104px); width: min(440px,100%); gap: clamp(8px,2.4vw,15px); }
+  #opening .cover-brand > .logo-plaque { height: 70px; padding: 5px; }
+  #opening .cover-brand .logo-assembly { width: calc(var(--brand-logo-width) - 12px); }
+  .partner-logo img { height: 58px; }
+  #opening .cover-company { letter-spacing: .01em; }
+  #opening .cover-company .company-kind { font-size: .75rem; letter-spacing: .1em; margin-bottom: 5px; }
+  #opening .cover-company .company-name { font-size: clamp(1rem,5vw,1.5rem); line-height: 1.3; }
+  #opening .cover-number { font-size: clamp(100px,18svh,155px); }
+  #opening .cover-rule { margin-bottom: 9px; }
+  #openingHeading { font-size: clamp(2.625rem,11.6vw,3.5rem); line-height: 1.25; padding: .06em 8px; }
+  #opening .cover-invite { width: min(320px,100%); margin-top: 14px; padding-top: 14px; }
+  #opening .cover-invite-title { font-size: 1.75rem; letter-spacing: .16em; margin-right: -.16em; }
+  #opening .cover-invite .cover-event { font-size: 1.1875rem; margin-top: 9px; line-height: 1.4; }
+  #opening .cover-invite .cover-event br { display: block; }
+  #opening .wax-mount { width: 67px; }
+  .cover-side-mark { top: 31%; }
+  .invitation-copy { max-width: 100%; }
+  .invitation-copy .invitation-host { margin-top: 13px; }
+  .invitation-copy .invitation-address { margin-top: 8px; }
+  .invitation-copy .invitation-program { margin-top: 12px; }
+  .invitation-copy .invitation-program em { font-size: .9375rem; line-height: 1.65; }
+  .host-role .role-separator { display: none; }
+  .host-role .role-company { display: block; margin-top: 3px; }
+  .host-role { max-width: none; }
+}
+@media (max-width: 760px) and (max-height: 700px) {
+  #opening .cover-layout { padding-top: 24px; gap: 13px; }
+  #opening .cover-invite { margin-top: 10px; padding-top: 11px; }
+  #opening .wax-mount { width: 60px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .partner-logo img, .partner-logo::after, .logo-assembly.is-spinning canvas { animation: none !important; transform: none !important; filter: none !important; }
+}
+
+/* Size the entire cover against the available viewport, including its controls. */
+#opening.opening-redesign { height: 100svh; height: 100dvh; overflow: clip; }
+#opening .cover-layout {
+  --cover-brand-height: clamp(44px,8.8svh,80px);
+  height: 100%; min-height: 0; justify-content: center;
+  padding: clamp(16px,3svh,30px) 38px max(66px,calc(env(safe-area-inset-bottom) + 54px));
+  gap: clamp(8px,1.5svh,16px);
+}
+#opening .cover-brand, #opening .cover-story, #opening .cover-action { flex: 0 0 auto; }
+#opening .cover-brand { --brand-logo-width: clamp(92px,13svh,138px); width: min(670px,100%); gap: clamp(16px,2.4vw,28px); }
+#opening .cover-brand > .logo-plaque { height: var(--cover-brand-height); padding: 5px; }
+#opening .cover-brand .logo-assembly { width: min(calc(var(--brand-logo-width) - 12px),calc((var(--cover-brand-height) - 12px) * 1.87)); }
+#opening .partner-logo img { height: calc(var(--cover-brand-height) - 12px); }
+#opening .cover-company .company-kind { font-size: .8125rem; margin-bottom: 4px; }
+#opening .cover-company .company-name { font-size: clamp(1.5rem,3.5svh,2rem); }
+#opening .cover-number { font-size: clamp(76px,14.5svh,150px); line-height: 1.08; padding-top: .025em; padding-bottom: .09em; }
+#opening .cover-rule { margin: 0 0 clamp(5px,1svh,10px); }
+#openingHeading { font-size: clamp(2rem,6.5svh,4rem); line-height: 1.2; padding: .04em 10px; }
+#opening .cover-invite { margin-top: clamp(7px,1.3svh,13px); padding-top: clamp(8px,1.3svh,13px); }
+#opening .cover-invite-title { font-size: clamp(1.5rem,3.7svh,2.125rem); line-height: 1.2; }
+#opening .cover-invite .cover-event { font-size: clamp(1rem,2.45svh,1.3125rem); line-height: 1.4; margin-top: 6px; }
+#opening .wax-mount { width: clamp(46px,8svh,74px); }
+#opening .open-invitation { padding: 0 12px; }
+#opening .cover-side-mark { top: 37%; }
+#opening .cover-side-mark::before, #opening .cover-side-mark::after { height: clamp(22px,6svh,65px); }
+
+@media (max-width: 760px) {
+  #opening .cover-layout { --cover-brand-height: clamp(42px,8svh,66px); padding: max(16px,env(safe-area-inset-top)) 22px max(64px,calc(env(safe-area-inset-bottom) + 54px)); gap: clamp(8px,1.4svh,13px); }
+  #opening .cover-brand { --brand-logo-width: clamp(70px,12svh,96px); width: min(410px,100%); gap: clamp(8px,2.4vw,14px); }
+  #opening .cover-company .company-kind { font-size: .75rem; margin-bottom: 3px; }
+  #opening .cover-company .company-name { font-size: clamp(1rem,4.8vw,1.375rem); }
+  #opening .cover-number { font-size: clamp(72px,14.5svh,136px); }
+  #openingHeading { font-size: clamp(1.875rem,6.4svh,3.125rem); line-height: 1.2; padding: .04em 6px; }
+  #opening .cover-invite { width: min(310px,100%); margin-top: clamp(7px,1.2svh,11px); padding-top: clamp(8px,1.4svh,12px); }
+  #opening .cover-invite-title { font-size: clamp(1.5rem,3.8svh,1.875rem); }
+  #opening .cover-invite .cover-event { font-size: clamp(1rem,2.6svh,1.1875rem); line-height: 1.35; margin-top: 6px; }
+  #opening .wax-mount { width: clamp(44px,7.5svh,64px); }
+}
+
+/* Short landscape screens use the same copy in two adjacent groups. */
+@media (max-height: 560px) and (min-aspect-ratio: 5/4) {
+  #opening .cover-layout { --cover-brand-height: 45px; padding: 15px 42px 13px; gap: 8px; }
+  #opening .cover-brand { --brand-logo-width: 86px; width: min(580px,100%); }
+  #opening .cover-company .company-kind { font-size: .75rem; margin-bottom: 1px; }
+  #opening .cover-company .company-name { font-size: 1.1875rem; }
+  #opening .cover-story { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); align-items: center; column-gap: 24px; width: min(720px,100%); }
+  #opening .cover-anniversary { grid-column: 1; grid-row: 1 / 3; gap: 13px; }
+  #opening .cover-number { font-size: clamp(70px,22svh,112px); }
+  #opening .cover-years { padding-left: 12px; }
+  #opening .cover-years span:first-child { font-size: .8125rem; }
+  #opening .cover-years span:last-child { font-size: .75rem; }
+  #opening .cover-rule { display: none; }
+  #openingHeading { grid-column: 2; font-size: clamp(1.75rem,8svh,2.625rem); line-height: 1.2; padding: 0 5px; }
+  #opening .cover-invite { grid-column: 2; width: 100%; padding-top: 7px; margin-top: 6px; }
+  #opening .cover-invite-title { font-size: 1.375rem; }
+  #opening .cover-invite .cover-event { font-size: 1rem; line-height: 1.3; margin-top: 4px; }
+  #opening .cover-invite .cover-event br { display: none; }
+  #opening .wax-mount { width: 44px; }
+  #opening .cover-side-mark { display: none; }
+  #opening .cover-music { left: 20px; bottom: 12px; }
+  #opening .cover-replay { right: 20px; bottom: 12px; }
+  #opening .cover-replay span { display: none; }
+}

@@ -8,7 +8,7 @@
   <title>Thành Công — 25 Years</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23071914'/%3E%3Cpath d='M15 20h34M32 20v31M21 34h22' stroke='%23c8a55a' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Thành Công — 25 Năm · Thư Mời Giải Golf & Gala Dinner">
+  <meta property="og:title" content="Thành Công — 25 Năm · Thư Mời Lễ Kỷ Niệm & Giao Lưu Golf">
   <meta property="og:description" content="Trân trọng kính mời Quý Anh/Chị tham dự Giao lưu Golf, Lễ kỷ niệm 25 năm thành lập Thành Công và Hội nghị khách hàng 2026.">
   <meta property="og:image" content="https://templexa.vn/products/Invitation/Other/gen_288_ky-niem-25-nam-thanh-cong/og-cover.jpg">
   <meta property="og:locale" content="vi_VN">
@@ -24,20 +24,27 @@
   <link rel="stylesheet" href="./css/invitation-2026.css">
   <link rel="stylesheet" href="./css/mobile-refinement.css">
   <link rel="stylesheet" href="./css/client-refinement.css">
+  <link rel="stylesheet" href="./css/dual-brand-refinement.css">
+  <link rel="stylesheet" href="./css/brand-header-hero.css">
+  <link rel="stylesheet" href="./css/fullscreen-sections.css">
+  <link rel="preload" href="./images/anniversary-script.woff2" as="font" type="font/woff2" crossorigin>
   <style>
+    /* Màn bìa: nút mở thiệp nằm trong luồng, không sát đáy và không đè nút nhạc;
+       giãn đều 3 khối số 25 / khẩu hiệu / thư mời */
+    #opening .cover-layout { justify-content: center !important; gap: clamp(14px, 3svh, 32px) !important; padding-bottom: max(96px, calc(env(safe-area-inset-bottom) + 86px)) !important; }
+    #opening .cover-anniversary { margin-bottom: clamp(6px, 1.6svh, 16px); }
+    #opening #openingHeading { margin-top: clamp(4px, 1.2svh, 12px); }
+    #opening .cover-invite { margin-top: clamp(14px, 2.6svh, 28px) !important; padding-top: clamp(11px, 2svh, 20px) !important; }
+    /* Tên công ty: "CÔNG TY" bằng cỡ "THÀNH CÔNG"; dòng sự kiện viết hoa */
+    #opening .cover-company .company-kind,
+    #opening .cover-company .company-name { font-family: var(--serif) !important; font-size: clamp(1.15rem, 2.6vw, 2.25rem) !important; font-weight: 400 !important; letter-spacing: .07em !important; line-height: 1.25 !important; }
+    #opening .cover-company .company-kind { margin-bottom: 2px !important; }
+    #opening .cover-invite .cover-event { text-transform: uppercase; }
+    #opening .cover-action { position: static !important; align-self: center; margin: clamp(22px, 4.6svh, 48px) auto 0 !important; left: auto !important; right: auto !important; bottom: auto !important; transform: none !important; display: flex; flex-direction: column; align-items: center; }
     main footer.closing-footer { flex-wrap: wrap; padding-bottom: 84px !important; }
     .closing-brand { flex-basis: 100%; margin-top: 14px; text-align: center; font: 500 .66rem/1.4 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: #e0c69b; opacity: .7; text-decoration: none; }
     .closing-brand b { font-weight: 600; }
     .closing-brand:hover { opacity: 1; }
-    /* Câu mời: tên chủ tịch 1 dòng, "trân trọng kính mời… chương trình" 1 dòng, cụm chữ hoa xuống dòng riêng */
-    main .hero .invitation-copy strong { display: block; margin: 10px 0 4px; }
-    main .hero .invitation-copy .invite-line { display: block; width: max-content; max-width: none; position: relative; left: 50%; transform: translateX(-50%); white-space: nowrap; }
-    main .hero .invitation-copy em { display: block; margin-top: 10px; }
-    @media (max-width: 767px) {
-      main .hero .invitation-copy .invite-line { font-size: min(1em, 3.75vw); }
-    }
-    .music-trigger.is-playing .golf-symbol { animation: music-pulse 1.6s ease-in-out infinite; }
-    @keyframes music-pulse { 50% { transform: scale(1.15); } }
     main .hero .guest-line.has-name { border-bottom: 0; height: auto; font: 600 1.05em/1.3 var(--serif); color: #f5ddad; letter-spacing: .04em; }
   </style>
 </head>
@@ -50,7 +57,7 @@
   </defs></svg>
   <div class="grain" aria-hidden="true"></div>
   <div class="cursor-halo" id="golfCursor" aria-hidden="true"><span></span></div>
-  <div class="scroll-progress" aria-hidden="true"><i id="scrollProgress" style="height: 100%;"></i></div>
+  <div class="scroll-progress" aria-hidden="true"><i id="scrollProgress" style="height: 0%;"></i></div>
   <section id="opening" class="opening opening-redesign" role="dialog" aria-modal="true" aria-labelledby="openingHeading">
     <div class="cover-light" aria-hidden="true"></div>
     <div class="cover-frame" aria-hidden="true"></div>
@@ -60,12 +67,13 @@
     <div class="cover-layout">
       <div class="cover-brand">
         <div class="logo-plaque">
-          <div class="logo-assembly is-ready is-settled" id="logoAssembly">
+          <div class="logo-assembly is-ready is-settled" id="logoAssembly" style="--logo-pivot-x: 49.236111111111114%; --logo-pivot-y: 34.15584415584416%;">
             <img id="openingLogo" src="./images/thanhcong-logo.webp" alt="Thành Công" width="720" height="385" fetchpriority="high">
             <div class="logo-layers" aria-hidden="true"><canvas width="720" height="385" class="logo-piece-red"></canvas><canvas width="720" height="385" class="logo-piece-gold"></canvas><canvas width="720" height="385" class="logo-piece-green"></canvas><canvas width="720" height="385" class="logo-piece-wordmark"></canvas></div>
           </div>
         </div>
-        <p class="cover-edition cover-company">CÔNG TY TNHH THỂ THAO THÀNH CÔNG</p>
+        <p class="cover-edition cover-company"><span class="company-kind">CÔNG TY</span> <span class="company-name">THÀNH CÔNG</span></p>
+        <div class="logo-plaque partner-logo" id="partnerLogo"><img src="./images/thanhcong-jsc-logo.webp" alt="Logo Thành Công JSC" width="678" height="484" fetchpriority="high"></div>
       </div>
       <div class="cover-story">
         <div class="cover-anniversary" aria-label="25 năm, 2001 đến 2026">
@@ -74,7 +82,7 @@
         </div>
         <div class="cover-rule" aria-hidden="true"></div>
         <h2 id="openingHeading">Kết nối giá trị<span>Kiến tạo tương lai</span></h2>
-        <div class="cover-invite"><p class="cover-invite-title">THƯ MỜI</p><p class="cover-event">Giải Golf <span aria-hidden="true">—</span> Gala dinner</p></div>
+        <div class="cover-invite"><p class="cover-invite-title">THƯ MỜI</p><p class="cover-event">Lễ kỷ niệm <span class="keep-phrase">25 năm</span><br> thành lập công ty</p></div>
       </div>
       <div class="cover-action">
         <button class="open-invitation" id="openInvitation" type="button" aria-label="Mở thiệp mời Thành Công">
@@ -84,35 +92,44 @@
         <p class="cover-welcome">Trân trọng kính mời Quý Anh/Chị</p>
       </div>
       <button type="button" id="replayOpening" class="cover-replay" aria-label="Xem lại hiệu ứng ghép logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"></path></svg><span>Xem lại hiệu ứng</span></button>
-      <button type="button" class="music-trigger cover-music" data-music-trigger="" aria-pressed="false" aria-label="Bật nhạc"><svg class="golf-symbol" aria-hidden="true"><use href="#icon-music"></use></svg><span>Nghe nhạc</span></button>
+      <button type="button" class="music-trigger cover-music" data-music-trigger="" aria-controls="invitationMusic" aria-pressed="false" aria-label="Bật nhạc"><svg class="golf-symbol" aria-hidden="true"><use href="#icon-music"></use><path class="music-muted-mark" d="m4 4 16 16"></path></svg><span data-music-label="">Bật nhạc</span></button>
     </div>
   </section>
 
-  <header class="nav scrolled" id="nav" inert="">
-    <a href="#invitation" class="brand" aria-label="Thành Công">
-      <span class="nav-logo"><img src="./images/thanhcong-logo.webp" alt="Logo Thành Công" width="720" height="385"></span>
+  <header class="nav" id="nav" inert="">
+    <a href="#invitation" class="brand" aria-label="CÔNG TY THÀNH CÔNG — 25 năm">
+      <span class="nav-logo" aria-hidden="true"><span class="nav-emblem"><img src="./images/thanhcong-logo.webp" alt="" width="720" height="385"></span><span class="nav-wordmark"><img src="./images/thanhcong-logo.webp" alt="" width="720" height="385"></span></span>
       <span class="brand-edition">25 NĂM<span>2001 — 2026</span></span>
     </a>
     <nav class="chapter-nav" aria-label="Các phần của thiệp mời"><a href="#golf">Giao lưu Golf</a><a href="#celebration">Lễ kỷ niệm</a><a href="#thanks">Lời tri ân</a></nav>
-    <div class="nav-actions"><button class="motion-toggle" id="motionToggle" type="button" aria-label="Tạm dừng chuyển động" aria-pressed="false" title="Tạm dừng chuyển động"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pause-symbol" d="M9 6v12M15 6v12"></path><path class="play-symbol" d="m9 6 9 6-9 6Z"></path></svg></button><a href="#rsvp" class="nav-rsvp">Xác nhận <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></a></div>
+    <div class="nav-actions"><span class="header-ribbons" aria-hidden="true"><i></i><i></i><i></i></span><button class="motion-toggle" id="motionToggle" type="button" aria-label="Tạm dừng chuyển động" aria-pressed="false" title="Tạm dừng chuyển động"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="pause-symbol" d="M9 6v12M15 6v12"></path><path class="play-symbol" d="m9 6 9 6-9 6Z"></path></svg></button><a href="#rsvp" class="nav-rsvp">Xác nhận <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></a></div>
   </header>
 
   <main inert="" class="motion-ready">
-    <section class="hero panel" id="invitation" aria-labelledby="invitationHeading" data-ambient=""><div class="ambient-field" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="none" focusable="false"><defs><path id="ambient-invitation-0" d="M -180 770 Q 410 -110 1620 410" pathLength="1000"></path><path id="ambient-invitation-1" d="M -180 1020 Q 670 340 1550 -130" pathLength="1000"></path><path id="ambient-invitation-2" d="M 1120 1080 Q 1480 470 940 -170" pathLength="1000"></path></defs><g class="ambient-orbit orbit-0" style="--orbit-delay:-7s"><use class="ambient-trace" href="#ambient-invitation-0"></use><use class="ambient-trail trail-soft" href="#ambient-invitation-0"></use><use class="ambient-trail trail-mid" href="#ambient-invitation-0"></use><use class="ambient-trail trail-tip" href="#ambient-invitation-0"></use><use class="ambient-trail trail-head" href="#ambient-invitation-0"></use></g><g class="ambient-orbit orbit-1" style="--orbit-delay:-15s"><use class="ambient-trace" href="#ambient-invitation-1"></use><use class="ambient-trail trail-soft" href="#ambient-invitation-1"></use><use class="ambient-trail trail-mid" href="#ambient-invitation-1"></use><use class="ambient-trail trail-tip" href="#ambient-invitation-1"></use><use class="ambient-trail trail-head" href="#ambient-invitation-1"></use></g><g class="ambient-orbit orbit-2" style="--orbit-delay:-23s"><use class="ambient-trace" href="#ambient-invitation-2"></use><use class="ambient-trail trail-soft" href="#ambient-invitation-2"></use><use class="ambient-trail trail-mid" href="#ambient-invitation-2"></use><use class="ambient-trail trail-tip" href="#ambient-invitation-2"></use><use class="ambient-trail trail-head" href="#ambient-invitation-2"></use></g></svg></div>
+    <section class="hero panel scene-active" id="invitation" aria-labelledby="invitationHeading" data-ambient=""><div class="ambient-field" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="none" focusable="false"><defs><path id="ambient-invitation-0" d="M -180 770 Q 410 -110 1620 410" pathLength="1000"></path><path id="ambient-invitation-1" d="M -180 1020 Q 670 340 1550 -130" pathLength="1000"></path><path id="ambient-invitation-2" d="M 1120 1080 Q 1480 470 940 -170" pathLength="1000"></path></defs><g class="ambient-orbit orbit-0" style="--orbit-delay:-7s"><use class="ambient-trace" href="#ambient-invitation-0"></use><use class="ambient-trail trail-soft" href="#ambient-invitation-0"></use><use class="ambient-trail trail-mid" href="#ambient-invitation-0"></use><use class="ambient-trail trail-tip" href="#ambient-invitation-0"></use><use class="ambient-trail trail-head" href="#ambient-invitation-0"></use></g><g class="ambient-orbit orbit-1" style="--orbit-delay:-15s"><use class="ambient-trace" href="#ambient-invitation-1"></use><use class="ambient-trail trail-soft" href="#ambient-invitation-1"></use><use class="ambient-trail trail-mid" href="#ambient-invitation-1"></use><use class="ambient-trail trail-tip" href="#ambient-invitation-1"></use><use class="ambient-trail trail-head" href="#ambient-invitation-1"></use></g><g class="ambient-orbit orbit-2" style="--orbit-delay:-23s"><use class="ambient-trace" href="#ambient-invitation-2"></use><use class="ambient-trail trail-soft" href="#ambient-invitation-2"></use><use class="ambient-trail trail-mid" href="#ambient-invitation-2"></use><use class="ambient-trail trail-tip" href="#ambient-invitation-2"></use><use class="ambient-trail trail-head" href="#ambient-invitation-2"></use></g></svg></div>
       <div class="hero-lines" aria-hidden="true"></div>
       <div class="hero-content reveal">
-        <p class="chapter-label"><span>01</span> THƯ MỜI</p>
-        <h1 id="invitationHeading"><span>TRÂN TRỌNG</span> <span>KÍNH MỜI</span></h1>
-        <p class="guest">ÔNG/BÀ: <span class="guest-line" aria-label="Tên khách mời sẽ được bổ sung"></span></p>
-        <p class="invitation-copy">Nhân dịp kỷ niệm 25 năm thành lập Công ty TNHH Thể thao Thành Công,<br class="desktop-break"> <strong>Ông Nguyễn Quốc Công<span class="host-separator"> – </span><span class="invitation-host-role">Chủ tịch HĐTV</span></strong> <span class="invite-line">trân trọng kính mời Quý Anh/Chị tham dự chương trình</span> <em>GIAO LƯU GOLF CHÀO MỪNG 25 NĂM THÀNH LẬP THÀNH CÔNG.</em></p>
-        <p class="meeting-note">Một cuộc hội ngộ đặc biệt –<br> cùng những người bạn, những người đồng hành<br> trên hành trình 25 năm đáng nhớ.</p>
-        <div class="golf-divider" aria-hidden="true"><span></span><svg class="golf-symbol"><use href="#icon-golf"></use></svg><span></span></div>
+        <div class="hero-intro">
+          <p class="chapter-label"><span>01</span> THƯ MỜI</p>
+          <h1 id="invitationHeading"><span>TRÂN TRỌNG</span> <span>KÍNH MỜI</span></h1>
+          <p class="guest">ÔNG/BÀ: <span class="guest-line" aria-label="Tên khách mời sẽ được bổ sung"></span></p>
+          <div class="golf-divider" aria-hidden="true"><span></span><svg class="golf-symbol"><use href="#icon-golf"></use></svg><span></span></div>
+        </div>
+        <div class="invitation-copy">
+          <p class="invitation-occasion">Nhân dịp kỷ niệm <span class="keep-phrase">25 năm</span> <span class="keep-phrase">thành lập</span> <span class="keep-phrase">CÔNG TY THÀNH CÔNG</span>,</p>
+          <p class="invitation-host"><strong>Ông Nguyễn Quốc Công<span class="host-separator"> – </span><span class="invitation-host-role">Chủ tịch HĐTV</span></strong></p>
+          <p class="invitation-address">trân trọng kính mời <span class="keep-phrase">Quý Anh/Chị</span> tham dự <span class="keep-phrase">chương trình</span></p>
+          <p class="invitation-program"><em><span>GIAO LƯU GOLF CHÀO MỪNG <span class="keep-phrase">25 NĂM</span></span> <span>THÀNH LẬP THÀNH CÔNG.</span></em></p>
+        </div>
       </div>
-      <div class="mobile-hero-landscape" aria-hidden="true"></div>
+      <div class="hero-landscape">
+        <div class="hero-landscape-photo" aria-hidden="true"></div>
+        <p class="meeting-note">Một cuộc hội ngộ đặc biệt –<br> cùng những người bạn, những người đồng hành<br> trên hành trình 25 năm đáng nhớ.</p>
+      </div>
       <a class="scroll-cue" href="#golf"><span>Hẹn gặp nhau trên sân golf</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16m-5-5 5 5 5-5"></path></svg></a>
     </section>
 
-    <section class="golf panel" id="golf" aria-labelledby="golfHeading">
+    <section class="golf panel scene-active" id="golf" aria-labelledby="golfHeading">
       <div class="golf-photo" aria-hidden="true"></div><div class="drifting-mist" aria-hidden="true"></div>
       <div class="section-inner split">
         <div class="golf-intro reveal">
@@ -148,19 +165,19 @@
       </div>
     </section>
 
-    <section class="thanks panel closing-panel scene-active" id="thanks" aria-labelledby="closingHeading" data-ambient=""><div class="ambient-field" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="none" focusable="false"><defs><path id="ambient-thanks-0" d="M -180 770 Q 410 -110 1620 410" pathLength="1000"></path><path id="ambient-thanks-1" d="M -180 1020 Q 670 340 1550 -130" pathLength="1000"></path><path id="ambient-thanks-2" d="M 1120 1080 Q 1480 470 940 -170" pathLength="1000"></path></defs><g class="ambient-orbit orbit-0" style="--orbit-delay:-10s"><use class="ambient-trace" href="#ambient-thanks-0"></use><use class="ambient-trail trail-soft" href="#ambient-thanks-0"></use><use class="ambient-trail trail-mid" href="#ambient-thanks-0"></use><use class="ambient-trail trail-tip" href="#ambient-thanks-0"></use><use class="ambient-trail trail-head" href="#ambient-thanks-0"></use></g><g class="ambient-orbit orbit-1" style="--orbit-delay:-18s"><use class="ambient-trace" href="#ambient-thanks-1"></use><use class="ambient-trail trail-soft" href="#ambient-thanks-1"></use><use class="ambient-trail trail-mid" href="#ambient-thanks-1"></use><use class="ambient-trail trail-tip" href="#ambient-thanks-1"></use><use class="ambient-trail trail-head" href="#ambient-thanks-1"></use></g><g class="ambient-orbit orbit-2" style="--orbit-delay:-26s"><use class="ambient-trace" href="#ambient-thanks-2"></use><use class="ambient-trail trail-soft" href="#ambient-thanks-2"></use><use class="ambient-trail trail-mid" href="#ambient-thanks-2"></use><use class="ambient-trail trail-tip" href="#ambient-thanks-2"></use><use class="ambient-trail trail-head" href="#ambient-thanks-2"></use></g></svg></div>
+    <section class="thanks panel closing-panel" id="thanks" aria-labelledby="closingHeading" data-ambient=""><div class="ambient-field" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="none" focusable="false"><defs><path id="ambient-thanks-0" d="M -180 770 Q 410 -110 1620 410" pathLength="1000"></path><path id="ambient-thanks-1" d="M -180 1020 Q 670 340 1550 -130" pathLength="1000"></path><path id="ambient-thanks-2" d="M 1120 1080 Q 1480 470 940 -170" pathLength="1000"></path></defs><g class="ambient-orbit orbit-0" style="--orbit-delay:-10s"><use class="ambient-trace" href="#ambient-thanks-0"></use><use class="ambient-trail trail-soft" href="#ambient-thanks-0"></use><use class="ambient-trail trail-mid" href="#ambient-thanks-0"></use><use class="ambient-trail trail-tip" href="#ambient-thanks-0"></use><use class="ambient-trail trail-head" href="#ambient-thanks-0"></use></g><g class="ambient-orbit orbit-1" style="--orbit-delay:-18s"><use class="ambient-trace" href="#ambient-thanks-1"></use><use class="ambient-trail trail-soft" href="#ambient-thanks-1"></use><use class="ambient-trail trail-mid" href="#ambient-thanks-1"></use><use class="ambient-trail trail-tip" href="#ambient-thanks-1"></use><use class="ambient-trail trail-head" href="#ambient-thanks-1"></use></g><g class="ambient-orbit orbit-2" style="--orbit-delay:-26s"><use class="ambient-trace" href="#ambient-thanks-2"></use><use class="ambient-trail trail-soft" href="#ambient-thanks-2"></use><use class="ambient-trail trail-mid" href="#ambient-thanks-2"></use><use class="ambient-trail trail-tip" href="#ambient-thanks-2"></use><use class="ambient-trail trail-head" href="#ambient-thanks-2"></use></g></svg></div>
       <div class="monogram" aria-hidden="true">25</div>
       <div class="section-inner centered">
-        <div class="host-note reveal in">
+        <div class="host-note reveal">
           <p class="chapter-label"><span>04</span> LỜI TRI ÂN</p>
           <blockquote class="host-message"><p>Trân trọng những cuộc hội ngộ.</p><p>Trân quý những nghĩa tình đã được vun đắp.</p><p>Và cùng nhau mở ra những hành trình mới.</p></blockquote>
-          <div class="host-signature"><p class="host-name">Nguyễn Quốc Công</p><p class="host-role">Chủ tịch HĐTV – Công ty TNHH Thể thao Thành Công</p></div>
+          <div class="host-signature"><p class="host-name">Nguyễn Quốc Công</p><p class="host-role"><span>Chủ tịch HĐTV</span><span class="role-separator"> – </span><span class="role-company">CÔNG TY THÀNH CÔNG</span></p></div>
         </div>
-        <div class="closing-rsvp reveal in" id="rsvp">
+        <div class="closing-rsvp reveal" id="rsvp">
           <span class="thanks-rule" aria-hidden="true"></span>
           <svg class="golf-symbol closing-golf-symbol" aria-hidden="true"><use href="#icon-golf"></use></svg>
           <h2 id="closingHeading">HẸN GẶP <i>QUÝ ANH/CHỊ</i></h2>
-          <p class="closing-invitation">Sự hiện diện của Quý Anh/Chị<br> là niềm vinh hạnh đối với <strong>Ông Nguyễn Quốc Công</strong><br> và Thành Công trong dấu mốc đặc biệt này.</p>
+          <p class="closing-invitation">Sự hiện diện của <span class="keep-phrase">Quý Anh/Chị</span><br> là niềm vinh hạnh đối với <strong class="keep-phrase">Ông Nguyễn Quốc Công</strong><br> và Thành Công trong dấu mốc đặc biệt này.</p>
           <button type="button" class="rsvp-open-button" id="openRsvp" aria-haspopup="dialog" aria-controls="rsvpDialog"><span>XÁC NHẬN THAM DỰ</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg></button>
           <p class="program-line"><span>Giao lưu Golf</span><span aria-hidden="true">•</span><span>Lễ kỷ niệm 25 năm</span><span aria-hidden="true">•</span><span>Hội nghị khách hàng 2026</span></p>
         </div>
@@ -182,12 +199,14 @@
         </form>
     </dialog>
   </main>
-  <button type="button" class="music-trigger floating-music" data-music-trigger="" aria-pressed="false" aria-label="Bật nhạc"><svg class="golf-symbol" aria-hidden="true"><use href="#icon-music"></use></svg><span>Nhạc</span></button>
-  <audio id="bgMusic" src="../../../shared/music/corporate-professional/award-music-alec-koff.mp3" loop preload="auto"></audio>
+  <button type="button" class="music-trigger floating-music" data-music-trigger="" aria-controls="invitationMusic" aria-pressed="false" aria-label="Bật nhạc"><svg class="golf-symbol" aria-hidden="true"><use href="#icon-music"></use><path class="music-muted-mark" d="m4 4 16 16"></path></svg><span data-music-label="">Bật nhạc</span></button>
+  <audio id="invitationMusic" src="../../../shared/music/corporate-professional/award-music-alec-koff.mp3" loop preload="auto"></audio>
+  <span class="music-status" id="musicStatus" role="status" aria-live="polite"></span>
   <script src="./guests.js"></script>
   <script src="../../../shared/wedding/wishes-api.js"></script>
   <script src="./js/interior-runtime.js"></script>
+  <script src="./js/fullscreen-sections.js"></script>
   <script src="./js/opening-logo.js"></script>
-  <script src="./js/music.js"></script>
+  <script src="./js/invitation-music.js"></script>
 </body>
 </html>

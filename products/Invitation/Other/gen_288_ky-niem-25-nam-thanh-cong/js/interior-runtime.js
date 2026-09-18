@@ -95,7 +95,6 @@
   });
   opening.addEventListener('keydown', event => {
     if (event.key !== 'Tab') return;
-    if (document.querySelector('#musicPanel')?.hidden === false) return;
     const controls = [...opening.querySelectorAll('button:not(:disabled):not([hidden])')];
     if (!controls.length) { event.preventDefault(); return; }
     const first = controls[0], last = controls.at(-1);
@@ -177,45 +176,13 @@
     const declining = $('input[name="attendance"]:checked', form)?.value === 'no';
     guestSelect.disabled = declining; $('.guests-field', form).classList.toggle('field-disabled', declining);
   };
-  // Google Sheets id cho RSVP — để trống thì form chỉ hiện xác nhận, không gửi đi.
-  const SHEET_ID = '';
-  const submitButton = $('button[type="submit"]', form), note = $('#rsvpNote');
-  const showNote = text => { note.textContent = text; note.hidden = !text; };
-  form.addEventListener('input', () => { success.classList.remove('show'); submitLabel.textContent = 'Gửi xác nhận'; showNote(''); updateAttendance(); });
+  form.addEventListener('input', () => { success.classList.remove('show'); submitLabel.textContent = 'Xem xác nhận'; updateAttendance(); });
   form.addEventListener('change', updateAttendance);
   form.addEventListener('submit', event => {
-    event.preventDefault();
+    event.preventDefault(); // Local demo: no fetch, storage or submission endpoint.
     if (!form.reportValidity()) return;
-    const data = new FormData(form);
-    const declining = data.get('attendance') === 'no';
-    const done = () => {
-      success.classList.add('show'); submitLabel.textContent = 'Đã gửi';
-      submitButton.disabled = false; form.reset(); updateAttendance();
-    };
-    if (!SHEET_ID || typeof sheetsAPI === 'undefined') { done(); return; }
-    submitButton.disabled = true; submitLabel.textContent = 'Đang gửi...'; showNote('');
-    sheetsAPI.post(SHEET_ID, {
-      A: data.get('name').trim(),
-      B: data.get('phone').trim(),
-      C: declining ? 'Không tham dự' : 'Tham dự',
-      D: declining ? '' : data.get('guests'),
-      E: (data.get('message') || '').trim(),
-      F: new Date().toLocaleString('vi-VN')
-    }).then(done).catch(() => {
-      submitButton.disabled = false; submitLabel.textContent = 'Gửi xác nhận';
-      showNote('Gửi chưa thành công, Quý Anh/Chị vui lòng thử lại.');
-    });
+    success.classList.add('show'); submitLabel.textContent = 'Xác nhận mẫu';
   });
-
-  // Tên khách mời theo ?id=
-  const guestId = parseInt(new URLSearchParams(location.search).get('id'), 10);
-  const guest = typeof GUEST_LIST !== 'undefined' && GUEST_LIST.find(item => item.id === guestId);
-  const guestLine = $('.hero .guest-line');
-  if (guest && guestLine) {
-    guestLine.textContent = guest.name; guestLine.classList.add('has-name');
-    guestLine.removeAttribute('aria-label');
-    const nameInput = $('input[name="name"]', form); if (nameInput) nameInput.value = guest.name;
-  }
   const rsvpDialog = $('#rsvpDialog');
   $('#openRsvp').addEventListener('click', () => {
     if (rsvpDialog.open) return;
