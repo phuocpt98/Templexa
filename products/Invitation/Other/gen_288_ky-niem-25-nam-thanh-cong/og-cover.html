@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>OG Cover — Thành Công 25 Năm</title>
+<!--
+  Trang dựng ảnh chia sẻ (og-cover) 1200×630 cho thiệp kỷ niệm 25 năm Thành Công.
+  KHÔNG phải trang cho khách xem — chỉ dùng để chụp màn hình sinh ra og-cover.jpg.
+
+  Chụp lại khi đổi nội dung:
+    cd Templexa && node scripts/build-og-cover.js --page products/Invitation/Other/gen_288_ky-niem-25-nam-thanh-cong/og-cover.html
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --ink: #061712;
+        --deep: #08251c;
+        --green: #0c5537;
+        --green2: #14814f;
+        --gold: #c9a357;
+        --champagne: #ead6a7;
+        --cream: #f7f0df;
+        --white: #fffdf7;
+    }
+
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+
+    .cover {
+        position: relative;
+        width: 1200px; height: 630px;
+        background: var(--ink);
+        display: flex;
+        align-items: center; justify-content: center;
+        overflow: hidden;
+    }
+
+    .bg-glow {
+        position: absolute; inset: 0;
+        background:
+            radial-gradient(ellipse 50% 70% at 50% 45%, rgba(12, 85, 55, 0.35), transparent 70%),
+            radial-gradient(circle at 75% 25%, rgba(201, 163, 87, 0.12), transparent 50%),
+            radial-gradient(circle at 20% 80%, rgba(20, 129, 79, 0.15), transparent 50%);
+    }
+
+    .bg-lines {
+        position: absolute; inset: 0;
+        background:
+            linear-gradient(120deg, transparent 45%, rgba(201, 163, 87, 0.08) 45.1%, transparent 45.3%),
+            linear-gradient(120deg, transparent 60%, rgba(201, 163, 87, 0.05) 60.1%, transparent 60.3%);
+    }
+
+    .grain {
+        position: absolute; inset: 0;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+    }
+
+    .frame {
+        position: absolute; inset: 18px;
+        border: 1px solid rgba(201, 163, 87, 0.35);
+    }
+    .frame::after {
+        content: ''; position: absolute; inset: 5px;
+        border: 1px solid rgba(201, 163, 87, 0.15);
+    }
+
+    .inner {
+        position: relative; z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 56px;
+        padding: 0 80px;
+        width: 100%;
+    }
+
+    .left {
+        display: flex; flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .logo {
+        width: 160px; height: auto;
+        filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.5));
+        margin-bottom: 16px;
+    }
+
+    .anniversary {
+        display: flex; align-items: center; gap: 14px;
+        color: var(--champagne);
+    }
+    .anniversary-number {
+        font: italic 72px/0.8 'Cormorant Garamond', serif;
+        border-right: 1px solid rgba(201, 163, 87, 0.45);
+        padding-right: 14px;
+    }
+    .anniversary-label {
+        display: flex; flex-direction: column; gap: 3px;
+        text-align: left; padding-left: 2px;
+    }
+    .anniversary-label b {
+        font: 600 13px/1 'Inter', sans-serif;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+    }
+    .anniversary-label em {
+        font: italic 12px/1.2 'Cormorant Garamond', serif;
+        letter-spacing: 0.12em;
+    }
+
+    .divider-v {
+        width: 1px; height: 200px;
+        background: linear-gradient(180deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+        flex-shrink: 0;
+        opacity: 0.4;
+    }
+
+    .right {
+        display: flex; flex-direction: column;
+        gap: 0;
+    }
+
+    .eyebrow {
+        font: 500 11px/1 'Inter', sans-serif;
+        letter-spacing: 0.36em;
+        text-transform: uppercase;
+        color: var(--champagne);
+        margin-bottom: 14px;
+    }
+
+    .title {
+        font: italic 58px/0.9 'Cormorant Garamond', serif;
+        color: var(--cream);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        font: italic 30px/1.2 'Cormorant Garamond', serif;
+        color: var(--champagne);
+        margin-bottom: 20px;
+    }
+
+    .gold-rule {
+        width: 90px; height: 1px;
+        background: var(--gold);
+        margin-bottom: 20px;
+    }
+
+    .events {
+        display: flex; flex-direction: column; gap: 8px;
+    }
+    .event-item {
+        display: flex; align-items: center; gap: 10px;
+        font: 400 14px/1.4 'Inter', sans-serif;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(234, 214, 167, 0.85);
+    }
+    .event-dot {
+        width: 5px; height: 5px;
+        border-radius: 50%;
+        background: var(--gold);
+        flex-shrink: 0;
+    }
+
+    .footer-bar {
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 44px;
+        overflow: hidden;
+        z-index: 3;
+    }
+    .footer-bar-bg {
+        position: absolute; inset: 0;
+        background: linear-gradient(110deg, #68192d, #4c0e20);
+    }
+    .footer-bar-green {
+        position: absolute; top: 0; bottom: 0;
+        right: -40px; width: calc(30% + 40px);
+        background: linear-gradient(110deg, #183c2e, #09271e);
+        transform: skewX(-30deg);
+    }
+    .footer-ribbons {
+        position: absolute; top: 0; bottom: 0;
+        right: 30%; display: flex;
+        width: 24px; transform: skewX(-30deg);
+    }
+    .footer-ribbons i {
+        flex: 1;
+    }
+    .footer-ribbons i:nth-child(1) { background: linear-gradient(#24975c, #247847); }
+    .footer-ribbons i:nth-child(2) { background: linear-gradient(#f5ca55, #cba040); }
+    .footer-ribbons i:nth-child(3) { background: linear-gradient(#d8463b, #a92b32); }
+
+    .footer-brand {
+        position: absolute; bottom: 12px; right: 56px;
+        font: 500 9px/1 'Inter', sans-serif;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        z-index: 4;
+    }
+</style>
+</head>
+<body>
+<div class="cover">
+    <div class="bg-glow"></div>
+    <div class="bg-lines"></div>
+    <div class="grain"></div>
+    <div class="frame"></div>
+
+    <div class="inner">
+        <div class="left">
+            <img class="logo" src="images/thanhcong-logo.webp" alt="Thành Công">
+            <div class="anniversary">
+                <span class="anniversary-number">25</span>
+                <div class="anniversary-label">
+                    <b>Năm</b>
+                    <em>2001 — 2026</em>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider-v"></div>
+
+        <div class="right">
+            <p class="eyebrow">Công ty Thành Công</p>
+            <h1 class="title">Thư Mời</h1>
+            <p class="subtitle">Kỷ niệm 25 năm thành lập</p>
+            <div class="gold-rule"></div>
+            <div class="events">
+                <div class="event-item"><span class="event-dot"></span>Giao lưu Golf</div>
+                <div class="event-item"><span class="event-dot"></span>Lễ kỷ niệm 25 năm</div>
+                <div class="event-item"><span class="event-dot"></span>Hội nghị khách hàng 2026</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bar">
+        <div class="footer-bar-bg"></div>
+        <div class="footer-ribbons"><i></i><i></i><i></i></div>
+        <div class="footer-bar-green"></div>
+    </div>
+    <span class="footer-brand">templexa.vn</span>
+</div>
+</body>
+</html>
