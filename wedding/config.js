@@ -218,4 +218,10 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến chung vui cùng gia đình chúng tôi — Lễ Vu Quy 27.09.2026 tại Nhà hàng Hồng Phát, Bảo Lộc, Lâm Đồng',
         image: '../../products/Invitation/Wedding/khach_hien-thuc-tien-dat/og-cover.jpg',
     },
+    'thuy-linh-do-thao': {
+        src: '../../products/Invitation/Wedding/khach_thuy-linh-do-thao/index.html',
+        title: 'Thùy Linh & Đỗ Thao — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự Lễ Vu Quy & bữa cơm thân mật — 18.10.2026 tại Phường Nếnh, TP. Bắc Ninh',
+        image: '../../products/Invitation/Wedding/khach_thuy-linh-do-thao/og-cover.jpg',
+    },
 };

@@ -28,15 +28,15 @@ products/
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
 | **Invitation** | other | 54 | 46 |
-| **Invitation** | wedding | 94 | 61 |
+| **Invitation** | wedding | 95 | 61 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **274** | **233** |
+| | **Tong** | **275** | **233** |
 
-_Cap nhat tu data.js: 2026-09-14 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-09-22 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 
@@ -227,7 +227,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 267 | Thiệp Sinh Nhật Bé — Bear Party Pastel | `Invitation/Other/gen_267_sinh-nhat-be-bear-party` | birthday | public |
 | 268 | Thiệp Thôi Nôi Bé — Bunny & Cloud Pastel | `Invitation/Other/gen_268_thoi-noi-be-bunny-cloud` | thoi-noi | public |
 
-### Invitation / wedding (94)
+### Invitation / wedding (95)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -290,7 +290,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 225 | Thiệp Cưới - Heritage Illustrated Venue | `Invitation/Wedding/gen_225_heritage-illustrated-venue` | traditional / wedding | public, featured, bestseller |
 | 233 | Thiệp Cưới Pink Pastel Korean | `Invitation/Wedding/gen_233_cuoi-pink-pastel-korean` | modern / wedding | public |
 | 235 | Thiệp Cưới - Pink Pastel | `Invitation/Wedding/gen_235_cuoi-cinelove-pink-pastel` | traditional / wedding | public |
-| 241 | Thiệp Cưới Vintage Phong Bì Lá — Khung Phim | `Invitation/Wedding/khach_quynhthuong_kimvuong` | luxury / wedding | public, 6 variants |
+| 241 | Thiệp Cưới Vintage Phong Bì Lá — Khung Phim | `Invitation/Wedding/khach_quynhthuong_kimvuong` | luxury / wedding | public, 7 variants |
 | 242 | Thiệp Cưới - Majestic Olive Classic | `Invitation/Wedding/gen_236_majestic-olive-classic` | luxury / wedding | public |
 | 243 | Thiệp Cưới Nhà Trai - Minh Đức & Ngô Thuỳ | `Invitation/Wedding/khach_duc-thuy-nha-trai` | vintage / wedding | hidden |
 | 244 | Thiệp Cưới Nhà Gái - Minh Đức & Ngô Thuỳ | `Invitation/Wedding/khach_duc-thuy-nha-gai` | vintage / wedding | hidden |
@@ -325,6 +325,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 279 | Thiệp Cưới Mizuhiki — Nút Kết Duyên Đỏ Kim | `Invitation/Wedding/gen_279_mizuhiki-knot` | traditional / wedding | public |
 | 280 | Thiệp Cưới Anh Đào — Sóng Seigaiha | `Invitation/Wedding/gen_280_sakura-seigaiha` | floral / wedding | public |
 | 281 | Thiệp Cưới Tứ Quân Tử — Tranh Mực Thực Vật | `Invitation/Wedding/gen_281_sumi-botanical` | minimalist / wedding | public |
+| 288 | Thiệp Cưới Vintage Khung Phim Hồng Đất | `Invitation/Wedding/khach_thuy-linh-do-thao` | vintage / wedding | hidden |
 
 ### Web / e-commerce (33)
 
