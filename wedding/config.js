@@ -220,8 +220,8 @@ var WEDDING = {
     },
     'thuy-linh-do-thao': {
         src: '../../products/Invitation/Wedding/khach_thuy-linh-do-thao/index.html',
-        title: 'Thùy Linh & Đỗ Thao — Thiệp Mời Cưới',
-        description: 'Trân trọng kính mời bạn đến dự Lễ Vu Quy & bữa cơm thân mật — 18.10.2026 tại Phường Nếnh, TP. Bắc Ninh',
+        title: 'Đỗ Thao & Thùy Linh — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời bạn đến dự Tiệc cưới & Lễ Thành Hôn — 17 – 18.10.2026 tại Phường Nếnh, TP. Bắc Ninh',
         image: '../../products/Invitation/Wedding/khach_thuy-linh-do-thao/og-cover.jpg',
     },
 };
