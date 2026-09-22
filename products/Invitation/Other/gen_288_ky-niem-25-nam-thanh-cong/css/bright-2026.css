@@ -1,5 +1,5 @@
-/* Bản sáng 09/2026 (theo góp ý khách): bìa đỏ tươi hơn, header/footer bìa tươi,
-   toàn bộ màn nội dung chuyển sang nền sáng ngà + chữ xanh đậm / đỏ / vàng đồng.
+/* Bản tươi 09/2026 (theo góp ý khách): bìa đỏ tươi hơn một chút, header/footer bìa tươi,
+   màn nội dung GIỮ tông xanh + chữ vàng kem cũ, chỉ nâng độ sáng/độ tươi của nền.
    File nạp CUỐI CÙNG nên ghi đè các lớp tối trước đó. */
 :root {
   --br-red: #b3202f; --br-red-2: #d12f3f; --br-red-deep: #8c1426;
@@ -11,8 +11,8 @@
 
 /* ───────── MÀN BÌA ───────── */
 #opening.opening-redesign {
-  background-color: #a81c30 !important;
-  background-image: radial-gradient(ellipse at 50% 34%, #d8404f 0%, #b6202f 40%, #86121f 88%), linear-gradient(120deg, #c02a39, #7c101e) !important;
+  background-color: #7e1528 !important;
+  background-image: radial-gradient(ellipse at 50% 34%, #a8303f 0%, #86192c 40%, #560b19 88%), linear-gradient(120deg, #8a1c2e, #4a0914) !important;
 }
 /* Logo: bỏ khung trắng, viền sáng mảnh để logo vẫn nổi trên nền đỏ */
 #opening .cover-layout { --cover-brand-height: clamp(56px, 11svh, 104px) !important; }
@@ -29,7 +29,7 @@
 #opening .cover-company .company-kind,
 #opening .cover-company .company-name { font-size: clamp(.95rem, 1.9vw, 1.6rem) !important; letter-spacing: .06em !important; white-space: nowrap; }
 /* Footer bìa: đỏ + xanh tươi */
-#opening .cover-footer-bar { background: linear-gradient(110deg, var(--br-red-2), var(--br-red) 70%, #a31b2c) !important; }
+#opening .cover-footer-bar { background: linear-gradient(110deg, #c42a3b, #a81e30 70%, #971a2b) !important; }
 #opening .cover-footer-bar::after { background: linear-gradient(110deg, #26945c, var(--br-green)) !important; }
 
 /* ───────── HEADER NỘI DUNG ───────── */
@@ -43,104 +43,50 @@
 #nav .nav-rsvp { border-bottom-color: #ffe2a8 !important; }
 #nav .motion-toggle { color: #fff4dc; border-color: #ffffff55; }
 
-/* ───────── NỀN MÀN NỘI DUNG ───────── */
-body { background: var(--br-paper); }
-main { color: var(--br-ink) !important; }
+/* ───────── NỀN MÀN NỘI DUNG: vẫn xanh, sáng + tươi hơn ───────── */
+body { background: #0e4a33; }
 main .hero {
-  background: radial-gradient(ellipse at 18% 30%, #fbe7c6aa, transparent 58%), radial-gradient(ellipse at 88% 80%, #f6d9d0aa, transparent 52%), linear-gradient(140deg, #fffdf7, #f8efdd 78%) !important;
+  background: radial-gradient(ellipse at 22% 32%, #34a36fa6, transparent 60%), radial-gradient(ellipse at 85% 85%, #1f8a5a80, transparent 55%), linear-gradient(135deg, #1b7a50, #0f5638 76%) !important;
 }
-main .hero-lines { background: linear-gradient(120deg, transparent 72%, #b98f4a22 72.1%, transparent 72.25%) !important; }
-main .hero::after { opacity: .12 !important; }
-.hero-landscape { border-top-color: #d8bd8666 !important; }
-.hero-landscape-photo, .mobile-hero-landscape {
-  background: linear-gradient(0deg, #fffaf1f2, #fffaf1b3 55%, #fffaf1d9), url('../images/golf-twilight-v2.webp') 50% 55% / cover !important;
+.hero-landscape-photo {
+  background: linear-gradient(90deg, #0f553866, #1a6e4a33, #0f553866), linear-gradient(0deg, #0f5338a6, transparent 72%), url('../images/golf-twilight-v2.webp') 50% 55% / cover !important;
+  filter: brightness(1.18) saturate(1.15);
+}
+.mobile-hero-landscape {
+  background: linear-gradient(180deg, #16704a, transparent 48%, #0f5538a6), url('../images/golf-twilight-v2.webp') 60% 52% / cover !important;
+  filter: brightness(1.18) saturate(1.15);
 }
 
-main .golf { background: var(--br-paper) !important; }
+main .golf { background: #125a3c !important; }
 main .golf-photo {
-  background-image: linear-gradient(180deg, #fffaf2f0, #fff6e6d6 45%, #fdf5e6f5 92%), url('../images/golf-twilight-v2.webp') !important;
+  background-image: linear-gradient(90deg, #0e553a99, transparent 82%), linear-gradient(0deg, #0e5238d9 1%, transparent 65%), url('../images/golf-twilight-v2.webp') !important;
+  filter: brightness(1.25) saturate(1.2);
 }
-.drifting-mist { opacity: .5; }
+@media (max-width: 760px) {
+  main .golf-photo { background-image: linear-gradient(180deg, #0e553a8c, transparent 43%, #0e5238d0 90%), url('../images/golf-twilight-v2.webp') !important; }
+}
+main .event-card { background: #0f5a3dbf !important; border-color: #e6c88a80 !important; }
 
-main .transition { background: var(--br-paper-2) !important; }
+/* Màn lễ kỷ niệm: giữ tông ánh vàng buổi tối nhưng sáng hơn */
+main .transition { background: #4a3a1e !important; }
 main .gala-photo {
-  background-image: linear-gradient(180deg, #fffaf0f0, #fdf3e2d9 50%, #faf0dff5), url('../images/golf-gala-v2.webp') !important;
+  background-image: linear-gradient(90deg, #1b2a1f80, #2a1a0a4d), linear-gradient(0deg, #3a2a14e0, transparent 55%, #0f4a3366), url('../images/golf-gala-v2.webp') !important;
+  filter: brightness(1.45) saturate(1.2);
 }
-.gala-green { display: none !important; }
-main .gold-rain { opacity: .35 !important; }
+main .gala-card, main .gala-card.ceremony-details { background: #3b2a14b3 !important; border-color: #e0bb7a80 !important; }
 
 main .thanks {
-  background: radial-gradient(ellipse at 50% 30%, #fff8ec, #f6ead3 78%) !important;
+  background: radial-gradient(ellipse at center, #26915f, #0f5638 74%) !important;
 }
-.monogram { -webkit-text-stroke-color: #b3202f14 !important; }
-.ambient-field { --orbit-gold: #b58a3c; }
+main .closing-panel .closing-rsvp, .closing-rsvp { background: linear-gradient(155deg, #a8303f33, #0f5a3d99) !important; }
+.rsvp-open-button { background: linear-gradient(120deg, #b52a3b, #8a1a2c) !important; }
 
-/* ───────── CHỮ ───────── */
-main .chapter-label { color: var(--br-red) !important; }
-main .chapter-label > span { color: var(--br-gold) !important; border-color: #a57a2f55 !important; }
-main .chapter-label::after, main .chapter-label::before { background: #a57a2f66; }
-main .golf-divider, main .closing-golf-symbol, .scroll-cue svg { color: var(--br-gold) !important; stroke: currentColor; }
-.golf-divider > span { background: linear-gradient(90deg, transparent, #a57a2f99) !important; }
-
-main .hero h1 { color: var(--br-ink) !important; }
-main .hero h1 > span:last-child { color: var(--br-red) !important; }
-main .hero .guest { color: var(--br-ink) !important; }
-main .hero .guest-line { border-color: #a57a2f88 !important; }
-main .hero .guest-line.has-name { color: var(--br-red) !important; }
-main .hero .invitation-copy { color: var(--br-text) !important; border-left-color: #a57a2f55 !important; }
-.invitation-copy strong { color: var(--br-red) !important; }
-.invitation-copy em { color: var(--br-green-2) !important; }
-main .hero .meeting-note { color: var(--br-ink) !important; text-shadow: none !important; }
-main .hero > .scroll-cue { color: var(--br-red) !important; text-shadow: none !important; }
-
-main .golf h2 { color: var(--br-ink) !important; }
-main .golf h2 em { color: var(--br-red) !important; }
-.golf-anniversary { color: var(--br-gold) !important; }
-main .event-card {
-  background: #ffffffd9 !important; border-color: #d8bd86 !important; border-top-color: #c9a45f !important;
-  box-shadow: 0 18px 50px #8a6a3524 !important;
+/* Nút nhạc: đỏ rượu như màn bìa, viền vàng kem */
+.floating-music, .floating-music:hover, .floating-music[aria-pressed='true'] {
+  background: radial-gradient(circle at 35% 30%, #b33343, #86192c 60%, #640f20) !important;
+  border-color: #e8c98f !important; color: #fbe6bd !important;
+  box-shadow: 0 6px 20px #3a060f59, inset 0 0 0 1px #f3d9a633 !important;
 }
-main :is(.event-card, .gala-card)::before, main .gala-card::after, .event-card::before { opacity: .25; }
-main .card-caption { color: var(--br-red) !important; }
-main .date-block { border-bottom-color: #d8bd8666 !important; }
-main .date-block span, main .times span, main .gala-detail span { color: var(--br-text) !important; }
-main .date-block strong, main .gala-detail strong, main .event-placeholder { color: var(--br-ink) !important; }
-main .line-icon, .detail-icon { stroke: var(--br-gold) !important; }
-main .golf blockquote { color: var(--br-green-2) !important; }
-.quote-rule { background: #a57a2f88 !important; }
-
-.ceremony-caption, .ceremony-conference { color: var(--br-ink) !important; }
-.ceremony-anniversary { color: var(--br-red) !important; }
-.ceremony-join, .ceremony-conference em { color: var(--br-gold) !important; }
-main .gala-card, main .gala-card.ceremony-details {
-  background: #ffffffd6 !important; border-color: #d8bd86 !important; box-shadow: 0 18px 50px #8a6a3524 !important;
-}
-main .gala-card.ceremony-details > .gala-detail + .gala-detail { border-color: #d8bd8688 !important; }
-main .transition .ceremony-note, main .lead { color: var(--br-text) !important; }
-
-.host-message { color: var(--br-text) !important; border-color: #a57a2f66 !important; }
-.host-message p:last-child { color: var(--br-red) !important; }
-.host-name { color: var(--br-red) !important; }
-.host-role { color: var(--br-text) !important; }
-main .thanks h2, main .closing-rsvp h2 { color: var(--br-ink) !important; }
-main .thanks h2 i { color: var(--br-red) !important; }
-main .closing-panel .closing-rsvp, .closing-rsvp {
-  background: #ffffffb8 !important; border-color: #d8bd8688 !important;
-}
-.thanks-rule { background: linear-gradient(#a57a2f33, #a57a2f) !important; }
-.closing-invitation { color: var(--br-text) !important; }
-.closing-invitation strong { color: var(--br-red) !important; }
-.rsvp-open-button { background: linear-gradient(120deg, var(--br-red-2), var(--br-red-deep)) !important; border-color: #c9a45f !important; color: #fff6e3 !important; box-shadow: 0 10px 26px #b3202f33; }
-.program-line { color: var(--br-muted) !important; }
-.program-line > span[aria-hidden] { color: var(--br-gold) !important; }
-main footer, main footer.closing-footer { color: var(--br-text) !important; border-top-color: #d8bd8688 !important; }
-main footer img { background: transparent !important; }
-.closing-brand { color: var(--br-gold) !important; }
-
-/* Nút nhạc & tiến độ cuộn */
-.floating-music { background: var(--br-red) !important; border-color: #f0d09a !important; color: #fff4dc !important; box-shadow: 0 6px 20px #8c142633 !important; }
-.scroll-progress { background: #a57a2f33 !important; }
-.cursor-halo > span { border-color: #b3202f66 !important; }
 
 /* ───────── MOBILE ───────── */
 @media (max-width: 760px) {
@@ -148,6 +94,15 @@ main footer img { background: transparent !important; }
   #opening .cover-company .company-kind,
   #opening .cover-company .company-name { font-size: clamp(.82rem, 3.9vw, 1rem) !important; letter-spacing: .04em !important; }
   #opening .cover-company .company-kind { margin-bottom: 2px !important; }
-  .closing-rsvp { background: transparent !important; border-left: 0 !important; border-right: 0 !important; border-bottom: 0 !important; }
-  main .gala-card.ceremony-details { background: #ffffffd9 !important; }
+
+  /* Chữ mobile: nhỏ lại vừa đủ để câu ngắt dòng cân, không quá nhiều dòng, không cụt cụm từ */
+  main .date-block > span { font-size: 14px !important; letter-spacing: 0 !important; white-space: nowrap; }
+  main .hero .invitation-copy > p, main .golf blockquote, .host-message p { text-wrap: balance; }
+  main .transition .ceremony-note { font-size: 17px !important; line-height: 1.55 !important; text-wrap: balance; }
+  main .transition .ceremony-note br { display: inline !important; }
+  main .closing-panel .closing-invitation { max-width: 22em !important; font-size: 17px !important; line-height: 1.55 !important; text-wrap: balance; }
+  .closing-invitation br { display: none !important; }
+}
+@media (max-width: 380px) {
+  main .date-block > span { font-size: 13px !important; }
 }
