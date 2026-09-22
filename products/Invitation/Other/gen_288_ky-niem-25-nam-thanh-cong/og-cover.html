@@ -6,6 +6,8 @@
 <!--
   Trang dựng ảnh chia sẻ (og-cover) 1200×630 cho thiệp kỷ niệm 25 năm Thành Công.
   KHÔNG phải trang cho khách xem — chỉ dùng để chụp màn hình sinh ra og-cover.jpg.
+  Bố cục bám theo màn bìa (#opening) bản 09/2026: nền đỏ rượu, 2 logo, số 25 ánh vàng,
+  khẩu hiệu viết tay, dải footer đỏ–xanh.
 
   Chụp lại khi đổi nội dung:
     cd Templexa && node scripts/build-og-cover.js --page products/Invitation/Other/gen_288_ky-niem-25-nam-thanh-cong/og-cover.html
@@ -14,239 +16,111 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap&subset=vietnamese" rel="stylesheet">
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-        --ink: #061712;
-        --deep: #08251c;
-        --green: #0c5537;
-        --green2: #14814f;
-        --gold: #c9a357;
-        --champagne: #ead6a7;
-        --cream: #f7f0df;
-        --white: #fffdf7;
+    @font-face {
+        font-family: 'Anniversary Script'; font-style: normal; font-weight: 400;
+        src: url('images/anniversary-script.woff2') format('woff2');
     }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --serif: 'Cormorant Garamond', 'Times New Roman', serif; --sans: Inter, Arial, sans-serif; --cream: #fbe9c6; --gold: #e2bf7b; }
     html, body { width: 1200px; height: 630px; overflow: hidden; }
+    .num, .years em, .invite { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
 
     .cover {
-        position: relative;
-        width: 1200px; height: 630px;
-        background: var(--ink);
-        display: flex;
-        align-items: center; justify-content: center;
-        overflow: hidden;
+        position: relative; width: 1200px; height: 630px; overflow: hidden;
+        background-color: #7e1528;
+        background-image: radial-gradient(ellipse 60% 75% at 50% 42%, #ad3444 0%, #88192d 45%, #560b19 100%);
+        color: var(--cream);
     }
-
-    .bg-glow {
-        position: absolute; inset: 0;
+    /* vệt sáng chéo + đường cong mảnh như màn bìa */
+    .cover::before {
+        content: ''; position: absolute; inset: 0;
         background:
-            radial-gradient(ellipse 50% 70% at 50% 45%, rgba(12, 85, 55, 0.35), transparent 70%),
-            radial-gradient(circle at 75% 25%, rgba(201, 163, 87, 0.12), transparent 50%),
-            radial-gradient(circle at 20% 80%, rgba(20, 129, 79, 0.15), transparent 50%);
+            linear-gradient(118deg, transparent 38%, #ffe0a80d 38.1%, transparent 38.4%),
+            linear-gradient(118deg, transparent 66%, #ffe0a80a 66.1%, transparent 66.4%);
     }
-
-    .bg-lines {
-        position: absolute; inset: 0;
-        background:
-            linear-gradient(120deg, transparent 45%, rgba(201, 163, 87, 0.08) 45.1%, transparent 45.3%),
-            linear-gradient(120deg, transparent 60%, rgba(201, 163, 87, 0.05) 60.1%, transparent 60.3%);
-    }
-
-    .grain {
-        position: absolute; inset: 0;
-        opacity: 0.04;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
-    }
-
-    .frame {
-        position: absolute; inset: 18px;
-        border: 1px solid rgba(201, 163, 87, 0.35);
-    }
-    .frame::after {
-        content: ''; position: absolute; inset: 5px;
-        border: 1px solid rgba(201, 163, 87, 0.15);
-    }
+    .arc { position: absolute; top: -120px; width: 620px; height: 870px; border: 1px solid #e2bf7b1f; border-radius: 50%; }
+    .arc-l { left: -430px; } .arc-r { right: -430px; }
+    .frame { position: absolute; inset: 20px 20px 70px; border: 1px solid #e2bf7b66; }
+    .frame::after { content: ''; position: absolute; inset: 6px; border: 1px solid #e3b97224; }
 
     .inner {
-        position: relative; z-index: 2;
-        display: flex;
-        align-items: center;
-        gap: 56px;
-        padding: 0 80px;
-        width: 100%;
+        position: absolute; inset: 20px 20px 70px;
+        display: grid; grid-template-rows: auto 1fr auto; justify-items: center;
+        padding: 34px 70px 30px;
     }
 
-    .left {
-        display: flex; flex-direction: column;
-        align-items: center;
-        flex-shrink: 0;
-    }
+    /* Hàng thương hiệu: TCB | CÔNG TY THÀNH CÔNG | THANHCONG */
+    .brand { display: grid; grid-template-columns: 150px auto 150px; align-items: center; gap: 44px; }
+    .brand img { display: block; width: 100%; height: 76px; object-fit: contain; filter: drop-shadow(0 0 .5px #fffc) drop-shadow(0 3px 8px #3a060f66); }
+    .company { text-align: center; font: 400 26px/1.25 var(--serif); letter-spacing: .08em; }
+    .company span { display: block; white-space: nowrap; }
 
-    .logo {
-        width: 160px; height: auto;
-        filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.5));
-        margin-bottom: 16px;
+    /* Khối giữa: 25 NĂM | khẩu hiệu */
+    .middle { display: flex; align-items: center; gap: 46px; }
+    .anniv { display: flex; align-items: center; gap: 22px; }
+    .num {
+        font: 400 150px/1.08 Georgia, 'Times New Roman', serif; letter-spacing: -.07em; padding: .025em .08em .09em 0;
+        background: linear-gradient(115deg, #ecd09d 20%, #fff4d7 43%, #c89e60 57%, #f1d6a3 76%);
+        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 6px 18px #3a060f66);
     }
+    .years { display: flex; flex-direction: column; gap: 12px; padding-left: 22px; border-left: 1px solid #e8c18375; }
+    .years b { font: 500 20px/1 var(--sans); letter-spacing: .26em; }
+    .years em { font: 400 20px/1 var(--serif); font-style: normal; letter-spacing: .09em; color: #f3d9a6; }
+    .rule-v { width: 1px; height: 150px; background: linear-gradient(transparent, #e2bf7b99 25%, #e2bf7b99 75%, transparent); }
+    .slogan { font: 400 62px/1.2 'Anniversary Script', var(--serif); color: #ffedc7; text-shadow: 0 3px 20px #2a071840; text-align: center; }
 
-    .anniversary {
-        display: flex; align-items: center; gap: 14px;
-        color: var(--champagne);
-    }
-    .anniversary-number {
-        font: italic 72px/0.8 'Cormorant Garamond', serif;
-        border-right: 1px solid rgba(201, 163, 87, 0.45);
-        padding-right: 14px;
-    }
-    .anniversary-label {
-        display: flex; flex-direction: column; gap: 3px;
-        text-align: left; padding-left: 2px;
-    }
-    .anniversary-label b {
-        font: 600 13px/1 'Inter', sans-serif;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-    }
-    .anniversary-label em {
-        font: italic 12px/1.2 'Cormorant Garamond', serif;
-        letter-spacing: 0.12em;
-    }
+    /* Dòng thư mời */
+    .invite { display: flex; align-items: center; gap: 22px; text-transform: uppercase; }
+    .invite .title { font: 400 34px/1 var(--serif); letter-spacing: .2em; margin-right: -.2em; }
+    .invite .dot { width: 6px; height: 6px; transform: rotate(45deg); background: var(--gold); }
+    .invite .event { font: 400 23px/1 var(--serif); letter-spacing: .05em; }
 
-    .divider-v {
-        width: 1px; height: 200px;
-        background: linear-gradient(180deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
-        flex-shrink: 0;
-        opacity: 0.4;
-    }
-
-    .right {
-        display: flex; flex-direction: column;
-        gap: 0;
-    }
-
-    .eyebrow {
-        font: 500 11px/1 'Inter', sans-serif;
-        letter-spacing: 0.36em;
-        text-transform: uppercase;
-        color: var(--champagne);
-        margin-bottom: 14px;
-    }
-
-    .title {
-        font: italic 58px/0.9 'Cormorant Garamond', serif;
-        color: var(--cream);
-        text-transform: uppercase;
-        margin-bottom: 6px;
-    }
-
-    .subtitle {
-        font: italic 30px/1.2 'Cormorant Garamond', serif;
-        color: var(--champagne);
-        margin-bottom: 20px;
-    }
-
-    .gold-rule {
-        width: 90px; height: 1px;
-        background: var(--gold);
-        margin-bottom: 20px;
-    }
-
-    .events {
-        display: flex; flex-direction: column; gap: 8px;
-    }
-    .event-item {
-        display: flex; align-items: center; gap: 10px;
-        font: 400 14px/1.4 'Inter', sans-serif;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: rgba(234, 214, 167, 0.85);
-    }
-    .event-dot {
-        width: 5px; height: 5px;
-        border-radius: 50%;
-        background: var(--gold);
-        flex-shrink: 0;
-    }
-
-    .footer-bar {
-        position: absolute;
-        left: 0; right: 0; bottom: 0;
-        height: 44px;
-        overflow: hidden;
-        z-index: 3;
-    }
-    .footer-bar-bg {
-        position: absolute; inset: 0;
-        background: linear-gradient(110deg, #68192d, #4c0e20);
-    }
-    .footer-bar-green {
-        position: absolute; top: 0; bottom: 0;
-        right: -40px; width: calc(30% + 40px);
-        background: linear-gradient(110deg, #183c2e, #09271e);
-        transform: skewX(-30deg);
-    }
-    .footer-ribbons {
-        position: absolute; top: 0; bottom: 0;
-        right: 30%; display: flex;
-        width: 24px; transform: skewX(-30deg);
-    }
-    .footer-ribbons i {
-        flex: 1;
-    }
-    .footer-ribbons i:nth-child(1) { background: linear-gradient(#24975c, #247847); }
-    .footer-ribbons i:nth-child(2) { background: linear-gradient(#f5ca55, #cba040); }
-    .footer-ribbons i:nth-child(3) { background: linear-gradient(#d8463b, #a92b32); }
-
-    .footer-brand {
-        position: absolute; bottom: 12px; right: 56px;
-        font: 500 9px/1 'Inter', sans-serif;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.6);
-        z-index: 4;
-    }
+    /* Dải footer đỏ–xanh giống màn bìa */
+    .footer-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 70px; overflow: hidden; background: linear-gradient(110deg, #c42a3b, #a81e30 70%, #971a2b); box-shadow: 0 -8px 25px #0003; }
+    .footer-bar .green { position: absolute; top: 0; bottom: 0; right: -40px; width: calc(22% + 40px); background: linear-gradient(110deg, #26945c, #1c7a4b); transform: skewX(-30deg); }
+    .footer-bar .ribbons { position: absolute; top: 0; bottom: 0; right: 22%; display: flex; width: 36px; transform: skewX(-30deg); }
+    .footer-bar .ribbons i { flex: 1; }
+    .footer-bar .ribbons i:nth-child(1) { background: linear-gradient(#24975c, #247847); }
+    .footer-bar .ribbons i:nth-child(2) { background: linear-gradient(#f5ca55, #cba040); }
+    .footer-bar .ribbons i:nth-child(3) { background: linear-gradient(#d8463b, #a92b32); }
+    .bar-logo { position: absolute; top: 50%; left: 40px; transform: translateY(-50%); display: flex; align-items: center; gap: 12px; }
+    .bar-logo span { display: block; position: relative; overflow: hidden; }
+    .bar-logo img { position: absolute; display: block; filter: brightness(0) invert(1); }
+    .bar-logo .emblem { width: 37px; height: 35px; } .bar-logo .emblem img { width: 95px; top: 0; left: -28px; }
+    .bar-logo .wordmark { width: 151px; height: 17px; } .bar-logo .wordmark img { width: 151px; bottom: 0; left: 0; }
+    .site { position: absolute; right: 44px; bottom: 27px; font: 500 12px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: #ffffffcc; }
 </style>
 </head>
 <body>
 <div class="cover">
-    <div class="bg-glow"></div>
-    <div class="bg-lines"></div>
-    <div class="grain"></div>
+    <div class="arc arc-l"></div><div class="arc arc-r"></div>
     <div class="frame"></div>
-
     <div class="inner">
-        <div class="left">
-            <img class="logo" src="images/thanhcong-logo.webp" alt="Thành Công">
-            <div class="anniversary">
-                <span class="anniversary-number">25</span>
-                <div class="anniversary-label">
-                    <b>Năm</b>
-                    <em>2001 — 2026</em>
-                </div>
-            </div>
+        <div class="brand">
+            <img src="images/thanhcong-jsc-logo.webp" alt="Thành Công JSC">
+            <p class="company"><span>CÔNG TY</span><span>THÀNH CÔNG</span></p>
+            <img src="images/thanhcong-logo-cover.webp" alt="Thành Công">
         </div>
-
-        <div class="divider-v"></div>
-
-        <div class="right">
-            <p class="eyebrow">Công ty Thành Công</p>
-            <h1 class="title">Thư Mời</h1>
-            <p class="subtitle">Kỷ niệm 25 năm thành lập</p>
-            <div class="gold-rule"></div>
-            <div class="events">
-                <div class="event-item"><span class="event-dot"></span>Giao lưu Golf</div>
-                <div class="event-item"><span class="event-dot"></span>Lễ kỷ niệm 25 năm</div>
-                <div class="event-item"><span class="event-dot"></span>Hội nghị khách hàng 2026</div>
+        <div class="middle">
+            <div class="anniv">
+                <span class="num">25</span>
+                <div class="years"><b>NĂM</b><em>2001 — 2026</em></div>
             </div>
+            <div class="rule-v"></div>
+            <p class="slogan">Kết nối giá trị<br>Kiến tạo tương lai</p>
+        </div>
+        <div class="invite">
+            <span class="title">Thư mời</span><span class="dot"></span>
+            <span class="event">Lễ kỷ niệm 25 năm thành lập công ty</span>
         </div>
     </div>
-
     <div class="footer-bar">
-        <div class="footer-bar-bg"></div>
-        <div class="footer-ribbons"><i></i><i></i><i></i></div>
-        <div class="footer-bar-green"></div>
+        <div class="ribbons"><i></i><i></i><i></i></div>
+        <div class="green"></div>
+        <span class="bar-logo"><span class="emblem"><img src="images/thanhcong-logo.webp" alt=""></span><span class="wordmark"><img src="images/thanhcong-logo.webp" alt=""></span></span>
+        <span class="site">templexa.vn</span>
     </div>
-    <span class="footer-brand">templexa.vn</span>
 </div>
 </body>
 </html>
