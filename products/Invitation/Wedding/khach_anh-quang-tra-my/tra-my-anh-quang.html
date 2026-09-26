@@ -415,19 +415,14 @@
     var stopped = false;
     var raf = 0;
     var speed = 1.2;
-    var listeners = [];
+    var stopEvts = ['touchstart','touchmove','pointerdown','mousedown','wheel','keydown'];
     function stopScroll(){
+      if (stopped) return;
       stopped = true;
       cancelAnimationFrame(raf);
-      listeners.forEach(function(r){ window.removeEventListener(r[0], r[1], r[2]); });
+      stopEvts.forEach(function(e){ window.removeEventListener(e, stopScroll, true); });
     }
-    function armStop(){
-      ['wheel','touchstart','touchmove','pointerdown','keydown'].forEach(function(evt){
-        var opts = {once:true, passive:true};
-        listeners.push([evt, stopScroll, opts]);
-        window.addEventListener(evt, stopScroll, opts);
-      });
-    }
+    stopEvts.forEach(function(e){ window.addEventListener(e, stopScroll, {capture:true, passive:true}); });
     function tick(){
       if (stopped) return;
       var max = document.documentElement.scrollHeight - window.innerHeight;
@@ -438,7 +433,6 @@
     document.addEventListener('click', function(){
       setTimeout(function(){
         if (stopped) return;
-        armStop();
         raf = requestAnimationFrame(tick);
       }, 5000);
     }, {once:true});

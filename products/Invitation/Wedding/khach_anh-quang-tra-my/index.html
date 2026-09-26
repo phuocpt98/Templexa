@@ -34,6 +34,7 @@
   #card-calendar { background-color: #f0ece6; }
   .parents .parent { font-size: min(1.1em, 3.2vw); white-space: nowrap; }
   .parents .parent .label { font-size: 1.15em; }
+  .guest-name { display: block; font-size: 1.35em; font-weight: 700; margin: 4px 0; letter-spacing: 0.02em; }
 </style>
 </head>
 
@@ -410,24 +411,30 @@
   })();
 
   (function(){
+    var GUESTS={1:"Bạn Vĩnh Hà",2:"Bạn Kim Dung",3:"Bạn Hoàng Anh",4:"Bạn Vân Anh",5:"Bạn Đặng Hương",6:"Bạn Quỳnh Anh",7:"Bạn Thái Anh",8:"Bạn Xuân Dũng",9:"Bạn Nhất Minh",10:"Bạn Quốc Hùng",11:"Bạn Mai Anh",12:"Các bạn lớp 8I",13:"Bạn Thúy Liên",14:"Bạn Thanh Hoa",15:"Bạn Thanh Hương",16:"Bạn Thu Hương",17:"Bạn Mai Hương",18:"Bạn Hải Yến",19:"Bạn Thuỳ Dương",20:"Bạn Quỳnh Anh",21:"Bạn Hương Giang",22:"Bạn Hồng Vân",23:"Bạn Nghĩa",24:"Bạn Thọ",25:"Bạn Kiên",26:"Bạn Bình Minh",27:"Bạn Trường",28:"Bạn Quang Minh",29:"Bạn Lương",30:"Bạn Long",31:"Các bạn lớp Hóa 1",32:"Bạn Tuyết",33:"Bạn Vân",34:"Bạn Thu Hà",35:"Bạn Hồng Hà",36:"Bạn Thu Huyền",37:"Bạn Liên Hương",38:"Bạn Chí Bình",39:"Bạn Thúy Hà",40:"Bạn Quỳnh Anh",41:"Chị Ngọc Bích",42:"Bạn Phượng",43:"Bạn Phương",44:"Chị Cẩm Hương",45:"Em Mai Anh",46:"Bạn Châu",47:"Anh Dũng",48:"Anh Yên",49:"Bạn Trung",50:"Chị Lệ",51:"Bạn Đức",52:"Bạn Hiếu",53:"Anh Khiêm",54:"Bạn Thảo",55:"Chị Kim Thanh",56:"Chị Tuyết",57:"Em Tâm",58:"Em Thu Hà",59:"Em Liên",60:"Em Cường và gia đình",61:"Chị Hải",62:"Chị Thu",63:"Em Hoàng Anh",64:"Em Tuấn",65:"Anh Thắng và gia đình",66:"Chị Thu Hằng và gia đình",67:"Anh Nghiêm Anh Dũng",68:"Em Long",69:"Em Vũ",70:"Em Anh Tuấn",71:"Em Tuấn Anh",72:"Em Cát",73:"Em Phí Văn Kiên",74:"Em Bá Hoàng",75:"Em Thanh",76:"Anh Tam Hùng và gia đình",77:"Chị Minh Huệ và gia đình",78:"Em Hà Linh",79:"Em Quỳnh Nga",80:"Em Huệ",81:"Anh Khắc Ngọc và gia đình",82:"Em Lan Anh",83:"Em Thủy",84:"Em Hồ Hằng",85:"Em Vân",86:"Các Anh Chị Em Ban Kiến trúc 1",87:"Anh Mạnh Dũng và gia đình",88:"Anh Hoàng Đức và gia đình",89:"Em Thế Tân",90:"Em Đăng Khoa",91:"Em Duy Linh",92:"Bạn Lê Trần Trung",93:"Em Thành",94:"Em Thùy Linh",95:"Em Phương",96:"Em Phạm Hữu Kiên",97:"Anh Văn Đức Vinh",98:"Em Trung Kiên",99:"Em Xuân Hùng",100:"Anh Ngọc Anh",101:"Các Anh Chị Em Ban QLDA",102:"Chị Huệ Chi",103:"Em Quốc Dũng",104:"Anh Quang Vinh",105:"Em Dương",106:"Em Diễm Hà",107:"Chú Thím và gia đình",108:"Em Nga và gia đình",109:"Em Ngọc và gia đình",110:"Em Vinh và gia đình",111:"Em Vân và gia đình",112:"Em Trung và gia đình",113:"Em Nga và gia đình",114:"Cô Khanh",115:"Cô Hàm Anh",116:"Cô Lan và gia đình",117:"Bà Huệ",118:"Anh Di",119:"Chị Yến Mai",120:"Em Phương và gia đình",121:"Em Hồng và gia đình",122:"Em Hằng và gia đình",123:"Em Tuấn",124:"Em Tú và gia đình",125:"Em Thủy và gia đình",126:"Em Tuấn Anh và gia đình",127:"Em Trung",128:"Anh Phạm Lê Hùng và gia đình",129:"Bạn Khiêm và người thương",130:"Bạn Hiếu và người thương"};
+    var id = new URLSearchParams(location.search).get('id');
+    if (id && GUESTS[id]) {
+      var el = document.querySelector('#card-info .text');
+      if (el) el.innerHTML = 'Trân trọng kính mời<br><span class="guest-name">' + GUESTS[id] + '</span>tới dự bữa tiệc chung vui nhân ngày Lễ Thành Hôn';
+      var nameInput = document.getElementById('fullname');
+      if (nameInput && !nameInput.value) nameInput.value = GUESTS[id];
+    }
+  })();
+
+  (function(){
     var sides = document.getElementById('card-opening-sides');
     if (!sides) return;
     var stopped = false;
     var raf = 0;
     var speed = 1.2;
-    var listeners = [];
+    var stopEvts = ['touchstart','touchmove','pointerdown','mousedown','wheel','keydown'];
     function stopScroll(){
+      if (stopped) return;
       stopped = true;
       cancelAnimationFrame(raf);
-      listeners.forEach(function(r){ window.removeEventListener(r[0], r[1], r[2]); });
+      stopEvts.forEach(function(e){ window.removeEventListener(e, stopScroll, true); });
     }
-    function armStop(){
-      ['wheel','touchstart','touchmove','pointerdown','keydown'].forEach(function(evt){
-        var opts = {once:true, passive:true};
-        listeners.push([evt, stopScroll, opts]);
-        window.addEventListener(evt, stopScroll, opts);
-      });
-    }
+    stopEvts.forEach(function(e){ window.addEventListener(e, stopScroll, {capture:true, passive:true}); });
     function tick(){
       if (stopped) return;
       var max = document.documentElement.scrollHeight - window.innerHeight;
@@ -438,7 +445,6 @@
     document.addEventListener('click', function(){
       setTimeout(function(){
         if (stopped) return;
-        armStop();
         raf = requestAnimationFrame(tick);
       }, 5000);
     }, {once:true});
