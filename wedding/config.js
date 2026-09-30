@@ -212,6 +212,18 @@ var WEDDING = {
         description: 'Trân trọng kính mời Quý khách đến dự Lễ Thành Hôn — 17:30 ngày 17.10.2026 tại Trung Tâm Tiệc Cưới Long Vĩ, Kim Liên, Hà Nội',
         image: '../../products/Invitation/Wedding/khach_anh-quang-tra-my/og-cover.jpg',
     },
+    'nhat-tuan-bich-tram': {
+        src: '../../products/Invitation/Wedding/khach_nhat-tuan-bich-tram/index.html',
+        title: 'Nhật Tuấn & Bích Trâm — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời Quý khách đến dự Lễ Tân Hôn & Tiệc cưới — 17:30 Chủ Nhật 18.10.2026 tại Nhà hàng Cường Vy, Sảnh Celina, Bảo Lộc, Lâm Đồng',
+        image: '../../products/Invitation/Wedding/khach_nhat-tuan-bich-tram/og-cover.jpg',
+    },
+    'bich-tram-nhat-tuan': {
+        src: '../../products/Invitation/Wedding/khach_nhat-tuan-bich-tram/bich-tram-nhat-tuan.html',
+        title: 'Bích Trâm & Nhật Tuấn — Thiệp Mời Cưới',
+        description: 'Trân trọng kính mời Quý khách đến dự Lễ Vu Quy & Tiệc cưới — 17:30 Thứ Bảy 17.10.2026 tại Nhà hàng Hồng Phát, Sảnh Vạn Niên Cát, Bảo Lộc, Lâm Đồng',
+        image: '../../products/Invitation/Wedding/khach_nhat-tuan-bich-tram/og-cover-nha-gai.jpg',
+    },
     'hien-thuc-tien-dat': {
         src: '../../products/Invitation/Wedding/khach_hien-thuc-tien-dat/index.html',
         title: 'Hiền Thục & Tiến Đạt — Thiệp Mời Cưới',
