@@ -267,22 +267,22 @@
             var name = $('#wName').value.trim();
             var msg = $('#wMsg').value.trim();
             var att = form.querySelector('input[name="attend"]:checked');
-            if (!name) { out.textContent = 'Quý khách vui lòng cho biết tên nhé!'; $('#wName').focus(); return; }
+            if (!name) { out.textContent = 'Quý\u00A0khách vui lòng cho\u00A0biết\u00A0tên nhé!'; $('#wName').focus(); return; }
             var btn = form.querySelector('button[type="submit"]');
             var label = btn.innerHTML;
-            btn.disabled = true; btn.textContent = 'Đang gửi…';
+            btn.disabled = true; btn.textContent = 'Đang\u00A0gửi…';
             var full = (att ? '[' + att.value + '] ' : '') + (msg || 'Chúc mừng hạnh phúc!');
             var now = new Date();
             var time = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + ' ' + now.toLocaleDateString('vi-VN');
             var finish = function (ok) {
                 btn.disabled = false; btn.innerHTML = label;
                 if (ok) {
-                    out.textContent = 'Cảm ơn ' + name + '! Gia đình đã nhận được lời chúc và xác nhận của Quý khách.';
+                    out.textContent = 'Cảm ơn ' + name + '! Gia\u00A0đình đã nhận được lời\u00A0chúc và xác\u00A0nhận của Quý\u00A0khách.';
                     if (list) list.insertAdjacentHTML('afterbegin', '<div class="wish"><b>' + esc(name) + '</b><p>' + esc(full) + '</p><time>' + esc(time) + '</time></div>');
                     form.reset();
                     $$('.chip', form).forEach(function (x) { x.classList.remove('on'); });
                 } else {
-                    out.textContent = 'Gửi chưa thành công, Quý khách thử lại giúp nhé!';
+                    out.textContent = 'Gửi\u00A0chưa thành\u00A0công, Quý\u00A0khách thử\u00A0lại giúp nhé!';
                 }
             };
             if (typeof sheetsAPI === 'undefined') { finish(true); return; }
