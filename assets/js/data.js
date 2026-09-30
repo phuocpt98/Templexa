@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 95 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 96 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3625,6 +3625,41 @@ const PRODUCTS = [
         showInSlider: false,
         isPublic: false,
         updatedAt: '2026-09-22',
+    },
+    {
+        id: 289,
+        name: 'Thiệp Cưới Mocha Champagne — Monogram Hoàng Gia',
+        slug: 'thiep-cuoi-mocha-champagne-monogram-hoang-gia',
+        description: 'Thiệp cưới tông mocha – kem champagne sang trọng: phong bì mở nắp dấu sáp, hero khung vòm, monogram hoàng gia, album ảnh lưới, hộp quà mở QR.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'luxury',
+        event: 'wedding',
+        tags: ['wedding', 'mocha', 'champagne', 'monogram', 'khung-vom', 'sang-trong', 'rsvp', 'countdown', 'qr', 'love-story'],
+        price: 'free',
+        images: [
+            './products/Invitation/Wedding/gen_289_mocha-champagne-wedding/shots/open.webp',
+            './products/Invitation/Wedding/gen_289_mocha-champagne-wedding/shots/sec-1.webp',
+            './products/Invitation/Wedding/gen_289_mocha-champagne-wedding/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_289_mocha-champagne-wedding/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/gen_289_mocha-champagne-wedding/shots/open.webp',
+        path: './products/Invitation/Wedding/gen_289_mocha-champagne-wedding/',
+        demoUrl: './products/Invitation/Wedding/gen_289_mocha-champagne-wedding/index.html',
+        variants: [],
+        features: [
+            'Phong bì 3D: dấu sáp bung, nắp mở, thư rút lên — chuyển cảnh mượt sang hero khung vòm',
+            'Báo tin hai họ, lễ + tiệc có bản đồ, lịch tháng + đếm ngược, album ảnh lưới có lightbox',
+            'Hộp quà bấm mở popup QR, RSVP 1 nút, cánh hoa rơi, monogram watermark',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 3,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-09-30',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 54 ──────────────
     {

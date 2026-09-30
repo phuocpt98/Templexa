@@ -41,39 +41,42 @@
     document.body.classList.add('locked');
     function openEnvelope() {
         if (!env || env.classList.contains('opening')) return;
-        // Trình tự mượt: thẻ nâng lên + mờ (0–0.9s) → nền phong bì mờ dần (0.25–1.15s)
-        // → hero hiện chồng lên (từ 0.35s) → gỡ phong bì khỏi render, mở cuộn → lấp lánh
+        // Trình tự: dấu sáp bung + nắp mở + thư rút lên (0–1.5s)
+        // → nền phong bì mờ dần, hero hiện chồng lên (1.3–2.3s)
+        // → gỡ phong bì khỏi render, mở cuộn (2.4s) → hoa rơi (2.8s)
         requestAnimationFrame(function () { env.classList.add('opening'); });
         playMusic();
-        setTimeout(function () { document.body.classList.add('opened'); }, 350);
+        setTimeout(function () {
+            env.classList.add('open');
+            document.body.classList.add('opened');
+        }, 1300);
         setTimeout(function () {
             env.classList.add('done');
             document.body.classList.remove('locked');
-        }, 1250);
-        setTimeout(startSparkles, 1800);
+        }, 2400);
+        setTimeout(startPetals, 2800);
     }
     if (env) env.addEventListener('click', openEnvelope);
     window.openEnvelope = openEnvelope;
 
     /* ---------- Reveal ---------- */
-    var REVEAL = '.reveal, .reveal-l, .reveal-r, .reveal-zoom';
     // Tự đặt độ trễ so le cho các phần tử con có data-stagger
     $$('[data-stagger]').forEach(function (wrap) {
         var step = parseFloat(wrap.getAttribute('data-stagger')) || 0.12;
-        $$(REVEAL, wrap).forEach(function (el, i) {
+        $$('.rv, .rv-l, .rv-r, .rv-zoom, .rv-scale', wrap).forEach(function (el, i) {
             el.style.setProperty('--d', (i * step).toFixed(2) + 's');
         });
     });
-    var revealEls = $$(REVEAL);
+    var revealEls = $$('.rv, .rv-l, .rv-r, .rv-zoom, .rv-scale');
     if ('IntersectionObserver' in window && !reduce) {
         var io = new IntersectionObserver(function (entries) {
             entries.forEach(function (e) {
-                if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); }
+                if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
             });
         }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
         revealEls.forEach(function (el) { io.observe(el); });
     } else {
-        revealEls.forEach(function (el) { el.classList.add('vis'); });
+        revealEls.forEach(function (el) { el.classList.add('in'); });
     }
 
     /* ---------- Parallax nhẹ cho dải ảnh ---------- */
@@ -97,25 +100,30 @@
         update();
     }
 
-    /* ---------- Lấp lánh vàng ---------- */
-    var sparkleTimer = null;
-    function startSparkles() {
-        if (reduce || sparkleTimer) return;
-        var box = $('#sparkles');
+    /* ---------- Cánh hoa tulip trắng + bụi vàng ---------- */
+    var petalTimer = null;
+    function startPetals() {
+        if (reduce || petalTimer) return;
+        var box = $('#petals');
         if (!box) return;
-        sparkleTimer = setInterval(function () {
+        var spawn = function () {
             if (document.hidden) return;
-            var sp = document.createElement('span');
-            var dot = Math.random() < 0.4;
-            var t = 2.2 + Math.random() * 1.6;
-            sp.className = 'sparkle' + (dot ? ' dot' : '');
-            sp.style.left = (Math.random() * 100) + '%';
-            sp.style.top = (Math.random() * 100) + '%';
-            sp.style.setProperty('--s', (dot ? 6 + Math.random() * 4 : 10 + Math.random() * 10).toFixed(0) + 'px');
-            sp.style.setProperty('--t', t.toFixed(1) + 's');
-            box.appendChild(sp);
-            setTimeout(function () { sp.remove(); }, t * 1000 + 100);
-        }, 800);
+            var p = document.createElement('span');
+            var dust = Math.random() < 0.35;
+            p.className = 'petal' + (dust ? ' dust' : '');
+            var t = 9 + Math.random() * 8;
+            p.style.left = (Math.random() * 100) + '%';
+            p.style.setProperty('--s', (9 + Math.random() * 9).toFixed(1) + 'px');
+            p.style.setProperty('--t', t.toFixed(1) + 's');
+            p.style.setProperty('--sw', (2.5 + Math.random() * 2.5).toFixed(1) + 's');
+            p.style.setProperty('--dx', (Math.random() * 160 - 80).toFixed(0) + 'px');
+            p.style.setProperty('--r', (Math.random() * 720 - 360).toFixed(0) + 'deg');
+            p.style.opacity = dust ? 0.9 : (0.55 + Math.random() * 0.4).toFixed(2);
+            box.appendChild(p);
+            setTimeout(function () { p.remove(); }, t * 1000 + 200);
+        };
+        for (var i = 0; i < 5; i++) setTimeout(spawn, i * 400);
+        petalTimer = setInterval(spawn, 900);
     }
 
     /* ---------- Lịch tháng ---------- */
@@ -155,7 +163,7 @@
 
     /* ---------- Lightbox album ---------- */
     (function () {
-        var figs = $$('.framed-photo');
+        var figs = $$('.gallery figure');
         var lb = $('#lightbox');
         if (!figs.length || !lb) return;
         var img = $('img', lb), idx = 0;
@@ -178,6 +186,29 @@
             if (Math.abs(dx) > 40) show(idx + (dx < 0 ? 1 : -1));
             x0 = null;
         });
+    })();
+
+    /* ---------- Tên địa điểm luôn 1 dòng: tự thu nhỏ chữ nếu quá dài ---------- */
+    (function () {
+        var els = $$('.ev .place');
+        if (!els.length) return;
+        var fit = function () {
+            els.forEach(function (el) {
+                el.style.fontSize = '';
+                // chỉ lấy phần nội dung (trừ padding) và chừa ~10% cho đuôi nét chữ viết tay
+                var pcs = getComputedStyle(el.parentElement);
+                var max = (el.parentElement.clientWidth - parseFloat(pcs.paddingLeft) - parseFloat(pcs.paddingRight)) * 0.9;
+                var range = document.createRange();
+                range.selectNodeContents(el);
+                var textW = function () { return range.getBoundingClientRect().width; };
+                var size = parseFloat(getComputedStyle(el).fontSize);
+                while (textW() > max && size > 16) { size -= 1; el.style.fontSize = size + 'px'; }
+            });
+        };
+        fit();
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+        var t;
+        window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(fit, 150); });
     })();
 
     /* ---------- Hộp quà → popup QR ---------- */
