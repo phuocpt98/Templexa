@@ -12,7 +12,7 @@
 <meta property="og:image" content="https://templexa.vn/products/Invitation/Other/nguyen-thong-trong-toi/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://templexa.vn/event/nguyen-thong-trong-toi-2026/">
+<meta property="og:url" content="https://templexa.vn/event/nguyen-thong-trong-toi-1986-2026/">
 <meta property="og:site_name" content="Templexa">
 <meta property="og:locale" content="vi_VN">
 <meta name="theme-color" content="#2C5F8A">
@@ -2079,7 +2079,7 @@ function startMusic() {
 }
 
 musicBtn.addEventListener('click', (e) => {
-  if (!musicStarted) { e.stopPropagation(); firstInteraction(); return; }
+  if (!musicStarted) { e.stopPropagation(); isMuted = false; firstInteraction(); return; }
   isMuted = !isMuted;
   music.muted = isMuted;
   if (!isMuted && music.paused) startMusic();
@@ -2092,16 +2092,20 @@ musicBtn.addEventListener('click', (e) => {
 });
 
 /* ══ KHÔNG CÓ BÌA — vào thẳng thiệp ══════════════
-   Trình duyệt chặn tự phát nhạc → bật nhạc ở lần chạm/cuộn đầu tiên.
+   Trình duyệt chặn tự phát nhạc → thử bật ở mỗi lần chạm / cuộn / bấm,
+   chỉ gỡ sự kiện khi nhạc đã phát thật (play() thành công).
 ════════════════════════════════════════════════════ */
 let musicStarted = false;
+const MUSIC_EVENTS = ['pointerdown', 'touchstart', 'touchend', 'click', 'scroll', 'wheel', 'keydown'];
 function firstInteraction() {
-  if (musicStarted) return;
-  musicStarted = true;
-  if (!isMuted) startMusic();
-  ['click', 'touchstart', 'scroll', 'keydown'].forEach(ev => window.removeEventListener(ev, firstInteraction));
+  if (musicStarted || isMuted) return;
+  music.volume = 0.3;
+  music.play().then(() => {
+    musicStarted = true;
+    MUSIC_EVENTS.forEach(ev => window.removeEventListener(ev, firstInteraction));
+  }).catch(() => {});
 }
-['click', 'touchstart', 'scroll', 'keydown'].forEach(ev => window.addEventListener(ev, firstInteraction, { passive: true }));
+MUSIC_EVENTS.forEach(ev => window.addEventListener(ev, firstInteraction, { passive: true }));
 setTimeout(() => initConfetti(), 600);
 
 /* ══ CÁ NHÂN HOÁ KHÁCH MỜI ═════════════════════════

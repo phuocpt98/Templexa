@@ -57,7 +57,7 @@ var EVENT = {
     },
 
     // Bản không có bìa sổ — vào thẳng nội dung thiệp
-    'nguyen-thong-trong-toi-2026': {
+    'nguyen-thong-trong-toi-1986-2026': {
         src: '../../products/Invitation/Other/nguyen-thong-trong-toi/index-2026.html',
         title: 'Nguyễn Thông trong tôi — 40 Năm Ngày Hội Ngộ',
         description: 'Cựu học sinh THPT Nguyễn Thông niên khoá 1983 – 1986 · Chủ nhật 18/10/2026 · CLB HVN Thanh Thúy, Long An. Hẹn gặp lại nhau nhé!',
