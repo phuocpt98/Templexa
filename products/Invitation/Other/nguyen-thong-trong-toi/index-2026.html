@@ -12,7 +12,7 @@
 <meta property="og:image" content="https://templexa.vn/products/Invitation/Other/nguyen-thong-trong-toi/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://templexa.vn/event/nguyen-thong-trong-toi/">
+<meta property="og:url" content="https://templexa.vn/event/nguyen-thong-trong-toi-2026/">
 <meta property="og:site_name" content="Templexa">
 <meta property="og:locale" content="vi_VN">
 <meta name="theme-color" content="#2C5F8A">
@@ -1660,34 +1660,6 @@ textarea.form-control { resize: vertical; min-height: 90px; }
   <source src="../../../shared/music/festive-holiday/nu-cuoi-18-20.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ══ 1. BÌA SỔ LIÊN LẠC (ENVELOPE) ═════════════ -->
-<div class="cover" id="cover" role="button" aria-label="Nhấn để mở thiệp mời" tabindex="0">
-  <div class="cover-frame"></div>
-
-  <div class="cover-corner tl">🌺</div>
-  <div class="cover-corner tr">📚</div>
-  <div class="cover-corner bl">✒️</div>
-  <div class="cover-corner br">🚲</div>
-
-  <div class="cover-label-sticker">
-    <div class="cover-school">Sổ liên lạc</div>
-    <div class="cover-theme">Nguyễn Thông<br>trong tôi</div>
-    <div class="cover-forty"><b>40</b><span>Năm<br>ngày hội ngộ</span></div>
-    <div class="cover-year-sticker">Niên khoá 1983 – 1986</div>
-  </div>
-
-  <div class="cover-star-deco s1">🌺</div>
-  <div class="cover-star-deco s2">⭐</div>
-  <div class="cover-star-deco s3">✨</div>
-  <div class="cover-star-deco s4">🌺</div>
-
-  <div class="cover-pencil">✏️</div>
-  <div class="cover-ruler">📏</div>
-
-  <div class="cover-date">18 · 10 · 2026</div>
-  <div class="cover-hint">Nhấn để lật bìa sổ ✏️</div>
-</div>
-
 <!-- ══ MAIN WRAPPER ════════════════════════════════ -->
 <div class="wrapper" id="mainContent">
 
@@ -2106,7 +2078,8 @@ function startMusic() {
   music.play().catch(() => {});
 }
 
-musicBtn.addEventListener('click', () => {
+musicBtn.addEventListener('click', (e) => {
+  if (!musicStarted) { e.stopPropagation(); firstInteraction(); return; }
   isMuted = !isMuted;
   music.muted = isMuted;
   if (!isMuted && music.paused) startMusic();
@@ -2118,23 +2091,18 @@ musicBtn.addEventListener('click', () => {
   if (typeof lucide !== 'undefined') lucide.createIcons();
 });
 
-/* ══ BÌA SỔ ════════════════════════════════════════ */
-const cover = document.getElementById('cover');
-
-function openCover() {
-  cover.classList.add('open');
-  startMusic();
-  setTimeout(() => {
-    cover.style.display = 'none';
-    cover.setAttribute('aria-hidden', 'true');
-    initConfetti();
-  }, 1200);
+/* ══ KHÔNG CÓ BÌA — vào thẳng thiệp ══════════════
+   Trình duyệt chặn tự phát nhạc → bật nhạc ở lần chạm/cuộn đầu tiên.
+════════════════════════════════════════════════════ */
+let musicStarted = false;
+function firstInteraction() {
+  if (musicStarted) return;
+  musicStarted = true;
+  if (!isMuted) startMusic();
+  ['click', 'touchstart', 'scroll', 'keydown'].forEach(ev => window.removeEventListener(ev, firstInteraction));
 }
-
-cover.addEventListener('click', openCover);
-cover.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCover(); }
-});
+['click', 'touchstart', 'scroll', 'keydown'].forEach(ev => window.addEventListener(ev, firstInteraction, { passive: true }));
+setTimeout(() => initConfetti(), 600);
 
 /* ══ CÁ NHÂN HOÁ KHÁCH MỜI ═════════════════════════
    ?id=<số> → tra trong data.json (guests: [{id, name, photo}])
