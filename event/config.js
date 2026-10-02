@@ -48,4 +48,11 @@ var EVENT = {
         description: 'Trân trọng kính mời Quý Khách tham dự Giao lưu Golf, Lễ kỷ niệm 25 năm thành lập Thành Công và Hội nghị khách hàng 2026.',
         image: '../../products/Invitation/Other/gen_288_ky-niem-25-nam-thanh-cong/og-cover.jpg',
     },
+
+    'nguyen-thong-trong-toi': {
+        src: '../../products/Invitation/Other/nguyen-thong-trong-toi/index.html',
+        title: 'Nguyễn Thông trong tôi — 40 Năm Ngày Hội Ngộ',
+        description: 'Cựu học sinh THPT Nguyễn Thông niên khoá 1983 – 1986 · Chủ nhật 18/10/2026 · CLB HVN Thanh Thúy, Long An. Hẹn gặp lại nhau nhé!',
+        image: '../../products/Invitation/Other/nguyen-thong-trong-toi/og-cover.jpg',
+    },
 };
