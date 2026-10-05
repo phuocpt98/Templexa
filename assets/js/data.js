@@ -8177,16 +8177,20 @@ async function submitToGoogleSheet(formData) {
         return { success: false, message: 'API chưa được cấu hình.' };
     }
 
-    try {
-        const response = await fetch(API_CONFIG.GOOGLE_SHEET_API, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...formData, sheet_name: 'sale' }),
-        });
-        return { success: true, message: 'Gửi thành công!' };
-    } catch (error) {
-        console.error('Submit error:', error);
-        return { success: false, message: 'Có lỗi xảy ra, vui lòng thử lại.' };
+    if (!navigator.onLine) {
+        return { success: false, message: 'Không có kết nối mạng, vui lòng thử lại.' };
     }
+
+    // mode 'no-cors' → response luôn "opaque", FE không đọc được kết quả thật,
+    // nên không chờ Apps Script (ghi sheet + email + Telegram mất vài giây) mà báo thành công ngay.
+    // keepalive giữ request chạy tiếp dù khách đóng popup / chuyển trang.
+    fetch(API_CONFIG.GOOGLE_SHEET_API, {
+        method: 'POST',
+        mode: 'no-cors',
+        keepalive: true,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, sheet_name: 'sale' }),
+    }).catch((error) => console.error('Submit error:', error));
+
+    return { success: true, message: 'Gửi thành công!' };
 }
