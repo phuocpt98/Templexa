@@ -4,7 +4,7 @@
 const API_CONFIG = {
     // Google Apps Script Web App URL — gửi form liên hệ / nhận mẫu
     // Thay bằng URL thực khi deploy
-    GOOGLE_SHEET_API: 'https://script.google.com/macros/s/AKfycbzsbC-H8MucuK9inoLKi7u1bAPhV7hCJETana8kD0ZM7jh_UwcEuArm08fVfrIWsKpU/exec',
+    GOOGLE_SHEET_API: 'https://script.google.com/macros/s/AKfycbx3F7K92BrGGRtvOrrMO3AweCbw_Myf3irfOvdpY2p5R001_Yt1cztSzX6BWxG7nvF1/exec',
     //{
     //  "email": "test@gmail.com",
     //  "phone": "0912345678",
