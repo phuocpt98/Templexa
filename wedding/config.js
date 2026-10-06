@@ -236,6 +236,12 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự Tiệc cưới & Lễ Thành Hôn — 17 – 18.10.2026 tại Phường Nếnh, TP. Bắc Ninh',
         image: '../../products/Invitation/Wedding/khach_thuy-linh-do-thao/og-cover.jpg',
     },
+    'thuy-linh-do-thao-vu-quy': {
+        src: '../../products/Invitation/Wedding/khach_thuy-linh-do-thao/vu-quy.html',
+        title: 'Thùy Linh & Đỗ Thao — Lễ Vu Quy',
+        description: 'Trân trọng kính mời bạn đến dự Tiệc cưới & Lễ Vu Quy — 18.10.2026 tại tư gia nhà gái, Phường Nếnh, TP. Bắc Ninh',
+        image: '../../products/Invitation/Wedding/khach_thuy-linh-do-thao/og-cover.jpg',
+    },
     'thanh-tam-minh-quyen': {
         src: '../../products/Invitation/Wedding/khach_thanh-tam-minh-quyen/index.html',
         title: 'Thành Tâm & Minh Quyên — Thiệp Mời Cưới',
