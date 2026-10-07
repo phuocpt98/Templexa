@@ -27,16 +27,16 @@ products/
 |------------|----------|------|--------|
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
-| **Invitation** | other | 54 | 46 |
+| **Invitation** | other | 55 | 47 |
 | **Invitation** | wedding | 96 | 62 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **276** | **234** |
+| | **Tong** | **277** | **235** |
 
-_Cap nhat tu data.js: 2026-09-30 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-10-07 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 
@@ -168,7 +168,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 283 | Lời Nhắn QR — Chibi Yêu Thương | `./loi-nhan/chibi-yeu-thuong` |  | public |
 | 284 | Lời Nhắn QR — Hoa Lá Nhẹ Nhàng | `./loi-nhan/hoa-la` |  | public |
 
-### Invitation / other (54)
+### Invitation / other (55)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -226,6 +226,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 251 | Thiệp Giỗ Tổ Dòng Họ — Kim Tối Giản | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 | 267 | Thiệp Sinh Nhật Bé — Bear Party Pastel | `Invitation/Other/gen_267_sinh-nhat-be-bear-party` | birthday | public |
 | 268 | Thiệp Thôi Nôi Bé — Bunny & Cloud Pastel | `Invitation/Other/gen_268_thoi-noi-be-bunny-cloud` | thoi-noi | public |
+| 290 | Thiệp Thôi Nôi Bé — Cừu Non & Đồi Cúc | `Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc` | thoi-noi | public |
 
 ### Invitation / wedding (96)
 

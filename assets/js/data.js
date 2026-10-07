@@ -3661,7 +3661,7 @@ const PRODUCTS = [
         isPublic: true,
         updatedAt: '2026-09-30',
     },
-    // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 54 ──────────────
+    // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 55 ──────────────
     {
         id: 98,
         name: 'Trang thiệp mời sinh nhật phong cách neon hiện đại',
@@ -5453,6 +5453,43 @@ const PRODUCTS = [
         showInSlider: false,
         isPublic: true,
         updatedAt: '2026-08-23',
+    },
+    {
+        id: 290,
+        name: 'Thiệp Thôi Nôi Bé — Cừu Non & Đồi Cúc',
+        slug: 'thiep-thoi-noi-be-cuu-non-doi-cuc',
+        description: 'Thiệp thôi nôi online phong cách màu nước: cừu con ngủ trên mây, khinh khí cầu và đồi hoa cúc, tông sữa – xanh bạc hà – đào hợp cả bé trai lẫn bé gái. Có hồ sơ bé kèm ngày âm, hành trình 12 tháng, mâm bốc đồ cho khách đoán, lịch, đếm ngược và RSVP ghi số trẻ em.',
+        category: 'other',
+        type: 'invitation',
+        style: '',
+        event: 'thoi-noi',
+        tags: ['thoi-noi', 'thôi-nôi', 'đầy-tháng', 'baby', '1-tuoi', 'cuu-non', 'hoa-cuc', 'watercolor', 'pastel', 'unisex', 'countdown', 'rsvp', 'timeline'],
+        price: 'free',
+        images: [
+            './products/Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc/shots/open.webp',
+            './products/Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc/shots/sec-1.webp',
+            './products/Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc/shots/open.webp',
+        mobileView: './products/Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc/shots/open.webp',
+        path: './products/Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc/',
+        demoUrl: './products/Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc/index.html',
+        variants: [],
+        features: [
+            'Phong bì cừu ngủ trên mây, chạm mở với hoa cúc bung',
+            'Hồ sơ bé: ngày sinh dương + âm, cung, cân nặng',
+            'Hành trình 12 tháng và album ảnh polaroid băng dính washi',
+            'Mâm bốc đồ 8 món — khách chạm để đoán bé chọn gì',
+            'Lịch, đếm ngược, thêm vào lịch; RSVP người lớn + trẻ em + dị ứng',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 3,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-07',
     },
     // ── WEBSITE — 115 ──────────────
     {
