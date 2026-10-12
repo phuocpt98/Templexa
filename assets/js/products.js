@@ -476,7 +476,7 @@ const landingHref = (slug) => slug + '.html';
 
         const isInvitation = document.body.classList.contains('invitation-theme');
 
-        grid.innerHTML = products.map(p => {
+        grid.innerHTML = products.map((p, idx) => {
             const categoryLabel = CATEGORIES.find(c => c.id === p.category)?.label || p.category;
             let badgeHTML = '';
             const isAdmin = window.location.pathname.includes('products-admin');
@@ -503,10 +503,15 @@ const landingHref = (slug) => slug + '.html';
             }
             if (variantCount > 1) subLabel += ` · ${variantCount} phiên bản`;
 
+            // Mobile shot dọc 780×1688 (tỉ lệ 390×844) → khai báo kích thước để không nhảy layout (CLS);
+            // thumbnail web/sheet có tỉ lệ khác nên không ép. 4 card đầu tải ngay, còn lại lazy — khớp build-landing.js.
+            const imgSize = (showMobile && p.mobileView) ? ' width="390" height="844"' : '';
+            const imgLoad = idx < 4 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+
             return `
                 <a href="${p.type === 'invitation' ? 'thiep-online' : 'products'}.html?pid=${p.id}" class="product-card${p.type === 'invitation' ? ' product-card-invitation' : ''}" data-product-id="${p.id}"${p.demoUrl ? ` data-demo-url="${p.demoUrl}"` : ''}>
                     <div class="product-card-image">
-                        <img src="${imgSrc}" alt="${p.name}" loading="lazy">
+                        <img src="${imgSrc}" alt="${p.name}"${imgSize} ${imgLoad}>
                         ${badgeHTML}
                     </div>
                     <div class="product-card-info">

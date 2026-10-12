@@ -18,6 +18,12 @@
  *      {n}         → số mẫu public của chính landing này
  *      {n:slug}    → số mẫu public của landing khác
  *  - related: >= 3 landing khác (link chéo).
+ *  - posts: slug bài blog (assets/data/blog-index.json) → mục "Cẩm nang liên quan" trong aside.
+ *    Slug chưa có trong blog-index.json thì bỏ qua + cảnh báo, không fail build.
+ *  - title/desc cũng nhận {n} (build-landing.js điền trước khi ghi head + JSON-LD).
+ *
+ * Lịch sử title/desc: đổi đợt 12/10/2026 theo plans/seo/bao-cao/2026-10.md mục 10
+ * (so CTR sau 4 tuần). Cụm "mộng mơ" ở thiep-cuoi/thiep-cuoi-hoa là test 14 ngày (mục 3b nghiên cứu).
  */
 
 const LANDINGS = [
@@ -28,19 +34,20 @@ const LANDINGS = [
         legacyQuery: 'category=wedding',
         navLabel: 'Thiệp cưới online',
         crumb: 'Thiệp cưới online',
-        title: 'Thiệp Cưới Online Đẹp — Mẫu Thiệp Mời Cưới Điện Tử | Templexa',
-        desc: 'Bộ sưu tập mẫu thiệp cưới online đẹp, gửi qua Zalo/Facebook. Có đếm ngược, xác nhận tham dự, gửi lời chúc, nhạc nền. Xem demo và đặt riêng theo tên cô dâu chú rể.',
+        title: 'Mẫu Thiệp Cưới Online Đẹp 2026 — Từ 150K, Giao 24h | Templexa',
+        desc: '{n} mẫu thiệp cưới online đẹp, từ hoa trắng mộng mơ đến song hỷ truyền thống. Có RSVP, QR mừng cưới, đếm ngược; thiết kế riêng, giao 24h. Xem demo, nhắn Zalo.',
         h1: '<span class="gradient-text">Thiệp Cưới Online</span><br>Mẫu Thiệp Mời Cưới Điện Tử Đẹp',
-        lead: '{n} mẫu <strong>thiệp cưới online</strong> cho lễ thành hôn, vu quy và đính hôn — có đếm ngược ngày cưới, xác nhận tham dự và sổ lưu bút gửi lời chúc. Xem demo trực tiếp, không cần đăng ký.',
+        lead: '{n} mẫu <strong>thiệp cưới online</strong> cho lễ thành hôn, vu quy và đính hôn — từ hoa trắng mộng mơ, pastel đến song hỷ truyền thống; có đếm ngược ngày cưới, xác nhận tham dự và sổ lưu bút gửi lời chúc. Xem demo trực tiếp, không cần đăng ký.',
         body: [
             { h2: 'Thiệp cưới online là gì và trang này có gì' },
             { p: 'Thiệp cưới online là một trang web riêng cho đám cưới của bạn, thay cho tấm thiệp giấy. Trong thiệp có ảnh cưới, giờ lễ thành hôn và tiệc nhà hàng, bản đồ chỉ đường, đếm ngược ngày cưới, ô xác nhận tham dự và sổ lưu bút gửi lời chúc. Bạn gửi một đường link qua Zalo hoặc Facebook, khách mở trên điện thoại là xem ngay, không cần cài ứng dụng.' },
-            { p: 'Trang này gom {n} mẫu thiệp cưới đang mở xem demo, chia theo bốn phong cách: sang trọng ({n:thiep-cuoi-sang-trong} mẫu), truyền thống ({n:thiep-cuoi-truyen-thong} mẫu), hoa lá ({n:thiep-cuoi-hoa} mẫu) và hiện đại ({n:thiep-cuoi-hien-dai} mẫu). Bấm vào một mẫu để xem ảnh chụp thật trên điện thoại, danh sách tính năng và bản demo đầy đủ.' },
+            { p: 'Trang này gom {n} mẫu thiệp cưới đang mở xem demo, chia theo bốn phong cách: sang trọng ({n:thiep-cuoi-sang-trong} mẫu), truyền thống ({n:thiep-cuoi-truyen-thong} mẫu), hoa lá ({n:thiep-cuoi-hoa} mẫu) và hiện đại ({n:thiep-cuoi-hien-dai} mẫu). Thích nét thiệp cưới mộng mơ thì mở thẳng mẫu <a href="thiep-online.html?pid=216">Hoa Trắng Mộng Mơ</a> hoặc <a href="thiep-online.html?pid=214">Đông Phương Mộng Mơ — Việt Phục</a>. Bấm vào một mẫu để xem ảnh chụp thật trên điện thoại, danh sách tính năng và bản demo đầy đủ.' },
             { h2: 'Chọn mẫu thế nào cho nhanh' },
             { p: 'Nhìn không gian tiệc trước rồi chọn thiệp cho hợp tông. Tiệc khách sạn, trung tâm hội nghị thường hợp nhóm sang trọng ánh kim. Lễ gia tiên tại nhà hợp nhóm truyền thống đỏ vàng. Tiệc ngoài trời, tiệc vườn hợp nhóm hoa lá màu nước. Cặp đôi thích gọn gàng, ít hoạ tiết thì chọn nhóm hiện đại.' },
             { p: 'Mọi mẫu đều thay được tên cô dâu chú rể, ngày giờ, địa điểm, ảnh cưới và nhạc nền. Gói Basic 150.000đ; gói Premium 199.000đ có thêm lời chúc bay realtime, cá nhân hoá tên từng khách và mã QR riêng cho mỗi khách. Thiệp giao trong 24 giờ kể từ khi bạn gửi đủ thông tin.' },
         ],
         related: ['thiep-cuoi-sang-trong', 'thiep-cuoi-truyen-thong', 'thiep-cuoi-hoa', 'thiep-cuoi-hien-dai'],
+        posts: ['thiep-cuoi-online-la-gi', 'rsvp-dam-cuoi-la-gi', 'ngay-cuoi-dep-cuoi-nam-2026', 'tuoi-cuoi-dep-nam-2027'],
     },
     {
         slug: 'thiep-cuoi-sang-trong',
@@ -49,8 +56,8 @@ const LANDINGS = [
         legacyQuery: 'category=wedding&style=luxury',
         navLabel: 'Thiệp cưới sang trọng',
         crumb: 'Sang trọng',
-        title: 'Thiệp Cưới Sang Trọng — Mẫu Thiệp Cưới Online Cao Cấp | Templexa',
-        desc: 'Mẫu thiệp cưới online phong cách sang trọng: tông vàng đồng, ánh kim, hoạ tiết cổ điển. Xem demo trực tiếp, đặt riêng theo tên cô dâu chú rể.',
+        title: 'Thiệp Cưới Sang Trọng Online — {n} Mẫu Ánh Kim | Templexa',
+        desc: 'Thiệp cưới sang trọng online tông vàng đồng, ánh kim, hợp tiệc khách sạn. {n} mẫu có RSVP, QR mừng cưới, đếm ngược; giao 24h, từ 150.000đ. Xem demo.',
         h1: '<span class="gradient-text">Thiệp Cưới Sang Trọng</span><br>Tông Vàng Đồng, Ánh Kim Cao Cấp',
         lead: '{n} mẫu <strong>thiệp cưới sang trọng</strong> tông vàng đồng, ánh kim, khung viền cổ điển — hợp tiệc khách sạn và trung tâm hội nghị.',
         body: [
@@ -62,6 +69,7 @@ const LANDINGS = [
             { p: 'Giá gói Basic 150.000đ, gói Premium 199.000đ, giao trong 24 giờ. Bạn được đổi màu nền, đổi phông chữ và đổi nhạc theo ý mình trong lúc làm thiệp.' },
         ],
         related: ['thiep-cuoi-truyen-thong', 'thiep-cuoi-hien-dai', 'thiep-cuoi-hoa', 'thiep-cuoi'],
+        posts: ['thiep-cuoi-online-la-gi', 'rsvp-dam-cuoi-la-gi', 'ngay-cuoi-dep-cuoi-nam-2026'],
     },
     {
         slug: 'thiep-cuoi-truyen-thong',
@@ -70,8 +78,8 @@ const LANDINGS = [
         legacyQuery: 'category=wedding&style=traditional',
         navLabel: 'Thiệp cưới truyền thống',
         crumb: 'Truyền thống',
-        title: 'Thiệp Cưới Truyền Thống — Song Hỷ, Long Phụng, Đỏ Vàng | Templexa',
-        desc: 'Mẫu thiệp cưới online truyền thống Việt Nam: chữ Song Hỷ, long phụng, tông đỏ vàng. Hợp lễ gia tiên, dạm ngõ, ăn hỏi.',
+        title: 'Thiệp Cưới Truyền Thống Song Hỷ — {n} Mẫu Online | Templexa',
+        desc: 'Thiệp cưới truyền thống online chữ Song Hỷ, long phụng, đỏ vàng, hợp lễ gia tiên, ăn hỏi, người Hoa. {n} mẫu có RSVP, nhạc nền; giao 24h, từ 150.000đ. Xem demo.',
         h1: '<span class="gradient-text">Thiệp Cưới Truyền Thống</span><br>Song Hỷ, Long Phụng, Đỏ Vàng',
         lead: '{n} mẫu <strong>thiệp cưới truyền thống</strong> với chữ Song Hỷ, hoạ tiết long phụng và tông đỏ vàng — hợp lễ gia tiên, dạm ngõ, ăn hỏi.',
         body: [
@@ -83,6 +91,7 @@ const LANDINGS = [
             { p: 'Giá 150.000đ gói Basic và 199.000đ gói Premium, giao trong 24 giờ. Muốn giữ nét cổ điển nhưng nhẹ nhàng hơn thì xem thêm nhóm hoa lá, còn thích tông tối sang thì xem nhóm sang trọng.' },
         ],
         related: ['thiep-cuoi-sang-trong', 'thiep-cuoi-hoa', 'thiep-cuoi-hien-dai', 'thiep-cuoi'],
+        posts: ['thiep-cuoi-online-la-gi', 'rsvp-dam-cuoi-la-gi', 'ngay-cuoi-dep-cuoi-nam-2026'],
     },
     {
         slug: 'thiep-cuoi-hoa',
@@ -91,19 +100,20 @@ const LANDINGS = [
         legacyQuery: 'category=wedding&style=floral',
         navLabel: 'Thiệp cưới hoa',
         crumb: 'Hoa lá',
-        title: 'Thiệp Cưới Hoa — Mẫu Thiệp Cưới Online Hoa Lá Nhẹ Nhàng | Templexa',
-        desc: 'Mẫu thiệp cưới online hoạ tiết hoa lá, màu nước, tông pastel nhẹ nhàng. Có đếm ngược, xác nhận tham dự, gửi lời chúc.',
+        title: 'Thiệp Cưới Hoa — {n} Mẫu Online Màu Nước Pastel | Templexa',
+        desc: 'Thiệp cưới hoa online vẽ lối màu nước, tông pastel, hợp tiệc vườn, ngoài trời. {n} mẫu có đếm ngược, RSVP, nhạc nền; giao 24h, từ 150.000đ. Xem demo, chọn mẫu.',
         h1: '<span class="gradient-text">Thiệp Cưới Hoa</span><br>Màu Nước Nhẹ Nhàng, Tông Pastel',
         lead: '{n} mẫu <strong>thiệp cưới hoa</strong> vẽ theo lối màu nước, tông pastel — hợp tiệc cưới ngoài trời và tiệc vườn.',
         body: [
             { h2: 'Thiệp cưới hoa hợp với ai' },
             { p: 'Nhóm hoa lá có {n} mẫu, hoạ tiết vẽ tay theo lối màu nước: hoa hồng, mẫu đơn, lá ô liu, cỏ lau, dây leo viền quanh khung ảnh. Tông màu chủ đạo là pastel — hồng phấn, kem, xanh sage, trắng ngà.' },
-            { p: 'Đây là nhóm được chọn nhiều nhất cho tiệc ngoài trời, tiệc vườn, tiệc bãi biển và những cặp đôi thích cảm giác mềm mại, nữ tính. Ảnh cưới chụp ban ngày, chụp đồng cỏ hay chụp ở resort đặt vào nhóm này rất hợp tông.' },
+            { p: 'Đây là nhóm được chọn nhiều nhất cho tiệc ngoài trời, tiệc vườn, tiệc bãi biển và những cặp đôi thích cảm giác mềm mại, nữ tính. Ảnh cưới chụp ban ngày, chụp đồng cỏ hay chụp ở resort đặt vào nhóm này rất hợp tông. Thích nét mộng mơ hoa trắng, pastel thì mẫu Hoa Trắng Mộng Mơ trong nhóm này là lựa chọn quen thuộc; muốn so với các phong cách khác, xem cả bộ <a href="thiep-cuoi.html">thiệp cưới online</a>.' },
             { h2: 'Có gì bên trong mỗi mẫu' },
             { p: 'Thiệp mở ra bằng hiệu ứng phong bì, có nhạc nền, hiệu ứng cánh hoa rơi, đếm ngược ngày cưới, phần Love Story kể chuyện hai người, gallery ảnh cưới xem toàn màn hình, RSVP xác nhận tham dự, sổ lưu bút, Google Maps và mã QR mừng cưới.' },
             { p: 'Bạn đổi được màu hoa và nhạc nền cho khớp tông tiệc. Giá 150.000đ gói Basic, 199.000đ gói Premium, giao trong 24 giờ. Nếu muốn ít hoạ tiết hơn, xem thêm nhóm hiện đại.' },
         ],
         related: ['thiep-cuoi-hien-dai', 'thiep-cuoi-sang-trong', 'thiep-cuoi-truyen-thong', 'thiep-cuoi'],
+        posts: ['thiep-cuoi-online-la-gi', 'rsvp-dam-cuoi-la-gi', 'ngay-cuoi-dep-cuoi-nam-2026'],
     },
     {
         slug: 'thiep-cuoi-hien-dai',
@@ -112,8 +122,8 @@ const LANDINGS = [
         legacyQuery: 'category=wedding&style=modern',
         navLabel: 'Thiệp cưới hiện đại',
         crumb: 'Hiện đại',
-        title: 'Thiệp Cưới Hiện Đại — Mẫu Thiệp Cưới Online Tối Giản | Templexa',
-        desc: 'Mẫu thiệp cưới online phong cách hiện đại, bố cục thoáng, hiệu ứng mượt. Gửi qua Zalo/Facebook, không cần in ấn.',
+        title: 'Thiệp Cưới Hiện Đại Online — {n} Mẫu Tối Giản | Templexa',
+        desc: 'Thiệp cưới hiện đại online bố cục thoáng, ít hoạ tiết, ảnh cưới làm trung tâm. {n} mẫu có RSVP, đếm ngược, nhạc nền; giao 24h, từ 150.000đ. Xem demo ngay.',
         h1: '<span class="gradient-text">Thiệp Cưới Hiện Đại</span><br>Bố Cục Tối Giản, Hiệu Ứng Mượt',
         lead: '{n} mẫu <strong>thiệp cưới hiện đại</strong> bố cục thoáng, ít hoạ tiết, lấy ảnh cưới làm trung tâm.',
         body: [
@@ -125,6 +135,7 @@ const LANDINGS = [
             { p: 'Vẫn đủ tính năng như các nhóm khác: nhạc nền, đếm ngược, Love Story, gallery, RSVP, gửi lời chúc, Google Maps và QR mừng cưới. Giá 150.000đ gói Basic, 199.000đ gói Premium, giao trong 24 giờ.' },
         ],
         related: ['thiep-cuoi-hoa', 'thiep-cuoi-sang-trong', 'thiep-cuoi-truyen-thong', 'thiep-cuoi'],
+        posts: ['thiep-cuoi-online-la-gi', 'rsvp-dam-cuoi-la-gi', 'ngay-cuoi-dep-cuoi-nam-2026'],
     },
 
     // ── Thiệp mời dịp khác ────────────────────────────────────────────────────
@@ -134,8 +145,8 @@ const LANDINGS = [
         legacyQuery: 'category=other',
         navLabel: 'Thiệp mời online (dịp khác)',
         crumb: 'Thiệp mời dịp khác',
-        title: 'Thiệp Mời Online — Sinh Nhật, Thôi Nôi, Kỷ Niệm, Họp Lớp | Templexa',
-        desc: 'Mẫu thiệp mời online cho sinh nhật, thôi nôi, đầy tháng, kỷ niệm ngày cưới, họp lớp, giỗ tổ. Gửi link là xong, không cần in ấn.',
+        title: 'Thiệp Mời Online Đẹp — Sinh Nhật, Thôi Nôi, Họp Lớp | Templexa',
+        desc: 'Thiệp mời online cho dịp ngoài đám cưới: {n} mẫu sinh nhật, đầy tháng, thôi nôi, kỷ niệm, họp lớp, giỗ tổ. Gửi link Zalo, giao 24h, từ 150.000đ. Xem demo.',
         h1: '<span class="gradient-text">Thiệp Mời Online</span><br>Sinh Nhật, Thôi Nôi, Kỷ Niệm, Họp Lớp',
         lead: '{n} mẫu <strong>thiệp mời online</strong> cho mọi dịp ngoài đám cưới — gửi một đường link là xong, không cần in ấn, không cần đi phát.',
         body: [
@@ -153,6 +164,7 @@ const LANDINGS = [
             { p: 'Điểm chung của cả sáu nhóm: có ô xác nhận tham dự để bạn nắm số khách trước khi đặt bàn, có bản đồ Google Maps chỉ đường và có nhạc nền tắt bật được. Giá tính một lần cho toàn bộ khách mời, từ 150.000đ, giao trong 24 giờ.' },
         ],
         related: ['thiep-sinh-nhat', 'thiep-thoi-noi-day-thang', 'thiep-moi-hop-lop', 'thiep-ky-niem-ngay-cuoi'],
+        posts: ['rsvp-dam-cuoi-la-gi', 'thiep-cuoi-online-la-gi'],
     },
     {
         slug: 'thiep-moi-su-kien',
@@ -161,8 +173,8 @@ const LANDINGS = [
         legacyQuery: 'category=other&event=holiday',
         navLabel: 'Thiệp mời sự kiện',
         crumb: 'Sự kiện, tất niên',
-        title: 'Thiệp Mời Sự Kiện Online — Tất Niên, Khai Trương, Liên Hoan | Templexa',
-        desc: 'Mẫu thiệp mời online cho sự kiện: tất niên, khai trương, liên hoan, gặp mặt. Gửi link là xong, khách xác nhận tham dự ngay trên thiệp.',
+        title: 'Thiệp Mời Sự Kiện Online — Tất Niên, Khai Trương | Templexa',
+        desc: 'Thiệp mời sự kiện online cho tất niên, khai trương, liên hoan cuối năm: {n} mẫu có xác nhận tham dự để chốt số bàn, bản đồ, đếm ngược. Giao 24h, từ 150.000đ.',
         h1: '<span class="gradient-text">Thiệp Mời Sự Kiện</span><br>Tất Niên, Khai Trương, Liên Hoan',
         lead: '{n} mẫu <strong>thiệp mời sự kiện</strong> cho tiệc tất niên, khai trương, liên hoan và gặp mặt cuối năm — có xác nhận tham dự để chốt số bàn.',
         body: [
@@ -174,6 +186,7 @@ const LANDINGS = [
             { p: 'Sửa nội dung mất khoảng một buổi, giao trong 24 giờ, giá từ 150.000đ cho cả sự kiện. Nếu là tiệc riêng của gia đình thì xem thêm nhóm sinh nhật hoặc nhóm họp lớp.' },
         ],
         related: ['thiep-moi-hop-lop', 'thiep-sinh-nhat', 'thiep-moi-online', 'thiep-ky-niem-ngay-cuoi'],
+        posts: ['rsvp-dam-cuoi-la-gi', 'thiep-cuoi-online-la-gi'],
     },
     {
         slug: 'thiep-to-tinh',
@@ -182,8 +195,8 @@ const LANDINGS = [
         legacyQuery: 'category=other&event=confession',
         navLabel: 'Thiệp tỏ tình',
         crumb: 'Tỏ tình',
-        title: 'Thiệp Tỏ Tình Online — Lời Tỏ Tình Dễ Thương Gửi Qua Link | Templexa',
-        desc: 'Mẫu thiệp tỏ tình online dễ thương, có hiệu ứng và nhạc nền. Gửi link qua Zalo/Messenger, bất ngờ và riêng tư.',
+        title: 'Thiệp Tỏ Tình Online — Gửi Riêng Qua Zalo, Có Nhạc | Templexa',
+        desc: 'Thiệp tỏ tình online có hiệu ứng, nhạc nền, chỉ người nhận mở link mới xem: {n} trang cho Valentine, kỷ niệm yêu nhau. Giao 24h, từ 150.000đ. Xem demo và gửi.',
         h1: '<span class="gradient-text">Thiệp Tỏ Tình Online</span><br>Gửi Riêng Qua Một Đường Link',
         lead: '{n} trang <strong>tỏ tình online</strong> có hiệu ứng và nhạc nền, gửi riêng qua Zalo hoặc Messenger — chỉ người nhận mở link mới xem được.',
         body: [
@@ -195,6 +208,7 @@ const LANDINGS = [
             { p: 'Nếu định tỏ tình đúng dịp sinh nhật của người ấy, xem thêm nhóm thiệp sinh nhật; còn nếu hai bạn đã cưới, xem nhóm kỷ niệm ngày cưới.' },
         ],
         related: ['thiep-sinh-nhat', 'thiep-ky-niem-ngay-cuoi', 'thiep-moi-online', 'thiep-cuoi'],
+        posts: ['rsvp-dam-cuoi-la-gi', 'thiep-cuoi-online-la-gi'],
     },
     {
         slug: 'thiep-sinh-nhat',
@@ -203,10 +217,10 @@ const LANDINGS = [
         legacyQuery: 'category=other&event=birthday',
         navLabel: 'Thiệp sinh nhật',
         crumb: 'Sinh nhật',
-        title: 'Thiệp Sinh Nhật Online — Mẫu Thiệp Mời Sinh Nhật Đẹp | Templexa',
-        desc: 'Mẫu thiệp mời sinh nhật online có nhạc, đếm ngược và xác nhận tham dự. Gửi qua Zalo/Facebook, không cần in.',
-        h1: '<span class="gradient-text">Thiệp Sinh Nhật Online</span><br>Mẫu Thiệp Mời Sinh Nhật Đẹp',
-        lead: '{n} mẫu <strong>thiệp mời sinh nhật</strong> có nhạc nền, đếm ngược và xác nhận tham dự — gửi vào nhóm chat là cả hội cùng nhận.',
+        title: 'Thiệp Mời Sinh Nhật Online — Cho Bé, Người Lớn | Templexa',
+        desc: 'Thiệp mời sinh nhật online cho bé 1 tuổi, tuổi 18, 30, 50 và tiệc công ty: {n} mẫu có nhạc nền, đếm ngược, xác nhận tham dự. Gửi nhóm Zalo, giao 24h, từ 150.000đ.',
+        h1: '<span class="gradient-text">Thiệp Mời Sinh Nhật Online</span><br>Cho Bé, Người Lớn, Tiệc Công Ty',
+        lead: '{n} mẫu <strong>thiệp mời sinh nhật online</strong> cho bé, người lớn và tiệc công ty — có nhạc nền, đếm ngược và xác nhận tham dự; gửi vào nhóm Zalo là cả hội cùng nhận.',
         body: [
             { h2: 'Mời sinh nhật bằng thiệp online' },
             { p: 'Nhóm này có {n} mẫu thiệp mời sinh nhật, dùng cho tiệc tại nhà, tiệc nhà hàng, tiệc quán cà phê hay tiệc bất ngờ. Bạn gửi link vào nhóm Zalo hoặc story Facebook, ai cũng nhận cùng lúc, không phải nhắn từng người.' },
@@ -216,6 +230,7 @@ const LANDINGS = [
             { p: 'Giá từ 150.000đ cho toàn bộ khách mời, giao trong 24 giờ. Tiệc của bé dưới một tuổi thì xem nhóm thôi nôi và đầy tháng.' },
         ],
         related: ['thiep-thoi-noi-day-thang', 'thiep-moi-su-kien', 'thiep-to-tinh', 'thiep-moi-online'],
+        posts: ['loi-moi-day-thang-thoi-noi', 'to-chuc-thoi-noi-tai-nha'],
     },
     {
         slug: 'thiep-ky-niem-ngay-cuoi',
@@ -224,10 +239,10 @@ const LANDINGS = [
         legacyQuery: 'category=other&event=anniversary',
         navLabel: 'Thiệp kỷ niệm ngày cưới',
         crumb: 'Kỷ niệm ngày cưới',
-        title: 'Thiệp Kỷ Niệm Ngày Cưới Online — Mẫu Thiệp Mời Đẹp | Templexa',
-        desc: 'Mẫu thiệp mời online cho lễ kỷ niệm ngày cưới, đám cưới bạc, đám cưới vàng. Có timeline chuyện tình và album ảnh.',
-        h1: '<span class="gradient-text">Thiệp Kỷ Niệm Ngày Cưới</span><br>Đám Cưới Bạc, Đám Cưới Vàng',
-        lead: '{n} mẫu <strong>thiệp kỷ niệm ngày cưới</strong> cho đám cưới bạc, đám cưới vàng — có dòng thời gian chặng đường chung và album ảnh gia đình.',
+        title: 'Thiệp Kỷ Niệm Ngày Cưới Online — 10, 25, 50 Năm | Templexa',
+        desc: '{n} mẫu thiệp kỷ niệm ngày cưới online cho đám cưới bạc, vàng, 10–50 năm: dòng thời gian chuyện tình, album ảnh, xác nhận tham dự. Giao 24h từ 150.000đ. Xem demo.',
+        h1: '<span class="gradient-text">Thiệp Kỷ Niệm Ngày Cưới</span><br>10, 25, 50 Năm — Đám Cưới Bạc, Vàng',
+        lead: '{n} mẫu <strong>thiệp kỷ niệm ngày cưới online</strong> cho mốc 10, 25, 50 năm — đám cưới bạc, đám cưới vàng — có dòng thời gian chặng đường chung và album ảnh gia đình.',
         body: [
             { h2: 'Thiệp cho lễ kỷ niệm ngày cưới' },
             { p: 'Nhóm này có {n} mẫu, dùng cho lễ kỷ niệm một năm, mười năm, đám cưới bạc hai mươi lăm năm và đám cưới vàng năm mươi năm. Thiệp thường do con cháu làm để mời họ hàng tới mừng ông bà, cha mẹ.' },
@@ -237,6 +252,7 @@ const LANDINGS = [
             { p: 'Giá từ 150.000đ, giao trong 24 giờ, link giữ vĩnh viễn để cả nhà xem lại vào các dịp sau. Nếu đang chuẩn bị đám cưới lần đầu, xem bộ mẫu thiệp cưới; nếu tổ chức tiệc gặp mặt đông người, xem nhóm họp lớp.' },
         ],
         related: ['thiep-cuoi', 'thiep-moi-hop-lop', 'thiep-sinh-nhat', 'thiep-moi-online'],
+        posts: ['thiep-cuoi-online-la-gi', 'rsvp-dam-cuoi-la-gi'],
     },
     {
         slug: 'thiep-moi-hop-lop',
@@ -245,8 +261,8 @@ const LANDINGS = [
         legacyQuery: 'category=other&event=reunion',
         navLabel: 'Thiệp mời họp lớp',
         crumb: 'Họp lớp',
-        title: 'Thiệp Mời Họp Lớp Online — Mẫu Thiệp Họp Lớp, Gặp Mặt | Templexa',
-        desc: 'Mẫu thiệp mời họp lớp online, có xác nhận tham dự và điểm danh. Gửi vào nhóm Zalo/Facebook là cả lớp nhận được.',
+        title: 'Thiệp Mời Họp Lớp Online — Thư Mời Liên Hoan, RSVP | Templexa',
+        desc: 'Thiệp mời họp lớp online thay thư mời Word: {n} mẫu có điểm danh, xác nhận tham dự, bản đồ. Gửi vào nhóm Zalo là cả lớp nhận, biết ngay ai đến. Từ 150.000đ.',
         h1: '<span class="gradient-text">Thiệp Mời Họp Lớp</span><br>Gặp Mặt Bạn Cũ Sau Nhiều Năm',
         lead: '{n} mẫu <strong>thiệp mời họp lớp</strong> có xác nhận tham dự và điểm danh — ban tổ chức biết ngay ai đến, ai vắng.',
         body: [
@@ -258,6 +274,7 @@ const LANDINGS = [
             { p: 'Giá từ 150.000đ cho cả lớp, giao trong 24 giờ. Nếu là tiệc của công ty thay vì của lớp, xem nhóm thiệp mời sự kiện.' },
         ],
         related: ['thiep-moi-su-kien', 'thiep-ky-niem-ngay-cuoi', 'thiep-moi-online', 'thiep-sinh-nhat'],
+        posts: ['rsvp-dam-cuoi-la-gi', 'thiep-cuoi-online-la-gi'],
     },
     {
         slug: 'thiep-thoi-noi-day-thang',
@@ -266,10 +283,10 @@ const LANDINGS = [
         legacyQuery: 'category=other&event=thoi-noi',
         navLabel: 'Thiệp thôi nôi, đầy tháng',
         crumb: 'Thôi nôi, đầy tháng',
-        title: 'Thiệp Thôi Nôi, Đầy Tháng Online — Mẫu Thiệp Mời Bé | Templexa',
-        desc: 'Mẫu thiệp mời thôi nôi, đầy tháng cho bé: hình minh hoạ dễ thương, album ảnh, xác nhận tham dự. Gửi qua Zalo.',
-        h1: '<span class="gradient-text">Thiệp Thôi Nôi, Đầy Tháng</span><br>Mẫu Thiệp Mời Cho Bé',
-        lead: '{n} mẫu <strong>thiệp thôi nôi</strong> và đầy tháng cho bé — hình minh hoạ dễ thương, album ảnh và xác nhận tham dự.',
+        title: 'Mẫu Thiệp Đầy Tháng, Thôi Nôi Online Bé Gái, Bé Trai | Templexa',
+        desc: '{n} mẫu thiệp đầy tháng, thôi nôi online cho bé gái và bé trai: ảnh bé theo tháng, bản đồ, xác nhận tham dự. Giao 24h, từ 150.000đ. Xem demo rồi nhắn Zalo đặt.',
+        h1: '<span class="gradient-text">Thiệp Đầy Tháng, Thôi Nôi Online</span><br>Mẫu Cho Bé Gái &amp; Bé Trai',
+        lead: '{n} mẫu <strong>thiệp đầy tháng, thôi nôi online</strong> cho bé gái và bé trai — ảnh bé theo tháng, bản đồ chỉ đường và xác nhận tham dự. Gửi qua Zalo, giao trong 24h.',
         body: [
             { h2: 'Thiệp mời thôi nôi, đầy tháng cho bé' },
             { p: 'Nhóm này có {n} mẫu dùng cho lễ đầy tháng, lễ thôi nôi tròn một tuổi và tiệc mừng bé. Hình vẽ theo hướng dễ thương: mây, sao, thú bông, bánh kem, tông pastel hồng hoặc xanh nhạt tuỳ bé trai hay bé gái.' },
@@ -277,8 +294,11 @@ const LANDINGS = [
             { h2: 'Vì sao ông bà, họ hàng xem được dễ' },
             { p: 'Chữ để cỡ lớn, nút bấm to, ảnh tải nhẹ nên mở bằng mạng yếu vẫn nhanh. Không cần cài ứng dụng, không cần đăng nhập, bấm vào link trong Zalo là xem ngay.' },
             { p: 'Bạn gửi ảnh bé theo tháng cùng thông tin tiệc, thiệp làm xong trong 24 giờ, giá từ 150.000đ. Sinh nhật các năm sau của bé thì chọn tiếp trong nhóm thiệp sinh nhật.' },
+            { h2: 'Thiệp thôi nôi bé gái, bé trai chọn thế nào' },
+            { p: 'Thiệp thôi nôi bé gái thường đi tông hồng phấn, kem, hoa nhỏ và thú bông; thiệp thôi nôi bé trai hợp xanh mint, xanh dương, mây, sao hoặc xe đồ chơi. Mỗi mẫu đều đổi được màu nền và hình minh hoạ theo giới tính của bé, nên bạn cứ chọn bố cục ưng ý trước, phần màu để Templexa chỉnh sau.' },
         ],
         related: ['thiep-sinh-nhat', 'thiep-moi-online', 'thiep-ky-niem-ngay-cuoi', 'thiep-cuoi'],
+        posts: ['loi-moi-day-thang-thoi-noi', 'thoi-noi-la-gi', 'cung-day-thang-cho-be', 'to-chuc-thoi-noi-tai-nha', 'boc-do-thoi-noi'],
     },
 ];
 

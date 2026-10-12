@@ -34,8 +34,17 @@ const WORDS_MIN = 150, WORDS_MAX = 300;
 
 const { products } = load();
 
+// Bài blog cho mục "Cẩm nang liên quan" (field posts trong landings.js). File do build-blog.js sinh;
+// thiếu file thì landing vẫn build được, chỉ không có mục cẩm nang.
+const BLOG_INDEX = path.join(ROOT, 'assets/data/blog-index.json');
+const BLOG_POSTS = fs.existsSync(BLOG_INDEX) ? (JSON.parse(fs.readFileSync(BLOG_INDEX, 'utf8')).posts || []) : [];
+if (!BLOG_POSTS.length) console.warn('! assets/data/blog-index.json trống hoặc thiếu — landing không có mục "Cẩm nang liên quan"');
+const postBySlug = (slug) => BLOG_POSTS.find((p) => p.slug === slug);
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+/** title trong blog-index.json đã escape HTML (&amp;) — decode trước khi esc lại để không thành &amp;amp; */
+const unesc = (s) => String(s).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 const abs = (p) => encodeURI(SITE + '/' + String(p).replace(/^\.\//, ''));
 const stripTags = (s) => String(s).replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '');
 const words = (s) => stripTags(s).trim().split(/\s+/).filter(Boolean).length;
@@ -88,7 +97,12 @@ const EVENT_LABELS = {
 };
 const CATEGORY_LABELS = { wedding: 'Thiệp cưới', other: 'Sinh nhật & Sự kiện' };
 
-function cardHTML(p) {
+/** Số card đầu lưới tải ngay (above the fold) — còn lại lazy */
+const EAGER_CARDS = 4;
+/** Kích thước thật của mobile shot (products/.../shots/*.webp = 780×1688, tỉ lệ 9:19.5) */
+const CARD_IMG_W = 390, CARD_IMG_H = 844;
+
+function cardHTML(p, i) {
     const categoryLabel = CATEGORY_LABELS[p.category] || p.category;
     let badge = '';
     if (p.status === 'bestseller') badge = '<span class="product-badge bestseller">BEST SELLER</span>';
@@ -102,10 +116,11 @@ function cardHTML(p) {
     if (p.category === 'wedding' && p.style) subLabel = 'Thiệp cưới · ' + (STYLE_LABELS[p.style] || p.style);
     else if (p.event) subLabel = EVENT_LABELS[p.event] || categoryLabel;
     if (variantCount > 1) subLabel += ` · ${variantCount} phiên bản`;
+    const loading = i < EAGER_CARDS ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
 
     return `                <a href="thiep-online.html?pid=${p.id}" class="product-card product-card-invitation" data-product-id="${p.id}"${p.demoUrl ? ` data-demo-url="${esc(p.demoUrl)}"` : ''}>
                     <div class="product-card-image">
-                        <img src="${esc(imgSrc)}" alt="${esc(p.name)}" loading="lazy">
+                        <img src="${esc(imgSrc)}" alt="${esc(p.name)}" width="${CARD_IMG_W}" height="${CARD_IMG_H}" ${loading}>
                         ${badge}
                     </div>
                     <div class="product-card-info">
@@ -133,8 +148,8 @@ function jsonLd(l) {
     return {
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        name: stripTags(fill(l.h1, l)).replace(/\s+/g, ' ').trim(),
-        description: l.desc,
+        name: unesc(stripTags(fill(l.h1, l))).replace(/\s+/g, ' ').trim(),
+        description: fill(l.desc, l),
         url: url(l),
         inLanguage: 'vi',
         numberOfItems: COUNT[l.slug],
@@ -171,6 +186,18 @@ function copyHTML(l) {
         return `                    <li><a href="${href(r)}">${r.navLabel} <span class="landing-links-count">${COUNT[r.slug]} mẫu</span></a></li>`;
     }).join('\n');
 
+    // Mục "Cẩm nang liên quan" — slug không có trong blog-index.json thì bỏ qua + cảnh báo
+    const posts = (l.posts || []).map((s) => {
+        const p = postBySlug(s);
+        if (!p) { console.warn(`! ${l.slug}: posts "${s}" không có trong blog-index.json — bỏ qua`); return ''; }
+        return `                    <li><a href="blogs/${p.slug}.html">${esc(unesc(p.title))}</a></li>`;
+    }).filter(Boolean).join('\n');
+    const postsBlock = posts ? `
+                <h2>Cẩm nang liên quan</h2>
+                <ul class="landing-links-posts">
+${posts}
+                </ul>` : '';
+
     return `    <!-- Nội dung landing — sinh bởi scripts/build-landing.js, đừng sửa tay -->
     <section class="landing-copy">
         <div class="container container-section">
@@ -181,7 +208,10 @@ ${blocks}
                 <h2>Xem thêm bộ sưu tập</h2>
                 <ul>
 ${rel}
-                    <li><a href="thiep-online.html">Tất cả mẫu thiệp mời <span class="landing-links-count">${ALL.filter((p) => p.type === 'invitation').length} mẫu</span></a></li>
+                    <li><a href="thiep-online.html">Tất cả mẫu thiệp mời <span class="landing-links-count">hơn 110 mẫu</span></a></li>
+                </ul>${postsBlock}
+                <h2>Hỗ trợ</h2>
+                <ul>
                     <li><a href="contact.html#pricing-section">Bảng giá thiệp mời online</a></li>
                     <li><a href="cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
                 </ul>
@@ -229,18 +259,22 @@ function build(l) {
     if (l.related.length < 3) throw new Error(`${l.slug}: cần >= 3 link chéo`);
 
     const selfUrl = url(l);
+    const title = fill(l.title, l);
+    const desc = fill(l.desc, l);
+    if (title.length > 65) console.warn(`! ${l.slug}: title ${title.length} ký tự (> 65)`);
+    if (desc.length < 140 || desc.length > 160) console.warn(`! ${l.slug}: description ${desc.length} ký tự (ngoài 140–160)`);
     let html = tpl;
 
     // ── head ──
-    html = must(html, /<title>[\s\S]*?<\/title>/, `<title>${esc(l.title)}</title>`, 'title');
-    html = must(html, /<meta name="description" content="[\s\S]*?">/, `<meta name="description" content="${esc(l.desc)}">`, 'meta description');
+    html = must(html, /<title>[\s\S]*?<\/title>/, `<title>${esc(title)}</title>`, 'title');
+    html = must(html, /<meta name="description" content="[\s\S]*?">/, `<meta name="description" content="${esc(desc)}">`, 'meta description');
     html = must(html, /<meta name="keywords" content="[\s\S]*?">/, `<meta name="keywords" content="${esc(keywords(l))}">`, 'meta keywords');
     html = must(html, /<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${selfUrl}">`, 'canonical');
-    html = must(html, /<meta property="og:title" content="[\s\S]*?">/, `<meta property="og:title" content="${esc(l.title)}">`, 'og:title');
-    html = must(html, /<meta property="og:description" content="[\s\S]*?">/, `<meta property="og:description" content="${esc(l.desc)}">`, 'og:description');
+    html = must(html, /<meta property="og:title" content="[\s\S]*?">/, `<meta property="og:title" content="${esc(title)}">`, 'og:title');
+    html = must(html, /<meta property="og:description" content="[\s\S]*?">/, `<meta property="og:description" content="${esc(desc)}">`, 'og:description');
     html = must(html, /<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${selfUrl}">`, 'og:url');
-    html = must(html, /<meta name="twitter:title" content="[\s\S]*?">/, `<meta name="twitter:title" content="${esc(l.title)}">`, 'twitter:title');
-    html = must(html, /<meta name="twitter:description" content="[\s\S]*?">/, `<meta name="twitter:description" content="${esc(l.desc)}">`, 'twitter:description');
+    html = must(html, /<meta name="twitter:title" content="[\s\S]*?">/, `<meta name="twitter:title" content="${esc(title)}">`, 'twitter:title');
+    html = must(html, /<meta name="twitter:description" content="[\s\S]*?">/, `<meta name="twitter:description" content="${esc(desc)}">`, 'twitter:description');
 
     // JSON-LD riêng của landing (thay khối CollectionPage của hub)
     html = must(html, /    <!-- Structured Data -->\n    <script type="application\/ld\+json">[\s\S]*?<\/script>/,
@@ -250,6 +284,8 @@ function build(l) {
     // FAQ chỉ giữ trên hub — 12 landing dùng chung 1 bộ FAQ sẽ thành nội dung lặp
     html = must(html, /\n    <!-- FAQ-LD:START -->[\s\S]*?<!-- FAQ-LD:END -->\n/, '\n', 'FAQ-LD');
     html = must(html, /\n    <!-- FAQ:START[\s\S]*?<!-- FAQ:END -->\n/, '\n', 'FAQ section');
+    // Khối "Cẩm nang trước khi đặt thiệp" chỉ có trên hub — landing dùng field posts riêng trong aside
+    html = must(html, /\n    <!-- HUB-BLOGS:START[\s\S]*?<!-- HUB-BLOGS:END -->\n/, '\n', 'HUB-BLOGS section');
 
     // ── body ──
     const dataAttr = ` data-landing="${l.slug}" data-landing-category="${l.category}"`
@@ -266,7 +302,7 @@ function build(l) {
 
     // Lưới mẫu pre-render (trang 1) — JS render lại y hệt sau khi tải xong
     html = must(html, '<div class="products-grid" id="productsGrid"></div>',
-        '<div class="products-grid" id="productsGrid">\n' + items.slice(0, PER_PAGE).map(cardHTML).join('\n') + '\n            </div>', 'products grid');
+        '<div class="products-grid" id="productsGrid">\n' + items.slice(0, PER_PAGE).map((p, i) => cardHTML(p, i)).join('\n') + '\n            </div>', 'products grid');
 
     html = must(html, '\n    <!-- Footer -->', '\n' + copyHTML(l) + '\n    <!-- Footer -->', 'footer anchor');
 
@@ -274,7 +310,7 @@ function build(l) {
     html = must(html, /    <script>\n        \/\* Force type=invitation[\s\S]*?<\/script>\n/, '', 'force type script');
 
     fs.writeFileSync(path.join(ROOT, l.slug + '.html'), html);
-    return { slug: l.slug, n: items.length, w };
+    return { slug: l.slug, n: items.length, w, title: title.length, desc: desc.length, posts: (l.posts || []).filter(postBySlug).length };
 }
 
 const report = LANDINGS.map(build);
@@ -313,6 +349,6 @@ if (!RX.test(pjs)) throw new Error('assets/js/products.js thiếu marker LANDING
 fs.writeFileSync(PJS, pjs.replace(RX, (m, a, b) => a + `const LANDING_MAP = {\n${mapEntries}\n};\n` + b));
 
 console.log(`✓ ${report.length} landing tĩnh:`);
-report.forEach((r) => console.log(`  ${r.slug}.html — ${r.n} mẫu, intro ${r.w} từ`));
+report.forEach((r) => console.log(`  ${r.slug}.html — ${r.n} mẫu, intro ${r.w} từ, title ${r.title} ký tự, desc ${r.desc} ký tự, ${r.posts} bài cẩm nang`));
 console.log('✓ LANDING_MAP → assets/js/products.js');
 console.log('✓ khối link 12 landing → index.html');

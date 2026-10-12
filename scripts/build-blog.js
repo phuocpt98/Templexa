@@ -8,7 +8,8 @@
  *      mục lục giữa <!-- TOC:START/END -->, bài liên quan giữa <!-- RELATED:START/END -->,
  *      thời gian đọc trong <span data-readtime>.
  *   2. Sinh blogs/index.html (trang danh sách: chip lọc chuyên mục, bài nổi bật, lưới bài).
- *   3. Sinh assets/data/blog-index.json — build-sitemap.js và (sau này) trang chủ dùng.
+ *   3. Sinh assets/data/blog-index.json — build-sitemap.js dùng.
+ *   4. Pre-render 4 bài mới nhất vào index.html giữa <!-- HOME-BLOGS:START/END --> (trang chủ không fetch lúc chạy).
  *
  * Meta bắt buộc trong mỗi bài:
  *   <title>…| Templexa</title>, meta description, og:image (URL tuyệt đối),
@@ -292,6 +293,33 @@ fs.writeFileSync(OUT_JSON, JSON.stringify({
 
 console.log(`✓ blogs/index.html: ${posts.length} bài, ${catLd.length} chuyên mục có bài · chuẩn hoá ${touched} bài · blog-index.json`);
 if (errors.length) { console.log('⚠ Bỏ qua:'); errors.forEach(e => console.log('  - ' + e)); }
+
+// ---------- 5. Trang chủ: pre-render bài mới nhất giữa <!-- HOME-BLOGS:START/END --> (index.html #homeBlogsGrid) ----------
+// Lưới .home-blogs-grid trong style.css là 4 cột → render 4 bài để không hở ô. Markup khớp CSS .home-blog-card.
+const HOME_BLOGS_N = 4;
+const HOME_FILE = path.join(ROOT, 'index.html');
+if (fs.existsSync(HOME_FILE)) {
+    const homeHtml = fs.readFileSync(HOME_FILE, 'utf8');
+    if (between(homeHtml, 'HOME-BLOGS') === null) {
+        console.warn('⚠ index.html: thiếu marker HOME-BLOGS — bỏ qua');
+    } else {
+        const cards = posts.slice(0, HOME_BLOGS_N).map(p => {
+            const short = p.description.length > 120 ? p.description.slice(0, 120).replace(/\s+\S*$/, '') + '…' : p.description;
+            return `                <a class="home-blog-card home-reveal" href="blogs/${p.slug}.html">
+                    <div class="home-blog-img"><img src="${p.cover}" alt="${esc(p.title)}" width="1600" height="900" loading="lazy" decoding="async"></div>
+                    <div class="home-blog-body">
+                        <span class="home-blog-cat">${esc(p.categoryLabel)}</span>
+                        <h3>${esc(p.title)}</h3>
+                        <p>${esc(short)}</p>
+                        <span class="home-blog-meta"><time datetime="${p.date.slice(0, 10)}">${fmtDate(p.date)}</time> · ${p.readMin} phút đọc</span>
+                    </div>
+                </a>`;
+        }).join('\n');
+        const next = replaceBetween(homeHtml, 'HOME-BLOGS', cards);
+        if (next !== homeHtml) fs.writeFileSync(HOME_FILE, next);
+        console.log(`✓ index.html: pre-render ${Math.min(HOME_BLOGS_N, posts.length)} bài mới nhất (HOME-BLOGS)`);
+    }
+}
 
 // ---------- header/footer dùng chung (khớp các trang chính; rel = '../' vì bài nằm trong blogs/) ----------
 function headerHtml(rel, active) {

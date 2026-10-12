@@ -3,6 +3,11 @@
  * Sinh trang cau-hoi-thuong-gap.html từ assets/data/faq.json.
  * Một nguồn dữ liệu → HTML hiển thị (details/summary) + JSON-LD FAQPage khớp 1:1.
  *
+ * Mỗi item: { q, a, aHtml? } — `a` là text thuần (dùng cho JSON-LD, llms-full.txt);
+ * `aHtml` (tuỳ chọn) là bản HTML đã escape sẵn + link nội bộ, chỉ dùng để HIỂN THỊ.
+ * Khi sửa `a` nhớ sửa `aHtml` tương ứng. Link blog ghi dạng `blogs/<slug>.html`
+ * (tương đối từ gốc — đúng cho cả 4 trang nhúng FAQ ở gốc site).
+ *
  *   node scripts/build-faq.js
  */
 const fs = require('fs');
@@ -22,6 +27,7 @@ const slug = (s) => s.toLowerCase()
     .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 60);
 
 const allItems = faq.groups.flatMap(g => g.items);
+const ansHtml = (it) => it.aHtml || esc(it.a);   // hiển thị: ưu tiên bản có link; JSON-LD luôn dùng it.a thuần
 
 // ---------- JSON-LD ----------
 const faqSchema = {
@@ -49,7 +55,7 @@ const webpage = {
     '@type': 'WebPage',
     '@id': PAGE_URL,
     'name': 'Câu hỏi thường gặp về thiệp cưới online — Templexa',
-    'description': 'Giải đáp 30+ câu hỏi về thiệp cưới online: giá bao nhiêu, làm mất bao lâu, gửi cho khách thế nào, RSVP, QR mừng cưới, lời chúc realtime.',
+    'description': `Giải đáp ${allItems.length} câu hỏi về thiệp cưới online: giá từ 150.000đ, làm trong 24h, cách gửi cho khách, RSVP, QR mừng cưới, thiệp thôi nôi, sinh nhật.`,
     'inLanguage': 'vi',
     'dateModified': faq.updated,
     'isPartOf': { '@type': 'WebSite', 'name': 'Templexa', 'url': SITE },
@@ -69,7 +75,7 @@ const groupsHTML = faq.groups.map(g => `
                 <div class="svc-faq-list">
 ${g.items.map(it => `                    <details class="svc-faq-item faq-item" id="${slug(it.q)}">
                         <summary><h3>${esc(it.q)}</h3>${chevron}</summary>
-                        <div class="svc-faq-answer faq-answer"><p>${esc(it.a)}</p></div>
+                        <div class="svc-faq-answer faq-answer"><p>${ansHtml(it)}</p></div>
                     </details>`).join('\n')}
                 </div>
             </section>`).join('\n');
@@ -80,7 +86,7 @@ const html = `<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Câu Hỏi Thường Gặp Về Thiệp Cưới Online — Templexa</title>
-    <meta name="description" content="Giải đáp ${allItems.length} câu hỏi về thiệp cưới online: giá bao nhiêu (từ 150.000đ), làm mất bao lâu (24h), gửi cho khách thế nào, RSVP, QR mừng cưới, lời chúc realtime, thiệp thôi nôi, sinh nhật.">
+    <meta name="description" content="Giải đáp ${allItems.length} câu hỏi về thiệp cưới online: giá từ 150.000đ, làm trong 24h, cách gửi cho khách, RSVP, QR mừng cưới, thiệp thôi nôi, sinh nhật.">
     <meta name="keywords" content="thiệp cưới online là gì, thiệp cưới online giá bao nhiêu, cách làm thiệp cưới online, thiệp mời online, thiệp thôi nôi online, RSVP thiệp cưới">
     <meta name="author" content="Templexa Studio">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -193,11 +199,12 @@ ${groupsHTML}
 
             <section class="faq-cta">
                 <h2>Chưa thấy câu trả lời bạn cần?</h2>
-                <p>Nhắn Zalo, Templexa phản hồi trong vài phút vào giờ làm việc — hoặc xem thử hơn 100 mẫu thiệp rồi đặt ngay.</p>
+                <p>Nhắn Zalo, Templexa phản hồi trong vài phút vào giờ làm việc — hoặc xem thử hơn 110 mẫu thiệp rồi đặt ngay.</p>
                 <div class="faq-cta-actions">
                     <a href="https://zalo.me/0334884895" target="_blank" rel="noopener" class="btn-terracotta">Chat Zalo 0334 884 895</a>
                     <a href="thiep-online.html" class="btn-gold-outline">Xem mẫu thiệp</a>
                 </div>
+                <p class="faq-inline-more">Đọc cẩm nang: <a href="blogs/thiep-cuoi-online-la-gi.html">thiệp cưới online là gì, khác thiệp giấy ở đâu</a> · <a href="blogs/rsvp-dam-cuoi-la-gi.html">cách thu RSVP đám cưới</a> · <a href="blogs/loi-moi-day-thang-thoi-noi.html">lời mời đầy tháng, thôi nôi</a></p>
             </section>
         </div>
     </main>
@@ -337,7 +344,7 @@ function inlineSection(cfg, items) {
             <div class="svc-faq-list">
 ${items.map(it => `                <details class="svc-faq-item faq-item">
                     <summary><h3>${esc(it.q)}</h3>${chevron}</summary>
-                    <div class="svc-faq-answer faq-answer"><p>${esc(it.a)}</p></div>
+                    <div class="svc-faq-answer faq-answer"><p>${ansHtml(it)}</p></div>
                 </details>`).join('\n')}
             </div>
             <p class="faq-inline-more"><a href="cau-hoi-thuong-gap.html">Xem tất cả ${allItems.length} câu hỏi thường gặp →</a></p>
