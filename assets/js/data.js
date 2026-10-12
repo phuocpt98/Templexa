@@ -5635,7 +5635,7 @@ const PRODUCTS = [
         id: 295,
         name: 'Thiệp Mời Tốt Nghiệp — Lavender Storybook Lật Trang',
         slug: 'thiep-moi-tot-nghiep-lavender-storybook-lat-trang',
-        description: 'Thiệp mời tốt nghiệp dạng sách lật từng trang — mobile vuốt ngang 8 trang, desktop mở sách lật 3D. Có câu chuyện 4 năm theo chương, album ảnh, lịch khoanh ngày, timeline, countdown, RSVP.',
+        description: 'Thiệp mời tốt nghiệp dạng sách lật — desktop mở sách lật 3D từng trang đôi, mobile cuộn dọc từng trang như thiệp thường. Có câu chuyện 4 năm theo chương, album ảnh, lịch khoanh ngày, timeline, countdown, RSVP.',
         category: 'other',
         type: 'invitation',
         style: '',
@@ -5653,7 +5653,7 @@ const PRODUCTS = [
         demoUrl: './products/Invitation/Other/gen_295_tot-nghiep-storybook-flip/index.html',
         variants: [],
         features: [
-            'Phong bì con dấu sáp tím, mở ra sách lật từng trang (vuốt ngang trên mobile, lật 3D trên desktop)',
+            'Phong bì con dấu sáp tím; desktop mở thành sách lật 3D 4 trang đôi, mobile cuộn dọc 8 trang',
             'Câu chuyện 4 năm theo chương + album 7 ảnh có lightbox',
             'Lịch khoanh ngày, ticket timeline, countdown, bản đồ, thêm vào lịch, RSVP 1 chạm',
         ],

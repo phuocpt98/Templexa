@@ -91,7 +91,6 @@ a{color:var(--violet)}
 /* ===================== Pager mobile ===================== */
 #app{position:absolute; top:0; left:0; width:100%; height:100vh; height:100dvh; overflow:hidden; background:var(--lav-50)}
 #track{display:flex; height:100%; width:100%; will-change:transform; transition:transform .55s var(--ease)}
-#track.dragging{transition:none}
 .pg{flex:0 0 100%; width:100%; height:100%; position:relative; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain;
   touch-action:pan-y; -webkit-overflow-scrolling:touch; scrollbar-width:none; background:var(--lav-50)}
 .pg::-webkit-scrollbar{display:none}
@@ -112,16 +111,6 @@ a{color:var(--violet)}
 .next-btn svg{width:16px; height:16px}
 .center{display:flex; flex-direction:column; align-items:center}
 
-.arrow{position:absolute; z-index:20; top:50%; transform:translateY(-50%); width:36px; height:36px; border-radius:50%; border:0; cursor:pointer;
-  background:rgba(255,255,255,.78); color:var(--violet); box-shadow:0 6px 16px -6px rgba(78,58,110,.45); display:grid; place-items:center;
-  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); transition:opacity .3s}
-.arrow.prev{left:6px} .arrow.next{right:6px}
-.arrow svg{width:18px; height:18px}
-.arrow[disabled]{opacity:0; pointer-events:none}
-#dots{position:absolute; z-index:20; left:50%; bottom:12px; transform:translateX(-50%); display:flex; gap:7px; padding:6px 10px; border-radius:20px;
-  background:rgba(255,255,255,.62); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px)}
-#dots button{width:7px; height:7px; border-radius:50%; border:0; background:rgba(122,91,166,.3); cursor:pointer; transition:width .3s, background .3s; padding:0}
-#dots button.on{width:18px; border-radius:4px; background:var(--violet)}
 .swipe-hint{position:absolute; z-index:21; left:50%; bottom:42px; transform:translateX(-50%); padding:8px 14px; border-radius:20px; white-space:nowrap;
   background:rgba(78,58,110,.86); color:#fff; font-family:var(--serif); font-size:.72rem; letter-spacing:.08em; opacity:0; transition:opacity .4s; pointer-events:none}
 .swipe-hint.show{opacity:1}
@@ -388,6 +377,19 @@ textarea.inp{min-height:86px; resize:vertical}
   .badge{width:min(70%,270px)} .hero-card{width:min(46%,180px); margin-top:20px} .hero-name{margin-top:12px} .pin{padding-top:52px}
 }
 
+/* ===================== Mobile/tablet: cuộn dọc từng trang (desktop mới lật sách) ===================== */
+@media not all and (min-width:1024px) and (min-height:560px){
+  body{height:auto; min-height:100dvh; overflow-x:hidden; overflow-y:auto}
+  body.hold{height:100dvh; overflow:hidden}
+  #app{position:relative; height:auto; overflow:visible}
+  #track{display:block; height:auto; transform:none !important; transition:none}
+  .pg{height:auto; overflow:visible; touch-action:auto}
+  .pin{min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; justify-content:center}
+  .next-btn{display:none}
+  .swipe-hint{position:fixed; bottom:22px}
+  #fx,#wishLayer{position:fixed}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important}
   .rv{opacity:1; transform:none}
@@ -395,7 +397,7 @@ textarea.inp{min-height:86px; resize:vertical}
 }
 </style>
 </head>
-<body>
+<body class="hold">
 
 <svg class="defs" aria-hidden="true">
   <defs>
@@ -481,7 +483,7 @@ textarea.inp{min-height:86px; resize:vertical}
   <p class="cv-hint">Chạm vào con dấu để mở thiệp</p>
 </div>
 
-<!-- ===================== APP MOBILE: 8 TRANG LẬT NGANG ===================== -->
+<!-- ===================== MOBILE: 8 TRANG CUỘN DỌC (desktop chuyển thành sách lật) ===================== -->
 <div id="app">
   <div id="track">
 
@@ -722,10 +724,7 @@ textarea.inp{min-height:86px; resize:vertical}
 
   </div>
 
-  <button class="arrow prev" id="prevBtn" type="button" aria-label="Trang trước" disabled><svg aria-hidden="true"><use href="#i-arrow-l"/></svg></button>
-  <button class="arrow next" id="nextBtn" type="button" aria-label="Trang sau"><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></button>
-  <nav id="dots" aria-label="Các trang thiệp"></nav>
-  <div class="swipe-hint scroll-hint" id="swipeHint">Vuốt sang trái để lật trang</div>
+  <div class="swipe-hint scroll-hint" id="swipeHint">Vuốt lên để xem tiếp</div>
 </div>
 
 <!-- ===================== DESKTOP: SÁCH 4 TRANG ĐÔI ===================== -->
@@ -920,56 +919,28 @@ textarea.inp{min-height:86px; resize:vertical}
     form.reset();
   });
 
-  /* ---------- Pager mobile ---------- */
-  const app = $('#app'), track = $('#track'), pages = $$('.pg', track), N = pages.length;
-  const dotsNav = $('#dots'), prevBtn = $('#prevBtn'), nextBtn = $('#nextBtn'), hint = $('#swipeHint');
-  dotsNav.innerHTML = pages.map((p, i) => `<button type="button" data-go="${i}" aria-label="${p.dataset.name}"></button>`).join('');
-  const dots = $$('button', dotsNav);
+  /* ---------- Mobile: cuộn dọc, mỗi section là một "trang" ---------- */
+  const app = $('#app'), track = $('#track'), pages = $$('.pg', track), N = pages.length, hint = $('#swipeHint');
   let page = 0, opened = false;
-  function go(p, keepScroll){
+  function go(p, smooth = true){
     page = Math.max(0, Math.min(N - 1, p));
-    track.style.transform = `translate3d(${-page * 100}%,0,0)`;
-    pages.forEach((s, i) => { const on = i === page; s.classList.toggle('on', on); if (on && !keepScroll) s.scrollTop = 0; s.setAttribute('aria-hidden', !on); });
-    dots.forEach((b, i) => b.classList.toggle('on', i === page));
-    prevBtn.disabled = page === 0; nextBtn.disabled = page === N - 1;
+    pages[page].classList.add('on');
+    pages[page].scrollIntoView({ behavior: smooth && !reduceMotion() ? 'smooth' : 'auto', block: 'start' });
     if (page === 4) loadMap();
-    if (page > 0) hint.classList.remove('show');
   }
-  prevBtn.addEventListener('click', () => go(page - 1));
-  nextBtn.addEventListener('click', () => go(page + 1));
-
-  (function swipe(){
-    let x0 = 0, y0 = 0, lock = null, w = 1, active = false, moved = false, pid = null;
-    const SKIP = 'iframe, textarea, input, select, .map, .no-swipe';
-    function onMove(e){
-      if (!active || e.pointerId !== pid) return;
-      const dx = e.clientX - x0, dy = e.clientY - y0;
-      if (lock === null){ if (Math.hypot(dx, dy) < 8) return; lock = Math.abs(dx) > Math.abs(dy) * 1.2 ? 'x' : 'y'; }
-      if (lock !== 'x') return;
-      moved = true;
-      let off = -page * w + dx;
-      if (off > 0) off *= .3; if (off < -(N - 1) * w) off = -(N - 1) * w + (off + (N - 1) * w) * .3;
-      track.classList.add('dragging');
-      track.style.transform = `translate3d(${off}px,0,0)`;
-    }
-    function onUp(e){
-      if (!active || e.pointerId !== pid) return;
-      active = false; track.classList.remove('dragging');
-      window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); window.removeEventListener('pointercancel', onUp);
-      if (lock !== 'x' || e.type === 'pointercancel'){ go(page, true); return; }
-      const dx = e.clientX - x0;
-      go(Math.abs(dx) > w * .18 ? page + (dx < 0 ? 1 : -1) : page, true);
-      if (moved){ track.addEventListener('click', stopClick, { capture: true, once: true }); setTimeout(() => track.removeEventListener('click', stopClick, { capture: true }), 400); }
-    }
-    function stopClick(e){ e.preventDefault(); e.stopPropagation(); }
-    track.addEventListener('pointerdown', e => {
-      if (!e.isPrimary || e.button !== 0 || e.target.closest(SKIP)) return;
-      active = true; moved = false; lock = null; pid = e.pointerId;
-      x0 = e.clientX; y0 = e.clientY; w = app.clientWidth || innerWidth;
-      if (e.pointerType === 'mouse') e.preventDefault();
-      window.addEventListener('pointermove', onMove); window.addEventListener('pointerup', onUp); window.addEventListener('pointercancel', onUp);
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const i = pages.indexOf(en.target);
+      en.target.classList.add('on');
+      if (i === 4) loadMap();
+      if (i > 0) hint.classList.remove('show');
     });
-  })();
+    const mid = innerHeight / 2;
+    const k = pages.findIndex(pg => { const r = pg.getBoundingClientRect(); return r.top <= mid && r.bottom > mid; });
+    if (k >= 0) page = k;
+  }, { threshold: [.12, .5] });
+  pages.forEach(pg => io.observe(pg));
 
   function showHint(){ hint.classList.add('show'); setTimeout(() => hint.classList.remove('show'), 2500); }
 
@@ -1041,7 +1012,7 @@ textarea.inp{min-height:86px; resize:vertical}
     } else {
       pins.forEach((pin, i) => pages[i].appendChild(pin));
       desk.hidden = true; app.hidden = false;
-      go(dIdx * 2);
+      go(dIdx * 2, false);
     }
   }
   DESK_Q.addEventListener('change', applyLayout);
@@ -1066,8 +1037,8 @@ textarea.inp{min-height:86px; resize:vertical}
     musicBtn.classList.add('show'); wishesToggle.classList.add('show');
     setTimeout(() => cover.classList.add('fade'), 850);
     setTimeout(() => {
-      cover.hidden = true;
-      if (deskOn) openBook(); else { go(0); showHint(); }
+      cover.hidden = true; document.body.classList.remove('hold');
+      if (deskOn) openBook(); else { go(0, false); showHint(); }
       startFx(); startWishes();
     }, 1350);
   }
@@ -1075,8 +1046,7 @@ textarea.inp{min-height:86px; resize:vertical}
 
   window.go = go; window.dGo = dGo;
   applyLayout();
-  track.style.transform = 'translate3d(0,0,0)';
-  if (!deskOn){ prevBtn.disabled = true; dots[0].classList.add('on'); }
+  if (!deskOn) pages[0].classList.add('on');
 })();
 </script>
 </body>
