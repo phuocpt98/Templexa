@@ -63,4 +63,18 @@ var EVENT = {
         description: 'Cựu học sinh THPT Nguyễn Thông niên khoá 1983 – 1986 · Chủ nhật 18/10/2026 · CLB HVN Thanh Thúy, Long An. Hẹn gặp lại nhau nhé!',
         image: '../../products/Invitation/Other/nguyen-thong-trong-toi/og-cover.jpg',
     },
+
+    // Khách 37 — Lê Thuận Hưng, UEL · bản trang trọng (phụ huynh) + bản cinematic (bạn bè). Thêm ?ten=Tên+Khách để hiện tên.
+    'thuan-hung-tot-nghiep': {
+        src: '../../products/Invitation/Other/khach_37_tot-nghiep-trang-trong/index.html',
+        title: 'Thư Mời Dự Lễ Tốt Nghiệp — Lê Thuận Hưng · UEL 2026',
+        description: 'Trân trọng kính mời Quý vị và gia đình đến dự Lễ tốt nghiệp của Lê Thuận Hưng — Cử nhân Luật Kinh doanh, Trường Đại học Kinh tế – Luật. Thứ Bảy 24/10/2026, 11:00 – 13:00, điểm hẹn trước Tòa A3.',
+        image: '../../products/Invitation/Other/khach_37_tot-nghiep-trang-trong/og-cover.jpg',
+    },
+    'thuan-hung-grad-2026': {
+        src: '../../products/Invitation/Other/khach_37_tot-nghiep-cinematic/index.html',
+        title: 'Lê Thuận Hưng — Graduation 2026 · UEL',
+        description: '4 năm, 1 tấm bằng, 1 buổi trưa thứ Bảy. Tới chung vui với mình nha — 24.10.2026, 11:00, UEL, đợi bạn trước Tòa A3.',
+        image: '../../products/Invitation/Other/khach_37_tot-nghiep-cinematic/og-cover.jpg',
+    },
 };
