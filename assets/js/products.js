@@ -23,6 +23,7 @@ const LANDING_MAP = {
     'other|event:anniversary': 'thiep-ky-niem-ngay-cuoi',
     'other|event:reunion': 'thiep-moi-hop-lop',
     'other|event:thoi-noi': 'thiep-thoi-noi-day-thang',
+    'other|event:graduation': 'thiep-tot-nghiep',
 };
 /* LANDING-MAP:END */
 
@@ -134,6 +135,10 @@ const landingHref = (slug) => slug + '.html';
                            d: 'Mẫu thiệp mời thôi nôi, đầy tháng cho bé: hình minh hoạ dễ thương, album ảnh, xác nhận tham dự. Gửi qua Zalo.',
                            h1: '<span class="gradient-text">Thiệp Thôi Nôi, Đầy Tháng</span><br>Mẫu Thiệp Mời Cho Bé',
                            intro: 'Thiệp mời <strong>thôi nôi</strong> và đầy tháng cho bé với hình minh hoạ dễ thương, album ảnh và xác nhận tham dự. Gửi qua Zalo cho họ hàng, ông bà xem trên điện thoại rất dễ.' },
+            graduation:  { t: 'Thiệp Mời Tốt Nghiệp Online — Lễ Tốt Nghiệp Đại Học | Templexa',
+                           d: 'Mẫu thiệp mời tốt nghiệp online cho lễ tốt nghiệp đại học, lễ tri ân lớp, mầm non: đếm ngược, bản đồ, xác nhận tham dự. Gửi qua Zalo.',
+                           h1: '<span class="gradient-text">Thiệp Mời Tốt Nghiệp Online</span><br>Lễ Tốt Nghiệp Đại Học, Mầm Non',
+                           intro: '<strong>Thiệp mời tốt nghiệp</strong> online cho lễ trao bằng đại học, lễ tri ân của lớp và lễ ra trường mầm non. Có chương trình lễ, bản đồ hội trường và xác nhận tham dự.' },
         },
     };
 

@@ -27,16 +27,16 @@ products/
 |------------|----------|------|--------|
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
-| **Invitation** | other | 60 | 52 |
+| **Invitation** | other | 65 | 57 |
 | **Invitation** | wedding | 96 | 62 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **282** | **240** |
+| | **Tong** | **287** | **245** |
 
-_Cap nhat tu data.js: 2026-10-12 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-10-13 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 
@@ -168,7 +168,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 283 | Lời Nhắn QR — Chibi Yêu Thương | `./loi-nhan/chibi-yeu-thuong` |  | public |
 | 284 | Lời Nhắn QR — Hoa Lá Nhẹ Nhàng | `./loi-nhan/hoa-la` |  | public |
 
-### Invitation / other (60)
+### Invitation / other (65)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -216,7 +216,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 229 | Thiệp Sinh Nhật Ty Ni - White Gold Bling Bling | `Invitation/Other/khach_2` | birthday | public |
 | 231 | Thiệp Thôi Nôi - Bé Mimi Pastel Dreamy | `Invitation/Other/gen_231_thoi-noi-be-mimi-pastel` | thoi-noi | public |
 | 234 | Thiệp Đầy Tháng - Little Sailor Adventure | `Invitation/Other/gen_234_day-thang-sailor-adventure` | thoi-noi | public |
-| 236 | Thiệp Mời Lễ Tốt Nghiệp Mầm Giáo | `Invitation/Other/thiep-tot-nghiep-mau-giao` | graduation | public |
+| 236 | Thiệp Mời Lễ Tốt Nghiệp Mầm Non | `Invitation/Other/thiep-tot-nghiep-mau-giao` | graduation | public |
 | 237 | Thiệp Mời Họp Lớp — Sổ Liên Lạc Retro | `Invitation/Other/gen_237_hop-lop-so-lien-lac-retro` | reunion | public |
 | 238 | Thiệp Liên Hoan Gặp Mặt — Cuốn Phim Tuổi Học Trò | `Invitation/Other/gen_237_lien-hoan-phim-retro` | reunion | public |
 | 239 | Thiệp Liên Hoan Gặp Mặt — Bảng Tin Lớp Học | `Invitation/Other/gen_237_lien-hoan-bang-tin` | reunion | public |
@@ -232,6 +232,11 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 293 | Thiệp Mời Lễ Tri Ân & Tốt Nghiệp Lớp — Kỷ Yếu Navy | `Invitation/Other/gen_293_tot-nghiep-lop-yearbook` | graduation | public |
 | 294 | Thiệp Mời Tốt Nghiệp — Blush Lily Báo Giấy | `Invitation/Other/gen_294_tot-nghiep-blush-lily` | graduation | public |
 | 295 | Thiệp Mời Tốt Nghiệp — Lavender Storybook Lật Trang | `Invitation/Other/gen_295_tot-nghiep-storybook-flip` | graduation | public |
+| 296 | Thiệp Kỷ Niệm 10 Năm Ngày Cưới — Editorial Hiện Đại | `Invitation/Other/gen_296_ky-niem-10-nam-ngay-cuoi-editorial` | modern / anniversary | public |
+| 297 | Thiệp Kỷ Niệm 1 Năm Ngày Cưới — Đám Cưới Giấy | `Invitation/Other/gen_297_ky-niem-1-nam-dam-cuoi-giay` | modern / anniversary | public |
+| 298 | Thiệp Kỷ Niệm 50 Năm Ngày Cưới — Đám Cưới Vàng Ông Bà | `Invitation/Other/gen_298_ky-niem-50-nam-dam-cuoi-vang` | traditional / anniversary | public |
+| 299 | Thiệp Mời Tốt Nghiệp Đại Học — Trang Trọng Burgundy | `Invitation/Other/gen_299_tot-nghiep-trang-trong` | luxury / graduation | public |
+| 300 | Thiệp Mời Tốt Nghiệp Đại Học — Cinematic Poster Phim | `Invitation/Other/gen_300_tot-nghiep-cinematic` | modern / graduation | public |
 
 ### Invitation / wedding (96)
 
