@@ -69,7 +69,7 @@ var EVENT = {
         src: '../../products/Invitation/Other/khach_37_tot-nghiep-trang-trong/index.html',
         title: 'Thư Mời Dự Lễ Tốt Nghiệp — Lê Thuận Hưng · UEL 2026',
         description: 'Trân trọng kính mời Quý vị và gia đình đến dự Lễ tốt nghiệp của Lê Thuận Hưng — Cử nhân Luật Kinh doanh, Trường Đại học Kinh tế – Luật. Thứ Bảy 24/10/2026, 11:00 – 13:00, điểm hẹn trước Tòa A3.',
-        image: '../../products/Invitation/Other/khach_37_tot-nghiep-trang-trong/og-cover.jpg',
+        image: '../../products/Invitation/Other/khach_37_tot-nghiep-trang-trong/og-cover.jpg?v=2',
     },
     'thuan-hung-grad-2026': {
         src: '../../products/Invitation/Other/khach_37_tot-nghiep-cinematic/index.html',
