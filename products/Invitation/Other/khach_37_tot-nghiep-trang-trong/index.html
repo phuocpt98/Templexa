@@ -568,8 +568,8 @@ h2{font-size:clamp(1.6rem,6.2vw,2rem);letter-spacing:.01em}
       <div class="guest" id="guestName">Quý vị và gia đình</div>
     </div>
 
-    <p class="invite-text rv d2">Trân trọng kính mời Ông/Bà, Cô/Chú cùng gia đình đến chung vui trong <b>Lễ tốt nghiệp</b> của con — <b>Lê Thuận Hưng</b>, Cử nhân Luật Kinh doanh, Trường Đại học Kinh tế – Luật.</p>
-    <p class="invite-text rv d3">Sự hiện diện của Quý vị là niềm vinh hạnh của con và gia đình, là lời động viên quý giá cho chặng đường mới.</p>
+    <p class="invite-text rv d2">Trân trọng kính mời <span data-g="title">Ông/Bà, Cô/Chú cùng gia đình</span> đến chung vui trong <b>Lễ tốt nghiệp</b> của <span data-g="self">con</span> — <b>Lê Thuận Hưng</b>, Cử nhân Luật Kinh doanh, Trường Đại học Kinh tế – Luật.</p>
+    <p class="invite-text rv d3">Sự hiện diện của Quý vị là niềm vinh hạnh của <span data-g="self">con</span> và gia đình, là lời động viên quý giá cho chặng đường mới.</p>
 
     <div class="invite-sign rv d4">Kính thư<strong>Thuận Hưng &amp; Gia đình</strong></div>
   </section>
@@ -787,7 +787,7 @@ h2{font-size:clamp(1.6rem,6.2vw,2rem);letter-spacing:.01em}
   <section class="sec closing" id="closing">
     <div class="script rv">Trân trọng</div>
     <div class="rule rv" aria-hidden="true"><svg><use href="#i-diamond"/></svg></div>
-    <p class="closing-text rv d1">Gia đình xin chân thành cảm ơn Quý vị đã dành thời gian quý báu đến chung vui. Sự hiện diện của Quý vị là niềm vinh hạnh của con và gia đình trong ngày trọng đại này.</p>
+    <p class="closing-text rv d1">Gia đình xin chân thành cảm ơn Quý vị đã dành thời gian quý báu đến chung vui. Sự hiện diện của Quý vị là niềm vinh hạnh của <span data-g="self">con</span> và gia đình trong ngày trọng đại này.</p>
     <div class="closing-sign rv d2">Thuận Hưng &amp; Gia đình<small>Thứ Bảy, 24 tháng 10 năm 2026</small></div>
     <div class="closing-photo rv d3"><img src="photos/sash-2.webp" alt="Lê Thuận Hưng" width="1200" height="1800" loading="lazy"></div>
 
@@ -832,6 +832,8 @@ h2{font-size:clamp(1.6rem,6.2vw,2rem);letter-spacing:.01em}
     if (!name && id && typeof GUEST_LIST !== 'undefined' && Array.isArray(GUEST_LIST)) {
       const g = GUEST_LIST.find(x => Number(x.id) === id);
       if (g && g.name) name = String(g.name).trim();
+      if (g && g.title) document.querySelectorAll('[data-g="title"]').forEach(el => { el.textContent = String(g.title).trim(); });
+      if (g && g.self)  document.querySelectorAll('[data-g="self"]').forEach(el => { el.textContent = String(g.self).trim(); });
     }
     if (!name) return;
     name = name.slice(0, 80);
