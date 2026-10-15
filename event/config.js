@@ -75,6 +75,6 @@ var EVENT = {
         src: '../../products/Invitation/Other/khach_37_tot-nghiep-cinematic/index.html',
         title: 'Lê Thuận Hưng — Graduation 2026 · UEL',
         description: '4 năm, 1 tấm bằng, và một ngày đáng nhớ. Ghé chung vui với mình nha — 24.10.2026, 11:00, UEL, đợi bạn trước Tòa A3. See you there!',
-        image: '../../products/Invitation/Other/khach_37_tot-nghiep-cinematic/og-cover.jpg?v=2',
+        image: '../../products/Invitation/Other/khach_37_tot-nghiep-cinematic/og-cover.jpg?v=3',
     },
 };
