@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Sửa thiệp — chọn chỗ cần sửa</title>
+<!--
+  Công cụ NỘI BỘ (không link từ đâu, noindex): mở thiệp trong khung, chọn chỗ cần sửa
+  (bấm / chuột phải / kéo chuột khoanh vùng), ghi muốn sửa thế nào → "Copy gửi" dán vào chat
+  hoặc jobs/<job>/feedback.md. Dùng: sua-thiep.html?u=/event/<slug>/  (link khách hoặc đường dẫn thiệp)
+  Chỉ đọc được thiệp CÙNG tên miền (templexa.vn, *.templexa.pages.dev, localhost).
+-->
+<style>
+  :root{--accent:#6366F1;--accent-dark:#4F46E5;--accent-soft:#EEF2FF;--bg:#F4FBFF;--panel:#FFFFFF;--line:#D6ECF7;--text:#0B1B2B;--muted:#5E7A90;--danger:#DC2626;--pick:#F59E0B}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{font-family:Inter,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;overflow:hidden}
+  button,input,textarea{font:inherit}
+  /* ── Thanh trên ── */
+  .bar{display:flex;align-items:center;gap:10px;padding:8px 16px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .bar h1{font-size:15px;font-weight:700;white-space:nowrap}
+  .bar h1 span{color:var(--accent)}
+  .url{flex:1;min-width:200px;display:flex;gap:6px}
+  .url input{flex:1;min-width:0;height:36px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:#fff}
+  .btn{height:36px;padding:0 14px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;color:var(--text)}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.primary:hover{background:var(--accent-dark);color:#fff}
+  .btn.on{background:var(--pick);border-color:var(--pick);color:#fff}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg button{height:34px;padding:0 12px;border:0;background:#fff;cursor:pointer;color:var(--muted)}
+  .seg button.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+  kbd{font-size:11px;padding:1px 5px;border:1px solid currentColor;border-radius:4px;opacity:.7}
+  /* ── Khung chính ── */
+  .main{flex:1;display:flex;min-height:0}
+  .stage{flex:1;display:flex;align-items:center;justify-content:center;padding:16px;min-width:0;position:relative;overflow:auto}
+  .device{position:relative;width:390px;height:100%;max-height:860px;background:#fff;border-radius:28px;box-shadow:0 0 0 10px #1f2937,0 20px 50px rgba(0,0,0,.25);overflow:hidden;flex-shrink:0;transition:width .25s}
+  .device.tablet{width:768px;border-radius:18px}
+  .device.desktop{width:100%;max-height:none;border-radius:6px;box-shadow:0 0 0 1px var(--line),0 10px 30px rgba(0,0,0,.08)}
+  .device iframe{width:100%;height:100%;border:0;display:block}
+  .hint{position:absolute;left:50%;top:22px;transform:translateX(-50%);background:var(--pick);color:#fff;padding:6px 14px;border-radius:999px;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.2);pointer-events:none;opacity:0;transition:opacity .2s;z-index:5;white-space:nowrap}
+  .picking .hint{opacity:1}
+  /* lớp vẽ khung chọn — nằm trên iframe, không chặn chuột */
+  .overlay{position:absolute;inset:0;pointer-events:none;z-index:4}
+  .hl{position:absolute;border:2px solid var(--pick);background:rgba(245,158,11,.12);border-radius:3px;display:none}
+  .hl-tag{position:absolute;left:-2px;bottom:100%;background:var(--pick);color:#fff;font-size:11px;padding:2px 6px;border-radius:3px 3px 0 0;white-space:nowrap;max-width:320px;overflow:hidden;text-overflow:ellipsis}
+  .hl.below .hl-tag{bottom:auto;top:100%;border-radius:0 0 3px 3px}
+  .drag{position:absolute;border:2px dashed var(--accent);background:rgba(99,102,241,.1);display:none}
+  .mark{position:absolute;border:2px solid var(--accent);border-radius:3px}
+  .mark b{position:absolute;left:-2px;top:-20px;background:var(--accent);color:#fff;font-size:11px;min-width:18px;height:18px;line-height:18px;text-align:center;border-radius:9px;padding:0 5px}
+  .flash{animation:flash 1.2s ease}
+  @keyframes flash{0%,100%{box-shadow:none}30%,70%{box-shadow:0 0 0 6px rgba(99,102,241,.5)}}
+  /* ── Phiếu sửa ── */
+  .panel{width:380px;flex-shrink:0;background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+  .panel header{padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+  .panel header h2{font-size:15px}
+  .panel header p{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+  .list{flex:1;overflow:auto;padding:10px 12px;display:flex;flex-direction:column;gap:10px}
+  .empty{color:var(--muted);font-size:13.5px;line-height:1.7;padding:8px 4px}
+  .empty li{margin-left:18px}
+  .item{border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
+  .item .no{grid-row:span 3;width:24px;height:24px;border-radius:12px;background:var(--accent);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .item .where{font-size:12px;color:var(--muted);word-break:break-all;line-height:1.4}
+  .item .what{font-size:13px;line-height:1.4;display:flex;gap:8px;align-items:flex-start}
+  .item .what img{width:52px;height:52px;object-fit:cover;border-radius:6px;border:1px solid var(--line);flex-shrink:0}
+  .item textarea{grid-column:2;width:100%;min-height:54px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;resize:vertical;font-size:13px}
+  .item textarea:focus,.note textarea:focus,.url input:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+  .item .acts{grid-column:2;display:flex;gap:6px;flex-wrap:wrap}
+  .item .acts button{font-size:12px;height:26px;padding:0 8px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer;color:var(--muted)}
+  .item .acts button:hover{color:var(--accent);border-color:var(--accent)}
+  .item .acts .del:hover{color:var(--danger);border-color:var(--danger)}
+  .note{padding:10px 12px;border-top:1px solid var(--line)}
+  .note textarea{width:100%;min-height:48px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;resize:vertical;font-size:13px}
+  .foot{display:flex;gap:8px;padding:0 12px 12px}
+  .foot .btn{flex:1;justify-content:center}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#111827;color:#fff;padding:10px 18px;border-radius:10px;font-size:14px;opacity:0;transition:.25s;z-index:50;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%)}
+  /* menu chuột phải */
+  .menu{position:fixed;z-index:60;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:6px;min-width:210px;display:none}
+  .menu button{display:flex;width:100%;align-items:center;gap:8px;padding:8px 10px;border:0;background:none;border-radius:6px;cursor:pointer;text-align:left;font-size:13.5px;color:var(--text)}
+  .menu button:hover{background:var(--accent-soft);color:var(--accent)}
+  .menu hr{border:0;border-top:1px solid var(--line);margin:4px 0}
+  .menu .t{font-size:11.5px;color:var(--muted);padding:4px 10px 6px;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .err{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:30px;color:var(--muted);font-size:14px;line-height:1.7;background:#fff}
+  @media (max-width:900px){
+    body{overflow:auto}
+    .main{flex-direction:column}
+    .stage{min-height:78vh;padding:12px}
+    .device,.device.tablet{width:100%;max-width:420px;height:74vh}
+    .panel{width:100%;border-left:0;border-top:1px solid var(--line)}
+    .list{max-height:none}
+    .hide-sm{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>✏️ Sửa <span>thiệp</span></h1>
+  <form class="url" id="urlForm">
+    <input id="urlInput" placeholder="Dán link thiệp: templexa.vn/event/ten-khach/ hoặc /products/…/index.html" autocomplete="off">
+    <button class="btn" type="submit">Mở</button>
+  </form>
+  <div class="seg" id="devices">
+    <button type="button" data-d="phone" class="active">📱 Điện thoại</button>
+    <button type="button" data-d="tablet" class="hide-sm">Tablet</button>
+    <button type="button" data-d="desktop" class="hide-sm">💻 Máy tính</button>
+  </div>
+  <button class="btn" id="pickBtn" type="button" title="Bật/tắt chế độ chọn (phím P)">🎯 Chọn chỗ sửa <kbd>P</kbd></button>
+</div>
+
+<div class="main">
+  <div class="stage" id="stage">
+    <div class="hint">Bấm vào chỗ cần sửa · kéo chuột để khoanh vùng · <b>↑</b> chọn khối lớn hơn · <b>Esc</b> thoát</div>
+    <div class="device" id="device">
+      <iframe id="frame" title="Thiệp"></iframe>
+      <div class="overlay" id="overlay">
+        <div class="hl" id="hl"><span class="hl-tag" id="hlTag"></span></div>
+        <div class="drag" id="drag"></div>
+      </div>
+      <div class="err" id="err"></div>
+    </div>
+  </div>
+
+  <aside class="panel">
+    <header>
+      <h2>Phiếu sửa <span id="count"></span></h2>
+      <p>Mỗi chỗ chọn thành 1 dòng. Ghi <b>muốn sửa thế nào</b> rồi bấm <b>Copy gửi</b> và dán vào chat cho Muse/Claude (hoặc vào <code>feedback.md</code> của job).</p>
+    </header>
+    <div class="list" id="list"></div>
+    <div class="note"><textarea id="generalNote" placeholder="Ghi chú chung (không gắn chỗ nào) — vd: tổng thể muốn tông ấm hơn"></textarea></div>
+    <div class="foot">
+      <button class="btn" type="button" id="clearBtn">Xoá hết</button>
+      <button class="btn primary" type="button" id="copyBtn">📋 Copy gửi</button>
+    </div>
+  </aside>
+</div>
+
+<div class="menu" id="menu"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var frame = $('frame'), device = $('device'), overlay = $('overlay'), hl = $('hl'), hlTag = $('hlTag'), drag = $('drag'), menu = $('menu');
+  var picking = false, hovered = null, doc = null, win = null, pageUrl = '', items = [], dragStart = null, menuEl = null;
+  // class chỉ thể hiện trạng thái hiệu ứng — bỏ khi dựng selector cho ổn định
+  var STATE = /^(visible|in-view|inview|active|show|shown|open|opened|is-|has-|revealed?|animated?|aos-|fade|in$|on$|playing|loaded|hover)/;
+
+  // ───────── mở thiệp ─────────
+  function normalize(u) {
+    u = (u || '').trim();
+    if (!u) return '';
+    u = u.replace(/^https?:\/\/(www\.)?templexa\.vn/i, '').replace(/^https?:\/\/[^/]*templexa\.pages\.dev/i, '');
+    if (/^https?:\/\//i.test(u)) {
+      try { var x = new URL(u); if (x.origin !== location.origin) return null; u = x.pathname + x.search + x.hash; } catch (e) { return null; }
+    }
+    if (u.charAt(0) !== '/') u = '/' + u;
+    return u;
+  }
+  function open(u) {
+    var path = normalize(u);
+    if (path === null) return showErr('Chỉ mở được thiệp trên cùng trang web (templexa.vn hoặc bản xem thử .pages.dev).');
+    if (!path) return;
+    $('err').style.display = 'none';
+    $('urlInput').value = path;
+    var qs = new URLSearchParams(location.search); qs.set('u', path);
+    history.replaceState(null, '', location.pathname + '?' + qs.toString());
+    pageUrl = location.origin + path;
+    load();
+    frame.src = path;
+  }
+  function showErr(m) { $('err').innerHTML = m; $('err').style.display = 'flex'; }
+
+  // Link khách (/event/x/) là trang bọc iframe → đi xuyên vào thiệp thật bên trong
+  frame.addEventListener('load', function () { attach(frame); });
+  function attach(fr) {
+    var d;
+    try { d = fr.contentDocument; } catch (e) { d = null; }
+    if (!d) return showErr('Không đọc được trang này (khác tên miền).');
+    var inner = d.querySelector('iframe#f') || (d.body && d.body.children.length <= 3 && d.querySelector('body > iframe'));
+    if (inner) {
+      inner.addEventListener('load', function () { attach(inner); });
+      try { if (inner.contentDocument && inner.contentDocument.readyState === 'complete' && inner.contentDocument.body && inner.contentDocument.body.childElementCount) attach(inner); } catch (e) {}
+      return;
+    }
+    doc = d; win = fr.contentWindow;
+    bind();
+    renderMarks();
+  }
+  function frameOffset() {
+    // toạ độ của tài liệu đang chọn so với khung .device (cộng dồn qua các iframe lồng)
+    var x = 0, y = 0, w = win;
+    while (w && w !== window) {
+      var fe = w.frameElement; if (!fe) break;
+      var r = fe.getBoundingClientRect(); x += r.left; y += r.top; w = w.parent;
+    }
+    var d = device.getBoundingClientRect();
+    return { x: x - d.left, y: y - d.top };
+  }
+
+  // ───────── lắng nghe trong thiệp ─────────
+  function bind() {
+    if (win.__suaBound) return; win.__suaBound = true;
+    // capture ở window → chạy TRƯỚC script chống chuột phải của thiệp
+    win.addEventListener('contextmenu', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      openMenu(e.target, e);
+    }, true);
+    win.addEventListener('mousemove', function (e) {
+      if (!picking) return;
+      if (dragStart) return dragMove(e);
+      setHover(e.target);
+    }, true);
+    win.addEventListener('mousedown', function (e) {
+      closeMenu();
+      if (!picking || e.button !== 0) return;
+      e.preventDefault(); e.stopPropagation();
+      dragStart = { x: e.clientX, y: e.clientY, moved: false };
+    }, true);
+    win.addEventListener('mouseup', function (e) {
+      if (!picking || !dragStart) return;
+      e.preventDefault(); e.stopPropagation();
+      var s = dragStart; dragStart = null; drag.style.display = 'none';
+      if (s.moved) pickRegion(s.x, s.y, e.clientX, e.clientY);
+      else if (hovered) add(hovered, 'bấm');
+    }, true);
+    // chặn click khi đang chọn để thiệp không mở link / phát nhạc / gửi form
+    ['click', 'dblclick', 'submit'].forEach(function (t) {
+      win.addEventListener(t, function (e) { if (picking) { e.preventDefault(); e.stopPropagation(); } }, true);
+    });
+    // điện thoại: chạm nhẹ = chọn, vuốt = vẫn cuộn thiệp bình thường
+    var touch = null;
+    win.addEventListener('touchstart', function (e) { if (picking) { var t = e.touches[0]; touch = { x: t.clientX, y: t.clientY }; e.stopPropagation(); } }, true);
+    win.addEventListener('touchmove', function (e) { if (touch) { var t = e.touches[0]; if (Math.abs(t.clientX - touch.x) + Math.abs(t.clientY - touch.y) > 10) touch = null; } }, true);
+    win.addEventListener('touchend', function (e) {
+      if (!picking || !touch) return;
+      touch = null; e.preventDefault(); e.stopPropagation();
+      var t = e.changedTouches[0], el = doc.elementFromPoint(t.clientX, t.clientY);
+      if (el) { setHover(el); add(el, 'chạm'); }
+    }, { capture: true, passive: false });
+    win.addEventListener('keydown', onKey, true);
+    win.addEventListener('scroll', function () { if (hovered) drawHl(hovered); renderMarks(); }, true);
+    win.addEventListener('resize', renderMarks);
+  }
+  function onKey(e) {
+    if (/^(INPUT|TEXTAREA)$/.test((e.target || {}).tagName) && e.target.ownerDocument === document) return;
+    if (e.key === 'p' || e.key === 'P') { e.preventDefault(); setPicking(!picking); }
+    else if (e.key === 'Escape') { setPicking(false); closeMenu(); }
+    else if (picking && hovered && e.key === 'ArrowUp' && hovered.parentElement && hovered.parentElement !== doc.documentElement) { e.preventDefault(); setHover(hovered.parentElement, true); }
+    else if (picking && hovered && e.key === 'ArrowDown' && hovered.firstElementChild) { e.preventDefault(); setHover(hovered.firstElementChild, true); }
+    else if (picking && hovered && e.key === 'Enter') { e.preventDefault(); add(hovered, 'phím'); }
+  }
+  document.addEventListener('keydown', onKey);
+  document.addEventListener('mousedown', function (e) { if (!menu.contains(e.target)) closeMenu(); });
+
+  function setPicking(on) {
+    picking = on;
+    $('pickBtn').classList.toggle('on', on);
+    $('stage').classList.toggle('picking', on);
+    if (!on) { hovered = null; hl.style.display = 'none'; drag.style.display = 'none'; dragStart = null; }
+    if (doc) doc.documentElement.style.cursor = on ? 'crosshair' : '';
+  }
+  $('pickBtn').onclick = function () { setPicking(!picking); };
+
+  // ───────── khung sáng khi rê chuột ─────────
+  function setHover(el, keep) {
+    if (!el || el.nodeType !== 1 || el === doc.documentElement) return;
+    if (el === doc.body && !keep) return;
+    hovered = el; drawHl(el);
+  }
+  function drawHl(el) {
+    var r = el.getBoundingClientRect(), o = frameOffset();
+    hl.style.display = 'block';
+    hl.style.left = (o.x + r.left) + 'px'; hl.style.top = (o.y + r.top) + 'px';
+    hl.style.width = r.width + 'px'; hl.style.height = r.height + 'px';
+    hl.classList.toggle('below', r.top < 22);
+    hlTag.textContent = shortName(el) + (textOf(el) ? ' · "' + textOf(el).slice(0, 30) + '"' : '');
+  }
+
+  // ───────── kéo chuột khoanh vùng ─────────
+  function dragMove(e) {
+    var s = dragStart;
+    if (!s.moved && Math.abs(e.clientX - s.x) + Math.abs(e.clientY - s.y) < 8) return;
+    s.moved = true; hl.style.display = 'none';
+    var o = frameOffset();
+    drag.style.display = 'block';
+    drag.style.left = (o.x + Math.min(s.x, e.clientX)) + 'px'; drag.style.top = (o.y + Math.min(s.y, e.clientY)) + 'px';
+    drag.style.width = Math.abs(e.clientX - s.x) + 'px'; drag.style.height = Math.abs(e.clientY - s.y) + 'px';
+  }
+  function pickRegion(x1, y1, x2, y2) {
+    var L = Math.min(x1, x2), T = Math.min(y1, y2), R = Math.max(x1, x2), B = Math.max(y1, y2);
+    // chỉ tính phần có NỘI DUNG (chữ trực tiếp, ảnh, video, bản đồ) — bỏ hạt trang trí, lớp phủ cố định
+    var inside = Array.prototype.filter.call(doc.body.querySelectorAll('*'), function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.width < 4 || r.height < 4 || r.left < L - 4 || r.top < T - 4 || r.right > R + 4 || r.bottom > B + 4) return false;
+      var cs = win.getComputedStyle(el);
+      if (cs.position === 'fixed' || cs.visibility === 'hidden' || +cs.opacity === 0) return false;
+      if (/^(IMG|VIDEO|IFRAME|CANVAS|PICTURE|INPUT|TEXTAREA|BUTTON)$/.test(el.tagName)) return true;
+      return Array.prototype.some.call(el.childNodes, function (n) { return n.nodeType === 3 && n.textContent.trim(); });
+    });
+    var target = inside.length ? commonAncestor(inside) : doc.elementFromPoint((L + R) / 2, (T + B) / 2);
+    if (target === doc.body || target === doc.documentElement) target = doc.elementFromPoint((L + R) / 2, (T + B) / 2);
+    if (target) add(target, 'vùng');
+  }
+  function commonAncestor(list) {
+    var a = list[0];
+    while (a && !list.every(function (el) { return a.contains(el); })) a = a.parentElement;
+    return a || doc.body;
+  }
+
+  // ───────── mô tả phần tử ─────────
+  function cleanClasses(el) {
+    return Array.prototype.filter.call(el.classList || [], function (c) { return !STATE.test(c) && c.length < 40; }).slice(0, 2);
+  }
+  function shortName(el) {
+    if (el.id) return '#' + el.id;
+    var c = cleanClasses(el);
+    return el.tagName.toLowerCase() + (c.length ? '.' + c.join('.') : '');
+  }
+  function selectorOf(el) {
+    var parts = [], cur = el, depth = 0;
+    while (cur && cur.nodeType === 1 && cur !== doc.body && depth < 5) {
+      if (cur.id) { parts.unshift('#' + CSS.escape(cur.id)); break; }
+      var p = cur.tagName.toLowerCase(), c = cleanClasses(cur);
+      if (c.length) p += '.' + c.map(CSS.escape).join('.');
+      var par = cur.parentElement;
+      if (par) {
+        var same = Array.prototype.filter.call(par.children, function (s) { return s.tagName === cur.tagName; });
+        if (same.length > 1 && !c.length) p += ':nth-of-type(' + (same.indexOf(cur) + 1) + ')';
+      }
+      parts.unshift(p); cur = par; depth++;
+    }
+    var sel = parts.join(' > ');
+    try {
+      var all = doc.querySelectorAll(sel);
+      if (all.length > 1) sel += ' (thứ ' + (Array.prototype.indexOf.call(all, el) + 1) + '/' + all.length + ')';
+    } catch (e) {}
+    return sel || el.tagName.toLowerCase();
+  }
+  function sectionOf(el) {
+    var s = el.closest('section, header, footer, [class*="section"], [id]:not(body)');
+    while (s && s.parentElement && s.parentElement.closest && s.tagName !== 'SECTION' && s.parentElement.closest('section')) s = s.parentElement.closest('section');
+    if (!s) return '';
+    var h = s.querySelector('h1, h2, h3, .title, .section-title');
+    var name = s.id ? '#' + s.id : shortName(s);
+    return name + (h && textOf(h) ? ' "' + textOf(h).slice(0, 28) + '"' : '');
+  }
+  function textOf(el) { return (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim(); }
+  function imageOf(el) {
+    var img = el.tagName === 'IMG' ? el : (el.querySelectorAll('img').length === 1 ? el.querySelector('img') : null);
+    if (img) return img.currentSrc || img.src;
+    var bg = win.getComputedStyle(el).backgroundImage, m = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+    return m ? m[1] : '';
+  }
+  function relPath(u) {
+    try {
+      var x = new URL(u, doc.baseURI), base = doc.location.pathname.replace(/[^/]*$/, '');
+      return x.pathname.indexOf(base) === 0 ? decodeURIComponent(x.pathname.slice(base.length)) : decodeURIComponent(x.pathname);
+    } catch (e) { return u; }
+  }
+
+  // ───────── phiếu sửa ─────────
+  function storeKey() { return 'suathiep:' + ($('urlInput').value || ''); }
+  function save() {
+    try { localStorage.setItem(storeKey(), JSON.stringify({ items: items.map(function (i) { return { sel: i.sel, sec: i.sec, text: i.text, img: i.img, note: i.note, how: i.how }; }), note: $('generalNote').value })); } catch (e) {}
+  }
+  function load() {
+    items = []; $('generalNote').value = '';
+    try {
+      var s = JSON.parse(localStorage.getItem(storeKey()) || 'null');
+      if (s) { items = s.items || []; $('generalNote').value = s.note || ''; }
+    } catch (e) {}
+    render();
+  }
+  function add(el, how) {
+    var img = imageOf(el), text = textOf(el);
+    var it = { el: el, sel: selectorOf(el), sec: sectionOf(el), text: text.length > 90 ? text.slice(0, 90) + '…' : text, img: img ? relPath(img) : '', imgUrl: img, note: '', how: how };
+    items.push(it); save(); render();
+    toast('Đã thêm chỗ ' + items.length + ' — ghi muốn sửa thế nào bên phải');
+    setTimeout(function () { var t = $('list').querySelectorAll('textarea'); if (t.length) t[t.length - 1].focus(); }, 50);
+  }
+  function resolveEl(it) {
+    if (it.el && it.el.isConnected && it.el.ownerDocument === doc) return it.el;
+    if (!doc) return null;
+    try {
+      var m = it.sel.match(/^(.*?)(?: \(thứ (\d+)\/\d+\))?$/), all = doc.querySelectorAll(m[1]);
+      return (it.el = all[(m[2] ? +m[2] : 1) - 1] || null);
+    } catch (e) { return null; }
+  }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+  function render() {
+    var list = $('list');
+    $('count').textContent = items.length ? '(' + items.length + ')' : '';
+    if (!items.length) {
+      list.innerHTML = '<div class="empty"><b>Cách chọn chỗ cần sửa:</b><ul>' +
+        '<li>Bấm <b>🎯 Chọn chỗ sửa</b> (hoặc phím <b>P</b>) → rê chuột lên thiệp, chỗ nào sáng viền cam thì <b>bấm</b> để chọn.</li>' +
+        '<li><b>Kéo chuột</b> khoanh một vùng để chọn cả khối.</li>' +
+        '<li><b>Chuột phải</b> vào bất kỳ chỗ nào → menu chọn nhanh, kể cả khi không bật chế độ chọn.</li>' +
+        '<li>Chọn nhỏ quá? Bấm <b>↑</b> để lấy khối lớn hơn.</li>' +
+        '<li>Thiệp có phong bì: tắt chế độ chọn, bấm mở thiệp như khách, rồi bật lại.</li></ul></div>';
+    } else {
+      list.innerHTML = items.map(function (it, i) {
+        return '<div class="item" data-i="' + i + '"><span class="no">' + (i + 1) + '</span>' +
+          '<div class="where">' + (it.sec ? 'Phần ' + esc(it.sec) + ' › ' : '') + esc(it.sel) + '</div>' +
+          '<div class="what">' + (it.img ? '<img src="' + esc(it.imgUrl || it.img) + '" alt="" onerror="this.remove()">' : '') +
+          '<span>' + (it.text ? '"' + esc(it.text) + '"' : '<i>(không có chữ)</i>') + (it.img ? '<br><small>ảnh: ' + esc(it.img) + '</small>' : '') + '</span></div>' +
+          '<textarea placeholder="Muốn sửa thế nào? vd: đổi thành &quot;…&quot; / chữ to hơn / thay ảnh anh_3">' + esc(it.note || '') + '</textarea>' +
+          '<div class="acts"><button data-a="show">👁 Xem</button><button data-a="up">⬆ Khối lớn hơn</button><button class="del" data-a="del">✕ Xoá</button></div></div>';
+      }).join('');
+    }
+    renderMarks();
+  }
+  $('list').addEventListener('input', function (e) {
+    var box = e.target.closest('.item'); if (!box) return;
+    items[+box.dataset.i].note = e.target.value; save();
+  });
+  $('list').addEventListener('click', function (e) {
+    var b = e.target.closest('button'), box = e.target.closest('.item'); if (!b || !box) return;
+    var i = +box.dataset.i, it = items[i], el = resolveEl(it);
+    if (b.dataset.a === 'del') { items.splice(i, 1); save(); render(); }
+    else if (b.dataset.a === 'show') {
+      if (!el) return toast('Không tìm thấy chỗ này trong thiệp (có thể cần mở phong bì trước)');
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function () { renderMarks(); var m = overlay.querySelector('.mark[data-i="' + i + '"]'); if (m) { m.classList.remove('flash'); void m.offsetWidth; m.classList.add('flash'); } }, 450);
+    } else if (b.dataset.a === 'up') {
+      if (!el || !el.parentElement || el.parentElement === doc.body) return;
+      var note = it.note; items[i] = null;
+      var up = el.parentElement, t = textOf(up), img = imageOf(up);
+      items[i] = { el: up, sel: selectorOf(up), sec: sectionOf(up), text: t.length > 90 ? t.slice(0, 90) + '…' : t, img: img ? relPath(img) : '', imgUrl: img, note: note, how: it.how };
+      save(); render();
+    }
+  });
+  $('generalNote').addEventListener('input', save);
+  $('clearBtn').onclick = function () {
+    if (!items.length && !$('generalNote').value) return;
+    items = []; $('generalNote').value = ''; save(); render(); toast('Đã xoá phiếu sửa');
+  };
+
+  // đánh số các chỗ đã chọn ngay trên thiệp
+  function renderMarks() {
+    Array.prototype.forEach.call(overlay.querySelectorAll('.mark'), function (m) { m.remove(); });
+    if (!doc) return;
+    var o = frameOffset();
+    items.forEach(function (it, i) {
+      var el = resolveEl(it); if (!el) return;
+      var r = el.getBoundingClientRect(); if (!r.width && !r.height) return;
+      // bị phong bì / lớp khác che → không vẽ (bấm "Xem" sau khi mở thiệp)
+      var cx = Math.min(Math.max(r.left + r.width / 2, 0), win.innerWidth - 1), cy = Math.min(Math.max(r.top + Math.min(r.height / 2, 20), 0), win.innerHeight - 1);
+      var hit = doc.elementFromPoint(cx, cy);
+      if (hit && !(el.contains(hit) || hit.contains(el))) return;
+      var m = document.createElement('div');
+      m.className = 'mark'; m.dataset.i = i;
+      m.style.cssText = 'left:' + (o.x + r.left) + 'px;top:' + (o.y + r.top) + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
+      m.innerHTML = '<b>' + (i + 1) + '</b>';
+      overlay.appendChild(m);
+    });
+  }
+
+  // ───────── copy gửi ─────────
+  function buildText() {
+    var d = new Date(), day = d.getDate() + '/' + (d.getMonth() + 1);
+    var file = doc ? decodeURIComponent(doc.location.pathname).replace(/^\//, '') : '';
+    var lines = ['Sửa thiệp: ' + location.origin.replace(/^https?:\/\/[^/]*pages\.dev/, 'https://templexa.vn') + ($('urlInput').value || '')];
+    if (file && file !== ($('urlInput').value || '').replace(/^\//, '')) lines.push('File: ' + file);
+    if ($('generalNote').value.trim()) lines.push('Ghi chung: ' + $('generalNote').value.trim());
+    items.forEach(function (it, i) {
+      lines.push('- [ ] (' + day + ' · ' + (i + 1) + ') [' + (it.sec ? it.sec + ' › ' : '') + it.sel + ']' +
+        (it.text ? ' "' + it.text + '"' : '') + (it.img ? ' · ảnh: ' + it.img : '') +
+        ' → ' + (it.note.trim() || '(chưa ghi muốn sửa gì)'));
+    });
+    return lines.join('\n');
+  }
+  $('copyBtn').onclick = function () {
+    if (!items.length && !$('generalNote').value.trim()) return toast('Chưa chọn chỗ nào');
+    var empty = items.filter(function (i) { return !i.note.trim(); }).length;
+    copy(buildText(), empty ? 'Đã copy — còn ' + empty + ' chỗ chưa ghi muốn sửa gì' : 'Đã copy — dán vào chat hoặc feedback.md');
+  };
+  function copy(text, msg) {
+    var done = function () { toast(msg || 'Đã copy'); };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+    function fallback() {
+      var t = document.createElement('textarea'); t.value = text; t.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); done(); } catch (e) { toast('Không copy được — chọn chữ rồi Ctrl+C'); }
+      t.remove();
+    }
+  }
+
+  // ───────── menu chuột phải ─────────
+  function openMenu(el, e) {
+    menuEl = el; var o = frameOffset(), d = device.getBoundingClientRect(), img = imageOf(el);
+    var x = d.left + o.x + e.clientX, y = d.top + o.y + e.clientY;
+    setHover(el, true);
+    menu.innerHTML = '<div class="t">' + esc(shortName(el)) + (textOf(el) ? ' · "' + esc(textOf(el).slice(0, 30)) + '"' : '') + '</div>' +
+      '<button data-m="add">🎯 Chọn chỗ này để sửa</button>' +
+      (el.parentElement && el.parentElement !== doc.body ? '<button data-m="up">⬆ Chọn cả khối bao ngoài</button>' : '') +
+      '<hr>' +
+      (textOf(el) ? '<button data-m="text">📋 Copy chữ</button>' : '') +
+      (img ? '<button data-m="img">🖼 Copy tên ảnh</button>' : '') +
+      '<button data-m="sel">🔗 Copy vị trí (selector)</button>' +
+      '<hr><button data-m="pick">' + (picking ? '⏹ Tắt chế độ chọn' : '▶ Bật chế độ chọn (P)') + '</button>';
+    menu.style.display = 'block';
+    var mw = menu.offsetWidth, mh = menu.offsetHeight;
+    menu.style.left = Math.min(x, innerWidth - mw - 8) + 'px';
+    menu.style.top = Math.min(y, innerHeight - mh - 8) + 'px';
+  }
+  function closeMenu() { menu.style.display = 'none'; if (!picking) hl.style.display = 'none'; }
+  menu.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b || !menuEl) return;
+    var a = b.dataset.m;
+    if (a === 'add') add(menuEl, 'chuột phải');
+    else if (a === 'up') add(menuEl.parentElement, 'chuột phải');
+    else if (a === 'text') copy(textOf(menuEl), 'Đã copy chữ');
+    else if (a === 'img') copy(relPath(imageOf(menuEl)), 'Đã copy tên ảnh');
+    else if (a === 'sel') copy(selectorOf(menuEl), 'Đã copy vị trí');
+    else if (a === 'pick') setPicking(!picking);
+    closeMenu();
+  });
+
+  // ───────── khác ─────────
+  var tt;
+  function toast(m) { var t = $('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(tt); tt = setTimeout(function () { t.classList.remove('show'); }, 2600); }
+  $('devices').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    Array.prototype.forEach.call(this.children, function (x) { x.classList.toggle('active', x === b); });
+    device.className = 'device' + (b.dataset.d === 'phone' ? '' : ' ' + b.dataset.d);
+    setTimeout(function () { renderMarks(); if (hovered) drawHl(hovered); }, 300);
+  });
+  window.addEventListener('resize', renderMarks);
+  $('urlForm').addEventListener('submit', function (e) { e.preventDefault(); open($('urlInput').value); });
+
+  var start = new URLSearchParams(location.search).get('u');
+  if (start) open(start);
+  else { render(); showErr('Dán link thiệp vào ô phía trên rồi bấm <b>Mở</b>.<br><small>vd: templexa.vn/event/thuan-hung-grad-2026/</small>'); }
+})();
+</script>
+</body>
+</html>
