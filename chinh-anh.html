@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chỉnh ảnh strip — Templexa</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,'Segoe UI',sans-serif; background:#faf7f5; color:#333; padding:20px; max-width:900px; margin:0 auto; }
+  h1 { font-size:1.3rem; margin-bottom:6px; }
+  p.hint { color:#888; font-size:.85rem; margin-bottom:18px; }
+  .editor-wrap { background:#fff; border-radius:14px; padding:18px; box-shadow:0 2px 12px rgba(0,0,0,.06); margin-bottom:18px; }
+  .editor-label { font-size:.8rem; color:#999; letter-spacing:.1em; margin-bottom:10px; }
+  #editor { position:relative; width:100%; aspect-ratio:2.17; overflow:hidden; border-radius:10px; background:#eee; cursor:grab; touch-action:none; }
+  #editor:active { cursor:grabbing; }
+  #editor img { position:absolute; left:0; width:100%; user-select:none; -webkit-user-drag:none; }
+  .frame-line { position:absolute; left:0; right:0; top:0; bottom:0; border:2px dashed #ff4969; border-radius:10px; pointer-events:none; }
+  .previews { display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:18px; }
+  .preview-box { background:#fff; border-radius:14px; padding:14px; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+  .preview-box .editor-label { margin-bottom:8px; }
+  .pv { position:relative; overflow:hidden; border-radius:8px; background:#eee; margin:0 auto; }
+  .pv img { position:absolute; left:0; width:100%; }
+  #pv-mobile { width:390px; max-width:100%; aspect-ratio:390/180; }
+  #pv-desktop { width:100%; aspect-ratio:1280/260; }
+  .actions { display:flex; gap:10px; flex-wrap:wrap; }
+  button { border:none; border-radius:999px; padding:12px 26px; font-size:.95rem; cursor:pointer; }
+  .btn-main { background:#ff4969; color:#fff; }
+  .btn-sub { background:#fff; color:#ff4969; border:1.5px solid #ff4969; }
+  #file { display:none; }
+  .coords { font-size:.8rem; color:#999; margin-top:10px; }
+</style>
+</head>
+<body>
+<h1>🖼️ Chỉnh vị trí ảnh strip</h1>
+<p class="hint">Kéo ảnh lên/xuống trong khung bên dưới. Xem trước kết quả ở cả điện thoại và máy tính, ưng thì bấm "Tải ảnh đã cắt" rồi gửi file cho mình để cập nhật lên thiệp.</p>
+
+<div class="editor-wrap">
+  <div class="editor-label">KÉO ẢNH TRONG KHUNG NÀY</div>
+  <div id="editor">
+    <img id="editImg" alt="">
+    <div class="frame-line"></div>
+  </div>
+  <div class="actions" style="margin-top:14px">
+    <button class="btn-sub" onclick="document.getElementById('file').click()">Chọn ảnh khác</button>
+    <input type="file" id="file" accept="image/*">
+  </div>
+  <div class="coords" id="coords"></div>
+</div>
+
+<div class="previews">
+  <div class="preview-box">
+    <div class="editor-label">XEM TRƯỚC — ĐIỆN THOẠI (390×180)</div>
+    <div class="pv" id="pv-mobile"><img id="pvImgM" alt=""></div>
+  </div>
+  <div class="preview-box">
+    <div class="editor-label">XEM TRƯỚC — MÁY TÍNH (1280×260)</div>
+    <div class="pv" id="pv-desktop"><img id="pvImgD" alt=""></div>
+  </div>
+</div>
+
+<div class="actions">
+  <button class="btn-main" id="download">⬇ Tải ảnh đã cắt (đúng tỉ lệ strip)</button>
+</div>
+
+<script>
+const editor = document.getElementById('editor');
+const editImg = document.getElementById('editImg');
+const pvImgM = document.getElementById('pvImgM');
+const pvImgD = document.getElementById('pvImgD');
+const coordsEl = document.getElementById('coords');
+let imgW = 0, imgH = 0, offsetY = 0, dragging = false, startY = 0, startOff = 0;
+
+// Ảnh mặc định: strip hiện tại của thiệp
+const DEFAULT_SRC = '../products/Invitation/Wedding/khach_yen-nhi-hoang-tu/photos/anh_10.webp';
+
+function loadSrc(src) {
+  const im = new Image();
+  im.onload = () => {
+    imgW = im.naturalWidth; imgH = im.naturalHeight;
+    editImg.src = src; pvImgM.src = src; pvImgD.src = src;
+    // căn giữa ban đầu
+    const edH = editor.clientWidth / 2.17;
+    const scaledH = edH * (imgH / imgW) / (editor.clientWidth / imgW);
+    offsetY = 0;
+    render();
+  };
+  im.src = src;
+}
+
+function render() {
+  const edW = editor.clientWidth;
+  const scale = edW / imgW;
+  const dispH = imgH * scale;
+  const frameH = edW / 2.17;
+  // giới hạn kéo trong phạm vi ảnh
+  const maxOff = 0, minOff = frameH - dispH;
+  offsetY = Math.max(minOff, Math.min(maxOff, offsetY));
+  editImg.style.width = edW + 'px';
+  editImg.style.top = offsetY + 'px';
+  // preview mobile: tỉ lệ giống editor
+  pvImgM.style.width = '100%';
+  pvImgM.style.top = (offsetY / edW * 100) + '%';
+  // preview desktop: khung 1280x260, ảnh cover
+  const pvD = document.getElementById('pv-desktop');
+  const dw = pvD.clientWidth, dh = dw * 260 / 1280;
+  const s2 = Math.max(dw / imgW, dh / (imgH * (frameH / dispH)));
+  // đơn giản: map offset theo tỉ lệ
+  const visRatio = (frameH / dispH); // phần ảnh hiện trong frame editor
+  const imgOffPct = -offsetY / dispH; // 0..1 phần ảnh bị che phía trên
+  pvImgD.style.width = dw + 'px';
+  pvImgD.style.top = (-imgOffPct * imgH * (dw / imgW)) + 'px';
+  coordsEl.textContent = 'Vị trí: ' + Math.round(imgOffPct * 100) + '% từ trên ảnh gốc';
+}
+
+editor.addEventListener('pointerdown', e => {
+  dragging = true; startY = e.clientY; startOff = offsetY;
+  editor.setPointerCapture(e.pointerId);
+});
+editor.addEventListener('pointermove', e => {
+  if (!dragging) return;
+  offsetY = startOff + (e.clientY - startY);
+  render();
+});
+editor.addEventListener('pointerup', () => dragging = false);
+editor.addEventListener('pointercancel', () => dragging = false);
+
+document.getElementById('file').addEventListener('change', e => {
+  const f = e.target.files[0];
+  if (f) loadSrc(URL.createObjectURL(f));
+});
+
+document.getElementById('download').addEventListener('click', () => {
+  const edW = editor.clientWidth;
+  const scale = edW / imgW;
+  const dispH = imgH * scale;
+  const frameH = edW / 2.17;
+  // vùng cắt trên ảnh gốc
+  const sx = 0, sw = imgW;
+  const sy = (-offsetY) / scale;
+  const sh = frameH / scale;
+  const c = document.createElement('canvas');
+  c.width = 1067; c.height = Math.round(1067 / 2.17);
+  const ctx = c.getContext('2d');
+  const srcImg = new Image();
+  srcImg.onload = () => {
+    // scale vùng cắt về 1067 wide
+    const k = 1067 / sw;
+    ctx.drawImage(srcImg, sx, sy, sw, sh, 0, 0, 1067, Math.round(sh * k));
+    c.toBlob(b => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(b);
+      a.download = 'strip-chinh.webp';
+      a.click();
+    }, 'image/webp', 0.88);
+  };
+  srcImg.src = editImg.src;
+});
+
+window.addEventListener('resize', render);
+loadSrc(DEFAULT_SRC);
+</script>
+</body>
+</html>
