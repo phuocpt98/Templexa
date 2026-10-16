@@ -26,7 +26,7 @@
   button { border:none; border-radius:999px; padding:12px 26px; font-size:.95rem; cursor:pointer; }
   .btn-main { background:#ff4969; color:#fff; }
   .btn-sub { background:#fff; color:#ff4969; border:1.5px solid #ff4969; }
-  #file { display:none; }
+
   .coords { font-size:.8rem; color:#999; margin-top:10px; }
 </style>
 </head>
@@ -40,9 +40,9 @@
     <img id="editImg" alt="">
     <div class="frame-line"></div>
   </div>
-  <div class="actions" style="margin-top:14px">
-    <button class="btn-sub" onclick="document.getElementById('file').click()">Chọn ảnh khác</button>
-    <input type="file" id="file" accept="image/*">
+  <div style="margin-top:14px; display:flex; gap:8px;">
+    <input type="text" id="imgUrl" placeholder="Dán link ảnh server khác vào đây (nếu muốn đổi ảnh)..." style="flex:1; border:1.5px solid #ddd; border-radius:999px; padding:10px 18px; font-size:.9rem; outline:none;">
+    <button class="btn-sub" id="loadUrl">Tải ảnh</button>
   </div>
   <div class="coords" id="coords"></div>
 </div>
@@ -78,10 +78,10 @@ function loadSrc(src) {
   im.onload = () => {
     imgW = im.naturalWidth; imgH = im.naturalHeight;
     editImg.src = src; pvImgM.src = src; pvImgD.src = src;
-    // căn giữa ban đầu
-    const edH = editor.clientWidth / 2.17;
-    const scaledH = edH * (imgH / imgW) / (editor.clientWidth / imgW);
-    offsetY = 0;
+    // vị trí ban đầu: hiện phần mặt (khoảng 25% từ trên ảnh gốc)
+    const edW0 = editor.clientWidth;
+    const scale0 = edW0 / imgW;
+    offsetY = -(imgH * 0.22 * scale0);
     render();
   };
   im.src = src;
@@ -97,18 +97,26 @@ function render() {
   offsetY = Math.max(minOff, Math.min(maxOff, offsetY));
   editImg.style.width = edW + 'px';
   editImg.style.top = offsetY + 'px';
-  // preview mobile: tỉ lệ giống editor
-  pvImgM.style.width = '100%';
-  pvImgM.style.top = (offsetY / edW * 100) + '%';
-  // preview desktop: khung 1280x260, ảnh cover
+  const imgOffPct = -offsetY / dispH; // 0..1 phần ảnh bị che phía trên
+  // preview mobile: cùng tỉ lệ editor -> copy y nguyên offset theo tỉ lệ
+  const pvM = document.getElementById('pv-mobile');
+  const mw = pvM.clientWidth;
+  pvImgM.style.width = mw + 'px';
+  pvImgM.style.top = (offsetY / edW * mw) + 'px';
+  // preview desktop: khung 1280x260, ảnh cover, lấy giữa vùng đang xem
   const pvD = document.getElementById('pv-desktop');
   const dw = pvD.clientWidth, dh = dw * 260 / 1280;
-  const s2 = Math.max(dw / imgW, dh / (imgH * (frameH / dispH)));
-  // đơn giản: map offset theo tỉ lệ
-  const visRatio = (frameH / dispH); // phần ảnh hiện trong frame editor
-  const imgOffPct = -offsetY / dispH; // 0..1 phần ảnh bị che phía trên
+  const covScale = Math.max(dw / imgW, dh / imgH);
+  const covH = imgH * covScale;
+  // vị trí đầu vùng xem trong ảnh gốc (theo tỉ lệ)
+  const viewTopInImg = imgOffPct * imgH;
+  const viewHInImg = frameH / scale;
+  const viewCenterInImg = viewTopInImg + viewHInImg / 2;
+  // căn giữa vùng xem vào khung desktop
+  let dTop = dh / 2 - viewCenterInImg * covScale;
+  dTop = Math.min(0, Math.max(dh - covH, dTop));
   pvImgD.style.width = dw + 'px';
-  pvImgD.style.top = (-imgOffPct * imgH * (dw / imgW)) + 'px';
+  pvImgD.style.top = dTop + 'px';
   coordsEl.textContent = 'Vị trí: ' + Math.round(imgOffPct * 100) + '% từ trên ảnh gốc';
 }
 
@@ -124,9 +132,12 @@ editor.addEventListener('pointermove', e => {
 editor.addEventListener('pointerup', () => dragging = false);
 editor.addEventListener('pointercancel', () => dragging = false);
 
-document.getElementById('file').addEventListener('change', e => {
-  const f = e.target.files[0];
-  if (f) loadSrc(URL.createObjectURL(f));
+document.getElementById('loadUrl').addEventListener('click', () => {
+  const u = document.getElementById('imgUrl').value.trim();
+  if (u) loadSrc(u);
+});
+document.getElementById('imgUrl').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('loadUrl').click();
 });
 
 document.getElementById('download').addEventListener('click', () => {
