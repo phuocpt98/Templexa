@@ -27,16 +27,16 @@ products/
 |------------|----------|------|--------|
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
-| **Invitation** | other | 65 | 57 |
+| **Invitation** | other | 67 | 57 |
 | **Invitation** | wedding | 96 | 62 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **287** | **245** |
+| | **Tong** | **289** | **245** |
 
-_Cap nhat tu data.js: 2026-10-13 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-10-16 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 
@@ -168,7 +168,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 283 | Lời Nhắn QR — Chibi Yêu Thương | `./loi-nhan/chibi-yeu-thuong` |  | public |
 | 284 | Lời Nhắn QR — Hoa Lá Nhẹ Nhàng | `./loi-nhan/hoa-la` |  | public |
 
-### Invitation / other (65)
+### Invitation / other (67)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -235,8 +235,10 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 296 | Thiệp Kỷ Niệm 10 Năm Ngày Cưới — Editorial Hiện Đại | `Invitation/Other/gen_296_ky-niem-10-nam-ngay-cuoi-editorial` | modern / anniversary | public |
 | 297 | Thiệp Kỷ Niệm 1 Năm Ngày Cưới — Đám Cưới Giấy | `Invitation/Other/gen_297_ky-niem-1-nam-dam-cuoi-giay` | modern / anniversary | public |
 | 298 | Thiệp Kỷ Niệm 50 Năm Ngày Cưới — Đám Cưới Vàng Ông Bà | `Invitation/Other/gen_298_ky-niem-50-nam-dam-cuoi-vang` | traditional / anniversary | public |
-| 299 | Thiệp Mời Tốt Nghiệp Đại Học — Trang Trọng Burgundy | `Invitation/Other/gen_299_tot-nghiep-trang-trong` | luxury / graduation | public |
-| 300 | Thiệp Mời Tốt Nghiệp Đại Học — Cinematic Poster Phim | `Invitation/Other/gen_300_tot-nghiep-cinematic` | modern / graduation | public |
+| 299 | Thiệp Mời Tốt Nghiệp Đại Học — Trang Trọng Burgundy | `Invitation/Other/gen_299_tot-nghiep-trang-trong` | luxury / graduation | public, 2 variants |
+| 300 | Thiệp Mời Tốt Nghiệp Đại Học — Cinematic Poster Phim | `Invitation/Other/gen_300_tot-nghiep-cinematic` | modern / graduation | public, 2 variants |
+| 301 | Thư Mời Tốt Nghiệp UEL — Bản Trang Trọng (Phụ Huynh) | `Invitation/Other/khach_37_tot-nghiep-trang-trong` | luxury / graduation | hidden |
+| 302 | Thiệp Tốt Nghiệp UEL — Bản Cinematic (Bạn Bè) | `Invitation/Other/khach_37_tot-nghiep-cinematic` | modern / graduation | hidden |
 
 ### Invitation / wedding (96)
 

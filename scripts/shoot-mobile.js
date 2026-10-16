@@ -272,6 +272,7 @@ async function shot(page, file) {
 
     await browser.close();
     srv.close();
+    fs.mkdirSync(path.join(ROOT, '..', 'plans'), { recursive: true }); // máy khác (vd cloud) có thể chưa có ../plans
     fs.writeFileSync(path.join(ROOT, '..', 'plans', 'shoot-summary.json'), JSON.stringify(summary, null, 2));
     console.log(`\nXong ${summary.length} thiệp. Tóm tắt: ../plans/shoot-summary.json`);
 })();

@@ -51,7 +51,7 @@ async function main() {
 
     let browser;
     try {
-        browser = await puppeteer.launch({ headless: 'new' });
+        browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] }); // --no-sandbox: chạy được với user root trên cloud Linux
         const page = await browser.newPage();
         // deviceScaleFactor 2 rồi hạ xuống 1200×630 → nét hơn hẳn khi chụp thẳng
         await page.setViewport({ width: WIDTH, height: HEIGHT, deviceScaleFactor: 2 });
