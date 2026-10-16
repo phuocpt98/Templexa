@@ -262,4 +262,11 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự lễ thành hôn và tiệc cưới 29/11/2026 tại Nhà hàng Hera Palace, Phan Rang',
         image: '../../products/Invitation/Wedding/khach_hoang-tu-yen-nhi/og-cover.jpg',
     },
+    // le-bich-thuy-tran-dai-vu — job 2026-10-16_le-bich-thuy-tran-dai-vu
+    'dai-vu-bich-thuy': {
+        src: '../../products/Invitation/Wedding/khach_dai-vu-bich-thuy/index.html',
+        title: 'Trần Đại Vũ & Lê Bích Thuỷ — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự tiệc cưới 25/10/2026 tại Công Viên Yên Sở, Hà Nội',
+        image: '../../products/Invitation/Wedding/khach_dai-vu-bich-thuy/og-cover.jpg',
+    },
 };
