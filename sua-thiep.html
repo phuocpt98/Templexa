@@ -107,6 +107,7 @@
     <button type="button" data-d="desktop" class="hide-sm">💻 Máy tính</button>
   </div>
   <button class="btn" id="pickBtn" type="button" title="Bật/tắt chế độ chọn (phím P)">🎯 Chọn chỗ sửa <kbd>P</kbd></button>
+  <button class="btn" id="resetBtn" type="button" title="Xoá cache, tải lại thiệp mới và reset các phần đã chọn">🔄 Reset</button>
 </div>
 
 <div class="main">
@@ -171,6 +172,19 @@
     load();
     frame.src = path;
   }
+
+  $('resetBtn').addEventListener('click', function () {
+    if (!confirm('Reset: xoá các phần đã chọn, tải lại thiệp mới nhất?')) return;
+    try { localStorage.removeItem(storeKey()); } catch (e) {}
+    items.length = 0; render(); $('generalNote').value = '';
+    hl.style.display = 'none';
+    var path = $('urlInput').value || '';
+    if (path) {
+      var sep = path.indexOf('?') >= 0 ? '&' : '?';
+      frame.src = path + sep + 'v=' + Date.now();
+    }
+  });
+
   function showErr(m) { $('err').innerHTML = m; $('err').style.display = 'flex'; }
 
   // Link khách (/event/x/) là trang bọc iframe → đi xuyên vào thiệp thật bên trong
