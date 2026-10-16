@@ -248,7 +248,6 @@ var WEDDING = {
         description: 'Trân trọng kính mời bạn đến dự Lễ Thành Hôn — Chủ nhật 18.10.2026 tại tư gia, Mỹ Hiệp, Đồng Tháp',
         image: '../../products/Invitation/Wedding/khach_thanh-tam-minh-quyen/og-cover.jpg',
     },
-
     // Lê Ngọc Yến Nhi - Trương Hoàng Tú · Nhà gái — job 2026-10-16_le-ngoc-yen-nhi-truong-hoang-tu
     'yen-nhi-hoang-tu': {
         src: '../../products/Invitation/Wedding/khach_yen-nhi-hoang-tu/code.html',
@@ -256,7 +255,6 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự lễ vu quy và tiệc cưới 27/11/2026 tại Nhà hàng Diamond Place, TP.HCM',
         image: '../../products/Invitation/Wedding/khach_yen-nhi-hoang-tu/og-cover.jpg',
     },
-
     // Lê Ngọc Yến Nhi - Trương Hoàng Tú · Nhà trai — job 2026-10-16_le-ngoc-yen-nhi-truong-hoang-tu
     'hoang-tu-yen-nhi': {
         src: '../../products/Invitation/Wedding/khach_hoang-tu-yen-nhi/code.html',
