@@ -250,18 +250,18 @@ var WEDDING = {
     },
 
     // Lê Ngọc Yến Nhi - Trương Hoàng Tú · Nhà gái — job 2026-10-16_le-ngoc-yen-nhi-truong-hoang-tu
-    'le-ngoc-yen-nhi-truong-hoang-tu-nha-gai': {
-        src: '../../products/Invitation/Wedding/khach_le-ngoc-yen-nhi-truong-hoang-tu-nha-gai/code.html',
+    'yen-nhi-hoang-tu': {
+        src: '../../products/Invitation/Wedding/khach_yen-nhi-hoang-tu/code.html',
         title: 'Yến Nhi & Hoàng Tú — Thiệp Cưới Nhà Gái',
         description: 'Trân trọng kính mời dự lễ vu quy và tiệc cưới 27/11/2026 tại Nhà hàng Diamond Place, TP.HCM',
-        image: '../../products/Invitation/Wedding/khach_le-ngoc-yen-nhi-truong-hoang-tu-nha-gai/og-cover.jpg',
+        image: '../../products/Invitation/Wedding/khach_yen-nhi-hoang-tu/og-cover.jpg',
     },
 
     // Lê Ngọc Yến Nhi - Trương Hoàng Tú · Nhà trai — job 2026-10-16_le-ngoc-yen-nhi-truong-hoang-tu
-    'le-ngoc-yen-nhi-truong-hoang-tu-nha-trai': {
-        src: '../../products/Invitation/Wedding/khach_le-ngoc-yen-nhi-truong-hoang-tu-nha-trai/code.html',
+    'hoang-tu-yen-nhi': {
+        src: '../../products/Invitation/Wedding/khach_hoang-tu-yen-nhi/code.html',
         title: 'Hoàng Tú & Yến Nhi — Thiệp Cưới Nhà Trai',
         description: 'Trân trọng kính mời dự lễ thành hôn và tiệc cưới 29/11/2026 tại Nhà hàng Hera Palace, Phan Rang',
-        image: '../../products/Invitation/Wedding/khach_le-ngoc-yen-nhi-truong-hoang-tu-nha-trai/og-cover.jpg',
+        image: '../../products/Invitation/Wedding/khach_hoang-tu-yen-nhi/og-cover.jpg',
     },
 };
