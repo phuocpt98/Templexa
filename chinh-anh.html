@@ -28,11 +28,24 @@
   .btn-sub { background:#fff; color:#ff4969; border:1.5px solid #ff4969; }
 
   .coords { font-size:.8rem; color:#999; margin-top:10px; }
+  .gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:8px; margin-top:12px; max-height:220px; overflow-y:auto; }
+  .gallery img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px; cursor:pointer; border:2px solid transparent; }
+  .gallery img:hover, .gallery img.sel { border-color:#ff4969; }
+  .gallery-wrap { background:#fff; border-radius:14px; padding:18px; box-shadow:0 2px 12px rgba(0,0,0,.06); margin-bottom:18px; }
 </style>
 </head>
 <body>
 <h1>🖼️ Chỉnh vị trí ảnh strip</h1>
 <p class="hint">Kéo ảnh lên/xuống trong khung bên dưới. Xem trước kết quả ở cả điện thoại và máy tính, ưng thì bấm "Tải ảnh đã cắt" rồi gửi file cho mình để cập nhật lên thiệp.</p>
+
+<div class="gallery-wrap">
+  <div class="editor-label">CHỌN ẢNH TỪ SERVER</div>
+  <div style="display:flex; gap:8px; margin-bottom:4px;">
+    <input type="text" id="folderInput" placeholder="Tên folder thiệp, vd: khach_yen-nhi-hoang-tu" style="flex:1; border:1.5px solid #ddd; border-radius:999px; padding:10px 18px; font-size:.9rem; outline:none;">
+    <button class="btn-sub" id="loadFolder">Duyệt ảnh</button>
+  </div>
+  <div class="gallery" id="gallery"></div>
+</div>
 
 <div class="editor-wrap">
   <div class="editor-label">KÉO ẢNH TRONG KHUNG NÀY</div>
@@ -167,6 +180,37 @@ document.getElementById('download').addEventListener('click', () => {
   srcImg.src = editImg.src;
 });
 
+async function loadGallery(folder) {
+  const g = document.getElementById('gallery');
+  g.innerHTML = '<p style="color:#999;font-size:.85rem">Đang tải...</p>';
+  try {
+    const r = await fetch('products/Invitation/Wedding/' + folder + '/photos/photos-index.json');
+    const d = await r.json();
+    g.innerHTML = '';
+    d.photos.forEach(f => {
+      const im = document.createElement('img');
+      im.src = 'products/Invitation/Wedding/' + folder + '/photos/' + f;
+      im.loading = 'lazy'; im.title = f;
+      im.onclick = () => {
+        g.querySelectorAll('img').forEach(x => x.classList.remove('sel'));
+        im.classList.add('sel');
+        loadSrc(im.src);
+      };
+      g.appendChild(im);
+    });
+  } catch(e) {
+    g.innerHTML = '<p style="color:#e55;font-size:.85rem">Không tìm thấy ảnh. Kiểm tra lại tên folder.</p>';
+  }
+}
+document.getElementById('loadFolder').addEventListener('click', () => {
+  const f = document.getElementById('folderInput').value.trim();
+  if (f) loadGallery(f);
+});
+// tự load gallery của thiệp hiện tại
+const qp = new URLSearchParams(location.search);
+const initFolder = qp.get('folder') || 'khach_yen-nhi-hoang-tu';
+document.getElementById('folderInput').value = initFolder;
+loadGallery(initFolder);
 window.addEventListener('resize', render);
 loadSrc(DEFAULT_SRC);
 </script>
