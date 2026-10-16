@@ -2,6 +2,7 @@
  * guests.js — Danh sách khách mời thiệp tốt nghiệp Lê Thuận Hưng · Mẫu B (bạn bè).
  * Link: ?id=N → hiện tên ở dòng "Hey, …!". Vẫn dùng được ?ten=Tên+Khách.
  * Nguồn: inputs/Danh sách khách mời 01.xlsx (chuẩn, id 1–33) + 02.xlsx (bổ sung, id 34–38) — 15/10/2026
+ *   + 03.xlsx (bổ sung, id 39–40) — 16/10/2026
  */
 var GUEST_LIST = [
   { id: 1, name: "Cẩm Hân (Dánh Dánh)" },
@@ -42,4 +43,6 @@ var GUEST_LIST = [
   { id: 36, name: "Em Minh Khôi" },
   { id: 37, name: "Chị Tuyết Ngân" },
   { id: 38, name: "Chị Ánh Giang" },
+  { id: 39, name: "Miien" },
+  { id: 40, name: "Thuận Phúc" },
 ];
