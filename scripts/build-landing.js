@@ -221,6 +221,65 @@ ${rel}
 `;
 }
 
+// ── FAQ riêng của landing (field faq trong landings.js) ───────────────────────
+// Hub giữ bộ FAQ chung từ faq.json (bị xoá khỏi landing ở build()); landing nào có field
+// faq: [{ q, a, aHtml? }] thì có section FAQ + FAQPage JSON-LD riêng. a = text thuần (JSON-LD),
+// aHtml = bản có <a href> nội bộ (link giữ .html). Landing không có faq → không sinh gì.
+const FAQ_MIN = 4, FAQ_MAX = 6, FAQ_A_MIN = 25, FAQ_A_MAX = 70;
+const HUB_FAQ_FILE = path.join(ROOT, 'assets/data/faq.json');
+const HUB_QUESTIONS = new Set();
+if (fs.existsSync(HUB_FAQ_FILE)) {
+    const walk = (v) => {
+        if (Array.isArray(v)) v.forEach(walk);
+        else if (v && typeof v === 'object') { if (typeof v.q === 'string') HUB_QUESTIONS.add(v.q.trim().toLowerCase()); Object.values(v).forEach(walk); }
+    };
+    walk(JSON.parse(fs.readFileSync(HUB_FAQ_FILE, 'utf8')));
+}
+
+function checkFaq(l) {
+    if (!l.faq) return;
+    if (!Array.isArray(l.faq) || l.faq.length < FAQ_MIN || l.faq.length > FAQ_MAX) {
+        throw new Error(`${l.slug}: faq cần ${FAQ_MIN}–${FAQ_MAX} câu (đang ${Array.isArray(l.faq) ? l.faq.length : 'sai kiểu'})`);
+    }
+    l.faq.forEach((f, i) => {
+        if (!f.q || !f.a) throw new Error(`${l.slug}: faq[${i}] thiếu q hoặc a`);
+        if (/<[a-z]/i.test(f.a)) throw new Error(`${l.slug}: faq[${i}].a phải là text thuần — link để ở aHtml`);
+        const n = words(f.a);
+        if (n < FAQ_A_MIN || n > FAQ_A_MAX) console.warn(`! ${l.slug}: faq "${f.q}" trả lời ${n} từ (ngoài ${FAQ_A_MIN}–${FAQ_A_MAX})`);
+        if (HUB_QUESTIONS.has(f.q.trim().toLowerCase())) console.warn(`! ${l.slug}: faq "${f.q}" trùng nguyên văn câu trong faq.json`);
+    });
+}
+
+function faqSection(l) {
+    if (!l.faq) return '';
+    const items = l.faq.map((f) => `                <details class="svc-faq-item faq-item">
+                    <summary><h3>${esc(f.q)}</h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></summary>
+                    <div class="svc-faq-answer faq-answer"><p>${f.aHtml || esc(f.a)}</p></div>
+                </details>`).join('\n');
+    return `    <!-- FAQ riêng của landing — sinh bởi scripts/build-landing.js từ field faq trong landings.js, đừng sửa tay -->
+    <section class="products-section faq-inline landing-faq" id="faq">
+        <div class="container container-section">
+            <div class="section-header">
+                <h2>Câu hỏi thường gặp về ${esc(l.faqTopic || l.navLabel.replace(/^Thiệp /, 'thiệp ').toLowerCase())}</h2>
+            </div>
+            <div class="svc-faq-list">
+${items}
+            </div>
+        </div>
+    </section>
+`;
+}
+
+function faqLd(l) {
+    const ld = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: l.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    };
+    return '    <!-- LANDING-FAQ-LD — sinh bởi scripts/build-landing.js -->\n    <script type="application/ld+json">\n    '
+        + JSON.stringify(ld, null, 4).split('\n').join('\n    ') + '\n    </script>';
+}
+
 function crumbNav(l) {
     const chain = crumbs(l);
     const links = chain.map((c, i) => (i === chain.length - 1
@@ -257,6 +316,7 @@ function build(l) {
     const w = l.body.reduce((n, b) => n + (b.ul ? b.ul.reduce((m, li) => m + words(fill(li, l)), 0) : words(fill(b.p || b.h2, l))), 0);
     if (w < WORDS_MIN || w > WORDS_MAX) throw new Error(`${l.slug}: intro ${w} từ, cần ${WORDS_MIN}–${WORDS_MAX} từ`);
     if (l.related.length < 3) throw new Error(`${l.slug}: cần >= 3 link chéo`);
+    checkFaq(l);
 
     const selfUrl = url(l);
     const title = fill(l.title, l);
@@ -279,7 +339,8 @@ function build(l) {
     // JSON-LD riêng của landing (thay khối CollectionPage của hub)
     html = must(html, /    <!-- Structured Data -->\n    <script type="application\/ld\+json">[\s\S]*?<\/script>/,
         '    <!-- Structured Data -->\n    <script type="application/ld+json">\n    '
-        + JSON.stringify(jsonLd(l), null, 4).split('\n').join('\n    ') + '\n    </script>', 'JSON-LD');
+        + JSON.stringify(jsonLd(l), null, 4).split('\n').join('\n    ') + '\n    </script>'
+        + (l.faq ? '\n' + faqLd(l) : ''), 'JSON-LD');
 
     // FAQ chỉ giữ trên hub — 12 landing dùng chung 1 bộ FAQ sẽ thành nội dung lặp
     html = must(html, /\n    <!-- FAQ-LD:START -->[\s\S]*?<!-- FAQ-LD:END -->\n/, '\n', 'FAQ-LD');
@@ -304,13 +365,13 @@ function build(l) {
     html = must(html, '<div class="products-grid" id="productsGrid"></div>',
         '<div class="products-grid" id="productsGrid">\n' + items.slice(0, PER_PAGE).map((p, i) => cardHTML(p, i)).join('\n') + '\n            </div>', 'products grid');
 
-    html = must(html, '\n    <!-- Footer -->', '\n' + copyHTML(l) + '\n    <!-- Footer -->', 'footer anchor');
+    html = must(html, '\n    <!-- Footer -->', '\n' + copyHTML(l) + (l.faq ? '\n' + faqSection(l) : '') + '\n    <!-- Footer -->', 'footer anchor');
 
     // Hub tự ép ?type=invitation vào URL; landing lấy bộ lọc từ data-landing nên bỏ đoạn này
     html = must(html, /    <script>\n        \/\* Force type=invitation[\s\S]*?<\/script>\n/, '', 'force type script');
 
     fs.writeFileSync(path.join(ROOT, l.slug + '.html'), html);
-    return { slug: l.slug, n: items.length, w, title: title.length, desc: desc.length, posts: (l.posts || []).filter(postBySlug).length };
+    return { slug: l.slug, n: items.length, w, title: title.length, desc: desc.length, posts: (l.posts || []).filter(postBySlug).length, faq: l.faq ? l.faq.length : 0 };
 }
 
 const report = LANDINGS.map(build);
@@ -349,6 +410,6 @@ if (!RX.test(pjs)) throw new Error('assets/js/products.js thiếu marker LANDING
 fs.writeFileSync(PJS, pjs.replace(RX, (m, a, b) => a + `const LANDING_MAP = {\n${mapEntries}\n};\n` + b));
 
 console.log(`✓ ${report.length} landing tĩnh:`);
-report.forEach((r) => console.log(`  ${r.slug}.html — ${r.n} mẫu, intro ${r.w} từ, title ${r.title} ký tự, desc ${r.desc} ký tự, ${r.posts} bài cẩm nang`));
+report.forEach((r) => console.log(`  ${r.slug}.html — ${r.n} mẫu, intro ${r.w} từ, title ${r.title} ký tự, desc ${r.desc} ký tự, ${r.posts} bài cẩm nang${r.faq ? `, ${r.faq} câu FAQ` : ''}`));
 console.log('✓ LANDING_MAP → assets/js/products.js');
 console.log('✓ khối link 12 landing → index.html');

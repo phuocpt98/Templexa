@@ -2486,7 +2486,7 @@ const PRODUCTS = [
         style: 'traditional',
         event: 'dam-ngo',
         tags: ['wedding', 'dam-ngo', 'red', 'gold', 'traditional', 'song-hy', 'rsvp', 'countdown', 'wishes'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_216_dam-ngo-song-hy/shots/open.webp',
             './products/Invitation/Wedding/gen_216_dam-ngo-song-hy/shots/sec-1.webp',
@@ -2523,7 +2523,7 @@ const PRODUCTS = [
         style: 'modern',
         event: 'wedding',
         tags: ['wedding', 'love-story', 'cinematic', 'timeline', 'fullscreen', 'gold', 'modern', 'storytelling'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_223_love-story-cinematic/shots/open.webp',
             './products/Invitation/Wedding/gen_223_love-story-cinematic/shots/cover.webp',
@@ -2559,7 +2559,7 @@ const PRODUCTS = [
         style: 'vintage',
         event: 'wedding',
         tags: ['wedding', 'vintage', 'leaf', 'film-frame', 'envelope', 'countdown', 'rsvp', 'wishes', 'calendar', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/khach_anh-thu-minh-thong/shots/open.webp',
             './products/Invitation/Wedding/khach_anh-thu-minh-thong/shots/sec-1.webp',
@@ -2597,7 +2597,7 @@ const PRODUCTS = [
         style: 'luxury',
         event: 'wedding',
         tags: ['wedding', 'minimalist', 'luxury', 'wax-seal', 'guest-personalization', 'countdown', 'rsvp', 'calendar', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/shots/open.webp',
             './products/Invitation/Wedding/khach_cong-minh-ngoc-huyen/shots/sec-1.webp',
@@ -2635,7 +2635,7 @@ const PRODUCTS = [
         style: 'vintage',
         event: 'wedding',
         tags: ['wedding', 'vintage', 'leaf', 'film-frame', 'envelope', 'countdown', 'timeline', 'rsvp', 'wishes'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/khach_duy-hiep-anna-le/shots/open.webp',
             './products/Invitation/Wedding/khach_duy-hiep-anna-le/shots/sec-1.webp',
@@ -2673,7 +2673,7 @@ const PRODUCTS = [
         style: 'luxury',
         event: 'wedding',
         tags: ['wedding', 'minimalist', 'luxury', 'wax-seal', 'guest-personalization', 'countdown', 'rsvp', 'calendar', 'timeline'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/khach_khui-kiet-hong-han/shots/open.webp',
             './products/Invitation/Wedding/khach_khui-kiet-hong-han/shots/sec-1.webp',
@@ -2711,7 +2711,7 @@ const PRODUCTS = [
         style: 'vintage',
         event: 'wedding',
         tags: ['thiep-cuoi', 'sage-green', 'vintage', 'polaroid', 'envelope', 'wax-seal', 'countdown', 'gallery', 'gift-qr'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/khach_minh-linh/shots/open.webp',
             './products/Invitation/Wedding/khach_minh-linh/shots/sec-1.webp',
@@ -2749,7 +2749,7 @@ const PRODUCTS = [
         style: 'vintage',
         event: 'wedding',
         tags: ['thiep-cuoi', 'sage-green', 'vintage', 'ao-dai', 'envelope', 'countdown', 'calendar', 'rsvp'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/shots/open.webp',
             './products/Invitation/Wedding/khach_nguyen-bao-uyen-nhi/shots/sec-1.webp',
@@ -2787,7 +2787,7 @@ const PRODUCTS = [
         style: 'vintage',
         event: 'wedding',
         tags: ['thiep-cuoi', 'sage-green', 'vintage', 'loi-chuc', 'wishes-wall', 'envelope', 'countdown', 'rsvp', 'realtime'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/shots/open.webp',
             './products/Invitation/Wedding/khach_uyen-nhi-nguyen-bao/shots/sec-1.webp',
@@ -2825,7 +2825,7 @@ const PRODUCTS = [
         style: 'traditional',
         event: 'wedding',
         tags: ['thiep-cuoi', 'do-vang', 'co-dien', 'sang-trong', 'dem-nguoc', 'ca-nhan-hoa', 'nhac-nen', 'rsvp'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/khach_thien-ngoe-my-dan/shots/open.webp',
             './products/Invitation/Wedding/khach_thien-ngoe-my-dan/shots/sec-1.webp',
@@ -2862,7 +2862,7 @@ const PRODUCTS = [
         style: 'vintage',
         event: 'wedding',
         tags: ['thiep-cuoi', 'vintage', 'sage-green', 'polaroid', 'dem-nguoc', 'rsvp', 'ca-nhan-hoa', 'nhac-nen', 'hai-le'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/khach_3/shots/open.webp',
             './products/Invitation/Wedding/khach_3/shots/sec-1.webp',
@@ -2900,7 +2900,7 @@ const PRODUCTS = [
         style: 'floral',
         event: 'wedding',
         tags: ['thiep-cuoi', 'phong-bi', 'hoa-la', 'co-dien', 'dem-nguoc', 'timeline', 'qr-mung-cuoi', 'nhac-nen'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/van-hoang-tran-ly/shots/open.webp',
             './products/Invitation/Wedding/van-hoang-tran-ly/shots/sec-1.webp',
@@ -2938,7 +2938,7 @@ const PRODUCTS = [
         style: 'floral',
         event: 'wedding',
         tags: ['wedding', 'emboss', 'paper', 'sage', 'white-floral', 'watercolor', 'wax-seal', 'elegant', 'rsvp', 'countdown', 'love-story', 'qr'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_262_emboss-paper-sage/shots/open.webp',
             './products/Invitation/Wedding/gen_262_emboss-paper-sage/shots/sec-1.webp',
@@ -2975,7 +2975,7 @@ const PRODUCTS = [
         style: 'floral',
         event: 'wedding',
         tags: ['website', 'invitation', 'wedding', 'white', 'korean', 'dreamy', 'sage-green', 'elegant'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/khach_vinh-hien-hoa/customer/shots/open.webp',
             './products/Invitation/Wedding/khach_vinh-hien-hoa/customer/shots/sec-1.webp',
@@ -3011,7 +3011,7 @@ const PRODUCTS = [
         style: 'luxury',
         event: 'wedding',
         tags: ['wedding', 'romantic', 'beaded', 'embroidery', 'chandelier', 'olive', 'champagne', 'gold', 'classic', 'rsvp', 'countdown', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_264_romantic-beaded-chandelier/shots/open.webp',
             './products/Invitation/Wedding/gen_264_romantic-beaded-chandelier/shots/sec-1.webp',
@@ -3048,7 +3048,7 @@ const PRODUCTS = [
         style: 'modern',
         event: 'wedding',
         tags: ['wedding', 'chibi', 'kawaii', 'pastel', 'cute', 'sticker', 'pink', 'mint', 'rsvp', 'countdown', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_263_chibi-pastel-cute/shots/open.webp',
             './products/Invitation/Wedding/gen_263_chibi-pastel-cute/shots/sec-1.webp',
@@ -3085,7 +3085,7 @@ const PRODUCTS = [
         style: 'vintage',
         event: 'wedding',
         tags: ['wedding', 'dusty-rose', 'flat-lay', 'collage', 'envelope', 'dried-flowers', 'wax-seal', 'vinyl', 'pearls', 'rsvp', 'countdown', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/shots/open.webp',
             './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/shots/sec-1.webp',
@@ -3122,7 +3122,7 @@ const PRODUCTS = [
         style: 'floral',
         event: 'wedding',
         tags: ['wedding', 'garden', 'white-roses', 'cypress', 'curtain', 'candles', 'itinerary', 'weekend', 'watercolor', 'elegant', 'rsvp', 'countdown', 'bilingual'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_270_excellence-istanbul-garden/shots/open.webp',
             './products/Invitation/Wedding/gen_270_excellence-istanbul-garden/shots/sec-1.webp',
@@ -3159,7 +3159,7 @@ const PRODUCTS = [
         style: 'luxury',
         event: 'wedding',
         tags: ['wedding', 'navy', 'xanh-navy', 'ngoc-trai', 'song-hy', 'sang-trong', 'rsvp', 'countdown', 'love-story', 'dresscode'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/shots/open.webp',
             './products/Invitation/Wedding/gen_271_navy-pearl-song-hy/shots/sec-1.webp',
@@ -3216,7 +3216,7 @@ const PRODUCTS = [
         style: 'traditional',
         event: 'wedding',
         tags: ['wedding', 'sen', 'hong-sen', 'ao-dai', 'truyen-thong', 'viet-nam', 'non-la', 'trau-cau', 'rsvp', 'countdown'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_272_lotus-pink-aodai/shots/open.webp',
             './products/Invitation/Wedding/gen_272_lotus-pink-aodai/shots/sec-1.webp',
@@ -3259,7 +3259,7 @@ const PRODUCTS = [
         style: 'modern',
         event: 'wedding',
         tags: ['wedding', 'hong', 'may-hong', 'chibi', 'nha-gai', 'vu-quy', 'de-thuong', 'rsvp', 'countdown', 'lich-thang'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_273_blush-cloud-chibi/shots/open.webp',
             './products/Invitation/Wedding/gen_273_blush-cloud-chibi/shots/cover.webp',
@@ -3302,7 +3302,7 @@ const PRODUCTS = [
         style: 'minimalist',
         event: 'wedding',
         tags: ['wedding', 'xam', 'mono', 'sang-trong', 'toi-gian', 'nen-anh-co-dinh', 'rsvp', 'countdown', 'album'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_274_mono-grey-elegant/shots/open.webp',
             './products/Invitation/Wedding/gen_274_mono-grey-elegant/shots/sec-1.webp',
@@ -3346,7 +3346,7 @@ const PRODUCTS = [
         style: 'luxury',
         event: 'an-hoi',
         tags: ['dinh-hon', 'an-hoi', 'kieu-phap', 'xanh-reu', 'sage', 'co-dien', 'video', 'dau-sap', 'rsvp', 'google-sheet'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/van-tri-ngoc-linh/shots/open.webp',
             './products/Invitation/Wedding/van-tri-ngoc-linh/shots/sec-1.webp',
@@ -3460,7 +3460,7 @@ const PRODUCTS = [
         style: 'minimalist',
         event: 'wedding',
         tags: ['wedding', 'nhat-ban', 'sumi-e', 'muc-tau', 'washi', 'toi-gian', 'rsvp', 'countdown', 'love-story', 'chu-doc'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_278_sumi-ink-mono/shots/open.webp',
             './products/Invitation/Wedding/gen_278_sumi-ink-mono/shots/sec-1.webp',
@@ -3495,7 +3495,7 @@ const PRODUCTS = [
         style: 'traditional',
         event: 'wedding',
         tags: ['wedding', 'nhat-ban', 'mizuhiki', 'do-son', 'vang-kim', 'noshi', 'hac-giay', 'rsvp', 'countdown', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_279_mizuhiki-knot/shots/open.webp',
             './products/Invitation/Wedding/gen_279_mizuhiki-knot/shots/sec-1.webp',
@@ -3530,7 +3530,7 @@ const PRODUCTS = [
         style: 'floral',
         event: 'wedding',
         tags: ['wedding', 'nhat-ban', 'sakura', 'anh-dao', 'seigaiha', 'hong-phan', 'matcha', 'rsvp', 'countdown', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_280_sakura-seigaiha/shots/open.webp',
             './products/Invitation/Wedding/gen_280_sakura-seigaiha/shots/sec-1.webp',
@@ -3565,7 +3565,7 @@ const PRODUCTS = [
         style: 'minimalist',
         event: 'wedding',
         tags: ['wedding', 'nhat-ban', 'sumi-e', 'tranh-muc', 'tu-quan-tu', 'washi', 'toi-gian', 'rsvp', 'countdown', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_281_sumi-botanical/shots/open.webp',
             './products/Invitation/Wedding/gen_281_sumi-botanical/shots/sec-1.webp',
@@ -3636,7 +3636,7 @@ const PRODUCTS = [
         style: 'luxury',
         event: 'wedding',
         tags: ['wedding', 'mocha', 'champagne', 'monogram', 'khung-vom', 'sang-trong', 'rsvp', 'countdown', 'qr', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Wedding/gen_289_mocha-champagne-wedding/shots/open.webp',
             './products/Invitation/Wedding/gen_289_mocha-champagne-wedding/shots/sec-1.webp',
@@ -4891,9 +4891,9 @@ const PRODUCTS = [
     },
     {
         id: 226,
-        name: 'Thiệp Đầy Tháng - Bé Bảo Pastel Cute',
+        name: 'Thiệp Đầy Tháng Bé Trai — Bé Bảo Pastel Xanh',
         slug: 'day-thang-be-bao-cute',
-        description: 'Thiệp đầy tháng bé trai phong cách pastel cute — sky blue + lavender + cream, font Fredoka + Caveat, balloons & stars floating animation',
+        description: 'Mẫu thiệp đầy tháng bé trai tông pastel xanh trời, tím lavender và kem, có bóng bay và ngôi sao lấp lánh bay nhẹ trên nền. Khách chạm để mở thiệp, gặp ngay tên bé, tên ở nhà và đồng hồ đếm ngược tới giờ làm lễ. Phần "Bé là ai" ghi ngày sinh, cân nặng, cung hoàng đạo và "lời đầu tiên của bé"; tiếp theo là tên bố mẹ, hành trình 4 tuần đầu đời từ ngày chào đời tới ngày tròn tháng, lời chúc cho bé và album ảnh. Thông tin buổi lễ có ngày, giờ, địa chỉ và gợi ý trang phục. Ô xác nhận tham dự cho khách chọn số người lớn, số trẻ em, ghi món dị ứng và gửi lời chúc. Có nhạc nền, chữ to dễ đọc trên điện thoại; đổi sang tông hồng cho bé gái miễn phí.',
         category: 'other',
         type: 'invitation',
         style: '',
@@ -5027,9 +5027,9 @@ const PRODUCTS = [
     },
     {
         id: 231,
-        name: 'Thiệp Thôi Nôi - Bé Mimi Pastel Dreamy',
+        name: 'Thiệp Thôi Nôi Bé Gái — Bé Mimi Hồng Pastel',
         slug: 'thoi-noi-be-mimi-pastel-dreamy',
-        description: 'Thiệp thôi nôi bé 1 tuổi phong cách pastel dreamy — inspired by cinelove "Con là nắng giữa trời xanh". Cover wreath hoa hồng + ảnh tròn, hero age number 01 siêu to gradient pink-gold, countdown, about baby info card, bố mẹ heart 3D, hành trình 12 tháng timeline, event details balloons ribbon bg, calendar highlight heart, gallery, RSVP với số người lớn/trẻ em/dị ứng, thank you hashtag. Nhạc nền upbeat. Demo: Bé Mimi, 15.06.2026.',
+        description: 'Mẫu thiệp thôi nôi bé gái tông hồng pastel và kem, bìa là vòng hoa hồng ôm ảnh tròn của bé, chủ đề "Con là nắng giữa trời xanh". Khách nhập ngày sinh của bé (ngày/tháng) để mở thiệp, như một lời mời riêng. Bên trong có số 01 cỡ lớn chuyển màu hồng–vàng, đồng hồ đếm ngược, thẻ thông tin bé (tên, biệt danh, ngày sinh, con giáp, cân nặng, sở thích) và lời giới thiệu bố mẹ. Hành trình 12 tháng điểm 5 mốc lớn. Phần thông tin lễ có giờ, nhà hàng, gợi ý trang phục và tờ lịch khoanh ngày tiệc, tiếp theo là album ảnh. Form xác nhận tham dự ghi số người lớn, số trẻ em, món dị ứng và lời chúc. Có nhạc nền; đổi sang tông xanh cho bé trai miễn phí.',
         category: 'other',
         type: 'invitation',
         style: '',
@@ -5062,9 +5062,9 @@ const PRODUCTS = [
     },
     {
         id: 234,
-        name: 'Thiệp Đầy Tháng - Little Sailor Adventure',
+        name: 'Thiệp Đầy Tháng Bé Trai — Thuỷ Thủ Little Sailor',
         slug: 'day-thang-little-sailor-adventure',
-        description: 'Thiệp đầy tháng bé trai phong cách nautical vintage — cover message in a bottle, bunting flags navy-coral, porthole photo frames bố mẹ, logbook 30 ngày timeline, clothesline gallery, SVG wave animation, swimming fish, anchor drop. Comfortaa + Sacramento + Nunito.',
+        description: 'Mẫu thiệp đầy tháng bé trai chủ đề thuỷ thủ nhí, tông xanh navy, san hô và đồng thau theo phong cách vintage. Bìa thiệp là chai thư trôi trên sóng, khách chạm vào chai để mở. Bên trong có dây cờ đuôi nheo, sóng biển chuyển động, cá bơi và mỏ neo thả xuống ở lời cảm ơn. Hồ sơ "thuyền trưởng nhí" ghi tên bé, biệt danh, ngày sinh, con giáp, cân nặng, sở thích; ảnh bố mẹ đặt trong khung ô cửa tàu. Nhật ký 30 ngày kể bốn cột mốc tháng đầu đời, album ảnh treo trên dây phơi bằng kẹp gỗ. Mục "Cảng đến" có ngày giờ, nhà hàng và nút mở bản đồ; đồng hồ đếm ngược chạy tới giờ tiệc. Form xác nhận tham dự ghi số người lớn, số trẻ em, món dị ứng và lời chúc gửi kèm.',
         category: 'other',
         type: 'invitation',
         style: '',
@@ -5105,7 +5105,7 @@ const PRODUCTS = [
         style: '',
         event: 'graduation',
         tags: ['graduation', 'tốt-nghiệp', 'mầm-non', 'kindergarten', 'bé', 'lễ-tốt-nghiệp'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/thiep-tot-nghiep-mau-giao/shots/open.webp',
             './products/Invitation/Other/thiep-tot-nghiep-mau-giao/shots/sec-1.webp',
@@ -5139,7 +5139,7 @@ const PRODUCTS = [
         style: '',
         event: 'reunion',
         tags: ['invitation', 'hop-lop', 'class-reunion', 'retro', 'so-lien-lac', 'hoc-tro', 'nostalgia'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_237_hop-lop-so-lien-lac-retro/shots/open.webp',
             './products/Invitation/Other/gen_237_hop-lop-so-lien-lac-retro/shots/sec-1.webp',
@@ -5174,7 +5174,7 @@ const PRODUCTS = [
         style: '',
         event: 'reunion',
         tags: ['invitation', 'lien-hoan', 'gap-mat', 'class-reunion', 'cinema', 'film', 'vhs', 'retro'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_237_lien-hoan-phim-retro/shots/open.webp',
             './products/Invitation/Other/gen_237_lien-hoan-phim-retro/shots/sec-1.webp',
@@ -5209,7 +5209,7 @@ const PRODUCTS = [
         style: '',
         event: 'reunion',
         tags: ['invitation', 'lien-hoan', 'gap-mat', 'class-reunion', 'cork-board', 'bang-tin', 'school'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_237_lien-hoan-bang-tin/shots/open.webp',
             './products/Invitation/Other/gen_237_lien-hoan-bang-tin/shots/sec-1.webp',
@@ -5244,7 +5244,7 @@ const PRODUCTS = [
         style: '',
         event: 'reunion',
         tags: ['invitation', 'lien-hoan', 'gap-mat', 'class-reunion', 'elegant', 'trang-trong', 'champagne', 'gold'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_237_lien-hoan-trang-trong/shots/open.webp',
             './products/Invitation/Other/gen_237_lien-hoan-trang-trong/shots/sec-1.webp',
@@ -5279,7 +5279,7 @@ const PRODUCTS = [
         style: '',
         event: 'gio-to',
         tags: ['gio-to', 'gold', 'traditional', 'scroll', 'family', 'rsvp', 'countdown', 'solemn'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_247_gio-to-ho-do/v1-thiep-cuon/shots/open.webp',
             './products/Invitation/Other/gen_247_gio-to-ho-do/v1-thiep-cuon/shots/sec-1.webp',
@@ -5316,7 +5316,7 @@ const PRODUCTS = [
         style: '',
         event: 'gio-to',
         tags: ['gio-to', 'gold', 'traditional', 'lacquer', 'hoanh-phi', 'family', 'rsvp', 'solemn'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_247_gio-to-ho-do/v2-hoanh-phi/shots/open.webp',
             './products/Invitation/Other/gen_247_gio-to-ho-do/v2-hoanh-phi/shots/sec-1.webp',
@@ -5353,7 +5353,7 @@ const PRODUCTS = [
         style: '',
         event: 'gio-to',
         tags: ['gio-to', 'gold', 'minimalist', 'family', 'rsvp', 'countdown', 'solemn', 'modern'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_247_gio-to-ho-do/v3-kim-toi-gian/shots/open.webp',
             './products/Invitation/Other/gen_247_gio-to-ho-do/v3-kim-toi-gian/shots/sec-1.webp',
@@ -5382,15 +5382,15 @@ const PRODUCTS = [
     },
     {
         id: 268,
-        name: 'Thiệp Thôi Nôi Bé — Bunny & Cloud Pastel',
+        name: 'Thiệp Thôi Nôi Bé Trai, Bé Gái — Thỏ Ngủ Trên Mây',
         slug: 'thiep-thoi-noi-be-bunny-cloud-pastel',
-        description: 'Thiệp thôi nôi online tông pastel xanh – hồng phấn với thỏ ngủ trên trăng, mây bông và sao lấp lánh. Có hồ sơ bé, hành trình 12 tháng, mâm bắt miếng, đếm ngược, lịch, album và RSVP kèm sổ lời chúc.',
+        description: 'Mẫu thiệp thôi nôi dùng chung cho bé trai và bé gái, tông pastel xanh nhạt pha hồng phấn với thỏ con ngủ trên trăng, mây bông và sao lấp lánh. Khách chạm phong bì để mở, sao bay ra theo. Hồ sơ bé có tên, biệt danh, giờ sinh, cân nặng và chiều cao lúc sinh so với hiện tại, trình bày như những tấm sticker. Hành trình 12 tháng gồm sáu mốc có ảnh: nụ cười đầu tiên, biết lẫy, ăn dặm, bò, tự đứng, bước đi. Lịch trình tách giờ lễ bắt miếng và giờ tiệc, kèm bản đồ, nút thêm vào lịch, đếm ngược và tờ lịch khoanh ngày. Mâm bắt miếng sáu món cho khách đoán bé chọn gì. Có mục "mẹ nhắn nhỏ", form xác nhận tham dự kèm số người đi cùng và sổ lời chúc lưu Google Sheets.',
         category: 'other',
         type: 'invitation',
         style: '',
         event: 'thoi-noi',
         tags: ['thoi-noi', 'thôi-nôi', 'đầy-tháng', 'baby', '1-tuoi', 'bunny', 'cloud', 'pastel', 'cute', 'kawaii', 'countdown', 'rsvp', 'timeline'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_268_thoi-noi-be-bunny-cloud/shots/open.webp',
             './products/Invitation/Other/gen_268_thoi-noi-be-bunny-cloud/shots/sec-1.webp',
@@ -5427,7 +5427,7 @@ const PRODUCTS = [
         style: '',
         event: 'birthday',
         tags: ['birthday', 'sinh-nhật', 'bé', 'kids', 'bear', 'pastel', 'cute', 'kawaii', 'countdown', 'rsvp', 'timeline'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_267_sinh-nhat-be-bear-party/shots/open.webp',
             './products/Invitation/Other/gen_267_sinh-nhat-be-bear-party/shots/sec-1.webp',
@@ -5456,15 +5456,15 @@ const PRODUCTS = [
     },
     {
         id: 290,
-        name: 'Thiệp Thôi Nôi Bé — Cừu Non & Đồi Cúc',
+        name: 'Thiệp Thôi Nôi Bé Trai, Bé Gái — Cừu Non & Đồi Cúc',
         slug: 'thiep-thoi-noi-be-cuu-non-doi-cuc',
-        description: 'Thiệp thôi nôi online phong cách màu nước: cừu con ngủ trên mây, khinh khí cầu và đồi hoa cúc, tông sữa – xanh bạc hà – đào hợp cả bé trai lẫn bé gái. Có hồ sơ bé kèm ngày âm, hành trình 12 tháng, mâm bốc đồ cho khách đoán, lịch, đếm ngược và RSVP ghi số trẻ em.',
+        description: 'Mẫu thiệp thôi nôi phong cách màu nước: cừu con ngủ trên mây, khinh khí cầu và đồi hoa cúc, tông sữa, xanh bạc hà và đào hợp cả bé trai lẫn bé gái. Chạm phong bì là hoa cúc bung ra. Hồ sơ bé ghi ngày sinh dương lịch và âm lịch, cân nặng, chiều dài lúc sinh, cung hoàng đạo; ngày tiệc cũng ghi rõ "nhằm ngày" âm lịch, tiện cho lễ cúng Mụ. Hành trình 12 tháng đi cùng album polaroid dán băng washi. Mâm bốc đồ 8 món cho khách chạm đoán bé cầm gì đầu tiên, thêm mục "ước mơ bé xíu" vuốt ngang. Lịch trình chia giờ cúng, giờ bốc đồ và giờ tiệc, có bản đồ, nút thêm vào lịch và đếm ngược. Form xác nhận tham dự ghi số người lớn, số trẻ em, món dị ứng và lời chúc.',
         category: 'other',
         type: 'invitation',
         style: '',
         event: 'thoi-noi',
         tags: ['thoi-noi', 'thôi-nôi', 'đầy-tháng', 'baby', '1-tuoi', 'cuu-non', 'hoa-cuc', 'watercolor', 'pastel', 'unisex', 'countdown', 'rsvp', 'timeline'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc/shots/open.webp',
             './products/Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc/shots/sec-1.webp',
@@ -5501,7 +5501,7 @@ const PRODUCTS = [
         style: '',
         event: 'graduation',
         tags: ['tot-nghiep', 'graduation', 'cu-nhan', 'navy', 'gold', 'sang-trong', 'countdown', 'rsvp', 'gallery', 'calendar'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_291_tot-nghiep-diploma-ink/shots/open.webp',
             './products/Invitation/Other/gen_291_tot-nghiep-diploma-ink/shots/sec-1.webp',
@@ -5536,7 +5536,7 @@ const PRODUCTS = [
         style: '',
         event: 'graduation',
         tags: ['tot-nghiep', 'graduation', 'gen-z', 'scrapbook', 'pastel', 'vui-nhon', 'sticker', 'countdown', 'rsvp', 'gallery'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_292_tot-nghiep-campus-scrapbook/shots/open.webp',
             './products/Invitation/Other/gen_292_tot-nghiep-campus-scrapbook/shots/sec-1.webp',
@@ -5571,7 +5571,7 @@ const PRODUCTS = [
         style: '',
         event: 'graduation',
         tags: ['tot-nghiep', 'graduation', 'tap-the', 'lop-12', 'ky-yeu', 'tri-an', 'truong-thanh', 'navy', 'countdown', 'rsvp'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_293_tot-nghiep-lop-yearbook/shots/open.webp',
             './products/Invitation/Other/gen_293_tot-nghiep-lop-yearbook/shots/sec-1.webp',
@@ -5606,7 +5606,7 @@ const PRODUCTS = [
         style: '',
         event: 'graduation',
         tags: ['tot-nghiep', 'graduation', 'hong', 'blush', 'hoa-ly', 'bao-giay', 'lich', 'countdown', 'rsvp', 'gallery'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_294_tot-nghiep-blush-lily/shots/open.webp',
             './products/Invitation/Other/gen_294_tot-nghiep-blush-lily/shots/sec-1.webp',
@@ -5641,7 +5641,7 @@ const PRODUCTS = [
         style: '',
         event: 'graduation',
         tags: ['tot-nghiep', 'graduation', 'lat-trang', 'storybook', 'lavender', 'tim', 'cau-chuyen', 'album', 'countdown', 'rsvp'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_295_tot-nghiep-storybook-flip/shots/open.webp',
             './products/Invitation/Other/gen_295_tot-nghiep-storybook-flip/shots/sec-1.webp',
@@ -5676,7 +5676,7 @@ const PRODUCTS = [
         style: 'modern',
         event: 'anniversary',
         tags: ['anniversary', 'ky-niem-cuoi', '10-nam', 'editorial', 'polaroid', 'countdown', 'rsvp', 'love-story', 'kem-nau-dong'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_296_ky-niem-10-nam-ngay-cuoi-editorial/shots/open.webp',
             './products/Invitation/Other/gen_296_ky-niem-10-nam-ngay-cuoi-editorial/shots/cover.webp',
@@ -5713,7 +5713,7 @@ const PRODUCTS = [
         style: 'modern',
         event: 'anniversary',
         tags: ['anniversary', 'ky-niem-cuoi', '1-nam', 'dam-cuoi-giay', 'paper-cut', 'origami', 'pastel', 'countdown', 'rsvp', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_297_ky-niem-1-nam-dam-cuoi-giay/shots/open.webp',
             './products/Invitation/Other/gen_297_ky-niem-1-nam-dam-cuoi-giay/shots/sec-1.webp',
@@ -5750,7 +5750,7 @@ const PRODUCTS = [
         style: 'traditional',
         event: 'anniversary',
         tags: ['anniversary', 'ky-niem-cuoi', '50-nam', 'dam-cuoi-vang', 'con-chau-kinh-moi', 'gia-pha', 'do-vang', 'countdown', 'rsvp', 'love-story'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_298_ky-niem-50-nam-dam-cuoi-vang/shots/open.webp',
             './products/Invitation/Other/gen_298_ky-niem-50-nam-dam-cuoi-vang/shots/cover.webp',
@@ -5787,7 +5787,7 @@ const PRODUCTS = [
         style: 'luxury',
         event: 'graduation',
         tags: ['graduation', 'tot-nghiep', 'le-tot-nghiep', 'cu-nhan', 'trang-trong', 'burgundy', 'gold', 'phong-bi', 'gia-dinh-moi'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_299_tot-nghiep-trang-trong/shots/open.webp',
             './products/Invitation/Other/gen_299_tot-nghiep-trang-trong/shots/cover.webp',
@@ -5839,7 +5839,7 @@ const PRODUCTS = [
         style: 'modern',
         event: 'graduation',
         tags: ['graduation', 'tot-nghiep', 'le-tot-nghiep', 'cinematic', 'poster-phim', 'film', 'dark', 'ban-be', 'class-of'],
-        price: 'free',
+        price: '',
         images: [
             './products/Invitation/Other/gen_300_tot-nghiep-cinematic/shots/open.webp',
             './products/Invitation/Other/gen_300_tot-nghiep-cinematic/shots/cover.webp',

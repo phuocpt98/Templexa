@@ -36,7 +36,7 @@ products/
 | **Google-sheet** | e-commerce | 5 | 5 |
 | | **Tong** | **289** | **245** |
 
-_Cap nhat tu data.js: 2026-10-16 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-10-18 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 
@@ -210,12 +210,12 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 168 | Nhật Ký Gửi Anh — Thanh Phương | `Invitation/Other/gen_168_white-day-thanh-phuong` | confession | hidden |
 | 169 | Gửi Anh — Đỗ Trang | `Invitation/Other/gen_169_white-day-do-trang` | confession | hidden |
 | 170 | Gửi Em — Nguyễn Thế Đức | `Invitation/Other/gen_170_white-day-the-duc` | confession | hidden |
-| 226 | Thiệp Đầy Tháng - Bé Bảo Pastel Cute | `Invitation/Other/gen_226_day-thang-be-bao-cute` | thoi-noi | public |
+| 226 | Thiệp Đầy Tháng Bé Trai — Bé Bảo Pastel Xanh | `Invitation/Other/gen_226_day-thang-be-bao-cute` | thoi-noi | public |
 | 227 | Thiệp Sinh Nhật 30 - Gold Luxury Black Tie | `Invitation/Other/gen_227_sinh-nhat-30-gold-luxury` | birthday | hidden |
 | 228 | Thiệp Kỷ Niệm 10 Năm Cưới - Warm Vintage | `Invitation/Other/gen_228_ky-niem-10-nam-cuoi-warm-vintage` | anniversary | hidden |
 | 229 | Thiệp Sinh Nhật Ty Ni - White Gold Bling Bling | `Invitation/Other/khach_2` | birthday | public |
-| 231 | Thiệp Thôi Nôi - Bé Mimi Pastel Dreamy | `Invitation/Other/gen_231_thoi-noi-be-mimi-pastel` | thoi-noi | public |
-| 234 | Thiệp Đầy Tháng - Little Sailor Adventure | `Invitation/Other/gen_234_day-thang-sailor-adventure` | thoi-noi | public |
+| 231 | Thiệp Thôi Nôi Bé Gái — Bé Mimi Hồng Pastel | `Invitation/Other/gen_231_thoi-noi-be-mimi-pastel` | thoi-noi | public |
+| 234 | Thiệp Đầy Tháng Bé Trai — Thuỷ Thủ Little Sailor | `Invitation/Other/gen_234_day-thang-sailor-adventure` | thoi-noi | public |
 | 236 | Thiệp Mời Lễ Tốt Nghiệp Mầm Non | `Invitation/Other/thiep-tot-nghiep-mau-giao` | graduation | public |
 | 237 | Thiệp Mời Họp Lớp — Sổ Liên Lạc Retro | `Invitation/Other/gen_237_hop-lop-so-lien-lac-retro` | reunion | public |
 | 238 | Thiệp Liên Hoan Gặp Mặt — Cuốn Phim Tuổi Học Trò | `Invitation/Other/gen_237_lien-hoan-phim-retro` | reunion | public |
@@ -225,8 +225,8 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 250 | Thiệp Giỗ Tổ Dòng Họ — Hoành Phi | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 | 251 | Thiệp Giỗ Tổ Dòng Họ — Kim Tối Giản | `Invitation/Other/gen_247_gio-to-ho-do` | gio-to | public |
 | 267 | Thiệp Sinh Nhật Bé — Bear Party Pastel | `Invitation/Other/gen_267_sinh-nhat-be-bear-party` | birthday | public |
-| 268 | Thiệp Thôi Nôi Bé — Bunny & Cloud Pastel | `Invitation/Other/gen_268_thoi-noi-be-bunny-cloud` | thoi-noi | public |
-| 290 | Thiệp Thôi Nôi Bé — Cừu Non & Đồi Cúc | `Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc` | thoi-noi | public |
+| 268 | Thiệp Thôi Nôi Bé Trai, Bé Gái — Thỏ Ngủ Trên Mây | `Invitation/Other/gen_268_thoi-noi-be-bunny-cloud` | thoi-noi | public |
+| 290 | Thiệp Thôi Nôi Bé Trai, Bé Gái — Cừu Non & Đồi Cúc | `Invitation/Other/gen_290_thoi-noi-cuu-non-dong-cuc` | thoi-noi | public |
 | 291 | Thiệp Mời Tốt Nghiệp — Diploma Navy & Gold | `Invitation/Other/gen_291_tot-nghiep-diploma-ink` | graduation | public |
 | 292 | Thiệp Mời Tốt Nghiệp — Campus Scrapbook Gen Z | `Invitation/Other/gen_292_tot-nghiep-campus-scrapbook` | graduation | public |
 | 293 | Thiệp Mời Lễ Tri Ân & Tốt Nghiệp Lớp — Kỷ Yếu Navy | `Invitation/Other/gen_293_tot-nghiep-lop-yearbook` | graduation | public |

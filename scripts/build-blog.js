@@ -388,7 +388,7 @@ function footerHtml(rel) {
                     <ul>
                         <li><a href="${rel}thiep-moi-online.html">Thiệp mời online (dịp khác)</a></li>
                         <li><a href="${rel}thiep-sinh-nhat.html">Thiệp sinh nhật</a></li>
-                        <li><a href="${rel}thiep-thoi-noi-day-thang.html">Thiệp thôi nôi, đầy tháng</a></li>
+                        <li><a href="${rel}thiep-thoi-noi-day-thang.html">Thiệp đầy tháng, thôi nôi</a></li>
                         <li><a href="${rel}thiep-ky-niem-ngay-cuoi.html">Thiệp kỷ niệm ngày cưới</a></li>
                         <li><a href="${rel}thiep-moi-hop-lop.html">Thiệp mời họp lớp</a></li>
                         <li><a href="${rel}thiep-tot-nghiep.html">Thiệp mời tốt nghiệp</a></li>
