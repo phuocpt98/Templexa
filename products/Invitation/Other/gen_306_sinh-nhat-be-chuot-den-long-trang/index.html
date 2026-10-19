@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sinh Nhật Bé Tép — Đèn Lồng Trăng Rằm</title>
+<meta name="description" content="Thiệp mời sinh nhật 1 tuổi online phong cách đêm trăng rằm, đèn lồng đỏ và chuột con đáng yêu. Mời cả nhà đến chung vui cùng bé Tép.">
+<meta property="og:title" content="Bé Tép tròn 1 tuổi — Thiệp mời sinh nhật">
+<meta property="og:description" content="Chủ Nhật 13.12.2026 · Mời cả nhà đến chung vui sinh nhật 1 tuổi của bé Tép.">
+<meta property="og:image" content="./shots/open.webp">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#141B33">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root {
+  --night: #141B33;
+  --night-2: #1E2748;
+  --night-3: #2A3559;
+  --moon: #F2C14E;
+  --moon-l: #FBE7B2;
+  --lantern: #D9483B;
+  --lantern-d: #B03227;
+  --cream: #FFF6E8;
+  --cream-d: #EAD9BC;
+  --ink: #2B2440;
+  --ink-l: #6B6486;
+  --font-head: 'Mali', 'Nunito', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+  --font-hand: 'Patrick Hand', 'Mali', cursive;
+  --shadow: 0 14px 34px rgba(10, 12, 30, .35), 0 2px 8px rgba(10, 12, 30, .25);
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: var(--cream);
+  background: var(--night);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body.locked { overflow: hidden; height: 100vh; }
+img { display: block; max-width: 100%; }
+.wrap { max-width: 480px; margin: 0 auto; padding: 0 20px; position: relative; }
+
+/* Sao nền */
+.stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 3.4s ease-in-out infinite; }
+@keyframes twinkle { 0%,100% { opacity: .25; transform: scale(.7);} 50% { opacity: .95; transform: scale(1.15);} }
+
+/* Đèn lồng bay (canvas) */
+#lanternCanvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .9; }
+
+/* ===================== PHONG BÌ ===================== */
+#envelope {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%, #2A3559 0%, #141B33 62%);
+  cursor: pointer; text-align: center; padding: 24px;
+  transition: opacity .9s var(--ease), visibility .9s;
+}
+#envelope.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+.moon-glow {
+  width: 168px; height: 168px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, #FBE7B2 0%, var(--moon) 58%, #D9962B 100%);
+  box-shadow: 0 0 60px 18px rgba(242,193,78,.45), 0 0 140px 60px rgba(242,193,78,.16);
+  animation: moonPulse 4.5s ease-in-out infinite;
+  position: relative; margin-bottom: 26px;
+}
+@keyframes moonPulse { 0%,100% { transform: scale(1);} 50% { transform: scale(1.06);} }
+.env-mascot { width: 128px; margin-top: -86px; position: relative; z-index: 2; animation: floaty 3.2s ease-in-out infinite; }
+@keyframes floaty { 0%,100% { transform: translateY(0) rotate(-2deg);} 50% { transform: translateY(-12px) rotate(2deg);} }
+.env-kicker { font-family: var(--font-hand); font-size: 1.35rem; color: var(--moon-l); letter-spacing: .5px; }
+.env-title { font-family: var(--font-head); font-weight: 700; font-size: clamp(2rem, 9vw, 2.7rem); color: #fff; margin: 8px 0 4px; white-space: nowrap; }
+.env-sub { color: var(--cream-d); font-size: 1.02rem; }
+#openBtn {
+  margin-top: 30px; font-family: var(--font-head); font-weight: 700; font-size: 1.2rem;
+  color: #fff; background: linear-gradient(180deg, var(--lantern) 0%, var(--lantern-d) 100%);
+  border: none; border-radius: 999px; padding: 16px 44px; cursor: pointer;
+  box-shadow: 0 10px 30px rgba(217,72,59,.5), inset 0 1px 0 rgba(255,255,255,.35);
+  animation: btnGlow 2.2s ease-in-out infinite;
+  transition: transform .25s var(--ease);
+}
+#openBtn:active { transform: scale(.96); }
+@keyframes btnGlow { 0%,100% { box-shadow: 0 10px 30px rgba(217,72,59,.5);} 50% { box-shadow: 0 10px 44px rgba(242,193,78,.75);} }
+
+/* ===================== HERO ===================== */
+#hero { position: relative; z-index: 2; padding: 0 0 8px; }
+.hero-photo { position: relative; margin: 0 -20px; }
+.hero-photo img { width: 100%; height: 62vh; min-height: 420px; object-fit: cover; object-position: center 18%; }
+.hero-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(20,27,51,.25) 0%, rgba(20,27,51,0) 32%, rgba(20,27,51,.35) 72%, var(--night) 100%);
+}
+.hero-text { position: relative; margin-top: -118px; text-align: center; padding: 0 8px; }
+.hero-kicker { font-family: var(--font-hand); font-size: 1.4rem; color: var(--moon-l); }
+.hero-name { font-family: var(--font-head); font-weight: 700; font-size: clamp(1.7rem, 8.6vw, 2.5rem); color: #fff; margin: 6px 0 2px; white-space: nowrap; text-shadow: 0 3px 14px rgba(0,0,0,.5); }
+.hero-nick { font-family: var(--font-hand); font-size: 1.5rem; color: var(--moon); }
+.hero-age { display: inline-block; margin-top: 10px; font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; color: var(--night); background: var(--moon); border-radius: 999px; padding: 6px 22px; box-shadow: 0 6px 18px rgba(242,193,78,.4); }
+.hero-dates { margin-top: 14px; color: var(--cream-d); font-size: 1rem; }
+.hero-dates b { color: #fff; font-weight: 800; }
+.hero-lunar { margin-top: 4px; font-size: .92rem; color: var(--cream-d); opacity: .85; }
+
+/* ===================== SECTION CHUNG ===================== */
+section.block { position: relative; z-index: 2; padding: 52px 0 8px; }
+.sec-label { text-align: center; font-family: var(--font-hand); font-size: 1.3rem; color: var(--moon-l); margin-bottom: 6px; }
+.sec-title { text-align: center; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.45rem, 7vw, 1.9rem); color: #fff; margin-bottom: 22px; }
+.card {
+  background: rgba(255,246,232,.06);
+  border: 1px solid rgba(242,193,78,.22);
+  border-radius: 22px; padding: 24px 20px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(2px);
+}
+.card.light { background: var(--cream); color: var(--ink); border-color: rgba(217,72,59,.18); }
+.card.light .row-label { color: var(--ink-l); }
+.card.light .row-val { color: var(--ink); }
+
+/* reveal khi cuộn */
+.reveal { opacity: 0; transform: translateY(34px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: .12s; } .reveal.d2 { transition-delay: .24s; } .reveal.d3 { transition-delay: .36s; }
+
+/* ===================== ĐẾM NGƯỢC ===================== */
+.countdown { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+.cd-cell { background: rgba(255,246,232,.07); border: 1px solid rgba(242,193,78,.3); border-radius: 16px; min-width: 70px; padding: 12px 6px; text-align: center; }
+.cd-num { font-family: var(--font-head); font-weight: 700; font-size: 1.7rem; color: var(--moon); line-height: 1.1; }
+.cd-lab { font-size: .8rem; color: var(--cream-d); margin-top: 2px; }
+
+/* ===================== BÉ LÀ AI ===================== */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.info-item { background: rgba(255,246,232,.05); border: 1px dashed rgba(242,193,78,.35); border-radius: 16px; padding: 14px 10px; text-align: center; }
+.info-item .row-label { font-size: .82rem; color: var(--cream-d); display: block; margin-bottom: 2px; }
+.info-item .row-val { font-family: var(--font-head); font-weight: 600; font-size: .93rem; color: #fff; display: block; white-space: nowrap; }
+
+/* ===================== LỜI MỜI ===================== */
+.invite-text { font-size: 1.05rem; text-align: center; color: var(--cream); }
+.invite-text .hand { font-family: var(--font-hand); font-size: 1.35rem; color: var(--moon-l); display: block; margin-bottom: 10px; }
+.parents { display: flex; gap: 12px; margin-top: 18px; }
+.parent { flex: 1; text-align: center; background: rgba(217,72,59,.1); border: 1px solid rgba(217,72,59,.3); border-radius: 16px; padding: 14px 8px; }
+.parent .row-label { font-size: .85rem; color: var(--cream-d); display: block; }
+.parent .row-val { font-weight: 800; font-size: .98rem; color: #fff; display: block; margin-top: 2px; white-space: nowrap; }
+
+/* ===================== TIỆC ===================== */
+.party-rows { display: grid; gap: 12px; }
+.party-row { display: flex; gap: 14px; align-items: flex-start; background: rgba(255,246,232,.05); border-radius: 16px; padding: 14px 16px; }
+.party-ico { font-size: 1.5rem; line-height: 1.3; flex: 0 0 34px; text-align: center; }
+.party-row .row-label { font-size: .82rem; color: var(--cream-d); display: block; }
+.party-row .row-val { font-weight: 700; font-size: 1.05rem; color: #fff; display: block; }
+.map-frame { border-radius: 18px; overflow: hidden; margin-top: 14px; border: 1px solid rgba(242,193,78,.3); }
+.map-frame iframe { width: 100%; height: 240px; border: 0; display: block; }
+.btn-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.btn {
+  flex: 1 1 0; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; text-decoration: none;
+  border-radius: 999px; padding: 15px 18px; cursor: pointer; border: none; text-align: center;
+  transition: transform .2s var(--ease);
+}
+.btn:active { transform: scale(.97); }
+.btn-red { color: #fff; background: linear-gradient(180deg, var(--lantern), var(--lantern-d)); box-shadow: 0 8px 22px rgba(217,72,59,.45); }
+.btn-gold { color: var(--night); background: linear-gradient(180deg, var(--moon-l), var(--moon)); box-shadow: 0 8px 22px rgba(242,193,78,.35); }
+.btn-ghost { color: var(--moon-l); background: transparent; border: 1.5px solid rgba(242,193,78,.5); }
+
+/* ===================== ALBUM ===================== */
+.album { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.album figure { border-radius: 18px; overflow: hidden; border: 3px solid rgba(242,193,78,.4); box-shadow: var(--shadow); background: var(--night-2); }
+.album figure:nth-child(odd) { transform: rotate(-2deg); }
+.album figure:nth-child(even) { transform: rotate(2deg); }
+.album img { width: 100%; height: 190px; object-fit: cover; }
+.album figcaption { text-align: center; font-family: var(--font-hand); font-size: 1.1rem; color: var(--moon-l); padding: 8px 6px 10px; }
+
+/* ===================== RSVP ===================== */
+.field { margin-bottom: 14px; }
+.field label { display: block; font-weight: 700; font-size: .98rem; margin-bottom: 6px; color: #fff; }
+.field input, .field textarea, .field select {
+  width: 100%; font-family: var(--font-body); font-size: 1.05rem; color: var(--ink);
+  background: #fff; border: 2px solid transparent; border-radius: 14px; padding: 14px 16px;
+}
+.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--moon); }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field textarea { min-height: 96px; resize: vertical; }
+.rsvp-ok { display: none; text-align: center; padding: 26px 10px; }
+.rsvp-ok.show { display: block; }
+.rsvp-ok .big { font-size: 2.6rem; }
+.rsvp-ok p { font-family: var(--font-hand); font-size: 1.4rem; color: var(--moon-l); margin-top: 8px; }
+
+/* ===================== LỜI CHÚC ===================== */
+.wish-list { display: grid; gap: 12px; margin-top: 4px; }
+.wish { background: rgba(255,246,232,.06); border-left: 4px solid var(--moon); border-radius: 0 14px 14px 0; padding: 12px 16px; }
+.wish .w-name { font-weight: 800; color: var(--moon-l); font-size: .98rem; }
+.wish .w-text { color: var(--cream); font-size: 1rem; margin-top: 2px; }
+
+/* ===================== CẢM ƠN / FOOTER ===================== */
+#thanks { text-align: center; padding: 64px 0 30px; position: relative; z-index: 2; }
+#thanks .mascot { width: 120px; margin: 0 auto 14px; animation: floaty 3.4s ease-in-out infinite; }
+.thanks-title { font-family: var(--font-head); font-weight: 700; font-size: 1.6rem; color: #fff; }
+.thanks-text { color: var(--cream-d); margin-top: 8px; }
+.closing-brand { display: inline-block; margin-top: 26px; font-size: .88rem; color: var(--cream-d); opacity: .75; text-decoration: none; }
+.closing-brand b { color: var(--moon-l); }
+
+/* nút nhạc */
+#musicBtn {
+  position: fixed; right: 16px; bottom: 16px; z-index: 90;
+  width: 54px; height: 54px; border-radius: 50%; border: 1.5px solid rgba(242,193,78,.6);
+  background: rgba(20,27,51,.85); color: var(--moon); font-size: 1.4rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,.4);
+}
+#musicBtn.off { opacity: .55; }
+#musicBtn .eq { display: none; }
+#musicBtn.playing .note { display: none; }
+#musicBtn.playing .eq { display: inline; animation: eqb 1s ease-in-out infinite; }
+@keyframes eqb { 0%,100% { transform: scaleY(.6);} 50% { transform: scaleY(1.2);} }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  #lanternCanvas { display: none; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body class="locked">
+<div class="stars" id="stars"></div>
+<canvas id="lanternCanvas"></canvas>
+
+<!-- PHONG BÌ -->
+<div id="envelope" role="button" aria-label="Mở thiệp">
+  <div class="moon-glow"></div>
+  <img class="env-mascot" src="assets/chuot-den-long.webp" alt="Chuột con ôm đèn lồng">
+  <p class="env-kicker">Đêm rằm tháng chạp, đèn lồng đỏ rực</p>
+  <h1 class="env-title">Bé Tép tròn 1 tuổi</h1>
+  <p class="env-sub">Mời ông bà, cô chú cùng thắp đèn chung vui</p>
+  <button id="openBtn">Mở thiệp</button>
+</div>
+
+<div class="wrap">
+  <!-- HERO -->
+  <header id="hero">
+    <div class="hero-photo">
+      <img src="assets/bia-be.webp" alt="Bé Tép mặc áo dài đỏ ôm đèn lồng dưới trăng rằm">
+    </div>
+    <div class="hero-text">
+      <p class="hero-kicker reveal">Thiệp mời sinh nhật</p>
+      <h1 class="hero-name reveal d1">Nguyễn Minh Châu</h1>
+      <p class="hero-nick reveal d2">ở nhà gọi là Bé Tép</p>
+      <div class="reveal d3"><span class="hero-age">Tròn 1 tuổi</span></div>
+      <div class="hero-dates reveal d3">
+        <b>Chủ Nhật · 13.12.2026</b> · 10:00 – 12:00<br>
+        <span class="hero-lunar">Nhằm ngày 01 tháng 11 năm Nhâm Dần</span>
+      </div>
+      <div class="countdown reveal d3" id="countdown">
+        <div class="cd-cell"><div class="cd-num" id="cd-d">0</div><div class="cd-lab">Ngày</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-h">0</div><div class="cd-lab">Giờ</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-m">0</div><div class="cd-lab">Phút</div></div>
+        <div class="cd-cell"><div class="cd-num" id="cd-s">0</div><div class="cd-lab">Giây</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BÉ LÀ AI -->
+  <section class="block" id="be-la-ai">
+    <p class="sec-label reveal">Chào cả nhà, con là</p>
+    <h2 class="sec-title reveal d1">Bé Tép đây ạ</h2>
+    <div class="info-grid">
+      <div class="info-item reveal"><span class="row-label">Tên khai sinh</span><span class="row-val">Nguyễn Minh Châu</span></div>
+      <div class="info-item reveal d1"><span class="row-label">Tên ở nhà</span><span class="row-val">Bé Tép</span></div>
+      <div class="info-item reveal d1"><span class="row-label">Ngày sinh</span><span class="row-val">14.12.2025</span></div>
+      <div class="info-item reveal d2"><span class="row-label">Âm lịch</span><span class="row-val">21/11 Tân Sửu</span></div>
+      <div class="info-item reveal d2"><span class="row-label">Cung hoàng đạo</span><span class="row-val">Nhân Mã</span></div>
+      <div class="info-item reveal d3"><span class="row-label">Sở thích</span><span class="row-val">Ôm đèn lồng</span></div>
+    </div>
+  </section>
+
+  <!-- LỜI MỜI -->
+  <section class="block" id="loi-moi">
+    <p class="sec-label reveal">Lời mời</p>
+    <h2 class="sec-title reveal d1">Từ bố mẹ bé Tép</h2>
+    <div class="card reveal d2">
+      <p class="invite-text">
+        <span class="hand">Một năm con đến bên đời,</span>
+        Cả nhà mình trân trọng kính mời ông bà, cô chú, anh chị đến dự tiệc sinh nhật tròn 1 tuổi của bé Tép. Sự hiện diện của cả nhà là món quà ý nghĩa nhất với con.
+      </p>
+      <div class="parents">
+        <div class="parent"><span class="row-label">Bố</span><span class="row-val">Nguyễn Hoàng Nam</span></div>
+        <div class="parent"><span class="row-label">Mẹ</span><span class="row-val">Trần Thảo Vy</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIỆC -->
+  <section class="block" id="tiec">
+    <p class="sec-label reveal">Hẹn gặp cả nhà</p>
+    <h2 class="sec-title reveal d1">Thông tin buổi tiệc</h2>
+    <div class="party-rows">
+      <div class="party-row reveal"><div class="party-ico">🕙</div><div><span class="row-label">Thời gian</span><span class="row-val">10:00 – 12:00 · Chủ Nhật 13.12.2026</span></div></div>
+      <div class="party-row reveal d1"><div class="party-ico">🏮</div><div><span class="row-label">Địa điểm</span><span class="row-val">Nhà hàng Sen Vàng — 45 Lê Văn Sỹ, Phú Nhuận, TP.HCM</span></div></div>
+      <div class="party-row reveal d2"><div class="party-ico">👗</div><div><span class="row-label">Trang phục gợi ý</span><span class="row-val">Tông đỏ / vàng cho hợp không khí đêm hội</span></div></div>
+    </div>
+    <div class="map-frame reveal d2">
+      <iframe title="Bản đồ địa điểm tiệc" loading="lazy" src="https://www.google.com/maps?q=Nh%C3%A0%20h%C3%A0ng%20Sen%20V%C3%A0ng%2045%20L%C3%AA%20V%C4%83n%20S%E1%BB%B9%20Ph%C3%BA%20Nhu%E1%BA%ADn&output=embed"></iframe>
+    </div>
+    <div class="btn-row reveal d3">
+      <a class="btn btn-red" href="https://www.google.com/maps/search/?api=1&query=Nh%C3%A0%20h%C3%A0ng%20Sen%20V%C3%A0ng%2045%20L%C3%AA%20V%C4%83n%20S%E1%BB%B9%20Ph%C3%BA%20Nhu%E1%BA%ADn%20TP.HCM" target="_blank" rel="noopener">Chỉ đường</a>
+      <button class="btn btn-gold" id="addCalBtn" type="button">Thêm vào lịch</button>
+    </div>
+  </section>
+
+  <!-- ALBUM -->
+  <section class="block" id="album">
+    <p class="sec-label reveal">Khoảnh khắc</p>
+    <h2 class="sec-title reveal d1">Album của bé Tép</h2>
+    <div class="album">
+      <figure class="reveal"><img src="assets/bia-be.webp" alt="Bé Tép ôm đèn lồng" style="object-position:center 15%"><figcaption>Đêm rằm đầu đời</figcaption></figure>
+      <figure class="reveal d1"><img src="assets/chuot-den-long.webp" alt="Chuột con ôm đèn lồng" style="object-fit:contain;background:radial-gradient(circle,#2A3559,#141B33)"><figcaption>Bạn chuột đồng hành</figcaption></figure>
+      <figure class="reveal d1"><img src="assets/bia-be.webp" alt="Bé Tép cười tươi" style="object-position:center 45%"><figcaption>Nụ cười tỏa nắng</figcaption></figure>
+      <figure class="reveal d2"><img src="assets/bia-be.webp" alt="Áo dài đỏ của bé Tép" style="object-position:center 80%"><figcaption>Áo dài đón tuổi mới</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="block" id="rsvp">
+    <p class="sec-label reveal">Xác nhận tham dự</p>
+    <h2 class="sec-title reveal d1">Gửi lời chúc cho bé</h2>
+    <div class="card reveal d2">
+      <form id="rsvpForm">
+        <div class="field"><label for="f-name">Tên của ông/bà/cô/chú</label><input id="f-name" name="name" type="text" placeholder="VD: Cô Lan" required></div>
+        <div class="field-row">
+          <div class="field"><label for="f-adult">Số người lớn</label><input id="f-adult" name="adults" type="number" min="0" max="20" value="1" required></div>
+          <div class="field"><label for="f-kid">Số trẻ em</label><input id="f-kid" name="kids" type="number" min="0" max="20" value="0"></div>
+        </div>
+        <div class="field"><label for="f-attend">Tham dự</label><select id="f-attend" name="attend"><option value="Có mặt">Vui lòng có mặt</option><option value="Vắng mặt">Tiếc là vắng mặt</option></select></div>
+        <div class="field"><label for="f-wish">Lời chúc cho bé Tép</label><textarea id="f-wish" name="wish" placeholder="Chúc con hay ăn chóng lớn…"></textarea></div>
+        <button class="btn btn-red" type="submit" style="width:100%">Gửi lời chúc &amp; xác nhận</button>
+      </form>
+      <div class="rsvp-ok" id="rsvpOk">
+        <div class="big">🏮</div>
+        <p>Cảm ơn cả nhà! Hẹn gặp ở đêm hội đèn lồng nhé!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SỔ LỜI CHÚC -->
+  <section class="block" id="loi-chuc">
+    <p class="sec-label reveal">Sổ vàng</p>
+    <h2 class="sec-title reveal d1">Lời chúc cho bé Tép</h2>
+    <div class="wish-list" id="wishList"></div>
+  </section>
+
+  <!-- CẢM ƠN -->
+  <footer id="thanks">
+    <img class="mascot reveal" src="assets/chuot-den-long.webp" alt="Chuột con cảm ơn">
+    <h2 class="thanks-title reveal d1">Cảm ơn cả nhà!</h2>
+    <p class="thanks-text reveal d2">Gia đình bé Tép hẹn gặp ông bà, cô chú<br>dưới ánh trăng rằm lung linh.</p>
+    <br>
+    <a class="closing-brand" href="https://templexa.vn" target="_blank" rel="noopener">Thiệp online · <b>templexa.vn</b></a>
+  </footer>
+</div>
+
+<button id="musicBtn" class="off" aria-label="Bật/tắt nhạc"><span class="note">🎵</span><span class="eq">🎶</span></button>
+<audio id="bgMusic" src="assets/nhac-nen.mp3" loop preload="none"></audio>
+
+<script>
+(function () {
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Sao nền */
+  (function stars() {
+    var box = document.getElementById('stars');
+    for (var i = 0; i < 70; i++) {
+      var s = document.createElement('div');
+      s.className = 'star';
+      var sz = 1 + Math.random() * 2.2;
+      s.style.cssText = 'left:' + (Math.random() * 100) + '%;top:' + (Math.random() * 100) +
+        '%;width:' + sz + 'px;height:' + sz + 'px;animation-delay:' + (Math.random() * 3.4).toFixed(2) + 's;';
+      box.appendChild(s);
+    }
+  })();
+
+  /* Đèn lồng bay */
+  (function lanterns() {
+    if (reduceMotion) return;
+    var cv = document.getElementById('lanternCanvas'), ctx = cv.getContext('2d');
+    var W, H, items = [];
+    function resize() { W = cv.width = innerWidth; H = cv.height = innerHeight; }
+    resize(); addEventListener('resize', resize);
+    function spawn(init) {
+      return { x: Math.random() * W, y: init ? Math.random() * H : H + 60,
+        r: 8 + Math.random() * 14, v: .35 + Math.random() * .7,
+        sway: Math.random() * 2 * Math.PI, swayV: .004 + Math.random() * .01,
+        glow: .5 + Math.random() * .5 };
+    }
+    for (var i = 0; i < 14; i++) items.push(spawn(true));
+    function draw(it) {
+      var x = it.x + Math.sin(it.sway) * 22;
+      var g = ctx.createRadialGradient(x, it.y, 1, x, it.y, it.r * 3);
+      g.addColorStop(0, 'rgba(242,150,80,' + (0.55 * it.glow) + ')');
+      g.addColorStop(.45, 'rgba(217,72,59,' + (0.35 * it.glow) + ')');
+      g.addColorStop(1, 'rgba(217,72,59,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x, it.y, it.r * 3, 0, 7); ctx.fill();
+      ctx.fillStyle = 'rgba(235,110,70,' + (0.9 * it.glow) + ')';
+      ctx.beginPath(); ctx.ellipse(x, it.y, it.r * .62, it.r * .8, 0, 0, 7); ctx.fill();
+      ctx.fillStyle = 'rgba(120,40,25,.9)';
+      ctx.fillRect(x - it.r * .3, it.y - it.r * .95, it.r * .6, it.r * .16);
+    }
+    (function loop() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < items.length; i++) {
+        var it = items[i];
+        it.y -= it.v; it.sway += it.swayV;
+        if (it.y < -70) items[i] = spawn(false); else draw(it);
+      }
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  /* Mở phong bì + nhạc */
+  var env = document.getElementById('envelope');
+  var audio = document.getElementById('bgMusic');
+  var musicBtn = document.getElementById('musicBtn');
+  var opened = false;
+  function setMusic(on) {
+    musicBtn.classList.toggle('off', !on);
+    musicBtn.classList.toggle('playing', on);
+    if (on) { audio.play().catch(function () {}); } else { audio.pause(); }
+  }
+  function openCard() {
+    if (opened) return; opened = true;
+    env.classList.add('hide');
+    document.body.classList.remove('locked');
+    setTimeout(function () { env.style.display = 'none'; }, 1000);
+    setMusic(true);
+    observeReveals();
+  }
+  env.addEventListener('click', openCard);
+  musicBtn.addEventListener('click', function (e) { e.stopPropagation(); setMusic(musicBtn.classList.contains('off')); });
+
+  /* Reveal khi cuộn */
+  var io;
+  function observeReveals() {
+    var els = document.querySelectorAll('.reveal:not(.in)');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); }); return;
+    }
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* Đếm ngược */
+  var target = new Date('2026-12-13T10:00:00+07:00').getTime();
+  function tick() {
+    var d = Math.max(0, target - Date.now());
+    var days = Math.floor(d / 864e5), h = Math.floor(d / 36e5) % 24,
+        m = Math.floor(d / 6e4) % 60, s = Math.floor(d / 1e3) % 60;
+    document.getElementById('cd-d').textContent = days;
+    document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* Thêm vào lịch */
+  document.getElementById('addCalBtn').addEventListener('click', function () {
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'BEGIN:VEVENT',
+      'DTSTART:20261213T030000Z', 'DTEND:20261213T050000Z',
+      'SUMMARY:Sinh nhật 1 tuổi bé Tép',
+      'LOCATION:Nhà hàng Sen Vàng\\, 45 Lê Văn Sỹ\\, Phú Nhuận\\, TP.HCM',
+      'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    var a = document.createElement('a');
+    a.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+    a.download = 'sinh-nhat-be-tep.ics'; a.click();
+  });
+
+  /* RSVP + sổ lời chúc (chế độ local cho mẫu catalog) */
+  var KEY = 'wish_306';
+  var seed = [
+    { name: 'Bà ngoại', wish: 'Chúc Tép hay ăn chóng lớn, ngoan ngoãn nghe lời bố mẹ!' },
+    { name: 'Cô Lan', wish: 'Chúc mừng bé Tép tròn 1 tuổi, tuổi mới thật nhiều niềm vui!' },
+    { name: 'Chú Minh', wish: 'Chúc con một đời an yên, mau ăn chóng lớn nhé!' }
+  ];
+  function loadWishes() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || seed.slice(); }
+    catch (e) { return seed.slice(); }
+  }
+  function renderWishes() {
+    var list = document.getElementById('wishList');
+    list.innerHTML = '';
+    loadWishes().forEach(function (w) {
+      var div = document.createElement('div');
+      div.className = 'wish';
+      var n = document.createElement('div'); n.className = 'w-name'; n.textContent = w.name;
+      var t = document.createElement('div'); t.className = 'w-text'; t.textContent = w.wish;
+      div.appendChild(n); div.appendChild(t); list.appendChild(div);
+    });
+  }
+  renderWishes();
+  document.getElementById('rsvpForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('f-name').value.trim();
+    var wish = document.getElementById('f-wish').value.trim();
+    if (!name) return;
+    var all = loadWishes();
+    all.unshift({ name: name, wish: wish || 'Chúc mừng sinh nhật bé Tép!' });
+    try { localStorage.setItem(KEY, JSON.stringify(all)); } catch (err) {}
+    renderWishes();
+    document.getElementById('rsvpForm').style.display = 'none';
+    document.getElementById('rsvpOk').classList.add('show');
+  });
+})();
+</script>
+</body>
+</html>

@@ -3661,7 +3661,7 @@ const PRODUCTS = [
         isPublic: true,
         updatedAt: '2026-09-30',
     },
-    // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 70 ──────────────
+    // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 71 ──────────────
     {
         id: 98,
         name: 'Trang thiệp mời sinh nhật phong cách neon hiện đại',
@@ -6060,6 +6060,37 @@ const PRODUCTS = [
         showInSlider: false,
         isPublic: true,
         updatedAt: '2026-10-18',
+    },
+    {
+        id: 306,
+        name: 'Sinh Nhật Bé Chuột — Đèn Lồng Trăng Rằm',
+        slug: 'sinh-nhat-be-chuot-den-long-trang-ram',
+        description: 'Mẫu thiệp sinh nhật 1 tuổi phong cách đêm trăng rằm: đèn lồng đỏ bay, chuột con đáng yêu, đếm ngược, bản đồ, RSVP và sổ lời chúc.',
+        category: 'other',
+        type: 'invitation',
+        style: '',
+        event: 'thoi-noi',
+        tags: ['thiep-khach'],
+        price: '',
+        images: [
+            './products/Invitation/Other/gen_306_sinh-nhat-be-chuot-den-long-trang/shots/open.webp',
+            './products/Invitation/Other/gen_306_sinh-nhat-be-chuot-den-long-trang/shots/cover.webp',
+            './products/Invitation/Other/gen_306_sinh-nhat-be-chuot-den-long-trang/shots/sec-1.webp',
+        ],
+        thumbnail: './products/Invitation/Other/gen_306_sinh-nhat-be-chuot-den-long-trang/shots/open.webp',
+        mobileView: './products/Invitation/Other/gen_306_sinh-nhat-be-chuot-den-long-trang/shots/open.webp',
+        path: './products/Invitation/Other/gen_306_sinh-nhat-be-chuot-den-long-trang/',
+        demoUrl: './products/Invitation/Other/gen_306_sinh-nhat-be-chuot-den-long-trang/index.html',
+        variants: [],
+        features: [],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-19',
     },
     // ── WEBSITE — 115 ──────────────
     {
