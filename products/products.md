@@ -242,7 +242,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 303 | Thiệp Đầy Tháng Bé Gái — Hồng Pastel Thỏ Bông | `Invitation/Other/gen_303_day-thang-be-gai-tho-bong` | thoi-noi | public |
 | 304 | Thiệp Thôi Nôi Bé Trai Tuổi Tỵ — Gấu Bông & Khinh Khí Cầu | `Invitation/Other/gen_304_thoi-noi-be-trai-gau-bong-khinh-khi-cau` | thoi-noi | public |
 | 305 | Thiệp Đầy Tháng Bé Trai Tuổi Ngọ — Ngựa Gỗ Xanh Dương | `Invitation/Other/gen_305_day-thang-be-trai-ngua-go` | thoi-noi | public |
-| 306 | Sinh Nhật Bé Chuột — Đèn Lồng Trăng Rằm | `Invitation/Other/gen_306_sinh-nhat-be-chuot-den-long-trang` | thoi-noi | public |
+| 306 | Thiệp Sinh Nhật 1 Tuổi — Bé Ôm Đèn Lồng Đêm Trăng | `Invitation/Other/gen_306_sinh-nhat-be-chuot-den-long-trang` | thoi-noi | public |
 | 307 | Thôi Nôi Bạch Dương — Ngọn Lửa Nhỏ | `Invitation/Other/gen_307_thoi-noi-bach-duong-ngon-lua-nho` | thoi-noi | public |
 | 308 | Thôi Nôi Xử Nữ — Khu Vườn Tinh Khôi | `Invitation/Other/gen_308_thoi-noi-xu-nu-vuon-hoa-tinh-khoi` | thoi-noi | public |
 | 309 | Thôi Nôi Thiên Bình — Nhịp Cân Bằng | `Invitation/Other/gen_309_thoi-noi-thien-binh-nhip-can-bang` | thoi-noi | public |
