@@ -24,7 +24,7 @@ const ROOT = path.join(__dirname, '..');
 const PROJECT = process.env.CF_PAGES_PROJECT || 'templexa';
 const PROD = process.argv.includes('--prod');
 
-const sh = (c, o = {}) => execSync(c, { cwd: ROOT, encoding: 'utf8', ...o }).trim();
+const sh = (c, o = {}) => (execSync(c, { cwd: ROOT, encoding: 'utf8', ...o }) || '').trim();
 const die = m => { console.error('\n✗ ' + m + '\n'); process.exit(1); };
 const step = m => console.log('▸ ' + m);
 
