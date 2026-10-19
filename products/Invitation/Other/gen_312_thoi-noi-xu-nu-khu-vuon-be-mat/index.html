@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Thôi Nôi Bé Mật — Khu Vườn Nhỏ Cung Xử Nữ</title>
+<meta name="description" content="Mẫu thiệp thôi nôi online cung Xử Nữ: xé gói hạt giống để mở thiệp, đếm ngược bằng chậu cây, hành trình từ hạt mầm đến bông hoa, luống đất bốc đồ, RSVP gieo lời chúc thành hoa.">
+<meta name="theme-color" content="#FFE48A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mali:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FFF8E7; --cream-2: #FFF1CF;
+  --butter: #FFE48A; --sun: #FFC93C;
+  --leaf: #7FB77E; --leaf-d: #4E8A4F; --leaf-l: #DDEFD6;
+  --coral: #F27059; --coral-d: #D9533D;
+  --kraft: #E6C99A; --kraft-d: #C9A26B;
+  --soil: #8B5E3C; --soil-d: #6B4429;
+  --ink: #4A3B2A; --ink-l: #7A6650;
+  --font-head: 'Baloo 2', 'Nunito', system-ui, sans-serif;
+  --font-hand: 'Mali', 'Nunito', cursive;
+  --font-body: 'Nunito', system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body); color: var(--ink); line-height: 1.6; overflow-x: hidden;
+  background: var(--cream);
+  background-image: radial-gradient(rgba(201,162,107,.18) 1.5px, transparent 1.6px);
+  background-size: 22px 22px;
+}
+body.locked { overflow: hidden; height: 100vh; }
+img { display: block; max-width: 100%; }
+button { font: inherit; cursor: pointer; }
+.page { max-width: 480px; margin: 0 auto; position: relative; }
+section { padding: 56px 20px; position: relative; }
+.eyebrow { font-family: var(--font-hand); color: var(--coral); font-size: 1.05rem; text-align: center; }
+.title { font-family: var(--font-head); font-weight: 800; font-size: clamp(1.6rem, 7vw, 2rem); line-height: 1.2; text-align: center; color: var(--ink); margin-top: 2px; }
+.sub { text-align: center; color: var(--ink-l); font-size: .95rem; margin-top: 6px; }
+.sprig { display: block; width: 74px; height: 22px; margin: 10px auto 0; }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+.reveal.in-view { opacity: 1; transform: none; }
+.d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
+
+/* ── Ong bay ── */
+.bee { width: 50px; height: auto; position: absolute; pointer-events: none; z-index: 3; filter: drop-shadow(0 4px 6px rgba(107,68,41,.18)); }
+.bee .wing { transform-origin: 50% 100%; animation: flap .16s ease-in-out infinite alternate; }
+@keyframes flap { to { transform: scaleY(.55); } }
+.bee-fly-1 { top: 16%; left: -60px; animation: fly1 13s linear infinite; }
+.bee-fly-2 { top: 34%; right: -60px; animation: fly2 16s linear infinite 2s; transform: scaleX(-1); }
+@keyframes fly1 {
+  0% { transform: translate(0, 0) rotate(4deg); } 25% { transform: translate(140px, -30px) rotate(-6deg); }
+  50% { transform: translate(270px, 20px) rotate(6deg); } 75% { transform: translate(400px, -24px) rotate(-4deg); }
+  100% { transform: translate(560px, 10px) rotate(4deg); }
+}
+@keyframes fly2 {
+  0% { transform: scaleX(-1) translate(0, 0); } 30% { transform: scaleX(-1) translate(150px, 26px); }
+  60% { transform: scaleX(-1) translate(300px, -20px); } 100% { transform: scaleX(-1) translate(560px, 12px); }
+}
+
+/* ── PHONG BÌ: gói hạt giống ── */
+#cover {
+  position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px;
+  background: radial-gradient(ellipse at 50% 30%, #FFF6D6 0%, var(--butter) 70%, var(--sun) 130%);
+  transition: opacity .8s ease, visibility .8s;
+  overflow: hidden; padding: 20px;
+}
+#cover.open { opacity: 0; visibility: hidden; }
+#cover::before {
+  content: ''; position: absolute; inset: 0; opacity: .35;
+  background-image: radial-gradient(rgba(255,255,255,.9) 2px, transparent 2.2px); background-size: 26px 26px;
+}
+.packet {
+  position: relative; width: min(290px, 78vw); aspect-ratio: 290 / 420; transform: rotate(-3deg);
+  filter: drop-shadow(0 18px 26px rgba(107,68,41,.28)); animation: packetBob 3.2s ease-in-out infinite;
+}
+@keyframes packetBob { 50% { transform: rotate(-1deg) translateY(-6px); } }
+.packet-top, .packet-body { position: absolute; left: 0; right: 0; background: var(--kraft); }
+.packet-top {
+  top: 0; height: 13%; border-radius: 10px 10px 0 0; z-index: 2;
+  background: linear-gradient(180deg, #EDD3A8, var(--kraft));
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-family: var(--font-hand); font-size: .78rem; color: var(--soil);
+  transition: transform .9s cubic-bezier(.3,.6,.3,1), opacity .9s;
+}
+.packet-top::after {
+  content: ''; position: absolute; left: 6px; right: 6px; bottom: -1px; border-bottom: 2px dashed rgba(107,68,41,.45);
+}
+.packet-top .zig { position: absolute; left: 0; right: 0; bottom: -7px; height: 8px; background: linear-gradient(-45deg, transparent 5px, var(--kraft) 0) 0 0 / 10px 8px repeat-x, linear-gradient(45deg, transparent 5px, var(--kraft) 0) 0 0 / 10px 8px repeat-x; }
+.packet-body {
+  top: 13%; bottom: 0; border-radius: 0 0 14px 14px; padding: 10% 9% 8%;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  background-image: radial-gradient(rgba(107,68,41,.08) 1px, transparent 1.2px); background-size: 6px 6px; background-color: var(--kraft);
+}
+.packet-window {
+  width: 74%; aspect-ratio: 1; border-radius: 50%; background: var(--cream); overflow: hidden;
+  box-shadow: inset 0 0 0 5px #fff, inset 0 0 0 8px var(--coral);
+}
+.packet-window img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+.packet-brand { font-family: var(--font-head); font-weight: 800; color: var(--soil-d); font-size: 1.32rem; line-height: 1.1; margin-top: 10px; }
+.packet-meta { font-family: var(--font-hand); color: var(--soil); font-size: .82rem; margin-top: 4px; }
+.packet-meta b { color: var(--coral-d); }
+.packet-stamp {
+  position: absolute; right: -16px; top: 18%; width: 74px; height: 74px; border-radius: 50%; z-index: 3;
+  background: var(--coral); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-weight: 800; line-height: 1; transform: rotate(12deg);
+  box-shadow: 0 0 0 4px var(--cream), 0 0 0 6px var(--coral), 0 8px 16px rgba(217,83,61,.35);
+}
+.packet-stamp b { font-size: 1.7rem; } .packet-stamp small { font-size: .72rem; font-weight: 700; margin-top: 2px; }
+.cover-hint { font-family: var(--font-hand); color: var(--soil-d); font-size: 1rem; text-align: center; position: relative; }
+#openBtn {
+  position: relative; border: none; border-radius: 999px; padding: 14px 30px;
+  background: var(--leaf-d); color: #fff; font-family: var(--font-head); font-weight: 700; font-size: 1.12rem;
+  box-shadow: 0 6px 0 #3A6B3B, 0 14px 24px rgba(78,138,79,.35); transition: transform .15s, box-shadow .15s;
+  animation: nudge 2.4s ease-in-out infinite;
+}
+#openBtn:active { transform: translateY(4px); box-shadow: 0 2px 0 #3A6B3B; }
+@keyframes nudge { 0%, 80%, 100% { transform: none; } 85% { transform: rotate(-3deg); } 90% { transform: rotate(3deg); } 95% { transform: rotate(-2deg); } }
+#cover.opening .packet { animation: none; }
+#cover.opening .packet-top { transform: translate(60px, -160px) rotate(28deg); opacity: 0; }
+.seed { position: absolute; width: 9px; height: 13px; border-radius: 50%; background: var(--soil); z-index: 4; pointer-events: none; }
+.petal { position: absolute; width: 14px; height: 14px; border-radius: 60% 0 60% 0; z-index: 4; pointer-events: none; }
+
+/* ── HERO ── */
+.hero { padding: 0 0 30px; }
+.hero-art { position: relative; height: 560px; overflow: hidden; }
+.hero-art > img:not(.bee) { width: 100%; height: 100%; object-fit: cover; object-position: center 70%; }
+.hero-art::after { content: ''; position: absolute; inset: auto 0 0 0; height: 140px; background: linear-gradient(180deg, rgba(255,248,231,0), var(--cream)); }
+.hero-top { position: absolute; top: 34px; left: 0; right: 0; text-align: center; z-index: 2; font-family: var(--font-hand); color: var(--soil-d); font-size: 1.1rem; }
+.hero-top b { display: block; font-family: var(--font-head); font-weight: 800; font-size: 1.55rem; color: var(--leaf-d); line-height: 1.2; }
+.tag-card {
+  position: relative; margin: -150px 22px 0; z-index: 2; background: #fff; border-radius: 26px; padding: 34px 20px 24px; text-align: center;
+  box-shadow: 0 0 0 3px var(--butter), 0 18px 34px rgba(107,68,41,.16);
+}
+.tag-card::before { /* lỗ xỏ dây của nhãn cây */
+  content: ''; position: absolute; top: 12px; left: 50%; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%;
+  background: var(--cream); box-shadow: inset 0 0 0 3px var(--kraft-d);
+}
+.tag-card::after { content: ''; position: absolute; top: -46px; left: 50%; width: 2px; height: 60px; background: var(--kraft-d); transform: rotate(8deg); transform-origin: bottom; }
+.hero-name { display: inline-block; max-width: 100%; font-family: var(--font-head); font-weight: 800; color: var(--ink); font-size: clamp(1.6rem, 7.6vw, 2.2rem); line-height: 1.15; white-space: nowrap; margin-top: 4px; }
+.hero-nick { font-family: var(--font-hand); color: var(--coral); font-size: 1.1rem; margin-top: 2px; }
+.age-pill { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 6px 18px; border-radius: 999px; background: var(--butter); color: var(--soil-d); font-family: var(--font-head); font-weight: 800; font-size: 1.05rem; }
+.inl { display: inline-block; width: 1.5em; height: auto; vertical-align: -.35em; }
+.hero-date { margin-top: 14px; font-weight: 800; font-size: 1.05rem; }
+.hero-lunar { color: var(--ink-l); font-size: .9rem; }
+
+/* Đếm ngược: 4 chậu cây vẽ tay */
+.pots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 28px 18px 0; }
+.pot { position: relative; text-align: center; }
+.pot img { width: 100%; max-width: 86px; margin: 0 auto; transform-origin: 50% 100%; animation: sway 3.2s ease-in-out infinite; filter: drop-shadow(0 6px 8px rgba(107,68,41,.18)); }
+.pot:nth-child(2) img { animation-delay: .4s; } .pot:nth-child(3) img { animation-delay: .8s; } .pot:nth-child(4) img { animation-delay: 1.2s; }
+@keyframes sway { 50% { transform: rotate(4deg); } }
+.pot b { position: absolute; left: 0; right: 0; top: 62%; font-family: var(--font-head); font-weight: 800; font-size: 1.45rem; line-height: 1; color: #fff; text-shadow: 0 2px 3px rgba(107,68,41,.45); }
+.pot small { display: block; margin-top: 4px; font-size: .72rem; font-weight: 800; letter-spacing: .05em; color: var(--soil); }
+
+/* ── HỒ SƠ HẠT GIỐNG ── */
+.seed-card { margin-top: 26px; background: var(--kraft); border-radius: 20px; padding: 10px; box-shadow: 0 14px 28px rgba(107,68,41,.18); }
+.seed-card-in { background: var(--cream); border-radius: 14px; padding: 18px 18px 14px; border: 2px dashed var(--kraft-d); }
+.seed-head { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 2px solid var(--kraft); }
+.seed-head .virgo { width: 50px; height: 50px; border-radius: 14px; background: var(--leaf); color: #fff; display: grid; place-items: center; font-size: 1.7rem; flex: none; }
+.seed-head h3 { font-family: var(--font-head); font-weight: 800; font-size: 1.15rem; line-height: 1.2; }
+.seed-head p { font-size: .82rem; color: var(--ink-l); }
+.rows { list-style: none; margin-top: 8px; }
+.rows li { display: flex; align-items: baseline; gap: 6px; padding: 7px 0; font-size: .95rem; }
+.rows li span { color: var(--ink-l); white-space: nowrap; }
+.rows li i { flex: 1; border-bottom: 2px dotted var(--kraft-d); transform: translateY(-4px); min-width: 12px; }
+.rows li b { text-align: right; }
+.care { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+.care div { background: #fff; border-radius: 14px; padding: 10px 6px; text-align: center; font-size: .78rem; color: var(--ink-l); line-height: 1.35; }
+.care div img { display: block; width: 40px; height: 40px; object-fit: contain; margin: 0 auto 2px; }
+.care div strong { display: block; color: var(--ink); font-size: .82rem; }
+
+/* ── HÀNH TRÌNH: hạt → hoa ── */
+.grow { position: relative; margin-top: 28px; padding-left: 74px; }
+.grow-stem { position: absolute; left: 34px; top: 20px; bottom: 30px; width: 6px; border-radius: 6px; background: var(--leaf-l); overflow: hidden; }
+.grow-stem i { position: absolute; inset: 0; background: linear-gradient(180deg, var(--leaf), var(--leaf-d)); transform-origin: top; transform: scaleY(0); transition: transform .2s linear; }
+.stage { position: relative; background: #fff; border-radius: 18px; padding: 14px 16px; margin-bottom: 16px; box-shadow: 0 8px 20px rgba(107,68,41,.08); }
+.stage .ico { position: absolute; left: -66px; top: 50%; width: 52px; height: 52px; margin-top: -26px; border-radius: 50%; background: var(--cream-2); box-shadow: 0 0 0 4px var(--cream); display: grid; place-items: center; }
+.stage .ico svg { width: 38px; height: 38px; }
+.stage small { font-family: var(--font-head); font-weight: 800; color: var(--leaf-d); font-size: .9rem; }
+.stage p { font-size: .95rem; }
+.stage.bloom { background: var(--butter); }
+
+/* ── LỜI MỜI ── */
+.note {
+  position: relative; margin-top: 26px; background: #fff; border-radius: 6px 6px 22px 22px; padding: 34px 22px 22px; text-align: center;
+  box-shadow: 0 14px 28px rgba(107,68,41,.12); transform: rotate(-1deg);
+}
+.note::before { content: ''; position: absolute; top: -12px; left: 50%; width: 110px; height: 26px; margin-left: -55px; background: rgba(255,201,60,.75); transform: rotate(-3deg); border-radius: 3px; }
+.note h3 { font-family: var(--font-hand); color: var(--coral); font-size: 1.15rem; font-weight: 700; }
+.note p { margin-top: 8px; line-height: 1.8; }
+.parents { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+.parents div { background: var(--leaf-l); border-radius: 14px; padding: 10px 6px; }
+.parents small { display: block; color: var(--leaf-d); font-weight: 700; font-size: .78rem; }
+.parents b { font-size: .95rem; white-space: nowrap; }
+
+/* ── LUỐNG ĐẤT BỐC ĐỒ ── */
+.bed { margin-top: 24px; background: linear-gradient(180deg, #9BCB8C, var(--leaf)); border-radius: 26px; padding: 22px 14px 18px; box-shadow: inset 0 -8px 0 rgba(0,0,0,.08); }
+.mounds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 10px; }
+.mound { position: relative; height: 92px; border: none; background: none; }
+.mound .dirt { position: absolute; left: 4%; right: 4%; bottom: 0; height: 40px; border-radius: 50% 50% 14px 14px; background: radial-gradient(ellipse at 50% 20%, #A9754C, var(--soil) 60%, var(--soil-d)); box-shadow: 0 4px 0 rgba(0,0,0,.12); }
+.mound .sprout { position: absolute; left: 50%; bottom: 34px; width: 34px; height: 34px; margin-left: -17px; transform-origin: bottom center; animation: sway 2.6s ease-in-out infinite; transition: transform .45s cubic-bezier(.3,1.6,.5,1), opacity .3s; }
+.mound .gift { position: absolute; left: 50%; bottom: 26px; width: 50px; height: 50px; object-fit: contain; transform: translate(-50%, 20px) scale(.3); opacity: 0; transition: transform .5s cubic-bezier(.3,1.7,.5,1), opacity .3s; }
+.mound .lbl { position: absolute; left: 0; right: 0; bottom: 8px; font-size: .74rem; font-weight: 800; color: #fff; opacity: 0; transition: opacity .3s .2s; }
+.mound.up .sprout { transform: translateY(-40px) rotate(-30deg) scale(.6); opacity: 0; }
+.mound.up .gift { transform: translate(-50%, -14px) scale(1); opacity: 1; }
+.mound.up .lbl { opacity: 1; }
+.guess { margin-top: 16px; background: rgba(255,255,255,.92); border-radius: 16px; padding: 12px; text-align: center; font-size: .95rem; min-height: 64px; display: flex; flex-direction: column; justify-content: center; }
+.guess small { color: var(--ink-l); }
+
+/* ── TIỆC ── */
+.info { display: grid; gap: 12px; margin-top: 24px; }
+.info-row { display: flex; gap: 14px; align-items: flex-start; background: #fff; border-radius: 18px; padding: 14px 16px; box-shadow: 0 8px 20px rgba(107,68,41,.08); }
+.info-row .ic { width: 48px; height: 48px; flex: none; }
+.info-row .ic img { width: 100%; height: 100%; object-fit: contain; }
+.info-row small { display: block; color: var(--ink-l); font-size: .8rem; font-weight: 700; }
+.info-row b { font-size: 1rem; line-height: 1.45; display: block; }
+.cal { margin-top: 16px; background: #fff; border-radius: 22px; padding: 16px; box-shadow: 0 8px 20px rgba(107,68,41,.08); }
+.cal h4 { text-align: center; font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; }
+.cal table { width: 100%; border-collapse: collapse; margin-top: 6px; text-align: center; font-size: .9rem; }
+.cal th { color: var(--ink-l); font-size: .74rem; padding: 4px 0; }
+.cal td { padding: 3px 0; height: 36px; }
+.cal td.on span { display: inline-grid; place-items: center; width: 40px; height: 40px; position: relative; font-weight: 800; color: var(--soil-d); }
+.cal td.on svg { position: absolute; inset: 0; width: 40px; height: 40px; color: var(--coral); animation: spin 10s linear infinite; }
+.cal td.on i { position: relative; font-style: normal; font-size: .85rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.map { margin-top: 16px; border-radius: 22px; overflow: hidden; border: 4px solid #fff; box-shadow: 0 8px 20px rgba(107,68,41,.1); height: 220px; background: var(--leaf-l); }
+.map iframe { width: 100%; height: 100%; border: 0; display: block; }
+.btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+.btn { display: block; text-align: center; text-decoration: none; border: none; border-radius: 999px; padding: 12px 10px; font-family: var(--font-head); font-weight: 700; font-size: 1rem; }
+.btn-leaf { background: var(--leaf-d); color: #fff; box-shadow: 0 4px 0 #3A6B3B; }
+.btn-sun { background: var(--sun); color: var(--soil-d); box-shadow: 0 4px 0 #D9A41E; }
+
+/* ── ALBUM: dây phơi ảnh ── */
+.line { position: relative; margin-top: 30px; }
+.line svg.rope { position: absolute; left: -20px; right: -20px; width: calc(100% + 40px); height: 40px; top: -6px; }
+.polas { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 16px; position: relative; }
+.pola { background: #fff; padding: 8px 8px 10px; border-radius: 4px; box-shadow: 0 10px 22px rgba(107,68,41,.16); transform-origin: 50% -10px; animation: swing 4s ease-in-out infinite; position: relative; }
+.pola:nth-child(1) { --r: -3deg; } .pola:nth-child(2) { --r: 2deg; animation-delay: .6s; } .pola:nth-child(3) { --r: 3deg; animation-delay: 1.1s; } .pola:nth-child(4) { --r: -2deg; animation-delay: 1.6s; }
+@keyframes swing { 0%, 100% { transform: rotate(var(--r)); } 50% { transform: rotate(calc(var(--r) * -1)); } }
+.pola::before { content: ''; position: absolute; top: -14px; left: 50%; width: 12px; height: 26px; margin-left: -6px; border-radius: 3px; background: var(--kraft-d); box-shadow: inset -3px 0 0 rgba(0,0,0,.12); }
+.pola img { aspect-ratio: 4 / 5; object-fit: cover; width: 100%; border-radius: 2px; }
+.pola figcaption { font-family: var(--font-hand); text-align: center; font-size: .88rem; margin-top: 6px; color: var(--ink-l); }
+
+/* ── RSVP ── */
+.form { margin-top: 24px; background: #fff; border-radius: 26px; padding: 22px 18px; box-shadow: 0 0 0 3px var(--leaf-l), 0 14px 28px rgba(107,68,41,.1); }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-weight: 800; font-size: .9rem; margin-bottom: 6px; }
+.field input, .field textarea, .field select { width: 100%; font-family: var(--font-body); font-size: 1rem; color: var(--ink); background: var(--cream); border: 2px solid var(--kraft); border-radius: 14px; padding: 12px 14px; }
+.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--leaf); }
+.field textarea { min-height: 96px; resize: vertical; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form .btn { width: 100%; padding: 14px; font-size: 1.08rem; }
+.rsvp-out { text-align: center; color: var(--leaf-d); font-weight: 700; margin-top: 10px; min-height: 1.4em; }
+.garden { margin-top: 26px; display: grid; gap: 12px; }
+.wish { display: flex; gap: 12px; align-items: flex-start; background: #fff; border-radius: 18px; padding: 12px 14px; box-shadow: 0 6px 16px rgba(107,68,41,.08); }
+.wish .wf { width: 40px; height: 40px; flex: none; object-fit: contain; }
+.wish.new { animation: sprout .7s cubic-bezier(.3,1.6,.5,1); }
+@keyframes sprout { from { transform: scale(.4); opacity: 0; } }
+.wish b { font-size: .95rem; } .wish small { color: var(--ink-l); } .wish p { font-size: .93rem; margin-top: 2px; }
+
+/* ── KẾT ── */
+.closing { text-align: center; padding: 60px 20px 90px; overflow: hidden; }
+.closing .art { width: 180px; height: 180px; margin: 0 auto; border-radius: 50%; overflow: hidden; background: var(--cream); box-shadow: 0 0 0 6px #fff, 0 0 0 9px var(--butter); }
+.closing .art img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
+.closing h2 { font-family: var(--font-head); font-weight: 800; font-size: 1.8rem; margin-top: 20px; color: var(--leaf-d); }
+.closing p { color: var(--ink-l); margin-top: 6px; }
+.closing-brand { display: inline-block; margin-top: 30px; font-size: .8rem; color: var(--ink-l); opacity: .75; text-decoration: none; }
+
+/* Nhạc */
+.music-btn { position: fixed; right: 14px; bottom: 16px; z-index: 90; width: 50px; height: 50px; border-radius: 50%; border: none; background: var(--butter); box-shadow: 0 0 0 3px #fff, 0 8px 18px rgba(107,68,41,.25); display: none; align-items: center; justify-content: center; }
+.music-btn.show { display: flex; }
+.music-btn img { width: 36px; height: auto; }
+.music-btn.playing img { animation: bob 1.6s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-4px) rotate(-6deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body class="locked">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="bee" viewBox="0 0 46 40">
+      <ellipse class="wing" cx="18" cy="12" rx="8" ry="10" fill="#fff" fill-opacity=".85" stroke="#C9E4F5" stroke-width="1.2"/>
+      <ellipse class="wing" cx="27" cy="11" rx="7" ry="9" fill="#fff" fill-opacity=".85" stroke="#C9E4F5" stroke-width="1.2"/>
+      <ellipse cx="23" cy="25" rx="15" ry="11" fill="#FFC93C"/>
+      <path d="M17 15.5c-1.6 3-1.6 16 0 19M24 14c-1.6 3.5-1.6 18.5 0 22" stroke="#4A3B2A" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+      <circle cx="33" cy="22" r="2.2" fill="#4A3B2A"/><circle cx="33.7" cy="21.3" r=".7" fill="#fff"/>
+      <circle cx="34" cy="27" r="2" fill="#F27059" fill-opacity=".55"/>
+      <path d="M8 25l-5 1.5" stroke="#4A3B2A" stroke-width="2.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="sprig" viewBox="0 0 74 22">
+      <path d="M2 16c20-2 50-2 70 0" stroke="#7FB77E" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M22 15c-2-7 3-11 8-12-1 6-3 10-8 12zM40 15c1-7 6-10 11-10-2 6-5 9-11 10z" fill="#7FB77E"/>
+      <circle cx="58" cy="11" r="4" fill="#FFC93C"/><circle cx="14" cy="12" r="3" fill="#F27059"/>
+    </symbol>
+    <symbol id="flower" viewBox="0 0 40 40">
+      <g fill="currentColor"><circle cx="20" cy="9" r="7"/><circle cx="30.5" cy="16.5" r="7"/><circle cx="26.5" cy="28.5" r="7"/><circle cx="13.5" cy="28.5" r="7"/><circle cx="9.5" cy="16.5" r="7"/></g>
+      <circle cx="20" cy="20" r="6.5" fill="#FFC93C"/><circle cx="18" cy="18.5" r="1.6" fill="#fff" fill-opacity=".7"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ── Phong bì: gói hạt giống ── -->
+<div id="cover">
+  <div class="packet">
+    <div class="packet-top"><span>✂</span> xé nhẹ ở đây <span class="zig"></span></div>
+    <div class="packet-body">
+      <div class="packet-window"><img src="assets/packet-art.webp" alt="Bó lúa, hoa hướng dương và chú ong nhỏ"></div>
+      <div class="packet-brand">Hạt giống<br>yêu thương</div>
+      <div class="packet-meta">Giống: <b>bé Mật</b> · cung Xử Nữ ♍&#xFE0E;</div>
+      <div class="packet-meta">Gieo 12.09.2026 · Nở hoa 12.09.2027</div>
+    </div>
+    <div class="packet-stamp"><b>1</b><small>TUỔI</small></div>
+  </div>
+  <p class="cover-hint">Mật có một món quà nhỏ cho cả nhà…</p>
+  <button id="openBtn" type="button">Xé gói hạt giống</button>
+</div>
+
+<audio id="bgm" loop preload="none" src="assets/nhac-nen.mp3"></audio>
+<button class="music-btn" id="musicBtn" type="button" aria-label="Bật / tắt nhạc"><img src="assets/ic-bee.webp" alt=""></button>
+
+<main class="page">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-art">
+      <img src="assets/hero.webp" alt="Bé Mật đội mũ rơm ngồi giữa vườn hoa hướng dương">
+      <p class="hero-top reveal" id="heroTop">Mời cả nhà ghé thăm<b>Khu vườn nhỏ của Mật</b></p>
+      <img class="bee bee-fly-1" src="assets/ic-bee.webp" alt="">
+      <img class="bee bee-fly-2" src="assets/ic-bee.webp" alt="">
+    </div>
+    <div class="tag-card reveal d1">
+      <p class="eyebrow">Thiệp mời thôi nôi</p>
+      <h1 class="hero-name" data-fit>Nguyễn Ngọc Bảo An</h1>
+      <p class="hero-nick">ở nhà gọi là bé Mật <img class="inl" src="assets/ic-bee.webp" alt=""></p>
+      <span class="age-pill"><img class="inl" src="assets/ic-daisy.webp" alt=""> Tròn 1 tuổi</span>
+      <p class="hero-date">Chủ Nhật · 12.09.2027 · 10:30</p>
+      <p class="hero-lunar">Nhằm ngày 12 tháng 8 năm Đinh Mùi</p>
+    </div>
+    <div class="pots reveal d2" id="count">
+      <div class="pot"><img src="assets/ic-pot.webp" alt=""><b data-k="d">00</b><small>NGÀY</small></div>
+      <div class="pot"><img src="assets/ic-pot.webp" alt=""><b data-k="h">00</b><small>GIỜ</small></div>
+      <div class="pot"><img src="assets/ic-pot.webp" alt=""><b data-k="m">00</b><small>PHÚT</small></div>
+      <div class="pot"><img src="assets/ic-pot.webp" alt=""><b data-k="s">00</b><small>GIÂY</small></div>
+    </div>
+  </section>
+
+  <!-- ── HỒ SƠ HẠT GIỐNG ── -->
+  <section>
+    <p class="eyebrow reveal">Mặt sau gói hạt giống</p>
+    <h2 class="title reveal d1">Thông tin giống quý</h2>
+    <svg class="sprig reveal d1"><use href="#sprig"/></svg>
+    <div class="seed-card reveal d2">
+      <div class="seed-card-in">
+        <div class="seed-head">
+          <div class="virgo">♍&#xFE0E;</div>
+          <div><h3>Giống: Bé Mật</h3><p>Cung Xử Nữ · nguyên tố Đất · tuổi Bính Ngọ</p></div>
+        </div>
+        <ul class="rows">
+          <li><span>Tên khai sinh</span><i></i><b>Nguyễn Ngọc Bảo An</b></li>
+          <li><span>Ngày gieo hạt</span><i></i><b>12.09.2026</b></li>
+          <li><span>Âm lịch</span><i></i><b>2/8 Bính Ngọ</b></li>
+          <li><span>Giờ nảy mầm</span><i></i><b>06:15 sáng</b></li>
+          <li><span>Cân nặng</span><i></i><b>3,2 kg</b></li>
+          <li><span>Đặc tính</span><i></i><b>tỉ mỉ, hiền, chăm như ong</b></li>
+        </ul>
+        <div class="care">
+          <div><img src="assets/ic-sun.webp" alt=""><strong>Nắng</strong>thật nhiều nụ cười</div>
+          <div><img src="assets/ic-drop.webp" alt=""><strong>Nước</strong>sữa mẹ ấm áp</div>
+          <div><img src="assets/ic-heart.webp" alt=""><strong>Phân bón</strong>ôm hôn mỗi ngày</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HÀNH TRÌNH ── -->
+  <section>
+    <p class="eyebrow reveal">Nhật ký khu vườn</p>
+    <h2 class="title reveal d1">Từ hạt mầm đến bông hoa</h2>
+    <svg class="sprig reveal d1"><use href="#sprig"/></svg>
+    <div class="grow" id="grow">
+      <div class="grow-stem"><i id="stemFill"></i></div>
+      <div class="stage reveal">
+        <div class="ico"><svg viewBox="0 0 38 38"><path d="M4 30c8-5 22-5 30 0v4H4z" fill="#8B5E3C"/><ellipse cx="19" cy="25" rx="4.5" ry="6" fill="#C9A26B" transform="rotate(-20 19 25)"/></svg></div>
+        <small>Tháng 1 · Hạt mầm</small><p>Mật chào đời, ngủ ngoan cả ngày trong vòng tay mẹ.</p>
+      </div>
+      <div class="stage reveal">
+        <div class="ico"><svg viewBox="0 0 38 38"><path d="M4 30c8-5 22-5 30 0v4H4z" fill="#8B5E3C"/><path d="M19 28V18" stroke="#4E8A4F" stroke-width="2.6" stroke-linecap="round"/><path d="M19 20c-3-6-9-6-11-4 2 4 6 6 11 4zM19 19c2-6 8-7 11-5-2 4-6 5-11 5z" fill="#7FB77E"/></svg></div>
+        <small>Tháng 3 · Nảy mầm</small><p>Lần đầu cười thành tiếng khi bố làm mặt hề.</p>
+      </div>
+      <div class="stage reveal">
+        <div class="ico"><svg viewBox="0 0 38 38"><path d="M4 30c8-5 22-5 30 0v4H4z" fill="#8B5E3C"/><path d="M19 28V10" stroke="#4E8A4F" stroke-width="2.6" stroke-linecap="round"/><path d="M19 22c-4-5-10-5-12-3 3 4 7 5 12 3zM19 21c3-5 9-6 12-4-3 4-7 5-12 4zM19 14c-3-5-8-6-10-4 2 4 6 5 10 4zM19 13c2-5 7-6 10-4-2 3-6 5-10 4z" fill="#7FB77E"/></svg></div>
+        <small>Tháng 6 · Ra lá</small><p>Ăn dặm bữa đầu, mê nhất cháo bí đỏ.</p>
+      </div>
+      <div class="stage reveal">
+        <div class="ico"><svg viewBox="0 0 38 38"><path d="M4 30c8-5 22-5 30 0v4H4z" fill="#8B5E3C"/><path d="M19 28V11" stroke="#4E8A4F" stroke-width="2.6" stroke-linecap="round"/><path d="M19 22c-4-5-10-5-12-3 3 4 7 5 12 3zM19 21c3-5 9-6 12-4-3 4-7 5-12 4z" fill="#7FB77E"/><path d="M19 4c4 2 5 6 3 9h-6c-2-3-1-7 3-9z" fill="#F27059"/></svg></div>
+        <small>Tháng 9 · Nụ hoa</small><p>Bò khắp nhà, gọi được “ba… ba” rõ ràng.</p>
+      </div>
+      <div class="stage bloom reveal">
+        <div class="ico"><svg viewBox="0 0 38 38"><path d="M4 30c8-5 22-5 30 0v4H4z" fill="#8B5E3C"/><path d="M19 28V16" stroke="#4E8A4F" stroke-width="2.6" stroke-linecap="round"/><path d="M19 24c-4-5-10-5-12-3 3 4 7 5 12 3z" fill="#7FB77E"/><g fill="#FFC93C"><circle cx="19" cy="5" r="4.2"/><circle cx="25.5" cy="9.5" r="4.2"/><circle cx="23" cy="16.5" r="4.2"/><circle cx="15" cy="16.5" r="4.2"/><circle cx="12.5" cy="9.5" r="4.2"/></g><circle cx="19" cy="11" r="3.6" fill="#8B5E3C"/></svg></div>
+        <small>Tháng 12 · Nở hoa</small><p>Chập chững những bước đầu tiên — và hôm nay, Mật tròn 1 tuổi!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LỜI MỜI ── -->
+  <section>
+    <p class="eyebrow reveal">Lời nhắn của bố mẹ</p>
+    <h2 class="title reveal d1">Mời cả nhà ghé vườn</h2>
+    <div class="note reveal d2">
+      <h3>Một năm vun một mầm xanh,</h3>
+      <p>Bố mẹ xin trân trọng mời ông bà, cô dì chú bác và anh chị đến dự tiệc thôi nôi tròn 1 tuổi của bé Mật. Có cả nhà ghé chơi, khu vườn nhỏ của con sẽ rộn ràng như mùa hoa nở.</p>
+      <div class="parents">
+        <div><small>Bố</small><b>Nguyễn Minh Đức</b></div>
+        <div><small>Mẹ</small><b>Trần Thu Hà</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BỐC ĐỒ ── -->
+  <section>
+    <p class="eyebrow reveal">Trò chơi nhỏ</p>
+    <h2 class="title reveal d1">Luống đất bốc đồ</h2>
+    <p class="sub reveal d1">Chạm vào một mầm cây để nhổ lên — đoán xem Mật sẽ chọn món nào nhé!</p>
+    <div class="bed reveal d2">
+      <div class="mounds" id="mounds"></div>
+      <div class="guess" id="guess"><small>Mật đang chờ cả nhà đoán…</small></div>
+    </div>
+  </section>
+
+  <!-- ── THÔNG TIN TIỆC ── -->
+  <section>
+    <p class="eyebrow reveal">Hẹn gặp ở khu vườn</p>
+    <h2 class="title reveal d1">Thông tin buổi tiệc</h2>
+    <svg class="sprig reveal d1"><use href="#sprig"/></svg>
+    <div class="info">
+      <div class="info-row reveal"><div class="ic"><img src="assets/ic-clock.webp" alt=""></div><div><small>Thời gian</small><b>10:30 – 13:00 · Chủ Nhật, 12.09.2027</b></div></div>
+      <div class="info-row reveal d1"><div class="ic"><img src="assets/ic-house.webp" alt=""></div><div><small>Địa điểm</small><b>Nhà hàng Vườn Cau — 25 Tây Hồ, Quảng An, Tây Hồ, Hà Nội</b></div></div>
+      <div class="info-row reveal d2"><div class="ic"><img src="assets/ic-hat.webp" alt=""></div><div><small>Trang phục gợi ý</small><b>Vàng bơ, xanh lá — mặc như đi dạo vườn</b></div></div>
+    </div>
+    <div class="cal reveal">
+      <h4>Tháng 9 · 2027</h4>
+      <table><thead><tr><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th></tr></thead><tbody id="calBody"></tbody></table>
+    </div>
+    <div class="map reveal"><iframe title="Bản đồ địa điểm tiệc" loading="lazy" src="https://www.google.com/maps?q=25%20T%C3%A2y%20H%E1%BB%93%2C%20Qu%E1%BA%A3ng%20An%2C%20T%C3%A2y%20H%E1%BB%93%2C%20H%C3%A0%20N%E1%BB%99i&output=embed"></iframe></div>
+    <div class="btns reveal">
+      <a class="btn btn-leaf" href="https://www.google.com/maps/search/?api=1&query=25%20T%C3%A2y%20H%E1%BB%93%2C%20Qu%E1%BA%A3ng%20An%2C%20H%C3%A0%20N%E1%BB%99i" target="_blank" rel="noopener">Chỉ đường</a>
+      <a class="btn btn-sun" href="#" id="icsLink">Thêm vào lịch</a>
+    </div>
+  </section>
+
+  <!-- ── ALBUM ── -->
+  <section>
+    <p class="eyebrow reveal">Phơi nắng cùng Mật</p>
+    <h2 class="title reveal d1">Album khu vườn</h2>
+    <div class="line reveal d2">
+      <svg class="rope" viewBox="0 0 400 40" preserveAspectRatio="none"><path d="M0 8 Q200 34 400 8" stroke="#C9A26B" stroke-width="2.5" fill="none"/></svg>
+      <div class="polas">
+        <figure class="pola"><img src="assets/hero.webp" alt="Mật giữa vườn hướng dương" loading="lazy" style="object-position:center 72%"><figcaption>Nắng sớm của con</figcaption></figure>
+        <figure class="pola"><img src="assets/album-1.webp" alt="Mật tưới cây" loading="lazy"><figcaption>Người làm vườn tí hon</figcaption></figure>
+        <figure class="pola"><img src="assets/album-2.webp" alt="Mật ôm giỏ rau" loading="lazy"><figcaption>Mùa thu hoạch đầu tiên</figcaption></figure>
+        <figure class="pola"><img src="assets/album-3.webp" alt="Mật ngủ trên tấm chăn picnic" loading="lazy"><figcaption>Giấc trưa thơm mùi lúa</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RSVP ── -->
+  <section>
+    <p class="eyebrow reveal">Xác nhận tham dự</p>
+    <h2 class="title reveal d1">Gieo một lời chúc</h2>
+    <p class="sub reveal d1">Mỗi lời chúc gửi đi sẽ nở thành một bông hoa trong vườn của Mật.</p>
+    <form class="form reveal d2" id="rsvpForm" autocomplete="off">
+      <div class="field"><label for="fName">Tên của ông/bà/cô/chú</label><input id="fName" name="name" placeholder="VD: Cô Lan" required></div>
+      <div class="field"><label for="fAttend">Tham dự</label>
+        <select id="fAttend" name="attend"><option>Chắc chắn có mặt</option><option>Sẽ cố gắng đến</option><option>Tiếc quá, gửi lời chúc thôi</option></select></div>
+      <div class="two">
+        <div class="field"><label for="fAdults">Người lớn</label><input id="fAdults" name="adults" type="number" min="0" value="1"></div>
+        <div class="field"><label for="fKids">Trẻ em</label><input id="fKids" name="kids" type="number" min="0" value="0"></div>
+      </div>
+      <div class="field"><label for="fMsg">Lời chúc cho bé Mật</label><textarea id="fMsg" name="message" placeholder="Chúc con hay ăn chóng lớn…"></textarea></div>
+      <button class="btn btn-leaf" type="submit">Gửi lời chúc &amp; xác nhận</button>
+      <p class="rsvp-out" id="rsvpOut" aria-live="polite"></p>
+    </form>
+    <div class="garden" id="wishes"></div>
+  </section>
+
+  <!-- ── KẾT ── -->
+  <section class="closing">
+    <div class="art reveal"><img src="assets/packet-art.webp" alt="Chú ong nhỏ trên bó lúa"></div>
+    <h2 class="reveal d1">Cảm ơn cả nhà!</h2>
+    <p class="reveal d2" id="closingThanks">Hẹn gặp ông bà, cô chú<br>trong khu vườn nhỏ của Mật nhé.</p>
+    <a class="closing-brand" href="https://templexa.vn" target="_blank" rel="noopener">Thiệp online · <b>templexa.vn</b></a>
+  </section>
+</main>
+
+<script>
+(function () {
+  var EVENT_AT = new Date('2027-09-12T10:30:00+07:00');
+  var STORE = 'tpx312_wishes';   // mẫu catalog: lời chúc lưu trên máy; bản khách nối wishes-api.js + sheetId
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var COLORS = ['#F27059', '#FFC93C', '#fff', '#7FB77E', '#F9A8C0'];
+
+  /* Phong bì: xé gói hạt giống → hạt + cánh hoa bung ra */
+  var cover = document.getElementById('cover'), bgm = document.getElementById('bgm'), musicBtn = document.getElementById('musicBtn'), opened = false;
+  function burst() {
+    var r = cover.querySelector('.packet').getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height * .1;
+    for (var i = 0; i < 34; i++) {
+      var el = document.createElement('span'), isSeed = i % 3 === 0;
+      el.className = isSeed ? 'seed' : 'petal';
+      if (!isSeed) el.style.background = COLORS[i % COLORS.length];
+      el.style.left = cx + 'px'; el.style.top = cy + 'px';
+      cover.appendChild(el);
+      var a = -Math.PI / 2 + (Math.random() - .5) * 2.4, v = 120 + Math.random() * 200;
+      el.animate([{ transform: 'translate(0,0) rotate(0)', opacity: 1 },
+        { transform: 'translate(' + Math.cos(a) * v + 'px,' + (Math.sin(a) * v + 260) + 'px) rotate(' + (Math.random() * 720 - 360) + 'deg)', opacity: 0 }],
+        { duration: 1300 + Math.random() * 600, easing: 'cubic-bezier(.2,.7,.4,1)', fill: 'forwards' });
+    }
+  }
+  document.getElementById('openBtn').addEventListener('click', function () {
+    if (opened) return; opened = true;
+    cover.classList.add('opening'); if (!reduced) burst();
+    setTimeout(function () {
+      cover.classList.add('open'); document.body.classList.remove('locked');
+      musicBtn.classList.add('show'); playMusic();
+      document.querySelectorAll('.hero .reveal').forEach(function (el) { el.classList.add('in-view'); });
+      setTimeout(function () { cover.remove(); }, 1000);
+    }, reduced ? 0 : 1000);
+  });
+  function playMusic() { bgm.play().then(function () { musicBtn.classList.add('playing'); }).catch(function () {}); }
+  musicBtn.addEventListener('click', function () { if (bgm.paused) playMusic(); else { bgm.pause(); musicBtn.classList.remove('playing'); } });
+
+  /* Reveal */
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } }); }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  /* Chữ 1 dòng */
+  function fit() {
+    document.querySelectorAll('[data-fit]').forEach(function (el) {
+      el.style.fontSize = ''; var pc = getComputedStyle(el.parentElement), max = el.parentElement.clientWidth - parseFloat(pc.paddingLeft) - parseFloat(pc.paddingRight) - 4, s = parseFloat(getComputedStyle(el).fontSize), n = 0;
+      while (el.scrollWidth > max && s > 14 && n++ < 80) { s -= 1; el.style.fontSize = s + 'px'; }
+    });
+  }
+  window.addEventListener('load', fit); window.addEventListener('resize', fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+
+  /* Thân cây mọc theo cuộn trang */
+  var grow = document.getElementById('grow'), stem = document.getElementById('stemFill');
+  function growStem() {
+    var r = grow.getBoundingClientRect(), vh = window.innerHeight;
+    var p = Math.min(1, Math.max(0, (vh * .75 - r.top) / r.height));
+    stem.style.transform = 'scaleY(' + p + ')';
+  }
+  window.addEventListener('scroll', growStem, { passive: true }); growStem();
+
+  /* Luống đất bốc đồ — 9 mầm cây */
+  var BD = '../../../shared/images/baby/boc-do/';
+  var ITEMS = [['sach', 'Sách', 'ham học, hiểu biết'], ['but', 'Bút', 'học giỏi, viết hay'], ['tien', 'Túi tiền', 'sung túc, giỏi làm ăn'],
+    ['ong-nghe', 'Ống nghe', 'thành bác sĩ giỏi'], ['co-ve', 'Cọ vẽ', 'khéo tay, tài hoa'], ['micro', 'Micro', 'ăn nói có duyên'],
+    ['ban-tinh', 'Bàn tính', 'giỏi toán, kinh doanh'], ['dan', 'Đàn', 'yêu âm nhạc, tâm hồn đẹp'], ['qua-bong', 'Quả bóng', 'khoẻ mạnh, năng động']];
+  var SPROUT = '<svg class="sprout" viewBox="0 0 34 34"><path d="M17 34V16" stroke="#3A6B3B" stroke-width="3" stroke-linecap="round"/><path d="M17 19c-4-8-11-9-14-6 3 5 8 7 14 6zM17 17c3-8 10-10 14-7-3 5-8 7-14 7z" fill="#DDEFD6"/></svg>';
+  var mounds = document.getElementById('mounds'), guess = document.getElementById('guess');
+  ITEMS.forEach(function (it) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'mound'; b.setAttribute('aria-label', 'Nhổ mầm cây');
+    b.innerHTML = '<span class="dirt"></span>' + SPROUT + '<img class="gift" src="' + BD + it[0] + '.webp" alt=""><span class="lbl">' + it[1] + '</span>';
+    b.addEventListener('click', function () {
+      mounds.querySelectorAll('.mound').forEach(function (x) { x.classList.remove('up'); }); b.classList.add('up');
+      guess.innerHTML = 'Bạn đoán Mật chọn <b>' + it[1] + '</b><small>— mong con ' + it[2] + '</small>';
+    });
+    mounds.appendChild(b);
+  });
+
+  /* Đếm ngược */
+  var nums = {}; document.querySelectorAll('#count b').forEach(function (b) { nums[b.dataset.k] = b; });
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function tick() {
+    var df = Math.max(0, EVENT_AT - Date.now());
+    nums.d.textContent = pad(Math.floor(df / 864e5)); nums.h.textContent = pad(Math.floor(df % 864e5 / 36e5));
+    nums.m.textContent = pad(Math.floor(df % 36e5 / 6e4)); nums.s.textContent = pad(Math.floor(df % 6e4 / 1e3));
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* Sau ngày tiệc → lời cảm ơn */
+  if (Date.now() > EVENT_AT.getTime() + 864e5) {
+    document.getElementById('heroTop').innerHTML = 'Cảm ơn cả nhà<b>đã ghé vườn của Mật</b>';
+    document.getElementById('closingThanks').innerHTML = 'Cảm ơn cả nhà đã đến<br>mừng Mật tròn 1 tuổi!';
+  }
+
+  /* Lịch 9/2027 — ngày tiệc là bông hoa */
+  (function () {
+    var body = document.getElementById('calBody'), y = 2027, m = 8, big = 12, days = new Date(y, m + 1, 0).getDate();
+    var start = (new Date(y, m, 1).getDay() + 6) % 7, h = '<tr>', col = 0;
+    for (var i = 0; i < start; i++) { h += '<td></td>'; col++; }
+    for (var d = 1; d <= days; d++) {
+      h += d === big ? '<td class="on"><span><svg><use href="#flower"/></svg><i>' + d + '</i></span></td>' : '<td><span>' + d + '</span></td>';
+      if (++col === 7 && d < days) { h += '</tr><tr>'; col = 0; }
+    }
+    while (col++ < 7) h += '<td></td>';
+    body.innerHTML = h + '</tr>';
+  })();
+
+  /* Thêm vào lịch */
+  document.getElementById('icsLink').addEventListener('click', function (e) {
+    e.preventDefault();
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//templexa.vn//thiep//VI', 'BEGIN:VEVENT',
+      'UID:tpx312-' + Date.now() + '@templexa.vn', 'DTSTAMP:20261019T000000Z', 'DTSTART:20270912T033000Z', 'DTEND:20270912T060000Z',
+      'SUMMARY:Thôi nôi bé Mật', 'LOCATION:Nhà hàng Vườn Cau\\, 25 Tây Hồ\\, Quảng An\\, Hà Nội', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); a.download = 'thoi-noi-be-mat.ics';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+
+  /* RSVP + lời chúc (1 nút) → mỗi lời chúc là một bông hoa */
+  var SAMPLE = [{ name: 'Bà ngoại', attend: 'Chắc chắn có mặt', message: 'Chúc Mật hay ăn chóng lớn, ngoan như cái kẹo.' },
+    { name: 'Cô Lan', attend: 'Chắc chắn có mặt', message: 'Một tuổi rồi! Chúc Mật luôn tươi như hoa hướng dương.' },
+    { name: 'Chú Minh', attend: 'Sẽ cố gắng đến', message: 'Chúc con khoẻ mạnh, chăm chỉ như chú ong nhỏ nhé!' }];
+  var form = document.getElementById('rsvpForm'), out = document.getElementById('rsvpOut'), list = document.getElementById('wishes');
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function load() { try { return JSON.parse(localStorage.getItem(STORE)) || []; } catch (e) { return []; } }
+  function card(x, i, isNew) {
+    return '<div class="wish' + (isNew ? ' new' : '') + '"><img class="wf" src="assets/ic-daisy.webp" alt="" style="transform:rotate(' + (i * 37 % 60 - 30) + 'deg)">' +
+      '<div><b>' + esc(x.name) + '</b> · <small>' + esc(x.attend) + '</small><p>' + esc(x.message || 'Chúc Mật tròn 1 tuổi thật vui!') + '</p></div></div>';
+  }
+  function render(newest) {
+    var w = load().slice().reverse(), all = w.concat(SAMPLE);
+    list.innerHTML = all.map(function (x, i) { return card(x, all.length - i, newest && i === 0); }).join('');
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = new FormData(form), item = { name: f.get('name').trim(), attend: f.get('attend'), adults: f.get('adults'), kids: f.get('kids'), message: f.get('message').trim(), at: Date.now() };
+    if (!item.name) return;
+    var w = load(); w.push(item); try { localStorage.setItem(STORE, JSON.stringify(w)); } catch (err) {}
+    render(true); form.reset(); out.textContent = 'Cảm ơn ' + item.name + '! Một bông hoa vừa nở trong vườn của Mật 🌼';
+  });
+  render(false);
+})();
+</script>
+</body>
+</html>
