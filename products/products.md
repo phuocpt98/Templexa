@@ -27,16 +27,16 @@ products/
 |------------|----------|------|--------|
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
-| **Invitation** | other | 70 | 60 |
+| **Invitation** | other | 76 | 66 |
 | **Invitation** | wedding | 96 | 62 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **292** | **248** |
+| | **Tong** | **298** | **254** |
 
-_Cap nhat tu data.js: 2026-10-18 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-10-19 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 
@@ -168,7 +168,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 283 | Lời Nhắn QR — Chibi Yêu Thương | `./loi-nhan/chibi-yeu-thuong` |  | public |
 | 284 | Lời Nhắn QR — Hoa Lá Nhẹ Nhàng | `./loi-nhan/hoa-la` |  | public |
 
-### Invitation / other (70)
+### Invitation / other (76)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -242,6 +242,12 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 303 | Thiệp Đầy Tháng Bé Gái — Hồng Pastel Thỏ Bông | `Invitation/Other/gen_303_day-thang-be-gai-tho-bong` | thoi-noi | public |
 | 304 | Thiệp Thôi Nôi Bé Trai Tuổi Tỵ — Gấu Bông & Khinh Khí Cầu | `Invitation/Other/gen_304_thoi-noi-be-trai-gau-bong-khinh-khi-cau` | thoi-noi | public |
 | 305 | Thiệp Đầy Tháng Bé Trai Tuổi Ngọ — Ngựa Gỗ Xanh Dương | `Invitation/Other/gen_305_day-thang-be-trai-ngua-go` | thoi-noi | public |
+| 306 | Thiệp Sinh Nhật 1 Tuổi — Bé Ôm Đèn Lồng Đêm Trăng | `Invitation/Other/gen_306_sinh-nhat-be-chuot-den-long-trang` | thoi-noi | public |
+| 307 | Thôi Nôi Bạch Dương — Ngọn Lửa Nhỏ | `Invitation/Other/gen_307_thoi-noi-bach-duong-ngon-lua-nho` | thoi-noi | public |
+| 308 | Thôi Nôi Xử Nữ — Khu Vườn Tinh Khôi | `Invitation/Other/gen_308_thoi-noi-xu-nu-vuon-hoa-tinh-khoi` | thoi-noi | public |
+| 309 | Thôi Nôi Thiên Bình — Nhịp Cân Bằng | `Invitation/Other/gen_309_thoi-noi-thien-binh-nhip-can-bang` | thoi-noi | public |
+| 310 | Thôi Nôi Bọ Cạp — Huyền Bí | `Invitation/Other/gen_310_thoi-noi-bo-cap-huyen-bi` | thoi-noi | public |
+| 311 | Thôi Nôi Nhân Mã — Mũi Tên Bay | `Invitation/Other/gen_311_thoi-noi-nhan-ma-mui-ten-bay` | thoi-noi | public |
 
 ### Invitation / wedding (96)
 
