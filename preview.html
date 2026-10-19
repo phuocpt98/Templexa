@@ -248,7 +248,7 @@
             transition: padding 0.4s ease;
         }
         .preview-container.mobile-mode {
-            align-items: flex-start;
+            align-items: center;
             overflow-y: auto;
             padding: 20px;
         }
@@ -260,13 +260,17 @@
             transition: all 0.4s ease;
             overflow: hidden;
         }
-        /* Khung điện thoại cố định 430×932 — màn thấp thì cuộn trang, không co tỷ lệ */
+        /* Khung điện thoại: thiệp luôn render đúng 430×932 như máy thật, rồi THU NHỎ cả khung
+           (scale --s, JS tính để cao = 80% màn hình) — giữ tỷ lệ, không dàn lại bố cục.
+           Margin âm bù phần thừa của layout box để khung nằm giữa, không sinh thanh cuộn. */
         .preview-frame.mobile {
+            --s: 1;
             width: 430px;
             max-width: 430px;
             height: 932px;
             flex-shrink: 0;
-            margin: auto;
+            transform: scale(var(--s));
+            margin: calc(-466px * (1 - var(--s))) calc(-215px * (1 - var(--s)));
             border-radius: 50px;
             border: 6px solid #1F2937;
             box-shadow:
@@ -317,6 +321,8 @@
             .preview-container.mobile-mode { padding: 0; align-items: stretch; }
             .preview-frame,
             .preview-frame.mobile {
+                transform: none;
+                margin: 0;
                 width: 100%;
                 max-width: 100%;
                 height: 100%;
@@ -764,6 +770,13 @@
             const toggleBtns = document.querySelectorAll('.preview-toggle-btn');
             const frame = document.getElementById('previewFrame');
             const container = document.getElementById('previewContainer');
+
+            // Khung mobile cao = 80% màn hình (không phóng to quá cỡ thật)
+            function fitPhone() {
+                frame.style.setProperty('--s', Math.min(1, window.innerHeight * 0.8 / 932).toFixed(3));
+            }
+            fitPhone();
+            window.addEventListener('resize', fitPhone);
 
             function applyMode(mode) {
                 // Sync all toggle buttons (toolbar + bubble)

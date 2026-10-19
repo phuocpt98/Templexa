@@ -41,8 +41,8 @@ section { padding: 56px 20px; position: relative; }
 .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
 
 /* Mây trôi trang trí */
-.drift { position: absolute; width: 110px; height: 60px; color: #fff; opacity: .9; pointer-events: none; animation: drift 26s linear infinite; z-index: 0; }
-.drift.s { width: 70px; height: 38px; animation-duration: 34s; }
+.drift { position: absolute; width: 110px; height: auto; opacity: .95; pointer-events: none; animation: drift 26s linear infinite; z-index: 0; }
+.drift.s { width: 70px; animation-duration: 34s; }
 @keyframes drift { from { transform: translateX(-140px); } to { transform: translateX(560px); } }
 section > *:not(.drift) { position: relative; z-index: 1; }
 
@@ -70,7 +70,7 @@ section > *:not(.drift) { position: relative; z-index: 1; }
 .avatar { width: 92px; height: 92px; border-radius: 50%; overflow: hidden; background: #fff; box-shadow: 0 0 0 5px #fff, 0 0 0 8px var(--lilac), 0 10px 18px rgba(108,88,184,.25); }
 .avatar img { width: 100%; height: 100%; object-fit: cover; }
 .basket { width: 74px; height: 40px; border-radius: 6px 6px 30px 30px; background: repeating-linear-gradient(90deg, #F2C46B 0 8px, #E8B254 8px 10px); box-shadow: inset 0 4px 0 rgba(255,255,255,.4), 0 6px 12px rgba(0,0,0,.1); position: relative; }
-.basket .h-in { position: absolute; left: 50%; bottom: 22px; font-size: 2.4rem; line-height: 1; transform: translateX(-50%) scale(0); transition: transform .5s cubic-bezier(.3,1.8,.5,1); }
+.basket .h-in { position: absolute; left: 50%; bottom: 22px; width: 46px; height: auto; transform: translateX(-50%) scale(0); transition: transform .5s cubic-bezier(.3,1.8,.5,1); }
 .seesaw.balanced .basket .h-in { transform: translateX(-50%) scale(1); }
 .pivot { position: absolute; left: 50%; top: 134px; width: 70px; height: 64px; margin-left: -35px; background: linear-gradient(180deg, var(--lilac), var(--lilac-d)); clip-path: polygon(50% 0, 100% 100%, 0 100%); border-radius: 6px; }
 .pivot::after { content: ''; position: absolute; left: 50%; top: 2px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: #fff; }
@@ -82,7 +82,7 @@ section > *:not(.drift) { position: relative; z-index: 1; }
 }
 #openBtn:active { transform: translateY(4px); box-shadow: 0 2px 0 #54439A; }
 #openBtn:disabled { opacity: .85; }
-.fly-heart { position: fixed; font-size: 2.4rem; line-height: 1; z-index: 120; pointer-events: none; }
+.fly-heart { position: fixed; left: 0; top: 0; width: 46px; height: auto; z-index: 120; pointer-events: none; }
 .spark { position: fixed; width: 10px; height: 10px; z-index: 119; pointer-events: none; background: var(--gold); clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
 
 /* ── HERO ── */
@@ -99,24 +99,21 @@ section > *:not(.drift) { position: relative; z-index: 1; }
 .hero-name { display: inline-block; max-width: 100%; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.6rem, 7.6vw, 2.2rem); line-height: 1.15; white-space: nowrap; margin-top: 4px; }
 .hero-nick { font-family: var(--font-hand); color: var(--peach-d); font-size: 1.15rem; margin-top: 2px; }
 .age-pill { display: inline-block; margin-top: 12px; padding: 6px 18px; border-radius: 999px; background: var(--lilac-l); color: var(--lilac-dd); font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; }
+.inl { display: inline-block; width: 1.4em; height: auto; vertical-align: -.3em; }
 .hero-date { margin-top: 14px; font-weight: 800; font-size: 1.05rem; }
 .hero-lunar { color: var(--ink-l); font-size: .9rem; }
 
-/* Đếm ngược: 4 bóng bay */
-.balloons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 34px 22px 0; }
-.bl { display: flex; flex-direction: column; align-items: center; animation: float 3.4s ease-in-out infinite; }
+/* Đếm ngược: 4 bóng bay vẽ tay (cùng 1 ảnh, đổi màu bằng hue-rotate) */
+.balloons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 30px 22px 0; }
+.bl { position: relative; text-align: center; animation: float 3.4s ease-in-out infinite; }
 .bl:nth-child(2) { animation-delay: .6s; } .bl:nth-child(3) { animation-delay: 1.2s; } .bl:nth-child(4) { animation-delay: 1.8s; }
 @keyframes float { 50% { transform: translateY(-8px); } }
-.bl-b { width: 100%; max-width: 74px; aspect-ratio: 74 / 88; border-radius: 50% 50% 48% 48% / 56% 56% 44% 44%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; position: relative; box-shadow: inset -8px -10px 0 rgba(0,0,0,.06); }
-.bl-b::before { content: ''; position: absolute; top: 14%; left: 22%; width: 14%; height: 20%; border-radius: 50%; background: rgba(255,255,255,.55); transform: rotate(25deg); }
-.bl-b::after { content: ''; position: absolute; bottom: -7px; left: 50%; margin-left: -6px; border: 6px solid transparent; border-bottom: 8px solid; border-bottom-color: inherit; transform: rotate(180deg); }
-.bl:nth-child(1) .bl-b { background: var(--lilac-d); border-color: var(--lilac-d); }
-.bl:nth-child(2) .bl-b { background: var(--peach-d); border-color: var(--peach-d); }
-.bl:nth-child(3) .bl-b { background: var(--mint-d); border-color: var(--mint-d); }
-.bl:nth-child(4) .bl-b { background: var(--sky-d); border-color: var(--sky-d); }
-.bl-b b { font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; line-height: 1; }
-.bl-b small { font-size: .66rem; font-weight: 800; letter-spacing: .05em; margin-top: 3px; }
-.bl svg { width: 12px; height: 34px; margin-top: 4px; }
+.bl img { width: 100%; max-width: 76px; margin: 0 auto; filter: drop-shadow(0 6px 8px rgba(108,88,184,.18)); }
+.bl:nth-child(2) img { filter: hue-rotate(115deg) saturate(1.2) drop-shadow(0 6px 8px rgba(108,88,184,.18)); }
+.bl:nth-child(3) img { filter: hue-rotate(-115deg) drop-shadow(0 6px 8px rgba(108,88,184,.18)); }
+.bl:nth-child(4) img { filter: hue-rotate(-60deg) drop-shadow(0 6px 8px rgba(108,88,184,.18)); }
+.bl b { position: absolute; left: 0; right: 0; top: 15%; font-family: var(--font-head); font-weight: 700; font-size: 1.3rem; line-height: 1; color: #fff; text-shadow: 0 1px 3px rgba(59,58,92,.4); }
+.bl small { position: absolute; left: 0; right: 0; top: 30%; font-size: .62rem; font-weight: 800; letter-spacing: .05em; color: #fff; text-shadow: 0 1px 2px rgba(59,58,92,.4); }
 
 /* ── CÂN ĐO ── */
 .measure { margin-top: 26px; background: #fff; border-radius: 28px; padding: 20px 18px; box-shadow: 0 14px 30px rgba(108,88,184,.12); }
@@ -145,7 +142,9 @@ section > *:not(.drift) { position: relative; z-index: 1; }
 .kites { margin-top: 26px; position: relative; }
 .kite-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
 .kite-row:nth-child(even) { flex-direction: row-reverse; }
-.kite { width: 74px; flex: none; display: flex; flex-direction: column; align-items: center; animation: kite 3.6s ease-in-out infinite; }
+.kite { width: 74px; flex: none; position: relative; animation: kite 3.6s ease-in-out infinite; }
+.kite img { width: 74px; height: auto; filter: hue-rotate(var(--h, 0deg)) drop-shadow(0 6px 8px rgba(108,88,184,.18)); }
+.kite b { position: absolute; left: 21px; top: 22px; width: 28px; height: 28px; border-radius: 50%; background: #fff; display: grid; place-items: center; font-family: var(--font-head); font-weight: 700; font-size: .9rem; color: var(--lilac-dd); box-shadow: 0 2px 4px rgba(0,0,0,.12); }
 .kite-row:nth-child(even) .kite { animation-delay: 1.2s; }
 @keyframes kite { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg) translateY(-4px); } }
 .kite-d { width: 52px; height: 52px; transform: rotate(45deg); border-radius: 6px; background: conic-gradient(var(--c1) 0 25%, var(--c2) 0 50%, var(--c1) 0 75%, var(--c2) 0); box-shadow: 0 6px 12px rgba(108,88,184,.18); display: grid; place-items: center; }
@@ -178,12 +177,13 @@ section > *:not(.drift) { position: relative; z-index: 1; }
 .pan.l { left: 0; } .pan.r { left: 100%; }
 .pan .strings { display: block; width: 84px; height: 78px; margin: 0 auto -2px; }
 .pan .bowl { height: 26px; border-radius: 0 0 50px 50px; background: linear-gradient(180deg, var(--lilac), var(--lilac-d)); position: relative; }
-.pan .thing { position: absolute; left: 50%; bottom: 18px; font-size: 2.1rem; line-height: 1; transform: translateX(-50%); transition: transform .4s cubic-bezier(.3,1.8,.5,1); }
+.pan .thing { position: absolute; left: 50%; bottom: 16px; width: 50px; height: 50px; object-fit: contain; transform: translateX(-50%); transition: transform .4s cubic-bezier(.3,1.8,.5,1); }
 .pan.r .thing.pop { animation: drop .5s cubic-bezier(.3,1.6,.5,1); }
 @keyframes drop { from { transform: translate(-50%, -60px) scale(.5); opacity: 0; } }
+.pan .thing.face { border-radius: 50%; box-shadow: 0 0 0 3px #fff; }
 .items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
 .items button { border: 2px solid var(--lilac-l); background: #FBF9FF; border-radius: 16px; padding: 8px 4px; font-size: .82rem; font-weight: 700; color: var(--ink); display: flex; flex-direction: column; align-items: center; gap: 2px; transition: transform .15s, border-color .2s, background .2s; }
-.items button span { font-size: 1.5rem; line-height: 1.2; }
+.items button img { width: 40px; height: 40px; object-fit: contain; }
 .items button.on { border-color: var(--lilac-d); background: var(--lilac-l); transform: translateY(-2px); }
 .guess { margin-top: 14px; background: var(--lilac-l); border-radius: 16px; padding: 12px; text-align: center; font-size: .95rem; min-height: 64px; display: flex; flex-direction: column; justify-content: center; }
 .guess small { color: var(--ink-l); }
@@ -191,7 +191,8 @@ section > *:not(.drift) { position: relative; z-index: 1; }
 /* ── TIỆC ── */
 .info { display: grid; gap: 12px; margin-top: 24px; }
 .info-row { display: flex; gap: 14px; align-items: flex-start; background: #fff; border-radius: 20px; padding: 14px 16px; box-shadow: 0 8px 20px rgba(108,88,184,.08); }
-.info-row .ic { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; font-size: 1.25rem; flex: none; }
+.info-row .ic { width: 48px; height: 48px; flex: none; }
+.info-row .ic img { width: 100%; height: 100%; object-fit: contain; }
 .ic-1 { background: var(--lilac-l); } .ic-2 { background: #FFE9DC; } .ic-3 { background: #DDF4EA; }
 .info-row small { display: block; color: var(--ink-l); font-size: .8rem; font-weight: 700; }
 .info-row b { font-size: 1rem; line-height: 1.45; display: block; }
@@ -231,7 +232,7 @@ section > *:not(.drift) { position: relative; z-index: 1; }
 .rise { position: fixed; width: 56px; height: 56px; border-radius: 50%; z-index: 80; pointer-events: none; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95) 0 10%, rgba(255,255,255,.2) 30%, rgba(201,182,242,.35) 70%, rgba(156,195,242,.5)); box-shadow: inset 0 0 0 2px rgba(255,255,255,.7); }
 .wishes { margin-top: 24px; display: grid; gap: 12px; }
 .wish { display: flex; gap: 12px; align-items: flex-start; background: #fff; border-radius: 22px; padding: 12px 14px; box-shadow: 0 6px 16px rgba(108,88,184,.08); }
-.wish .dot { width: 38px; height: 38px; flex: none; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #fff 0 12%, transparent 30%), conic-gradient(#FFD3E6, #D6E8FF, #C9F2E4, #FFF0C2, #E5D9FF, #FFD3E6); }
+.wish .dot { width: 40px; height: 40px; flex: none; object-fit: contain; }
 .wish.new { animation: pop .6s cubic-bezier(.3,1.6,.5,1); }
 @keyframes pop { from { transform: scale(.5); opacity: 0; } }
 .wish b { font-size: .95rem; } .wish small { color: var(--ink-l); } .wish p { font-size: .93rem; margin-top: 2px; }
@@ -267,21 +268,21 @@ section > *:not(.drift) { position: relative; z-index: 1; }
 
 <!-- ── Phong bì: bập bênh ── -->
 <div id="cover">
-  <svg class="drift"><use href="#cloud"/></svg>
-  <svg class="drift b"><use href="#cloud"/></svg>
-  <svg class="drift s"><use href="#cloud"/></svg>
+  <img class="drift" src="assets/ic-cloud.webp" alt="">
+  <img class="drift b" src="assets/ic-cloud.webp" alt="">
+  <img class="drift s" src="assets/ic-cloud.webp" alt="">
   <p class="cv-kicker">Thiệp mời thôi nôi · cung Thiên Bình ♎&#xFE0E;</p>
   <h1 class="cv-title">Bé Bông <span>tròn 1 tuổi</span></h1>
   <div class="seesaw" id="seesaw">
     <div class="pivot"></div>
     <div class="beam">
       <div class="seat seat-l"><div class="avatar"><img src="assets/avatar.webp" alt="Bé Bông"></div></div>
-      <div class="seat seat-r"><div class="basket" id="basket"><span class="h-in">💜</span></div></div>
+      <div class="seat seat-r"><div class="basket" id="basket"><img class="h-in" src="assets/ic-heart.webp" alt=""></div></div>
     </div>
     <svg class="ground" viewBox="0 0 110 60" preserveAspectRatio="none"><use href="#cloud"/></svg>
   </div>
   <p class="cv-hint" id="cvHint">Bập bênh đang lệch… thả một trái tim cho cân nhé!</p>
-  <button id="openBtn" type="button">Thả tim 💜</button>
+  <button id="openBtn" type="button">Thả tim <img class="inl" src="assets/ic-heart.webp" alt=""></button>
 </div>
 
 <audio id="bgm" loop preload="none" src="assets/nhac-nen.mp3"></audio>
@@ -298,22 +299,22 @@ section > *:not(.drift) { position: relative; z-index: 1; }
     <div class="cloud-card reveal d1">
       <p class="eyebrow">Thiệp mời thôi nôi</p>
       <h2 class="hero-name" data-fit>Phạm Gia Bảo</h2>
-      <p class="hero-nick">ở nhà gọi là bé Bông ☁️</p>
+      <p class="hero-nick">ở nhà gọi là bé Bông <img class="inl" src="assets/ic-cloud.webp" alt=""></p>
       <span class="age-pill">Tròn 1 tuổi</span>
       <p class="hero-date">Chủ Nhật · 03.10.2027 · 10:00</p>
       <p class="hero-lunar">Nhằm ngày 04 tháng 9 năm Đinh Mùi</p>
     </div>
     <div class="balloons reveal d2" id="count">
-      <div class="bl"><div class="bl-b"><b data-k="d">00</b><small>NGÀY</small></div><svg><use href="#string"/></svg></div>
-      <div class="bl"><div class="bl-b"><b data-k="h">00</b><small>GIỜ</small></div><svg><use href="#string"/></svg></div>
-      <div class="bl"><div class="bl-b"><b data-k="m">00</b><small>PHÚT</small></div><svg><use href="#string"/></svg></div>
-      <div class="bl"><div class="bl-b"><b data-k="s">00</b><small>GIÂY</small></div><svg><use href="#string"/></svg></div>
+      <div class="bl"><img src="assets/ic-balloon.webp" alt=""><b data-k="d">00</b><small>NGÀY</small></div>
+      <div class="bl"><img src="assets/ic-balloon.webp" alt=""><b data-k="h">00</b><small>GIỜ</small></div>
+      <div class="bl"><img src="assets/ic-balloon.webp" alt=""><b data-k="m">00</b><small>PHÚT</small></div>
+      <div class="bl"><img src="assets/ic-balloon.webp" alt=""><b data-k="s">00</b><small>GIÂY</small></div>
     </div>
   </section>
 
   <!-- ── CÂN ĐO ── -->
   <section>
-    <svg class="drift s" style="top:30px"><use href="#cloud"/></svg>
+    <img class="drift s" style="top:30px" src="assets/ic-cloud.webp" alt="">
     <p class="eyebrow reveal">Thiên Bình nhỏ thích cân bằng</p>
     <h2 class="title reveal d1">Cân đo một năm của Bông</h2>
     <div class="dots reveal d1"><i></i><i></i><i></i></div>
@@ -337,13 +338,13 @@ section > *:not(.drift) { position: relative; z-index: 1; }
     <h2 class="title reveal d1">Những cánh diều của Bông</h2>
     <div class="dots reveal d1"><i></i><i></i><i></i></div>
     <div class="kites">
-      <div class="kite-row reveal"><div class="kite"><div class="kite-d" style="--c1:#C9B6F2;--c2:#8E79D6"><b>3</b></div><svg><use href="#tail"/></svg></div>
+      <div class="kite-row reveal"><div class="kite" style="--h:0deg"><img src="assets/ic-kite.webp" alt=""><b>3</b></div>
         <div class="kite-c"><small>Tháng 3</small><p>Lẫy được rồi! Nằm sấp ngẩng đầu nhìn mây.</p></div></div>
-      <div class="kite-row reveal"><div class="kite"><div class="kite-d" style="--c1:#FFD3B8;--c2:#F59E7C"><b>6</b></div><svg><use href="#tail"/></svg></div>
+      <div class="kite-row reveal"><div class="kite" style="--h:115deg"><img src="assets/ic-kite.webp" alt=""><b>6</b></div>
         <div class="kite-c"><small>Tháng 6</small><p>Ngồi vững, cười khanh khách mỗi lần chơi bập bênh với bố.</p></div></div>
-      <div class="kite-row reveal"><div class="kite"><div class="kite-d" style="--c1:#BDEBD8;--c2:#5FB894"><b>9</b></div><svg><use href="#tail"/></svg></div>
+      <div class="kite-row reveal"><div class="kite" style="--h:-115deg"><img src="assets/ic-kite.webp" alt=""><b>9</b></div>
         <div class="kite-c"><small>Tháng 9</small><p>Bò thoăn thoắt, gọi “bà” trước cả “ba”.</p></div></div>
-      <div class="kite-row reveal"><div class="kite"><div class="kite-d" style="--c1:#DCEBFF;--c2:#9CC3F2"><b>12</b></div><svg><use href="#tail"/></svg></div>
+      <div class="kite-row reveal"><div class="kite" style="--h:-60deg"><img src="assets/ic-kite.webp" alt=""><b>12</b></div>
         <div class="kite-c"><small>Tháng 12</small><p>Những bước chân đầu tiên — Bông bay cao như cánh diều.</p></div></div>
     </div>
   </section>
@@ -371,12 +372,12 @@ section > *:not(.drift) { position: relative; z-index: 1; }
       <div class="scale" id="scale">
         <div class="post"></div><div class="foot"></div><div class="top"></div>
         <div class="arm">
-          <div class="pan l"><svg class="strings" viewBox="0 0 84 78"><path d="M42 2L6 76M42 2l36 74M42 2v74" stroke="#B7A9DA" stroke-width="1.8" fill="none"/><circle cx="42" cy="3" r="3" fill="#B7A9DA"/></svg><div class="bowl"><span class="thing">💜</span></div></div>
-          <div class="pan r"><svg class="strings" viewBox="0 0 84 78"><path d="M42 2L6 76M42 2l36 74M42 2v74" stroke="#B7A9DA" stroke-width="1.8" fill="none"/><circle cx="42" cy="3" r="3" fill="#B7A9DA"/></svg><div class="bowl"><span class="thing" id="panThing">🎁</span></div></div>
+          <div class="pan l"><svg class="strings" viewBox="0 0 84 78"><path d="M42 2L6 76M42 2l36 74M42 2v74" stroke="#B7A9DA" stroke-width="1.8" fill="none"/><circle cx="42" cy="3" r="3" fill="#B7A9DA"/></svg><div class="bowl"><img class="thing face" src="assets/avatar.webp" alt="Bé Bông"></div></div>
+          <div class="pan r"><svg class="strings" viewBox="0 0 84 78"><path d="M42 2L6 76M42 2l36 74M42 2v74" stroke="#B7A9DA" stroke-width="1.8" fill="none"/><circle cx="42" cy="3" r="3" fill="#B7A9DA"/></svg><div class="bowl"><img class="thing" id="panThing" src="assets/ic-star.webp" alt=""></div></div>
         </div>
       </div>
       <div class="items" id="items"></div>
-      <div class="guess" id="guess"><small>Đĩa bên trái là trái tim của Bông, bên phải đang chờ một món…</small></div>
+      <div class="guess" id="guess"><small>Đĩa bên trái là bé Bông, bên phải đang chờ một món…</small></div>
     </div>
   </section>
 
@@ -386,9 +387,9 @@ section > *:not(.drift) { position: relative; z-index: 1; }
     <h2 class="title reveal d1">Thông tin buổi tiệc</h2>
     <div class="dots reveal d1"><i></i><i></i><i></i></div>
     <div class="info">
-      <div class="info-row reveal"><div class="ic ic-1">⏰</div><div><small>Thời gian</small><b>10:00 – 12:30 · Chủ Nhật, 03.10.2027</b></div></div>
-      <div class="info-row reveal d1"><div class="ic ic-2">🎈</div><div><small>Địa điểm</small><b>Nhà hàng Mây Ngàn — 18 Nguyễn Văn Hưởng, Thảo Điền, TP. Thủ Đức</b></div></div>
-      <div class="info-row reveal d2"><div class="ic ic-3">👕</div><div><small>Trang phục gợi ý</small><b>Tím oải hương, xanh trời, màu kem</b></div></div>
+      <div class="info-row reveal"><div class="ic"><img src="assets/ic-clock.webp" alt=""></div><div><small>Thời gian</small><b>10:00 – 12:30 · Chủ Nhật, 03.10.2027</b></div></div>
+      <div class="info-row reveal d1"><div class="ic"><img src="assets/ic-hotair.webp" alt=""></div><div><small>Địa điểm</small><b>Nhà hàng Mây Ngàn — 18 Nguyễn Văn Hưởng, Thảo Điền, TP. Thủ Đức</b></div></div>
+      <div class="info-row reveal d2"><div class="ic"><img src="assets/ic-shirt.webp" alt=""></div><div><small>Trang phục gợi ý</small><b>Tím oải hương, xanh trời, màu kem</b></div></div>
     </div>
     <div class="cal reveal">
       <h4>Tháng 10 · 2027</h4>
@@ -403,7 +404,7 @@ section > *:not(.drift) { position: relative; z-index: 1; }
 
   <!-- ── ALBUM ── -->
   <section>
-    <svg class="drift" style="top:40px;animation-delay:-8s"><use href="#cloud"/></svg>
+    <img class="drift" style="top:40px;animation-delay:-8s" src="assets/ic-cloud.webp" alt="">
     <p class="eyebrow reveal">Khoảnh khắc lơ lửng</p>
     <h2 class="title reveal d1">Album bong bóng</h2>
     <div class="bubbles">
@@ -469,8 +470,8 @@ section > *:not(.drift) { position: relative; z-index: 1; }
   btn.addEventListener('click', function () {
     if (opened) return; opened = true; btn.disabled = true;
     if (reduced) { seesaw.classList.add('balanced'); reveal(); return; }
-    var r = basket.getBoundingClientRect(), h = document.createElement('span');
-    h.className = 'fly-heart'; h.textContent = '💜'; document.body.appendChild(h);
+    var r = basket.getBoundingClientRect(), h = document.createElement('img');
+    h.className = 'fly-heart'; h.src = 'assets/ic-heart.webp'; h.alt = ''; document.body.appendChild(h);
     var x = r.left + r.width / 2 - 19, y = r.top - 26;
     h.animate([{ transform: 'translate(' + x + 'px,-60px) rotate(-20deg)' }, { transform: 'translate(' + x + 'px,' + y + 'px) rotate(0)' }],
       { duration: 700, easing: 'cubic-bezier(.5,0,.8,.6)', fill: 'forwards' }).onfinish = function () {
@@ -497,15 +498,16 @@ section > *:not(.drift) { position: relative; z-index: 1; }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
 
   /* Chiếc cân bốc đồ: đặt món → cân nghiêng → trở về cân bằng */
-  var ITEMS = [['📚', 'Sách', 'ham học, hiểu biết'], ['✏️', 'Bút', 'học giỏi, viết hay'], ['💰', 'Tiền', 'sung túc, giỏi làm ăn'],
-    ['🩺', 'Ống nghe', 'thành bác sĩ giỏi'], ['🎹', 'Đàn', 'yêu nghệ thuật, tâm hồn đẹp'], ['🎨', 'Cọ vẽ', 'khéo tay, tài hoa'],
-    ['🎤', 'Micro', 'ăn nói có duyên'], ['⚖️', 'Cân', 'công bằng, hiểu lẽ phải'], ['⚽', 'Quả bóng', 'khoẻ mạnh, năng động']];
+  var BD = '../../../shared/images/baby/boc-do/';
+  var ITEMS = [['sach', 'Sách', 'ham học, hiểu biết'], ['but', 'Bút', 'học giỏi, viết hay'], ['tien', 'Túi tiền', 'sung túc, giỏi làm ăn'],
+    ['ong-nghe', 'Ống nghe', 'thành bác sĩ giỏi'], ['co-ve', 'Cọ vẽ', 'khéo tay, tài hoa'], ['micro', 'Micro', 'ăn nói có duyên'],
+    ['ban-tinh', 'Bàn tính', 'giỏi toán, kinh doanh'], ['dan', 'Đàn', 'yêu nghệ thuật, tâm hồn đẹp'], ['qua-bong', 'Quả bóng', 'khoẻ mạnh, năng động']];
   var scale = document.getElementById('scale'), items = document.getElementById('items'), guess = document.getElementById('guess'), panThing = document.getElementById('panThing'), tmr;
   ITEMS.forEach(function (it) {
-    var b = document.createElement('button'); b.type = 'button'; b.innerHTML = '<span>' + it[0] + '</span>' + it[1];
+    var b = document.createElement('button'); b.type = 'button'; b.innerHTML = '<img src="' + BD + it[0] + '.webp" alt="">' + it[1];
     b.addEventListener('click', function () {
       items.querySelectorAll('button').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on');
-      panThing.textContent = it[0]; panThing.classList.remove('pop'); void panThing.offsetWidth; panThing.classList.add('pop');
+      panThing.src = BD + it[0] + '.webp'; panThing.classList.remove('pop'); void panThing.offsetWidth; panThing.classList.add('pop');
       scale.style.setProperty('--a', '12deg'); clearTimeout(tmr);
       guess.innerHTML = '<span>Đĩa cân nghiêng về <b>' + it[1] + '</b>…</span>';
       tmr = setTimeout(function () {
@@ -565,7 +567,7 @@ section > *:not(.drift) { position: relative; z-index: 1; }
   function render(newest) {
     var all = load().slice().reverse().concat(SAMPLE);
     list.innerHTML = all.map(function (x, i) {
-      return '<div class="wish' + (newest && i === 0 ? ' new' : '') + '"><span class="dot"></span><div><b>' + esc(x.name) + '</b> · <small>' + esc(x.attend) + '</small><p>' + esc(x.message || 'Chúc Bông tròn 1 tuổi thật vui!') + '</p></div></div>';
+      return '<div class="wish' + (newest && i === 0 ? ' new' : '') + '"><img class="dot" src="assets/ic-bubble.webp" alt=""><div><b>' + esc(x.name) + '</b> · <small>' + esc(x.attend) + '</small><p>' + esc(x.message || 'Chúc Bông tròn 1 tuổi thật vui!') + '</p></div></div>';
     }).join('');
   }
   function bubbleUp() {
