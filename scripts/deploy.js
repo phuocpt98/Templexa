@@ -10,8 +10,11 @@
  *   1. Không còn file sửa dở / file mới chưa commit (thứ chưa commit thì GitHub không có) → DỪNG.
  *   2. PULL: GitHub có commit mới → git pull --rebase (xung đột → huỷ, báo, DỪNG).
  *      Nhánh khác main: phải chứa main mới nhất (đã merge main).
- *   3. PUSH: có commit chưa lên GitHub → git push.
- *   4. DEPLOY: wrangler pages deploy kèm mã commit → dashboard Cloudflare ghi rõ bản nào.
+ *   3. PROD: gắn data.js?v=<hash> vào HTML (stamp-assets.js) — Cloudflare cache JS 1 ngày, đổi link thì
+ *      khách nhận data.js mới ngay. Có thay đổi → tự commit. Chỉ chạy ở --prod để nhánh job không đụng ?v=
+ *      (tránh xung đột 19 file HTML khi merge).
+ *   4. PUSH: có commit chưa lên GitHub → git push.
+ *   5. DEPLOY: wrangler pages deploy kèm mã commit → dashboard Cloudflare ghi rõ bản nào.
  * KHÔNG gõ thẳng `npx wrangler pages deploy .` — sẽ bỏ qua toàn bộ kiểm tra trên.
  */
 const { execSync, spawnSync } = require('child_process');
@@ -53,7 +56,20 @@ if (branch !== 'main') {
     if (missing) die(`Nhánh "${branch}" thiếu ${missing} commit mới của main — chạy: git merge origin/main (xử lý xung đột nếu có), rồi deploy lại.`);
 }
 
-// 2. PUSH — GitHub luôn là bản đầy đủ nhất, giống hệt bản sắp deploy
+// 2. STAMP (chỉ production) — data.js?v=<hash> trong HTML, có đổi thì tự commit
+if (PROD) {
+    sh('node scripts/stamp-assets.js', { stdio: 'inherit' });
+    const changed = sh('git status --porcelain');
+    if (changed) {
+        const files = sh('git diff --name-only').split('\n').filter(Boolean);
+        if (files.some(f => !f.endsWith('.html'))) die('stamp-assets.js đổi file ngoài HTML — kiểm tra lại:\n' + changed);
+        sh('git add -- ' + files.map(f => JSON.stringify(f)).join(' '));
+        sh('git commit -q -m "stamp: data.js?v= (tự động khi deploy production)"');
+        step(`Đã gắn phiên bản data.js mới vào ${files.length} trang HTML (commit tự động)`);
+    }
+}
+
+// 3. PUSH — GitHub luôn là bản đầy đủ nhất, giống hệt bản sắp deploy
 const ahead = hasRemote ? count(`origin/${branch}..HEAD`) : 1;
 if (ahead) {
     step(hasRemote ? `Push ${ahead} commit lên GitHub` : `Đẩy nhánh mới "${branch}" lên GitHub`);
