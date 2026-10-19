@@ -248,7 +248,7 @@
             transition: padding 0.4s ease;
         }
         .preview-container.mobile-mode {
-            align-items: center;
+            align-items: flex-start;
             overflow-y: auto;
             padding: 20px;
         }
@@ -261,16 +261,17 @@
             overflow: hidden;
         }
         /* Khung điện thoại: thiệp luôn render đúng 430×932 như máy thật, rồi THU NHỎ cả khung
-           (scale --s, JS tính để cao = 80% màn hình) — giữ tỷ lệ, không dàn lại bố cục.
-           Margin âm bù phần thừa của layout box để khung nằm giữa, không sinh thanh cuộn. */
+           (scale --s = 80% chiều cao tab khi mở TOÀN MÀN HÌNH — không đổi khi co cửa sổ, co thì cuộn).
+           Margin âm bù phần thừa của layout box; --mt căn giữa dọc khi cửa sổ đủ cao. */
         .preview-frame.mobile {
             --s: 1;
+            --mt: 0px;
             width: 430px;
             max-width: 430px;
             height: 932px;
             flex-shrink: 0;
             transform: scale(var(--s));
-            margin: calc(-466px * (1 - var(--s))) calc(-215px * (1 - var(--s)));
+            margin: calc(var(--mt) - 466px * (1 - var(--s))) calc(-215px * (1 - var(--s))) calc(-466px * (1 - var(--s)));
             border-radius: 50px;
             border: 6px solid #1F2937;
             box-shadow:
@@ -771,9 +772,15 @@
             const frame = document.getElementById('previewFrame');
             const container = document.getElementById('previewContainer');
 
-            // Khung mobile cao = 80% màn hình (không phóng to quá cỡ thật)
+            // Khung mobile cao = 80% chiều cao tab khi mở toàn màn hình (màn hình − thanh trình duyệt),
+            // không phụ thuộc cửa sổ hiện tại; không phóng to quá cỡ thật. Cửa sổ thấp hơn → cuộn.
             function fitPhone() {
-                frame.style.setProperty('--s', Math.min(1, window.innerHeight * 0.8 / 932).toFixed(3));
+                var chrome = Math.max(0, window.outerHeight - window.innerHeight);
+                var fullH = (screen.availHeight || window.innerHeight) - chrome;
+                var sc = Math.min(1, fullH * 0.8 / 932), h = 932 * sc;
+                var room = container.clientHeight - 40;   // trừ padding 20px trên + dưới
+                frame.style.setProperty('--s', sc.toFixed(3));
+                frame.style.setProperty('--mt', Math.max(0, (room - h) / 2) + 'px');
             }
             fitPhone();
             window.addEventListener('resize', fitPhone);
