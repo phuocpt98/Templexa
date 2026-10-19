@@ -2,11 +2,11 @@
 /**
  * stamp-assets.js — Gắn phiên bản theo nội dung vào link JS hay đổi: data.js → data.js?v=<hash8>.
  *
- *   node scripts/stamp-assets.js          (đã nằm cuối npm run build:seo)
+ *   node scripts/stamp-assets.js          (npm run build:stamp — deploy.js TỰ chạy khi --prod)
  *
  * Lý do: _headers cho /assets/js/* cache 1 ngày (Cloudflare + trình duyệt). HTML không bị cache,
  * nên đổi query trong HTML là khách lấy ngay data.js mới sau khi deploy — không cần purge cache.
- * Chạy lại sau mỗi lần sửa data.js (thêm mẫu, catalog.js…) rồi commit cùng.
+ * KHÔNG chạy trên nhánh job: mỗi nhánh một hash → merge xung đột 19 file HTML. Để deploy.js lo lúc lên prod.
  */
 const fs = require('fs');
 const path = require('path');
