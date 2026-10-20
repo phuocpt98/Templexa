@@ -108,6 +108,8 @@
   </div>
   <button class="btn" id="pickBtn" type="button" title="Bật/tắt chế độ chọn (phím P)">🎯 Chọn chỗ sửa <kbd>P</kbd></button>
   <button class="btn" id="resetBtn" type="button" title="Xoá cache, tải lại thiệp mới và reset các phần đã chọn">🔄 Reset</button>
+  <button class="btn on" id="liveBtn" type="button" title="Bật: tự động tải lại thiệp ngay khi file thiệp thay đổi (sửa ở local hoặc có bản deploy mới)">📡 Live</button>
+  <span id="liveStat" style="font-size:12px;color:var(--muted);white-space:nowrap"></span>
 </div>
 
 <div class="main">
@@ -188,7 +190,7 @@
   function showErr(m) { $('err').innerHTML = m; $('err').style.display = 'flex'; }
 
   // Link khách (/event/x/) là trang bọc iframe → đi xuyên vào thiệp thật bên trong
-  frame.addEventListener('load', function () { attach(frame); });
+  frame.addEventListener('load', function () { attach(frame); restoreScroll(); });
   function attach(fr) {
     var d;
     try { d = fr.contentDocument; } catch (e) { d = null; }
@@ -532,6 +534,60 @@
     else if (a === 'pick') setPicking(!picking);
     closeMenu();
   });
+
+  // ───────── Live: tự tải lại khi file thiệp thay đổi ─────────
+  // Theo dõi file thiệp THẬT (đã xuyên qua trang bọc /wedding/, /event/) bằng ETag/Last-Modified.
+  // File đổi (sửa ở local, hoặc production có bản deploy mới) → tự tải lại iframe, giữ vị trí cuộn.
+  // Tạm dừng khi đang bật chế độ chọn chỗ sửa để không giật mất thao tác.
+  var live = true, liveSig = null, livePending = null, liveDocRef = null, liveBusy = false, savedScroll = 0;
+  function liveTarget() {
+    if (doc && doc.URL && /^https?:/.test(doc.URL)) return doc.URL;
+    var p = ($('urlInput').value || '').trim();
+    return p ? new URL(p, location.href).href : '';
+  }
+  function livePoll() {
+    if (!live || liveBusy || picking || document.hidden) return;
+    if (doc !== liveDocRef) { liveDocRef = doc; liveSig = null; livePending = null; }
+    var u = liveTarget(); if (!u) return;
+    var sep = u.indexOf('?') >= 0 ? '&' : '?';
+    fetch(u + sep + '_live=' + Date.now(), { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) return;
+      var sig = r.headers.get('etag') || r.headers.get('last-modified') || r.headers.get('content-length') || '';
+      if (r.body && r.body.cancel) r.body.cancel();
+      if (!sig) return;
+      if (liveSig === null) { liveSig = sig; return; }
+      if (sig === liveSig) { livePending = null; return; }
+      // chờ 2 lần poll liên tiếp cùng thấy bản mới mới tải lại (tránh dao động cache)
+      if (sig === livePending) { liveSig = sig; livePending = null; liveReload(); }
+      else livePending = sig;
+    }).catch(function () {});
+  }
+  function liveReload() {
+    var path = ($('urlInput').value || '').trim(); if (!path) return;
+    try { savedScroll = win ? (win.scrollY || 0) : 0; } catch (e) { savedScroll = 0; }
+    liveBusy = true;
+    var sep = path.indexOf('?') >= 0 ? '&' : '?';
+    frame.src = path + sep + 'v=' + Date.now();
+    var d = new Date(), p2 = function (n) { return ('0' + n).slice(-2); };
+    $('liveStat').textContent = 'vừa tải lại ' + p2(d.getHours()) + ':' + p2(d.getMinutes()) + ':' + p2(d.getSeconds());
+    toast('📡 File thiệp vừa đổi — đã tải lại bản mới');
+    setTimeout(function () { liveBusy = false; }, 1500);
+  }
+  function restoreScroll() {
+    if (!savedScroll) return;
+    var y = savedScroll; savedScroll = 0;
+    [150, 500, 1200].forEach(function (t) {
+      setTimeout(function () { try { if (win) win.scrollTo(0, y); } catch (e) {} }, t);
+    });
+  }
+  $('liveBtn').onclick = function () {
+    live = !live;
+    this.classList.toggle('on', live);
+    liveSig = null; livePending = null;
+    $('liveStat').textContent = live ? '' : 'Live đang tắt';
+    toast(live ? '📡 Đã bật Live — thiệp tự tải lại khi file đổi' : 'Đã tắt Live');
+  };
+  setInterval(livePoll, 2000);
 
   // ───────── khác ─────────
   var tt;
