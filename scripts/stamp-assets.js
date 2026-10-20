@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * stamp-assets.js — Gắn phiên bản theo nội dung vào link JS hay đổi: data.js → data.js?v=<hash8>.
+ * stamp-assets.js — Gắn phiên bản theo nội dung vào link asset hay đổi: data.js / style.css → ?v=<hash8>.
  *
  *   node scripts/stamp-assets.js          (npm run build:stamp — deploy.js TỰ chạy khi --prod)
  *
- * Lý do: _headers cho /assets/js/* cache 1 ngày (Cloudflare + trình duyệt). HTML không bị cache,
+ * Lý do: _headers cho /assets/js/* và /assets/css/* cache 1 ngày (Cloudflare + trình duyệt). HTML không bị cache,
  * nên đổi query trong HTML là khách lấy ngay data.js mới sau khi deploy — không cần purge cache.
  * KHÔNG chạy trên nhánh job: mỗi nhánh một hash → merge xung đột 19 file HTML. Để deploy.js lo lúc lên prod.
  */
@@ -13,7 +13,7 @@ const path = require('path');
 const crypto = require('crypto');
 
 const ROOT = path.join(__dirname, '..');
-const ASSETS = ['assets/js/data.js'];
+const ASSETS = ['assets/js/data.js', 'assets/css/style.css'];
 const SKIP = new Set(['node_modules', '.git', '.wrangler', 'products', 'blogs']);
 
 function htmlFiles(dir) {
