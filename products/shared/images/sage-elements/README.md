@@ -20,4 +20,4 @@
 | watercolor-top-a / -b / -b-flip.webp | Vệt màu nước viền trên phần cảm ơn, popup cảm ơn |
 | sparkle-1 / -2.webp | Lớp lấp lánh chạy nền (`.fx-sparkle`) |
 | hearts-snow.webp, heart-red-small.webp | Tim rơi (`.fx-snow`) ở phần đếm ngược |
-| thank-you-bouquet.webp | Ảnh "Thank you" chung (bó hoa + nhẫn, gen Gemini 20/10/2026, không có người) |
+| thank-you-bouquet.webp | Ảnh "Thank you" dùng chung khi thiếu ảnh cưới (bó hoa + nhẫn, gen Gemini 20/10/2026) — #314 dùng ảnh mẫu Hương Ly |
