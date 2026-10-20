@@ -28,15 +28,15 @@ products/
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
 | **Invitation** | other | 78 | 68 |
-| **Invitation** | wedding | 96 | 62 |
+| **Invitation** | wedding | 97 | 63 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **300** | **256** |
+| | **Tong** | **301** | **257** |
 
-_Cap nhat tu data.js: 2026-10-19 — chay `node scripts/build-products-md.js` de sinh lai._
+_Cap nhat tu data.js: 2026-10-20 — chay `node scripts/build-products-md.js` de sinh lai._
 
 ---
 
@@ -251,7 +251,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 312 | Thiệp Thôi Nôi Cung Xử Nữ — Khu Vườn Nhỏ Của Bé | `Invitation/Other/gen_312_thoi-noi-xu-nu-khu-vuon-be-mat` | thoi-noi | public |
 | 313 | Thiệp Thôi Nôi Cung Thiên Bình — Bập Bênh Trên Mây | `Invitation/Other/gen_313_thoi-noi-thien-binh-bap-benh-tren-may` | thoi-noi | public |
 
-### Invitation / wedding (96)
+### Invitation / wedding (97)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -351,6 +351,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 281 | Thiệp Cưới Tứ Quân Tử — Tranh Mực Thực Vật | `Invitation/Wedding/gen_281_sumi-botanical` | minimalist / wedding | public |
 | 288 | Thiệp Cưới Vintage Khung Phim Hồng Đất | `Invitation/Wedding/khach_thuy-linh-do-thao` | vintage / wedding | hidden |
 | 289 | Thiệp Cưới Mocha Champagne — Monogram Hoàng Gia | `Invitation/Wedding/gen_289_mocha-champagne-wedding` | luxury / wedding | public |
+| 314 | Thiệp Cưới Sage Việt Phục — Lưu Bút Ký Tên | `Invitation/Wedding/gen_314_sage-viet-phuc` | modern / wedding | public |
 
 ### Web / e-commerce (33)
 
