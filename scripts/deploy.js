@@ -64,8 +64,8 @@ if (PROD) {
         const files = sh('git diff --name-only').split('\n').filter(Boolean);
         if (files.some(f => !f.endsWith('.html'))) die('stamp-assets.js đổi file ngoài HTML — kiểm tra lại:\n' + changed);
         sh('git add -- ' + files.map(f => JSON.stringify(f)).join(' '));
-        sh('git commit -q -m "stamp: data.js?v= (tự động khi deploy production)"');
-        step(`Đã gắn phiên bản data.js mới vào ${files.length} trang HTML (commit tự động)`);
+        sh('git commit -q -m "stamp: data.js/style.css ?v= (tự động khi deploy production)"');
+        step(`Đã gắn phiên bản mới (data.js/style.css) vào ${files.length} trang HTML (commit tự động)`);
     }
 }
 
