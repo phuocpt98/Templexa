@@ -28,13 +28,13 @@ products/
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
 | **Invitation** | other | 78 | 68 |
-| **Invitation** | wedding | 99 | 65 |
+| **Invitation** | wedding | 103 | 69 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **303** | **259** |
+| | **Tong** | **307** | **263** |
 
 _Cap nhat tu data.js: 2026-10-20 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -251,7 +251,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 312 | Thiệp Thôi Nôi Cung Xử Nữ — Khu Vườn Nhỏ Của Bé | `Invitation/Other/gen_312_thoi-noi-xu-nu-khu-vuon-be-mat` | thoi-noi | public |
 | 313 | Thiệp Thôi Nôi Cung Thiên Bình — Bập Bênh Trên Mây | `Invitation/Other/gen_313_thoi-noi-thien-binh-bap-benh-tren-may` | thoi-noi | public |
 
-### Invitation / wedding (99)
+### Invitation / wedding (103)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -354,6 +354,10 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 314 | Thiệp Cưới Sage Việt Phục — Lưu Bút Ký Tên | `Invitation/Wedding/gen_314_sage-viet-phuc` | modern / wedding | public |
 | 315 | Thiệp Cưới Greatest Day — Xám Tro Nâu Cổ Điển | `Invitation/Wedding/gen_315_xam-tro-greatest-day` | modern / wedding | public |
 | 316 | Thiệp Cưới Phong Bì Trắng Kem — Mở Thư Mời | `Invitation/Wedding/gen_316_phong-bi-trang-kem` | minimalist / wedding | public |
+| 317 | Thiệp Cưới Xanh Olive — Khung Vòm Hoa Nét | `Invitation/Wedding/gen_317_xanh-olive-khung-vom` | modern / wedding | public |
+| 318 | Thiệp Cưới Song Ngữ Việt – Hàn — Xanh Olive | `Invitation/Wedding/gen_318_song-ngu-viet-han-olive` | modern / wedding | public |
+| 319 | Thiệp Cưới Đỏ Phong Bì — Mây Vàng Truyền Thống | `Invitation/Wedding/gen_319_do-phong-bi-kinh-mo` | traditional / wedding | public |
+| 320 | Thiệp Cưới Romantic — Save The Date Lấp Lánh | `Invitation/Wedding/gen_320_romantic-save-the-date` | floral / wedding | public |
 
 ### Web / e-commerce (33)
 
