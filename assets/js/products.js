@@ -811,7 +811,10 @@ const landingHref = (slug) => slug + '.html';
                 '</div>' +
                 '<div class="popup-sidebar">' +
                     (priceLabel ? '<span class="price-badge ' + priceClass + '">' + priceLabel + '</span>' : '') +
-                    '<button class="btn-primary" id="popupBtnGetTemplate">' + (isFreeProduct ? 'Tạo QR ngay' : 'Dùng ngay') + ' <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>' +
+                    (isFreeProduct
+                        ? '<button class="btn-primary" id="popupBtnGetTemplate">Tạo QR ngay <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>'
+                        // Nhắn Facebook Page (ref = mẫu đang xem → Page biết khách hỏi mẫu nào)
+                        : '<a class="btn-primary btn-fb-msg" href="https://m.me/templexa.vn?ref=mau-' + product.id + '" target="_blank" rel="noopener" aria-label="Nhắn tin Facebook Page Templexa về mẫu này">Nhắn tin <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21.95V14h2.66l.4-3.1H13.5V8.92c0-.9.25-1.5 1.54-1.5h1.64V4.65a22 22 0 0 0-2.39-.12c-2.37 0-3.99 1.44-3.99 4.1v2.27H7.62V14h2.68v7.95z"/></svg></a>') +
                     demoBtn +
                     '<p class="sidebar-features-title">Tính năng nổi bật</p>' +
                     '<ul class="sidebar-features">' + featuresHTML + '</ul>' +
@@ -834,7 +837,7 @@ const landingHref = (slug) => slug + '.html';
             });
         });
 
-        // "Dùng ngay" → open modal form (hoặc redirect nếu lời nhắn QR)
+        // "Tạo QR ngay" (lời nhắn QR / digital card) → sang công cụ tạo; mẫu thường dùng nút "Nhắn tin" (link m.me)
         var btnGetTemplate = popupBody.querySelector('#popupBtnGetTemplate');
         if (btnGetTemplate) {
             btnGetTemplate.addEventListener('click', function () {
