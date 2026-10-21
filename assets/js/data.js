@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 105 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 106 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3966,6 +3966,41 @@ const PRODUCTS = [
             'Khung vòm ảnh cưới, tên cô dâu chú rể, thông tin lễ, dòng thời gian',
             'Nút "Xem bản đồ" vén ảnh lộ bản đồ, đếm ngược, khung ảnh tự chuyển, album',
             'Lưu bút ký tên, quà mừng QR, xác nhận tham dự, lời chúc — đẹp cả điện thoại lẫn máy tính',
+        ],
+        status: '',
+        featured: false,
+        priority: -4,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-21',
+    },
+    {
+        id: 323,
+        name: 'Thiệp Cưới Đỏ Song Hỷ — Cửa Son Long Phụng',
+        slug: 'thiep-cuoi-do-song-hy-long-phung',
+        description: 'Thiệp cưới đỏ truyền thống: bìa là hai cánh cửa son viền vàng với chữ Song Hỷ, rồng phượng; bấm "Mở thiệp" cửa mở ra, đèn lồng, cánh hoa rơi. Có hai họ, lời mời, nghi lễ gia tiên, lịch cưới, đếm ngược, lịch trình, bản đồ, album trượt, ký tên chúc phúc, xác nhận tham dự, sổ lời chúc và hộp mừng cưới đồng xu may mắn.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'traditional',
+        event: 'wedding',
+        tags: ['wedding', 'truyen-thong', 'do', 'song-hy', 'long-phung', 'cua-mo', 'den-long', 'ky-ten', 'rsvp', 'countdown', 'qr', 'ban-do', 'album'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_323_do-song-hy-truyen-thong/shots/open.webp',
+            './products/Invitation/Wedding/gen_323_do-song-hy-truyen-thong/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_323_do-song-hy-truyen-thong/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/gen_323_do-song-hy-truyen-thong/shots/cover.webp',
+        path: './products/Invitation/Wedding/gen_323_do-song-hy-truyen-thong/',
+        demoUrl: './products/Invitation/Wedding/gen_323_do-song-hy-truyen-thong/index.html',
+        variants: [],
+        features: [
+            'Cửa son mở thiệp: chữ Song Hỷ, rồng phượng, tên khách (?n=), nhạc phát khi mở',
+            'Hai họ, lời mời, nghi lễ gia tiên (vu quy, thành hôn), lịch tháng khoanh ngày cưới',
+            'Đếm ngược, lịch trình ngày cưới, bản đồ, album ảnh trượt',
+            'Ký tên chúc phúc trên ảnh, xác nhận tham dự, sổ lời chúc, hộp mừng cưới đồng xu may mắn — đẹp cả điện thoại lẫn máy tính',
         ],
         status: '',
         featured: false,
