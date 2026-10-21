@@ -27,14 +27,14 @@ products/
 |------------|----------|------|--------|
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
-| **Invitation** | other | 84 | 74 |
+| **Invitation** | other | 89 | 79 |
 | **Invitation** | wedding | 111 | 77 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **321** | **277** |
+| | **Tong** | **326** | **282** |
 
 _Cap nhat tu data.js: 2026-10-21 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -168,7 +168,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 283 | Lời Nhắn QR — Chibi Yêu Thương | `./loi-nhan/chibi-yeu-thuong` |  | public |
 | 284 | Lời Nhắn QR — Hoa Lá Nhẹ Nhàng | `./loi-nhan/hoa-la` |  | public |
 
-### Invitation / other (84)
+### Invitation / other (89)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -256,6 +256,11 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 332 | Thiệp Thôi Nôi Rừng Xanh Thú Nhỏ — Bé Bảo Ngọc | `Invitation/Other/gen_332_thoi-noi-rung-xanh-thu-nho` | thoi-noi | public |
 | 333 | Thiệp Thôi Nôi Phi Hành Gia Nhí — Bé Gia Huy | `Invitation/Other/gen_333_thoi-noi-phi-hanh-gia` | thoi-noi | public |
 | 334 | Thiệp Thôi Nôi Nhật Báo Bé Yêu — Bé Minh An | `Invitation/Other/gen_334_thoi-noi-nhat-bao-be-yeu` | thoi-noi | public |
+| 335 | Thiệp Sinh Nhật 25 — Đêm Tiệc Đen Vàng Sang Trọng | `Invitation/Other/gen_335_sinh-nhat-den-vang-sang-trong` | birthday | public |
+| 336 | Thiệp Sinh Nhật Mèo Hồng Đáng Yêu | `Invitation/Other/gen_336_sinh-nhat-meo-hong-dang-yeu` | birthday | public |
+| 337 | Thiệp Sinh Nhật 30 — Đĩa Than Retro | `Invitation/Other/gen_337_sinh-nhat-dia-than-retro` | birthday | public |
+| 338 | Thiệp Sinh Nhật Bé — Phiêu Lưu Đáy Biển | `Invitation/Other/gen_338_sinh-nhat-day-bien-be-tom` | birthday | public |
+| 339 | Thiệp Sinh Nhật Hộp Quà Bóng Bay | `Invitation/Other/gen_339_sinh-nhat-hop-qua-bong-bay` | birthday | public |
 
 ### Invitation / wedding (111)
 
