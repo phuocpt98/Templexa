@@ -27,14 +27,14 @@ products/
 |------------|----------|------|--------|
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
-| **Invitation** | other | 89 | 79 |
+| **Invitation** | other | 90 | 80 |
 | **Invitation** | wedding | 111 | 77 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **326** | **282** |
+| | **Tong** | **327** | **283** |
 
 _Cap nhat tu data.js: 2026-10-21 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -168,7 +168,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 283 | Lời Nhắn QR — Chibi Yêu Thương | `./loi-nhan/chibi-yeu-thuong` |  | public |
 | 284 | Lời Nhắn QR — Hoa Lá Nhẹ Nhàng | `./loi-nhan/hoa-la` |  | public |
 
-### Invitation / other (89)
+### Invitation / other (90)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -261,6 +261,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 337 | Thiệp Sinh Nhật 30 — Đĩa Than Retro | `Invitation/Other/gen_337_sinh-nhat-dia-than-retro` | birthday | public |
 | 338 | Thiệp Sinh Nhật Bé — Phiêu Lưu Đáy Biển | `Invitation/Other/gen_338_sinh-nhat-day-bien-be-tom` | birthday | public |
 | 339 | Thiệp Sinh Nhật Hộp Quà Bóng Bay | `Invitation/Other/gen_339_sinh-nhat-hop-qua-bong-bay` | birthday | public |
+| 340 | Thiệp Sinh Nhật Hồng Vàng Bóng Bay — Birthday | `Invitation/Other/gen_340_sinh-nhat-hong-vang-bong-bay` | birthday | public |
 
 ### Invitation / wedding (111)
 
