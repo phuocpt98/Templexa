@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 108 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 109 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -4071,6 +4071,41 @@ const PRODUCTS = [
             'Tên cô dâu chú rể chữ ký tay, lịch trình 5 mốc có icon, xem đường đi',
             'Giới thiệu cô dâu – chú rể, Our Story, bảng lưu bút ký tên, album studio',
             'Đếm ngược, xác nhận tham dự, sổ lời chúc, quà mừng QR — đẹp cả điện thoại lẫn máy tính',
+        ],
+        status: '',
+        featured: false,
+        priority: -4,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-21',
+    },
+    {
+        id: 326,
+        name: 'Thiệp Cưới Đêm Sao Ngân Hà — Xanh Navy Lấp Lánh',
+        slug: 'thiep-cuoi-dem-sao-ngan-ha',
+        description: 'Thiệp cưới tông xanh navy đêm sao: bìa bầu trời lấp lánh với tên cô dâu chú rể, bấm "Mở thiệp" có sao băng, ảnh tròn viền sao, hai bên gia đình, lễ gia tiên dạng vòm, lịch cưới, đếm ngược, lịch trình, cửa bản đồ mở ra Google Maps, album trượt, ký tên chúc phúc, xác nhận tham dự, sổ lời chúc và hộp mừng cưới chạm để mở QR.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'modern',
+        event: 'wedding',
+        tags: ['wedding', 'navy', 'xanh-dem', 'dem-sao', 'ngan-ha', 'lap-lanh', 'ky-ten', 'rsvp', 'countdown', 'qr', 'ban-do', 'album'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_326_dem-sao-ngan-ha/shots/open.webp',
+            './products/Invitation/Wedding/gen_326_dem-sao-ngan-ha/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_326_dem-sao-ngan-ha/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/gen_326_dem-sao-ngan-ha/shots/cover.webp',
+        path: './products/Invitation/Wedding/gen_326_dem-sao-ngan-ha/',
+        demoUrl: './products/Invitation/Wedding/gen_326_dem-sao-ngan-ha/index.html',
+        variants: [],
+        features: [
+            'Bìa bầu trời sao lấp lánh, tên khách (?n=), mở thiệp có sao băng, nhạc phát khi mở',
+            'Hai bên gia đình, lễ gia tiên, lịch tháng khoanh ngày cưới, đếm ngược, lịch trình',
+            'Cửa bản đồ mở ra Google Maps, album ảnh trượt, ký tên chúc phúc trên ảnh',
+            'Xác nhận tham dự, sổ lời chúc, hộp mừng cưới chạm mở QR — đẹp cả điện thoại lẫn máy tính',
         ],
         status: '',
         featured: false,
