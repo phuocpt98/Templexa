@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 103 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 104 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3895,6 +3895,41 @@ const PRODUCTS = [
             'Bìa ảnh ngoại cảnh + hiệu ứng đom đóm lấp lánh, Save the date',
             'Giới thiệu cô dâu chú rể, ảnh cắt hình thoi, chuyện tình',
             'Đếm ngược, lưu bút ký tên tay, album',
+            'Quà mừng QR, xác nhận tham dự, lời chúc — đẹp cả điện thoại lẫn máy tính',
+        ],
+        status: '',
+        featured: false,
+        priority: -4,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-21',
+    },
+    {
+        id: 321,
+        name: 'Thiệp Cưới Phong Bì Be — Nút Mở Thiệp Cam Đào',
+        slug: 'thiep-cuoi-phong-bi-be-cam-dao',
+        description: 'Thiệp cưới mở bằng phong bì be có nút "Mở thiệp" cam đào, bìa khung vòm ảnh cưới với tên cô dâu chú rể chữ thanh mảnh, Save the date, hoạ tiết sen nét vàng, album, lưu bút, quà mừng QR. Có bố cục riêng cho máy tính.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'modern',
+        event: 'wedding',
+        tags: ['wedding', 'phong-bi', 'be', 'cam-dao', 'khung-vom', 'hoa-sen', 'save-the-date', 'luu-but', 'rsvp', 'countdown', 'qr'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_321_phong-bi-cam-dao/shots/open.webp',
+            './products/Invitation/Wedding/gen_321_phong-bi-cam-dao/shots/sec-1.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_321_phong-bi-cam-dao/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/gen_321_phong-bi-cam-dao/shots/open.webp',
+        path: './products/Invitation/Wedding/gen_321_phong-bi-cam-dao/',
+        demoUrl: './products/Invitation/Wedding/gen_321_phong-bi-cam-dao/index.html',
+        variants: [],
+        features: [
+            'Phong bì mở đầu: tên khách (?name=) + nút "Mở thiệp", nhạc phát khi mở',
+            'Bìa khung vòm ảnh cưới, tên cô dâu chú rể, Save the date, hoạ tiết sen nét vàng',
+            'Thiệp mời hai nhà, lịch, đếm ngược, album ảnh, lưu bút ký tên',
             'Quà mừng QR, xác nhận tham dự, lời chúc — đẹp cả điện thoại lẫn máy tính',
         ],
         status: '',
