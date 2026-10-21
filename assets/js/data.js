@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 107 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 108 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -4036,6 +4036,41 @@ const PRODUCTS = [
             'Giới thiệu chú rể – cô dâu, lời mời, dòng thời gian lễ nhà gái / nhà trai',
             'Bảng lưu bút ký tên, chuyện tình chúng mình, album ảnh',
             'Xác nhận tham dự + đếm ngược, sổ lời chúc, quà mừng QR, bản đồ — đẹp cả điện thoại lẫn máy tính',
+        ],
+        status: '',
+        featured: false,
+        priority: -4,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-21',
+    },
+    {
+        id: 325,
+        name: 'Thiệp Cưới Xám Trắng Tối Giản — Ảnh Studio Đen Trắng',
+        slug: 'thiep-cuoi-xam-trang-toi-gian',
+        description: 'Thiệp cưới tối giản tông xám – trắng, bìa ảnh cưới đen trắng với lời mời tên khách, chữ ký tay tên cô dâu chú rể, lịch trình 5 mốc có icon, nút xem đường đi, giới thiệu cô dâu – chú rể, Our Story, bảng lưu bút ký tên, đếm ngược, album studio, xác nhận tham dự, sổ lời chúc và hộp quà mừng QR. Có bố cục riêng cho máy tính.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'minimalist',
+        event: 'wedding',
+        tags: ['wedding', 'toi-gian', 'xam', 'trang', 'den-trang', 'studio', 'luu-but', 'rsvp', 'countdown', 'qr', 'album'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_325_xam-trang-toi-gian/shots/cover.webp',
+            './products/Invitation/Wedding/gen_325_xam-trang-toi-gian/shots/sec-1.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_325_xam-trang-toi-gian/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/gen_325_xam-trang-toi-gian/shots/cover.webp',
+        path: './products/Invitation/Wedding/gen_325_xam-trang-toi-gian/',
+        demoUrl: './products/Invitation/Wedding/gen_325_xam-trang-toi-gian/index.html',
+        variants: [],
+        features: [
+            'Bìa ảnh cưới đen trắng + "Thân mời" tên khách (?name=)',
+            'Tên cô dâu chú rể chữ ký tay, lịch trình 5 mốc có icon, xem đường đi',
+            'Giới thiệu cô dâu – chú rể, Our Story, bảng lưu bút ký tên, album studio',
+            'Đếm ngược, xác nhận tham dự, sổ lời chúc, quà mừng QR — đẹp cả điện thoại lẫn máy tính',
         ],
         status: '',
         featured: false,
