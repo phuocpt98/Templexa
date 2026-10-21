@@ -71,6 +71,10 @@ const ALL = sorted();
 const listOf = (l) => ALL.filter((p) => p.type === 'invitation' && p.category === l.category
     && (!l.style || p.style === l.style) && (!l.event || p.event === l.event));
 
+// Hub thiep-online: mọi mẫu thiệp mời (cưới + dịp khác; lời nhắn QR / danh thiếp số là công cụ, không tính)
+const HUB_LIST = ALL.filter((p) => p.type === 'invitation' && (p.category === 'wedding' || p.category === 'other'));
+const HUB_N = HUB_LIST.length;
+
 const COUNT = {};
 LANDINGS.forEach((l) => { COUNT[l.slug] = listOf(l).length; });
 
@@ -167,6 +171,7 @@ function jsonLd(l) {
                 position: i + 1,
                 name: p.name,
                 image: abs(p.mobileView || p.thumbnail),
+                ...(p.demoUrl ? { url: abs(p.demoUrl) } : {}),
             })),
         },
     };
@@ -208,7 +213,7 @@ ${blocks}
                 <h2>Xem thêm bộ sưu tập</h2>
                 <ul>
 ${rel}
-                    <li><a href="thiep-online.html">Tất cả mẫu thiệp mời <span class="landing-links-count">hơn 110 mẫu</span></a></li>
+                    <li><a href="thiep-online.html">Tất cả mẫu thiệp mời <span class="landing-links-count">${HUB_N} mẫu</span></a></li>
                 </ul>${postsBlock}
                 <h2>Hỗ trợ</h2>
                 <ul>
@@ -292,7 +297,8 @@ function crumbNav(l) {
 }
 
 // ── Sinh trang ────────────────────────────────────────────────────────────────
-const tpl = fs.readFileSync(TEMPLATE, 'utf8');
+// Lưới hub sinh sẵn nằm giữa marker HUB-GRID — gỡ ra để landing nhận lại ô lưới trống
+const tpl = fs.readFileSync(TEMPLATE, 'utf8').replace(/<!-- HUB-GRID:START[^>]*-->[\s\S]*?<!-- HUB-GRID:END -->\s*/, '');
 
 /** replace có kiểm tra: sai anchor thì dừng build thay vì ghi ra HTML hỏng */
 function must(html, from, to, what) {
@@ -376,6 +382,35 @@ function build(l) {
 
 const report = LANDINGS.map(build);
 
+// ── Hub thiep-online.html: số mẫu, ItemList JSON-LD, lưới 16 mẫu sinh sẵn (bot AI không chạy JS vẫn thấy mẫu) ──
+function buildHub() {
+    let h = fs.readFileSync(TEMPLATE, 'utf8');
+    const num = (str) => str.replace(/\b\d{2,3}(\s+[Mm]ẫu)/g, (m, rest) => HUB_N + rest);
+    h = h.replace(/<title>[\s\S]*?<\/title>|<meta (?:name|property)="(?:description|og:title|og:description|twitter:title|twitter:description)" content="[^"]*">/g, num);
+    h = h.replace(/<h1 class="hero-reveal" id="heroTitle">[\s\S]*?<\/h1>|<p class="hero-reveal" id="heroIntro">[\s\S]*?<\/p>/g, num);
+    // JSON-LD CollectionPage của hub
+    if (!/    <!-- Structured Data -->\n    <script type="application\/ld\+json">\n/.test(h)) throw new Error('thiep-online.html thiếu khối JSON-LD "<!-- Structured Data -->"');
+    h = h.replace(/(    <!-- Structured Data -->\n    <script type="application\/ld\+json">\n)([\s\S]*?)(\n    <\/script>)/, (m, a, body, c) => {
+        const ld = JSON.parse(body);
+        ld.name = num(ld.name); ld.description = num(ld.description); ld.numberOfItems = HUB_N;
+        ld.mainEntity = {
+            '@type': 'ItemList', name: 'Mẫu thiệp mời online', numberOfItems: HUB_N,
+            itemListElement: HUB_LIST.slice(0, PER_PAGE).map((p, i) => ({
+                '@type': 'ListItem', position: i + 1, name: p.name,
+                image: abs(p.mobileView || p.thumbnail), ...(p.demoUrl ? { url: abs(p.demoUrl) } : {}),
+            })),
+        };
+        return a + '    ' + JSON.stringify(ld, null, 4).split('\n').join('\n    ') + c;
+    });
+    // lưới sinh sẵn (JS render lại y hệt khi tải xong)
+    const grid = '<!-- HUB-GRID:START — sinh bởi scripts/build-landing.js, đừng sửa tay -->\n'
+        + HUB_LIST.slice(0, PER_PAGE).map((p, i) => cardHTML(p, i)).join('\n') + '\n            <!-- HUB-GRID:END -->';
+    h = must(h.replace(/<!-- HUB-GRID:START[^>]*-->[\s\S]*?<!-- HUB-GRID:END -->/, ''), '<div class="products-grid" id="productsGrid"></div>',
+        '<div class="products-grid" id="productsGrid">' + grid + '</div>', 'hub grid');
+    fs.writeFileSync(TEMPLATE, h);
+}
+buildHub();
+
 // ── Bảng LANDING_MAP cho products.js (canonical + href chip lọc) ───────────────
 const mapEntries = LANDINGS.map((l) => {
     const key = l.style ? `${l.category}|style:${l.style}` : l.event ? `${l.category}|event:${l.event}` : l.category;
@@ -411,5 +446,6 @@ fs.writeFileSync(PJS, pjs.replace(RX, (m, a, b) => a + `const LANDING_MAP = {\n$
 
 console.log(`✓ ${report.length} landing tĩnh:`);
 report.forEach((r) => console.log(`  ${r.slug}.html — ${r.n} mẫu, intro ${r.w} từ, title ${r.title} ký tự, desc ${r.desc} ký tự, ${r.posts} bài cẩm nang${r.faq ? `, ${r.faq} câu FAQ` : ''}`));
+console.log(`✓ hub thiep-online.html — ${HUB_N} mẫu, lưới ${PER_PAGE} mẫu sinh sẵn + ItemList`);
 console.log('✓ LANDING_MAP → assets/js/products.js');
 console.log('✓ khối link 12 landing → index.html');

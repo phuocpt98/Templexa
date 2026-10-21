@@ -199,7 +199,7 @@ ${groupsHTML}
 
             <section class="faq-cta">
                 <h2>Chưa thấy câu trả lời bạn cần?</h2>
-                <p>Nhắn Zalo, Templexa phản hồi trong vài phút vào giờ làm việc — hoặc xem thử hơn 110 mẫu thiệp rồi đặt ngay.</p>
+                <p>Nhắn Zalo, Templexa phản hồi trong vài phút vào giờ làm việc — hoặc xem thử hơn 150 mẫu thiệp rồi đặt ngay.</p>
                 <div class="faq-cta-actions">
                     <a href="https://zalo.me/0334884895" target="_blank" rel="noopener" class="btn-terracotta">Chat Zalo 0334 884 895</a>
                     <a href="thiep-online.html" class="btn-gold-outline">Xem mẫu thiệp</a>

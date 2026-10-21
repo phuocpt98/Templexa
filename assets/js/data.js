@@ -9830,7 +9830,7 @@ const INVITATION_PRICING = [
         discount: '-11%',
         description: 'Chọn mẫu có sẵn, thay thông tin — đầy đủ tính năng cơ bản. Giao thiệp trong 24h.',
         features: [
-            'Chọn 1 trong hơn 110 mẫu thiệp đẹp',
+            'Chọn 1 trong hơn 150 mẫu thiệp đẹp',
             'Thay tên, ngày, địa điểm, ảnh',
             'Phong bì mở thiệp + nhạc nền',
             'Countdown đếm ngược ngày cưới',
@@ -9860,7 +9860,7 @@ const INVITATION_PRICING = [
         discount: '-20%',
         description: 'Trọn bộ tính năng cao cấp — lời chúc bay bong bóng, cá nhân hoá khách mời.',
         features: [
-            'Chọn 1 trong hơn 110 mẫu thiệp đẹp',
+            'Chọn 1 trong hơn 150 mẫu thiệp đẹp',
             'Thay tên, ngày, địa điểm, ảnh',
             'Phong bì mở thiệp + nhạc nền',
             'Countdown đếm ngược ngày cưới',
