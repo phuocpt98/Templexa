@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 96 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 97 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3660,6 +3660,41 @@ const PRODUCTS = [
         showInSlider: false,
         isPublic: true,
         updatedAt: '2026-09-30',
+    },
+    {
+        id: 314,
+        name: 'Thiệp Cưới Sage Việt Phục — Lưu Bút Ký Tên',
+        slug: 'thiep-cuoi-sage-viet-phuc-luu-but-ky-ten',
+        description: 'Thiệp cưới tông xanh sage: ảnh cưới Việt phục đỏ & váy trắng (Hương Ly Studio), save the date, thiệp mời hai nhà, lịch lễ nạp tài – thành hôn, lưu bút cho khách ký tên tay, album 20 ảnh, quà mừng QR. Có bố cục riêng cho máy tính.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'modern',
+        event: 'wedding',
+        tags: ['wedding', 'sage', 'xanh-sage', 'viet-phuc', 'luu-but', 'ky-ten', 'save-the-date', 'rsvp', 'countdown', 'qr', 'album'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_314_sage-viet-phuc/shots/open.webp',
+            './products/Invitation/Wedding/gen_314_sage-viet-phuc/shots/sec-1.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_314_sage-viet-phuc/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/gen_314_sage-viet-phuc/shots/open.webp',
+        path: './products/Invitation/Wedding/gen_314_sage-viet-phuc/',
+        demoUrl: './products/Invitation/Wedding/gen_314_sage-viet-phuc/index.html',
+        variants: [],
+        features: [
+            'Bìa ảnh cưới toàn màn hình, tên cô dâu chú rể chữ viết tay, nút nhạc nổi',
+            'Save the date, thiệp mời hai nhà có tên khách theo link, lịch lễ nạp tài – tiệc – thành hôn kèm ngày âm lịch',
+            'Lưu bút: khách ký tên tay ngay trên thiệp, kéo chữ ký đặt vị trí rồi lưu',
+            'Album 20 ảnh bấm phóng to, đếm ngược, lời chúc tự cập nhật, RSVP 1 nút, popup QR mừng cưới — hiển thị đẹp cả điện thoại lẫn máy tính',
+        ],
+        status: '',
+        featured: false,
+        priority: -4,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-20',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 78 ──────────────
     {
