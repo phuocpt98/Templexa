@@ -28,13 +28,13 @@ products/
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
 | **Invitation** | other | 78 | 68 |
-| **Invitation** | wedding | 110 | 76 |
+| **Invitation** | wedding | 111 | 77 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **314** | **270** |
+| | **Tong** | **315** | **271** |
 
 _Cap nhat tu data.js: 2026-10-21 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -251,7 +251,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 312 | Thiệp Thôi Nôi Cung Xử Nữ — Khu Vườn Nhỏ Của Bé | `Invitation/Other/gen_312_thoi-noi-xu-nu-khu-vuon-be-mat` | thoi-noi | public |
 | 313 | Thiệp Thôi Nôi Cung Thiên Bình — Bập Bênh Trên Mây | `Invitation/Other/gen_313_thoi-noi-thien-binh-bap-benh-tren-may` | thoi-noi | public |
 
-### Invitation / wedding (110)
+### Invitation / wedding (111)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -365,6 +365,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 325 | Thiệp Cưới Xám Trắng Tối Giản — Ảnh Studio Đen Trắng | `Invitation/Wedding/gen_325_xam-trang-toi-gian` | minimalist / wedding | public |
 | 326 | Thiệp Cưới Đêm Sao Ngân Hà — Xanh Navy Lấp Lánh | `Invitation/Wedding/gen_326_dem-sao-ngan-ha` | modern / wedding | public |
 | 327 | Thiệp Cưới Nhật Báo Tình Yêu — Báo Xưa Sài Gòn | `Invitation/Wedding/gen_327_nhat-bao-tinh-yeu` | vintage / wedding | public |
+| 328 | Thiệp Cưới Trúc Đào — Xanh Rêu Ấn Son | `Invitation/Wedding/gen_328_truc-dao-xanh-reu` | traditional / wedding | public |
 
 ### Web / e-commerce (33)
 

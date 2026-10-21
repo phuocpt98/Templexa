@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 110 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 111 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -4141,6 +4141,41 @@ const PRODUCTS = [
             'Thiệp báo hỷ, rạp hạnh phúc (lễ vu quy, thành hôn, tiệc), lịch treo tường, radio đếm ngược',
             'Trình tự buổi tiệc, bản đồ, chuyện tình phố cũ, album phim',
             'Bưu thiếp ký tên, điện tín hồi âm (xác nhận), thư gửi toà soạn (lời chúc), hộp thư mừng cưới QR — đẹp cả điện thoại lẫn máy tính',
+        ],
+        status: '',
+        featured: false,
+        priority: -4,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-21',
+    },
+    {
+        id: 328,
+        name: 'Thiệp Cưới Trúc Đào — Xanh Rêu Ấn Son',
+        slug: 'thiep-cuoi-truc-dao-xanh-reu',
+        description: 'Thiệp cưới tông xanh rêu nền giấy, lá trúc và hoa đào hồng: bìa hai cánh cửa với ấn son đỏ có ảnh cưới, chạm ấn để mở cửa. Có lời mời, hai bên gia đình, chuyện tình Trúc Đào, lễ gia tiên, lịch cưới, đếm ngược, lịch trình, cửa bản đồ mở ra Google Maps, album trượt, khung trúc ký tên chúc phúc, xác nhận tham dự, sổ lời chúc và bao lì xì mừng cưới mở ra QR.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'traditional',
+        event: 'wedding',
+        tags: ['wedding', 'xanh-reu', 'truc', 'hoa-dao', 'an-son', 'cua-mo', 'ky-ten', 'rsvp', 'countdown', 'qr', 'ban-do', 'album', 'hue'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_328_truc-dao-xanh-reu/shots/open.webp',
+            './products/Invitation/Wedding/gen_328_truc-dao-xanh-reu/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_328_truc-dao-xanh-reu/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/gen_328_truc-dao-xanh-reu/shots/cover.webp',
+        path: './products/Invitation/Wedding/gen_328_truc-dao-xanh-reu/',
+        demoUrl: './products/Invitation/Wedding/gen_328_truc-dao-xanh-reu/index.html',
+        variants: [],
+        features: [
+            'Bìa hai cánh cửa + ấn son đỏ có ảnh cưới, chạm ấn mở cửa, tên khách (?n=), nhạc phát khi mở',
+            'Lời mời, hai bên gia đình, chuyện tình Trúc Đào, lễ gia tiên, lịch cưới, đếm ngược',
+            'Lịch trình, cửa bản đồ mở ra Google Maps, album ảnh trượt, khung trúc ký tên chúc phúc',
+            'Xác nhận tham dự, sổ lời chúc, bao lì xì mừng cưới mở QR — đẹp cả điện thoại lẫn máy tính',
         ],
         status: '',
         featured: false,
