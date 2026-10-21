@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 104 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 105 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3931,6 +3931,41 @@ const PRODUCTS = [
             'Bìa khung vòm ảnh cưới, tên cô dâu chú rể, Save the date, hoạ tiết sen nét vàng',
             'Thiệp mời hai nhà, lịch, đếm ngược, album ảnh, lưu bút ký tên',
             'Quà mừng QR, xác nhận tham dự, lời chúc — đẹp cả điện thoại lẫn máy tính',
+        ],
+        status: '',
+        featured: false,
+        priority: -4,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-21',
+    },
+    {
+        id: 322,
+        name: 'Thiệp Cưới Pastel Tím Đào — Ảnh Trái Tim, Bướm Bay',
+        slug: 'thiep-cuoi-pastel-tim-dao-trai-tim',
+        description: 'Thiệp cưới nền chuyển màu tím lavender – hồng đào, bìa ảnh cưới cắt hình trái tim với tên khách, bấm mở thiệp có bướm bay, khung vòm ảnh, nút xem bản đồ vén ảnh, đếm ngược, album, lưu bút, quà mừng QR. Có bố cục riêng cho máy tính.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'modern',
+        event: 'wedding',
+        tags: ['wedding', 'pastel', 'tim-lavender', 'hong-dao', 'trai-tim', 'buom-bay', 'luu-but', 'rsvp', 'countdown', 'qr', 'ban-do'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_322_pastel-tim-dao-trai-tim/shots/open.webp',
+            './products/Invitation/Wedding/gen_322_pastel-tim-dao-trai-tim/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_322_pastel-tim-dao-trai-tim/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/gen_322_pastel-tim-dao-trai-tim/shots/open.webp',
+        path: './products/Invitation/Wedding/gen_322_pastel-tim-dao-trai-tim/',
+        demoUrl: './products/Invitation/Wedding/gen_322_pastel-tim-dao-trai-tim/index.html',
+        variants: [],
+        features: [
+            'Bìa ảnh cưới hình trái tim + tên khách (?name=), nút "Ấn mở thiệp" — phần bìa bay ra, bướm bay',
+            'Khung vòm ảnh cưới, tên cô dâu chú rể, thông tin lễ, dòng thời gian',
+            'Nút "Xem bản đồ" vén ảnh lộ bản đồ, đếm ngược, khung ảnh tự chuyển, album',
+            'Lưu bút ký tên, quà mừng QR, xác nhận tham dự, lời chúc — đẹp cả điện thoại lẫn máy tính',
         ],
         status: '',
         featured: false,
