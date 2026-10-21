@@ -27,14 +27,14 @@ products/
 |------------|----------|------|--------|
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
-| **Invitation** | other | 78 | 68 |
+| **Invitation** | other | 84 | 74 |
 | **Invitation** | wedding | 111 | 77 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **315** | **271** |
+| | **Tong** | **321** | **277** |
 
 _Cap nhat tu data.js: 2026-10-21 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -168,7 +168,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 283 | Lời Nhắn QR — Chibi Yêu Thương | `./loi-nhan/chibi-yeu-thuong` |  | public |
 | 284 | Lời Nhắn QR — Hoa Lá Nhẹ Nhàng | `./loi-nhan/hoa-la` |  | public |
 
-### Invitation / other (78)
+### Invitation / other (84)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -250,6 +250,12 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 311 | Thôi Nôi Nhân Mã — Mũi Tên Bay | `Invitation/Other/gen_311_thoi-noi-nhan-ma-mui-ten-bay` | thoi-noi | public |
 | 312 | Thiệp Thôi Nôi Cung Xử Nữ — Khu Vườn Nhỏ Của Bé | `Invitation/Other/gen_312_thoi-noi-xu-nu-khu-vuon-be-mat` | thoi-noi | public |
 | 313 | Thiệp Thôi Nôi Cung Thiên Bình — Bập Bênh Trên Mây | `Invitation/Other/gen_313_thoi-noi-thien-binh-bap-benh-tren-may` | thoi-noi | public |
+| 329 | Thiệp Thôi Nôi Bầu Trời Mây Xanh — Bé Gia Bảo | `Invitation/Other/gen_329_thoi-noi-bau-troi-may-xanh` | thoi-noi | public |
+| 330 | Thiệp Thôi Nôi Vườn Hoa Hồng — Bé An Nhiên | `Invitation/Other/gen_330_thoi-noi-vuon-hoa-hong` | thoi-noi | public |
+| 331 | Thiệp Thôi Nôi Đồ Chơi Sắc Màu — Bé Minh Khôi | `Invitation/Other/gen_331_thoi-noi-do-choi-sac-mau` | thoi-noi | public |
+| 332 | Thiệp Thôi Nôi Rừng Xanh Thú Nhỏ — Bé Bảo Ngọc | `Invitation/Other/gen_332_thoi-noi-rung-xanh-thu-nho` | thoi-noi | public |
+| 333 | Thiệp Thôi Nôi Phi Hành Gia Nhí — Bé Gia Huy | `Invitation/Other/gen_333_thoi-noi-phi-hanh-gia` | thoi-noi | public |
+| 334 | Thiệp Thôi Nôi Nhật Báo Bé Yêu — Bé Minh An | `Invitation/Other/gen_334_thoi-noi-nhat-bao-be-yeu` | thoi-noi | public |
 
 ### Invitation / wedding (111)
 
