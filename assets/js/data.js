@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 109 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 110 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -4106,6 +4106,41 @@ const PRODUCTS = [
             'Hai bên gia đình, lễ gia tiên, lịch tháng khoanh ngày cưới, đếm ngược, lịch trình',
             'Cửa bản đồ mở ra Google Maps, album ảnh trượt, ký tên chúc phúc trên ảnh',
             'Xác nhận tham dự, sổ lời chúc, hộp mừng cưới chạm mở QR — đẹp cả điện thoại lẫn máy tính',
+        ],
+        status: '',
+        featured: false,
+        priority: -4,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-21',
+    },
+    {
+        id: 327,
+        name: 'Thiệp Cưới Nhật Báo Tình Yêu — Báo Xưa Sài Gòn',
+        slug: 'thiep-cuoi-nhat-bao-tinh-yeu',
+        description: 'Thiệp cưới phong cách tờ báo xưa Sài Gòn: bìa "Nhật Báo Tình Yêu" trên nền gạch bông, bấm "Đọc tin vui" mở tờ báo. Mỗi phần là một trang báo: thiệp báo hỷ, hai họ kết thông gia, rạp hạnh phúc (chương trình hôn lễ), lịch treo tường, radio đếm ngược, trình tự buổi tiệc, đường tới tiệc cưới, chuyện tình phố cũ, album, bưu thiếp ký tên, điện tín hồi âm, thư gửi toà soạn và hộp thư mừng cưới.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'vintage',
+        event: 'wedding',
+        tags: ['wedding', 'vintage', 'bao-xua', 'sai-gon', 'retro', 'gach-bong', 'ky-ten', 'rsvp', 'countdown', 'qr', 'ban-do', 'album'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_327_nhat-bao-tinh-yeu/shots/open.webp',
+            './products/Invitation/Wedding/gen_327_nhat-bao-tinh-yeu/shots/cover.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_327_nhat-bao-tinh-yeu/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/gen_327_nhat-bao-tinh-yeu/shots/cover.webp',
+        path: './products/Invitation/Wedding/gen_327_nhat-bao-tinh-yeu/',
+        demoUrl: './products/Invitation/Wedding/gen_327_nhat-bao-tinh-yeu/index.html',
+        variants: [],
+        features: [
+            'Bìa tờ báo "Nhật Báo Tình Yêu" trên nền gạch bông, tên khách (?n=), nhạc phát khi mở',
+            'Thiệp báo hỷ, rạp hạnh phúc (lễ vu quy, thành hôn, tiệc), lịch treo tường, radio đếm ngược',
+            'Trình tự buổi tiệc, bản đồ, chuyện tình phố cũ, album phim',
+            'Bưu thiếp ký tên, điện tín hồi âm (xác nhận), thư gửi toà soạn (lời chúc), hộp thư mừng cưới QR — đẹp cả điện thoại lẫn máy tính',
         ],
         status: '',
         featured: false,
