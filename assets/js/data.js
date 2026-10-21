@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 106 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 107 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -4001,6 +4001,41 @@ const PRODUCTS = [
             'Hai họ, lời mời, nghi lễ gia tiên (vu quy, thành hôn), lịch tháng khoanh ngày cưới',
             'Đếm ngược, lịch trình ngày cưới, bản đồ, album ảnh trượt',
             'Ký tên chúc phúc trên ảnh, xác nhận tham dự, sổ lời chúc, hộp mừng cưới đồng xu may mắn — đẹp cả điện thoại lẫn máy tính',
+        ],
+        status: '',
+        featured: false,
+        priority: -4,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: true,
+        updatedAt: '2026-10-21',
+    },
+    {
+        id: 324,
+        name: 'Thiệp Cưới Xanh Rêu — Save The Date, Chuyện Tình Chúng Mình',
+        slug: 'thiep-cuoi-xanh-reu-chuyen-tinh',
+        description: 'Thiệp cưới tông xanh rêu – trắng, bìa Save The Date với ảnh cưới khung trắng, giới thiệu chú rể cô dâu, lời mời, dòng thời gian 4 nghi lễ, bảng lưu bút ký tên, chuyện tình chúng mình, album, xác nhận tham dự có đếm ngược, sổ lời chúc, quà mừng QR và bản đồ nhà trai, nhà gái. Có bố cục riêng cho máy tính.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'modern',
+        event: 'wedding',
+        tags: ['wedding', 'xanh-reu', 'olive', 'save-the-date', 'chuyen-tinh', 'luu-but', 'rsvp', 'countdown', 'qr', 'ban-do', 'album'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/gen_324_xanh-reu-chuyen-tinh/shots/cover.webp',
+            './products/Invitation/Wedding/gen_324_xanh-reu-chuyen-tinh/shots/sec-1.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/gen_324_xanh-reu-chuyen-tinh/og-cover.jpg',
+        mobileView: './products/Invitation/Wedding/gen_324_xanh-reu-chuyen-tinh/shots/cover.webp',
+        path: './products/Invitation/Wedding/gen_324_xanh-reu-chuyen-tinh/',
+        demoUrl: './products/Invitation/Wedding/gen_324_xanh-reu-chuyen-tinh/index.html',
+        variants: [],
+        features: [
+            'Bìa Save The Date: ảnh cưới khung trắng, tên cô dâu chú rể, ngày cưới',
+            'Giới thiệu chú rể – cô dâu, lời mời, dòng thời gian lễ nhà gái / nhà trai',
+            'Bảng lưu bút ký tên, chuyện tình chúng mình, album ảnh',
+            'Xác nhận tham dự + đếm ngược, sổ lời chúc, quà mừng QR, bản đồ — đẹp cả điện thoại lẫn máy tính',
         ],
         status: '',
         featured: false,
