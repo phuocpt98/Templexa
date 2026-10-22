@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi" data-fx-chat="nay">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Templexa FX — demo thư viện hiệu ứng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fx.css">
+<style>
+/* Demo: thiệp "Tiệc Kẹo Bông" — mỗi section một đồ vật, dùng gần hết thư viện fx */
+:root { --nen: #FFF4F7; --hong: #F27BA3; --hong-dam: #C8436F; --vang: #FFC34D; --bac-ha: #5CCFB0; --tim: #9B87F5; --muc: #5E2E45; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--nen); color: var(--muc); font: 500 17px/1.6 'Quicksand', sans-serif; overflow-x: hidden; }
+.thiep { max-width: 460px; margin: 0 auto; position: relative; overflow: hidden; }
+section { position: relative; padding: 64px 22px; text-align: center; }
+h2 { font: 800 34px/1.15 'Baloo 2', sans-serif; color: var(--hong-dam); }
+.script { font: 700 30px/1.2 'Dancing Script', cursive; color: var(--hong); }
+.nut { display: inline-block; border: 0; cursor: pointer; padding: 14px 30px; border-radius: 999px; font: 800 18px 'Baloo 2', sans-serif; color: #fff;
+  background: linear-gradient(135deg, #CC4874, #B83A64); box-shadow: 0 5px 0 #9E2F55; }
+
+/* màn mở: 2 cánh mây + thẻ bìa */
+.fx-cua { background: linear-gradient(180deg, #FFE1EC, #FBE4F4); }
+.fx-canh { background: radial-gradient(circle at 30% 30%, #fff 0 30%, transparent 31%) 0 0/120px 120px, linear-gradient(180deg, #FFD2E1, #FFC9DB); }
+.bia-the { background: #fff; border: 2px dashed var(--hong); border-radius: 30px; padding: 34px 26px; width: min(86vw, 340px); box-shadow: 0 20px 40px rgba(200, 67, 111, .18); }
+.bia-the .tuoi { font: 800 96px/1 'Baloo 2', sans-serif; }
+
+/* đầu thiệp */
+.dau { padding-top: 40px; background: linear-gradient(180deg, #FFE1EC, var(--nen)); }
+.anh-chinh { width: 230px; height: 230px; margin: 26px auto 18px; }
+.anh-chinh .fx-de.mu { width: 70px; right: -26px; top: -40px; transform: rotate(24deg); color: var(--vang); }
+.anh-chinh .fx-de.tim { width: 34px; left: -18px; bottom: 26px; color: var(--hong); }
+.anh-chinh .sao { position: absolute; width: 18px; color: var(--vang); }
+.ten { font: 700 56px/1.1 'Dancing Script', cursive; color: var(--hong-dam); }
+.hang-tuoi { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 10px; }
+.hang-tuoi small { text-align: right; line-height: 1.2; font-weight: 700; }
+.hang-tuoi b { font: 800 104px/.9 'Baloo 2', sans-serif; }
+
+/* thư mời = vé */
+.ve { --nen: var(--nen); background: #fff; border-radius: 24px; padding: 30px 22px 22px; margin-top: 24px; --khuyet: 76px; box-shadow: 0 4px 0 #F6C5D6, 0 18px 36px rgba(0, 0, 0, .06); }
+.ve .dai { height: 10px; margin: -30px -22px 22px; border-radius: 24px 24px 0 0; background: linear-gradient(90deg, var(--hong), var(--vang), var(--bac-ha), var(--tim)); }
+.ve .o { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+.ve .o div { border-radius: 16px; padding: 10px; background: #FFEFF4; }
+.ve .o div:nth-child(2) { background: #F1E6FB; }
+.ve .bong-ve { position: absolute; width: 40px; right: -14px; top: -34px; transform: rotate(12deg); color: var(--bac-ha); }
+
+/* đếm ngược = 4 bong bóng */
+.dem { display: flex; justify-content: center; gap: 10px; margin-top: 26px; }
+.dem .bong { width: 74px; height: 74px; display: grid; place-content: center; border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #fff, #FFE1EC 45%, #F6B3C9); box-shadow: inset 0 0 0 3px #fff, 0 10px 20px rgba(200, 67, 111, .15); }
+.dem .bong b { font: 800 26px/1 'Baloo 2', sans-serif; }
+.dem .bong small { font-size: 11px; font-weight: 700; }
+
+/* bản đồ có rèm */
+.ban-do { height: 220px; margin-top: 24px; border-radius: 22px; overflow: hidden; background: repeating-linear-gradient(45deg, #FDE8EF 0 14px, #FFF 14px 28px); display: grid; place-items: center; font-weight: 700; }
+.ban-do .fx-rem { --rem: linear-gradient(180deg, #F6A6B8, #E87FA0); }
+.ban-do .fx-rem b { width: 64px; height: 64px; border-radius: 50%; background: #fff; color: var(--hong-dam); font: 800 26px 'Baloo 2'; }
+
+/* quà = hộp bí mật */
+.hop-vung { position: relative; min-height: 260px; margin-top: 20px; display: grid; place-items: center; }
+.hop { position: relative; width: 150px; height: 150px; cursor: pointer; }
+.hop .than { position: absolute; left: 12px; right: 12px; bottom: 0; height: 96px; border-radius: 10px; background: linear-gradient(90deg, transparent 42%, var(--hong) 42% 58%, transparent 58%), linear-gradient(180deg, #8F7AF0, #7B63E6); }
+.hop .nap { position: absolute; left: 2px; right: 2px; top: 34px; height: 32px; border-radius: 10px; background: linear-gradient(90deg, transparent 42%, var(--hong) 42% 58%, transparent 58%), linear-gradient(180deg, #A897F7, #8F7AF0); transition: transform .75s var(--fx-lo-xo), opacity .5s ease .6s; }
+.hop.fx-bat .nap { transform: translate(-30px, -150px) rotate(-32deg); opacity: 0; }
+.hop-vung .goi-y { position: absolute; bottom: 0; left: 0; right: 0; font-weight: 700; }
+.qr { position: absolute; inset: 0; display: flex; gap: 14px; justify-content: center; align-items: center; }
+.qr .the { width: 140px; padding: 14px; border-radius: 18px; background: #fff; box-shadow: 0 10px 24px rgba(0, 0, 0, .1); font-weight: 700; }
+.qr .the i { display: block; aspect-ratio: 1; margin-bottom: 8px; background: repeating-conic-gradient(var(--muc) 0 25%, #fff 0 50%) 0 0/16px 16px; border-radius: 8px; }
+
+/* lời chúc = bong bóng thoại */
+.chuc { display: grid; gap: 12px; margin-top: 22px; text-align: left; }
+.chuc p { padding: 12px 16px; border-radius: 20px 20px 20px 6px; background: #fff; max-width: 85%; box-shadow: 0 3px 0 #F6C5D6; }
+.chuc p:nth-child(2n) { justify-self: end; border-radius: 20px 20px 6px 20px; background: #F1E6FB; box-shadow: 0 3px 0 #DCCBF5; }
+
+.cuoi .anh-cuoi { width: 220px; height: 280px; margin: 26px auto 0; }
+.closing-brand { display: inline-block; margin-top: 30px; font-size: 13px; color: inherit; opacity: .7; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="fx-cua" id="cua">
+  <div class="fx-canh trai"></div><div class="fx-canh phai"></div>
+  <div class="fx-bia fx-bay-len">
+    <div class="bia-the">
+      <p class="fx-nhan">Thư mời tiệc</p>
+      <div class="tuoi fx-chu-gradient">25</div>
+      <p class="script">Bảo Ngọc</p>
+      <p style="margin:6px 0 18px">Thân gửi: <b>Bạn thân mến</b></p>
+      <button class="nut fx-nhip fx-nut-quet" id="nutMo">Mở thiệp</button>
+    </div>
+  </div>
+</div>
+
+<main class="thiep">
+
+  <!-- 1. Đầu thiệp: dàn hợp xướng — mỗi dòng 1 động từ, so le -->
+  <section class="dau">
+    <p class="fx-nhan" data-vao="gian" data-tre="0.7">Mừng sinh nhật</p>
+    <div class="anh-chinh fx-khung fx-tron" data-vao="phong" data-tre="1.1" data-lech-pha>
+      <span class="fx-hao-quang" style="--co:190%"></span>
+      <span class="fx-vanh"></span>
+      <img src="../images/wedding/huong-ly-studio/KvCVOoQ.webp" alt="" onerror="this.style.background='#F6B3C9'">
+      <svg class="fx-de mu fx-lo-lung" viewBox="0 0 40 50"><path fill="currentColor" d="M20 0 40 46H0Z"/><circle cx="20" cy="2" r="5" fill="#F27BA3"/></svg>
+      <svg class="fx-de tim fx-tim-dap" viewBox="0 0 24 22"><path fill="currentColor" d="M12 21C5 15 1 11 1 6.5A5.5 5.5 0 0 1 12 4a5.5 5.5 0 0 1 11 2.5C23 11 19 15 12 21Z"/></svg>
+      <svg class="sao fx-lap-lanh" style="left:-4px;top:12px" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.9 6.6 4.4 10.4 12 12-7.6 1.6-11.1 5.4-12 12-.9-6.6-4.4-10.4-12-12C7.6 10.4 11.1 6.6 12 0Z"/></svg>
+      <svg class="sao fx-lap-lanh" style="right:6px;bottom:-6px;--chu-ky:3.3s" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.9 6.6 4.4 10.4 12 12-7.6 1.6-11.1 5.4-12 12-.9-6.6-4.4-10.4-12-12C7.6 10.4 11.1 6.6 12 0Z"/></svg>
+    </div>
+    <div class="fx-mot-dong ten" data-vao="tu-trai" data-tre="1.8">Nguyễn Bảo Ngọc</div>
+    <div class="hang-tuoi" data-vao="mo-giua" data-tre="2.3">
+      <small>Mừng<br>tuổi mới<br>lần thứ</small><b class="fx-chu-gradient">25</b>
+    </div>
+  </section>
+
+  <!-- 2. Thư mời = vé dự tiệc -->
+  <section>
+    <p class="fx fx-nhan" data-hieu-ung="len">Trân trọng kính mời</p>
+    <h2 class="fx" data-hieu-ung="in">Tới chung vui</h2>
+    <div class="ve fx-ve fx" data-hieu-ung="phong" data-con>
+      <div class="dai"></div>
+      <p>Bữa tiệc nhỏ, nhiều bánh kem và thật nhiều tiếng cười.</p>
+      <div class="o"><div><small>Giờ</small><br><b>18:30</b></div><div><small>Ngày</small><br><b>Thứ Bảy 12.12</b></div></div>
+      <hr class="fx-ve-xe" style="margin-top:22px">
+      <p style="margin-top:12px"><b>Nhà hàng Hoa Sữa</b><br>12 Lê Lợi, Quận 1</p>
+      <svg class="bong-ve fx-du" viewBox="0 0 26 40"><path fill="currentColor" d="M13 0C20 0 26 6 26 13c0 8-7 14-11 15l1 3h-6l1-3C7 27 0 21 0 13 0 6 6 0 13 0Z"/></svg>
+    </div>
+  </section>
+
+  <!-- 3. Đếm ngược = 4 bong bóng lơ lửng lệch pha -->
+  <section style="background:#FFEAF2">
+    <p class="fx script" data-hieu-ung="len">Còn lại</p>
+    <div class="dem" data-lech-pha>
+      <div class="bong fx fx-lo-lung" data-hieu-ung="nay"><b>21</b><small>ngày</small></div>
+      <div class="bong fx fx-lo-lung" data-hieu-ung="nay" style="--chu-ky:5.6s"><b>06</b><small>giờ</small></div>
+      <div class="bong fx fx-lo-lung" data-hieu-ung="nay" style="--chu-ky:4.4s"><b>42</b><small>phút</small></div>
+      <div class="bong fx fx-lo-lung" data-hieu-ung="nay" style="--chu-ky:6.1s"><b>09</b><small>giây</small></div>
+    </div>
+  </section>
+
+  <!-- 4. Địa điểm: rèm tự tách khi tới giữa màn -->
+  <section>
+    <h2 class="fx" data-hieu-ung="len">Đường tới tiệc</h2>
+    <div class="ban-do fx-khung" data-kich="giua">Google Maps ở đây
+      <div class="fx-rem"><i></i><i></i><b>♥</b></div>
+    </div>
+  </section>
+
+  <!-- 5. Quà = hộp bí mật -->
+  <section style="background:#F1E6FB">
+    <h2 class="fx" data-hieu-ung="len">Hộp quà nhỏ</h2>
+    <div class="hop-vung">
+      <div class="lop-hop" id="lopHop" style="display:grid;place-items:center;gap:10px">
+        <div class="hop fx-rung-nghi" id="hop"><div class="than"></div><div class="nap"></div></div>
+        <p class="goi-y">Chạm để mở</p>
+      </div>
+      <div class="qr" id="qr"><div class="the"><i></i>Mừng Ngọc</div><div class="the"><i></i>Fanpage</div></div>
+    </div>
+  </section>
+
+  <!-- 6. Lời chúc = bong bóng thoại trái/phải -->
+  <section>
+    <h2 class="fx" data-hieu-ung="len">Lời chúc</h2>
+    <div class="chuc">
+      <p class="fx" data-hieu-ung="trai"><b>Lan:</b> Chúc Ngọc tuổi mới rực rỡ!</p>
+      <p class="fx" data-hieu-ung="phai"><b>Minh:</b> Nhớ chừa bánh cho tớ nhé.</p>
+      <p class="fx" data-hieu-ung="trai"><b>Cô Hà:</b> Mạnh khoẻ, vui vẻ con nhé.</p>
+    </div>
+  </section>
+
+  <!-- 7. Cảm ơn: polaroid nghiêng + băng keo -->
+  <section class="cuoi" style="background:linear-gradient(180deg,var(--nen),#FFE1EC)">
+    <p class="fx script" data-hieu-ung="xoay">Cảm ơn bạn!</p>
+    <div class="anh-cuoi fx-khung fx-polaroid fx-bang-keo fx" data-hieu-ung="rua" style="--fx-cuoi:rotate(-4deg)">
+      <img src="../images/wedding/huong-ly-studio/KvCVlol.webp" alt="" onerror="this.style.background='#F6B3C9'">
+    </div>
+    <a class="closing-brand" href="https://templexa.vn" target="_blank" rel="noopener">Thiệp online · <b>templexa.vn</b></a>
+  </section>
+</main>
+
+<script src="fx.js"></script>
+<script>
+TpxFx.mo({ cua: '#cua', nut: '#nutMo', thoiGian: 2300,
+  bung: { n: 26, hinh: ['tim', 'sao4', 'tron'], mau: ['#F27BA3', '#FFC34D', '#5CCFB0', '#9B87F5'] } });
+document.addEventListener('fx:da-mo', function () {
+  TpxFx.nen({ kieu: 'len', n: 12, hinh: ['tim', 'bong-bay', 'sao4'], mau: ['#F6A6B8', '#FFD27A', '#B9E3C6', '#C9B6F2'], do: .55 });
+});
+TpxFx.hopBiMat(document.getElementById('hop'), { noiDung: '#qr', lop: '#lopHop', amThanh: TpxFx.tiengReng,
+  hinh: ['giay', 'tron', 'sao4'], mau: ['#FF7A8A', '#FFC34D', '#5CCFB0', '#9B87F5'], soHat: 40 });
+</script>
+</body>
+</html>
