@@ -21,7 +21,7 @@ const API_CONFIG = {
 // PRODUCTS DATA
 // ============================================
 const PRODUCTS = [
-    // ── THIỆP CƯỚI (invitation / wedding) — 111 ──────────────
+    // ── THIỆP CƯỚI (invitation / wedding) — 112 ──────────────
     {
         id: 91,
         name: 'Trang thiệp mời đám cưới hoa cổ điển',
@@ -3095,7 +3095,22 @@ const PRODUCTS = [
         mobileView: './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/shots/open.webp',
         path: './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/',
         demoUrl: './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/index.html',
-        variants: [],
+        variants: [
+            {
+                id: 269,
+                thumbnail: './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/gen_269_dusty-rose-flatlay/index.html',
+                label: 'Mẫu gốc',
+                kind: 'master',
+            },
+            {
+                id: 341,
+                thumbnail: './products/Invitation/Wedding/khach_van-thuc-thuy-hang/shots/open.webp',
+                demoUrl: './products/Invitation/Wedding/khach_van-thuc-thuy-hang/index.html',
+                label: 'Từ mẫu 269 Hồng Tro',
+                kind: 'sample',
+            },
+        ],
         features: [
             'Cổng phong bì nhung hồng tro — chạm mở, tên khách qua ?guest=',
             'Hero collage flat-lay: phong bì hoa khô, ảnh đen trắng, thiệp nơ satin, đĩa than, thẻ scallop',
@@ -4185,6 +4200,42 @@ const PRODUCTS = [
         showInSlider: false,
         isPublic: true,
         updatedAt: '2026-10-21',
+    },
+    {
+        id: 341,
+        name: 'Thiệp Cưới Văn Thức & Thuý Hằng',
+        slug: 'thiep-cuoi-van-thuc-thuy-hang',
+        description: 'Thiệp thật làm cho khách từ mẫu Thiệp Cưới Hồng Tro Flat-lay — Phong Bì Hoa Khô.',
+        category: 'wedding',
+        type: 'invitation',
+        style: 'vintage',
+        event: 'wedding',
+        tags: ['wedding', 'dusty-rose', 'flat-lay', 'collage', 'envelope', 'dried-flowers', 'thiep-khach'],
+        price: '',
+        images: [
+            './products/Invitation/Wedding/khach_van-thuc-thuy-hang/shots/open.webp',
+            './products/Invitation/Wedding/khach_van-thuc-thuy-hang/shots/cover.webp',
+            './products/Invitation/Wedding/khach_van-thuc-thuy-hang/shots/sec-1.webp',
+        ],
+        thumbnail: './products/Invitation/Wedding/khach_van-thuc-thuy-hang/shots/open.webp',
+        mobileView: './products/Invitation/Wedding/khach_van-thuc-thuy-hang/shots/open.webp',
+        path: './products/Invitation/Wedding/khach_van-thuc-thuy-hang/',
+        demoUrl: './products/Invitation/Wedding/khach_van-thuc-thuy-hang/index.html',
+        variants: [],
+        templateOf: 269,
+        features: [
+            'Cổng phong bì nhung hồng tro — chạm mở, tên khách qua ?guest=',
+            'Hero collage flat-lay: phong bì hoa khô, ảnh đen trắng, thiệp nơ satin, đĩa than, thẻ scallop',
+            'Đĩa than xoay đồng bộ nhạc nền + cánh hoa hồng rơi',
+        ],
+        status: '',
+        featured: false,
+        priority: 0,
+        downloads: 0,
+        rating: 4.9,
+        showInSlider: false,
+        isPublic: false,
+        updatedAt: '2026-10-22',
     },
     // ── THIỆP SỰ KIỆN KHÁC (invitation / other) — 90 ──────────────
     {

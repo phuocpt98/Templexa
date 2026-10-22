@@ -269,4 +269,12 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự tiệc cưới 25/10/2026 tại Công Viên Yên Sở, Hà Nội',
         image: '../../products/Invitation/Wedding/khach_dai-vu-bich-thuy/og-cover.jpg',
     },
+
+    // Văn Thức - Thuý Hằng — job 2026-10-22_van-thuc-thuy-hang
+    'van-thuc-thuy-hang': {
+        src: '../../products/Invitation/Wedding/khach_van-thuc-thuy-hang/index.html',
+        title: 'Văn Thức & Thuý Hằng — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự bữa cơm thân mật 01/11/2026 tại Kiêu Kỵ, Gia Lâm, Hà Nội',
+        image: '../../products/Invitation/Wedding/khach_van-thuc-thuy-hang/og-cover.jpg',
+    },
 };
