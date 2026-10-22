@@ -203,6 +203,11 @@
   .veil-fade { position: fixed; inset: 0; background: #fff; opacity: 0; pointer-events: none; transition: opacity .9s ease; z-index: 80; }
   .veil-fade.on { opacity: 1; }
 
+  /* Màn video cuối slide — fade đen ngắn rồi phát video */
+  .video-screen { position: fixed; inset: 0; background: #000; z-index: 95; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .7s ease; }
+  .video-screen.on { opacity: 1; pointer-events: auto; }
+  .video-screen video { width: 100%; height: 100%; object-fit: contain; background: #000; display: block; }
+
 </style>
 </head>
 <body>
@@ -323,6 +328,11 @@
   <button id="btnMusic" title="Bật / tắt nhạc">🔇</button>
 </div>
 
+<!-- Video cầu hôn — phát khi slide cuộn hết -->
+<div class="video-screen" id="videoScreen">
+  <video id="endVideo" src="video-cau-hon.mp4" playsinline preload="auto"></video>
+</div>
+
 <audio id="music" src="nhac-nen.mp3" loop preload="auto"></audio>
 
 <script>
@@ -348,7 +358,10 @@
   const veil = document.getElementById('veil');
   const music = document.getElementById('music');
   const controls = document.getElementById('controls');
+  const videoScreen = document.getElementById('videoScreen');
+  const endVideo = document.getElementById('endVideo');
   let playing = true, holdUntil = 0, endHoldUntil = 0, last = performance.now(), hideTimer = null;
+  let inVideo = false;
 
   function showControls() {
     controls.classList.add('show');
@@ -358,16 +371,45 @@
   ['pointerdown', 'mousemove', 'touchstart'].forEach(ev => addEventListener(ev, showControls, { passive: true }));
 
   function docH() { return document.documentElement.scrollHeight; }
+
+  // ===== Hết slide → fade đen ngắn → phát video cầu hôn; hết video → quay lại đầu slide =====
+  function showVideo() {
+    music.pause();
+    videoScreen.classList.add('on');
+    setTimeout(() => {
+      endVideo.currentTime = 0;
+      endVideo.muted = false;
+      endVideo.play().catch(() => {
+        // Trình duyệt chặn phát có tiếng khi chưa có tương tác: phát tắt tiếng trước, chạm vào video để bật tiếng
+        endVideo.muted = true;
+        endVideo.play().catch(() => {});
+      });
+    }, 720);
+  }
+  function backToSlide() {
+    videoScreen.classList.remove('on');
+    setTimeout(() => {
+      endVideo.pause();
+      endVideo.currentTime = 0;
+      scrollTo(0, 0);
+      inVideo = false;
+      endHoldUntil = performance.now() + 600;
+      last = performance.now();
+      tryMusic();
+    }, 720);
+  }
+  endVideo.addEventListener('ended', backToSlide);
+  videoScreen.addEventListener('click', () => {
+    if (endVideo.paused) { endVideo.muted = false; endVideo.play().catch(() => {}); }
+  });
+
   function loop(now) {
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
-    if (playing && now > holdUntil && now > endHoldUntil) {
+    if (playing && !inVideo && now > holdUntil && now > endHoldUntil) {
       const max = docH() - innerHeight;
       if (scrollY >= max - 2) {
-        endHoldUntil = now + 5000;
-        setTimeout(() => {
-          veil.classList.add('on');
-          setTimeout(() => { scrollTo(0, 0); veil.classList.remove('on'); }, 950);
-        }, 5000);
+        inVideo = true;
+        setTimeout(showVideo, 1200); // dừng ở cuối slide 1,2 giây rồi mới chuyển cảnh
       } else {
         scrollBy(0, SPEED * dt);
       }
