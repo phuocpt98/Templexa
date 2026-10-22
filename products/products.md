@@ -27,14 +27,14 @@ products/
 |------------|----------|------|--------|
 | **Invitation** | digital-card | 3 | 3 |
 | **Invitation** | loi-nhan | 3 | 3 |
-| **Invitation** | other | 78 | 68 |
-| **Invitation** | wedding | 105 | 71 |
+| **Invitation** | other | 90 | 80 |
+| **Invitation** | wedding | 111 | 77 |
 | **Web** | e-commerce | 33 | 33 |
 | **Web** | education | 31 | 31 |
 | **Web** | onepage | 26 | 26 |
 | **Web** | portfolio | 25 | 25 |
 | **Google-sheet** | e-commerce | 5 | 5 |
-| | **Tong** | **309** | **265** |
+| | **Tong** | **327** | **283** |
 
 _Cap nhat tu data.js: 2026-10-21 — chay `node scripts/build-products-md.js` de sinh lai._
 
@@ -168,7 +168,7 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 283 | Lời Nhắn QR — Chibi Yêu Thương | `./loi-nhan/chibi-yeu-thuong` |  | public |
 | 284 | Lời Nhắn QR — Hoa Lá Nhẹ Nhàng | `./loi-nhan/hoa-la` |  | public |
 
-### Invitation / other (78)
+### Invitation / other (90)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -250,8 +250,20 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 311 | Thôi Nôi Nhân Mã — Mũi Tên Bay | `Invitation/Other/gen_311_thoi-noi-nhan-ma-mui-ten-bay` | thoi-noi | public |
 | 312 | Thiệp Thôi Nôi Cung Xử Nữ — Khu Vườn Nhỏ Của Bé | `Invitation/Other/gen_312_thoi-noi-xu-nu-khu-vuon-be-mat` | thoi-noi | public |
 | 313 | Thiệp Thôi Nôi Cung Thiên Bình — Bập Bênh Trên Mây | `Invitation/Other/gen_313_thoi-noi-thien-binh-bap-benh-tren-may` | thoi-noi | public |
+| 329 | Thiệp Thôi Nôi Bầu Trời Mây Xanh — Bé Gia Bảo | `Invitation/Other/gen_329_thoi-noi-bau-troi-may-xanh` | thoi-noi | public |
+| 330 | Thiệp Thôi Nôi Vườn Hoa Hồng — Bé An Nhiên | `Invitation/Other/gen_330_thoi-noi-vuon-hoa-hong` | thoi-noi | public |
+| 331 | Thiệp Thôi Nôi Đồ Chơi Sắc Màu — Bé Minh Khôi | `Invitation/Other/gen_331_thoi-noi-do-choi-sac-mau` | thoi-noi | public |
+| 332 | Thiệp Thôi Nôi Rừng Xanh Thú Nhỏ — Bé Bảo Ngọc | `Invitation/Other/gen_332_thoi-noi-rung-xanh-thu-nho` | thoi-noi | public |
+| 333 | Thiệp Thôi Nôi Phi Hành Gia Nhí — Bé Gia Huy | `Invitation/Other/gen_333_thoi-noi-phi-hanh-gia` | thoi-noi | public |
+| 334 | Thiệp Thôi Nôi Nhật Báo Bé Yêu — Bé Minh An | `Invitation/Other/gen_334_thoi-noi-nhat-bao-be-yeu` | thoi-noi | public |
+| 335 | Thiệp Sinh Nhật 25 — Đêm Tiệc Đen Vàng Sang Trọng | `Invitation/Other/gen_335_sinh-nhat-den-vang-sang-trong` | birthday | public |
+| 336 | Thiệp Sinh Nhật Mèo Hồng Đáng Yêu | `Invitation/Other/gen_336_sinh-nhat-meo-hong-dang-yeu` | birthday | public |
+| 337 | Thiệp Sinh Nhật 30 — Đĩa Than Retro | `Invitation/Other/gen_337_sinh-nhat-dia-than-retro` | birthday | public |
+| 338 | Thiệp Sinh Nhật Bé — Phiêu Lưu Đáy Biển | `Invitation/Other/gen_338_sinh-nhat-day-bien-be-tom` | birthday | public |
+| 339 | Thiệp Sinh Nhật Hộp Quà Bóng Bay | `Invitation/Other/gen_339_sinh-nhat-hop-qua-bong-bay` | birthday | public |
+| 340 | Thiệp Sinh Nhật Hồng Vàng Bóng Bay — Birthday | `Invitation/Other/gen_340_sinh-nhat-hong-vang-bong-bay` | birthday | public |
 
-### Invitation / wedding (105)
+### Invitation / wedding (111)
 
 | ID | Ten | Folder | Style / Event | Trang thai |
 |----|-----|--------|---------------|------------|
@@ -360,6 +372,12 @@ DU LIEU TRONG data.csv  >  DU LIEU TU QUET FOLDER  >  GIA TRI MAC DINH
 | 320 | Thiệp Cưới Romantic — Save The Date Lấp Lánh | `Invitation/Wedding/gen_320_romantic-save-the-date` | floral / wedding | public |
 | 321 | Thiệp Cưới Phong Bì Be — Nút Mở Thiệp Cam Đào | `Invitation/Wedding/gen_321_phong-bi-cam-dao` | modern / wedding | public |
 | 322 | Thiệp Cưới Pastel Tím Đào — Ảnh Trái Tim, Bướm Bay | `Invitation/Wedding/gen_322_pastel-tim-dao-trai-tim` | modern / wedding | public |
+| 323 | Thiệp Cưới Đỏ Song Hỷ — Cửa Son Long Phụng | `Invitation/Wedding/gen_323_do-song-hy-truyen-thong` | traditional / wedding | public |
+| 324 | Thiệp Cưới Xanh Rêu — Save The Date, Chuyện Tình Chúng Mình | `Invitation/Wedding/gen_324_xanh-reu-chuyen-tinh` | modern / wedding | public |
+| 325 | Thiệp Cưới Xám Trắng Tối Giản — Ảnh Studio Đen Trắng | `Invitation/Wedding/gen_325_xam-trang-toi-gian` | minimalist / wedding | public |
+| 326 | Thiệp Cưới Đêm Sao Ngân Hà — Xanh Navy Lấp Lánh | `Invitation/Wedding/gen_326_dem-sao-ngan-ha` | modern / wedding | public |
+| 327 | Thiệp Cưới Nhật Báo Tình Yêu — Báo Xưa Sài Gòn | `Invitation/Wedding/gen_327_nhat-bao-tinh-yeu` | vintage / wedding | public |
+| 328 | Thiệp Cưới Trúc Đào — Xanh Rêu Ấn Son | `Invitation/Wedding/gen_328_truc-dao-xanh-reu` | traditional / wedding | public |
 
 ### Web / e-commerce (33)
 
