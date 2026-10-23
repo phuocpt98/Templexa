@@ -406,7 +406,14 @@
   const videoScreen = document.getElementById('videoScreen');
   const endVideo = document.getElementById('endVideo');
   let playing = true, holdUntil = 0, endHoldUntil = 0, last = performance.now(), hideTimer = null;
-  let inVideo = true; // mở trang là đang ở màn video đầu tiên
+  // Chế độ sửa (?edit=1, dùng trong trang sửa thiệp): tắt hẳn video + đứng yên không tự cuộn để chọn chỗ sửa
+  const EDIT_MODE = new URLSearchParams(location.search).get('edit') === '1';
+  let inVideo = !EDIT_MODE; // mở trang thường là đang ở màn video đầu tiên
+  if (EDIT_MODE) {
+    playing = false;
+    videoScreen.classList.remove('on');
+    videoScreen.style.display = 'none';
+  }
 
   function showControls() {
     controls.classList.add('show');
@@ -424,6 +431,7 @@
     endVideo.play().catch(() => {});
   }
   function showVideo() {
+    if (EDIT_MODE) return;
     videoScreen.classList.add('on');
     tryMusic();
     setTimeout(() => {
@@ -468,13 +476,14 @@
   const btnMusic = document.getElementById('btnMusic');
   function tryMusic() { music.play().then(() => { btnMusic.textContent = '🔊'; }).catch(() => {}); }
   tryMusic(); // thử tự phát nhạc ngay khi mở link (trình duyệt nào cho phép là nhạc chạy liền)
-  playVideo(); // phát video đầu tiên ngay khi mở trang (đã tắt tiếng nên trình duyệt cho tự phát)
+  if (!EDIT_MODE) playVideo(); // phát video đầu tiên ngay khi mở trang (đã tắt tiếng nên trình duyệt cho tự phát)
   // Nếu trình duyệt chặn tự phát nhạc có tiếng: tương tác đầu tiên ở bất cứ đâu (chạm/click/phím) là nhạc phát ngay
   addEventListener('pointerdown', (e) => { if (music.paused && e.target !== btnMusic) tryMusic(); });
   addEventListener('keydown', () => { if (music.paused) tryMusic(); });
   music.addEventListener('play', () => { btnMusic.textContent = music.muted ? '🔇' : '🔊'; });
 
   const btnScroll = document.getElementById('btnScroll');
+  if (EDIT_MODE) btnScroll.textContent = '▶';
   btnScroll.addEventListener('click', () => {
     playing = !playing;
     btnScroll.textContent = playing ? '⏸' : '▶';
