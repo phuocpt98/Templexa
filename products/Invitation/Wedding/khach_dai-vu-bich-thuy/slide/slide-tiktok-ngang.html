@@ -364,9 +364,9 @@
   <button id="btnMusic" title="Bật / tắt nhạc">🔇</button>
 </div>
 
-<!-- Video cầu hôn — phát khi slide cuộn hết -->
-<div class="video-screen" id="videoScreen">
-  <video id="endVideo" src="video-cau-hon.mp4" playsinline preload="auto"></video>
+<!-- Video cầu hôn — phát ĐẦU TIÊN khi mở slide (tắt tiếng gốc, nhạc nền của slide phát đè lên), lặp lại sau mỗi vòng cuộn -->
+<div class="video-screen on" id="videoScreen">
+  <video id="endVideo" src="video-cau-hon.mp4" playsinline muted autoplay preload="auto"></video>
 </div>
 
 <audio id="music" src="nhac-nen.mp3" loop preload="auto"></audio>
@@ -402,7 +402,7 @@
   const videoScreen = document.getElementById('videoScreen');
   const endVideo = document.getElementById('endVideo');
   let playing = true, holdUntil = 0, endHoldUntil = 0, last = performance.now(), hideTimer = null;
-  let inVideo = false;
+  let inVideo = true; // mở trang là đang ở màn video đầu tiên
 
   function showControls() {
     controls.classList.add('show');
@@ -413,18 +413,18 @@
 
   function docH() { return document.documentElement.scrollHeight; }
 
-  // ===== Hết slide → fade đen ngắn → phát video cầu hôn; hết video → quay lại đầu slide =====
+  // ===== Video chạy đầu tiên + lặp lại khi cuộn hết slide; hết video → chuyển sang cuộn ảnh =====
+  // Video luôn TẮT tiếng gốc — nhạc nền của slide (nhac-nen.mp3) phát đè lên video và chạy xuyên suốt, không dừng khi chuyển cảnh
+  function playVideo() {
+    endVideo.muted = true;
+    endVideo.play().catch(() => {});
+  }
   function showVideo() {
-    music.pause();
     videoScreen.classList.add('on');
+    tryMusic();
     setTimeout(() => {
       endVideo.currentTime = 0;
-      endVideo.muted = false;
-      endVideo.play().catch(() => {
-        // Trình duyệt chặn phát có tiếng khi chưa có tương tác: phát tắt tiếng trước, chạm vào video để bật tiếng
-        endVideo.muted = true;
-        endVideo.play().catch(() => {});
-      });
+      playVideo();
     }, 720);
   }
   function backToSlide() {
@@ -441,7 +441,7 @@
   }
   endVideo.addEventListener('ended', backToSlide);
   videoScreen.addEventListener('click', () => {
-    if (endVideo.paused) { endVideo.muted = false; endVideo.play().catch(() => {}); }
+    if (endVideo.paused) { playVideo(); }
   });
 
   function loop(now) {
@@ -464,6 +464,7 @@
   const btnMusic = document.getElementById('btnMusic');
   function tryMusic() { music.play().then(() => { btnMusic.textContent = '🔊'; }).catch(() => {}); }
   tryMusic();
+  playVideo(); // phát video đầu tiên ngay khi mở trang (đã tắt tiếng nên trình duyệt cho tự phát)
   addEventListener('pointerdown', function once() { tryMusic(); removeEventListener('pointerdown', once); });
 
   const btnScroll = document.getElementById('btnScroll');
