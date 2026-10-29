@@ -276,4 +276,11 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự bữa cơm thân mật 01/11/2026 tại Kiêu Kỵ, Gia Lâm, Hà Nội',
         image: '../../products/Invitation/Wedding/khach_van-thuc-thuy-hang/og-cover.jpg',
     },
+    // Viet An - Jasmine — job-viet-an-jasmine (mẫu 241)
+    'viet-an-jasmine': {
+        src: '../../products/Invitation/Wedding/khach_viet-an-jasmine/code.html',
+        title: 'Viet An & Jasmine — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự tiệc mừng cưới — 17:00 thứ Bảy 05/12/2026 tại L7 West Lake Hà Nội, Tây Hồ, Hà Nội',
+        image: '../../products/Invitation/Wedding/khach_viet-an-jasmine/og-cover.jpg',
+    },
 };
