@@ -230,13 +230,21 @@ body.locked{overflow:hidden}
 .confetti i:nth-child(3){left:44%;background:#4DB6AC;animation-delay:.7s}.confetti i:nth-child(4){left:64%;background:#A8D8EA;animation-delay:2s}
 .confetti i:nth-child(5){left:84%;background:#FFC93C;animation-delay:2.8s}
 @keyframes fall{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:1}100%{transform:translateY(30px) rotate(300deg);opacity:0}}
-.boat-drift{position:relative;height:56px;margin-top:2px;overflow:hidden;font-size:2.4rem;line-height:56px;text-align:left;animation:driftBoat 16s linear infinite}
-@keyframes driftBoat{0%{transform:translateX(-52px)}100%{transform:translateX(calc(100% - 40px))}}
+.boat-drift{position:relative;height:84px;margin-top:6px;overflow:hidden;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,0) 0 38%,#A8D8EA 38% 55%,#7FC8BC 55% 74%,#4DB6AC 74% 100%)}
+.sea{position:absolute;left:-20px;right:-20px;color:#fff;white-space:nowrap;letter-spacing:3px;line-height:1;pointer-events:none}
+.sea-a{bottom:26px;font-size:1.05rem;opacity:.85;animation:seaSlide 7s linear infinite}
+.sea-b{bottom:8px;font-size:.9rem;opacity:.55;animation:seaSlide 11s linear infinite reverse}
+@keyframes seaSlide{from{transform:translateX(0)}to{transform:translateX(-24px)}}
+.boat{position:absolute;left:-48px;top:10px;font-size:2.4rem;line-height:1;animation:sailAcross 15s linear infinite}
+@keyframes sailAcross{from{left:-48px}to{left:calc(100% - 44px)}}
+.boat-emoji{position:relative;display:inline-block;animation:bobRock 2.6s ease-in-out infinite}
+.boat-emoji::after{content:"﹏";position:absolute;left:-16px;bottom:0;color:#fff;opacity:.8;font-size:1rem}
+@keyframes bobRock{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(5px) rotate(4deg)}}
 .footer{margin-top:18px;color:var(--ink-l);font-size:.92rem}
 .footer b{color:var(--navy)}
 
 /* ---------- Nút âm thanh + Lightbox ---------- */
-#soundBtn{position:fixed;right:16px;bottom:18px;z-index:50;display:flex;align-items:center;gap:8px;background:#fff;color:var(--teal-d);border:3px solid #BFE6E0;border-radius:99px;padding:10px 16px;font-family:var(--font-head);font-weight:700;font-size:.95rem;box-shadow:0 10px 20px rgba(31,58,95,.3)}
+#soundBtn{position:fixed;right:16px;bottom:18px;z-index:50;width:48px;height:48px;padding:0;display:flex;align-items:center;justify-content:center;background:#fff;color:var(--teal-d);border:3px solid #BFE6E0;border-radius:50%;font-size:1.3rem;line-height:1;box-shadow:0 10px 20px rgba(31,58,95,.3)}
 #lightbox{position:fixed;inset:0;z-index:70;background:rgba(18,32,48,.88);display:none;align-items:center;justify-content:center;padding:22px}
 #lightbox.show{display:flex}
 #lightbox img{max-width:100%;max-height:78vh;border:6px solid #fff;border-radius:20px;object-fit:contain;background:#DFF2F8}
@@ -508,12 +516,12 @@ body.locked{overflow:hidden}
     <p class="hand-big reveal d1">Dương tròn 1 tuổi, mời cả nhà đến chung vui cùng bé nhé!</p>
     <p class="gift reveal d2">“Sự hiện diện của bạn là món quà ý nghĩa nhất với Dương.”</p>
     <div class="confetti" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="boat-drift" aria-hidden="true">⛵</div>
+    <div class="boat-drift" aria-hidden="true"><span class="sea sea-a">﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏</span><span class="sea sea-b">﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏﹏</span><span class="boat"><span class="boat-emoji">⛵</span></span></div>
     <p class="footer reveal">Bố mẹ bé Dương · <b>Cá Voi Nhỏ 🐋</b><br>Thiệp online · Templexa.vn</p>
   </section>
 </main>
 
-<button id="soundBtn" type="button" aria-pressed="false" aria-label="Bật hoặc tắt âm thanh">🔇 Tắt tiếng</button>
+<button id="soundBtn" type="button" aria-pressed="false" aria-label="Bật âm thanh">🔇</button>
 
 <div id="lightbox" role="dialog" aria-label="Xem ảnh lớn">
   <button class="lb-close" id="lbClose" type="button" aria-label="Đóng">✕</button>
@@ -705,8 +713,9 @@ body.locked{overflow:hidden}
       master.gain.setTargetAtTime(audioOn ? 0.5 : 0, t, 0.4);
       if (!audioOn && pianoTimer) { clearTimeout(pianoTimer); pianoTimer = null; }
       if (audioOn && restartPiano) restartPiano();
-      soundBtn.textContent = audioOn ? '🔊 Đang bật' : '🔇 Tắt tiếng';
+      soundBtn.textContent = audioOn ? '🔊' : '🔇';
       soundBtn.setAttribute('aria-pressed', audioOn ? 'true' : 'false');
+      soundBtn.setAttribute('aria-label', audioOn ? 'Tắt âm thanh' : 'Bật âm thanh');
     } catch (err) { /* lỗi âm thanh không chặn thiệp */ }
   });
 })();
