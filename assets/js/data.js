@@ -7537,7 +7537,7 @@ const PRODUCTS = [
         id: 352,
         name: 'Thôi Nôi Bé Dương — Chai Thư & Chim Rio',
         slug: 'thoi-noi-be-duong-chai-thu-chim-rio',
-        description: 'Thiệp mời thôi nôi online dạng thư trong chai do chim Rio đưa thư, vuốt ngang 6 trang: mini game chọn chai có thư, tờ thư viết tay có dấu sáp và ảnh polaroid, vẽ lời chúc lên cát, nhật ký năm đầu đời lật polaroid, bản đồ chim Rio bay tới Nhà hàng Hoa Sữa, phong bì hồi âm tem chim Rio. Minh hoạ chim Rio vẹt xanh bay, đậu cành và mang chai thư. Âm thanh guitar mộc, sóng và tiếng chim Rio mặc định tắt.',
+        description: 'Thiệp mời thôi nôi online dạng thư trong chai do chim Rio đưa thư, vuốt ngang 6 trang: mini game chọn chai có thư, tờ thư viết tay có dấu sáp và ảnh polaroid, vẽ lời chúc lên cát, nhật ký năm đầu đời lật polaroid, bản đồ chim Rio bay tới Trung Tâm Yến Tiệc Và Hội Nghị Amor Resort, phong bì hồi âm tem chim Rio. Minh hoạ chim Rio vẹt xanh bay, đậu cành và mang chai thư. Âm thanh guitar mộc, sóng và tiếng chim Rio mặc định tắt.',
         category: 'other',
         type: 'invitation',
         style: '',
