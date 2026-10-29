@@ -155,16 +155,23 @@ a{color:inherit}
 .map-svg{width:100%;height:auto;display:block;margin:4px 0 6px}
 .route{stroke-dasharray:7 8;animation:routeFlow 3s linear infinite}
 @keyframes routeFlow{to{stroke-dashoffset:-60}}
-.map-info .info-line{display:flex;gap:12px;align-items:flex-start;padding:9px 2px;border-bottom:1.5px dashed rgba(74,53,36,.3);opacity:0;transform:translateY(8px)}
-.page.active .map-info .info-line{animation:lineIn .7s ease forwards}
+.map-info{margin-top:10px}
+.map-info .info-line{display:flex;gap:12px;align-items:center;padding:11px 12px;margin-bottom:10px;background:#FFFDF6;border:2.5px solid var(--ink);border-left:8px solid var(--teal-d);border-radius:14px;box-shadow:3px 4px 0 rgba(74,53,36,.22)}
+.map-info .info-line:nth-child(2){border-left-color:var(--wax)}
+.map-info .info-line:nth-child(3){border-left-color:var(--sea)}
+.page.active .map-info .info-line{animation:lineIn .7s ease both}
 .page.active .map-info .info-line:nth-child(1){animation-delay:.2s}
 .page.active .map-info .info-line:nth-child(2){animation-delay:.7s}
 .page.active .map-info .info-line:nth-child(3){animation-delay:1.2s}
-@keyframes lineIn{to{opacity:1;transform:none}}
-.map-info .ic{font-size:1.4rem;flex:0 0 30px}
-.map-info .lb{font-weight:700;font-size:.8rem;letter-spacing:1px;text-transform:uppercase;color:#8A6A4A}
-.map-info .vl{font-weight:700;font-size:1.08rem;line-height:1.4}
-.map-info .vl small{display:block;font-weight:500;font-size:.95rem;color:#7A5C40}
+@keyframes lineIn{from{transform:translateY(8px)}to{transform:none}}
+.map-info .ic{display:flex;align-items:center;justify-content:center;width:44px;height:44px;flex:0 0 44px;font-size:1.5rem;background:var(--teal);border:2px solid var(--ink);border-radius:50%}
+.map-info .info-line:nth-child(2) .ic{background:var(--sand)}
+.map-info .info-line:nth-child(3) .ic{background:#A8D8EA}
+.map-info .lb{font-weight:700;font-size:.88rem;letter-spacing:1px;text-transform:uppercase;color:var(--teal-d)}
+.map-info .info-line:nth-child(2) .lb{color:var(--wax)}
+.map-info .info-line:nth-child(3) .lb{color:var(--sea)}
+.map-info .vl{font-weight:700;font-size:1.18rem;line-height:1.35;color:#2E1F14}
+.map-info .vl small{display:block;font-weight:600;font-size:1rem;color:#5C4028}
 .hourglass{display:flex;align-items:center;gap:14px;margin-top:16px;background:#F3E2C2;border:2px dashed rgba(74,53,36,.4);border-radius:16px;padding:12px 14px}
 .hourglass svg{flex:0 0 44px}
 .hourglass .cd{text-align:left}
@@ -383,7 +390,8 @@ Xin mời bạn đến chung vui cùng bé và gia đình trong bữa tiệc nh�
       <div class="map-card">
         <p class="hand" style="text-align:center;font-size:1.45rem">Hãy đến bờ biển hạnh phúc của Dương</p>
         <svg class="map-svg" viewBox="0 0 320 326" aria-hidden="true">
-          <path d="M48 48 C110 44 180 54 238 88 C282 112 214 142 146 158 C98 168 66 182 80 208 C94 234 168 232 228 248 C258 256 224 266 162 270" fill="none" stroke="#B5342E" stroke-width="3" class="route" stroke-linecap="round"/>
+          <defs><clipPath id="babyFaceClip"><circle r="15"/></clipPath></defs>
+          <path id="mapRoute" d="M48 48 C110 44 180 54 238 88 C282 112 214 142 146 158 C98 168 66 182 80 208 C94 234 168 232 228 248 C258 256 224 266 162 270" fill="none" stroke="#B5342E" stroke-width="3" class="route" stroke-linecap="round"/>
           <g stroke="#9ED8D3" stroke-width="3" fill="none" stroke-linecap="round" opacity=".85">
             <path d="M28 132 q9 -9 18 0 t18 0"/>
             <path d="M262 196 q9 -9 18 0 t18 0"/>
@@ -404,6 +412,15 @@ Xin mời bạn đến chung vui cùng bé và gia đình trong bữa tiệc nh�
             <text y="-17" text-anchor="middle" font-size="12" font-weight="700" fill="#4A3524">N</text>
           </g>
           <text x="18" y="24" font-family="Patrick Hand, cursive" font-size="16" fill="#8A6A4A">✦ bờ biển ✦</text>
+          <!-- Sticker mặt bé chạy dọc đường bản đồ; ảnh thật ở assets/photo-be.jpg, chưa có ảnh thì hiện 👶 -->
+          <g>
+            <animateMotion dur="14s" repeatCount="indefinite" rotate="0"><mpath href="#mapRoute"/></animateMotion>
+            <circle r="19" fill="#FFFDF6" stroke="#B5342E" stroke-width="2.5"/>
+            <circle r="15" fill="#DCE9E6"/>
+            <text y="7" text-anchor="middle" font-size="20">👶</text>
+            <g clip-path="url(#babyFaceClip)"><image id="babyFaceImg" href="assets/photo-be.jpg" x="-15" y="-15" width="30" height="30" preserveAspectRatio="xMidYMid slice" style="display:none"/></g>
+            <circle r="15" fill="none" stroke="#FFF6E5" stroke-width="1.5"/>
+          </g>
         </svg>
         <div class="map-info">
           <div class="info-line">
@@ -713,6 +730,17 @@ Xin mời bạn đến chung vui cùng bé và gia đình trong bữa tiệc nh�
     a.download = 'thoi-noi-be-duong-20261206.ics';
     document.body.appendChild(a); a.click(); a.remove();
   });
+
+  /* ---------- Trang 5: Sticker mặt bé — chỉ hiện ảnh thật khi assets/photo-be.jpg có thật,
+     chưa có ảnh thì giữ 👶, tránh icon ảnh vỡ che mất sticker ---------- */
+  (function(){
+    var probe = new Image();
+    probe.onload = function(){
+      var im = document.getElementById('babyFaceImg');
+      if (im) im.style.display = '';
+    };
+    probe.src = 'assets/photo-be.jpg';
+  })();
 
   /* ---------- Trang 6: Hồi âm ---------- */
   document.getElementById('comeBtn').addEventListener('click', function(){
