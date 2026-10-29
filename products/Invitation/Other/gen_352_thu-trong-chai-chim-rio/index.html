@@ -211,9 +211,10 @@ a{color:inherit}
 .reply .thanks.show{display:block}
 .closing-line{font-family:var(--font-note);font-size:1.5rem;line-height:1.35;text-align:center;color:var(--wax);margin-top:20px}
 .rio-sky{position:relative;height:132px;margin-top:8px;overflow:hidden;background:linear-gradient(180deg,#FFE9C4 0%,#FFD9B0 35%,#9ED8D3 62%,#5FA8B5 100%)}
-.rio-carry{position:absolute;bottom:10px;left:0;display:flex;flex-direction:column;align-items:center;animation:rioCarry 16s linear infinite;animation-delay:-7s}
-@keyframes rioCarry{0%{left:-26%;transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}100%{left:108%;transform:translateY(0) rotate(-3deg)}}
-.rio-carry .rio-bird{width:70px;height:45px;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25))}
+.rio-carry{position:absolute;bottom:10px;left:0;display:flex;flex-direction:column;align-items:center;animation:rioCarry 11s linear infinite;animation-delay:-4s}
+@keyframes rioCarry{0%{left:-20%;transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}100%{left:104%;transform:translateY(0) rotate(-3deg)}}
+.rio-carry .rio-bird{width:70px;height:45px;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25));transform-origin:50% 50%;animation:rioFlap .65s ease-in-out infinite alternate}
+@keyframes rioFlap{from{transform:rotate(-5deg) translateY(0)}to{transform:rotate(5deg) translateY(-4px)}}
 .rio-carry .carry-string{width:2px;height:10px;background:var(--ink)}
 .rio-carry .carry-bottle{width:30px;height:43px;filter:drop-shadow(0 6px 6px rgba(0,0,0,.25))}
 .footer{text-align:center;font-size:.88rem;color:#8A6A4A;margin-top:14px}
@@ -561,7 +562,7 @@ Xin mời bạn đến chung vui cùng bé và gia đình trong bữa tiệc nh�
           </svg>
         </div>
       </div>
-      <p class="footer">Chim Rio mang chai thư bay đi, hẹn gặp bạn ở bữa tiệc... 🦜<br>Thiệp online · templexa.vn</p>
+      <p class="footer">Chim Rio mang chai thư bay đi, hẹn gặp bạn ở bữa tiệc... 🦜<br>Thiệp online · Templexa.vn</p>
     </div>
   </section>
 </main>
@@ -572,7 +573,7 @@ Xin mời bạn đến chung vui cùng bé và gia đình trong bữa tiệc nh�
   <button class="nav-arrow" id="nextBtn" type="button" aria-label="Trang sau">›</button>
 </nav>
 
-<button id="soundBtn" type="button" aria-pressed="false" aria-label="Bật hoặc tắt âm thanh">🔇 Tắt tiếng</button>
+<button id="soundBtn" type="button" aria-pressed="false" aria-label="Bật hoặc tắt âm thanh">🔇</button>
 
 <script>
 (function(){
@@ -893,7 +894,7 @@ Xin mời bạn đến chung vui cùng bé và gia đình trong bữa tiệc nh�
         if (birdTimer) { clearTimeout(birdTimer); birdTimer = null; }
       }
       if (audioOn && restartMusic) restartMusic();
-      soundBtn.textContent = audioOn ? '🔊 Đang bật' : '🔇 Tắt tiếng';
+      soundBtn.textContent = audioOn ? '🔊' : '🔇';
       soundBtn.setAttribute('aria-pressed', audioOn ? 'true' : 'false');
     } catch (err) { /* lỗi âm thanh không chặn thiệp */ }
   });
