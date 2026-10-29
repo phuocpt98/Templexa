@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Thôi Nôi Bé Dương — Chuyến Lặn Tàu Ngầm Xuống Đại Dương Bí Ẩn</title>
+<meta name="description" content="Thiệp mời thôi nôi bé Chu Thiên Dương tròn 1 tuổi: 11:00, Chủ nhật 06/12/2026 tại Nhà hàng Hoa Sữa, Hà Nội. Cuộn xuống để cùng tàu ngầm lặn từ mặt nước xuống đáy đại dương 1000m.">
+<meta property="og:title" content="Thôi Nôi Bé Dương — Chuyến Lặn Tàu Ngầm">
+<meta property="og:description" content="Dương lặn xuống đại dương bí ẩn! 11:00, Chủ nhật 06/12/2026 · Nhà hàng Hoa Sữa, Hà Nội. Cuộn xuống để lặn cùng bé nhé!">
+<meta property="og:type" content="website">
+<meta property="og:image" content="./shots/open.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Font đã kiểm chứng subset tiếng Việt (css2 Google Fonts, 29/10/2026):
+   Baloo 2 + Nunito CÓ subset vietnamese. Pacifico CÓ subset vietnamese — file woff2 tự host
+   (đã dùng ở gen_349/350, render đúng dấu trong screenshot headless).
+   Fredoka KHÔNG có subset vietnamese → KHÔNG dùng cho chữ Việt, thay bằng Baloo 2 ExtraBold
+   (đã kiểm chứng ở gen_350). Bangers không dùng để giữ nét mềm cho tên bé. */
+@font-face{font-family:'Pacifico';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/pacifico-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Pacifico';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/pacifico-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+:root{
+  --sky:#4FC3F7; --navy:#0B2545; --deep:#050B1A;
+  --teal:#2EF2D0; --violet:#B388FF; --pink:#FF6FD8; --blue:#5EA8FF;
+  --sub:#FFD23F; --ivory:#F4FBFF; --ink:#06263F;
+  --font-name:'Baloo 2',system-ui,sans-serif;
+  --font-head:'Baloo 2',system-ui,sans-serif;
+  --font-body:'Nunito',system-ui,sans-serif;
+  --font-note:'Pacifico',cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{font-family:var(--font-body);font-size:17px;font-weight:600;line-height:1.6;color:var(--ivory);background:var(--deep);-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+img{max-width:100%}
+.ocean{position:relative;z-index:1;background:linear-gradient(180deg,#8FD9F8 0%,#4FC3F7 9%,#2A9BD8 20%,#1773B4 30%,#0E4E86 40%,#0B3560 50%,#0B2545 60%,#081B38 72%,#061226 84%,#050B1A 100%)}
+.ocean::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(340px 200px at 82% 6%,rgba(255,244,160,.55),transparent 70%),
+  radial-gradient(420px 300px at 12% 34%,rgba(46,242,208,.14),transparent 70%),
+  radial-gradient(420px 320px at 88% 58%,rgba(179,136,255,.18),transparent 70%),
+  radial-gradient(480px 340px at 50% 82%,rgba(255,111,216,.13),transparent 70%),
+  radial-gradient(360px 260px at 20% 96%,rgba(94,168,255,.20),transparent 70%)}
+/* Tia sáng xuyên nước ở mặt biển, mờ dần khi lặn sâu */
+.rays{position:absolute;left:0;right:0;top:0;height:62vh;z-index:1;pointer-events:none;overflow:hidden}
+.rays i{position:absolute;top:-12vh;width:64px;height:80vh;background:linear-gradient(180deg,rgba(255,255,220,.55),rgba(255,255,220,0));transform:skewX(-14deg);filter:blur(6px);animation:rayFlicker 5s ease-in-out infinite}
+.rays i:nth-child(1){left:12%}.rays i:nth-child(2){left:38%;width:44px;animation-delay:1.4s}.rays i:nth-child(3){left:62%;width:80px;animation-delay:2.6s}.rays i:nth-child(4){left:80%;width:36px;animation-delay:.8s}
+@keyframes rayFlicker{0%,100%{opacity:.85}50%{opacity:.45}}
+/* Bong bóng nổi liên tục khắp màn hình */
+.bubbles-fixed{position:fixed;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.bubbles-fixed i{position:absolute;bottom:-30px;border-radius:50%;border:2px solid rgba(255,255,255,.55);background:radial-gradient(circle at 32% 30%,rgba(255,255,255,.75),rgba(255,255,255,.06) 55%);box-shadow:inset -3px -4px 6px rgba(255,255,255,.25);animation:bubbleRise linear infinite}
+@keyframes bubbleRise{from{transform:translateY(0) translateX(0);opacity:0}12%{opacity:.9}to{transform:translateY(-112vh) translateX(18px);opacity:0}}
+/* ---------- Đồng hồ độ sâu ---------- */
+.gauge{position:fixed;left:6px;top:50%;transform:translateY(-50%);z-index:20;width:46px;height:min(62vh,480px);display:flex;flex-direction:column;align-items:center;pointer-events:none}
+.gauge .g-track{position:relative;flex:1;width:5px;border-radius:99px;background:rgba(244,251,255,.28);box-shadow:0 0 8px rgba(46,242,208,.35)}
+.gauge .g-fill{position:absolute;left:0;top:0;width:100%;height:0%;border-radius:99px;background:linear-gradient(180deg,#2EF2D0,#B388FF,#FF6FD8)}
+.gauge .g-tick{position:absolute;left:50%;transform:translate(-50%,-50%);width:11px;height:3px;border-radius:2px;background:rgba(244,251,255,.85)}
+.gauge .g-tick.on{background:var(--teal);box-shadow:0 0 8px var(--teal);width:16px}
+.gauge .g-label{position:absolute;left:15px;transform:translateY(-50%);font-family:var(--font-head);font-weight:800;font-size:.6rem;letter-spacing:.4px;color:var(--ivory);text-shadow:0 1px 4px rgba(0,0,0,.7);white-space:nowrap;background:rgba(5,20,40,.55);padding:1px 6px;border-radius:99px}
+.gauge .g-label.on{color:var(--teal)}
+.gauge .g-marker{position:absolute;left:50%;top:0%;transform:translate(-50%,-50%);z-index:2;display:flex;align-items:center}
+.gauge .g-marker::before{content:"▶";font-size:.7rem;color:var(--teal);text-shadow:0 0 8px var(--teal)}
+.gauge .g-read{position:absolute;left:28px;top:50%;transform:translateY(-50%);font-family:var(--font-head);font-weight:800;font-size:.68rem;color:#06263F;background:var(--teal);border-radius:99px;padding:2px 7px;box-shadow:0 0 14px rgba(46,242,208,.8);white-space:nowrap}
+/* ---------- Nút loa ---------- */
+#soundBtn{position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;z-index:30;width:46px;height:46px;border-radius:50%;border:2px solid rgba(244,251,255,.75);background:rgba(5,20,40,.62);backdrop-filter:blur(4px);color:#fff;font-size:1.25rem;display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(46,242,208,.45)}
+#soundBtn[aria-pressed="true"]{background:rgba(46,242,208,.28);border-color:var(--teal)}
+/* ---------- Tàu ngầm cố định ---------- */
+.sub{position:fixed;left:50%;top:47%;transform:translate(-50%,-50%);z-index:2;width:min(228px,58vw);pointer-events:none;animation:subBob 4.2s ease-in-out infinite;filter:drop-shadow(0 14px 18px rgba(0,0,0,.45))}
+@keyframes subBob{0%,100%{margin-top:0}50%{margin-top:-9px}}
+.sub .beam{position:absolute;left:82%;top:46%;width:190px;height:74px;transform-origin:left center;transform:translateY(-50%) rotate(-4deg);background:linear-gradient(90deg,rgba(255,246,180,.85),rgba(255,246,180,.12) 62%,transparent);clip-path:polygon(0 42%,100% 0,100% 100%,0 58%);filter:blur(2px);animation:beamSway 5s ease-in-out infinite;mix-blend-mode:screen}
+@keyframes beamSway{0%,100%{transform:translateY(-50%) rotate(-6deg);opacity:.9}50%{transform:translateY(-50%) rotate(3deg);opacity:.65}}
+.sub .periscope{position:absolute;left:38%;top:-26px;width:14px;height:30px;background:linear-gradient(90deg,#E9A90F,#FFD23F 55%,#FFE98A);border-radius:6px 6px 0 0;box-shadow:inset -3px 0 4px rgba(0,0,0,.2)}
+.sub .periscope::after{content:"";position:absolute;top:-4px;right:-10px;width:20px;height:10px;background:#FFD23F;border-radius:0 6px 6px 0}
+.sub .tower{position:absolute;left:34%;top:-14px;width:32%;height:22px;background:linear-gradient(180deg,#FFE98A,#F5B90D 60%,#D99800);border-radius:14px 14px 4px 4px;box-shadow:inset 0 3px 4px rgba(255,255,255,.55)}
+.sub .hull{position:relative;height:96px;border-radius:50%/58%;background:linear-gradient(180deg,#FFEB9A 0%,#FFD23F 34%,#F5B90D 62%,#C98A00 100%);box-shadow:inset 0 10px 12px rgba(255,255,255,.55),inset 0 -14px 16px rgba(120,70,0,.4)}
+.sub .hull::before{content:"";position:absolute;left:12%;top:12%;width:56%;height:26%;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.85),transparent);filter:blur(1px)}
+.sub .fin-top{position:absolute;left:56%;top:-10px;width:34px;height:16px;background:#E9A90F;border-radius:50% 50% 0 0;transform:rotate(8deg)}
+.sub .tail-fin{position:absolute;left:-12px;top:38%;width:26px;height:44px;background:linear-gradient(180deg,#F5B90D,#C98A00);border-radius:60% 8px 8px 60%;transform:rotate(-12deg)}
+.sub .prop{position:absolute;left:-20px;top:44%;width:18px;height:18px;animation:propSpin .5s linear infinite}
+.sub .prop::before,.sub .prop::after{content:"";position:absolute;inset:0;background:#8A5A00;border-radius:50%}
+.sub .prop::after{inset:5px;background:#FFD23F}
+@keyframes propSpin{to{transform:rotate(360deg) scaleY(.4)}}
+.sub .porthole{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:66px;height:66px;border-radius:50%;border:6px solid #A8791F;outline:3px solid #6E4E08;box-shadow:0 0 0 3px rgba(255,233,138,.8),0 0 22px rgba(46,242,208,.65),inset 0 0 12px rgba(0,0,0,.35);overflow:visible;background:#7ED4F7;z-index:3}
+.sub .porthole img{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:58% 37%}
+.sub .porthole .glass{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.32),transparent 42%);z-index:2}
+.sub .rivet{position:absolute;width:7px;height:7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFE98A,#7A5500);z-index:3}
+.sub .rivet:nth-child(1){left:50%;top:-1px;transform:translate(-50%,-50%)}
+.sub .rivet:nth-child(2){right:2px;top:22%}
+.sub .rivet:nth-child(3){right:2px;bottom:22%}
+.sub .rivet:nth-child(4){left:50%;bottom:-1px;transform:translate(-50%,50%)}
+.sub .rivet:nth-child(5){left:2px;bottom:22%}
+.sub .rivet:nth-child(6){left:2px;top:22%}
+.sub .wave-hand{position:absolute;right:-13px;bottom:-8px;z-index:4;font-size:1.1rem;animation:waveHand 1.6s ease-in-out infinite;transform-origin:bottom center}
+@keyframes waveHand{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(18deg)}}
+.sub .headlamp{position:absolute;right:2px;top:44%;width:14px;height:14px;border-radius:50%;background:#FFFBE0;box-shadow:0 0 16px 6px rgba(255,246,180,.9);z-index:3}
+.sub .sub-name{position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);font-family:var(--font-head);font-weight:800;font-size:.62rem;letter-spacing:2.5px;color:#FFE98A;text-shadow:0 1px 4px rgba(0,0,0,.8);white-space:nowrap}
+/* ---------- Bố cục các tầng ---------- */
+main{position:relative;z-index:10}
+section{position:relative;min-height:100svh;padding:calc(66px + env(safe-area-inset-top)) 20px 34px;display:flex;flex-direction:column}
+.sec-top,.sec-bottom{position:relative;z-index:2}
+.sec-mid{flex:1;min-height:150px}
+.depth-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(5,20,40,.62);border:1.5px solid rgba(46,242,208,.7);color:var(--teal);border-radius:99px;padding:6px 13px;font-family:var(--font-head);font-weight:800;font-size:.78rem;letter-spacing:1.2px;box-shadow:0 0 16px rgba(46,242,208,.3)}
+.depth-pill .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);animation:blinkDot 1.6s ease-in-out infinite}
+@keyframes blinkDot{0%,100%{opacity:1}50%{opacity:.3}}
+h2.sec-title{font-family:var(--font-head);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:1.42rem;line-height:1.3;color:var(--teal);text-shadow:0 0 18px rgba(46,242,208,.65),0 2px 6px rgba(0,0,0,.6);margin:12px 0 8px}
+.glass{background:rgba(5,20,40,.62);border:1.5px solid rgba(244,251,255,.22);border-radius:20px;padding:18px;box-shadow:0 10px 26px rgba(0,0,0,.35);backdrop-filter:blur(3px)}
+.glass.neon{border-color:rgba(46,242,208,.55);box-shadow:0 0 22px rgba(46,242,208,.28),0 10px 26px rgba(0,0,0,.35)}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.inview{opacity:1;transform:none}
+.lead{font-size:1.02rem}
+.small{font-size:.92rem;opacity:.92}
+/* ---------- Tầng 0m ---------- */
+#s0{justify-content:flex-start}
+#s0 .hero-card{margin-top:8px;text-align:center;background:rgba(6,38,63,.58);border:1.5px solid rgba(46,242,208,.5);border-radius:26px;padding:22px 16px 18px;box-shadow:0 0 30px rgba(46,242,208,.25),0 12px 30px rgba(0,0,0,.35);backdrop-filter:blur(3px)}
+#s0 .eyebrow{font-family:var(--font-head);font-weight:800;font-size:.7rem;letter-spacing:1.6px;color:#FFE98A;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+#s0 .theme{font-family:var(--font-note);font-size:1.35rem;line-height:1.5;color:#FF9BE4;text-shadow:0 0 16px rgba(255,111,216,.7),0 2px 5px rgba(0,0,0,.5);margin-top:8px}
+.baby-name{font-family:var(--font-name);font-weight:800;font-size:clamp(1.7rem,8.6vw,2.3rem);line-height:1.15;white-space:nowrap;color:var(--ivory);-webkit-text-stroke:1px #0B2545;text-shadow:0 0 14px rgba(46,242,208,.95),0 0 36px rgba(46,242,208,.6),0 3px 8px rgba(0,0,0,.55);margin:6px 0 2px}
+.baby-name .last{color:#FFE98A}
+.age-badge{display:inline-block;margin-top:10px;background:linear-gradient(90deg,#2EF2D0,#5EA8FF);color:#06263F;border-radius:99px;padding:7px 16px;font-family:var(--font-head);font-weight:800;font-size:.86rem;letter-spacing:1.4px;box-shadow:0 0 20px rgba(46,242,208,.6)}
+#s0 .born{margin-top:10px;font-size:.98rem}
+.scroll-hint{margin-top:14px;font-family:var(--font-head);font-weight:800;font-size:.95rem;letter-spacing:.6px;color:var(--ivory);animation:hintBounce 1.8s ease-in-out infinite}
+@keyframes hintBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+#s0 .wave-note{text-align:center;margin-top:10px;font-size:.95rem;text-shadow:0 1px 5px rgba(0,0,0,.65)}
+.sun{position:absolute;top:calc(64px + env(safe-area-inset-top));right:80px;width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 38% 34%,#FFFBE0,#FFD23F 55%,#F5A623);box-shadow:0 0 34px 12px rgba(255,210,63,.55);animation:sunGlow 4s ease-in-out infinite;z-index:1}
+@keyframes sunGlow{0%,100%{box-shadow:0 0 30px 10px rgba(255,210,63,.5)}50%{box-shadow:0 0 44px 18px rgba(255,210,63,.75)}}
+.fish-school{position:absolute;left:0;right:0;top:34%;height:60px;pointer-events:none;z-index:1;overflow:hidden}
+.fish-school span{position:absolute;font-size:1.5rem;filter:drop-shadow(0 0 8px rgba(46,242,208,.8));animation:schoolSwim linear infinite}
+.fish-school span:nth-child(1){top:0;animation-duration:14s}
+.fish-school span:nth-child(2){top:26px;font-size:1.1rem;animation-duration:18s;animation-delay:2s}
+.fish-school span:nth-child(3){top:8px;font-size:1.25rem;animation-duration:16s;animation-delay:5s}
+@keyframes schoolSwim{from{transform:translateX(-60px)}to{transform:translateX(105vw)}}
+.waves{position:absolute;left:0;right:0;top:0;height:26px;overflow:hidden;pointer-events:none}
+.waves i{position:absolute;top:6px;font-size:1.4rem;animation:waveDrift 7s ease-in-out infinite}
+.waves i:nth-child(2){left:34%;animation-delay:1.2s}.waves i:nth-child(3){left:66%;animation-delay:2.4s}.waves i:nth-child(1){left:6%}
+@keyframes waveDrift{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(5px) rotate(4deg)}}
+
+/* ---------- Tầng 100m: rạn san hô + game chụp cá ---------- */
+#s1 .coral{position:absolute;left:0;right:0;bottom:0;height:190px;pointer-events:none;z-index:1;opacity:.95}
+#s1 .coral svg{position:absolute;bottom:0;width:100%;height:100%}
+.creature{filter:drop-shadow(0 0 12px rgba(255,111,216,.55));animation:breathe 3.6s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.92;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+.fish-pond{position:relative;height:236px;overflow:hidden;border-radius:18px;border:1.5px dashed rgba(46,242,208,.55);background:rgba(5,20,40,.45);margin-top:12px}
+.fish-pond .pond-label{position:absolute;left:10px;top:8px;z-index:3;font-family:var(--font-head);font-weight:800;font-size:.72rem;letter-spacing:1px;color:rgba(244,251,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.fish-btn{position:absolute;z-index:2;background:none;border:none;padding:6px;line-height:1;filter:drop-shadow(0 0 10px rgba(255,210,63,.7));animation:fishSwim linear infinite;will-change:transform}
+.fish-btn .f{font-size:2.5rem;display:block;animation:fishBob 1.1s ease-in-out infinite}
+@keyframes fishBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-5px) rotate(4deg)}}
+.fish-btn small{display:block;font-family:var(--font-head);font-weight:800;font-size:.6rem;color:#FFE98A;text-shadow:0 1px 3px rgba(0,0,0,.8);margin-top:2px}
+.fish-btn.caught{filter:grayscale(.4) drop-shadow(0 0 10px rgba(46,242,208,.9))}
+.fish-btn.caught .f{animation:none}
+@keyframes fishSwim{from{transform:translateX(-84px)}to{transform:translateX(105vw)}}
+.fish-btn.f1{top:34px;animation-duration:11s}
+.fish-btn.f2{top:104px;animation-duration:15s;animation-delay:1.6s}
+.fish-btn.f2 .f{font-size:2rem}
+.fish-btn.f3{top:168px;animation-duration:13s;animation-delay:3.2s}
+.fish-btn.f3 .f{font-size:2.2rem}
+.fish-btn.f4{top:66px;animation-duration:18s;animation-delay:5s}
+.fish-btn.f4 .f{font-size:1.8rem}
+.fish-btn.f5{top:140px;animation-duration:12s;animation-delay:7s}
+.fish-btn.f5 .f{font-size:2.3rem}
+.game-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;flex-wrap:wrap}
+.game-count{font-family:var(--font-head);font-weight:800;font-size:.95rem;color:#FFE98A}
+.badge{display:none;margin-top:12px;text-align:center;background:linear-gradient(90deg,rgba(255,210,63,.25),rgba(46,242,208,.25));border:1.5px solid #FFD23F;border-radius:16px;padding:12px}
+.badge.show{display:block;animation:badgePop .5s ease}
+@keyframes badgePop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.badge .b1{font-size:1.9rem}
+.badge .b2{font-family:var(--font-head);font-weight:800;font-size:1.05rem;color:#FFE98A;letter-spacing:.5px}
+.badge .b3{font-size:.9rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:99px;padding:12px 20px;font-family:var(--font-head);font-weight:800;font-size:.95rem;letter-spacing:.3px;text-decoration:none;box-shadow:0 6px 16px rgba(0,0,0,.35);transition:transform .15s ease}
+.btn:active{transform:scale(.96)}
+.btn-teal{background:linear-gradient(90deg,#2EF2D0,#5EA8FF);color:#06263F}
+.btn-pink{background:linear-gradient(90deg,#FF6FD8,#B388FF);color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+.btn-ghost{background:rgba(244,251,255,.14);color:var(--ivory);border:1.5px solid rgba(244,251,255,.55)}
+.btn-sm{padding:9px 15px;font-size:.86rem}
+.dashboard{margin-top:14px}
+.dashboard h3{font-family:var(--font-head);font-weight:800;font-size:.86rem;letter-spacing:1.6px;color:var(--teal);text-align:center;margin-bottom:12px}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:rgba(46,242,208,.1);border:1px solid rgba(46,242,208,.4);border-radius:14px;padding:11px 8px;text-align:center}
+.stat .v{font-family:var(--font-head);font-weight:800;font-size:1.12rem;color:#fff;line-height:1.25}
+.stat .k{font-size:.78rem;letter-spacing:.6px;opacity:.9;margin-top:2px}
+/* ---------- Tầng 300m: rừng tảo, rùa, bong bóng ảnh ---------- */
+#s2 .seaweed{position:absolute;left:0;right:0;bottom:0;height:230px;pointer-events:none;z-index:1;overflow:hidden}
+#s2 .seaweed svg{position:absolute;bottom:0;height:100%;width:100%}
+.turtle-wrap{position:relative;height:196px;margin-top:6px}
+.turtle-bubble{position:absolute;left:50%;top:0;transform:translateX(-50%);width:132px;height:132px;border-radius:50%;border:3px solid rgba(255,255,255,.75);background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.5),rgba(46,242,208,.12) 55%,rgba(46,242,208,.05));box-shadow:0 0 26px rgba(46,242,208,.5),inset 0 0 20px rgba(255,255,255,.25);overflow:hidden;animation:bubbleFloat 4.5s ease-in-out infinite;z-index:2}
+.turtle-bubble img{width:100%;height:100%;object-fit:cover;object-position:58% 37%}
+.turtle-bubble::after{content:"";position:absolute;left:16%;top:10%;width:34px;height:20px;border-radius:50%;background:rgba(255,255,255,.75);filter:blur(2px);transform:rotate(-24deg)}
+@keyframes bubbleFloat{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-9px)}}
+.turtle-svg{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:230px;max-width:78vw;filter:drop-shadow(0 8px 14px rgba(0,0,0,.4));animation:turtleSway 5s ease-in-out infinite}
+@keyframes turtleSway{0%,100%{transform:translateX(-50%) rotate(-2deg)}50%{transform:translateX(-50%) rotate(2deg) translateY(-4px)}}
+.turtle-cap{text-align:center;font-size:.92rem;margin-top:4px;text-shadow:0 1px 5px rgba(0,0,0,.65)}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.photo-bubble{position:relative;aspect-ratio:1;border-radius:50%;border:3px solid rgba(255,255,255,.8);background:rgba(255,255,255,.12);box-shadow:0 0 18px rgba(94,168,255,.55),inset 0 0 14px rgba(255,255,255,.25);overflow:hidden;padding:0;animation:bubbleFloat2 4.8s ease-in-out infinite}
+.photo-bubble:nth-child(2){animation-delay:.7s}.photo-bubble:nth-child(3){animation-delay:1.3s}.photo-bubble:nth-child(4){animation-delay:.4s}.photo-bubble:nth-child(5){animation-delay:1s}.photo-bubble:nth-child(6){animation-delay:1.8s}
+@keyframes bubbleFloat2{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.photo-bubble img{width:100%;height:100%;object-fit:cover}
+.photo-bubble.p1 img{object-position:45% 50%}.photo-bubble.p2 img{object-position:50% 32%}.photo-bubble.p3 img{object-position:44% 10%}.photo-bubble.p4 img{object-position:43% 50%}.photo-bubble.p5 img{object-position:58% 35%}
+.photo-bubble::after{content:"🔍";position:absolute;right:6px;bottom:6px;font-size:.8rem;background:rgba(5,20,40,.7);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.bubble-field{position:relative;height:238px;overflow:hidden;border-radius:18px;border:1.5px dashed rgba(179,136,255,.6);background:rgba(5,20,40,.45);margin-top:12px}
+.pop-bubble{position:absolute;bottom:14px;border-radius:50%;border:2.5px solid rgba(255,255,255,.8);background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.6),rgba(179,136,255,.18) 55%,rgba(179,136,255,.05));box-shadow:0 0 20px rgba(179,136,255,.5),inset 0 0 16px rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:1.5rem;animation:popFloat 4.2s ease-in-out infinite}
+.pop-bubble.popped{animation:popBurst .35s ease forwards}
+@keyframes popFloat{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-26px) translateX(6px)}}
+@keyframes popBurst{to{transform:scale(1.7);opacity:0}}
+.pop-bubble.b1{left:8%;bottom:20px;width:64px;height:64px}
+.pop-bubble.b2{left:32%;bottom:74px;width:78px;height:78px;animation-delay:.6s}
+.pop-bubble.b3{left:60%;bottom:118px;width:58px;height:58px;animation-delay:1.1s}
+.pop-bubble.b4{left:76%;bottom:36px;width:70px;height:70px;animation-delay:1.7s}
+.pop-bubble.b5{left:18%;bottom:96px;width:52px;height:52px;animation-delay:2.2s}
+.pop-bubble.b6{left:46%;bottom:150px;width:66px;height:66px;animation-delay:2.8s}
+.wish-line{min-height:3.2em;margin-top:12px;text-align:center;font-family:var(--font-note);font-size:1.28rem;line-height:1.5;color:#FF9BE4;text-shadow:0 0 14px rgba(255,111,216,.7)}
+/* ---------- Tầng 600m: vùng tối phát sáng ---------- */
+#s3 .glow-field{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.jelly{position:absolute;filter:drop-shadow(0 0 16px currentColor);animation:jellyDrift 6s ease-in-out infinite}
+@keyframes jellyDrift{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-16px) scale(1.06)}}
+.lantern-wrap{position:relative;height:120px;margin-top:4px}
+.lantern-fish{position:absolute;left:50%;top:8px;transform:translateX(-50%);width:190px;filter:drop-shadow(0 0 14px rgba(255,210,63,.6));animation:lanternSway 4.5s ease-in-out infinite}
+@keyframes lanternSway{0%,100%{transform:translateX(-50%) rotate(-3deg)}50%{transform:translateX(-50%) rotate(3deg) translateY(4px)}}
+.lantern-beam{position:absolute;left:50%;top:64px;transform:translateX(-50%);width:220px;height:110px;background:linear-gradient(180deg,rgba(255,246,180,.5),transparent);clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);filter:blur(3px);animation:beamSway 4.5s ease-in-out infinite}
+.info-line{display:flex;gap:12px;padding:13px 4px;border-bottom:1px dashed rgba(244,251,255,.25)}
+.info-line:last-child{border-bottom:none}
+.info-line .ic{font-size:1.4rem;line-height:1.2;flex:none;filter:drop-shadow(0 0 8px rgba(46,242,208,.7))}
+.info-line .lb{font-family:var(--font-head);font-weight:800;font-size:.78rem;letter-spacing:1.2px;color:var(--teal);text-transform:uppercase}
+.info-line .vl{font-size:1.04rem;font-weight:700;line-height:1.45;color:var(--ivory)}
+.info-line .vl .hl{color:#FFE98A}
+.map-btns{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.map-btns .btn{flex:1;min-width:140px;font-size:.88rem;padding:12px 8px;white-space:nowrap}
+.sonar{position:relative;margin-top:16px;text-align:center;padding:20px 12px 16px;overflow:hidden}
+.sonar::before,.sonar::after{content:"";position:absolute;left:50%;top:50%;width:120px;height:120px;border:2px solid rgba(46,242,208,.6);border-radius:50%;transform:translate(-50%,-50%);animation:sonarRing 3s ease-out infinite;pointer-events:none}
+.sonar::after{animation-delay:1.5s}
+@keyframes sonarRing{from{width:60px;height:60px;opacity:.9}to{width:320px;height:320px;opacity:0}}
+.sonar h3{position:relative;font-family:var(--font-head);font-weight:800;font-size:.86rem;letter-spacing:1.8px;color:var(--teal);margin-bottom:12px}
+.cd-grid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cd-box{background:rgba(5,20,40,.7);border:1.5px solid rgba(46,242,208,.55);border-radius:14px;padding:10px 4px;box-shadow:0 0 16px rgba(46,242,208,.25)}
+.cd-box .n{font-family:var(--font-head);font-weight:800;font-size:1.5rem;line-height:1.1;color:#fff;text-shadow:0 0 12px rgba(46,242,208,.8)}
+.cd-box .u{font-size:.68rem;letter-spacing:1px;opacity:.9;margin-top:2px}
+.sonar .target{position:relative;margin-top:10px;font-size:.9rem}
+/* ---------- Tầng 1000m: đáy biển, kho báu ---------- */
+#s4 .whale-wrap{position:relative;height:150px;overflow:hidden;margin-top:2px}
+.whale-svg{position:absolute;top:6px;left:0;width:320px;max-width:96vw;filter:drop-shadow(0 0 20px rgba(94,168,255,.6));animation:whaleSwim 22s linear infinite}
+@keyframes whaleSwim{from{transform:translateX(-340px)}to{transform:translateX(105vw)}}
+.seabed{position:absolute;left:0;right:0;bottom:0;height:64px;pointer-events:none;z-index:1}
+.chest-wrap{text-align:center;margin-top:4px}
+.chest{position:relative;display:inline-block;filter:drop-shadow(0 0 22px rgba(255,210,63,.65));animation:chestGlow 3.2s ease-in-out infinite}
+@keyframes chestGlow{0%,100%{filter:drop-shadow(0 0 14px rgba(255,210,63,.5))}50%{filter:drop-shadow(0 0 30px rgba(255,210,63,.9))}}
+.rsvp-phone{display:block;text-align:center;font-family:var(--font-head);font-weight:800;font-size:1.9rem;letter-spacing:1px;color:#FFE98A;text-decoration:none;text-shadow:0 0 18px rgba(255,210,63,.7);margin:8px 0 2px}
+.rsvp-btns{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.rsvp-btns .btn,.rsvp-btns a{flex:1;min-width:140px}
+.rsvp-form{display:none;margin-top:14px;border-top:1px dashed rgba(244,251,255,.3);padding-top:14px}
+.rsvp-form.show{display:block}
+.rsvp-form label{display:block;font-size:.86rem;font-weight:700;margin:10px 0 4px;color:var(--teal);letter-spacing:.5px}
+.rsvp-form input,.rsvp-form select,.rsvp-form textarea{width:100%;border:1.5px solid rgba(244,251,255,.4);border-radius:12px;background:rgba(255,255,255,.1);color:var(--ivory);padding:11px 12px;font-family:inherit;font-size:1rem;font-weight:600}
+.rsvp-form input::placeholder,.rsvp-form textarea::placeholder{color:rgba(244,251,255,.6)}
+.rsvp-form select option{color:#06263F}
+.rsvp-form .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.thanks-box{display:none;margin-top:14px;text-align:center;background:rgba(46,242,208,.14);border:1.5px solid var(--teal);border-radius:16px;padding:14px}
+.thanks-box.show{display:block}
+.thanks-box .t1{font-family:var(--font-head);font-weight:800;font-size:1.08rem;color:var(--teal)}
+.closing{text-align:center;margin-top:22px}
+.closing .c1{font-family:var(--font-note);font-size:1.55rem;line-height:1.5;color:#FF9BE4;text-shadow:0 0 18px rgba(255,111,216,.85),0 2px 6px rgba(0,0,0,.6)}
+.closing .c2{font-family:var(--font-note);font-size:1.28rem;line-height:1.55;color:#FFC7EC;text-shadow:0 0 14px rgba(255,111,216,.7);margin-top:12px}
+.footer{text-align:center;margin-top:20px;font-size:.84rem;opacity:.85}
+.footer a{font-weight:800}
+/* Flash chụp ảnh + lightbox */
+.flash{position:fixed;inset:0;z-index:60;background:#fff;opacity:0;pointer-events:none}
+.flash.go{animation:flashGo .28s ease}
+@keyframes flashGo{0%{opacity:0}25%{opacity:.95}100%{opacity:0}}
+.lightbox{position:fixed;inset:0;z-index:70;background:rgba(2,6,16,.92);display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:22px}
+.lightbox.show{display:flex}
+.lightbox img{max-width:92vw;max-height:74svh;border-radius:18px;border:3px solid rgba(255,255,255,.85);box-shadow:0 0 34px rgba(46,242,208,.5);object-fit:contain}
+.lightbox .lb-cap{font-family:var(--font-head);font-weight:800;color:var(--ivory)}
+.lightbox .lb-close{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;width:44px;height:44px;border-radius:50%;border:2px solid #fff;background:rgba(5,20,40,.8);color:#fff;font-size:1.2rem}
+@media (min-width:520px){
+  section{max-width:480px;margin:0 auto}
+  .gauge{left:calc(50% - 262px)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<!-- Định nghĩa gradient dùng chung cho các sinh vật SVG -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="gCoral" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF8AB8"/><stop offset="1" stop-color="#E23E7E"/></linearGradient>
+<linearGradient id="gShell" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ED957"/><stop offset="1" stop-color="#2E8B47"/></linearGradient>
+<linearGradient id="gWhale" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7FB8FF"/><stop offset="1" stop-color="#2B5CB8"/></linearGradient>
+</defs></svg>
+
+<!-- Đồng hồ độ sâu -->
+<div class="gauge" aria-hidden="true">
+  <div class="g-track" id="gTrack">
+    <div class="g-fill" id="gFill"></div>
+    <span class="g-tick" data-d="0" style="top:0%"></span><span class="g-label" data-d="0" style="top:0%">0m</span>
+    <span class="g-tick" data-d="100" style="top:10%"></span><span class="g-label" data-d="100" style="top:10%">100m</span>
+    <span class="g-tick" data-d="300" style="top:30%"></span><span class="g-label" data-d="300" style="top:30%">300m</span>
+    <span class="g-tick" data-d="600" style="top:60%"></span><span class="g-label" data-d="600" style="top:60%">600m</span>
+    <span class="g-tick" data-d="1000" style="top:100%"></span><span class="g-label" data-d="1000" style="top:100%">1000m</span>
+    <div class="g-marker" id="gMarker"><span class="g-read" id="gRead">0m</span></div>
+  </div>
+</div>
+
+<button id="soundBtn" type="button" aria-pressed="false" aria-label="Bật hoặc tắt âm thanh">🔇</button>
+
+<div class="ocean">
+<div class="rays" id="rays" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="bubbles-fixed" id="bubblesFixed" aria-hidden="true"></div>
+
+<!-- Tàu ngầm cố định giữa màn hình -->
+<div class="sub" aria-hidden="true">
+  <div class="beam"></div>
+  <div class="periscope"></div>
+  <div class="tower"></div>
+  <div class="fin-top"></div>
+  <div class="tail-fin"></div>
+  <div class="prop"></div>
+  <div class="hull">
+    <div class="porthole">
+      <img src="assets/photo-be.jpg" alt="">
+      <span class="glass"></span>
+      <span class="rivet"></span><span class="rivet"></span><span class="rivet"></span><span class="rivet"></span><span class="rivet"></span><span class="rivet"></span>
+      <span class="wave-hand">👋</span>
+    </div>
+    <div class="headlamp"></div>
+  </div>
+  <div class="sub-name">TÀU NGẦM DƯƠNG · SS-353</div>
+</div>
+<main>
+  <!-- ================= 0m: MẶT NƯỚC ================= -->
+  <section id="s0" data-depth="0">
+    <div class="sun" aria-hidden="true"></div>
+    <div class="waves" aria-hidden="true"><i>🌊</i><i>🌊</i><i>🌊</i></div>
+    <div class="fish-school" aria-hidden="true"><span>🐠</span><span>🐟</span><span>✨</span></div>
+    <div class="sec-top">
+      <div class="hero-card reveal">
+        <p class="eyebrow">THIỆP MỜI THÔI NÔI · CHUYẾN LẶN TÀU NGẦM</p>
+        <p class="theme">Dương lặn xuống đại dương bí ẩn</p>
+        <h1 class="baby-name">Chu Thiên <span class="last">DƯƠNG</span></h1>
+        <span class="age-badge">TRÒN 1 TUỔI · TUỔI TỴ</span>
+      </div>
+      <p class="wave-note reveal">👋 Bé Dương đang vẫy tay trong cửa sổ tàu ngầm kìa!<br>Tàu sẽ lặn dần từ mặt nước xuống đáy biển 1000m.</p>
+    </div>
+    <div class="sec-mid"></div>
+    <div class="sec-bottom reveal">
+      <p class="born" style="text-align:center;text-shadow:0 1px 5px rgba(0,0,0,.6)">Sinh ngày 02.12.2025 · Nặng 9.5 kg · Cao 75 cm · 6 chiếc răng</p>
+      <p class="scroll-hint" style="text-align:center">Cuộn xuống để lặn nào! ↓</p>
+      <span class="depth-pill"><span class="dot"></span>0m · MẶT NƯỚC</span>
+      <p class="lead" style="margin-top:10px;text-shadow:0 1px 5px rgba(0,0,0,.55)">Mặt trời rọi tia sáng xuyên qua làn nước trong xanh. Đàn cá nhỏ lấp lánh bơi quanh tàu ngầm. Bong bóng nổi lên, tàu nhún xuống… chuyến lặn bắt đầu!</p>
+    </div>
+  </section>
+
+  <!-- ================= 100m: RẠN SAN HÔ ================= -->
+  <section id="s1" data-depth="100">
+    <div class="sec-top">
+      <span class="depth-pill"><span class="dot"></span>100m · RẠN SAN HÔ</span>
+      <h2 class="sec-title reveal">Rạn san hô rực rỡ</h2>
+      <p class="lead reveal">San hô hồng, cam, tím nở rộ như vườn hoa dưới nước. Cá hề và cá thiên thần bơi qua bơi lại, rực rỡ và mềm mại như những đám mây nhỏ.</p>
+    </div>
+    <div class="sec-mid"></div>
+    <div class="sec-bottom">
+      <div class="glass neon reveal">
+        <h3 style="font-family:var(--font-head);font-weight:800;letter-spacing:1px;color:var(--teal);font-size:.95rem">📸 CHỤP ẢNH CÙNG CÁ NHỎ</h3>
+        <p class="small" style="margin-top:4px">Chạm vào các chú cá đang bơi để “chụp ảnh” kèm tiếng tách và đèn flash. Chụp được 3 chú cá sẽ nhận huy hiệu nhé!</p>
+        <div class="fish-pond" id="fishPond">
+          <span class="pond-label">📷 ỐNG KÍNH TÀU NGẦM</span>
+          <button class="fish-btn f1" type="button" data-fish="Cá hề"><span class="f">🐠</span><small>Cá hề</small></button>
+          <button class="fish-btn f2" type="button" data-fish="Cá xanh"><span class="f">🐟</span><small>Cá xanh</small></button>
+          <button class="fish-btn f3" type="button" data-fish="Cá nóc"><span class="f">🐡</span><small>Cá nóc</small></button>
+          <button class="fish-btn f4" type="button" data-fish="Cá vàng"><span class="f">🐠</span><small>Cá vàng</small></button>
+          <button class="fish-btn f5" type="button" data-fish="Cá thiên thần"><span class="f">🐟</span><small>Thiên thần</small></button>
+        </div>
+        <div class="game-bar">
+          <span class="game-count" id="fishCount">Đã chụp: 0 / 3 chú cá</span>
+          <button class="btn btn-ghost btn-sm" id="fishReset" type="button">↺ Chụp lại</button>
+        </div>
+        <div class="badge" id="fishBadge" role="status">
+          <div class="b1">🏅📸</div>
+          <div class="b2">NHIẾP ẢNH GIA NHÍ!</div>
+          <div class="b3">Bé Dương đã chụp đủ 3 chú cá rực rỡ. Giỏi quá!</div>
+        </div>
+        <p style="margin-top:12px"><a class="btn btn-teal btn-sm" href="#s2">Bỏ qua, lặn tiếp ↓</a></p>
+      </div>
+      <div class="glass dashboard reveal">
+        <h3>BẢNG ĐIỀU KHIỂN TÀU NGẦM</h3>
+        <div class="stat-grid">
+          <div class="stat"><div class="v">02.12.2025</div><div class="k">NGÀY SINH</div></div>
+          <div class="stat"><div class="v">9.5 kg</div><div class="k">CÂN NẶNG</div></div>
+          <div class="stat"><div class="v">75 cm</div><div class="k">CHIỀU CAO</div></div>
+          <div class="stat"><div class="v">6 chiếc</div><div class="k">RĂNG</div></div>
+        </div>
+        <p class="small" style="text-align:center;margin-top:10px">🎂 Bé Dương tròn 1 tuổi — tuổi Tỵ, khỏe mạnh và hay cười.</p>
+      </div>
+    </div>
+    <div class="coral" aria-hidden="true">
+      <svg viewBox="0 0 390 190" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 190 L0 168 Q60 150 120 168 Q190 184 260 166 Q330 150 390 168 L390 190 Z" fill="#7A4A8C" opacity=".55"/>
+        <g fill="none" stroke-linecap="round">
+          <path d="M52 182 Q48 130 62 104 M62 132 Q44 118 34 96 M62 140 Q80 126 88 100" stroke="url(#gCoral)" stroke-width="13"/>
+          <path d="M130 184 Q128 138 146 112 M146 138 Q166 124 176 98 M146 150 Q126 140 116 118" stroke="#FF7A3D" stroke-width="13" opacity=".95"/>
+          <path d="M216 184 Q214 140 232 116 M232 142 Q252 128 262 102 M232 152 Q212 142 202 120" stroke="#B388FF" stroke-width="13"/>
+          <path d="M306 184 Q306 142 322 118 M322 144 Q340 132 350 108 M322 154 Q304 144 296 124" stroke="#2EF2D0" stroke-width="12" opacity=".95"/>
+        </g>
+        <g fill="#FFD23F"><circle cx="66" cy="98" r="7"/><circle cx="150" cy="106" r="7"/><circle cx="236" cy="110" r="7"/><circle cx="326" cy="112" r="7"/></g>
+        <text x="196" y="182" font-size="26" text-anchor="middle">⭐</text>
+        <text x="20" y="176" font-size="24">🐚</text>
+        <text x="356" y="178" font-size="24">🐚</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================= 300m: RỪNG TẢO & RÙA BIỂN ================= -->
+  <section id="s2" data-depth="300">
+    <div class="sec-top">
+      <span class="depth-pill"><span class="dot"></span>300m · RỪNG TẢO &amp; RÙA BIỂN</span>
+      <h2 class="sec-title reveal">Rừng tảo đung đưa</h2>
+      <p class="lead reveal">Tảo biển xanh mướt đung đưa theo dòng nước. Một chú rùa biển hiền lành đang cõng bong bóng ảnh của bé Dương, chậm rãi bơi qua rừng tảo.</p>
+    </div>
+    <div class="sec-mid"></div>
+    <div class="sec-bottom">
+      <div class="turtle-wrap reveal" aria-label="Rùa biển cõng bong bóng ảnh bé Dương">
+        <div class="turtle-bubble"><img src="assets/photo-be.jpg" alt="Ảnh bé Chu Thiên Dương trong bong bóng"></div>
+        <svg class="turtle-svg" viewBox="0 0 230 120" role="img" aria-label="Rùa biển">
+          <ellipse cx="118" cy="62" rx="34" ry="16" fill="#2E8B47" opacity=".9"/>
+          <ellipse cx="118" cy="52" rx="62" ry="38" fill="url(#gShell)" stroke="#1E6B34" stroke-width="3"/>
+          <g fill="#A8E063" stroke="#1E6B34" stroke-width="2"><circle cx="92" cy="48" r="11"/><circle cx="118" cy="42" r="12"/><circle cx="144" cy="48" r="11"/><circle cx="104" cy="62" r="11"/><circle cx="132" cy="62" r="11"/><circle cx="118" cy="68" r="10"/></g>
+          <circle cx="196" cy="40" r="17" fill="#5FBF6A" stroke="#1E6B34" stroke-width="2"/>
+          <circle cx="202" cy="36" r="3.4" fill="#06263F"/><circle cx="203.5" cy="34.5" r="1.2" fill="#fff"/>
+          <path d="M206 48 Q212 52 206 55" fill="none" stroke="#1E6B34" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="48" cy="78" rx="26" ry="12" fill="#5FBF6A" stroke="#1E6B34" stroke-width="2" transform="rotate(-24 48 78)"/>
+          <ellipse cx="186" cy="80" rx="24" ry="11" fill="#5FBF6A" stroke="#1E6B34" stroke-width="2" transform="rotate(22 186 80)"/>
+          <ellipse cx="66" cy="34" rx="20" ry="10" fill="#7ED957" stroke="#1E6B34" stroke-width="2" transform="rotate(-30 66 34)"/>
+          <ellipse cx="168" cy="32" rx="18" ry="9" fill="#7ED957" stroke="#1E6B34" stroke-width="2" transform="rotate(28 168 32)"/>
+        </svg>
+      </div>
+      <p class="turtle-cap reveal">🐢 Rùa biển cõng bong bóng ảnh của bé Dương đi dạo rừng tảo.</p>
+      <div class="glass reveal" style="margin-top:14px">
+        <h3 style="font-family:var(--font-head);font-weight:800;letter-spacing:1px;color:var(--teal);font-size:.95rem">🫧 BONG BÓNG ẢNH CỦA BÉ</h3>
+        <p class="small" style="margin-top:4px">Chạm vào từng bong bóng để phóng to ảnh bé Dương nhé!</p>
+        <div class="photo-grid">
+          <button class="photo-bubble p1" type="button" data-photo="assets/photo-be-01.jpg" aria-label="Phóng to ảnh bé Dương 1"><img src="assets/photo-be-01.jpg" alt="Ảnh bé Dương 1" loading="lazy"></button>
+          <button class="photo-bubble p2" type="button" data-photo="assets/photo-be-02.jpg" aria-label="Phóng to ảnh bé Dương 2"><img src="assets/photo-be-02.jpg" alt="Ảnh bé Dương 2" loading="lazy"></button>
+          <button class="photo-bubble p3" type="button" data-photo="assets/photo-be-03.jpg" aria-label="Phóng to ảnh bé Dương 3"><img src="assets/photo-be-03.jpg" alt="Ảnh bé Dương 3" loading="lazy"></button>
+          <button class="photo-bubble p4" type="button" data-photo="assets/photo-be-04.jpg" aria-label="Phóng to ảnh bé Dương 4"><img src="assets/photo-be-04.jpg" alt="Ảnh bé Dương 4" loading="lazy"></button>
+          <button class="photo-bubble p5" type="button" data-photo="assets/photo-be-05.jpg" aria-label="Phóng to ảnh bé Dương 5"><img src="assets/photo-be-05.jpg" alt="Ảnh bé Dương 5" loading="lazy"></button>
+          <button class="photo-bubble" type="button" data-photo="assets/photo-be.jpg" aria-label="Phóng to ảnh bé Dương 6"><img src="assets/photo-be.jpg" alt="Ảnh bé Dương 6" loading="lazy" style="object-position:58% 37%"></button>
+        </div>
+      </div>
+      <div class="glass reveal" style="margin-top:14px">
+        <h3 style="font-family:var(--font-head);font-weight:800;letter-spacing:1px;color:#FF9BE4;font-size:.95rem">💥 NỔ BONG BÓNG NHẬN LỜI CHÚC</h3>
+        <p class="small" style="margin-top:4px">Chạm vào bong bóng để nổ ra một ngôi sao và lời chúc dành cho bé Dương!</p>
+        <div class="bubble-field" id="bubbleField">
+          <button class="pop-bubble b1" type="button" aria-label="Nổ bong bóng 1">🫧</button>
+          <button class="pop-bubble b2" type="button" aria-label="Nổ bong bóng 2">🫧</button>
+          <button class="pop-bubble b3" type="button" aria-label="Nổ bong bóng 3">🫧</button>
+          <button class="pop-bubble b4" type="button" aria-label="Nổ bong bóng 4">🫧</button>
+          <button class="pop-bubble b5" type="button" aria-label="Nổ bong bóng 5">🫧</button>
+          <button class="pop-bubble b6" type="button" aria-label="Nổ bong bóng 6">🫧</button>
+        </div>
+        <p class="wish-line" id="wishLine">Chạm vào một bong bóng nhé!</p>
+        <p class="small" style="text-align:center">Đã nổ: <span id="popCount">0</span> bong bóng · <a href="#s3" style="font-weight:800">Lặn tiếp xuống vùng tối ↓</a></p>
+      </div>
+    </div>
+    <div class="seaweed" aria-hidden="true">
+      <svg viewBox="0 0 390 230" preserveAspectRatio="xMidYMax slice">
+        <g fill="none" stroke-linecap="round">
+          <path d="M30 230 Q22 180 38 140 Q52 104 40 70" stroke="#2E8B47" stroke-width="11" opacity=".9"/>
+          <path d="M78 230 Q70 176 88 132 Q102 96 90 58" stroke="#3FBF6A" stroke-width="10" opacity=".85"/>
+          <path d="M312 230 Q322 180 306 138 Q292 102 304 66" stroke="#2E8B47" stroke-width="11" opacity=".9"/>
+          <path d="M356 230 Q348 178 364 134 Q376 100 366 62" stroke="#2EF2D0" stroke-width="9" opacity=".8"/>
+          <path d="M190 230 Q184 196 196 168" stroke="#3FBF6A" stroke-width="8" opacity=".7"/>
+        </g>
+        <g fill="#2EF2D0" opacity=".8"><circle cx="118" cy="120" r="4"/><circle cx="248" cy="96" r="4"/><circle cx="160" cy="70" r="3.4"/></g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================= 600m: VÙNG TỐI PHÁT SÁNG ================= -->
+  <section id="s3" data-depth="600">
+    <div class="glow-field" aria-hidden="true">
+      <svg class="jelly" style="left:8%;top:16%;width:74px;color:#B388FF" viewBox="0 0 80 100"><path d="M8 44 Q8 10 40 10 Q72 10 72 44 Q56 34 40 42 Q24 34 8 44Z" fill="#B388FF" opacity=".9"/><path d="M20 46 Q16 66 20 84 M34 48 Q32 68 36 86 M48 48 Q50 68 46 86 M62 46 Q66 66 60 82" stroke="#E0C8FF" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="30" cy="26" r="4" fill="#fff" opacity=".8"/><circle cx="50" cy="22" r="3" fill="#fff" opacity=".8"/></svg>
+      <svg class="jelly" style="right:6%;top:34%;width:58px;color:#FF6FD8;animation-delay:1.2s" viewBox="0 0 80 100"><path d="M8 44 Q8 10 40 10 Q72 10 72 44 Q56 34 40 42 Q24 34 8 44Z" fill="#FF6FD8" opacity=".9"/><path d="M20 46 Q16 66 20 84 M34 48 Q32 68 36 86 M48 48 Q50 68 46 86 M62 46 Q66 66 60 82" stroke="#FFC7EC" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <svg class="jelly" style="left:58%;top:6%;width:48px;color:#2EF2D0;animation-delay:2.4s" viewBox="0 0 80 100"><path d="M8 44 Q8 10 40 10 Q72 10 72 44 Q56 34 40 42 Q24 34 8 44Z" fill="#2EF2D0" opacity=".9"/><path d="M20 46 Q16 66 20 84 M34 48 Q32 68 36 86 M48 48 Q50 68 46 86" stroke="#C8FFF2" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <span style="position:absolute;left:14%;top:52%;font-size:1.6rem;filter:drop-shadow(0 0 10px #B388FF)">🦑</span>
+      <span style="position:absolute;right:12%;top:64%;font-size:1.3rem;filter:drop-shadow(0 0 10px #2EF2D0)">✨</span>
+    </div>
+    <div class="sec-top">
+      <span class="depth-pill"><span class="dot"></span>600m · VÙNG TỐI PHÁT SÁNG</span>
+      <h2 class="sec-title reveal">Vùng tối phát sáng</h2>
+      <p class="lead reveal">Ánh sáng mặt trời không còn tới được đây, nhưng sứa, mực và cá đèn lồng tự phát ra ánh neon tím, hồng, xanh ngọc — cả vùng nước lung linh như dải ngân hà.</p>
+    </div>
+    <div class="sec-mid"></div>
+    <div class="sec-bottom">
+      <div class="lantern-wrap reveal" aria-hidden="true">
+        <div class="lantern-beam"></div>
+        <svg class="lantern-fish" viewBox="0 0 190 90">
+          <path d="M20 45 Q60 12 118 22 Q160 28 176 45 Q160 62 118 68 Q60 78 20 45Z" fill="#12233F" stroke="#2EF2D0" stroke-width="2"/>
+          <path d="M176 45 L196 30 L192 45 L196 60Z" fill="#1E3A5F" stroke="#2EF2D0" stroke-width="2"/>
+          <path d="M118 22 Q104 6 92 10 Q100 18 108 26" fill="none" stroke="#2EF2D0" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="88" cy="9" r="7" fill="#FFF3A0" stroke="#FFD23F" stroke-width="2"/>
+          <circle cx="40" cy="40" r="7" fill="#FFFBE0"/><circle cx="42" cy="40" r="3.4" fill="#06263F"/>
+          <path d="M30 50 Q44 56 58 52" fill="none" stroke="#2EF2D0" stroke-width="2" stroke-linecap="round"/>
+          <g fill="#2EF2D0"><circle cx="70" cy="38" r="2.6"/><circle cx="92" cy="44" r="2.6"/><circle cx="114" cy="40" r="2.6"/><circle cx="136" cy="46" r="2.6"/></g>
+        </svg>
+      </div>
+      <div class="glass neon reveal">
+        <h3 style="font-family:var(--font-head);font-weight:800;letter-spacing:1px;color:#FFE98A;font-size:.95rem">💡 CÁ ĐÈN LỒNG SOI SÁNG LỜI MỜI</h3>
+        <p class="small" style="margin-top:4px">Chú cá đèn lồng thả chiếc đèn sáng, chiếu lên từng dòng thông tin buổi tiệc:</p>
+        <div class="info-line"><span class="ic">🕚</span><div><div class="lb">Thời gian</div><div class="vl"><span class="hl">11:00, Chủ nhật, 06/12/2026</span><br>Đón khách từ 10:30</div></div></div>
+        <div class="info-line"><span class="ic">🏛️</span><div><div class="lb">Địa điểm</div><div class="vl">Nhà hàng Hoa Sữa, sảnh Hạnh Phúc, tầng 2</div></div></div>
+        <div class="info-line"><span class="ic">📍</span><div><div class="lb">Địa chỉ</div><div class="vl">25 Đường Hoa Sữa, Quận Ba Đình, Hà Nội</div></div></div>
+        <div class="map-btns">
+          <a class="btn btn-teal" href="https://www.google.com/maps/search/?api=1&amp;query=Nh%C3%A0%20h%C3%A0ng%20Hoa%20S%E1%BB%AFa%2C%2025%20%C4%90%C6%B0%E1%BB%9Dng%20Hoa%20S%E1%BB%AFa%2C%20Qu%E1%BA%ADn%20Ba%20%C4%90%C3%ACnh%2C%20H%C3%A0%20N%E1%BB%99i" target="_blank" rel="noopener">🗺️ Chỉ đường</a>
+          <button class="btn btn-pink" id="icsBtn" type="button">📅 Thêm vào lịch</button>
+        </div>
+      </div>
+      <div class="glass sonar reveal">
+        <h3>ĐẾM NGƯỢC BẰNG SONAR</h3>
+        <div class="cd-grid">
+          <div class="cd-box"><div class="n" id="cdD">--</div><div class="u">NGÀY</div></div>
+          <div class="cd-box"><div class="n" id="cdH">--</div><div class="u">GIỜ</div></div>
+          <div class="cd-box"><div class="n" id="cdM">--</div><div class="u">PHÚT</div></div>
+          <div class="cd-box"><div class="n" id="cdS">--</div><div class="u">GIÂY</div></div>
+        </div>
+        <p class="target" id="cdNote">đến 11:00, Chủ nhật 06/12/2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 1000m: ĐÁY BIỂN, KHO BÁU ================= -->
+  <section id="s4" data-depth="1000">
+    <div class="sec-top">
+      <span class="depth-pill"><span class="dot"></span>1000m · ĐÁY BIỂN · KHO BÁU</span>
+      <h2 class="sec-title reveal">Đáy biển, kho báu!</h2>
+      <p class="lead reveal">Tàu ngầm đã chạm đáy đại dương. Một chú cá voi xanh khổng lồ chậm rãi bơi qua, và chiếc rương kho báu đang phát sáng chờ được mở…</p>
+    </div>
+    <div class="whale-wrap" aria-hidden="true">
+      <svg class="whale-svg" viewBox="0 0 320 130">
+        <g fill="#7ED4F7" opacity=".9"><circle cx="52" cy="18" r="4"/><circle cx="60" cy="10" r="3"/><circle cx="44" cy="8" r="2.6"/></g>
+        <path d="M18 78 Q70 34 168 36 Q252 38 292 62 L306 48 L300 72 L308 88 Q262 108 176 106 Q76 104 18 78Z" fill="url(#gWhale)" stroke="#1E3A5F" stroke-width="2"/>
+        <path d="M18 78 Q76 104 176 106 Q262 108 308 88 Q250 96 180 94 Q86 92 18 78Z" fill="#CDEBFF" opacity=".85"/>
+        <path d="M292 62 L306 48 L300 72 L308 88 L288 76Z" fill="#2B5CB8"/>
+        <path d="M150 104 Q158 122 176 120 Q168 106 158 100Z" fill="#2B5CB8"/>
+        <circle cx="52" cy="62" r="6" fill="#06263F"/><circle cx="54" cy="60" r="2" fill="#fff"/>
+        <path d="M38 74 Q48 80 58 76" fill="none" stroke="#1E3A5F" stroke-width="2" stroke-linecap="round"/>
+        <g stroke="#5EA8FF" stroke-width="3" stroke-linecap="round" opacity=".8"><path d="M96 52 Q110 60 126 54"/><path d="M150 48 Q164 56 180 50"/><path d="M204 48 Q218 56 234 50"/></g>
+      </svg>
+    </div>
+    <div class="sec-mid"></div>
+    <div class="sec-bottom">
+      <div class="chest-wrap reveal" aria-hidden="true">
+        <svg class="chest" width="168" height="122" viewBox="0 0 180 130">
+          <g stroke="#FFD23F" stroke-width="3" stroke-linecap="round" opacity=".8"><path d="M90 8 L90 28 M48 18 L60 32 M132 18 L120 32"/></g>
+          <path d="M34 62 Q34 28 90 28 Q146 28 146 62 Z" fill="#8A5A2B" stroke="#5A3413" stroke-width="3"/>
+          <path d="M34 62 L146 62 L146 112 Q146 120 138 120 L42 120 Q34 120 34 112 Z" fill="#A86B32" stroke="#5A3413" stroke-width="3"/>
+          <rect x="82" y="56" width="16" height="26" rx="4" fill="#FFD23F" stroke="#8A5A00" stroke-width="2"/>
+          <circle cx="90" cy="66" r="4" fill="#5A3413"/>
+          <g fill="#FFD23F"><circle cx="52" cy="98" r="7"/><circle cx="70" cy="106" r="7"/><circle cx="110" cy="106" r="7"/><circle cx="128" cy="98" r="7"/><circle cx="90" cy="104" r="7"/></g>
+          <g fill="#FFF3A0"><path d="M30 40 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z"/><path d="M150 44 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z"/></g>
+        </svg>
+      </div>
+      <div class="glass neon reveal" style="margin-top:10px">
+        <h3 style="font-family:var(--font-head);font-weight:800;letter-spacing:1px;color:var(--teal);font-size:1rem;text-align:center">💌 XÁC NHẬN THAM DỰ</h3>
+        <a class="rsvp-phone" href="tel:0901234567">0901 234 567</a>
+        <p style="text-align:center">Ba mẹ bé Dương<br><span class="small">Vui lòng báo trước ngày 01/12/2026</span></p>
+        <div class="rsvp-btns">
+          <a class="btn btn-teal" href="tel:0901234567">📞 Gọi ngay</a>
+          <button class="btn btn-pink" id="comeBtn" type="button">💌 Tôi sẽ đến</button>
+        </div>
+        <form class="rsvp-form" id="rsvpForm">
+          <label for="rsvpName">Tên của bạn *</label>
+          <input id="rsvpName" name="name" type="text" placeholder="Ví dụ: Cô Mai" required>
+          <div class="row">
+            <div><label for="rsvpAdults">Người lớn</label><select id="rsvpAdults"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5+</option></select></div>
+            <div><label for="rsvpKids">Trẻ em</label><select id="rsvpKids"><option selected>0</option><option>1</option><option>2</option><option>3</option><option>4+</option></select></div>
+          </div>
+          <label for="rsvpWish">Lời chúc cho bé Dương</label>
+          <textarea id="rsvpWish" rows="2" placeholder="Chúc Dương ăn ngoan chóng lớn…"></textarea>
+          <p style="margin-top:14px"><button class="btn btn-teal" type="submit" style="width:100%">Gửi hồi âm 💌</button></p>
+          <p class="small" style="text-align:center;margin-top:8px">Hồi âm được lưu trên thiết bị này. Bạn cũng có thể gọi <a href="tel:0901234567" style="font-weight:800">0901 234 567</a> để báo trực tiếp nhé!</p>
+        </form>
+        <div class="thanks-box" id="thanksBox" role="status">
+          <div class="t1">💖 Cảm ơn bạn đã hồi âm!</div>
+          <p id="thanksText" style="margin-top:6px"></p>
+          <p class="small" style="margin-top:4px">Hẹn gặp bạn lúc 11:00, Chủ nhật 06/12/2026 tại Nhà hàng Hoa Sữa nhé!</p>
+        </div>
+      </div>
+      <div class="closing reveal">
+        <p class="c1">Dương tròn 1 tuổi, mời cả nhà đến chung vui cùng bé nhé!</p>
+        <p class="c2">Sự hiện diện của bạn là món quà ý nghĩa nhất với Dương.</p>
+        <p style="margin-top:18px"><a class="btn btn-ghost" href="#s0">🌊 Trồi lên mặt nước ↑</a></p>
+      </div>
+      <p class="footer">Chuyến lặn: 0m → 1000m · Tàu ngầm SS-353<br><a href="https://templexa.vn" target="_blank" rel="noopener">Templexa.vn</a> · Thiệp mời thôi nôi online</p>
+    </div>
+    <div class="seabed" aria-hidden="true">
+      <svg viewBox="0 0 390 120" preserveAspectRatio="xMidYMax slice" style="width:100%;height:100%">
+        <path d="M0 120 L0 92 Q80 70 160 90 Q240 108 320 88 Q360 78 390 90 L390 120Z" fill="#2A1E4A" opacity=".8"/>
+        <g fill="none" stroke="#B388FF" stroke-width="3" stroke-linecap="round" opacity=".7"><path d="M60 92 Q56 70 66 56 M66 74 Q54 64 50 50"/><path d="M330 90 Q326 68 336 54 M336 72 Q348 62 352 48"/></g>
+        <text x="30" y="112" font-size="20">🐚</text><text x="350" y="112" font-size="20">⭐</text>
+      </svg>
+    </div>
+  </section>
+</main>
+</div>
+
+<div class="flash" id="flash" aria-hidden="true"></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Ảnh bé Dương phóng to">
+  <button class="lb-close" id="lbClose" type="button" aria-label="Đóng ảnh">✕</button>
+  <img id="lbImg" src="assets/photo-be.jpg" alt="Ảnh bé Chu Thiên Dương">
+  <p class="lb-cap">🫧 Ảnh bé Dương · Chạm ngoài ảnh hoặc nút ✕ để đóng</p>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  /* ---------- Đồng hồ độ sâu + tia sáng ---------- */
+  var gFill=document.getElementById('gFill'), gMarker=document.getElementById('gMarker'),
+      gRead=document.getElementById('gRead'), rays=document.getElementById('rays'),
+      ticks=Array.prototype.slice.call(document.querySelectorAll('.g-tick,.g-label')),
+      tickDepths=[0,100,300,600,1000], ticking=false;
+  function onScroll(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){
+      ticking=false;
+      var max=document.documentElement.scrollHeight-window.innerHeight;
+      var p=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
+      var depth=Math.round(p*1000);
+      gFill.style.height=(p*100)+'%';
+      gMarker.style.top=(p*100)+'%';
+      gRead.textContent=depth+'m';
+      gRead.style.visibility=depth<25?'hidden':'visible';
+      rays.style.opacity=Math.max(0,1-p*1.6);
+      var nearest=tickDepths[0],best=1e9;
+      tickDepths.forEach(function(d){var diff=Math.abs(depth-d);if(diff<best){best=diff;nearest=d;}});
+      ticks.forEach(function(el){el.classList.toggle('on',Number(el.getAttribute('data-d'))===nearest);});
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  /* ---------- Bong bóng nổi liên tục ---------- */
+  var bf=document.getElementById('bubblesFixed');
+  for(var i=0;i<14;i++){
+    var b=document.createElement('i'), size=6+Math.random()*20;
+    b.style.left=(Math.random()*96)+'%'; b.style.width=size+'px'; b.style.height=size+'px';
+    b.style.animationDuration=(9+Math.random()*10)+'s'; b.style.animationDelay=(-Math.random()*14)+'s';
+    bf.appendChild(b);
+  }
+  /* ---------- Hiện dần khi cuộn tới ---------- */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('inview');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  /* ---------- Âm thanh Web Audio: mặc định TẮT ---------- */
+  var soundBtn=document.getElementById('soundBtn'), audioOn=false, ctx=null, master=null, musicTimer=null, pingTimer=null;
+  function buildAudio(){
+    ctx=new (window.AudioContext||window.webkitAudioContext)();
+    master=ctx.createGain(); master.gain.value=0; master.connect(ctx.destination);
+    var len=ctx.sampleRate*2, buf=ctx.createBuffer(1,len,ctx.sampleRate), data=buf.getChannelData(0);
+    for(var k=0;k<len;k++) data[k]=Math.random()*2-1;
+    var src=ctx.createBufferSource(); src.buffer=buf; src.loop=true;
+    var lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=260;
+    var wg=ctx.createGain(); wg.gain.value=.045;
+    var lfo=ctx.createOscillator(); lfo.frequency.value=.08;
+    var lfoG=ctx.createGain(); lfoG.gain.value=.028;
+    lfo.connect(lfoG); lfoG.connect(wg.gain);
+    src.connect(lp); lp.connect(wg); wg.connect(master); src.start(); lfo.start();
+    var drone=ctx.createOscillator(), dg=ctx.createGain();
+    drone.type='sine'; drone.frequency.value=55; dg.gain.value=.05;
+    drone.connect(dg); dg.connect(master); drone.start();
+    var seq=[[329.63,0],[392,0],[440,0],[523.25,0],[440,0],[392,0],[329.63,0],[0,0],[293.66,0],[392,0],[440,0],[392,0],[329.63,0],[293.66,0],[0,0],[0,0]], step=0;
+    function note(f,dur){
+      var t=ctx.currentTime, o=ctx.createOscillator(), g=ctx.createGain();
+      o.type='sine'; o.frequency.value=f;
+      g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.07,t+.06);
+      g.gain.setValueAtTime(.07,t+dur*.55); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+      o.connect(g); g.connect(master); o.start(t); o.stop(t+dur);
+    }
+    function playStep(){
+      if(!audioOn||!ctx) return;
+      var item=seq[step%seq.length]; step++;
+      if(item[0]>0) note(item[0],1.05);
+      musicTimer=setTimeout(playStep,1120);
+    }
+    function ping(){
+      if(!audioOn||!ctx) return;
+      try{
+        var t=ctx.currentTime, o=ctx.createOscillator(), g=ctx.createGain();
+        o.type='sine'; o.frequency.value=1180;
+        g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.05,t+.02);
+        g.gain.exponentialRampToValueAtTime(.0001,t+1.4);
+        o.connect(g); g.connect(master); o.start(t); o.stop(t+1.5);
+      }catch(e){}
+      pingTimer=setTimeout(ping,7000);
+    }
+    playStep(); ping();
+  }
+  function blip(freq,dur,vol,type){
+    if(!audioOn||!ctx) return;
+    try{
+      var t=ctx.currentTime, o=ctx.createOscillator(), g=ctx.createGain();
+      o.type=type||'sine'; o.frequency.value=freq;
+      g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(vol||.08,t+.015);
+      g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+      o.connect(g); g.connect(master); o.start(t); o.stop(t+dur+.05);
+    }catch(e){}
+  }
+  function shutterSfx(){ blip(2100,.12,.09,'square'); setTimeout(function(){blip(1500,.1,.06,'square');},70); }
+  function popSfx(){
+    if(!audioOn||!ctx) return;
+    try{
+      var t=ctx.currentTime, o=ctx.createOscillator(), g=ctx.createGain();
+      o.type='sine'; o.frequency.setValueAtTime(280,t); o.frequency.exponentialRampToValueAtTime(980,t+.16);
+      g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.1,t+.02);
+      g.gain.exponentialRampToValueAtTime(.0001,t+.28);
+      o.connect(g); g.connect(master); o.start(t); o.stop(t+.3);
+    }catch(e){}
+  }
+  soundBtn.addEventListener('click',function(){
+    try{
+      if(!ctx) buildAudio();
+      if(ctx.state==='suspended') ctx.resume();
+      audioOn=!audioOn;
+      var t=ctx.currentTime;
+      master.gain.cancelScheduledValues(t);
+      master.gain.setTargetAtTime(audioOn?.5:0,t,.4);
+      if(!audioOn){ if(musicTimer){clearTimeout(musicTimer);musicTimer=null;} if(pingTimer){clearTimeout(pingTimer);pingTimer=null;} }
+      soundBtn.textContent=audioOn?'🔊':'🔇';
+      soundBtn.setAttribute('aria-pressed',audioOn?'true':'false');
+    }catch(e){}
+  });
+  /* ---------- Game 1: chụp cá ---------- */
+  var fishCount=0, fishEl=document.getElementById('fishCount'), fishBadge=document.getElementById('fishBadge'),
+      flash=document.getElementById('flash');
+  function flashGo(){ flash.classList.remove('go'); void flash.offsetWidth; flash.classList.add('go'); }
+  document.querySelectorAll('.fish-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      if(btn.classList.contains('caught')||fishCount>=3) return;
+      btn.classList.add('caught');
+      btn.querySelector('.f').textContent='📸';
+      fishCount++;
+      fishEl.textContent='Đã chụp: '+fishCount+' / 3 chú cá';
+      shutterSfx(); flashGo();
+      if(fishCount>=3) fishBadge.classList.add('show');
+    });
+  });
+  document.getElementById('fishReset').addEventListener('click',function(){
+    fishCount=0; fishEl.textContent='Đã chụp: 0 / 3 chú cá'; fishBadge.classList.remove('show');
+    document.querySelectorAll('.fish-btn').forEach(function(btn,i){
+      btn.classList.remove('caught');
+      btn.querySelector('.f').textContent=['🐠','🐟','🐡','🐠','🐟'][i];
+    });
+  });
+  /* ---------- Game 2: nổ bong bóng ---------- */
+  var wishes=['⭐ Chúc Dương ăn ngoan chóng lớn!','⭐ Chúc Dương khỏe mạnh, hay cười!','⭐ Chúc Dương mau biết đi, biết nói!','⭐ Chúc Dương một tuổi thật vui!','⭐ Chúc Dương lớn lên dũng cảm như thủy thủ!','⭐ Chúc Dương luôn được yêu thương!'],
+      wishLine=document.getElementById('wishLine'), popCount=0, popEl=document.getElementById('popCount'), wi=0;
+  document.querySelectorAll('.pop-bubble').forEach(function(bub){
+    bub.addEventListener('click',function(){
+      if(bub.classList.contains('popped')) return;
+      bub.classList.add('popped'); popSfx();
+      wishLine.textContent=wishes[wi%wishes.length]; wi++;
+      popCount++; popEl.textContent=popCount;
+      setTimeout(function(){bub.classList.remove('popped');},900);
+    });
+  });
+  /* ---------- Lightbox ảnh bé ---------- */
+  var lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
+  document.querySelectorAll('.photo-bubble').forEach(function(btn){
+    btn.addEventListener('click',function(){ lbImg.src=btn.getAttribute('data-photo'); lb.classList.add('show'); });
+  });
+  function closeLb(){ lb.classList.remove('show'); }
+  document.getElementById('lbClose').addEventListener('click',closeLb);
+  lb.addEventListener('click',function(e){ if(e.target===lb) closeLb(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeLb(); });
+  /* ---------- Đếm ngược sonar ---------- */
+  var target=new Date('2026-12-06T11:00:00+07:00').getTime(),
+      cdD=document.getElementById('cdD'), cdH=document.getElementById('cdH'),
+      cdM=document.getElementById('cdM'), cdS=document.getElementById('cdS'), cdNote=document.getElementById('cdNote');
+  function pad(n){ return (n<10?'0':'')+n; }
+  function tickCd(){
+    var diff=target-Date.now();
+    if(diff<=0){ cdD.textContent='0'; cdH.textContent='00'; cdM.textContent='00'; cdS.textContent='00'; cdNote.textContent='Buổi tiệc đang diễn ra / đã diễn ra — cảm ơn bạn đã đến!'; return; }
+    cdD.textContent=Math.floor(diff/86400000);
+    cdH.textContent=pad(Math.floor(diff/3600000)%24);
+    cdM.textContent=pad(Math.floor(diff/60000)%60);
+    cdS.textContent=pad(Math.floor(diff/1000)%60);
+  }
+  tickCd(); setInterval(tickCd,1000);
+  /* ---------- Thêm vào lịch (ICS) ---------- */
+  document.getElementById('icsBtn').addEventListener('click',function(){
+    var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Templexa//ThoiNoi//VI','CALSCALE:GREGORIAN','BEGIN:VEVENT',
+      'UID:thoi-noi-duong-tau-ngam-20261206@templexa.vn','DTSTAMP:20261029T000000Z',
+      'DTSTART:20261206T040000Z','DTEND:20261206T060000Z',
+      'SUMMARY:Thôi nôi bé Chu Thiên Dương (tròn 1 tuổi) — Chuyến lặn tàu ngầm',
+      'DESCRIPTION:Đón khách từ 10:30. Xác nhận tham dự: 0901 234 567 (Ba mẹ bé Dương)\\, báo trước 01/12/2026.',
+      'LOCATION:Nhà hàng Hoa Sữa\\, sảnh Hạnh Phúc\\, tầng 2\\, 25 Đường Hoa Sữa\\, Quận Ba Đình\\, Hà Nội',
+      'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));
+    a.download='thoi-noi-be-duong-20261206.ics';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+  /* ---------- Hồi âm ---------- */
+  var comeBtn=document.getElementById('comeBtn'), form=document.getElementById('rsvpForm'),
+      thanksBox=document.getElementById('thanksBox'), thanksText=document.getElementById('thanksText');
+  comeBtn.addEventListener('click',function(){ form.classList.toggle('show'); if(form.classList.contains('show')) document.getElementById('rsvpName').focus(); });
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('rsvpName').value.trim();
+    if(!name){ document.getElementById('rsvpName').focus(); return; }
+    var adults=document.getElementById('rsvpAdults').value, kids=document.getElementById('rsvpKids').value,
+        wish=document.getElementById('rsvpWish').value.trim();
+    try{
+      var key='wish_353', list=JSON.parse(localStorage.getItem(key)||'[]');
+      list.push({name:name,adults:adults,kids:kids,wish:wish,at:new Date().toISOString()});
+      localStorage.setItem(key,JSON.stringify(list));
+    }catch(err){}
+    thanksText.innerHTML='Cảm ơn <b>'+name.replace(/</g,'&lt;')+'</b>! Bạn sẽ đến cùng '+adults+' người lớn'+(kids!=='0'?' và '+kids+' trẻ em':'')+'.'+(wish?' Lời chúc: “'+wish.replace(/</g,'&lt;')+'”':'');
+    form.classList.remove('show'); thanksBox.classList.add('show');
+    thanksBox.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+})();
+</script>
+</body>
+</html>
