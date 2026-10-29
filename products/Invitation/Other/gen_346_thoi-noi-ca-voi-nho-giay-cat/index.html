@@ -112,8 +112,8 @@ body.locked{overflow:hidden}
 
 /* ---------- Hành trình (Màn 2–5) ---------- */
 #journey{position:relative;height:430vh;margin:26px -14px 0;background:transparent}
-.journey-sticky{position:sticky;top:0;height:100svh;min-height:540px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.journey-stage{position:relative;width:100%;max-width:480px;aspect-ratio:3/4;max-height:94svh}
+.journey-sticky{position:sticky;top:0;height:100svh;min-height:540px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px 0;overflow:hidden}
+.journey-stage{position:relative;width:min(480px,100%,calc((100svh - 150px)*.75));aspect-ratio:3/4;flex:0 1 auto}
 .journey-stage svg.scene{position:absolute;inset:0;width:100%;height:100%}
 .journey-stage .balloon-svg{animation:floaty 6s ease-in-out infinite}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -122,8 +122,9 @@ body.locked{overflow:hidden}
 .journey-stage .cloud-c{animation:drift 38s ease-in-out infinite}
 .journey-stage .bird{animation:flyAcross 14s linear infinite}
 @keyframes flyAcross{0%{transform:translateX(-40px) translateY(0)}50%{transform:translateX(200px) translateY(-14px)}100%{transform:translateX(460px) translateY(4px)}}
-.chapter{position:absolute;left:50%;top:6%;transform:translateX(-50%);width:min(330px,86%);background:rgba(255,253,247,.96);border:3px solid #fff;border-radius:22px;box-shadow:0 10px 22px rgba(31,58,95,.22);padding:14px 18px 12px;text-align:center;opacity:0;pointer-events:none;transition:opacity .45s ease,transform .45s ease;z-index:5}
-.chapter.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.chapter-stack{display:grid;width:min(360px,92%);flex:0 0 auto}
+.chapter{grid-area:1/1;background:rgba(255,253,247,.96);border:3px solid #fff;border-radius:22px;box-shadow:0 10px 22px rgba(31,58,95,.22);padding:14px 18px 12px;text-align:center;opacity:0;pointer-events:none;transition:opacity .45s ease,transform .45s ease;transform:translateY(8px)}
+.chapter.show{opacity:1;transform:translateY(0)}
 .chapter .hand{font-family:var(--font-hand);font-size:1.55rem;line-height:1.2;color:var(--coral-d)}
 .chapter .sub{font-size:.92rem;color:var(--ink-l);margin-top:2px}
 .progress-rail{position:absolute;left:12px;top:14%;bottom:14%;width:5px;background:rgba(255,255,255,.65);border-radius:99px;z-index:5;overflow:hidden}
@@ -363,6 +364,23 @@ body.locked{overflow:hidden}
           <circle cx="150" cy="560" r="5" fill="#fff" opacity=".8"/><circle cx="210" cy="585" r="4" fill="#fff" opacity=".7"/><circle cx="300" cy="565" r="5" fill="#fff" opacity=".8"/><circle cx="420" cy="600" r="4" fill="#fff" opacity=".7"/>
         </svg>
 
+        <div class="progress-rail" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-whale" id="progressWhale" aria-hidden="true">🐋</div>
+
+        <!-- Xe vàng: cửa sổ tròn hiện ảnh bé (assets/photo-be.jpg) -->
+        <div class="car" id="car" aria-hidden="true">
+          <div class="car-body"></div>
+          <div class="car-window">
+            <span class="ph-mini">👶</span>
+            <img src="assets/photo-be.jpg" alt="" onerror="this.style.display='none'">
+          </div>
+          <div class="wheel w1"><span class="spin"></span></div>
+          <div class="wheel w2"><span class="spin"></span></div>
+          <span class="car-flag">🚩</span>
+        </div>
+      </div>
+
+      <div class="chapter-stack">
         <div class="chapter ch1">
           <p class="hand">Dương lên xe rồi, xuất phát thôi!</p>
           <p class="sub">Chiếc xe vàng lăn bánh trên những đám mây ☁️</p>
@@ -378,21 +396,6 @@ body.locked{overflow:hidden}
         <div class="chapter ch4">
           <p class="hand">Đại dương đây rồi!</p>
           <p class="sub">Xe đỗ lại bên bờ biển, sóng vỗ, thuyền giấy nhấp nhô 🌊</p>
-        </div>
-
-        <div class="progress-rail" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-whale" id="progressWhale" aria-hidden="true">🐋</div>
-
-        <!-- Xe vàng: cửa sổ tròn hiện ảnh bé (assets/photo-be.jpg) -->
-        <div class="car" id="car" aria-hidden="true">
-          <div class="car-body"></div>
-          <div class="car-window">
-            <span class="ph-mini">👶</span>
-            <img src="assets/photo-be.jpg" alt="" onerror="this.style.display='none'">
-          </div>
-          <div class="wheel w1"><span class="spin"></span></div>
-          <div class="wheel w2"><span class="spin"></span></div>
-          <span class="car-flag">🚩</span>
         </div>
       </div>
     </div>
