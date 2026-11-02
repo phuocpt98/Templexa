@@ -287,7 +287,7 @@ var WEDDING = {
     'bao-tram-dinh-phuoc': {
         src: '../../products/Invitation/Wedding/khach_bao-tram-dinh-phuoc/code.html',
         title: 'Bảo Trăm & Đình Phước — Thiệp Cưới',
-        description: 'Trân trọng kính mời dự Lễ Vu Quy — 08:00 thứ Hai 16/11/2026 tại Tổ 12, Ấp AB, Xã Mỹ Thọ, Đồng Tháp',
+        description: 'Trân trọng kính mời dự Lễ Vu Quy — 08:00 thứ Ba 17/11/2026 tại Tổ 12, Ấp AB, Xã Mỹ Thọ, Đồng Tháp',
         image: '../../products/Invitation/Wedding/khach_bao-tram-dinh-phuoc/og-cover.jpg',
     },
 };
