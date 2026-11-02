@@ -7537,7 +7537,7 @@ const PRODUCTS = [
         id: 352,
         name: 'Thôi Nôi Bé Dương — Chai Thư & Chim Rio',
         slug: 'thoi-noi-be-duong-chai-thu-chim-rio',
-        description: 'Thiệp mời thôi nôi online dạng thư trong chai do chim Rio đưa thư, vuốt ngang 6 trang: mini game chọn chai có thư, tờ thư viết tay có dấu sáp và ảnh polaroid, vẽ lời chúc lên cát, nhật ký năm đầu đời lật polaroid, bản đồ chim Rio bay tới Trung Tâm Yến Tiệc Và Hội Nghị Amor Resort, phong bì hồi âm tem chim Rio. Minh hoạ chim Rio vẹt xanh bay, đậu cành và mang chai thư. Âm thanh guitar mộc, sóng và tiếng chim Rio mặc định tắt.',
+        description: 'Thiệp mời thôi nôi online dạng thư trong chai do chim Rio đưa thư, vuốt ngang 6 trang: bìa một chai thư trôi giữa biển, chạm để mở thư, tờ thư viết tay có dấu sáp và ảnh polaroid, vẽ lời chúc lên cát, nhật ký năm đầu đời lật polaroid, bản đồ chim Rio bay tới Trung Tâm Yến Tiệc Và Hội Nghị Amor Resort, phong bì hồi âm tem chim Rio. Minh hoạ chim Rio vẹt xanh bay, đậu cành và mang chai thư. Âm thanh guitar mộc, sóng và tiếng chim Rio mặc định tắt.',
         category: 'other',
         type: 'invitation',
         style: '',
@@ -7555,7 +7555,7 @@ const PRODUCTS = [
         demoUrl: './products/Invitation/Other/gen_352_thu-trong-chai-chim-rio/index.html',
         variants: [],
         features: [
-            'Vuốt ngang 6 trang, chấm chỉ số trang, mini game chọn chai có thư',
+            'Bìa một chai thư trôi giữa biển, chạm để mở thư; vuốt ngang 6 trang, chấm chỉ số trang',
             'Chim Rio vẹt xanh: bay quanh biển, đậu cành, đậu trên thư, bay dọc bản đồ, mang chai thư bay đi',
             'Thư viết tay hiện dần, ảnh polaroid kẹp gỗ, vẽ lời chúc lên cát, nhật ký lật polaroid',
             'Bản đồ chim Rio, đếm ngược đồng hồ cát, hồi âm tem chim Rio, âm thanh guitar + sóng + chim Rio mặc định tắt',
