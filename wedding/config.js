@@ -283,4 +283,11 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự tiệc mừng cưới — 17:00 thứ Bảy 05/12/2026 tại L7 West Lake Hà Nội, Tây Hồ, Hà Nội',
         image: '../../products/Invitation/Wedding/khach_viet-an-jasmine/og-cover.jpg',
     },
+    // Bảo Trăm - Đình Phước — job-bao-tram-dinh-phuoc (mẫu 241)
+    'bao-tram-dinh-phuoc': {
+        src: '../../products/Invitation/Wedding/khach_bao-tram-dinh-phuoc/code.html',
+        title: 'Bảo Trăm & Đình Phước — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự Lễ Vu Quy — 08:00 thứ Hai 16/11/2026 tại Tổ 12, Ấp AB, Xã Mỹ Thọ, Đồng Tháp',
+        image: '../../products/Invitation/Wedding/khach_bao-tram-dinh-phuoc/og-cover.jpg',
+    },
 };
