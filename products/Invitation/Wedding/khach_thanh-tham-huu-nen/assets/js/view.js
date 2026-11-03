@@ -2358,13 +2358,13 @@ html,body{overflow-x:hidden!important;max-width:100vw!important}
     <label class="wb-form-label">${wbEsc(c.labelName)}</label>
     <input type="text" class="wb-form-input" name="name" placeholder="${wbEsc(c.phName)}"${nameVal}>
   </div>
-  <div class="wb-form-field">
+  ${c.hideVisibility ? '' : `<div class="wb-form-field">
     <label class="wb-form-label">${wbEsc(c.labelVisibility)}</label>
     <div class="wb-opt-group" data-name="visibility">
       <label class="wb-opt-label active" data-val="all">${wbEsc(c.optAll)}</label>
       <label class="wb-opt-label" data-val="private">${wbEsc(c.optPrivate)}</label>
     </div>
-  </div>
+  </div>`}
   <div class="wb-form-field">
     <label class="wb-form-label">${wbEsc(c.labelMessage)}</label>
     <textarea class="wb-form-textarea" name="message" maxlength="${WB_MSG_MAX}" placeholder="${wbEsc(c.phMessage)}"></textarea>
