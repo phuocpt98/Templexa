@@ -2311,6 +2311,17 @@ window.GUEST_NAME_EXPLICIT = false;
 // Tên mặc định do chủ thiệp đặt ở popup Xuất bản ('' = dùng chữ có sẵn trong mẫu).
 // view.js cần biết để còn thay chữ trong .class_tenKhachMoi cả khi link KHÔNG có ?n=.
 window.GUEST_NAME_DEFAULT = "";
+// Link riêng từng khách (?ten=...): lấy tên khách từ URL để view.js thay vào
+// bìa + thư mời và điền sẵn ô tên form hồi âm / lời chúc (mẫu 328 vốn dùng ?n=,
+// ?ten= là tên gọi quen thuộc từ thiệp Rio — hỗ trợ cả hai).
+(function () {
+  var ten = null;
+  try { ten = new URLSearchParams(window.location.search).get('ten'); } catch (e) {}
+  if (!ten && window.location.hash) {
+    try { ten = new URLSearchParams(window.location.hash.slice(1)).get('ten'); } catch (e) {}
+  }
+  if (ten) { window.GUEST_NAME = ten; window.GUEST_NAME_EXPLICIT = true; }
+})();
 window.INVITE_SLUG = "huu-nen-thanh-tham";
 window.BASE_PATH = '';
 window.EDIT_FONTS = [];

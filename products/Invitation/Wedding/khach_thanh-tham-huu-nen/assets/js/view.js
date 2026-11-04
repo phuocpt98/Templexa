@@ -615,15 +615,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     _wbMark('before Ap dung ten khach (class_tenKhachMoi)');
-    // --- Áp dụng tên khách cho class_tenKhachMoi khi có ?n= trong URL ---
+    // --- Áp dụng tên khách cho class_tenKhachMoi khi có ?n= hoặc ?ten= trong URL ---
     (function applyGuestNameToElements() {
         // data-wb-guest: PHP nhúng vào <html> khi nhận được ?n=
         const dataGuest = document.documentElement.getAttribute('data-wb-guest') || '';
         const hasExplicit = window.GUEST_NAME_EXPLICIT === true;
-        const nParam = new URLSearchParams(window.location.search).get('n');
+        const nParam = new URLSearchParams(window.location.search).get('n') || new URLSearchParams(window.location.search).get('ten');
         // Fallback: đọc #n= từ hash (Facebook/Zalo IAB có thể strip ?n= khỏi query string
         // nhưng hash được preserve — link format: ?n=3#n=3)
-        const hashN = window.location.hash ? new URLSearchParams(window.location.hash.slice(1)).get('n') : null;
+        const hashN = window.location.hash ? (new URLSearchParams(window.location.hash.slice(1)).get('n') || new URLSearchParams(window.location.hash.slice(1)).get('ten')) : null;
 
         // Chủ thiệp đặt tên mặc định riêng ở popup Xuất bản → phải thay chữ trong
         // .class_tenKhachMoi kể cả khi link mở ra không kèm ?n= (window.GUEST_NAME lúc đó chính
@@ -2556,7 +2556,7 @@ html,body{overflow-x:hidden!important;max-width:100vw!important}
 
         const slug = window.INVITE_SLUG || '';
         const bp = window.BASE_PATH || '';
-        const _nParam = new URLSearchParams(window.location.search).get('n');
+        const _nParam = new URLSearchParams(window.location.search).get('n') || new URLSearchParams(window.location.search).get('ten');
         const guestName = _nParam ? (window.GUEST_NAME || '') : '';
         const isPreview = !slug;
 
@@ -2583,7 +2583,7 @@ html,body{overflow-x:hidden!important;max-width:100vw!important}
         const slug = window.INVITE_SLUG || '';
         const bp = window.BASE_PATH || '';
         const isPreview = !slug;
-        const _nParam2 = new URLSearchParams(window.location.search).get('n');
+        const _nParam2 = new URLSearchParams(window.location.search).get('n') || new URLSearchParams(window.location.search).get('ten');
         const guestName = _nParam2 ? (window.GUEST_NAME || '') : '';
 
         elements.forEach(el => {
