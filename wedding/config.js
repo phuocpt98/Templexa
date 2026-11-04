@@ -290,4 +290,17 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự Lễ Vu Quy — 08:00 thứ Ba 17/11/2026 tại Tổ 12, Ấp AB, Xã Mỹ Thọ, Đồng Tháp',
         image: '../../products/Invitation/Wedding/khach_bao-tram-dinh-phuoc/og-cover.jpg',
     },
+    // Hữu Nên - Thanh Thắm — job-huu-nen-thanh-tham (mẫu 328)
+    'huu-nen-thanh-tham': {
+        src: '../../products/Invitation/Wedding/khach_huu-nen-thanh-tham/code.html',
+        title: 'Hữu Nên & Thanh Thắm — Thiệp Cưới Nhà Trai',
+        description: 'Trân trọng kính mời dự lễ tân hôn và tiệc cưới 06/12/2026 tại Nhà hàng Làng Chài Mũi Né, Lâm Đồng',
+        image: '../../products/Invitation/Wedding/khach_huu-nen-thanh-tham/og-cover.jpg',
+    },
+    'thanh-tham-huu-nen': {
+        src: '../../products/Invitation/Wedding/khach_thanh-tham-huu-nen/code.html',
+        title: 'Thanh Thắm & Hữu Nên — Thiệp Cưới Nhà Gái',
+        description: 'Trân trọng kính mời dự lễ vu quy và tiệc cưới 04/12/2026 tại Nhà hàng Cường Vy, Bảo Lộc, Lâm Đồng',
+        image: '../../products/Invitation/Wedding/khach_thanh-tham-huu-nen/og-cover.jpg',
+    },
 };
