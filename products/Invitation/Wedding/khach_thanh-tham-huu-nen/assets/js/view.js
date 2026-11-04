@@ -2426,7 +2426,7 @@ html,body{overflow-x:hidden!important;max-width:100vw!important}
             feedback.textContent = '';
 
             if (!name) { feedback.className = 'wb-feedback err'; feedback.textContent = 'Vui lòng nhập tên'; return; }
-            // Mẫu ẩn ô "khách của ai" (cfg.hideGuestOf) → gửi trống, rsvp.php chấp nhận
+            // Mẫu ẩn ô "khách của ai" (cfg.hideGuestOf) → gửi trống, Sheet chấp nhận
             if (!guestOf && !cfg.hideGuestOf) { feedback.className = 'wb-feedback err'; feedback.textContent = 'Vui lòng chọn bạn là khách của ai'; return; }
             if (!attendance) { feedback.className = 'wb-feedback err'; feedback.textContent = 'Vui lòng chọn xác nhận tham dự'; return; }
 
@@ -2441,17 +2441,10 @@ html,body{overflow-x:hidden!important;max-width:100vw!important}
             btn.textContent = 'Đang gửi...';
 
             try {
-                const fd = new FormData();
-                fd.append('slug', slug);
-                fd.append('name', name);
-                fd.append('guestOf', guestOf);
-                fd.append('attendance', attendance);
-                fd.append('guestCount', guestCount);
-                fd.append('extraFields', JSON.stringify(extraFields));
-
-                const res = await fetch(`${bp}/php/rsvp.php`, { method: 'POST', body: fd });
-                const json = await res.json();
-                if (json.status === 'ok') {
+                // Gửi về Google Sheet qua sheetsAPI (thay cho php/rsvp.php không có trên site tĩnh)
+                const ts = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+                const json = await sheetsAPI.post(slug, { A: ts, B: 'Xác nhận', C: name, D: attendance, E: guestCount, F: '', G: '' });
+                if (json.status === 'ok' || json.status === 'success') {
                     btn.textContent = 'Đã xác nhận';
                     wbShowPopup({
                         icon: 'check',
@@ -2463,7 +2456,7 @@ html,body{overflow-x:hidden!important;max-width:100vw!important}
                         autoClose: 4500,
                     });
                 } else {
-                    throw new Error(json.error || 'Lỗi không xác định');
+                    throw new Error(json.message || json.error || 'Lỗi không xác định');
                 }
             } catch (err) {
                 feedback.className = 'wb-feedback err';
@@ -2509,15 +2502,10 @@ html,body{overflow-x:hidden!important;max-width:100vw!important}
             btn.textContent = 'Đang gửi...';
 
             try {
-                const fd = new FormData();
-                fd.append('slug', slug);
-                fd.append('name', name);
-                fd.append('visibility', visibility);
-                fd.append('message', message);
-
-                const res = await fetch(`${bp}/php/message.php`, { method: 'POST', body: fd });
-                const json = await res.json();
-                if (json.status === 'ok') {
+                // Gửi về Google Sheet qua sheetsAPI (thay cho php/message.php không có trên site tĩnh)
+                const ts = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+                const json = await sheetsAPI.post(slug, { A: ts, B: 'Lời chúc', C: name, D: '', E: '', F: message, G: visibility });
+                if (json.status === 'ok' || json.status === 'success') {
                     wrapper.querySelector('[name=name]').value = '';
                     wrapper.querySelector('[name=message]').value = '';
                     updateCharCount();
@@ -2533,7 +2521,7 @@ html,body{overflow-x:hidden!important;max-width:100vw!important}
                         autoClose: 4500,
                     });
                 } else {
-                    throw new Error(json.error || 'Lỗi không xác định');
+                    throw new Error(json.message || json.error || 'Lỗi không xác định');
                 }
             } catch (err) {
                 feedback.className = 'wb-feedback err';
