@@ -1,10 +1,21 @@
 /* ── Signature System — kyTen.css ─────────────────────────── */
 /* ── Display area: height:100% của .ladi-html-code (containing block position:absolute).
       JS cũng set inline height sau khi xóa inline LadiPage — cả 2 hướng đều đúng. ── */
-#wb-sig-display{position:absolute;top:0;left:0;right:0;height:100%;
+#wb-sig-display{position:absolute;top:0;left:0;right:0;height:100%;pointer-events:none;
+  /* Khung hiển thị phải phủ kín ảnh nền (khung tre 460px, xem .td-ky-nen trong
+     code.html) — không có min-height này, hộp .ladi-html-code xẹp còn đúng
+     hàng nút 36px, chữ ký preview (top:40%) tràn ra ngoài vùng hiển thị,
+     bị overflow:hidden cắt mất và không chạm/kéo được. */
+  min-height:460px;
   border:1.5px dashed rgba(180,150,100,.4);border-radius:10px;
   overflow:hidden;box-sizing:border-box}
-#wb-sig-display-inner{position:absolute;inset:0}
+#wb-sig-display-inner{position:absolute;inset:0;pointer-events:none}
+
+/* ── Cho chạm xuyên qua lớp hiển thị tới nút bấm / canvas bên dưới.
+      Chữ ký đã lưu không chặn chạm; chỉ chữ ký mới (.sig-new) vẫn
+      nhận chạm để kéo-thả (rule này đặc hiệu hơn rule của tpx-shim.js). ── */
+#wb-sig-display-inner .wb-sig-item{pointer-events:none}
+#wb-sig-display-inner .wb-sig-item.sig-new{pointer-events:auto}
 
 /* ── Spacer: height:100% nếu #wb-sig-root có height; JS fallback cũng set inline ── */
 #wb-sig-root{font-family:sans-serif;width:100%;box-sizing:border-box;height:100%}
