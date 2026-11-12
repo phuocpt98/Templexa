@@ -303,4 +303,11 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự lễ vu quy và tiệc cưới 04/12/2026 tại Nhà hàng Cường Vy, Bảo Lộc, Lâm Đồng',
         image: '../../products/Invitation/Wedding/khach_thanh-tham-huu-nen/og-cover.jpg',
     },
+    // Vũ Trường - Quỳnh Mai — job-vu-truong-quynh-mai (mẫu 269)
+    'vu-truong-quynh-mai': {
+        src: '../../products/Invitation/Wedding/khach_vu-truong-quynh-mai/index.html',
+        title: 'Vũ Trường & Quỳnh Mai — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự tiệc cưới — 18:00 thứ Bảy 19/12/2026 tại Sảnh Saphire, Tầng 2 Khách sạn Lotte Sài Gòn, TP. Hồ Chí Minh',
+        image: '../../products/Invitation/Wedding/khach_vu-truong-quynh-mai/og-cover.jpg',
+    },
 };
