@@ -26,8 +26,15 @@
     --text-color-primary: rgb(146, 131, 98);
   }
   #card-opening-sides { --slide-card-max-width: 480px; --slide-card-color: #fff8ed; }
-  /* Tên khách mời (?ten=...) — mặc định "Quý Khách" */
+  /* Tên khách mời (?ten=...): không có ?ten= thì ẩn hẳn dòng tên, có ?ten= thì hiện tên khách */
   .guest-name { font-family: "Ergisa", serif; font-size: 32px; line-height: 1.3; color: var(--text-color-primary); margin: 4px 0; }
+  #guestName:empty { display: none; }
+  /* Timeline mục 2 gọn 1 dòng: mở rộng khung timeline ra full chiều rộng thiệp (mặc định theme co khung theo nội dung nên mỗi cột chỉ ~104px, chữ 10px không vừa 1 dòng) */
+  #card-timeline .timeline-inner { width: 100%; }
+  #card-timeline .timeline-item.d2 .title { white-space: nowrap; }
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 5px; row-gap: 5px; }
+  .photo-grid .photo { margin-bottom: 0; aspect-ratio: 2 / 3; overflow: hidden; }
+  .photo-grid .photo img { width: 100%; height: 100%; object-fit: cover; }
   /* Căn khung ảnh trái trong bìa thư theo ảnh cưới (mặt 2 người ở giữa ảnh, vị trí mặc định center top sẽ cắt mặt) */
   #envelop-photo .pt2 { left: 2%; bottom: 23%; background-position: center 45%; }
   .qr-code-account { font-size: 15px; line-height: 1.7; color: #333; margin-top: 10px; }
@@ -110,8 +117,7 @@
         </div>
       </div>
 
-      <div class="text reveal" data-anim="up">Trân trọng kính mời</div>
-      <div class="guest-name reveal" data-anim="up" id="guestName">Quý Khách</div>
+      <div class="guest-name reveal" data-anim="up" id="guestName"></div>
       <div class="text reveal" data-anim="up">Thân mời đến dự lễ thành hôn của chúng tôi</div>
 
       <div class="names">
@@ -216,28 +222,19 @@
     <div class="card-gallery-header-background"></div>
 
     <div class="photo-grid" id="photo-gallery">
-      <a href="./album_couple_1.jpg" class="photo reveal" data-anim="left"><img src="./album_couple_1.jpg" loading="lazy" alt=""></a>
-      <a href="./album_couple_2.jpg" class="photo reveal" data-anim="right"><img src="./album_couple_2.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_1.jpg"  class="photo reveal" data-anim="left"><img src="./couple_1.jpg"  loading="lazy" alt=""></a>
-      <a href="./couple_2.jpg"  class="photo reveal" data-anim="right"><img src="./couple_2.jpg"  loading="lazy" alt=""></a>
-      <a href="./couple_3.jpg"  class="photo reveal" data-anim="left"><img src="./couple_3.jpg"  loading="lazy" alt=""></a>
-      <a href="./couple_4.jpg"  class="photo reveal" data-anim="right"><img src="./couple_4.jpg"  loading="lazy" alt=""></a>
-      <a href="./couple_5.jpg"  class="photo reveal" data-anim="left"><img src="./couple_5.jpg"  loading="lazy" alt=""></a>
-      <a href="./couple_6.jpg"  class="photo reveal" data-anim="right"><img src="./couple_6.jpg"  loading="lazy" alt=""></a>
-      <a href="./couple_7.jpg"  class="photo reveal" data-anim="left"><img src="./couple_7.jpg"  loading="lazy" alt=""></a>
-      <a href="./couple_8.jpg"  class="photo reveal" data-anim="right"><img src="./couple_8.jpg"  loading="lazy" alt=""></a>
-      <a href="./couple_9.jpg"  class="photo reveal" data-anim="left"><img src="./couple_9.jpg"  loading="lazy" alt=""></a>
-      <a href="./couple_10.jpg" class="photo reveal" data-anim="right"><img src="./couple_10.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_11.jpg" class="photo reveal" data-anim="left"><img src="./couple_11.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_12.jpg" class="photo reveal" data-anim="right"><img src="./couple_12.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_13.jpg" class="photo reveal" data-anim="left"><img src="./couple_13.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_14.jpg" class="photo reveal" data-anim="right"><img src="./couple_14.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_15.jpg" class="photo reveal" data-anim="left"><img src="./couple_15.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_16.jpg" class="photo reveal" data-anim="right"><img src="./couple_16.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_17.jpg" class="photo reveal" data-anim="left"><img src="./couple_17.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_18.jpg" class="photo reveal" data-anim="right"><img src="./couple_18.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_19.jpg" class="photo reveal" data-anim="left"><img src="./couple_19.jpg" loading="lazy" alt=""></a>
-      <a href="./couple_20.jpg" class="photo reveal" data-anim="right"><img src="./couple_20.jpg" loading="lazy" alt=""></a>
+      <!-- Lưới album 12 ảnh, chỉ dùng ảnh chưa xuất hiện ở phần khác của thiệp (bìa couple_1, phong bì couple_3/7, Save the Date couple_2, polaroid couple_5/11 + chu_re/co_dau, nền Timeline couple_8, khung phim couple_10 đều đã loại); couple_6 loại vì chữ Save the Date in sẵn, album_couple_2 loại vì 2 mặt quá xa nhau không crop vừa khung 2:3. Ảnh hiển thị là bản crop 2:3 (grid_*.jpg), bấm vào xem ảnh gốc đầy đủ. -->
+      <a href="./album_couple_1.jpg" class="photo reveal" data-anim="left"><img src="./grid_01.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_4.jpg" class="photo reveal" data-anim="right"><img src="./grid_02.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_9.jpg" class="photo reveal" data-anim="left"><img src="./grid_03.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_12.jpg" class="photo reveal" data-anim="right"><img src="./grid_04.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_13.jpg" class="photo reveal" data-anim="left"><img src="./grid_05.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_14.jpg" class="photo reveal" data-anim="right"><img src="./grid_06.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_15.jpg" class="photo reveal" data-anim="left"><img src="./grid_07.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_16.jpg" class="photo reveal" data-anim="right"><img src="./grid_08.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_17.jpg" class="photo reveal" data-anim="left"><img src="./grid_09.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_18.jpg" class="photo reveal" data-anim="right"><img src="./grid_10.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_19.jpg" class="photo reveal" data-anim="left"><img src="./grid_11.jpg" loading="lazy" alt=""></a>
+      <a href="./couple_20.jpg" class="photo reveal" data-anim="right"><img src="./grid_12.jpg" loading="lazy" alt=""></a>
     </div>
   </div>
 
@@ -268,7 +265,7 @@
           <div class="timeline-item-icon"><img src="../../../shared/wedding/tpl-vintage-film/assets/icon-tl2.webp" alt=""></div>
           <div class="timeline-item-content">
             <div class="time">08:30</div>
-            <div class="title">Lễ Vu Quy<br>Chủ nhật · 06.12.2026</div>
+            <div class="title">Chủ nhật · 06.12.2026</div>
           </div>
         </div>
       </div>
