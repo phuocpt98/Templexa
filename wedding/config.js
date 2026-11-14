@@ -290,6 +290,13 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự Lễ Vu Quy — 08:00 thứ Ba 17/11/2026 tại Tổ 12, Ấp AB, Xã Mỹ Thọ, Đồng Tháp',
         image: '../../products/Invitation/Wedding/khach_bao-tram-dinh-phuoc/og-cover.jpg',
     },
+    // Minh Tâm - Quỳnh Như — job-minh-tam-quynh-nhu (mẫu 241)
+    'minh-tam-quynh-nhu': {
+        src: '../../products/Invitation/Wedding/khach_minh-tam-quynh-nhu/code.html',
+        title: 'Minh Tâm & Quỳnh Như — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự Lễ Tân Hôn — 09:00 Chủ nhật 20/12/2026 tại Tư Gia và tiệc chung vui 11:00 tại Nhà hàng BOON BOON, Xã Lương Sơn, Lâm Đồng',
+        image: '../../products/Invitation/Wedding/khach_minh-tam-quynh-nhu/og-cover.jpg',
+    },
     // Hữu Nên - Thanh Thắm — job-huu-nen-thanh-tham (mẫu 328)
     'huu-nen-thanh-tham': {
         src: '../../products/Invitation/Wedding/khach_huu-nen-thanh-tham/code.html',
