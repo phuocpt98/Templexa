@@ -294,7 +294,7 @@ var WEDDING = {
     'anh-thao-duy-tri': {
         src: '../../products/Invitation/Wedding/khach_anh-thao-duy-tri/code.html',
         title: 'Ánh Thảo & Duy Trí — Thiệp Cưới',
-        description: 'Trân trọng kính mời dự Lễ Vu Quy — 08:30 Chủ nhật 06/12/2026 và tiệc chung vui 11:00 thứ Bảy 05/12/2026 tại Tư Gia, Thôn Đông Thanh, Xã Hàm Tân, Lâm Đồng',
+        description: 'Thiệp cưới online của Ánh Thảo ♥ Duy Trí — Trân trọng kính mời dự Tiệc chung vui 11:00 Thứ Bảy 05/12/2026 tại Tư Gia, Thôn Đông Thanh, Xã Hàm Tân, Lâm Đồng',
         image: '../../products/Invitation/Wedding/khach_anh-thao-duy-tri/og-cover.jpg',
     },
     // Hữu Nên - Thanh Thắm — job-huu-nen-thanh-tham (mẫu 328)
