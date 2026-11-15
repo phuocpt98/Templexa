@@ -294,7 +294,7 @@ var WEDDING = {
     'minh-tam-quynh-nhu': {
         src: '../../products/Invitation/Wedding/khach_minh-tam-quynh-nhu/code.html',
         title: 'Minh Tâm & Quỳnh Như — Thiệp Cưới',
-        description: 'Trân trọng kính mời dự Lễ Tân Hôn — 09:00 Chủ nhật 20/12/2026 tại Tư Gia và tiệc chung vui 11:00 tại Nhà hàng BOON BOON, Xã Lương Sơn, Lâm Đồng',
+        description: 'Trân trọng kính mời dự tiệc chung vui — 11:00 Chủ nhật 20/12/2026 tại Nhà hàng BOON BOON, Đường Nguyễn Thị Minh Khai, Xã Lương Sơn, Lâm Đồng',
         image: '../../products/Invitation/Wedding/khach_minh-tam-quynh-nhu/og-cover.jpg',
     },
     // Hữu Nên - Thanh Thắm — job-huu-nen-thanh-tham (mẫu 328)
