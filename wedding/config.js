@@ -307,7 +307,7 @@ var WEDDING = {
     'vu-truong-quynh-mai': {
         src: '../../products/Invitation/Wedding/khach_vu-truong-quynh-mai/index.html',
         title: 'Vũ Trường & Quỳnh Mai — Thiệp Cưới',
-        description: 'Trân trọng kính mời dự tiệc cưới — 18:00 thứ Bảy 19/12/2026 tại Sảnh Saphire, Tầng 2 Khách sạn Lotte Sài Gòn, TP. Hồ Chí Minh',
+        description: 'Trân trọng kính mời dự tiệc cưới — 18:00 thứ Bảy 19/12/2026 tại Sảnh Sapphire, Tầng 2 Khách sạn Lotte Sài Gòn, TP. Hồ Chí Minh',
         image: '../../products/Invitation/Wedding/khach_vu-truong-quynh-mai/og-cover.jpg',
     },
 };
