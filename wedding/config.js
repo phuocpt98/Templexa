@@ -297,6 +297,13 @@ var WEDDING = {
         description: 'Thiệp cưới online của Ánh Thảo ♥ Duy Trí — Trân trọng kính mời dự Tiệc chung vui 11:00 Thứ Bảy 05/12/2026 tại Tư Gia, Thôn Đông Thanh, Xã Hàm Tân, Lâm Đồng',
         image: '../../products/Invitation/Wedding/khach_anh-thao-duy-tri/og-cover.jpg',
     },
+    // Minh Tâm - Quỳnh Như — job-minh-tam-quynh-nhu (mẫu 241)
+    'minh-tam-quynh-nhu': {
+        src: '../../products/Invitation/Wedding/khach_minh-tam-quynh-nhu/code.html',
+        title: 'Minh Tâm & Quỳnh Như — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự tiệc chung vui — 11:00 Chủ nhật 20/12/2026 tại Nhà hàng BOON BOON, Đường Nguyễn Thị Minh Khai, Xã Lương Sơn, Lâm Đồng',
+        image: '../../products/Invitation/Wedding/khach_minh-tam-quynh-nhu/og-cover.jpg',
+    },
     // Hữu Nên - Thanh Thắm — job-huu-nen-thanh-tham (mẫu 328)
     'huu-nen-thanh-tham': {
         src: '../../products/Invitation/Wedding/khach_huu-nen-thanh-tham/code.html',
@@ -309,5 +316,12 @@ var WEDDING = {
         title: 'Thanh Thắm & Hữu Nên — Thiệp Cưới Nhà Gái',
         description: 'Trân trọng kính mời dự lễ vu quy và tiệc cưới 04/12/2026 tại Nhà hàng Cường Vy, Bảo Lộc, Lâm Đồng',
         image: '../../products/Invitation/Wedding/khach_thanh-tham-huu-nen/og-cover.jpg',
+    },
+    // Vũ Trường - Quỳnh Mai — job-vu-truong-quynh-mai (mẫu 269)
+    'vu-truong-quynh-mai': {
+        src: '../../products/Invitation/Wedding/khach_vu-truong-quynh-mai/index.html',
+        title: 'Vũ Trường & Quỳnh Mai — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự tiệc cưới — 18:00 thứ Bảy 19/12/2026 tại Sảnh Sapphire, Tầng 2 Khách sạn Lotte Sài Gòn, TP. Hồ Chí Minh',
+        image: '../../products/Invitation/Wedding/khach_vu-truong-quynh-mai/og-cover.jpg',
     },
 };
