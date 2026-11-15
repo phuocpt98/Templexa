@@ -212,7 +212,8 @@ body.opened .l-env2 { animation-name: fadeInLeft; }
 }
 .pink-card::after { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(255,255,255,0.7); pointer-events: none; }
 .pink-card > * { position: relative; z-index: 1; }
-.pink-card > .card-flower { position: absolute; width: 118px; pointer-events: none; z-index: 0; opacity: 0.9; }
+.pink-card > .card-flower, .thanks > .card-flower { position: absolute; width: 118px; pointer-events: none; z-index: 0; opacity: 0.9; }
+.thanks > .card-flower { filter: brightness(1.2) saturate(0.9); }
 .card-flower.tl { top: -16px; left: -20px; transform: rotate(-14deg); }
 .card-flower.br { bottom: -14px; right: -18px; transform: rotate(160deg); }
 /* chữ trong thiệp mời: tăng tương phản (màu nâu nhạt cũ hơi chìm trên nền đào) */
@@ -242,6 +243,17 @@ body.opened .l-env2 { animation-name: fadeInLeft; }
 .venue-name { text-align: center; font-family: var(--font-serif); letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.84rem; color: var(--ink); margin-top: 22px; line-height: 1.6; }
 .venue-addr { text-align: center; font-size: 0.88rem; color: var(--ink-soft); margin-top: 4px; }
 .venue-old { text-align: center; font-family: var(--font-serif); font-style: italic; font-size: 0.85rem; color: var(--ink); margin-top: 6px; }
+
+/* lễ vu quy (báo tin) */
+.vq-announce { text-align: center; font-family: var(--font-serif); letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.85rem; color: var(--ink); line-height: 1.8; margin-top: 22px; }
+.vq-names { font-family: var(--font-script); font-weight: 600; font-size: clamp(2.4rem, 10vw, 3.1rem); color: var(--rose-deep); text-align: center; line-height: 1.15; margin-top: 8px; }
+.vq-names span { display: block; font-size: 0.6em; color: var(--rose); line-height: 1; margin: 2px 0; }
+.vq-time { text-align: center; font-family: var(--font-serif); font-weight: 700; font-size: clamp(1.15rem, 5vw, 1.4rem); color: var(--rose-deep); margin-top: 16px; letter-spacing: 0.04em; }
+#vuquy .fam small { color: var(--ink); }
+#vuquy .pink-card .lunar { color: var(--ink); padding: 0 44px; }
+#vuquy .family { margin-top: 26px; }
+#vuquy .card-flower.tl { width: 92px; }
+#vuquy .card-flower.br { width: 96px; }
 .btn-pill {
   display: inline-block; padding: 12px 26px; border-radius: 999px; background: var(--rose); color: #fff; border: 0; cursor: pointer;
   font-family: var(--font-serif); letter-spacing: 0.26em; text-transform: uppercase; font-size: 0.72rem; padding-left: calc(26px + 0.26em);
@@ -296,10 +308,13 @@ body.opened .l-env2 { animation-name: fadeInLeft; }
 .wish b { font-family: var(--font-serif); font-weight: 700; color: var(--rose-deep); font-size: 1rem; }
 .wish p { color: var(--ink); font-size: 0.9rem; margin-top: 2px; }
 .wish-empty { text-align: center; color: var(--ink-soft); font-size: 0.88rem; font-style: italic; }
+.wish-note { text-align: center; font-family: var(--font-serif); font-size: 0.95rem; color: var(--ink); margin-top: 12px; line-height: 1.6; }
 
 /* thank you — chỉ text, không hình */
 .thanks { position: relative; margin-top: 54px; padding: 64px 24px; display: grid; place-items: center; text-align: center; background: linear-gradient(160deg, #C2703D, #8C3B1B); border: 1px solid var(--rule); box-shadow: 0 18px 46px rgba(92,50,32,0.18); }
-.thanks-in { position: relative; color: #fff; padding: 20px; }
+.thanks-in { position: relative; z-index: 1; color: #fff; padding: 26px 18px; border: 1px solid rgba(255,255,255,0.45); outline: 1px solid rgba(255,255,255,0.25); outline-offset: 6px; }
+.thanks-in .thanks-eyebrow { font-family: var(--font-serif); font-style: normal; font-size: 1rem; letter-spacing: 0.12em; color: rgba(255,255,255,0.95); margin-top: 0; margin-bottom: 2px; opacity: 1; }
+.thanks-in .thanks-final { font-family: var(--font-body); font-style: normal; font-weight: 700; text-transform: uppercase; font-size: clamp(1.05rem, 4.6vw, 1.3rem); letter-spacing: 0.05em; line-height: 1.65; margin-top: 20px; opacity: 1; }
 .thanks-in .script { color: #fff; font-size: clamp(3.2rem, 15vw, 4.6rem); line-height: 1; font-weight: 600; text-shadow: 0 4px 18px rgba(92,50,32,0.4); }
 .thanks-in .caps { color: rgba(255,255,255,0.9); display: block; margin-top: 10px; }
 .thanks-in p { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; margin-top: 12px; opacity: 0.95; }
@@ -410,6 +425,23 @@ body.opened .l-env2 { animation-name: fadeInLeft; }
     </div>
   </section>
 
+  <!-- LỄ VU QUY (báo tin) -->
+  <section id="vuquy">
+    <div class="pink-card reveal">
+      <img class="card-flower tl" src="assets/flowers-cluster.webp" alt="" aria-hidden="true">
+      <div class="family">
+        <div class="fam"><span class="caps">Nhà gái</span><p>Ông Lê Xuân Hùng</p><p>Bà Vũ Lan Anh</p><small>Phường Tân Hưng<br>TP. Hồ Chí Minh</small></div>
+        <div class="fam"><span class="caps">Nhà trai</span><p>Bà Trần Thị Thư</p><small>Xã Quới Điền<br>Tỉnh Vĩnh Long</small></div>
+      </div>
+      <div class="rule" style="margin-top:26px"></div>
+      <p class="vq-announce">Trân trọng báo tin<br>Lễ Vu Quy của con chúng tôi</p>
+      <p class="vq-names">Vũ Trường<span>&amp;</span>Quỳnh Mai</p>
+      <p class="vq-time">9:00 — Ngày 19 tháng 12 năm 2026</p>
+      <p class="lunar">(Tức ngày 11 tháng 11 năm Bính Ngọ)</p>
+      <img class="card-flower br" src="assets/flowers-cluster.webp" alt="" aria-hidden="true">
+    </div>
+  </section>
+
   <!-- THIỆP MỜI -->
   <section id="invite">
     <div class="pink-card reveal">
@@ -446,26 +478,31 @@ body.opened .l-env2 { animation-name: fadeInLeft; }
       <p class="eyebrow">Gửi lời chúc</p>
       <h2 class="title">Lời chúc phúc</h2>
       <div class="rule"></div>
-      <p class="lead">Hãy gửi những lời chúc tốt đẹp nhất đến Vũ Trường &amp; Quỳnh Mai.</p>
+      <p class="lead">Gia đình chúng tôi mong được nhận những lời chúc tốt đẹp nhất đến từ quý khách</p>
       <form class="form" id="wishForm" autocomplete="off">
-        <div class="field"><label for="fName">Tên của bạn</label><input id="fName" name="name" required placeholder="Nguyễn Văn A"></div>
+        <div class="field"><label for="fName">Tên quý khách</label><input id="fName" name="name" required placeholder="Nguyễn Văn A"></div>
         <div class="field"><label for="fMsg">Lời chúc</label><textarea id="fMsg" name="message" required placeholder="Chúc hai bạn trăm năm hạnh phúc…"></textarea></div>
         <button class="btn-pill" type="submit" id="wishBtn">Gửi lời chúc</button>
         <p class="form-msg" id="wishMsg"></p>
       </form>
       <div class="rule" style="margin-top:26px"></div>
       <p class="eyebrow">Lời chúc</p>
+      <p class="wish-note">Lời chúc của quý khách sẽ được trình chiếu trên màn hình ở sảnh tiệc cưới</p>
       <div class="wishes" id="wishes"><p class="wish-empty">Hãy là người đầu tiên gửi lời chúc ♡</p></div>
     </div>
   </section>
 
   <!-- THANK YOU -->
   <div class="thanks reveal">
+    <img class="card-flower tl" src="assets/flowers-cluster.webp" alt="" aria-hidden="true">
     <div class="thanks-in">
+      <p class="thanks-eyebrow">Xin chân thành cảm ơn</p>
       <div class="script">thank you</div>
       <span class="caps">Vũ Trường &amp; Quỳnh Mai</span>
       <p>Sự hiện diện của bạn là món quà ý nghĩa nhất với chúng mình.</p>
+      <p class="thanks-final">Sự hiện diện của quý khách là niềm vinh hạnh cho gia đình tôi!</p>
     </div>
+    <img class="card-flower br" src="assets/flowers-cluster.webp" alt="" aria-hidden="true">
   </div>
   <div class="closing reveal">
     <a class="closing-brand" href="https://templexa.vn" target="_blank" rel="noopener">Thiệp cưới online · <b>templexa.vn</b></a>
