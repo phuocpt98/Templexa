@@ -304,6 +304,13 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự tiệc chung vui — 11:00 Chủ nhật 20/12/2026 tại Nhà hàng BOON BOON, Đường Nguyễn Thị Minh Khai, Xã Lương Sơn, Lâm Đồng',
         image: '../../products/Invitation/Wedding/khach_minh-tam-quynh-nhu/og-cover.jpg',
     },
+    // Minh Thuận - Ngọc Triệu — job-minh-thuan-ngoc-trieu (mẫu 241, nhà trai)
+    'minh-thuan-ngoc-trieu': {
+        src: '../../products/Invitation/Wedding/khach_minh-thuan-ngoc-trieu/code.html',
+        title: 'Minh Thuận & Ngọc Triệu — Thiệp Cưới',
+        description: 'Thiệp cưới online của Minh Thuận ♥ Ngọc Triệu — Trân trọng kính mời dự lễ thành hôn 09:00 Chủ nhật 29/11/2026 tại Tư Gia, Ấp Cầu Vĩ, Xã Mỹ Chánh Hoà, Vĩnh Long',
+        image: '../../products/Invitation/Wedding/khach_minh-thuan-ngoc-trieu/og-cover.jpg',
+    },
     // Hữu Nên - Thanh Thắm — job-huu-nen-thanh-tham (mẫu 328)
     'huu-nen-thanh-tham': {
         src: '../../products/Invitation/Wedding/khach_huu-nen-thanh-tham/code.html',
