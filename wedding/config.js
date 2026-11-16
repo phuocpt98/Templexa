@@ -329,6 +329,6 @@ var WEDDING = {
         src: '../../products/Invitation/Wedding/khach_vu-truong-quynh-mai/index.html',
         title: 'Quỳnh Mai & Vũ Trường — Thiệp Cưới',
         description: 'Trân trọng kính mời dự tiệc cưới — 18:00 thứ Bảy 19/12/2026 tại Sảnh Sapphire, Tầng 2, Lotte Legend Hotel Saigon, 2A-4A Tôn Đức Thắng, Phường Sài Gòn, TP. Hồ Chí Minh',
-        image: '../../products/Invitation/Wedding/khach_vu-truong-quynh-mai/og-cover.jpg',
+        image: '../../products/Invitation/Wedding/khach_vu-truong-quynh-mai/og-cover.jpg?v=2',
     },
 };
