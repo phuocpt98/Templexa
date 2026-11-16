@@ -290,12 +290,26 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự Lễ Vu Quy — 08:00 thứ Ba 17/11/2026 tại Tổ 12, Ấp AB, Xã Mỹ Thọ, Đồng Tháp',
         image: '../../products/Invitation/Wedding/khach_bao-tram-dinh-phuoc/og-cover.jpg',
     },
+    // Ánh Thảo - Duy Trí — job-anh-thao-duy-tri (mẫu 241, bản nhà gái)
+    'anh-thao-duy-tri': {
+        src: '../../products/Invitation/Wedding/khach_anh-thao-duy-tri/code.html',
+        title: 'Ánh Thảo & Duy Trí — Thiệp Cưới',
+        description: 'Thiệp cưới online của Ánh Thảo ♥ Duy Trí — Trân trọng kính mời dự Tiệc chung vui 11:00 Thứ Bảy 05/12/2026 tại Tư Gia, Thôn Đông Thanh, Xã Hàm Tân, Lâm Đồng',
+        image: '../../products/Invitation/Wedding/khach_anh-thao-duy-tri/og-cover.jpg?v=2',
+    },
     // Minh Tâm - Quỳnh Như — job-minh-tam-quynh-nhu (mẫu 241)
     'minh-tam-quynh-nhu': {
         src: '../../products/Invitation/Wedding/khach_minh-tam-quynh-nhu/code.html',
         title: 'Minh Tâm & Quỳnh Như — Thiệp Cưới',
         description: 'Trân trọng kính mời dự tiệc chung vui — 11:00 Chủ nhật 20/12/2026 tại Nhà hàng BOON BOON, Đường Nguyễn Thị Minh Khai, Xã Lương Sơn, Lâm Đồng',
         image: '../../products/Invitation/Wedding/khach_minh-tam-quynh-nhu/og-cover.jpg',
+    },
+    // Minh Thuận - Ngọc Triệu — job-minh-thuan-ngoc-trieu (mẫu 241, nhà trai)
+    'minh-thuan-ngoc-trieu': {
+        src: '../../products/Invitation/Wedding/khach_minh-thuan-ngoc-trieu/code.html',
+        title: 'Minh Thuận & Ngọc Triệu — Thiệp Cưới',
+        description: 'Thiệp cưới online của Minh Thuận ♥ Ngọc Triệu — Trân trọng kính mời dự lễ thành hôn 09:00 Chủ nhật 29/11/2026 tại Tư Gia, Ấp Cầu Vĩ, Xã Mỹ Chánh Hoà, Vĩnh Long',
+        image: '../../products/Invitation/Wedding/khach_minh-thuan-ngoc-trieu/og-cover.jpg',
     },
     // Hữu Nên - Thanh Thắm — job-huu-nen-thanh-tham (mẫu 328)
     'huu-nen-thanh-tham': {
