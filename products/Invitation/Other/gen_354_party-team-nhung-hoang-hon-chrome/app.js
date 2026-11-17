@@ -1,8 +1,9 @@
 /* ==========================================================
    Party Team Nhung — Hoàng Hôn Chrome (gen_354)
    Cấu hình riêng: window.INVITE (khai báo trong HTML)
-   Không nhạc nền, không hộp quà, không ghi Google Sheet:
-   xác nhận chỉ hiện tóm tắt để khách chép gửi lại BTC.
+   Không nhạc nền, không hộp quà. Xác nhận tham dự ghi vào
+   Google Sheet (tab khach_49 trong file 'data thiệp cưới');
+   tóm tắt + nút chép vẫn hiện làm biên nhận/dự phòng.
    ========================================================== */
 (function () {
     'use strict';
@@ -138,7 +139,7 @@
         setInterval(tick, 1000);
     })();
 
-    /* ---------- Xác nhận tham dự: tóm tắt + chép (không ghi Sheet) ---------- */
+    /* ---------- Xác nhận tham dự: ghi Google Sheet + hiện tóm tắt ---------- */
     (function () {
         var form = $('#rsvpForm'), out = $('#formMsg');
         var box = $('#rsvpSummary'), sumText = $('#sumText'), copyBtn = $('#copySummary');
@@ -164,8 +165,27 @@
                 box.hidden = false;
                 box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
             }
-            out.textContent = 'Cảm ơn ' + name + '! Bạn chép nội dung bên dưới gửi lại cho ban tổ chức nhé.';
             if (copyBtn) copyBtn.textContent = 'Chép nội dung xác nhận';
+            var submitBtn = form.querySelector('button[type="submit"]');
+            if (submitBtn) submitBtn.disabled = true;
+            out.textContent = 'Đang gửi xác nhận…';
+            var done = function (ok) {
+                if (submitBtn) submitBtn.disabled = false;
+                out.textContent = ok
+                    ? 'Cảm ơn ' + name + '! Team Nhung đã ghi nhận xác nhận của bạn ✓'
+                    : 'Cảm ơn ' + name + '! Gửi trực tiếp chưa được — bạn chép nội dung bên dưới gửi lại cho ban tổ chức nhé.';
+            };
+            if (window.sheetsAPI && CFG.sheetId) {
+                window.sheetsAPI.post(CFG.sheetId, {
+                    A: name,
+                    B: att ? att.value : 'Chưa chắc chắn',
+                    C: guests,
+                    D: msg,
+                    E: new Date().toLocaleString('vi-VN')
+                }).then(function () { done(true); }, function () { done(false); });
+            } else {
+                done(false);
+            }
         });
         if (copyBtn) {
             copyBtn.addEventListener('click', function () {
