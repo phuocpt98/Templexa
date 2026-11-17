@@ -7501,7 +7501,7 @@ const PRODUCTS = [
         id: 354,
         name: 'Thiệp Party Team Nhung — Hồng Pastel Simba',
         slug: 'thiep-party-team-nhung-hoang-hon-chrome',
-        description: 'Thiệp mời party giao lưu gắn kết tập thể Team Nhung (Simba Beer Club): phong bì lockup SIMBA BEER CLUB với sư tử đội vương miện, nền hồng pastel, chữ chrome hồng ánh kim, đếm ngược + lịch tháng 11, câu chuyện 3 chương Gặp gỡ – Đồng hành – Gắn kết, chương trình dự kiến, form xác nhận tham dự chép tay gửi lại ban tổ chức. 15:00 Thứ Tư 18/11/2026 tại S Villa, Đà Nẵng.',
+        description: 'Thiệp mời party giao lưu gắn kết tập thể Team Nhung (Simba Beer Club): phong bì lockup SIMBA BEER CLUB với sư tử đội vương miện, nền hồng pastel, chữ chrome hồng ánh kim, đếm ngược + lịch tháng 11, câu chuyện 3 chương Gặp gỡ – Đồng hành – Gắn kết, chương trình dự kiến, form xác nhận tham dự chép tay gửi lại ban tổ chức. 16:00 Thứ Tư 18/11/2026 tại S Villa, Đà Nẵng.',
         category: 'other',
         type: 'invitation',
         style: 'luxury',
