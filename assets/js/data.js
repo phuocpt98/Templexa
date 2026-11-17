@@ -7516,7 +7516,7 @@ const PRODUCTS = [
         thumbnail: './products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/og-cover.jpg',
         mobileView: './products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/shots/open.webp',
         path: './products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/',
-        demoUrl: './products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/index.html',
+        demoUrl: './products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/index.html?v=3',
         variants: [],
         features: [
             'Phong bì lockup SIMBA BEER CLUB với sư tử đội vương miện, nền hồng pastel với chữ chrome hồng ánh kim',
