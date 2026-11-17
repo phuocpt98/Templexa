@@ -82,7 +82,7 @@ var EVENT = {
     'party-team-nhung': {
         src: '../../products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/index.html',
         title: 'Party Team Nhung — Thiệp Mời Party',
-        description: 'Trân trọng kính mời bạn đến dự Party Team Nhung (Simba Beer Club) — 16:00 Thứ Tư 18/11/2026 tại Emi 2 villa, 50 Trần Sâm, Sơn Trà, Đà Nẵng',
-        image: '../../products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/og-cover.jpg?v=5',
+        description: 'Trân trọng kính mời bạn đến dự Party Team Nhung (Simba Beer Club) — 15:00 Thứ Tư 18/11/2026 tại Emi 2 villa, 50 Trần Sâm, Sơn Trà, Đà Nẵng',
+        image: '../../products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/og-cover.jpg?v=6',
     },
 };
