@@ -3,7 +3,7 @@
    Cấu hình riêng: window.INVITE (khai báo trong HTML)
    Không nhạc nền, không hộp quà. Xác nhận tham dự gửi thẳng vào
    Google Sheet (tab khach_49 trong file 'data thiệp cưới');
-   gửi xong chỉ hiện lời cảm ơn, không còn mục tóm tắt.
+   gửi xong chỉ hiện thẻ cảm ơn nổi trên nền sáng + nút gửi lại.
    ========================================================== */
 (function () {
     'use strict';
@@ -139,9 +139,12 @@
         setInterval(tick, 1000);
     })();
 
-    /* ---------- Xác nhận tham dự: gửi vào Google Sheet là xong ---------- */
+    /* ---------- Xác nhận tham dự: gửi vào Google Sheet là xong ----------
+       Gửi xong form ẩn, chỉ hiện thẻ cảm ơn nổi trên nền sáng + nút
+       "Gửi lại phản hồi" (hiện lại form, giữ nguyên nội dung cũ để sửa).
+       Tải lại trang là form mới từ đầu, không lưu trạng thái. ---------- */
     (function () {
-        var form = $('#rsvpForm'), out = $('#formMsg');
+        var form = $('#rsvpForm'), out = $('#formMsg'), again = $('#rsvpAgain');
         if (!form) return;
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -152,9 +155,11 @@
             var msg = $('#wMsg').value.trim();
             var submitBtn = form.querySelector('button[type="submit"]');
             if (submitBtn) submitBtn.disabled = true;
+            out.classList.remove('ok');
             out.textContent = 'Đang gửi xác nhận…';
             var fail = function () {
                 if (submitBtn) submitBtn.disabled = false;
+                out.classList.remove('ok');
                 out.textContent = 'Gửi chưa được, bạn thử lại nhé.';
             };
             if (window.sheetsAPI && CFG.sheetId) {
@@ -166,11 +171,24 @@
                     E: new Date().toLocaleString('vi-VN')
                 }).then(function () {
                     form.style.display = 'none';
+                    out.classList.add('ok');
                     out.textContent = 'Cảm ơn ' + name + '! Team Nhung đã ghi nhận xác nhận của bạn ✓';
+                    if (again) again.hidden = false;
                 }, fail);
             } else {
                 fail();
             }
         });
+        if (again) {
+            again.addEventListener('click', function () {
+                form.style.display = '';
+                out.textContent = '';
+                out.classList.remove('ok');
+                again.hidden = true;
+                var submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn) submitBtn.disabled = false;
+                $('#wName').focus();
+            });
+        }
     })();
 })();
