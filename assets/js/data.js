@@ -7499,14 +7499,14 @@ const PRODUCTS = [
     },
     {
         id: 354,
-        name: 'Thiệp Party Team Nhung — Hoàng Hôn Chrome',
+        name: 'Thiệp Party Team Nhung — Hồng Pastel Simba',
         slug: 'thiep-party-team-nhung-hoang-hon-chrome',
-        description: 'Thiệp mời party giao lưu gắn kết tập thể Team Nhung: phong bì sư tử chrome đội vương miện, nền hoàng hôn xanh ngọc chuyển cam cháy, chữ vàng ánh kim, đếm ngược + lịch tháng 11, câu chuyện 3 chương Gặp gỡ – Đồng hành – Gắn kết, chương trình dự kiến, form xác nhận tham dự chép tay gửi lại ban tổ chức. 15:00 Thứ Tư 18/11/2026 tại S Villa, Đà Nẵng.',
+        description: 'Thiệp mời party giao lưu gắn kết tập thể Team Nhung (Simba Beer Club): phong bì lockup SIMBA BEER CLUB với sư tử đội vương miện, nền hồng pastel, chữ chrome hồng ánh kim, đếm ngược + lịch tháng 11, câu chuyện 3 chương Gặp gỡ – Đồng hành – Gắn kết, chương trình dự kiến, form xác nhận tham dự chép tay gửi lại ban tổ chức. 15:00 Thứ Tư 18/11/2026 tại S Villa, Đà Nẵng.',
         category: 'other',
         type: 'invitation',
         style: 'luxury',
         event: 'party',
-        tags: ['party', 'team-nhung', 'giao-luu', 'gan-ket', 'hoang-hon', 'chrome', 'su-tu', 'countdown', 'rsvp'],
+        tags: ['party', 'team-nhung', 'simba', 'hong-pastel', 'giao-luu', 'gan-ket', 'chrome', 'su-tu', 'countdown', 'rsvp'],
         price: '',
         images: [
             './products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/shots/open.webp',
@@ -7519,7 +7519,7 @@ const PRODUCTS = [
         demoUrl: './products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/index.html',
         variants: [],
         features: [
-            'Phong bì sư tử chrome đội vương miện, hero hoàng hôn xanh ngọc – cam cháy với chữ vàng ánh kim',
+            'Phong bì lockup SIMBA BEER CLUB với sư tử đội vương miện, nền hồng pastel với chữ chrome hồng ánh kim',
             'Tên khách theo ?ten=, đếm ngược + lịch tháng 11 tô ngày 18, câu chuyện 3 chương Gặp gỡ – Đồng hành – Gắn kết',
             'Chương trình dự kiến, gợi ý trang phục, form xác nhận tham dự hiện tóm tắt + chép tay gửi lại ban tổ chức',
         ],
