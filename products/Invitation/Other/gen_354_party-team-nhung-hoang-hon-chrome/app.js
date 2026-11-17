@@ -1,9 +1,9 @@
 /* ==========================================================
    Party Team Nhung — Hoàng Hôn Chrome (gen_354)
    Cấu hình riêng: window.INVITE (khai báo trong HTML)
-   Không nhạc nền, không hộp quà. Xác nhận tham dự ghi vào
+   Không nhạc nền, không hộp quà. Xác nhận tham dự gửi thẳng vào
    Google Sheet (tab khach_49 trong file 'data thiệp cưới');
-   tóm tắt + nút chép vẫn hiện làm biên nhận/dự phòng.
+   gửi xong chỉ hiện lời cảm ơn, không còn mục tóm tắt.
    ========================================================== */
 (function () {
     'use strict';
@@ -139,10 +139,9 @@
         setInterval(tick, 1000);
     })();
 
-    /* ---------- Xác nhận tham dự: ghi Google Sheet + hiện tóm tắt ---------- */
+    /* ---------- Xác nhận tham dự: gửi vào Google Sheet là xong ---------- */
     (function () {
         var form = $('#rsvpForm'), out = $('#formMsg');
-        var box = $('#rsvpSummary'), sumText = $('#sumText'), copyBtn = $('#copySummary');
         if (!form) return;
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -151,29 +150,12 @@
             var att = form.querySelector('input[name="attend"]:checked');
             var guests = $('#wGuests').value;
             var msg = $('#wMsg').value.trim();
-            var guestsText = guests === '0' ? 'Chỉ mình tôi' : 'Đi cùng +' + guests + ' người';
-            var lines = [
-                '[Party Team Nhung — 18/11/2026]',
-                'Họ tên: ' + name,
-                'Tham dự: ' + (att ? att.value : 'Chưa chắc chắn'),
-                'Số người đi cùng: ' + guestsText
-            ];
-            if (msg) lines.push('Lời nhắn: ' + msg);
-            var text = lines.join('\n');
-            if (sumText) sumText.textContent = text;
-            if (box) {
-                box.hidden = false;
-                box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-            }
-            if (copyBtn) copyBtn.textContent = 'Chép nội dung xác nhận';
             var submitBtn = form.querySelector('button[type="submit"]');
             if (submitBtn) submitBtn.disabled = true;
             out.textContent = 'Đang gửi xác nhận…';
-            var done = function (ok) {
+            var fail = function () {
                 if (submitBtn) submitBtn.disabled = false;
-                out.textContent = ok
-                    ? 'Cảm ơn ' + name + '! Team Nhung đã ghi nhận xác nhận của bạn ✓'
-                    : 'Cảm ơn ' + name + '! Gửi trực tiếp chưa được — bạn chép nội dung bên dưới gửi lại cho ban tổ chức nhé.';
+                out.textContent = 'Gửi chưa được, bạn thử lại nhé.';
             };
             if (window.sheetsAPI && CFG.sheetId) {
                 window.sheetsAPI.post(CFG.sheetId, {
@@ -182,36 +164,13 @@
                     C: guests,
                     D: msg,
                     E: new Date().toLocaleString('vi-VN')
-                }).then(function () { done(true); }, function () { done(false); });
+                }).then(function () {
+                    form.style.display = 'none';
+                    out.textContent = 'Cảm ơn ' + name + '! Team Nhung đã ghi nhận xác nhận của bạn ✓';
+                }, fail);
             } else {
-                done(false);
+                fail();
             }
         });
-        if (copyBtn) {
-            copyBtn.addEventListener('click', function () {
-                var text = sumText ? sumText.textContent : '';
-                if (!text) return;
-                var label = copyBtn.innerHTML;
-                var done = function () {
-                    copyBtn.textContent = 'Đã chép xong ✓';
-                    setTimeout(function () { copyBtn.innerHTML = label; }, 2000);
-                };
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
-                } else {
-                    fallbackCopy(text, done);
-                }
-            });
-        }
-        function fallbackCopy(text, done) {
-            var ta = document.createElement('textarea');
-            ta.value = text;
-            ta.style.position = 'fixed'; ta.style.opacity = '0';
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand('copy'); } catch (e) {}
-            document.body.removeChild(ta);
-            done();
-        }
     })();
 })();
