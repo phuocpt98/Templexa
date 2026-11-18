@@ -77,4 +77,12 @@ var EVENT = {
         description: '4 năm, 1 tấm bằng, và một ngày đáng nhớ. Ghé chung vui với mình nha — 24.10.2026, 11:00, UEL, đợi bạn trước Tòa A3. See you there!',
         image: '../../products/Invitation/Other/khach_37_tot-nghiep-cinematic/og-cover.jpg?v=4',
     },
+
+    // Party Team Nhung — job-party-team-nhung (mẫu 354)
+    'party-team-nhung': {
+        src: '../../products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/index.html',
+        title: 'Party Team Nhung — Thiệp Mời Party',
+        description: 'Trân trọng kính mời bạn đến dự Party Team Nhung (Simba Beer Club) — 15:00 Thứ Tư 18/11/2026 tại Emi 2 villa, 50 Trần Sâm, Sơn Trà, Đà Nẵng',
+        image: '../../products/Invitation/Other/gen_354_party-team-nhung-hoang-hon-chrome/og-cover.jpg?v=6',
+    },
 };
