@@ -110,7 +110,7 @@
             var attText = att ? att.value : '';
             form.style.display = 'none';
             out.classList.remove('err');
-            out.textContent = 'Cảm ơn ' + name + '! Gia đình bé Minh Khôi đã ghi nhận: ' + attText + ' (' + guests + ' người). Hẹn gặp bạn tại tiệc nhé!';
+            out.textContent = 'Cảm ơn ' + name + '! Gia đình bé Bảo Khang đã ghi nhận: ' + attText + ' (' + guests + ' người). Hẹn gặp bạn tại tiệc nhé!';
             if (again) again.hidden = false;
         });
         if (again) {

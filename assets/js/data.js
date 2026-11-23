@@ -7461,8 +7461,8 @@ const PRODUCTS = [
     },
     {
         id: 357,
-        name: 'Thôi Nôi Bé Minh Khôi — Thật Vui Khi Tròn 1 Tuổi',
-        slug: 'thoi-noi-be-minh-khoi-fun-to-be-one',
+        name: 'Thôi Nôi Bé Bảo Khang — Thật Vui Khi Tròn 1 Tuổi',
+        slug: 'thoi-noi-be-bao-khang-fun-to-be-one',
         description: 'Thiệp mời thôi nôi online phong cách Canva "Fun to be One": phong bì xanh sọc lượn sóng nhiều màu với gấu nâu đội mũ sinh nhật và bánh kem, thiệp chính chữ nhiều màu "Thật vui khi tròn 1 tuổi", ảnh bé tròn đội vương miện, ngày giờ địa điểm 3 cột, ảnh bé với dây cờ sinh nhật, bóng bay đỏ xem danh sách quà, nút Google Maps, thẻ "Tiệc có gì vui?" và vé vàng "Không cần mang quà", bánh cupcake xác nhận tham dự, đếm ngược và form RSVP. Tên khách theo ?ten=.',
         category: 'other',
         type: 'invitation',
