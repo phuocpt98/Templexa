@@ -37,6 +37,29 @@
         if (input && guestName !== 'Quý khách') input.value = guestName;
     })();
 
+    /* ---------- Chức vụ khách: ?chucvu= (hoặc ?cv= / ?title=) ----------
+       Hiện ở mọi .guest-position dưới tên khách (khối "Trân trọng kính mời").
+       Không có tham số → ẩn luôn dòng chức vụ + đường kẻ (không bịa chức vụ mặc định). ---------- */
+    (function () {
+        var q = new URLSearchParams(location.search);
+        var raw = q.get('chucvu') || q.get('cv') || q.get('title');
+        var title = '';
+        if (raw) {
+            var t = raw;
+            for (var i = 0; i < 5; i++) {
+                try { var dec = decodeURIComponent(t); if (dec === t) break; t = dec; } catch (e) { break; }
+            }
+            t = t.replace(/\+/g, ' ').trim();
+            if (t) title = t.slice(0, 100);
+        }
+        if (title) {
+            $$('.guest-position').forEach(function (el) { el.textContent = title; });
+        } else {
+            $$('.guest-title').forEach(function (el) { el.style.display = 'none'; });
+            $$('.guest-rule').forEach(function (el) { el.style.display = 'none'; });
+        }
+    })();
+
     /* ---------- Phong bì ---------- */
     var env = $('#envelope');
     document.body.classList.add('locked');
