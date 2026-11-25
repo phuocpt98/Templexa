@@ -290,6 +290,13 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự Lễ Vu Quy — 08:00 thứ Ba 17/11/2026 tại Tổ 12, Ấp AB, Xã Mỹ Thọ, Đồng Tháp',
         image: '../../products/Invitation/Wedding/khach_bao-tram-dinh-phuoc/og-cover.jpg',
     },
+    // Đình Phước - Bảo Trăm — job-dinh-phuoc-bao-tram (mẫu 241, bản nhà trai)
+    'dinh-phuoc-bao-tram': {
+        src: '../../products/Invitation/Wedding/khach_dinh-phuoc-bao-tram/code.html',
+        title: 'Đình Phước & Bảo Trăm — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự Lễ Thành Hôn — 11:15 thứ Năm 24/12/2026 tại Nhà Văn Hóa, Thôn Kim Liên, Xã Hải Châu, Nghệ An',
+        image: '../../products/Invitation/Wedding/khach_dinh-phuoc-bao-tram/og-cover.jpg',
+    },
     // Ánh Thảo - Duy Trí — job-anh-thao-duy-tri (mẫu 241, bản nhà gái)
     'anh-thao-duy-tri': {
         src: '../../products/Invitation/Wedding/khach_anh-thao-duy-tri/code.html',
