@@ -4,8 +4,10 @@
    - Phong bì bấm để mở, reveal khi cuộn, hạt vàng bay nhẹ
    - Đếm ngược tới 2026-12-22T09:00:00+07:00
    - Mã QR check-in: tạo từ api.qrserver.com với URL thiệp hiện tại
-     (kèm ?ten=...); nếu API ngoài không tải được thì hiện dòng
+     (kèm ?ten=...) + thêm ?qr=1; nếu API ngoài không tải được thì hiện dòng
      nhắn thay thế, form xác nhận bên dưới vẫn dùng được.
+   - Mục xác nhận tham dự (#rsvp) ẨN mặc định — chỉ hiện khi mở thiệp
+     bằng link có ?qr=1 (tức là quét mã QR rồi mở).
    - RSVP: chọn Tham gia / Không tham gia → form → thẻ xác nhận,
      lưu localStorage (key: vinatrans360_rsvp), tải lại vẫn giữ.
    - BẢN PRODUCTION sẽ nối Google Sheet — demo hiện CHỈ lưu local,
@@ -63,12 +65,15 @@
         }
     })();
 
-    /* ---------- Mã QR check-in ---------- */
+    /* ---------- Mã QR check-in ----------
+       Mã QR mã hoá link thiệp kèm ?qr=1 — quét mã mở thiệp thì mục
+       xác nhận tham dự (#rsvp) mới hiện ra. ---------- */
     (function () {
         var img = $('#qrImg');
         var fallback = $('#qrFallback');
         if (!img) return;
         var url = location.href.split('#')[0];
+        if (url.indexOf('qr=') === -1) url += (url.indexOf('?') === -1 ? '?qr=1' : '&qr=1');
         img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=' + encodeURIComponent(url);
         img.addEventListener('error', function () {
             img.style.display = 'none';
@@ -164,6 +169,17 @@
         };
         tick();
         setInterval(tick, 1000);
+    })();
+
+    /* ---------- Xác nhận tham dự chỉ hiện sau khi quét mã QR ----------
+       Mở thiệp bằng link thường → mục #rsvp ẩn.
+       Mở bằng link từ mã QR (có ?qr=1) → hiện mục #rsvp. ---------- */
+    (function () {
+        var q = new URLSearchParams(location.search);
+        if (q.get('qr') === '1') {
+            var sec = $('#rsvp');
+            if (sec) sec.hidden = false;
+        }
     })();
 
     /* ---------- Xác nhận tham dự (localStorage) ---------- */
