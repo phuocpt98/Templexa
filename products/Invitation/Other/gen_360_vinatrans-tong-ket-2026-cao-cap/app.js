@@ -266,6 +266,36 @@
             card.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
+        /* ---------- Trạng thái xác nhận hiện ở mục quét mã QR ----------
+           Tab thiệp mở bằng link thường (không có ?qr=1) không hiện mục
+           #rsvp, nhưng vẫn hiện huy hiệu trạng thái ở thẻ QR: khi khách
+           xác nhận xong ở tab mở bằng mã QR, tab này tự cập nhật qua
+           sự kiện storage của localStorage (cùng trình duyệt). ---------- */
+        var qrBadge = $('#qrStatusBadge'), qrBadgeText = $('#qrStatusText'),
+            qrBadgeSub = $('#qrStatusSub'), qrNote = $('#qrNote');
+        var qrNoteDefault = qrNote ? qrNote.textContent : '';
+        function renderQrStatus() {
+            var saved = readStored();
+            if (!qrBadge) return;
+            if (!saved || typeof saved.attend !== 'boolean') {
+                qrBadge.hidden = true;
+                if (qrNote) qrNote.textContent = qrNoteDefault;
+                return;
+            }
+            var attend = !!saved.attend;
+            qrBadge.hidden = false;
+            qrBadge.className = 'confirm-badge ' + (attend ? 'yes' : 'no');
+            qrBadgeText.textContent = attend ? '✓ ĐÃ XÁC NHẬN THAM GIA' : 'ĐÃ XÁC NHẬN KHÔNG THAM GIA';
+            qrBadgeSub.style.display = attend ? '' : 'none';
+            if (qrNote) qrNote.textContent = attend
+                ? 'Quý khách đã xác nhận tham gia. Hẹn gặp Quý khách tại hội nghị!'
+                : 'Quý khách đã xác nhận không tham gia.';
+        }
+        renderQrStatus();
+        window.addEventListener('storage', function (e) {
+            if (e.key === key) renderQrStatus();
+        });
+
         btnYes.addEventListener('click', function () { showForm(true); });
         btnNo.addEventListener('click', function () { showForm(false); });
         $('#rsvpBack').addEventListener('click', showChoice);
