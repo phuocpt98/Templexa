@@ -8,6 +8,9 @@
      nhắn thay thế, form xác nhận bên dưới vẫn dùng được.
    - Mục xác nhận tham dự (#rsvp) ẨN mặc định — chỉ hiện khi mở thiệp
      bằng link có ?qr=1 (tức là quét mã QR rồi mở).
+   - Thẻ xác nhận sau khi gửi: hiện mã QR + mã khách VIN-XXXX + huy
+     hiệu xanh "ĐÃ XÁC NHẬN THAM GIA" (giống mẫu THP); từ chối thì chỉ
+     hiện huy hiệu xám, không có mã QR.
    - RSVP: chọn Tham gia / Không tham gia → form → thẻ xác nhận,
      lưu localStorage (key: vinatrans360_rsvp), tải lại vẫn giữ.
    - BẢN PRODUCTION sẽ nối Google Sheet — demo hiện CHỈ lưu local,
@@ -42,6 +45,19 @@
         if (input && guestName !== 'Quý khách') input.value = guestName;
     })();
 
+    /* ---------- Mã khách: VIN-XXXX theo tên (djb2, giống mẫu 359) ----------
+       Mã hiển thị dưới mã QR ở mục check-in và ở thẻ xác nhận sau khi
+       khách đã xác nhận tham gia. ---------- */
+    function guestCode(name) {
+        if (!name || name === 'Quý khách') return 'VIN-0000';
+        var h = 5381;
+        for (var i = 0; i < name.length; i++) {
+            h = ((h << 5) + h + name.charCodeAt(i)) >>> 0; // djb2
+        }
+        return 'VIN-' + String(h % 10000).padStart(4, '0');
+    }
+    $$('.guest-code').forEach(function (el) { el.textContent = guestCode(guestName); });
+
     /* ---------- Chức vụ khách: ?chucvu= (hoặc ?cv= / ?title=) ----------
        Hiện ở mọi .guest-position dưới tên khách (khối "Trân trọng kính mời").
        Không có tham số → ẩn luôn dòng chức vụ + đường kẻ (không bịa chức vụ mặc định). ---------- */
@@ -67,23 +83,27 @@
 
     /* ---------- Mã QR check-in ----------
        Mã QR mã hoá link thiệp kèm ?qr=1 — quét mã mở thiệp thì mục
-       xác nhận tham dự (#rsvp) mới hiện ra. ---------- */
+       xác nhận tham dự (#rsvp) mới hiện ra. Cùng một mã QR dùng ở mục
+       check-in và ở thẻ xác nhận sau khi khách đã xác nhận. ---------- */
     (function () {
-        var img = $('#qrImg');
-        var fallback = $('#qrFallback');
-        if (!img) return;
         var url = location.href.split('#')[0];
         if (url.indexOf('qr=') === -1) url += (url.indexOf('?') === -1 ? '?qr=1' : '&qr=1');
-        img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=' + encodeURIComponent(url);
-        img.addEventListener('error', function () {
-            img.style.display = 'none';
-            if (fallback) fallback.hidden = false;
-        });
-        img.addEventListener('load', function () {
-            if (img.naturalWidth <= 1) { // ảnh lỗi trả về 1x1
+        var src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=' + encodeURIComponent(url);
+        [['#qrImg', '#qrFallback'], ['#confirmQrImg', '#confirmQrFallback']].forEach(function (pair) {
+            var img = $(pair[0]);
+            var fallback = $(pair[1]);
+            if (!img) return;
+            img.src = src;
+            img.addEventListener('error', function () {
                 img.style.display = 'none';
                 if (fallback) fallback.hidden = false;
-            }
+            });
+            img.addEventListener('load', function () {
+                if (img.naturalWidth <= 1) { // ảnh lỗi trả về 1x1
+                    img.style.display = 'none';
+                    if (fallback) fallback.hidden = false;
+                }
+            });
         });
     })();
 
@@ -234,8 +254,10 @@
             form.hidden = true;
             card.hidden = false;
             var attend = !!state.attend;
-            badge.textContent = attend ? '✓ ĐÃ XÁC NHẬN THAM GIA' : 'ĐÃ XÁC NHẬN KHÔNG THAM GIA';
+            $('#confirmBadgeText').textContent = attend ? '✓ ĐÃ XÁC NHẬN THAM GIA' : 'ĐÃ XÁC NHẬN KHÔNG THAM GIA';
             badge.className = 'confirm-badge ' + (attend ? 'yes' : 'no');
+            $('#confirmQrWrap').hidden = !attend;
+            $('#confirmBadgeSub').style.display = attend ? '' : 'none';
             cName.textContent = state.name || guestName;
             cNote.textContent = attend
                 ? 'Cảm ơn Quý khách đã xác nhận. Hẹn gặp Quý khách tại hội nghị!'
