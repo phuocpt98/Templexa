@@ -2,7 +2,10 @@
    Vinatrans — Hội nghị Tổng kết 2026 (gen_360)
    - Tên khách ?ten= / ?to= / ?name=, giải mã lặp (tối đa 5 lần)
    - Phong bì bấm để mở, reveal khi cuộn, hạt vàng bay nhẹ
-   - Đếm ngược tới 2026-12-25T09:00:00+07:00
+   - Đếm ngược tới 2026-12-22T09:00:00+07:00
+   - Mã QR check-in: tạo từ api.qrserver.com với URL thiệp hiện tại
+     (kèm ?ten=...); nếu API ngoài không tải được thì hiện dòng
+     nhắn thay thế, form xác nhận bên dưới vẫn dùng được.
    - RSVP: chọn Tham gia / Không tham gia → form → thẻ xác nhận,
      lưu localStorage (key: vinatrans360_rsvp), tải lại vẫn giữ.
    - BẢN PRODUCTION sẽ nối Google Sheet — demo hiện CHỈ lưu local,
@@ -58,6 +61,25 @@
             $$('.guest-title').forEach(function (el) { el.style.display = 'none'; });
             $$('.guest-rule').forEach(function (el) { el.style.display = 'none'; });
         }
+    })();
+
+    /* ---------- Mã QR check-in ---------- */
+    (function () {
+        var img = $('#qrImg');
+        var fallback = $('#qrFallback');
+        if (!img) return;
+        var url = location.href.split('#')[0];
+        img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=' + encodeURIComponent(url);
+        img.addEventListener('error', function () {
+            img.style.display = 'none';
+            if (fallback) fallback.hidden = false;
+        });
+        img.addEventListener('load', function () {
+            if (img.naturalWidth <= 1) { // ảnh lỗi trả về 1x1
+                img.style.display = 'none';
+                if (fallback) fallback.hidden = false;
+            }
+        });
     })();
 
     /* ---------- Phong bì ---------- */
