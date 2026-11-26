@@ -338,4 +338,11 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự tiệc cưới — 18:00 thứ Bảy 19/12/2026 tại Sảnh Sapphire, Tầng 2, Lotte Legend Hotel Saigon, 2A-4A Tôn Đức Thắng, Phường Sài Gòn, TP. Hồ Chí Minh',
         image: '../../products/Invitation/Wedding/khach_vu-truong-quynh-mai/og-cover.jpg?v=4',
     },
+    // Đoàn Minh - Bảo Anh — job-doan-minh-bao-anh (mẫu 198, Sage Green Vintage)
+    'doan-minh-bao-anh': {
+        src: '../../products/Invitation/Wedding/khach_doan-minh-bao-anh/index.html',
+        title: 'Đoàn Minh & Bảo Anh — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự tiệc cưới — 16:30 Chủ nhật 27/12/2026 tại Sảnh SAPPHIRE, Tầng 3, Trung tâm Tiệc cưới & Hội nghị The Pride, Lạng Sơn',
+        image: '../../products/Invitation/Wedding/khach_doan-minh-bao-anh/customer/og-cover.jpg',
+    },
 };
