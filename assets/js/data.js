@@ -1299,7 +1299,7 @@ const PRODUCTS = [
         thumbnail: './products/Invitation/Wedding/khach_doan-minh-bao-anh/web_1.webp',
         mobileView: './products/Invitation/Wedding/khach_doan-minh-bao-anh/shots/open.webp',
         path: './products/Invitation/Wedding/khach_doan-minh-bao-anh/',
-        demoUrl: './products/Invitation/Wedding/khach_doan-minh-bao-anh/index.html',
+        demoUrl: './products/Invitation/Wedding/khach_doan-minh-bao-anh/index.html?v=2',
         variants: [],
         templateOf: 210,
         features: [
