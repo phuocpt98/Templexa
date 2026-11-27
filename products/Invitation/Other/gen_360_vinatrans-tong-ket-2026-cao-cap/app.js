@@ -4,10 +4,10 @@
    - Phong bì bấm để mở, reveal khi cuộn, hạt vàng bay nhẹ
    - Đếm ngược tới 2026-12-22T09:00:00+07:00
    - Mã QR check-in: tạo từ api.qrserver.com với URL thiệp hiện tại
-     (kèm ?ten=...) + thêm ?qr=1; nếu API ngoài không tải được thì hiện dòng
-     nhắn thay thế, form xác nhận bên dưới vẫn dùng được.
-   - Mục xác nhận tham dự (#rsvp) ẨN mặc định — chỉ hiện khi mở thiệp
-     bằng link có ?qr=1 (tức là quét mã QR rồi mở).
+     (kèm ?ten=...); chỉ hiện ở thẻ xác nhận sau khi khách đã xác nhận
+     (để đối chiếu tại sự kiện), không dùng để mở mục xác nhận.
+   - Mục xác nhận tham dự (#rsvp) hiện luôn trên thiệp — khách xác nhận
+     trực tiếp, không cần quét mã QR.
    - Thẻ xác nhận sau khi gửi: hiện mã QR + mã khách VIN-XXXX + huy
      hiệu xanh "ĐÃ XÁC NHẬN THAM GIA" (giống mẫu THP); từ chối thì chỉ
      hiện huy hiệu xám, không có mã QR.
@@ -82,28 +82,22 @@
     })();
 
     /* ---------- Mã QR check-in ----------
-       Mã QR mã hoá link thiệp kèm ?qr=1 — quét mã mở thiệp thì mục
-       xác nhận tham dự (#rsvp) mới hiện ra. Cùng một mã QR dùng ở mục
-       check-in và ở thẻ xác nhận sau khi khách đã xác nhận. ---------- */
+       Mã QR mã hoá link thiệp hiện tại (kèm ?ten=...) — chỉ hiện ở thẻ
+       xác nhận sau khi khách đã xác nhận, để đối chiếu tại sự kiện. ---------- */
     (function () {
-        var url = location.href.split('#')[0];
-        if (url.indexOf('qr=') === -1) url += (url.indexOf('?') === -1 ? '?qr=1' : '&qr=1');
-        var src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=' + encodeURIComponent(url);
-        [['#qrImg', '#qrFallback'], ['#confirmQrImg', '#confirmQrFallback']].forEach(function (pair) {
-            var img = $(pair[0]);
-            var fallback = $(pair[1]);
-            if (!img) return;
-            img.src = src;
-            img.addEventListener('error', function () {
+        var img = $('#confirmQrImg');
+        var fallback = $('#confirmQrFallback');
+        if (!img) return;
+        img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=' + encodeURIComponent(location.href.split('#')[0]);
+        img.addEventListener('error', function () {
+            img.style.display = 'none';
+            if (fallback) fallback.hidden = false;
+        });
+        img.addEventListener('load', function () {
+            if (img.naturalWidth <= 1) { // ảnh lỗi trả về 1x1
                 img.style.display = 'none';
                 if (fallback) fallback.hidden = false;
-            });
-            img.addEventListener('load', function () {
-                if (img.naturalWidth <= 1) { // ảnh lỗi trả về 1x1
-                    img.style.display = 'none';
-                    if (fallback) fallback.hidden = false;
-                }
-            });
+            }
         });
     })();
 
@@ -191,17 +185,6 @@
         setInterval(tick, 1000);
     })();
 
-    /* ---------- Xác nhận tham dự chỉ hiện sau khi quét mã QR ----------
-       Mở thiệp bằng link thường → mục #rsvp ẩn.
-       Mở bằng link từ mã QR (có ?qr=1) → hiện mục #rsvp. ---------- */
-    (function () {
-        var q = new URLSearchParams(location.search);
-        if (q.get('qr') === '1') {
-            var sec = $('#rsvp');
-            if (sec) sec.hidden = false;
-        }
-    })();
-
     /* ---------- Xác nhận tham dự (localStorage) ---------- */
     (function () {
         var key = CFG.rsvpKey || 'vinatrans360_rsvp';
@@ -265,36 +248,6 @@
             card.classList.add('in');
             card.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-
-        /* ---------- Trạng thái xác nhận hiện ở mục quét mã QR ----------
-           Tab thiệp mở bằng link thường (không có ?qr=1) không hiện mục
-           #rsvp, nhưng vẫn hiện huy hiệu trạng thái ở thẻ QR: khi khách
-           xác nhận xong ở tab mở bằng mã QR, tab này tự cập nhật qua
-           sự kiện storage của localStorage (cùng trình duyệt). ---------- */
-        var qrBadge = $('#qrStatusBadge'), qrBadgeText = $('#qrStatusText'),
-            qrBadgeSub = $('#qrStatusSub'), qrNote = $('#qrNote');
-        var qrNoteDefault = qrNote ? qrNote.textContent : '';
-        function renderQrStatus() {
-            var saved = readStored();
-            if (!qrBadge) return;
-            if (!saved || typeof saved.attend !== 'boolean') {
-                qrBadge.hidden = true;
-                if (qrNote) qrNote.textContent = qrNoteDefault;
-                return;
-            }
-            var attend = !!saved.attend;
-            qrBadge.hidden = false;
-            qrBadge.className = 'confirm-badge ' + (attend ? 'yes' : 'no');
-            qrBadgeText.textContent = attend ? '✓ ĐÃ XÁC NHẬN THAM GIA' : 'ĐÃ XÁC NHẬN KHÔNG THAM GIA';
-            qrBadgeSub.style.display = attend ? '' : 'none';
-            if (qrNote) qrNote.textContent = attend
-                ? 'Quý khách đã xác nhận tham gia. Hẹn gặp Quý khách tại hội nghị!'
-                : 'Quý khách đã xác nhận không tham gia.';
-        }
-        renderQrStatus();
-        window.addEventListener('storage', function (e) {
-            if (e.key === key) renderQrStatus();
-        });
 
         btnYes.addEventListener('click', function () { showForm(true); });
         btnNo.addEventListener('click', function () { showForm(false); });
