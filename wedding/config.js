@@ -345,4 +345,11 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự tiệc cưới — 16:30 Chủ nhật 27/12/2026 tại Sảnh SAPPHIRE, Tầng 3, Trung tâm Tiệc cưới & Hội nghị The Pride, Lạng Sơn',
         image: '../../products/Invitation/Wedding/khach_doan-minh-bao-anh/customer/og-cover.jpg',
     },
+    // Việt Anh - Thảo Vy — job-viet-anh-thao-vy (mẫu 225, Heritage Illustrated Venue)
+    'viet-anh-thao-vy': {
+        src: '../../products/Invitation/Wedding/khach_viet-anh-thao-vy/index.html',
+        title: 'Việt Anh & Thảo Vy — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự tiệc mừng — 11:30 Chủ nhật 03/01/2027 tại Nhà hàng Cường Vy — Sảnh Vita, 234 Hoàng Văn Thụ, P1 Bảo Lộc, Lâm Đồng',
+        image: '../../products/Invitation/Wedding/khach_viet-anh-thao-vy/og-cover.jpg',
+    },
 };
