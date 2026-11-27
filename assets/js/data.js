@@ -1335,7 +1335,7 @@ const PRODUCTS = [
         thumbnail: './products/Invitation/Wedding/gen_362_sunwedding-lan-huong-van-thanh/og-cover.jpg',
         mobileView: './products/Invitation/Wedding/gen_362_sunwedding-lan-huong-van-thanh/shots/open.webp',
         path: './products/Invitation/Wedding/gen_362_sunwedding-lan-huong-van-thanh/',
-        demoUrl: './products/Invitation/Wedding/gen_362_sunwedding-lan-huong-van-thanh/index.html?v=1',
+        demoUrl: './products/Invitation/Wedding/gen_362_sunwedding-lan-huong-van-thanh/index.html?v=2',
         variants: [],
         features: [
             'Phong bì hồng nhạt viền ren trắng + sáp niêm phong, tên khách viết tay theo ?ten=/?guest=',
