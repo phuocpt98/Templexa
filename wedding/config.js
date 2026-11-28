@@ -352,4 +352,11 @@ var WEDDING = {
         description: 'Trân trọng kính mời dự tiệc mừng — 11:30 Chủ nhật 03/01/2027 tại Nhà hàng Cường Vy — Sảnh Vita, 234 Hoàng Văn Thụ, P1 Bảo Lộc, Lâm Đồng',
         image: '../../products/Invitation/Wedding/khach_viet-anh-thao-vy/og-cover.jpg',
     },
+    // Gia Nghĩa - Mỹ Phương — job-gia-nghia-my-phuong (mẫu kỷ niệm 1 năm, chuyển thành thiệp cưới)
+    'gia-nghia-my-phuong': {
+        src: '../../products/Invitation/Wedding/khach_gia-nghia-my-phuong/index.html',
+        title: 'Võ Gia Nghĩa & Nguyễn Mỹ Phương — Thiệp Cưới',
+        description: 'Trân trọng kính mời dự Lễ Thành Hôn — 9:40 Chủ nhật 27/12/2026 tại Tư Gia; tiệc 17:30 tại Nhà hàng Cánh Buồm, Rạch Giá, An Giang',
+        image: '../../products/Invitation/Wedding/khach_gia-nghia-my-phuong/og-cover.jpg',
+    },
 };
